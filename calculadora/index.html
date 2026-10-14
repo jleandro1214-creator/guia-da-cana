@@ -5,445 +5,163 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Calculadora da Cana</title>
 <meta name="theme-color" content="#5b3412">
-<meta name="description" content="Calculadora agronômica de bolso para cana-de-açúcar: campo, adubação, colheita, diesel e úteis.">
+<meta name="description" content="Cálculos agrícolas com memória de cálculo, histórico por fazenda e talhão, planejamento, diesel, colheita e painel gerencial.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-  /* Layout: cabeçalho fixo, fazenda/talhão sempre visíveis, abas com arrasto, cartões de cálculo */
+  /* Layout: cabeçalho fixo com fazenda/talhão ativos, conteúdo em módulos, barra inferior para uso no campo */
   :root{
     --bg:#f6f3ee; --card:#ffffff; --ink:#24190f; --soft:#62564a; --line:#ddd3c6;
-    --accent:#9a5a1c; --accent-strong:#5b3412; --tint:#f3e6d6;
-    --ok:#2e7d32; --ok-tint:#e3f1e1; --warn:#a1461a; --warn-tint:#fbe5d9;
-    --head-bg:#5b3412; --head-ink:#ffffff;
-    --radius:14px;
+    --accent:#9a5a1c; --accent-strong:#5b3412; --tint:#f3e6d6; --on-accent:#ffffff;
+    --ok:#2e7d32; --ok-tint:#e3f1e1; --warn:#a1461a; --warn-tint:#fbe5d9; --info:#6b5a12; --info-tint:#f6efcf;
+    --head-bg:#5b3412; --head-ink:#ffffff; --radius:14px;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --bg:#14100c; --card:#1f1912; --ink:#f3ece4; --soft:#bfb2a3; --line:#3a2f24;
-      --accent:#e3a25f; --accent-strong:#f2c08c; --tint:#2c2117;
-      --ok:#7fd383; --ok-tint:#1d2a1b; --warn:#f2a37b; --warn-tint:#3a2318;
+      --accent:#e3a25f; --accent-strong:#f2c08c; --tint:#2c2117; --on-accent:#2a1806;
+      --ok:#7fd383; --ok-tint:#1d2a1b; --warn:#f2a37b; --warn-tint:#3a2318; --info:#e8d27a; --info-tint:#2e2a14;
       --head-bg:#3a230d; --head-ink:#f6ede3; color-scheme:dark;
     }
   }
   :root[data-theme="dark"]{
     --bg:#14100c; --card:#1f1912; --ink:#f3ece4; --soft:#bfb2a3; --line:#3a2f24;
-    --accent:#e3a25f; --accent-strong:#f2c08c; --tint:#2c2117;
-    --ok:#7fd383; --ok-tint:#1d2a1b; --warn:#f2a37b; --warn-tint:#3a2318;
+    --accent:#e3a25f; --accent-strong:#f2c08c; --tint:#2c2117; --on-accent:#2a1806;
+    --ok:#7fd383; --ok-tint:#1d2a1b; --warn:#f2a37b; --warn-tint:#3a2318; --info:#e8d27a; --info-tint:#2e2a14;
     --head-bg:#3a230d; --head-ink:#f6ede3; color-scheme:dark;
   }
   *{box-sizing:border-box;}
   [hidden]{display:none!important;}
   :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
-  body{overflow-x:clip;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-size:17px;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-tap-highlight-color:transparent;}
-  button,input{font-family:inherit;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:17px;overflow-x:clip;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
+  button,input,select,textarea{font-family:inherit;font-size:inherit;}
+  a{color:var(--accent-strong);}
+  button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
   #offlineBadge{display:none;background:#5d4037;color:#fff;text-align:center;font-size:13px;padding:6px 8px;}
   #offlineBadge.show{display:block;}
-  header.app{position:sticky;top:0;z-index:20;background:var(--head-bg);color:var(--head-ink);
-    display:flex;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));
-    box-shadow:0 2px 8px rgba(0,0,0,.2);}
-  header.app .htxt{flex:1;min-width:0;}
-  header.app h1{margin:0;font-size:21px;font-weight:800;letter-spacing:.2px;}
-  header.app p{margin:2px 0 0;font-size:14px;opacity:.85;}
-  #openInstall{flex-shrink:0;background:rgba(255,255,255,.14);color:var(--head-ink);border:1px solid rgba(255,255,255,.35);
-    border-radius:20px;padding:9px 14px;font-size:14.5px;font-weight:700;}
-  .local{background:var(--card);border-bottom:1px solid var(--line);
-    padding:12px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));}
-  .local .row{display:flex;gap:10px;max-width:640px;margin:0 auto;}
-  .local .f{min-width:0;}
-  .local .f.code{flex:0 0 28%;} .local .f.faz{flex:1;} .local .f.tal{flex:0 0 22%;}
-  .local label{display:block;font-size:13.5px;font-weight:700;color:var(--soft);margin-bottom:4px;}
-  .local input{width:100%;padding:10px 10px;border:1px solid var(--line);border-radius:10px;font-size:17px;background:var(--card);color:var(--ink);}
-  .local input.found{border-color:var(--ok);background:var(--ok-tint);font-weight:700;}
-  #codeHint{max-width:640px;margin:6px auto 0;font-size:14px;min-height:1.1em;color:var(--soft);}
-  #codeHint.ok{color:var(--ok);font-weight:700;} #codeHint.err{color:var(--warn);}
-  nav.tabs{position:sticky;top:var(--head-h,62px);z-index:19;display:flex;background:var(--card);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;}
+  header.app{position:sticky;top:0;z-index:20;background:var(--head-bg);color:var(--head-ink);box-shadow:0 2px 8px rgba(0,0,0,.2);
+    padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));}
+  .hrow{display:flex;align-items:center;gap:10px;max-width:760px;margin:0 auto;}
+  .hrow h1{margin:0;font-size:20px;font-weight:800;flex:1;min-width:0;}
+  #openInstall{flex-shrink:0;background:rgba(255,255,255,.14);color:var(--head-ink);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:8px 13px;font-size:14px;font-weight:700;}
+  .ctx{max-width:760px;margin:8px auto 0;display:grid;grid-template-columns:26% 1fr 24%;gap:8px;}
+  .ctx label{display:block;font-size:12px;font-weight:700;opacity:.85;margin-bottom:2px;}
+  .ctx input{width:100%;border:none;border-radius:9px;padding:9px 8px;font-size:16px;background:rgba(255,255,255,.95);color:#24190f;}
+  #ctxInfo{max-width:760px;margin:6px auto 0;font-size:13.5px;min-height:1.2em;}
+  #ctxInfo a{color:var(--head-ink);font-weight:700;}
+  main{padding:14px max(16px,env(safe-area-inset-right,0px)) 110px max(16px,env(safe-area-inset-left,0px));max-width:760px;margin:0 auto;touch-action:pan-y;}
+  nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);display:flex;
+    padding:4px max(4px,env(safe-area-inset-right,0px)) calc(4px + env(safe-area-inset-bottom,0px)) max(4px,env(safe-area-inset-left,0px));}
+  nav.bottom a{flex:1;text-align:center;text-decoration:none;color:var(--soft);font-size:12.5px;font-weight:700;padding:6px 2px;border-radius:10px;}
+  nav.bottom a span{display:block;font-size:22px;line-height:1.2;}
+  nav.bottom a.on{color:var(--accent-strong);background:var(--tint);}
+  nav.tabs{position:sticky;top:var(--head-h,120px);z-index:19;display:flex;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;}
   nav.tabs::-webkit-scrollbar{display:none;}
-  nav.tabs button{flex:1 0 auto;padding:14px 12px;background:none;border:none;font-size:16px;font-weight:700;
-    color:var(--soft);border-bottom:3px solid transparent;white-space:nowrap;}
-  nav.tabs button.active{color:var(--accent-strong);border-bottom-color:var(--accent);}
-  nav.tabs button:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-  main{padding:14px max(16px,env(safe-area-inset-right,0px)) 60px max(16px,env(safe-area-inset-left,0px));max-width:672px;margin:0 auto;touch-action:pan-y;}
-  .hint{text-align:center;font-size:13.5px;color:var(--soft);margin:0 0 12px;}
-  .view{display:none;will-change:transform;}
-  .view.active{display:block;}
-  .view.slide-l{animation:slideL .14s ease-out;} .view.slide-r{animation:slideR .14s ease-out;}
-  @keyframes slideL{from{transform:translateX(28%)}to{transform:none}}
-  @keyframes slideR{from{transform:translateX(-28%)}to{transform:none}}
-  @media (prefers-reduced-motion: reduce){.view.slide-l,.view.slide-r{animation:none;}}
-  .calc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:16px;}
-  .calc h2{margin:0 0 4px;font-size:20px;text-wrap:balance;}
-  .calc .desc{margin:0 0 12px;font-size:15px;color:var(--soft);line-height:1.45;}
+  nav.tabs a{flex:1 0 auto;padding:12px 12px;font-size:15.5px;font-weight:700;color:var(--soft);border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none;text-align:center;}
+  nav.tabs a.on{color:var(--accent-strong);border-bottom-color:var(--accent);}
+  h2.tit{font-size:22px;margin:4px 0 4px;text-wrap:balance;}
+  p.sub{margin:0 0 14px;color:var(--soft);font-size:15px;line-height:1.45;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .mod{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px 13px;text-decoration:none;color:var(--ink);min-height:112px;}
+  .mod .e{font-size:28px;} .mod b{font-size:16.5px;} .mod small{font-size:13.5px;color:var(--soft);line-height:1.35;}
+  .sec-t{font-size:14px;font-weight:800;color:var(--soft);text-transform:uppercase;letter-spacing:.06em;margin:20px 2px 10px;}
+  .card,.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px;}
+  .calc h3,.card h3{margin:0 0 4px;font-size:19px;text-wrap:balance;}
+  .calc .desc{margin:0 0 10px;font-size:15px;color:var(--soft);line-height:1.45;}
   .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;align-items:end;}
-  .fld{min-width:0;}
-  .fld.full{grid-column:1/-1;}
-  .fld label{display:block;font-size:15px;font-weight:600;color:var(--soft);margin-bottom:5px;line-height:1.25;}
-  .fld .inp{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--card);}
-  .fld input{flex:1;min-width:0;border:none;background:transparent;color:var(--ink);font-size:19px;padding:11px 10px;font-variant-numeric:tabular-nums;border-radius:10px;}
-  .fld input:focus-visible{outline:none;}
-  .fld .inp:focus-within{outline:2px solid var(--accent);outline-offset:1px;}
-  .fld .un{padding:0 10px 0 2px;font-size:14px;color:var(--soft);white-space:nowrap;}
+  .fields .full{grid-column:1/-1;} .fields>div{min-width:0;}
+  .lb{display:block;font-size:14.5px;font-weight:600;color:var(--soft);margin:0 0 5px;line-height:1.25;}
+  .inp{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--card);}
+  .inp input{flex:1;min-width:0;border:none;background:transparent;color:var(--ink);font-size:18px;padding:11px 10px;font-variant-numeric:tabular-nums;border-radius:10px;}
+  .inp:focus-within{outline:2px solid var(--accent);outline-offset:1px;} .inp input:focus-visible{outline:none;}
+  .inp .un{padding:0 10px 0 2px;font-size:14px;color:var(--soft);white-space:nowrap;}
+  input.f,select.f,textarea.f{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 10px;font-size:17px;background:var(--card);color:var(--ink);}
+  textarea.f{min-height:76px;resize:vertical;}
   .res{margin-top:14px;background:var(--tint);border-radius:12px;padding:12px 14px;display:grid;gap:8px;}
   .res .r{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
-  .res .r span{font-size:15.5px;color:var(--soft);}
-  .res .r b{font-size:19px;font-variant-numeric:tabular-nums;text-align:right;}
+  .res .r span{font-size:15.5px;color:var(--soft);} .res .r b{font-size:19px;font-variant-numeric:tabular-nums;text-align:right;}
   .res .r.main b{font-size:24px;color:var(--accent-strong);}
-  .res .empty{font-size:15px;color:var(--soft);}
-  .tag{display:inline-block;padding:4px 10px;border-radius:999px;font-size:14.5px;font-weight:700;}
+  .res .erro{color:var(--warn);font-weight:700;font-size:15.5px;}
+  .tag{display:inline-block;padding:4px 10px;border-radius:999px;font-size:14px;font-weight:700;}
   .tag.ok{background:var(--ok-tint);color:var(--ok);} .tag.warn{background:var(--warn-tint);color:var(--warn);} .tag.mid{background:var(--card);color:var(--accent-strong);border:1px solid var(--line);}
-  .note{margin:10px 0 0;font-size:14px;color:var(--soft);line-height:1.45;}
-  .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-  .wa-btn{display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;border:none;border-radius:10px;
-    padding:11px 16px;font-size:16px;font-weight:700;text-decoration:none;}
-  .wa-btn[aria-disabled="true"]{opacity:.45;pointer-events:none;}
-  .clr{background:none;border:1px solid var(--line);color:var(--soft);border-radius:10px;padding:11px 14px;font-size:15px;font-weight:600;}
+  .alerta{background:var(--warn-tint);border-left:4px solid var(--warn);border-radius:10px;padding:10px 12px;margin:8px 0;font-size:15px;line-height:1.4;}
+  .info{background:var(--info-tint);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.45;margin-bottom:14px;}
+  details.mem{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;}
+  details.mem summary{font-weight:700;color:var(--accent-strong);cursor:pointer;font-size:15px;}
+  details.mem ol,details.mem ul{margin:8px 0;padding-left:22px;font-size:14.5px;line-height:1.5;font-variant-numeric:tabular-nums;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--accent);color:var(--on-accent);border:none;border-radius:12px;padding:12px 15px;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;}
+  .btn.sec{background:var(--card);color:var(--accent-strong);border:1px solid var(--line);}
+  .btn.full{width:100%;} .btn.wa{background:#25D366;color:#fff;} .btn.peq{padding:8px 11px;font-size:14.5px;}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:10px;width:100%;text-align:left;color:var(--ink);text-decoration:none;}
+  .item .ic{width:48px;height:48px;border-radius:12px;background:var(--tint);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+  .item .t{flex:1;min-width:0;} .item h4{margin:0 0 3px;font-size:17px;} .item p{margin:0;font-size:14.5px;color:var(--soft);}
+  .item .chev{font-size:22px;color:var(--soft);}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex-shrink:0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 14px;font-size:15px;font-weight:600;text-decoration:none;}
+  .chip.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent);}
+  table.t{width:100%;border-collapse:collapse;font-size:15px;}
+  table.t th,table.t td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top;}
+  table.t th{color:var(--soft);font-size:13.5px;} table.t td.n{text-align:right;font-variant-numeric:tabular-nums;}
+  .tw{overflow-x:auto;}
+  .stat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .stat div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;}
+  .stat b{display:block;font-size:24px;color:var(--accent-strong);font-variant-numeric:tabular-nums;} .stat span{font-size:14px;color:var(--soft);}
+  .stat i{display:block;font-size:12.5px;color:var(--warn);font-style:normal;margin-top:3px;}
+  .vazio{text-align:center;color:var(--soft);padding:24px 10px;font-size:16px;line-height:1.45;}
+  .edit-bar{background:var(--info-tint);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:15px;}
+  .view.slide-l{animation:slideL .14s ease-out;} .view.slide-r{animation:slideR .14s ease-out;}
+  @keyframes slideL{from{transform:translateX(28%)}to{transform:none}} @keyframes slideR{from{transform:translateX(-28%)}to{transform:none}}
+  @media (prefers-reduced-motion: reduce){.view.slide-l,.view.slide-r{animation:none;}}
+  #toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:15px;font-weight:700;z-index:80;max-width:90vw;text-align:center;}
   #installSheet{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;}
   #installSheet .sheet{background:var(--card);color:var(--ink);width:100%;max-width:520px;border-radius:18px 18px 0 0;
     padding:20px max(18px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));}
-  #installSheet h2{margin:0 0 6px;font-size:20px;}
-  #installSheet p{margin:0 0 12px;font-size:15.5px;color:var(--soft);line-height:1.45;}
-  #installSheet h4{margin:12px 0 6px;font-size:15px;color:var(--accent-strong);}
+  #installSheet h2{margin:0 0 6px;font-size:20px;} #installSheet p{margin:0 0 12px;font-size:15.5px;color:var(--soft);line-height:1.45;}
   #installSheet ol{margin:0;padding-left:22px;font-size:16px;line-height:1.55;}
-  #closeInstall{margin-top:16px;width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:13px;font-size:16px;font-weight:700;}
+  .printonly{display:none;}
+  @page{size:A4;margin:12mm;}
+  @media print{
+    header.app,nav.bottom,nav.tabs,#offlineBadge,.noprint,.btns{display:none!important;}
+    .printonly{display:block;} body{background:#fff;color:#000;font-size:12pt;} main{padding:0;max-width:none;}
+    .card,.calc{border:1px solid #999;break-inside:avoid;} details.mem{border:none;} details.mem>*{display:block;}
+  }
 </style>
 </head>
 <body>
-<div id="offlineBadge">Sem conexão — a calculadora funciona normalmente</div>
+<div id="offlineBadge">Sem conexão — tudo continua funcionando e salvando no aparelho</div>
 <header class="app" id="appHead">
-  <div class="htxt"><h1>🧮 Calculadora da Cana</h1><p>Campo, adubação, colheita e diesel</p></div>
-  <button id="openInstall" type="button">📲 Instalar app</button>
+  <div class="hrow"><h1>🧮 Calculadora da Cana</h1><button id="openInstall" type="button">📲 Instalar app</button></div>
+  <div class="ctx">
+    <div><label for="codigo">Código</label><input id="codigo" inputmode="numeric" placeholder="10001" autocomplete="off"></div>
+    <div><label for="fazenda">Fazenda</label><input id="fazenda" list="listaFazendas" placeholder="Nome da fazenda" autocomplete="off"></div>
+    <div><label for="talhao">Talhão</label><input id="talhao" list="listaTalhoes" placeholder="T-14" autocomplete="off"></div>
+  </div>
+  <div id="ctxInfo"></div>
 </header>
-
+<main id="main"></main>
+<nav class="bottom" aria-label="Navegação">
+  <a href="#/" data-r="home"><span>🏠</span>Início</a>
+  <a href="#/m/campo" data-r="m"><span>🧮</span>Calcular</a>
+  <a href="#/registros" data-r="registros"><span>📝</span>Registros</a>
+  <a href="#/hist" data-r="hist"><span>🗂️</span>Histórico</a>
+  <a href="#/painel" data-r="painel"><span>📊</span>Painel</a>
+</nav>
+<div id="toast" hidden></div>
 <div id="installSheet" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
     <h2 id="instTitle">Instalar a Calculadora</h2>
-    <p>Depois de instalada, abre pelo ícone na tela do celular e funciona sem internet.</p>
-    <h4>Android (Chrome)</h4>
-    <ol><li>Toque nos <b>3 pontinhos ⋮</b> no canto de cima.</li><li>Toque em <b>Instalar app</b> (ou <b>Adicionar à tela inicial</b> → <b>Instalar</b>).</li></ol>
-    <h4>iPhone (Safari)</h4>
-    <ol><li>Toque em <b>Compartilhar</b> (quadrado com seta).</li><li>Toque em <b>Adicionar à Tela de Início</b>.</li></ol>
-    <button id="closeInstall" type="button">Entendi</button>
+    <p id="instTxt">Depois de instalada, abre pelo ícone na tela do celular e funciona sem internet.</p>
+    <ol><li>Toque nos <b>3 pontinhos ⋮</b> do Chrome.</li><li>Toque em <b>Instalar app</b>.</li></ol>
+    <button class="btn full" id="closeInstall" type="button" style="margin-top:16px">Entendi</button>
   </div>
 </div>
-
-<section class="local" aria-label="Local da medição">
-  <div class="row">
-    <div class="f code"><label for="codigo">Código</label><input id="codigo" inputmode="numeric" placeholder="10001" autocomplete="off"></div>
-    <div class="f faz"><label for="fazenda">Fazenda</label><input id="fazenda" list="listaFazendas" placeholder="Nome da fazenda" autocomplete="off"></div>
-    <div class="f tal"><label for="talhao">Talhão</label><input id="talhao" placeholder="T-14" autocomplete="off"></div>
-  </div>
-  <div id="codeHint"></div>
-  <datalist id="listaFazendas"></datalist>
-</section>
-
-<nav class="tabs" id="tabs">
-  <button data-tab="campo" class="active">🌱 Campo</button>
-  <button data-tab="adubo">🧪 Adubação</button>
-  <button data-tab="colheita">🌾 Colheita</button>
-  <button data-tab="diesel">⛽ Diesel</button>
-  <button data-tab="uteis">📏 Úteis</button>
-</nav>
-
-<main id="main">
-  <p class="hint" id="hint">Arraste para o lado para trocar de aba</p>
-  <section class="view active" id="view-campo"></section>
-  <section class="view" id="view-adubo"></section>
-  <section class="view" id="view-colheita"></section>
-  <section class="view" id="view-diesel"></section>
-  <section class="view" id="view-uteis"></section>
-</main>
-
-<script>
-/* ---------- Fazendas (código → nome), mesma lista do Guia da Cana ---------- */
-const FAZENDAS = {"10001":"LAGOINHA","10002":"LARANJEIRAS","10003":"PEDRA","10004":"SANTA MARIANA","10006":"PRIMAVERA 2","10007":"TRANSWAAL 1","10008":"SANTA EUGENIA 1","10009":"FAZENDINHA","10010":"SAO FRANCISCO 1","10011":"SAO DIMAS","10012":"COLONINHA","10013":"S JUDAS TADEU 1","10016":"BELO HORIZONTE","10017":"SANTA NAZARENA","10018":"SANTA RITA 1","10019":"MORADA PRATA 3","10020":"VARGEM RICA","10021":"PRATINHA","10022":"SANTA VANDA 1","10023":"SAO LUIZ 1","10024":"SAO JOAO 1","10026":"COQUEIROS 1","10027":"BOA VISTA 1","10029":"MORADA PRATA 4","10031":"ENCANTADA 1","10032":"BICUDOS","10034":"SANTA RITA 9","10036":"TAMANDUÁ 1","10037":"SANTA MARIA DA PRATA","10038":"SANTA PAULA DA PRATA","10040":"SAO PAULO DA PRATA 2","10041":"SANTO ANTONIO 02","10042":"BOA ESPERANÇA 6","10044":"SANTA OLINDA","10045":"MORRO ALTO","10047":"ESPERANCA 1","10048":"SAO JORGE 2","10049":"SAO FRANCISCO 5","10050":"CASCATINHA","10051":"PONTA DA SERRA","10052":"SANTA RITA DO OLEO","10053":"SANTA CLARA 7","10054":"S. J. RETIRO 1","10055":"ESPLANADA","10056":"SANTA TEREZINHA 3","10057":"SAGRADA FAMILIA","10058":"DAS FLORES 1","10059":"MATARUNA","10060":"NAIARA 1","10061":"ELDORADO 2","10062":"MORRO ALTO 4","10063":"MORRO VERMELH","10065":"LOBO 3","10066":"SANTA RITA 10","10067":"SANTA ESMERALDA","10069":"VO PEDRIN","10070":"SANTA PATRIZIA 3","10071":"JP","10072":"CAPAO SECO","10073":"FIGUEIRA","10074":"ESPERANÇA 3","10075":"CACHOEIRA 2","10076":"SAO JOSE RETIRO 2","10078":"ITAIMBE","10079":"MORRO VERMELHO 2","10080":"N.S.R. POMPEI","10081":"SAO BENTO DA PRATA 2","10082":"SANTA MARGARIDA","10083":"SANTA PATRIZIA 1","10084":"PAREDAO","10086":"NOSSA SENHORA DE FATIMA 2","10087":"SANTA CLARA 8","10088":"BOCAINA 5","10089":"SANTA CLARA 1","10090":"SAO LUIS 7","10091":"SANTA CLARA 9","10092":"CAFE VELHO","10094":"LOBO","10095":"MAGNOLIA","10097":"SANTO ANTONIO 23","10099":"REALEZA","10100":"BEIRA RIO 2","10101":"ARUEIRA","10102":"HIMALAIA","10104":"SANTA RITA 11","10105":"SANTA RITA 12","10106":"SANTA RITA 13","10107":"SANTA RITA 14","10108":"SANTA RITA 15","10109":"GRACIOSA","10110":"SAO PEDRO 11","10111":"BARRO PRETO","10112":"SANTO ANTONIO 03","10113":"SAO SEBASTIAO 7","10116":"SAO LUIZ 2","10117":"AGUAS CLARAS 6","10119":"BAHIA","10120":"BOA VISTA 13","10121":"MONTE SIÃO","10122":"SANTA PATRIZIA 4","10127":"SANTA FE 3","10131":"MACAUBAS","10133":"BAHIA 2","10135":"SÃO ROQUE 2","10137":"SÃO JOÃO 15","10138":"LIBERDADE","10142":"REBOJO","10143":"SOLO RICO","10145":"MORADA PRATA 2","10146":"BOM SUCESSO 100","10147":"SAO JOAQUIM 6","10148":"SAO JOAO 16","10151":"TOCA 1","10152":"SANTA PAULA","10153":"TERRA ROXA","10154":"MACAUBA 2","10155":"SAO FRANCISCO 6","10156":"POSSES","10157":"SAO DOMINGOS","10159":"TOCA","10160":"SAO SEBASTIAO 3","10161":"SANTA EUGENIA 2","10162":"INHACUNDA 2","10163":"SANTA BALBINA","10164":"FIGUEIRA 3","10165":"FIGUEIRA 4","10166":"FIGUEIRA 5","10167":"FIGUEIRA 6","10168":"SANTANA 4","10173":"ALVORADA 2","10174":"CACHOEIRA 8","10175":"BOSQUE","10176":"SANTO ANTONIO 08","10177":"LAGE E LAGOA DOS PATOS","10179":"CHACARA PAULISTA","10180":"SAO JOSE 26","10182":"SANTO ANTONIO 25","10183":"MANGUEIROS 1","10184":"SANTA LUZIA 11","10186":"SITIO PAIOL GRANDE","10187":"SAPE 4","10188":"JEQUITIBA","10189":"TAMBURY","10190":"BARRINHA","10191":"TRANSWAAL 2","10193":"SAO JOSE RETIRO 4","10195":"ALVORADA 3","10197":"CANGA QUEBRADA 2","10199":"JAÓ","10201":"ALVINA","10202":"ALAMBARI 3","10203":"SANTA CRUZ 4","10204":"SAO JOSÉ 28","10205":"ANA PAULA","10206":"VISTA  ALEGRE 2","10207":"PAU D'ALHO","10208":"ESTELA","10209":"SAO JOAQUIM 5","10210":"MEU PEDACINHO DE CHÃO","10212":"BOM SUCESSO 2","10214":"PRATA 3","10215":"SAO MIGUEL","10216":"SANTA TEREZA DA PRATA","10219":"BOA ESPERANÇA 3","10228":"BOM JESUS DA LAPA","10229":"MORRINHOS","10230":"CASCATA","10231":"PICO MORRINHOS","10232":"COQUEIROS 7","10233":"GAMELÃO","10234":"SANTA LIDIA 2","10235":"BELA VISTA 10","10238":"LAGOA DA SERRA","10243":"OLHOS DAGUA 1","10244":"TERCILIA","10248":"TAMANDUAZINHO 1","10250":"BELA VISTA 2","10251":"SAO JOAO 3","10252":"SAO JUDAS TADEU 7","10262":"AGUA BRANCA","10284":"OURO VERDE 4","10289":"SANTA ODILA 2","10291":"BARRA GRANDE","10293":"SAO CARLOS","10295":"COQUEIROS 2","10296":"COQUEIROS 3","10297":"FAVEIRO","10298":"OLHOS D'AGUA 4","10299":"SANTO.ANTONIO APARECIDA","10303":"PRATINHA 3","10306":"LAJINHA","10307":"ROSAS VERMELHAS","10308":"COQUEIROS 5","10310":"SANTO REIS","10312":"SAO JOAO DA MATA","10313":"COQUEIROS 4","10314":"PIRIPAU","10319":"SANTO ANDRE","10324":"SAPE 2","10326":"VISCONDE 1","10328":"SAO LUIZ 4","10329":"SANTO AGOSTINHO (STO ANTON. 9)","10332":"SAO SEB. LAJEADO","10334":"MANGUEIRA","10335":"TUCUIM","10337":"SANTA CRUZ 3","10338":"SERRA","10349":"TRES MARIAS","10350":"SANTO ANDRE 2","10352":"N.S.ROSARIO POMPEI 2","10354":"SANTA PATRIZIA 2","10356":"FORTALEZA 2","10357":"GLEBA SANTA EMILIA","10359":"AGUAS BOAS","10360":"ESTÂNCIA NOVO HORIZONTE","10362":"BELA VISTA 3","10363":"SAO JOÃO 5","10364":"CACHOEIRA 6","10365":"SAO JOSÉ 17","10367":"SÍTIO MARTHA","10368":"TABOCA 2","10372":"SAO JOSE 18","10375":"SAO JOSÉ 19","10377":"CAMPO BELO","10378":"LAGOA RICA (SAPUCAÍ)","10379":"SAO LUIZ 5","10380":"SITIO OSVALDO","10381":"SITIO JULIANA","10382":"BATATAIS","10383":"SITIO DO ALTO","10384":"TACUIM","10388":"N.S.FATIMA","10389":"AGUA LIMPA","10390":"BOCAINA","10391":"SANTO ANTONIO 13","10396":"ICATU","10399":"AGUAS DE MARÇO","10400":"AGUAS CLARAS 3","10401":"JATOBÁ","10403":"RIBEIRAO DO CERVO","10404":"VAZANTE","10405":"PINHEIROS 1","10411":"POUSO ALEGRE","10413":"COBIÇA","10414":"SANTA RITA DE CASSIA","10416":"CACHOEIRA DA PRATA","10417":"RECREIO","10418":"TARUMA","10419":"MORADA DA SERRA","10420":"NASCENTE DA AGUA LIMPA","10421":"SANTA AMALIA","10422":"RANCHO FUNDO","10423":"PINHEIROS 2","10426":"MORRO DA ONÇA","10427":"PONTE ALTA","10428":"VENDA VELHA","10431":"CRUZEIRO DO SUL","10433":"SANTA CLARA 5","10434":"SANTA EDWIRGES","10435":"SANTA RITA 5","10437":"SAO JOÃO 7","10438":"ALVARENGA","10439":"OLHOS D'AGUA 6","10442":"SÍTIO MARTHA 2","10445":"SANTO ANTONIO DO JEQUITIBÁ","10448":"AGUA LIMPA 3","10453":"SANTA LIDIA","10454":"EVANGELINA","10455":"ENTRE RIOS","10458":"SANTO ANTONIO DO CUBO","10460":"N.S.DO R.DA MATINHA","10461":"MURUCUTU","10462":"ONÇA 2","10463":"SANTO ANTONIO 15","10464":"SAO FRANCISCO 4","10466":"BARRA DA ESTIVA","10467":"RECANTO","10468":"ITACOLOMY","10469":"VIRTUOSAS","10470":"BREJAO","10471":"GALHADA 2","10476":"GALHADA 1","10477":"OURO VERDE 5","10478":"NINHO DAS AGUIAS","10479":"MATAO","10480":"SANTA JUSTA","10482":"SANTA NIDIA","10483":"MORRO SELADO","10484":"CANADA","10485":"MONTE ALTO 5","10486":"SANTA ROSA 3","10488":"ALTO DO SAO JOSE","10489":"BELA FONTE","10492":"MONTE ALTO 3","10495":"SAO GABRIEL 3","10496":"BOM JESUS 2","10497":"SANTA CLARA 6","10498":"RECANTO DAS GARÇAS 1","10501":"SAO JUDAS TADEU 5","10502":"SANTA CRUZ DO MATÃO","10503":"SANTA LUZIA 5","10504":"NOSSA SENHORA APARECIDA 5","10507":"SAO BENEDITO 3","10508":"SANTA BARBARA","10511":"RIBEIRAO CLARO 3","10513":"MAGNOLIA 2","10514":"SANTANA","10515":"NOSSA SENHORA ROSARIO DE POMPEI 3","10516":"NOSSA SENHORA ROSARIO DE POMPEI 4","10517":"SAO JOSE DA PRATA","10519":"FORTALEZA 3","10520":"BOA VISTA GLEBA 3 E 6","10521":"BOA VISTA GLEBA 4","10522":"BOA VISTA GLEBA 7","10523":"BOA VISTA GLEBA 8","10524":"BOA VISTA GLEBA 9","10525":"BOA VISTA GLEBA 2","10527":"SANTA LUZIA 6","10531":"SAO LOURENCO","10533":"BOQUEIRAO","10537":"BEBEDOURO","10538":"SANTO ANTONIO 19","10540":"SANTA FE","10542":"SAO TIAGO","10544":"SAO JOAO 10","10546":"LUIZA","10547":"DIAMANTE","10550":"BROTAS","10551":"MONTE ALTO 4","10552":"NOVO HORIZONTE","10553":"SAO SEBASTIÃO 4","10554":"SAO SEBASTIÃO 6","10557":"SANTA RITA 8","10558":"PICADAO","10559":"SANTA CRUZ 9","10560":"FONTES CLARAS","10562":"SAO JOAO 11","10563":"TORRAO DE OURO","10565":"BROTAS 2","10566":"ENGENHO DA SERRA 1","10568":"SANTA LYDIA 2","10569":"SAO PEDRO 5","10570":"SANTANA 2","10572":"SANTA TEREZINHA 4","10574":"ENTRE RIOS 2","10575":"SERTANEJA","10576":"SANTA FE 2","10579":"NOSSA SENHORA APARECIDA 6","10581":"RENASCER","10582":"SANTO ANTONIO 20","10583":"SANTA ROSA 4","10584":"ITAIPAVA","10585":"CORREDEIRA","10586":"MONTEVIDEO","10587":"NOSSA SENHORA DO ROCIO","10588":"LIMEIRA 3","10589":"SANTO ANTONIO 21","10590":"SANTA TEREZINHA","10592":"SANTA IGNACIA","10595":"PANORAMA 2","10597":"BELO HORIZONTE 3","10598":"CANTAO","10599":"BARCELONA","10600":"SAO BENEDITO 2","10604":"SAO BENTO DAS CAMPININHAS","10605":"CUBATAO","10606":"BELA VISTA 4","10607":"MODELO","10609":"SANTA JOANA","10610":"SAO JOSE 22","10611":"SANTA MARIA DM","10613":"SANTO ANTONIO DA LIBERDADE","10616":"IGREJA","10620":"SAO PEDRO 7","10622":"NOSSA SENHORA APARECIDA 7","10623":"AGROPASTORIL AMERICANA","10624":"CRISTO REI","10625":"SAO JOSE 23","10626":"NOSSA SENHORA DO ROCIO 2","10627":"SAO JORGE 6","10628":"MONTANARI","10629":"MARAÚ","10630":"NOSSA SENHORA DA ABADIA","10631":"BEBEDOURO 2","10633":"RIO PARDO-BOCAINA E PRATA II","10634":"INDAIA CAMPININHA","10636":"SANTO EXPEDITO","10637":"SÍTIO DO BOSQUE","10638":"HARMONIA DOS IPÊS","10639":"CASCATA DOS IPÊS","10640":"IPÊ","10641":"RECANTO DOS SONHOS","10643":"MENINOS DO CALCÁRIO","10644":"PEDREIRA","10645":"IPÊ 2","10646":"CACHOEIRINHA 2","10647":"BELA VISTA 5","10648":"VILA DO NONO","10649":"SANTO IGNACIO","10650":"COQUEIRAL","10651":"CAÇADOR","10652":"SAO JOÃO 12","10653":"ITAIPAVA 2","10654":"SANTA MARIA DA BELA VISTA","10656":"SAO BENTO","10658":"MAIRATA","10659":"SAO JOSÉ DA FARTURA","10662":"NOGUEIRA","10663":"SERTANEJO","10664":"GRUTA","10667":"SANTA LÚCIA","10668":"LOBO 2","10670":"NOSSA SENHORA APARECIDA 9","10671":"SANTA FRANCESCA","10672":"SANTA FRANCESCA 1","10673":"SAO PEDRO 8","10674":"CACHOEIRA 7","10675":"SAO FRANCISCO 2","10677":"SANTA  VIRGINIA","10678":"SANTO IZIDRO","10679":"CHAPARRAL","10680":"MARIA DAS GRAÇAS","10681":"AGUAS CLARAS 5","10686":"RECANTO VERDE","10688":"2-M","10689":"JAO 3","10690":"PRATA DA ROSA","10691":"SAO FERNANDO","10694":"LARANJAL","10696":"2M 2","10697":"BOCAINA 4","10698":"RECANTO DO SONHO 2","10699":"PONTE FUNDA","10700":"SAO JOSÉ 24","10701":"CANADA 2","10702":"SANTA FRANCESCA 2","10703":"SAO PAULO","10704":"SAO SEBASTIÃO 5","10706":"ESMERALDA","10707":"SAO BENTO 2","10708":"BOQUEIRÃO DO ALTO","10709":"NOVA FLORESTA 3","10710":"SANTA AMALIA DO SAPUCAI 2","10711":"SANTA AMALIA 2","10712":"SANTA CRUZ 11","10713":"RENASCER 2","10714":"MODELO 2","10715":"SAO JOÃO 13","10717":"BEIRA RIO","10719":"SEDE 2","10720":"SAO BENTO 3","10721":"SANTA ADELINA","10722":"SAO JOSE  DO JATAHY","10723":"BOA ESPERANÇA 5","10724":"SAO JOAO 14","10725":"ESTÂNCIA PRIMAVERA","10726":"VISCONDE DO PARNAÍBA 1","10727":"VISCONDE DO PARNAÍBA 2","10728":"VISCONDE DO PARNAÍBA 3","10729":"VISCONDE DO PARNAÍBA 4","10730":"VISCONDE DO PARNAÍBA 5","10731":"VISCONDE DO PARNAÍBA 6","10732":"VISCONDE DO PARNAÍBA 7","10733":"VISCONDE DO PARNAÍBA 8","10734":"VISCONDE DO PARNAÍBA 9","10735":"SÃO JOÃO DA CACHOEIRA","10736":"LAGOA SERENA","10737":"RIO PARDO 1","10738":"SAO PEDRO 9","10739":"CAPAO BONITO E CACHOEIRA II","10741":"SANTO ANTONIO 26","10743":"JOÃO DE BARRO","10747":"ONÇA 4","10748":"NOSSA SENHORA APARECIDA 12","10749":"BOSQUE 2","10750":"POSSES 2","10751":"SANTA LUZIA 10","10752":"NASCENTE DA ONÇA","10753":"RECANTO DAS PEREIRAS","10754":"STELA MARIS","10755":"BELA VISTA 8","10756":"AGUAS CLARAS 7","10757":"MORADINHA","10758":"SAMPAIO","10759":"UIRAPURU 3","10760":"DOIS IRMÃOS","10761":"APORÉ","10763":"STELA MARIS 2","10764":"BOM SUCESSO 4","10765":"SAO FRANCISCO 7","10766":"ANGOLA","10767":"BOQUEIRÃO 4","10768":"ENGENHO DA SERRA 2","10769":"PAIOLZINHO","10770":"SOL DA MANHA","10771":"RECANTO DOS PASSAROS","10772":"SÃO JOSE 27","10773":"CORRENTE DE OURO","10774":"SÃO JOSE DO NHACUNDA","10775":"SANTO ANTONIO 27","10776":"RESSACÃO","10777":"ESCOLINHA","10778":"SAO JOAO BATISTA","10779":"BELA VISTA 9","10780":"SANTA MARIA 6","10781":"ESPERANÇA 2","10782":"POSSES 3","10783":"GAIBU","10784":"VISTA ALEGRE","10785":"GÊNESIS","10786":"MARIANA","10787":"RECANTO DAS ORQUIDEAS","10788":"BOM SUCESSO 5","10789":"SANTA LUZIA 12","10790":"MORADA DO SOL","10791":"ANA LAURA","10792":"RECANTO DA LAGOA","10793":"RECANTO DA AMIZADE","10795":"PRATA 4","10796":"VAZANTE 2","10797":"BOCAINA 6","10798":"SANTA ELISA","10801":"SEDE","10802":"SANTA SOFIA","10803":"FAZENDINHA","10806":"SANTA FILOMENA","10809":"MODESTA","10810":"ALAMBARI","10811":"ALAMBARI 2","10812":"BAIXAO","10813":"FONSECA","10814":"FAZENDINHA 2","10815":"SAO JORGE","10816":"VARZEA","10817":"RECANTO 3","10818":"UIRAPURU","10819":"OURO VERDE","10820":"CANAA","10821":"CACHOEIRINHA","10822":"SANTO A..BOCAINA","10823":"VARZEA RIO PARDO","10824":"AGUAS CLARAS 8","10825":"SANTO ANDRE 100","10826":"SOBRADO","10827":"BELA VISTA 7 (PALHA GRANDE)","10828":"RECANTO DA VOVÓ LEO","10829":"SAO JOSE 100","10830":"HUMAITA","10834":"SANTO ANDRE 101","10835":"SOPAPO","10836":"URUPEMA","10838":"PLANALTO","10839":"AGUA LIMPA 100","10845":"SANTA ROSA 100","10848":"SERRA 100","10849":"MANGUEIRA 100","10851":"SAO SEBASTIAO 100","10852":"CACADOR DA BELA VISTA","10853":"S.SEBASTIAO DA PRATA","10854":"SANTA CATARINA","10855":"CALIFORNIA","10856":"OURO VERDE 6","10857":"TEMBE","10858":"SAO FRANCISCO 100","10862":"AGUA LIMPA 101","10870":"MONJOLINHO 100","10871":"GUANABARA 100","10876":"SANTA ZULEIKA","10880":"AGUAS CLARAS 100","10883":"BOA VISTA 102","10889":"BELA VISTA","10892":"FAZENDA DO MEIO","10897":"MACAUBA","10898":"SAO JOSÉ 101","10904":"INHACUNDA","10905":"MANGUE","10907":"SAO JOAQUIM 7","10911":"TANGERINA 1","10913":"SAO CARLOS 100","10915":"CORREDEIRA","10918":"BOQUEIRAO 3","10919":"RECANTO 101","10922":"SAO SIMAO 2","10923":"CACHOEIRA DA PRATA 100","10924":"SAO SIMAO 1","10926":"CACHOEIRINHA 103","10928":"BOM SUCESSO 102","10931":"VISTA ALEGRE DO ALTO","10935":"MATINHA","10940":"JAO 2","10941":"SAO JOAO","10942":"BELA VISTA 102","10944":"SANTA RITA DE CASSIA 2","10945":"BOQUEIRAO 2","10946":"SAPE 3","10947":"MONTE ALTO","10949":"GUANABARA 101","10951":"GUANABARA 102","10952":"NOVA FLORESTA","10953":"SAO JOSE 105","10954":"MITIKO YAMASHITA","10955":"NOSSA SENHORA APARECIDA","10956":"SAO JORGE 101","10957":"SANTA CECILIA","10958":"ARCANJOS","10959":"SANTA TERESINHA 101","10960":"SAO JOSE 106","10964":"BOM SUCESSO 103","10966":"ESTANCIA J5","10967":"TABOCA 4","10968":"SANTO ANTONIO 22","10969":"MORRO AGUDO","10970":"SÍTIO CERVO E GRAMA","10971":"FAZ. DA MATA","10972":"FAZ. GUANANDI","10973":"FAZ. OLINDA","10974":"SANTO ANTONIO 28","20004":"SAO AGOSTINHO","20005":"MONTE BELO","20006":"BOA SORTE","20007":"RIBEIRAO CLARO","20009":"BARROSINHO","20010":"SANTO ANTONIO","20011":"SANTA CRUZ ESPERANÇA","20023":"ESTANCIA VALE VERDE","20032":"BOA ESPERANÇA","20034":"BOA VISTA","20040":"APARECIDA DA BOCAINA","20050":"ARETUZINA","20053":"UNIÃO","20054":"SÃO NICOLAU","20055":"SAO JOSE DA SERRA","20056":"STO ANTONIO","20057":"FAZENDA DO ALTO III","20059":"PALMIRA III","20060":"PALMIRA I","20061":"FAZENDA DO ALTO I","20062":"SERRA AZUL","20063":"PALMIRA II (ESTAÇÃO)","20064":"CAPAO","20067":"PALMIRA V","20068":"SANTA INEZ","20069":"SÃO JOSE","20071":"BACATELA","20077":"SITIO APARECIDA","20078":"SANTA PAULA","20079":"SANTA OLGA","20080":"SANTA CRUZ DA SERRA","20081":"SANT'ANNA","20093":"PARAISO","20094":"MONTE AZUL","20096":"UNIÃO","20101":"SANTA CLARA","20106":"SÃO BENEDITO","20115":"SÃO FRANCISCO DE ASSIS","20116":"SITIO RIBEIRO","20121":"SANTA IGNEZ","20122":"BOA ESPERANÇA (SP)","20124":"BOA ESPERANÇA(SP)","20128":"CRUZEIRO","20129":"SANT ANA","20135":"NOVA ALIANÇA","20141":"SÃO GERALDO","20142":"BOA VISTA DA LAJE GLEBA 8","20144":"BOA VISTA DA LAJE GLEBA 1","20145":"PORTAL DOS PINHEIROS","20147":"SANTA EMILIA (Lagoa Azul)","20158":"BOCAINA DA PRATA","20167":"VALE DO SONHO","20168":"PLANALTO","20170":"SAO RAFAEL","20171":"RANCHO ALEGRE","20172":"AGROPECUARIA SANTA CRUZ","20174":"AGROPECUARIA SANTA CRUZ 2","20175":"CATAMARÃ","20176":"AGROPECUARIA JOÃO BATISTA","20178":"SITIO AGROPECUARIA IPE","20180":"DA PRATA","20181":"CUBATÃO (IPIRANGA)","20187":"SAO SEBASTIAO","20189":"TABOCA 7","20190":"ESPERANÇA","20193":"GROTÃO","20194":"SANTA ROSA","20197":"SAO PEDRO 6","20199":"NIAGARA","20200":"SANTA RITA DO PICADÃO","20202":"PRIMAVERA","20205":"TABOCA 5","20208":"TABOCA 6","20209":"SÃO JOAQUIM DO GRAMADO","20210":"SÃO MATEUS","20212":"SANTA PATRIZIA 5","20213":"RECANTO DA VOVÓ LULY","20217":"SANTA CRUZ DO BURITIZAL 2","20221":"SAO PEDRO","20222":"LIDERANÇA","20241":"SANTA  ISABEL","20247":"SANTA VIRGINIA","20255":"CAPELA SÃO JOSÉ","20260":"PITANGA","20262":"AGUAS VIRTUOSAS","20265":"SITIO MAURO","20267":"SÃO SEBASTIÃO DA ÁGUA LIMPA","20268":"SANTA CRUZ DA ESPERANÇA","20271":"BONFIM","20272":"VISCONDE","20275":"ESTÂNCIA TRANSVIDA II","20276":"ESTÂNCIA BOM RETIRO","20277":"CHÁCARA DAS ACÁCIAS","20278":"ENGENHO DA SERRA","20280":"SÍTIO BELA VISTA (MOUSSA)","20281":"GRACIOSA GLEBA A","20282":"4 PAUS","20283":"NOVA SUÍÇA","20287":"MONTE ALEGRE","20291":"SANTA LUZIA","20292":"SANTANA DO ALTO 2","20293":"PAINAL","20294":"JACUTINGA","20301":"AGUA AZUL","20309":"RECANTO DOS EUCALIPTOS","20312":"VALPARAISO","20313":"SÃO JOAO","20316":"SÃO LUIZ GLEBA 2","20318":"RIBEIRÃO CLARO 6","20319":"SÃO ROQUE","20320":"SÃO LUIZ 6","20322":"SÃO PEDRO 1","20329":"SAO JOSE DO RETIRO 1","20330":"SAO JOSE DO RETIRO 2","20331":"SAO JOSE DO RETIRO 4","20332":"CAPELINHA","20333":"SANTA RITA","20334":"JANDAIA","20338":"SANTA ISABEL","20339":"SÃO JOSÉ","20341":"CORVO BRANCO","20343":"ESTÂNCIA BOA ESPERANCA","20344":"SÃO LUIS","20347":"RECANTO AMOR DEMAIS","20350":"SAO PEDRO 12","20354":"SANTA EMILIA (SANTA HELENA)","20355":"RIO PARDO BOCAINA E PRATA","20359":"SITIO DO LIXO","20362":"MONTE VIDEO","20363":"SITIO SANTA TEREZINHA","20364":"SITIO DO NONO","20366":"BOQUEIRÃO E CRUZES","20367":"SITIO SCORPIONS","20368":"SANTA EMILIA (Bocaina)","20369":"SANTO ANTONIO","20370":"SANTOS REIS","20371":"SÍTIO BOA ESPERANÇA","20372":"ESTÂNCIA SÃO CARLOS","20373":"SÃO MARCOS","20377":"SANTA TEREZA","20386":"PRATINHA 2","20387":"SANTA EMILIA (SERRA)","20388":"SÃO LUIZ","20390":"BOA VISTA 3","20393":"BOM SUCESSO","20396":"LIMOEIRO","20397":"SÍTIO NOVO HORIZONTE","20398":"SÃO SEBASTIÃO DA AGUA LIMPA","20402":"SAPE","20403":"RETIRO VELHO","20404":"JOINVILE","20405":"PIRIRIPAU","20407":"DAMAZIA","20410":"IPANEMA","20411":"SAN DIEGO","20412":"SÃO FRANCISCO I","20413":"BRILHANTE","20414":"SÃO PEDRO","20415":"SÃO JUDAS TADEU","20416":"NOVA ESPERANÇA","20418":"SÃO JOSÉ","20419":"SANTA JULIA","20420":"SÃO FRANCISCO II","20421":"ESTRELA","20436":"CAPÃO BONITO E CACHOEIRA","20442":"SÍTIO ÁGUA LISA","20443":"SÍTIO ALAMBARI","20447":"INHACUNDÁ","20448":"SÍTIO PICA PAU AMARELO","20449":"SÍTIO SÃO JOÃO","20452":"SÃO JOSÉ 24","20461":"ÁGUA LIMPA","20463":"SANTA ELISA II (TERCILIA)","20465":"SÃO SEBASTIÃO DO LAJEADO","20469":"GUANABARA","20472":"BARRA","20484":"VISTA LINDA","20494":"RETIRO","20495":"BELA VISTA","20496":"BOM JESUS","20497":"BOA ESPERANÇA 4","20500":"SÃO CARLOS","20501":"SÃO JOÃO 11","20507":"SÃO PAULO DO MANGUEIRO","20508":"JANDAIA 4","20526":"CONQUISTA (MONTE ALTO 7)","20528":"SANTA IZABEL","20529":"MARAVILHA","20530":"ANHANGUERA","20542":"SÍTIO ESMERALDA","20545":"SÍTIO RECANTO JP","20567":"SAO SEBASTIÃO DO  LAJEADO 2","20569":"RANCHO CINCO IRMÃOS","20570":"SÍTIO SÃO SEBASTIÃO","20571":"SÃO LUIZ DO MIMOSO","20572":"FAZ. SANTO ANTÔNIO DO PASSA CINCO","20573":"SÍTIO RANCHO ALEGRE","20579":"SÍTIO SOBRADO VELHO","20580":"SÍTIO NÚCLEO MONJOLINHO","20581":"SÍTIO NÚCLEO MONJOLINHO 2","20587":"SÍTIO MONTE BELO GLEBA A/B","20588":"SANTA ELIZA","20593":"SANTA EMILIA (Padroeira)","20601":"Sª JOÃO DA BARRA","20602":"BARRINHA I","20603":"VITÓRIA","20623":"CACHOEIRA II","20631":"SANTA EMILIA (Santa Cruz)","20632":"SÃO JOÃO","20633":"SANTO AGOSTINHO (STO ANTONIO 9)","20638":"CASA NOVA","20646":"SITIO SANTANA","20651":"SANTA IRENE","20654":"SANTA CRUZ","20655":"IBIAPINA","20656":"CERRADO I","20657":"CERRADO II","20687":"BAIXÃO","20688":"SAO CARLOS II","20689":"SÃO LOURENÇO","20691":"TAMANDUAZINHO","20692":"APARECIDA","20693":"SITIO DA MINA","20694":"SÃO JOÃO DA AGUA BRANCA","20695":"JANDAIA  (GLEBA  A)","20700":"BOM DESTINO","20702":"BOA VISTA","20703":"PLANALTO GLEBA 3","20704":"SANTA HELENA","20709":"NOSSA SENHORA DE FATIMA","20721":"PRATINHA 4","20732":"CATINGUEIRO","20733":"SANTA LUIZA","20735":"CRAVINHOS 2","20736":"SERTAOZINHO","20740":"RIBEIRÃO CLARO","20741":"SANTA LOURDES","20742":"SÃO JOÃO 1","20743":"SANTA PATRIZIA (GLEBA B)","20744":"SA NTA PATRIZIA (GLEBA C)","20748":"SITIO DO MATO","20749":"SEDE/BREJINHO","20750":"LIMEIRA","20751":"CERES","20752":"CANTA GALO","20753":"GREVILHA","20759":"SANTA CLARA","20761":"STA EUGENIA (SANTA CLARA 1)","20764":"SANTO ANTONIO/J/SL","20765":"BARRINHA GLEBA C","20771":"SÃO JOAQUIM","20780":"NOSSA SENHORA  APARECIDA","20785":"SÃO JOSE RETIRO 3","20787":"SHALLON","20792":"GRAMADO","20796":"BOA ESPERANÇA (SUB)","20798":"SANTA LUCIA","20801":"LAJE","20803":"ESTANCIA 3E","20805":"SERRA AZUL (STO EXP)","20808":"FLORESTA","20811":"SERRA AZUL (CX)","20813":"SÃO JOÃO","20812":"SANTA EMILIA (sem uso)","20816":"GROTAO","20817":"MANOEL AMARO","20821":"FIGUEIRA DOS ARANTES","20822":"NIAGARA (FN)","20823":"SANTA MARIA 4","20824":"SÃO SEBASTIÃO DO LAJEADO 1","20825":"FAZENDA SÃO JOÃO","20826":"CALISA","20827":"INVERNADA","20829":"JANDAIA GLEBA B","20831":"MONTE BELO","20833":"SÃO FRANCISCO","20840":"UIRAPURU (AV)","20841":"MIRANTE DO VALE","20850":"COLORADO","20854":"BOM RETIRO","20856":"BONANZA","20857":"CRAVINHOS 1","20859":"FIGUEIRA NOVA","20861":"SANTA MARIA","20863":"CHACARA FAZENDA FIGUEIRA","20864":"SITO RETIRO DA BABILONIA","20872":"PAU ALTO","20873":"FAZENDA LOBO","20877":"SANTA RITA (SEÇÃO MONTE ALTO)","20878":"BARRINHA GLEBA G/H","20880":"SITIO ISAURA","20885":"AGUAS CLA.RAS 4","20895":"SANTA DULCE","20896":"SANTA FÉ","20897":"JUREMA","20900":"DAS FLORES","20901":"SÃO SALVADOR CLAUDIA","20902":"LUANA/JUSSARA","20904":"PAINEIRA ROSA","20906":"CHANGRILA","20913":"PE DE CEDRO","20914":"SÃO JOÃO BATISTA","20918":"ESTÂNCIA PRATINHA","20919":"OLHOS D'AGUA","20931":"CRAVINHOS 3","20932":"CERRADO 3","20937":"CAPÃO","20943":"SANTA LUZIA 4","20948":"ESTANCIA SANTA IZABELA","20949":"SÃO GUILHERME","20950":"SELADO","20951":"TABOCA","20953":"SANTA CRUZ DO BURITIZAL","20955":"SANTA MARIA 5","20961":"OASIS","20962":"SAO JOAQUIM 1","20963":"PARAISO (SAO JOAQUIM 4)","20965":"SAO JOSE 16","20966":"SANTA LUIZA GLEBA A","20967":"SANTA LUIZA GLEBA B","20970":"CANGA QUEBRADA 1","20972":"BARRINHA GL E , GL A 02","20975":"AGUA BONITA","20977":"SÍTIO DO VOVÔ","20979":"MANGUEIROS 2","20981":"SANTA ANA","20982":"CAPÃO (SEDE)","20984":"CONCEIÇÃO DA PRATA","20986":"SÃO FRANCISCO (BOA ESPERANÇA)","20987":"SÃO FRANCISCO (ENGENHO)","20988":"IPANEMA (SÃO CARLOS)","20989":"RIBEIRÃO CLARO (BARRINHA)","20991":"SITIO SANTA MARIA","20992":"SITIO DOIS IRMÃOS","20993":"TRÊS IRMÃOS","20994":"CORTADO","20995":"BEBEDOURO DA PEDRA","20996":"RIBEIRÃO CLARO (BOCAINA Q4)","20997":"SAN DIEGO (BOCAINA Q2B)","20998":"RIBEIRÃO CLARO (PRIMAVERA)","20999":"SÍTIO QUINTA DO SOL","21000":"SÍTIO SANTA MARIA","21001":"PORTÃO PESADO","21002":"SÃO JOSÉ (BOM JESUS)","21003":"SÃO JOSÉ (S.LUIS - MENTA)","21004":"SÃO JOSÉ (STA RITA DE CÁSSIA)","21005":"SANTA EMILIA (Santa Lydia)","21011":"SANTA EMILIA (Boa Esperança)","20852":"SÃO BENTO","20853":"SÃO PEDRO","20855":"ANGOLA","20860":"CAPELINHA","20862":"MARAVILHA","20865":"SANTA ROSA","20866":"PIRIPAU","20869":"PLANALTO","20870":"SÃO JOSE","20874":"GROTAO","20875":"SANTO ANTONIO","20881":"VALPARAISO","20884":"BELA VISTA","20886":"SANTA IGNACIA","20889":"SANTA IGNACIA","20891":"SANTO ANTONIO","20894":"BELO HORIZONTE","20898":"SANTA TEREZINHA","20899":"SÃO LUIZ","20903":"SANTA CATARINA","20907":"ESTANCIA SÃO CARLOS","20908":"ESTANCIA BOA ESPERANÇA","20912":"SANTO ANTONIO","20915":"BOM JESUS","20916":"BOA SORTE","20930":"BELA VISTA","20933":"BOA VISTA","20934":"SANTA LUZIA","20935":"NOSSA SENHORA APARECIDA","20938":"BARRINHA","20944":"JANDAIA","20945":"SÃO PEDRO","20946":"BOA VISTA","20956":"BELA VISTA","20957":"SÃO CARLOS","20958":"ESTANCIA DAMAZIA","20959":"SANTA IZABEL","20960":"NOSSA SENHORA APARECIDA","20964":"SANTO ANTONIO 02","20968":"ALAMBARI","20969":"SÃO LOURENÇO","20971":"BOA VISTA","20974":"SANTO ANTONIO 08","20976":"CRUZEIRO DO SUL","20978":"CHACARA PAULISTA","20980":"MANGUEIROS 1","20983":"SÃO FRANCISCO","20985":"INVERNADA","20990":"FAZENDA SANTA ROSA","20600":"NSª APARECIDA","20621":"SANTA SOFIA","21033":"SANTA EMILIA (Alambari)","21034":"SANTA EMILIA (São João da Barra)","21017":"SANTA EMILIA ( N S Aparecida)","21018":"SANTA EMILIA (Barra)","21013":"SANTA EMILIA (Vitoria)","20052":"STª TEREZINHA","20617":"STº ANTONIO","20534":"JANDAIA 4","21010":"SANTA EMILIA (Boqueirão)","20664":"SANTA NAZARENA","21009":"FAZENDA MARTINOPOLIS","21019":"SANTA EMILIA (Capão Seco)","20351":"LIDERANÇA","21021":"SANTA EMILIA (São José)","21022":"SANTA EMILIA (São João","20352":"SERRA AZUL","20734":"LUIZA","20164":"SÃO LOURENÇO","20630":"BAIXÃO (IPIRANGA)","20188":"CACHOEIRINHA","20342":"MACAUBAS","20731":"PAREDÃO","20739":"STº ANTÔNIO","20315":"Sª ROQUE 2","21024":"SÍTIO SANTA ANA","21026":"RIO PARDO BOCAINA E PRATA","21007":"SANTA EMILIA (Catamarã)","21028":"SANTA EMILIA (S S AGUA LIMPA)","20738":"SÃO LOURENÇO","20802":"CHAPARRAL","20797":"SANTA ISABEL","20264":"VIRTUOSAS","20335":"STª RITA 10","20378":"BEBEDOURO","20498":"LIBERDADE","20499":"TUCUIM","20504":"SAPE 4","20848":"MONTE BELO","21006":"SANTA EMILIA (Santa Helena)","21012":"SANTA EMILIA (Monte Alto)","21030":"SANTA EMILIA (São Pedro)","21032":"SANTA EMILIA (Universo))","10194":"RED MONTAIN","10192":"ALVORADA DO MORRO VERMELHO","20261":"SÃO RAFAEL","20391":"CAPELA SÃO JOSÉ","20834":"SÃO JOAQUIM","21029":"SÍTIO RESSACÃO","21040":"SÍTIO SÃO PEDRO","21037":"SANTO ANTÔNIO","21036":"SÃO JOSÉ","20114":"NOSSA SENHORA APARECIDA","20781":"MATARUNA"};
-
-/* ---------- Números ---------- */
-const nf = (d)=> new Intl.NumberFormat("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
-const fmt = (x,d=1)=> (x===null||x===undefined||!isFinite(x)) ? "—" : nf(d).format(x);
-function num(s){
-  if(s===undefined||s===null) return NaN;
-  s=String(s).trim().replace(/\s/g,"");
-  if(!s) return NaN;
-  if(s.includes(",")) s=s.replace(/\./g,"").replace(",",".");
-  return Number(s);
-}
-const ok = (...xs)=> xs.every(x=> isFinite(x));
-const pos = (...xs)=> xs.every(x=> isFinite(x) && x>0);
-
-/* ---------- Cálculos ----------
-   Cada cálculo: inputs [{id,label,unit,def?,opt?}] e compute(v) -> {rows:[[rótulo,valor,main?]], tag?:[texto,tipo]} ou null */
-const CALCS = [
-  { tab:"campo", id:"perf", title:"População de perfilhos",
-    desc:"Conte os perfilhos num trecho da linha. A conta leva para metro e para hectare.",
-    inputs:[{id:"n",label:"Perfilhos contados",unit:"un"},{id:"m",label:"Metros de linha contados",unit:"m",def:"10"},
-            {id:"esp",label:"Espaçamento entre linhas",unit:"m",def:"1,5",full:true}],
-    compute:v=>{ if(!pos(v.n,v.m,v.esp)) return null;
-      const pm=v.n/v.m, ha=pm*10000/v.esp;
-      return {rows:[["Perfilhos por metro",fmt(pm,1)],["Perfilhos por hectare",fmt(ha,0),true]]}; } },
-
-  { tab:"campo", id:"tch", title:"Estimativa de produtividade (TCH)",
-    desc:"Conte os colmos num trecho, pese uma amostra e calcule o peso médio de um colmo.",
-    inputs:[{id:"n",label:"Colmos contados",unit:"un"},{id:"m",label:"Metros de linha contados",unit:"m",def:"10"},
-            {id:"peso",label:"Peso médio do colmo",unit:"kg",def:"1,2"},{id:"esp",label:"Espaçamento entre linhas",unit:"m",def:"1,5"},
-            {id:"area",label:"Área do talhão (opcional)",unit:"ha",opt:true,full:true}],
-    compute:v=>{ if(!pos(v.n,v.m,v.peso,v.esp)) return null;
-      const cm=v.n/v.m, cha=cm*10000/v.esp, tch=cha*v.peso/1000;
-      const rows=[["Colmos por metro",fmt(cm,1)],["Colmos por hectare",fmt(cha,0)],["TCH estimado",fmt(tch,1)+" t/ha",true]];
-      if(pos(v.area)) rows.push(["Produção do talhão",fmt(tch*v.area,0)+" t"]);
-      return {rows}; } },
-
-  { tab:"campo", id:"falha", title:"Falhas de plantio",
-    desc:"Some só as falhas maiores que 0,5 m ao longo da linha avaliada (método de Stolf).",
-    inputs:[{id:"m",label:"Metros de linha avaliados",unit:"m",def:"100"},{id:"f",label:"Soma das falhas acima de 0,5 m",unit:"m"}],
-    compute:v=>{ if(!pos(v.m)||!ok(v.f)||v.f<0||v.f>v.m) return null;
-      const p=v.f/v.m*100;
-      const c = p<=10?["Excelente","ok"]: p<=20?["Normal","ok"]: p<=35?["Subnormal","mid"]: p<=50?["Ruim","warn"]:["Péssimo","warn"];
-      return {rows:[["Falhas",fmt(p,1)+" %",true]],tag:["Plantio "+c[0].toLowerCase(),c[1]]}; },
-    note:"Faixas de Stolf (1986): até 10% excelente · 10–20% normal · 20–35% subnormal · 35–50% ruim · acima de 50% péssimo." },
-
-  { tab:"adubo", id:"adubo", title:"Dose de fertilizante",
-    desc:"Converte a recomendação do nutriente em quantidade do produto comercial.",
-    inputs:[{id:"rec",label:"Recomendação do nutriente",unit:"kg/ha"},{id:"teor",label:"Teor do nutriente no produto",unit:"%"},
-            {id:"area",label:"Área do talhão",unit:"ha"},{id:"saco",label:"Peso do saco/big bag",unit:"kg",def:"50"}],
-    compute:v=>{ if(!pos(v.rec,v.teor)) return null;
-      const kg=v.rec/(v.teor/100); const rows=[["Produto por hectare",fmt(kg,0)+" kg/ha",true]];
-      if(pos(v.area)){ const tot=kg*v.area; rows.push(["Total no talhão",fmt(tot,0)+" kg"],["Em toneladas",fmt(tot/1000,2)+" t"]);
-        if(pos(v.saco)) rows.push(["Sacos / big bags",fmt(Math.ceil(tot/v.saco),0)]); }
-      return {rows}; },
-    note:"Exemplo: 100 kg/ha de K₂O com cloreto de potássio (60% K₂O) = 167 kg/ha do produto." },
-
-  { tab:"adubo", id:"vinh", title:"Vinhaça pela dose de potássio",
-    desc:"Use o teor de K₂O da análise da vinhaça. A dose não pode passar o limite da norma CETESB P4.231 para o talhão.",
-    inputs:[{id:"k",label:"K₂O desejado",unit:"kg/ha"},{id:"kv",label:"K₂O na vinhaça (análise)",unit:"kg/m³"},
-            {id:"area",label:"Área do talhão",unit:"ha"},{id:"cap",label:"Capacidade do caminhão",unit:"m³",def:"22,5"}],
-    compute:v=>{ if(!pos(v.k,v.kv)) return null;
-      const dose=v.k/v.kv; const rows=[["Dose de vinhaça",fmt(dose,0)+" m³/ha",true]];
-      if(pos(v.area)){ const tot=dose*v.area; rows.push(["Total no talhão",fmt(tot,0)+" m³"]);
-        if(pos(v.cap)) rows.push(["Viagens do caminhão",fmt(Math.ceil(tot/v.cap),0)]); }
-      return {rows}; } },
-
-  { tab:"adubo", id:"torta", title:"Torta de filtro pela dose do nutriente",
-    desc:"Informe o nutriente que quer suprir (K₂O ou P₂O₅) e o teor da torta úmida pela análise.",
-    inputs:[{id:"k",label:"Nutriente desejado",unit:"kg/ha"},{id:"kt",label:"Teor na torta (análise)",unit:"kg/t"},
-            {id:"area",label:"Área do talhão",unit:"ha"},{id:"cap",label:"Capacidade do caminhão",unit:"t",def:"15"}],
-    compute:v=>{ if(!pos(v.k,v.kt)) return null;
-      const dose=v.k/v.kt; const rows=[["Dose de torta",fmt(dose,1)+" t/ha",true]];
-      if(pos(v.area)){ const tot=dose*v.area; rows.push(["Total no talhão",fmt(tot,0)+" t"]);
-        if(pos(v.cap)) rows.push(["Viagens do caminhão",fmt(Math.ceil(tot/v.cap),0)]); }
-      return {rows}; } },
-
-  { tab:"colheita", id:"im", title:"Brix e índice de maturação",
-    desc:"Meça o Brix com o refratômetro no topo e na base do colmo.",
-    inputs:[{id:"t",label:"Brix do topo",unit:"°Brix"},{id:"b",label:"Brix da base",unit:"°Brix"}],
-    compute:v=>{ if(!pos(v.t,v.b)) return null;
-      const im=v.t/v.b;
-      const c = im<0.60?["Imatura","warn"]: im<0.85?["Em maturação","mid"]: im<=1.00?["Madura","ok"]:["Em declínio","warn"];
-      return {rows:[["Índice de maturação (topo ÷ base)",fmt(im,2),true],["Brix médio",fmt((v.t+v.b)/2,1)+" °Brix"]],tag:["Cana "+c[0].toLowerCase(),c[1]]}; },
-    note:"Referência: abaixo de 0,60 imatura · 0,60 a 0,85 em maturação · 0,85 a 1,00 madura · acima de 1,00 em declínio." },
-
-  { tab:"colheita", id:"atr", title:"ATR e açúcar por hectare",
-    desc:"Use o ATR do laboratório (kg por tonelada de cana) e o TCH do talhão.",
-    inputs:[{id:"tch",label:"TCH",unit:"t/ha"},{id:"atr",label:"ATR",unit:"kg/t"},
-            {id:"area",label:"Área do talhão",unit:"ha"},{id:"pc",label:"Pol da cana – PC (opcional)",unit:"%",opt:true}],
-    compute:v=>{ if(!pos(v.tch,v.atr)) return null;
-      const atrha=v.tch*v.atr/1000; const rows=[["ATR por hectare",fmt(atrha,2)+" t/ha",true]];
-      if(pos(v.pc)) rows.push(["Açúcar (pol) por hectare – TPH",fmt(v.tch*v.pc/100,2)+" t/ha"]);
-      if(pos(v.area)){ rows.push(["ATR total do talhão",fmt(atrha*v.area,1)+" t"],["Cana total do talhão",fmt(v.tch*v.area,0)+" t"]); }
-      return {rows}; } },
-
-  { tab:"diesel", id:"diesel", title:"Consumo de diesel",
-    desc:"Use o horímetro e os litros abastecidos no período. Toneladas e área são opcionais.",
-    inputs:[{id:"l",label:"Litros abastecidos",unit:"L"},{id:"h0",label:"Horímetro inicial",unit:"h"},
-            {id:"h1",label:"Horímetro final",unit:"h"},{id:"t",label:"Toneladas no período",unit:"t",opt:true},
-            {id:"area",label:"Área trabalhada",unit:"ha",opt:true,full:true}],
-    compute:v=>{ if(!pos(v.l)) return null;
-      const rows=[]; const hs = ok(v.h0,v.h1) ? v.h1-v.h0 : NaN;
-      if(isFinite(hs) && hs>0){ rows.push(["Horas trabalhadas",fmt(hs,1)+" h"],["Consumo por hora",fmt(v.l/hs,1)+" L/h",true]); }
-      if(pos(v.t)) rows.push(["Consumo por tonelada",fmt(v.l/v.t,2)+" L/t",!rows.length]);
-      if(pos(v.area)) rows.push(["Consumo por hectare",fmt(v.l/v.area,1)+" L/ha"]);
-      if(isFinite(hs) && hs<=0) return {rows:[["Horímetro final menor que o inicial","—"]]};
-      return rows.length?{rows}:null; } },
-
-  { tab:"uteis", id:"area", title:"Área do talhão",
-    desc:"Para talhão retangular. Mostra em hectares e em alqueires paulistas.",
-    inputs:[{id:"c",label:"Comprimento",unit:"m"},{id:"lg",label:"Largura",unit:"m"}],
-    compute:v=>{ if(!pos(v.c,v.lg)) return null;
-      const m2=v.c*v.lg;
-      return {rows:[["Área em hectares",fmt(m2/10000,2)+" ha",true],["Área em m²",fmt(m2,0)+" m²"],["Alqueire paulista (2,42 ha)",fmt(m2/24200,2)+" alq"]]}; } },
-
-  { tab:"uteis", id:"conv", title:"Hectare ⇄ alqueire",
-    desc:"Preencha um dos dois campos.",
-    inputs:[{id:"ha",label:"Hectares",unit:"ha",opt:true},{id:"alq",label:"Alqueires paulistas",unit:"alq",opt:true}],
-    compute:v=>{ const rows=[];
-      if(pos(v.ha)) rows.push([fmt(v.ha,2)+" ha =",fmt(v.ha/2.42,2)+" alq",true]);
-      if(pos(v.alq)) rows.push([fmt(v.alq,2)+" alq =",fmt(v.alq*2.42,2)+" ha",!rows.length]);
-      return rows.length?{rows}:null; } },
-
-  { tab:"uteis", id:"sulco", title:"Espaçamento e metros de sulco",
-    desc:"Para linha dupla (ex.: 1,50 × 0,90), preencha também o espaçamento menor.",
-    inputs:[{id:"e1",label:"Espaçamento entre linhas",unit:"m",def:"1,5"},{id:"e2",label:"Espaçamento menor (linha dupla)",unit:"m",opt:true},
-            {id:"area",label:"Área do talhão (opcional)",unit:"ha",opt:true,full:true}],
-    compute:v=>{ if(!pos(v.e1)) return null;
-      const med = pos(v.e2) ? (v.e1+v.e2)/2 : v.e1; const mha=10000/med;
-      const rows=[["Metros de sulco por hectare",fmt(mha,0)+" m/ha",true]];
-      if(pos(v.e2)) rows.push(["Espaçamento médio",fmt(med,2)+" m"]);
-      if(pos(v.area)) rows.push(["Metros de sulco no talhão",fmt(mha*v.area,0)+" m"]);
-      return {rows}; } }
-];
-
-/* ---------- Guardar o que foi digitado (só neste aparelho) ---------- */
-const store = {
-  get(k){ try{ return JSON.parse(localStorage.getItem("calc:"+k)); }catch(_){ return null; } },
-  set(k,v){ try{ localStorage.setItem("calc:"+k, JSON.stringify(v)); }catch(_){} }
-};
-
-/* ---------- Montar os cartões ---------- */
-const esc = s=> String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const last = {};
-CALCS.forEach(c=>{
-  const saved = store.get(c.id) || {};
-  const el = document.createElement("article");
-  el.className="calc"; el.id="calc-"+c.id;
-  el.innerHTML = `<h2>${c.title}</h2><p class="desc">${c.desc}</p>
-    <div class="fields">${c.inputs.map(i=>`<div class="fld${i.full?" full":""}"><label for="${c.id}-${i.id}">${i.label}</label>
-      <div class="inp"><input id="${c.id}-${i.id}" inputmode="decimal" autocomplete="off" value="${esc(saved[i.id] ?? i.def ?? "")}"><span class="un">${i.unit}</span></div></div>`).join("")}</div>
-    <div class="res" aria-live="polite"></div>
-    ${c.note?`<p class="note">${c.note}</p>`:""}
-    <div class="actions"><a class="wa-btn" href="#" target="_blank" rel="noopener" aria-disabled="true">📤 Enviar no WhatsApp</a>
-    <button type="button" class="clr">Limpar</button></div>`;
-  document.getElementById("view-"+c.tab).appendChild(el);
-  const res = el.querySelector(".res"), wa = el.querySelector(".wa-btn");
-  function run(){
-    const v={}, raw={};
-    c.inputs.forEach(i=>{ const s=document.getElementById(`${c.id}-${i.id}`).value; raw[i.id]=s; v[i.id]=num(s); });
-    store.set(c.id, raw);
-    let out=null; try{ out=c.compute(v); }catch(_){ out=null; }
-    last[c.id] = out ? {raw,out} : null;
-    if(!out){ res.innerHTML=`<div class="empty">Preencha os campos para ver o resultado.</div>`; wa.setAttribute("aria-disabled","true"); wa.href="#"; return; }
-    res.innerHTML = out.rows.map(r=>`<div class="r${r[2]?" main":""}"><span>${r[0]}</span><b>${r[1]}</b></div>`).join("")
-      + (out.tag?`<div><span class="tag ${out.tag[1]}">${out.tag[0]}</span></div>`:"");
-    wa.setAttribute("aria-disabled","false"); wa.href = "https://wa.me/?text="+encodeURIComponent(report(c));
-  }
-  el.querySelectorAll("input").forEach(i=> i.addEventListener("input", run));
-  el.querySelector(".clr").addEventListener("click", ()=>{ c.inputs.forEach(i=>{ document.getElementById(`${c.id}-${i.id}`).value = i.def ?? ""; }); run(); });
-  wa.addEventListener("click", async ev=>{
-    if(!last[c.id]){ ev.preventDefault(); return; }
-    wa.href = "https://wa.me/?text="+encodeURIComponent(report(c));
-    if(navigator.share){ ev.preventDefault(); try{ await navigator.share({text:report(c)}); }catch(_){ } }
-  });
-  c.run = run;
-});
-
-/* ---------- Relatório para o WhatsApp ---------- */
-function hoje(){ const d=new Date(); return d.toLocaleDateString("pt-BR"); }
-function report(c){
-  const L=last[c.id]; if(!L) return "";
-  const cod=document.getElementById("codigo").value.trim(), faz=document.getElementById("fazenda").value.trim(), tal=document.getElementById("talhao").value.trim();
-  const lines=["*Calculadora da Cana* — "+c.title, "Data: "+hoje(),
-    "Fazenda: "+(cod?cod+" - ":"")+(faz||"—"), "Talhão: "+(tal||"—"), "", "_Dados:_"];
-  c.inputs.forEach(i=>{ const s=(L.raw[i.id]||"").trim(); if(s) lines.push(`• ${i.label}: ${s} ${i.unit}`); });
-  lines.push("", "_Resultado:_");
-  L.out.rows.forEach(r=> lines.push(`• ${r[0]}: ${r[1]}`));
-  if(L.out.tag) lines.push("• "+L.out.tag[0]);
-  return lines.join("\n");
-}
-
-/* ---------- Fazenda: código ⇄ nome ---------- */
-(function(){
-  const cod=document.getElementById("codigo"), faz=document.getElementById("fazenda"), tal=document.getElementById("talhao"), hint=document.getElementById("codeHint");
-  const byName={};
-  Object.entries(FAZENDAS).forEach(([c,n])=>{ (byName[n.toUpperCase()] ||= []).push(c); });
-  document.getElementById("listaFazendas").innerHTML = Object.entries(FAZENDAS).map(([c,n])=>`<option value="${esc(n)}">${c}</option>`).join("");
-  const setHint=(t,k)=>{ hint.textContent=t; hint.className=k||""; };
-  const save=()=> store.set("local",{cod:cod.value,faz:faz.value,tal:tal.value});
-  const refresh=()=> CALCS.forEach(c=> c.run && last[c.id] && c.run());
-  function byCode(){
-    const c=cod.value.replace(/\D/g,""); if(c!==cod.value) cod.value=c;
-    const n=FAZENDAS[c];
-    if(n){ faz.value=n; faz.classList.add("found"); setHint("✓ "+c+" — "+n,"ok"); }
-    else{ if(faz.classList.contains("found")){ faz.value=""; faz.classList.remove("found"); }
-      setHint(c.length>=5?"Código não encontrado":"", c.length>=5?"err":""); }
-  }
-  cod.addEventListener("input", ()=>{ byCode(); save(); refresh(); });
-  faz.addEventListener("input", ()=>{
-    faz.classList.remove("found");
-    const cs=byName[faz.value.trim().toUpperCase()];
-    if(cs && cs.length===1){ cod.value=cs[0]; faz.classList.add("found"); setHint("✓ "+cs[0]+" — "+faz.value,"ok"); }
-    else if(cs){ setHint("Mais de um código com esse nome: "+cs.join(", ")+". Digite o código.",""); }
-    else setHint("","");
-    save(); refresh();
-  });
-  tal.addEventListener("input", ()=>{ save(); refresh(); });
-  const s=store.get("local");
-  if(s){ cod.value=s.cod||""; faz.value=s.faz||""; tal.value=s.tal||""; if(cod.value) byCode(); }
-})();
-CALCS.forEach(c=> c.run());
-
-/* ---------- Abas e arrasto ---------- */
-const TABS=["campo","adubo","colheita","diesel","uteis"];
-const tabBtns=[...document.querySelectorAll("nav.tabs button")];
-let current="campo";
-function show(name, dir){
-  if(name===current) return;
-  TABS.forEach(t=> document.getElementById("view-"+t).classList.remove("active","slide-l","slide-r"));
-  const v=document.getElementById("view-"+name); v.classList.add("active");
-  if(dir){ void v.offsetWidth; v.classList.add(dir>0?"slide-l":"slide-r"); }
-  tabBtns.forEach(b=> b.classList.toggle("active", b.dataset.tab===name));
-  const ab=tabBtns.find(b=>b.dataset.tab===name); ab && ab.scrollIntoView({inline:"center",block:"nearest"});
-  current=name; store.set("tab",name);
-  const top=document.getElementById("tabs").getBoundingClientRect().top + scrollY - document.getElementById("appHead").offsetHeight;
-  if(scrollY>top) scrollTo({top, behavior:"instant"});
-}
-tabBtns.forEach(b=> b.addEventListener("click", ()=>{ const i=TABS.indexOf(current), j=TABS.indexOf(b.dataset.tab); show(b.dataset.tab, Math.sign(j-i)); }));
-(function(){
-  let sx=0, sy=0, st=0, on=false, horiz=null, el=null;
-  document.addEventListener("touchstart", e=>{
-    on = e.touches.length===1 && document.getElementById("installSheet").hidden && !e.target.closest("header.app, nav.tabs, .local");
-    if(!on) return;
-    sx=e.touches[0].clientX; sy=e.touches[0].clientY; st=Date.now(); horiz=null; el=document.getElementById("view-"+current);
-    el.classList.remove("slide-l","slide-r");
-  },{passive:true});
-  document.addEventListener("touchmove", e=>{
-    if(!on) return;
-    const dx=e.touches[0].clientX-sx, dy=e.touches[0].clientY-sy;
-    if(horiz===null && (Math.abs(dx)>5||Math.abs(dy)>5)) horiz = Math.abs(dx) > Math.abs(dy)*0.9;
-    if(horiz){ const i=TABS.indexOf(current); const edge=(dx>0&&i===0)||(dx<0&&i===TABS.length-1);
-      el.style.transform=`translateX(${edge?dx*0.25:dx}px)`; }
-  },{passive:true});
-  document.addEventListener("touchend", e=>{
-    if(!on) return; on=false; el.style.transform="";
-    const dx=e.changedTouches[0].clientX-sx; const fast=Math.abs(dx)/Math.max(1,Date.now()-st)>0.2;
-    if(!horiz || (Math.abs(dx)<28 && !(fast && Math.abs(dx)>12))) return;
-    const i=TABS.indexOf(current), j=dx<0?i+1:i-1;
-    if(j<0||j>=TABS.length) return;
-    show(TABS[j], dx<0?1:-1);
-  },{passive:true});
-  document.addEventListener("touchcancel", ()=>{ if(el) el.style.transform=""; on=false; },{passive:true});
-})();
-const savedTab=store.get("tab"); if(savedTab && TABS.includes(savedTab)) show(savedTab,0);
-function setHeadH(){ document.documentElement.style.setProperty("--head-h", document.getElementById("appHead").offsetHeight+"px"); }
-setHeadH(); addEventListener("resize", setHeadH);
-
-/* ---------- Off-line e instalação ---------- */
-function updateOffline(){ document.getElementById("offlineBadge").classList.toggle("show", !navigator.onLine); }
-addEventListener("online", updateOffline); addEventListener("offline", updateOffline); updateOffline();
-if("serviceWorker" in navigator){ addEventListener("load", ()=> navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).catch(()=>{})); }
-let deferredInstall=null;
-const installBtn=document.getElementById("openInstall"), sheet=document.getElementById("installSheet");
-const INST_KEY="instalado:calc"; let jaInst=false; try{ jaInst=localStorage.getItem(INST_KEY)==="1"; }catch(_){}
-if((matchMedia("(display-mode: standalone)").matches||navigator.standalone===true) && jaInst) installBtn.hidden=true;
-addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferredInstall=e; });
-installBtn.addEventListener("click", async ()=>{
-  if(deferredInstall){ deferredInstall.prompt(); const r=await deferredInstall.userChoice; deferredInstall=null; if(r&&r.outcome==="accepted") installBtn.hidden=true; return; }
-  if(matchMedia("(display-mode: standalone)").matches){ const pp=sheet.querySelector("p"); if(pp) pp.innerHTML="Esta tela abriu <b>dentro de outro app</b>, e daqui não dá para instalar. Abra o <b>Chrome pelo ícone dele</b>, digite o endereço abaixo e toque em <b>Instalar app</b>:<br><b style=\"word-break:break-all\">"+location.href.split("#")[0]+"</b>"; }
-  sheet.hidden=false;
-});
-document.getElementById("closeInstall").addEventListener("click", ()=> sheet.hidden=true);
-sheet.addEventListener("click", e=>{ if(e.target===sheet) sheet.hidden=true; });
-addEventListener("appinstalled",()=>{ installBtn.hidden=true; try{ localStorage.setItem(INST_KEY,"1"); }catch(_){} });
-</script>
+<datalist id="listaFazendas"></datalist><datalist id="listaTalhoes"></datalist><datalist id="listaEquip"></datalist>
+<script src="fazendas.js"></script>
+<script src="calcs.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
