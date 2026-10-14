@@ -433,15 +433,17 @@ addEventListener("online", updateOffline); addEventListener("offline", updateOff
 if("serviceWorker" in navigator){ addEventListener("load", ()=> navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).catch(()=>{})); }
 let deferredInstall=null;
 const installBtn=document.getElementById("openInstall"), sheet=document.getElementById("installSheet");
-if(matchMedia("(display-mode: standalone)").matches || navigator.standalone===true) installBtn.hidden=true;
+const INST_KEY="instalado:calc"; let jaInst=false; try{ jaInst=localStorage.getItem(INST_KEY)==="1"; }catch(_){}
+if((matchMedia("(display-mode: standalone)").matches||navigator.standalone===true) && jaInst) installBtn.hidden=true;
 addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferredInstall=e; });
 installBtn.addEventListener("click", async ()=>{
   if(deferredInstall){ deferredInstall.prompt(); const r=await deferredInstall.userChoice; deferredInstall=null; if(r&&r.outcome==="accepted") installBtn.hidden=true; return; }
+  if(matchMedia("(display-mode: standalone)").matches){ const pp=sheet.querySelector("p"); if(pp) pp.innerHTML="Esta tela abriu <b>dentro de outro app</b>, e daqui não dá para instalar. Abra o <b>Chrome pelo ícone dele</b>, digite o endereço abaixo e toque em <b>Instalar app</b>:<br><b style=\"word-break:break-all\">"+location.href.split("#")[0]+"</b>"; }
   sheet.hidden=false;
 });
 document.getElementById("closeInstall").addEventListener("click", ()=> sheet.hidden=true);
 sheet.addEventListener("click", e=>{ if(e.target===sheet) sheet.hidden=true; });
-addEventListener("appinstalled", ()=> installBtn.hidden=true);
+addEventListener("appinstalled",()=>{ installBtn.hidden=true; try{ localStorage.setItem(INST_KEY,"1"); }catch(_){} });
 </script>
 </body>
 </html>
