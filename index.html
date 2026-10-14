@@ -162,10 +162,18 @@
   </div>
 </div>
 <datalist id="listaFazendas"></datalist><datalist id="listaTalhoes"></datalist>
-<script src="daninhas/fazendas.js"></script>
-<script src="daninhas/dados.js"></script>
-<script src="base.js"></script>
-<script src="fichas.js"></script>
-<script src="app.js"></script>
+<script>
+/* Se algo falhar ao carregar (ex.: arquivo antigo guardado no celular), mostra aviso com botão para atualizar */
+window.addEventListener("error",function(e){ if(document.getElementById("falhaApp")) return; var d=document.createElement("div"); d.id="falhaApp";
+  d.style.cssText="position:fixed;left:12px;right:12px;top:12px;z-index:99;background:#fff3cd;color:#5d4200;border:2px solid #e0b400;border-radius:14px;padding:14px;font:600 16px system-ui";
+  d.innerHTML='O app não carregou direito (versão antiga guardada no celular).<br><button style="margin-top:10px;font:700 17px system-ui;padding:12px 16px;border-radius:12px;border:none;background:#1b5e20;color:#fff;width:100%">🔄 Atualizar o app</button>';
+  d.querySelector("button").onclick=function(){ Promise.resolve(window.caches?caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x.indexOf("guia-cana-")===0}).map(function(x){return caches.delete(x)}))}):0).then(function(){ location.reload(); }); };
+  document.body.appendChild(d); });
+</script>
+<script src="daninhas/fazendas.js?v=6"></script>
+<script src="daninhas/dados.js?v=6"></script>
+<script src="base.js?v=6"></script>
+<script src="fichas.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
