@@ -65,6 +65,12 @@
   .mod{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px 13px;text-decoration:none;color:var(--ink);min-height:118px;}
   .mod .e{font-size:30px;} .mod b{font-size:17px;} .mod small{font-size:13.5px;color:var(--soft);line-height:1.35;}
   .mod .ext{position:absolute;top:10px;right:10px;font-size:12px;color:var(--soft);}
+  .lista-mod{display:flex;flex-direction:column;gap:12px;}
+  .mod.lin{flex-direction:row;align-items:center;gap:14px;min-height:92px;padding:16px;}
+  .mod.lin .e{font-size:38px;width:52px;text-align:center;flex:none;} .mod.lin .tx{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
+  .mod.lin b{font-size:19px;} .mod.lin small{font-size:14.5px;}
+  .mod.lin .ext,.mod.lin .cnt,.mod.lin .chev{position:static;flex:none;font-size:22px;color:var(--soft);}
+  .mod.lin .cnt{font-size:14px;color:#fff;}
   .mod .cnt{position:absolute;top:10px;right:10px;background:var(--warn);color:#fff;border-radius:999px;font-size:12.5px;font-weight:800;padding:2px 8px;}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px;}
   .card h3{margin:0 0 6px;font-size:19px;}
@@ -135,17 +141,16 @@
 <div id="offlineBadge">Sem conexão — o guia e os registros continuam funcionando</div>
 <header class="app" id="appHead">
   <div class="hrow"><h1><a href="#/">🌿 Guia da Cana</a></h1><button id="openInstall" type="button">📲 Instalar app</button></div>
-  <div class="busca"><input id="q" type="search" placeholder="Buscar praga, doença, daninha, fazenda, talhão…" autocomplete="off" aria-label="Busca geral"></div>
+  <div class="busca"><input id="q" type="search" placeholder="Buscar praga, doença, daninha ou anotação…" autocomplete="off" aria-label="Busca geral"></div>
 </header>
 <main id="main"></main>
 <nav class="bottom" aria-label="Menu principal">
   <a href="#/" data-r="home"><span>🏠</span>Início</a>
   <a href="#/pragas" data-r="pragas"><span>🐛</span>Pragas</a>
-  <a href="#/nota/nova" data-r="nota"><span>📝</span>Anotar</a>
-  <a href="#/monit" data-r="monit"><span>📍</span>Monitorar</a>
-  <button type="button" id="menuBtn"><span>☰</span>Menu</button>
+  <a href="#/doencas" data-r="doencas"><span>🍂</span>Doenças</a>
+  <a href="#/notas" data-r="notas"><span>📝</span>Anotações</a>
+  <a href="#/rel" data-r="rel"><span>📊</span>Relatórios</a>
 </nav>
-<div id="menu" hidden><div class="sheet" role="dialog" aria-label="Todos os módulos"><div id="menuItens"></div><button class="btn sec full" type="button" id="menuFechar" style="margin-top:8px">Fechar</button></div></div>
 <div id="zoom" hidden><button type="button" aria-label="Fechar">✕</button><div id="zoomIn"></div></div>
 <div id="toast" hidden></div>
 <div id="installSheet" hidden>

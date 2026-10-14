@@ -49,17 +49,13 @@ const go=h=>{ location.hash=h; };
 const MODULOS=[
   {r:"#/pragas",e:"🐛",n:"Pragas",d:"Identificação, danos, monitoramento e manejo"},
   {r:"#/doencas",e:"🍂",n:"Doenças",d:"Sintomas, condições, prevenção e controle"},
-  {r:"daninhas/",e:"🌿",n:"Plantas daninhas",d:"Identificação, infestação e herbicidas por bula",ext:1},
-  {r:"calculadora/",e:"🧮",n:"Calculadora agrícola",d:"Campo, adubação, colheita, diesel e conversões",ext:1},
+  {r:"daninhas/",e:"🌿",n:"Plantas daninhas",d:"Identificação e herbicidas por bula",ext:1},
   {r:"#/notas",e:"📝",n:"Anotações de campo",d:"Ocorrências, fotos, vídeos e providências"},
-  {r:"#/cad",e:"🗺️",n:"Fazendas e talhões",d:"Cadastro usado por todos os módulos"},
-  {r:"#/monit",e:"📍",n:"Monitoramento",d:"Evolução das ocorrências por talhão"},
-  {r:"#/rel",e:"📊",n:"Relatórios",d:"Filtros, PDF, planilha e backup"}
+  {r:"#/rel",e:"📊",n:"Relatórios",d:"PDF, planilha e cópia de segurança"}
 ];
 async function render(){
-  $("#menu").hidden=true;
-  const h=location.hash.replace(/^#/,"")||"/"; const [_,r,...a]=h.split("/"); rota.nome=r||"home"; if(rota.nome!=="busca") $("#q").value="";
-  const grupo={praga:"pragas",doenca:"pragas",doencas:"pragas",sinais:"pragas",notas:"nota",nota:"nota",talhao:"monit"}[rota.nome]||rota.nome;
+    const h=location.hash.replace(/^#/,"")||"/"; const [_,r,...a]=h.split("/"); rota.nome=r||"home"; if(rota.nome!=="busca") $("#q").value="";
+  const grupo={praga:"pragas",doenca:"doencas",sinais:"pragas",nota:"notas"}[rota.nome]||rota.nome;
   $$("nav.bottom a").forEach(x=>x.classList.toggle("on",x.dataset.r===grupo));
   const fn=ROTAS[rota.nome]||ROTAS.home;
   try{ $("#main").innerHTML=await fn(...a.map(decodeURIComponent)); if(fn.after) await fn.after(...a.map(decodeURIComponent)); }
@@ -67,35 +63,25 @@ async function render(){
   if(!render.keep) scrollTo({top:0,behavior:"instant"}); render.keep=false;
 }
 addEventListener("hashchange",render);
-$("#menuItens").innerHTML=`<h2 class="tit" style="margin-top:0">Módulos</h2>`+[{r:"#/",e:"🏠",n:"Início",d:"Painel do Guia da Cana"},...MODULOS].map(m=>`<a class="item" href="${m.r}"><div class="thumb" style="width:48px;height:48px;font-size:24px">${m.e}</div><div class="t"><h4>${m.n}</h4><p>${m.d}${m.ext?" · abre o app":""}</p></div><div class="chev">›</div></a>`).join("");
-$("#menuBtn").onclick=()=>{ $("#menu").hidden=false; }; $("#menuFechar").onclick=()=>{ $("#menu").hidden=true; }; $("#menu").onclick=e=>{ if(e.target.id==="menu") $("#menu").hidden=true; };
 
 /* ---------- Início ---------- */
 ROTAS.home=async()=>{
   const ns=await notasTodas(); const pend=ns.filter(n=>n.situacao==="Pendente"||n.situacao==="Em andamento").length;
-  const tals=(await todos("guia","talhoes")).length;
-  return `<div class="grid">${MODULOS.map(m=>`<a class="mod" href="${m.r}"><span class="e">${m.e}</span><b>${m.n}</b><small>${m.d}</small>
-      ${m.ext?`<span class="ext">abre o app ↗</span>`:""}${m.r==="#/notas"&&pend?`<span class="cnt">${pend}</span>`:""}</a>`).join("")}</div>
-    <div class="sec-t">Resumo neste aparelho</div>
-    <div class="stat"><div><b>${ns.length}</b><span>anotações</span></div><div><b style="color:${pend?"var(--warn)":"inherit"}">${pend}</b><span>pendentes ou em andamento</span></div>
-      <div><b>${tals}</b><span>talhões cadastrados</span></div><div><b>${PRAGAS.length+DOENCAS.length}</b><span>fichas de pragas e doenças</span></div></div>
-    <div class="info" style="margin-top:14px">Os registros ficam <b>só neste celular</b>, no navegador. Não existe servidor de sincronização. Faça backup em <a href="#/rel">Relatórios</a>.</div>`;
+  return `<div class="lista-mod">${MODULOS.map(m=>`<a class="mod lin" href="${m.r}"><span class="e">${m.e}</span><span class="tx"><b>${m.n}</b><small>${m.d}</small></span>
+      ${m.r==="#/notas"&&pend?`<span class="cnt">${pend}</span>`:m.ext?`<span class="ext">↗</span>`:`<span class="chev">›</span>`}</a>`).join("")}</div>
+    <div class="btns"><a class="btn full" href="#/nota/nova">📝 Nova anotação</a></div>`;
 };
 
 /* ---------- Busca geral ---------- */
 $("#q").addEventListener("input",()=>{ if(rota.nome!=="busca") go("#/busca"); else { render.keep=true; render(); } });
 ROTAS.busca=async()=>{
-  const q=norm($("#q").value.trim()); if(!q) return `<div class="vazio">Digite o nome de uma praga, doença, planta daninha, fazenda ou talhão.</div>`;
+  const q=norm($("#q").value.trim()); if(!q) return `<div class="vazio">Digite o nome de uma praga, doença, planta daninha ou palavra de uma anotação.</div>`;
   const it=ITENS.filter(x=>norm(`${x.nome} ${x.cientifico} ${x.agente||""} ${x.desc}`).includes(q));
   const dn=(typeof DANINHAS!=="undefined"?DANINHAS:[]).filter(w=>norm(`${w.nome} ${w.sci} ${w.fam}`).includes(q));
-  const fz=Object.entries(FAZENDAS).filter(([c,n])=>c.startsWith(q)||norm(n).includes(q)).slice(0,15);
-  const tl=(await todos("guia","talhoes")).filter(t=>norm(`${t.talhao} ${t.cod} ${fazNome(t.cod)} ${t.variedade||""}`).includes(q));
-  const ns=(await notasTodas()).filter(n=>norm(`${n.desc} ${n.faz} ${n.talhao} ${n.cat} ${n.alvoNome||""} ${n.prov||""}`).includes(q)).slice(0,20);
-  if(!it.length&&!dn.length&&!fz.length&&!tl.length&&!ns.length) return `<div class="vazio">Nada encontrado para "<b>${esc($("#q").value)}</b>".</div>`;
+  const ns=(await notasTodas()).filter(n=>norm(`${n.desc} ${n.cod} ${n.faz} ${n.talhao} ${n.cat} ${n.alvoNome||""} ${n.prov||""}`).includes(q)).slice(0,20);
+  if(!it.length&&!dn.length&&!ns.length) return `<div class="vazio">Nada encontrado para "<b>${esc($("#q").value)}</b>".</div>`;
   return `${it.length?`<h2 class="tit">Pragas e doenças</h2>`+it.map(itemCard).join(""):""}
     ${dn.length?`<h2 class="tit">Plantas daninhas</h2>`+dn.map(w=>`<a class="item" href="daninhas/#/daninha/${w.id}"><div class="thumb">${w.ic}</div><div class="t"><h4>${esc(w.nome)}</h4><p class="sci">${esc(w.sci)}</p><p>abre no app Daninhas ↗</p></div></a>`).join(""):""}
-    ${tl.length?`<h2 class="tit">Talhões cadastrados</h2>`+tl.map(talCard).join(""):""}
-    ${fz.length?`<h2 class="tit">Fazendas</h2>`+fz.map(([c,n])=>`<a class="item" href="#/cad/${c}"><div class="thumb">🏡</div><div class="t"><h4>${esc(n)}</h4><p>Código ${c}</p></div><div class="chev">›</div></a>`).join(""):""}
     ${ns.length?`<h2 class="tit">Anotações</h2>`+ns.map(notaCard).join(""):""}`;
 };
 
@@ -143,59 +129,10 @@ function ficha(id){
 }
 ROTAS.praga=ficha; ROTAS.doenca=ficha;
 
-/* ---------- Fazendas e talhões (cadastro compartilhado) ---------- */
 async function listasLocal(cod){
   $("#listaFazendas").innerHTML=Object.entries(FAZENDAS).map(([c,n])=>`<option value="${esc(n)}">${c}</option>`).join("");
-  $("#listaTalhoes").innerHTML=(await todos("guia","talhoes")).filter(t=>!cod||t.cod===cod).map(t=>`<option value="${esc(t.talhao)}">${t.area?fmt(t.area,2)+" ha":""}</option>`).join("");
+  $("#listaTalhoes").innerHTML=(await todos("guia","talhoes")).filter(t=>!cod||t.cod===cod).map(t=>`<option value="${esc(t.talhao)}"></option>`).join("");
 }
-const talCard=t=>`<a class="item" href="#/talhao/${encodeURIComponent(t.id)}"><div class="thumb">🗺️</div><div class="t"><h4>${esc(fazNome(t.cod)||t.cod)} · Talhão ${esc(t.talhao)}</h4><p>${[t.area?fmt(t.area,2)+" ha":"",t.variedade,t.estagio,t.solo].filter(Boolean).map(esc).join(" · ")||"sem detalhes"}</p></div><div class="chev">›</div></a>`;
-ROTAS.cad=async(cod,talEd)=>{
-  const ts=(await todos("guia","talhoes")).sort((a,b)=>a.id.localeCompare(b.id));
-  if(!cod) return `<h2 class="tit">Fazendas e talhões</h2><p class="sub">Cadastro usado pelas anotações, pelo monitoramento e pela Calculadora. Os nomes das ${Object.keys(FAZENDAS).length} fazendas já vêm da planilha.</p>
-    <div class="card"><label class="lb" for="cadCod">Código ou nome da fazenda</label><input class="f" id="cadCod" list="listaFazendas" placeholder="ex.: 10003 ou PEDRA">
-      <div class="btns"><button class="btn" id="cadAbrir" type="button">Abrir fazenda</button></div></div>
-    <input class="f" id="busTal" type="search" placeholder="Buscar talhão cadastrado" style="margin-bottom:10px">
-    <div id="lsTal">${ts.map(talCard).join("")||`<div class="vazio">Nenhum talhão cadastrado ainda.</div>`}</div>`;
-  const fz=await pega("guia","fazendas",cod)||{cod,nome:fazNome(cod)};
-  const tf=ts.filter(t=>t.cod===cod); const ed=talEd?tf.find(t=>t.id===talEd):null; const r=ed||{};
-  return `<a class="btn sec peq" href="#/cad">‹ Fazendas</a>
-    <form class="card" id="fzF" style="margin-top:10px"><h3>${esc(fz.nome||"Fazenda")} <small style="color:var(--soft)">· código ${esc(cod)}</small></h3>
-      ${!fazNome(cod)?`<div class="aviso">Código não encontrado na planilha de fazendas. Confira o número.</div>`:""}
-      <div class="fields"><div class="full"><label class="lb" for="fz-nome">Nome</label><input class="f" id="fz-nome" value="${esc(fz.nome||"")}"></div>
-        <div><label class="lb" for="fz-mun">Município</label><input class="f" id="fz-mun" value="${esc(fz.municipio||"")}"></div>
-        <div><label class="lb" for="fz-area">Área total (ha)</label><input class="f" id="fz-area" inputmode="decimal" value="${fz.areaTotal!=null?String(fz.areaTotal).replace(".",","):""}"></div>
-        <div><label class="lb" for="fz-resp">Responsável</label><input class="f" id="fz-resp" value="${esc(fz.resp||"")}"></div>
-        <div><label class="lb" for="fz-reg">Unidade / região</label><input class="f" id="fz-reg" value="${esc(fz.regiao||"")}"></div>
-        <div class="full"><label class="lb" for="fz-obs">Observações</label><textarea class="f" id="fz-obs">${esc(fz.obs||"")}</textarea></div></div>
-      <div class="btns"><button class="btn" type="submit">💾 Salvar fazenda</button></div></form>
-    <form class="card" id="tlF"><h3>${ed?"Editar talhão "+esc(ed.talhao):"Cadastrar talhão"}</h3><div class="fields">
-      <div><label class="lb" for="tl-tal">Talhão *</label><input class="f" id="tl-tal" value="${esc(r.talhao||"")}" ${ed?"readonly":""}></div>
-      <div><label class="lb" for="tl-area">Área (ha)</label><input class="f" id="tl-area" inputmode="decimal" value="${r.area!=null?String(r.area).replace(".",","):""}"></div>
-      <div><label class="lb" for="tl-var">Variedade</label><input class="f" id="tl-var" value="${esc(r.variedade||"")}"></div>
-      <div><label class="lb" for="tl-tipo">Tipo de canavial</label><select class="f" id="tl-tipo"><option value="">Não informado</option>${["Cana-planta","Cana-soca"].map(o=>`<option${o===r.tipo?" selected":""}>${o}</option>`).join("")}</select></div>
-      <div><label class="lb" for="tl-est">Estágio / ciclo</label><input class="f" id="tl-est" value="${esc(r.estagio||"")}" placeholder="ex.: 3º corte"></div>
-      <div><label class="lb" for="tl-data">Plantio / último corte</label><input class="f" type="date" id="tl-data" value="${esc(r.dataRef||"")}"></div>
-      <div class="full"><label class="lb" for="tl-solo">Tipo de solo</label><select class="f" id="tl-solo"><option value="">Não informado</option>${["Arenoso","Textura média","Argiloso"].map(o=>`<option${o===r.solo?" selected":""}>${o}</option>`).join("")}</select></div>
-      <div class="full"><label class="lb" for="tl-obs">Observações</label><textarea class="f" id="tl-obs">${esc(r.obs||"")}</textarea></div></div>
-      <div class="btns"><button class="btn" type="submit">💾 ${ed?"Salvar alteração":"Cadastrar"}</button>${ed?`<a class="btn sec" href="#/cad/${cod}">Novo talhão</a><button class="btn sec" type="button" id="tlDel">🗑️ Excluir</button>`:""}</div></form>
-    <h3>Talhões desta fazenda (${tf.length})</h3>${tf.map(t=>talCard(t).replace(`href="#/talhao/`,`data-ed="${esc(t.id)}" href="#/talhao/`)).join("")||`<div class="vazio">Nenhum talhão.</div>`}
-    ${tf.length?`<p class="sub">Para editar, abra o talhão e toque em "Editar cadastro".</p>`:""}`;
-};
-ROTAS.cad.after=async(cod,talEd)=>{
-  await listasLocal(cod);
-  if(!cod){ $("#cadAbrir").onclick=()=>{ const v=$("#cadCod").value.trim(); const c=/^\d+$/.test(v)?v:(Object.entries(FAZENDAS).find(([k,n])=>n.toUpperCase()===v.toUpperCase())||[])[0]; if(!c){ toast("Fazenda não encontrada",1); return; } go("#/cad/"+c); };
-    $("#busTal").oninput=e=>{ const q=norm(e.target.value); $$("#lsTal .item").forEach(a=>a.hidden=q&&!norm(a.textContent).includes(q)); }; return; }
-  $("#fzF").onsubmit=async e=>{ e.preventDefault(); const ant=await pega("guia","fazendas",cod); const a=parseNum($("#fz-area").value);
-    if($("#fz-area").value.trim()&&!(a>0)){ toast("Área total inválida",1); return; }
-    try{ await grava("guia","fazendas",carimbo({...(ant||{}),cod,nome:$("#fz-nome").value.trim()||fazNome(cod),municipio:$("#fz-mun").value.trim(),areaTotal:a>0?a:null,resp:$("#fz-resp").value.trim(),regiao:$("#fz-reg").value.trim(),obs:$("#fz-obs").value.trim()})); toast("Fazenda salva neste aparelho"); }catch(err){ toast("Não foi possível salvar: "+err.message,1); } };
-  $("#tlF").onsubmit=async e=>{ e.preventDefault(); const tal=$("#tl-tal").value.trim(); if(!tal){ toast("Informe o talhão",1); return; }
-    const id=talId(cod,tal), ant=await pega("guia","talhoes",id); if(ant&&!talEd){ toast("Esse talhão já existe — abri para editar"); go(`#/cad/${cod}/${encodeURIComponent(id)}`); return; }
-    const a=parseNum($("#tl-area").value); if($("#tl-area").value.trim()&&!(a>0)){ toast("Área inválida",1); return; }
-    try{ await grava("guia","talhoes",carimbo({...(ant||{}),id,cod,talhao:tal.toUpperCase(),area:a>0?a:null,variedade:$("#tl-var").value.trim(),tipo:$("#tl-tipo").value,estagio:$("#tl-est").value.trim(),dataRef:$("#tl-data").value,solo:$("#tl-solo").value,obs:$("#tl-obs").value.trim()}));
-      toast(ant?"Talhão atualizado":"Talhão cadastrado"); go(`#/cad/${cod}`); render(); }catch(err){ toast("Não foi possível salvar: "+err.message,1); } };
-  const d=$("#tlDel"); if(d) d.onclick=async()=>{ if(d.dataset.ok!=="1"){ d.dataset.ok="1"; d.textContent="Toque de novo para excluir"; return; } await apaga("guia","talhoes",talEd); toast("Talhão excluído"); go(`#/cad/${cod}`); };
-};
-
 /* ---------- Anotações de campo ---------- */
 const filN=Object.assign({q:"",de:"",ate:"",cod:"",tal:"",cat:"",sit:""},LS.get("filN",{}));
 const passaN=n=>(!filN.de||n.data>=filN.de)&&(!filN.ate||n.data<=filN.ate)&&(!filN.cod||n.cod===filN.cod)&&(!filN.tal||norm(n.talhao)===norm(filN.tal))&&(!filN.cat||n.cat===filN.cat)&&(!filN.sit||(n.situacao||"Sem situação")===filN.sit)
@@ -241,8 +178,7 @@ ROTAS.nota=async(id,catPre,alvoPre)=>{
     <div><label class="lb" for="n-faz">Fazenda</label><input class="f" id="n-faz" list="listaFazendas" value="${esc(n.faz)}"></div>
     <div><label class="lb" for="n-tal">Talhão</label><input class="f" id="n-tal" list="listaTalhoes" value="${esc(n.talhao)}"></div>
     <div><label class="lb" for="n-resp">Responsável</label><input class="f" id="n-resp" value="${esc(n.resp||"")}"></div>
-    <div class="full"><span class="sub" id="n-talInfo"></span></div>
-    <div class="full"><label class="lb" for="n-cat">Categoria</label>${sel("n-cat",CATS,n.cat,"Escolha…")}</div>
+        <div class="full"><label class="lb" for="n-cat">Categoria</label>${sel("n-cat",CATS,n.cat,"Escolha…")}</div>
     <div class="full" id="n-alvoBox"></div>
     <div class="full"><label class="lb" for="n-desc">Descrição *</label><textarea class="f" id="n-desc" placeholder="O que foi observado no campo…">${esc(n.desc)}</textarea></div>
     <div><label class="lb" for="n-int">Intensidade</label>${sel("n-int",["Baixa","Média","Alta","Muito alta"],n.intens)}</div>
@@ -261,10 +197,8 @@ ROTAS.nota.after=async(id,catPre,alvoPre)=>{
   const rec=ant?normNota(ant):{id:uid()};
   const cod=$("#n-cod"), faz=$("#n-faz"), tal=$("#n-tal");
   await listasLocal(cod.value);
-  const talInfo=async()=>{ const t=await pega("guia","talhoes",talId(cod.value,tal.value)); $("#n-talInfo").innerHTML = !tal.value?"": t?`✓ Talhão cadastrado: ${[t.area?fmt(t.area,2)+" ha":"",t.variedade,t.estagio,t.solo].filter(Boolean).map(esc).join(" · ")}`:`Talhão não cadastrado. <a href="#/cad/${esc(cod.value)}">Cadastrar</a>`; };
-  cod.addEventListener("input",()=>{ cod.value=cod.value.replace(/\D/g,""); if(FAZENDAS[cod.value]) faz.value=FAZENDAS[cod.value]; listasLocal(cod.value); talInfo(); });
-  faz.addEventListener("input",()=>{ const c=Object.entries(FAZENDAS).filter(([k,v])=>v.toUpperCase()===faz.value.trim().toUpperCase()); if(c.length===1){ cod.value=c[0][0]; listasLocal(cod.value); } talInfo(); });
-  tal.addEventListener("input",talInfo); talInfo();
+  cod.addEventListener("input",()=>{ cod.value=cod.value.replace(/\D/g,""); if(FAZENDAS[cod.value]) faz.value=FAZENDAS[cod.value]; listasLocal(cod.value); });
+  faz.addEventListener("input",()=>{ const c=Object.entries(FAZENDAS).filter(([k,v])=>v.toUpperCase()===faz.value.trim().toUpperCase()); if(c.length===1){ cod.value=c[0][0]; listasLocal(cod.value); } });
   const alvoBox=()=>{ const c=$("#n-cat").value, v=rec.alvo||alvoPre||""; let h="";
     if(c==="Praga"||c==="Doença"){ const xs=ITENS.filter(x=>x.tipo===(c==="Praga"?"praga":"doenca"));
       h=`<div class="fields"><div class="full"><label class="lb" for="n-alvo">${c==="Praga"?"Praga":"Doença"}</label><select class="f" id="n-alvo"><option value="">Não identificada</option>${xs.map(x=>`<option value="${x.id}"${x.id===v?" selected":""}>${esc(x.nome)}</option>`).join("")}</select></div>
@@ -308,48 +242,6 @@ ROTAS.nota.after=async(id,catPre,alvoPre)=>{
 };
 async function reduz(file,max=1600){ try{ const bmp=await createImageBitmap(file); const k=Math.min(1,max/Math.max(bmp.width,bmp.height)); const c=document.createElement("canvas"); c.width=Math.round(bmp.width*k); c.height=Math.round(bmp.height*k); c.getContext("2d").drawImage(bmp,0,0,c.width,c.height); return await new Promise(ok=>c.toBlob(b=>ok(b||file),"image/jpeg",.85)); }catch(_){ return file; } }
 
-/* ---------- Monitoramento ---------- */
-async function eventosTalhao(){
-  const ev=[];
-  (await notasTodas()).forEach(n=>ev.push({k:talId(n.cod,n.talhao),data:n.data,tipo:"nota",cat:n.cat||"Outros",sit:n.situacao,n}));
-  const dnV=await todos("dan","vistorias"); dnV.forEach(v=>ev.push({k:talId(v.cod,v.talhao),data:v.data,tipo:"daninha",cat:"Planta daninha",sit:v.acomp==="Sim"?"Em andamento":"",v}));
-  const dnA=await todos("dan","aplicacoes"); dnA.forEach(a=>ev.push({k:talId(a.cod,a.talhao),data:a.data,tipo:"aplic",cat:"Aplicação de herbicida",a}));
-  const cs=await todos("guia","calculos"); cs.forEach(c=>ev.push({k:talId(c.cod,c.talhao),data:(c.quando||"").slice(0,10),tipo:"calc",cat:"Cálculo",c}));
-  return ev;
-}
-const barras=obj=>{ const e=Object.entries(obj).sort((a,b)=>b[1]-a[1]); const mx=Math.max(1,...e.map(x=>x[1])); return `<div class="bars">${e.map(([k,v])=>`<div class="bar"><span>${esc(k)}</span><i style="width:${v/mx*100}%"></i><b>${v}</b></div>`).join("")}</div>`; };
-ROTAS.monit=async()=>{
-  const ev=await eventosTalhao(); const ocorr=ev.filter(e=>e.tipo==="nota"||e.tipo==="daninha");
-  if(!ocorr.length) return `<h2 class="tit">Monitoramento</h2><div class="vazio">Ainda não há ocorrências registradas.<br><a class="btn" href="#/nota/nova" style="margin-top:12px">📝 Registrar a primeira</a></div>`;
-  const porCat={}, porMes={}, porSit={"Pendente":0,"Em andamento":0,"Concluída":0}; const porTal={};
-  ocorr.forEach(e=>{ porCat[e.cat]=(porCat[e.cat]||0)+1; const m=(e.data||"").slice(0,7); if(m) porMes[m.split("-").reverse().join("/")]=(porMes[m.split("-").reverse().join("/")]||0)+1; if(e.sit in porSit) porSit[e.sit]++; (porTal[e.k] ||= []).push(e); });
-  const tals=await todos("guia","talhoes");
-  return `<h2 class="tit">Monitoramento</h2><div class="btns" style="margin-top:0"><a class="btn" href="#/nota/nova">📝 Nova ocorrência</a><a class="btn sec" href="daninhas/#/vistoria/nova">🌿 Vistoria de daninhas ↗</a></div>
-    <div class="stat" style="margin-top:14px"><div><b style="color:var(--warn)">${porSit["Pendente"]}</b><span>novas / pendentes</span></div><div><b style="color:var(--mid)">${porSit["Em andamento"]}</b><span>em acompanhamento</span></div>
-      <div><b style="color:var(--ok)">${porSit["Concluída"]}</b><span>resolvidas</span></div><div><b>${Object.keys(porTal).length}</b><span>talhões com ocorrência</span></div></div>
-    <div class="card" style="margin-top:14px"><h3>Por categoria</h3>${barras(porCat)}</div>
-    <div class="card"><h3>Por mês</h3>${barras(porMes)}</div>
-    <h3>Talhões</h3>${Object.entries(porTal).sort((a,b)=>b[1].length-a[1].length).map(([k,l])=>{ const [cod,t]=k.split("|"); const tc=tals.find(x=>x.id===k); const pend=l.filter(e=>e.sit==="Pendente"||e.sit==="Em andamento").length;
-      return `<a class="item" href="#/talhao/${encodeURIComponent(k)}"><div class="thumb">🗺️</div><div class="t"><h4>${esc(fazNome(cod)||cod)} · Talhão ${esc(t)}</h4><p>${l.length} ocorrência(s)${pend?` · <b style="color:var(--warn)">${pend} em aberto</b>`:""}${tc&&tc.area?" · "+fmt(tc.area,2)+" ha":""}</p></div><div class="chev">›</div></a>`; }).join("")}
-    <p class="sub">Inclui as anotações deste app e as vistorias do app Daninhas feitas neste celular. Mapa de infestação não aparece porque o app ainda não tem os contornos dos talhões.</p>`;
-};
-ROTAS.talhao=async(k)=>{
-  const [cod,t]=k.split("|"); const tc=await pega("guia","talhoes",k); const ev=(await eventosTalhao()).filter(e=>e.k===k).sort((a,b)=>(b.data||"").localeCompare(a.data||""));
-  const nomeDan=id=>(typeof DANINHAS!=="undefined"&&DANINHAS.find(w=>w.id===id)?.nome)||id||"—";
-  return `<a class="btn sec peq" href="#/monit">‹ Monitoramento</a>
-    <div class="card" style="margin-top:10px"><h2 class="tit" style="margin:0">${esc(fazNome(cod)||cod)} · Talhão ${esc(t)}</h2>
-      ${tc?`<p class="sub" style="margin:6px 0 0">${[tc.area?fmt(tc.area,2)+" ha":"",tc.tipo,tc.variedade,tc.estagio,tc.solo?"Solo "+tc.solo.toLowerCase():""].filter(Boolean).map(esc).join(" · ")}</p><div class="btns"><a class="btn sec peq" href="#/cad/${esc(cod)}/${encodeURIComponent(k)}">✏️ Editar cadastro</a></div>`
-          :`<p class="sub" style="margin:6px 0 0">Talhão não cadastrado. <a href="#/cad/${esc(cod)}">Cadastrar</a></p>`}
-      <div class="btns"><a class="btn" href="#/nota/nova">📝 Nova ocorrência</a></div></div>
-    <h3>Histórico (${ev.length})</h3>
-    ${ev.length?`<div class="hist">${ev.map(e=>`<div class="ev"><small>${dataBR(e.data)}</small><br>${
-      e.tipo==="nota"?`<a href="#/nota/${e.n.id}"><b>${esc(e.n.cat||"Anotação")}${e.n.alvoNome?": "+esc(e.n.alvoNome):""}</b></a> ${sitBadge(e.n.situacao)}<br><span>${esc((e.n.desc||"").slice(0,140))}</span>`
-      :e.tipo==="daninha"?`<a href="daninhas/#/vistoria/${e.v.id}"><b>Planta daninha: ${esc(e.v.esp==="outra"?(e.v.outra||"outra"):nomeDan(e.v.esp))}</b></a> <span class="badge b-ref">app Daninhas</span><br><span>${esc([e.v.nivel&&"Infestação "+e.v.nivel.toLowerCase(),e.v.estd,e.v.dist].filter(Boolean).join(" · "))}</span>`
-      :e.tipo==="aplic"?`<a href="daninhas/#/aplicacao/${e.a.id}"><b>Aplicação: ${esc(e.a.produto)}</b></a> <span class="badge b-ref">app Daninhas</span><br><span>${esc(e.a.resultado||"resultado não avaliado")}</span>`
-      :`<a href="calculadora/#/h/${e.c.id}"><b>Cálculo: ${esc(e.c.titulo)}</b></a> <span class="badge b-ref">Calculadora</span><br><span>${esc((e.c.rows.find(r=>r.main)||e.c.rows[0]||{}).label||"")}: ${(()=>{ const r=e.c.rows.find(r=>r.main)||e.c.rows[0]; return r?esc(fmt(r.val,r.dec)+" "+r.unit):""; })()}</span>`}</div>`).join("")}</div>`
-    :`<div class="vazio">Nenhum registro neste talhão.</div>`}`;
-};
-
 /* ---------- Relatórios e backup ---------- */
 const filR=Object.assign({de:"",ate:"",cod:"",tal:"",cat:"",alvo:"",resp:"",sit:""},LS.get("filR",{}));
 const passaR=n=>(!filR.de||n.data>=filR.de)&&(!filR.ate||n.data<=filR.ate)&&(!filR.cod||n.cod===filR.cod)&&(!filR.tal||norm(n.talhao)===norm(filR.tal))&&(!filR.cat||n.cat===filR.cat)
@@ -378,7 +270,7 @@ ROTAS.rel=async()=>{
     <p class="sub" style="margin:0 0 6px">${dataBR(n.data)} ${n.hora||""} · ${esc(n.cod?n.cod+" — ":"")}${esc(n.faz||"—")} · Talhão ${esc(n.talhao||"—")}${n.resp?" · "+esc(n.resp):""}${n.diag?" · "+esc(n.diag):""}</p>
     <p style="white-space:pre-wrap;margin:6px 0">${esc(n.desc)}</p>${n.prov?`<p><b>Providência:</b> ${esc(n.prov)}</p>`:""}${n.intens||n.prioridade?`<p class="sub">${n.intens?"Intensidade "+esc(n.intens):""}${n.prioridade?" · Prioridade "+esc(n.prioridade):""}</p>`:""}
     ${n.midias.length?`<div class="midias">${n.midias.map(m=>m.type==="video"?`<div class="m"><video src="${urlDe(m.blob)}" data-zoom="1" muted></video><span class="v">▶ vídeo</span></div>`:`<div class="m"><img src="${urlDe(m.blob)}" data-zoom="1" alt=""></div>`).join("")}</div>`:""}</div>`).join("")||`<div class="vazio">Nenhuma ocorrência com esses filtros.</div>`}
-  <div class="card noprint"><h3>Cópia de segurança</h3><p class="sub">Leva as anotações (com fotos e vídeos) e o cadastro de fazendas e talhões. Use para trocar de celular ou não perder nada.</p>
+  <div class="card noprint"><h3>Cópia de segurança</h3><p class="sub">Leva as anotações com fotos (e vídeos, se marcar). Use para trocar de celular ou não perder nada.</p>
     <label style="display:flex;gap:8px;align-items:center;font-size:15.5px;margin-bottom:8px"><input type="checkbox" id="bkVid"> Incluir vídeos (arquivo fica bem maior)</label>
     <div class="btns"><button class="btn" id="bk">💾 Gerar backup</button><label class="btn sec" for="rs">♻️ Restaurar backup</label></div><input type="file" id="rs" accept=".json,application/json" class="vh"></div>
   <div class="info noprint"><b>Onde ficam os dados:</b> só neste celular, dentro do navegador. Nada é enviado a servidor. ${est} ${pers===true?"O armazenamento está protegido contra limpeza automática.":pers===false?"O navegador pode apagar os dados se faltar espaço: faça backup com frequência.":""}<br><br>
