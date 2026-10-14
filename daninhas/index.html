@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daninhas da Cana</title>
+<meta name="theme-color" content="#0f4c52">
+<meta name="description" content="Guia das plantas daninhas dos canaviais de São Paulo, com opções de herbicidas e dose por tipo de solo.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  /* Layout: cabeçalho fixo, filtro de solo e cana sempre à mão, abas com arrasto, ficha de cada planta */
+  :root{
+    --bg:#f2f5f4; --card:#ffffff; --ink:#132322; --soft:#526361; --line:#d3dedc;
+    --accent:#0f7a6f; --accent-strong:#0b4f49; --tint:#dff0ed;
+    --ok:#2e7d32; --ok-tint:#e3f1e1; --warn:#a1461a; --warn-tint:#fbe5d9;
+    --head-bg:#0f4c52; --head-ink:#ffffff; --on-accent:#ffffff; --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0c1413; --card:#15201f; --ink:#e9f2f0; --soft:#a6b8b5; --line:#263735;
+      --accent:#4fd1c0; --accent-strong:#8fe6da; --tint:#173230;
+      --ok:#7fd383; --ok-tint:#1d2a1b; --warn:#f2a37b; --warn-tint:#3a2318;
+      --head-bg:#0b3438; --head-ink:#eef7f6; --on-accent:#08201e; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c1413; --card:#15201f; --ink:#e9f2f0; --soft:#a6b8b5; --line:#263735;
+    --accent:#4fd1c0; --accent-strong:#8fe6da; --tint:#173230;
+    --ok:#7fd383; --ok-tint:#1d2a1b; --warn:#f2a37b; --warn-tint:#3a2318;
+    --head-bg:#0b3438; --head-ink:#eef7f6; --on-accent:#08201e; color-scheme:dark;
+  }
+  *{box-sizing:border-box;}
+  [hidden]{display:none!important;}
+  :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:17px;overflow-x:clip;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
+  button,input{font-family:inherit;}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  #offlineBadge{display:none;background:#5d4037;color:#fff;text-align:center;font-size:13px;padding:6px 8px;}
+  #offlineBadge.show{display:block;}
+  header.app{position:sticky;top:0;z-index:20;background:var(--head-bg);color:var(--head-ink);display:flex;align-items:center;gap:12px;
+    padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));box-shadow:0 2px 8px rgba(0,0,0,.2);}
+  header.app .htxt{flex:1;min-width:0;}
+  header.app h1{margin:0;font-size:21px;font-weight:800;}
+  header.app p{margin:2px 0 0;font-size:14px;opacity:.85;}
+  #openInstall{flex-shrink:0;background:rgba(255,255,255,.14);color:var(--head-ink);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:9px 14px;font-size:14.5px;font-weight:700;}
+  .filtro{background:var(--card);border-bottom:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));}
+  .filtro .in{max-width:640px;margin:0 auto;display:grid;gap:8px;}
+  .filtro .lb{font-size:13.5px;font-weight:700;color:var(--soft);margin-bottom:4px;}
+  .seg{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .seg button{flex:1;background:none;border:none;padding:11px 4px;font-size:16px;font-weight:700;color:var(--soft);}
+  .seg button+button{border-left:1px solid var(--line);}
+  .seg button.on{background:var(--accent);color:var(--on-accent);}
+  nav.tabs{position:sticky;top:var(--head-h,62px);z-index:19;display:flex;background:var(--card);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;}
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{flex:1 0 auto;padding:14px 12px;background:none;border:none;font-size:16px;font-weight:700;color:var(--soft);border-bottom:3px solid transparent;white-space:nowrap;}
+  nav.tabs button.active{color:var(--accent-strong);border-bottom-color:var(--accent);}
+  main{padding:14px max(16px,env(safe-area-inset-right,0px)) 60px max(16px,env(safe-area-inset-left,0px));max-width:672px;margin:0 auto;touch-action:pan-y;}
+  .hint{text-align:center;font-size:13.5px;color:var(--soft);margin:0 0 12px;}
+  .aviso{background:var(--warn-tint);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.45;margin-bottom:14px;}
+  .aviso b{color:var(--warn);}
+  .view{display:none;will-change:transform;} .view.active{display:block;}
+  .view.slide-l{animation:slideL .14s ease-out;} .view.slide-r{animation:slideR .14s ease-out;}
+  @keyframes slideL{from{transform:translateX(28%)}to{transform:none}}
+  @keyframes slideR{from{transform:translateX(-28%)}to{transform:none}}
+  @media (prefers-reduced-motion: reduce){.view.slide-l,.view.slide-r{animation:none;}}
+  .item{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:12px;width:100%;text-align:left;color:var(--ink);}
+  .thumb{width:84px;height:84px;border-radius:12px;flex-shrink:0;background:var(--tint);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;}
+  .thumb img{width:100%;height:100%;object-fit:cover;}
+  .item .t{flex:1;min-width:0;}
+  .item h3{margin:0 0 3px;font-size:19px;}
+  .item p{margin:0;font-size:15px;color:var(--soft);font-style:italic;}
+  .item .n{font-size:14px;color:var(--accent-strong);font-weight:700;margin-top:4px;font-style:normal;}
+  .item .chev{font-size:24px;color:var(--soft);}
+  .back{background:none;border:none;color:var(--accent-strong);font-size:17px;font-weight:700;padding:4px 0 12px;}
+  .ficha{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px;}
+  .ficha h2{margin:0 0 2px;font-size:24px;}
+  .ficha .sci{margin:0 0 12px;font-size:16px;font-style:italic;color:var(--soft);}
+  .foto{border-radius:12px;background:var(--tint);min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px;margin-bottom:12px;}
+  .foto img{width:100%;max-height:320px;object-fit:cover;border-radius:10px;}
+  .foto .vazio{font-size:15px;color:var(--soft);line-height:1.4;}
+  .fbtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+  .fbtn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--on-accent);border:none;border-radius:10px;padding:11px 14px;font-size:15.5px;font-weight:700;cursor:pointer;text-decoration:none;}
+  .fbtn.sec{background:var(--card);color:var(--accent-strong);border:1px solid var(--line);}
+  .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);opacity:0;}
+  .ficha h4{margin:14px 0 6px;font-size:17px;color:var(--accent-strong);}
+  .ficha ul{margin:0;padding-left:22px;font-size:17px;line-height:1.55;}
+  .ficha .obs{margin:10px 0 0;font-size:15.5px;line-height:1.5;background:var(--tint);border-radius:10px;padding:10px 12px;}
+  .herb{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px;}
+  .herb.na{opacity:.62;}
+  .herb .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
+  .herb h5{margin:0;font-size:17.5px;}
+  .herb .ref{font-size:14.5px;color:var(--soft);margin-top:2px;}
+  .herb .dose{font-size:20px;font-weight:800;color:var(--accent-strong);margin-top:8px;font-variant-numeric:tabular-nums;}
+  .herb .dose small{font-size:14px;font-weight:600;color:var(--soft);}
+  .herb .nota{font-size:14.5px;color:var(--soft);margin-top:6px;line-height:1.4;}
+  .pill{flex-shrink:0;font-size:13px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--tint);color:var(--accent-strong);white-space:nowrap;}
+  .pill.na{background:var(--warn-tint);color:var(--warn);}
+  .wa-btn{display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;border-radius:10px;padding:12px 16px;font-size:16px;font-weight:700;text-decoration:none;margin-top:14px;}
+  #installSheet{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;}
+  #installSheet .sheet{background:var(--card);color:var(--ink);width:100%;max-width:520px;border-radius:18px 18px 0 0;
+    padding:20px max(18px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));}
+  #installSheet h2{margin:0 0 6px;font-size:20px;} #installSheet p{margin:0 0 12px;font-size:15.5px;color:var(--soft);}
+  #installSheet h4{margin:12px 0 6px;font-size:15px;color:var(--accent-strong);} #installSheet ol{margin:0;padding-left:22px;font-size:16px;line-height:1.55;}
+  #closeInstall{margin-top:16px;width:100%;background:var(--accent);color:var(--on-accent);border:none;border-radius:10px;padding:13px;font-size:16px;font-weight:700;}
+</style>
+</head>
+<body>
+<div id="offlineBadge">Sem conexão — o guia funciona normalmente</div>
+<header class="app" id="appHead">
+  <div class="htxt"><h1>🌿 Daninhas da Cana</h1><p>Identificação e herbicidas por solo</p></div>
+  <button id="openInstall" type="button">📲 Instalar app</button>
+</header>
+<div id="installSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <h2 id="instTitle">Instalar o Guia de Daninhas</h2>
+    <p>Depois de instalado, abre pelo ícone na tela do celular e funciona sem internet.</p>
+    <h4>Android (Chrome)</h4><ol><li>Toque nos <b>3 pontinhos ⋮</b> no canto de cima.</li><li>Toque em <b>Instalar app</b>.</li></ol>
+    <h4>iPhone (Safari)</h4><ol><li>Toque em <b>Compartilhar</b>.</li><li>Toque em <b>Adicionar à Tela de Início</b>.</li></ol>
+    <button id="closeInstall" type="button">Entendi</button>
+  </div>
+</div>
+
+<section class="filtro" aria-label="Filtro">
+  <div class="in">
+    <div><div class="lb">Tipo de solo</div>
+      <div class="seg" id="segSolo"><button data-v="arenoso">Arenoso</button><button data-v="medio" class="on">Médio</button><button data-v="argiloso">Argiloso</button></div></div>
+    <div><div class="lb">Cana</div>
+      <div class="seg" id="segCana"><button data-v="planta">Cana-planta</button><button data-v="soca" class="on">Cana-soca</button></div></div>
+  </div>
+</section>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="larga" class="active">🍃 Folha larga</button>
+  <button data-tab="gram">🌾 Gramíneas</button>
+  <button data-tab="pere">🌱 Perenes</button>
+  <button data-tab="herb">🧪 Herbicidas</button>
+</nav>
+
+<main id="main">
+  <p class="hint" id="hint">Arraste para o lado para trocar de aba</p>
+  <div class="aviso"><b>Atenção:</b> doses das bulas dos produtos de referência. Produtos genéricos podem ter outra concentração. Aplique sempre com receituário agronômico.</div>
+  <section class="view active" id="view-larga"></section>
+  <section class="view" id="view-gram"></section>
+  <section class="view" id="view-pere"></section>
+  <section class="view" id="view-herb"></section>
+  <section class="view" id="view-ficha"></section>
+</main>
+
+<script>
+/* ---------- Herbicidas (doses das bulas de referência) ----------
+   dose(planta, solo, cana) -> {d:"texto", u:"unidade", n?:"nota"} ou {na:"motivo"} */
+const H = {
+  hexdiu:{nome:"Hexazinona + diurom", ref:"Velpar K WG, Hexaron WG (13,2% + 46,8%)", tipo:"Pré e pós",
+    dose:(w,s,c)=>{
+      if(s==="arenoso" && c==="planta") return {na:"Não indicado em cana-planta em solo arenoso.", pos:"Pós: 2,5 kg/ha"};
+      if(c==="planta") return {d:"até 2,0",u:"kg/ha",n:"Em cana-planta a dose é limitada a 2,0 kg/ha. Pós-emergência: 2,5 kg/ha."};
+      return {d:{arenoso:"1,8 a 2,0",medio:"2,0 a 2,5",argiloso:"2,5 a 3,0"}[s],u:"kg/ha (pré)",n:"Pós-emergência inicial: 2,5 kg/ha. Uma aplicação por ciclo."}; }},
+  tebu:{nome:"Tebutiurom 500 SC", ref:"Tebutiuron Nortox, Combine 500 SC", tipo:"Pré",
+    dose:(w,s)=>({d:{arenoso:"1,6 a 2,0",medio:"2,0 a 2,4",argiloso:"2,4"}[s],u:"L/ha",n:"Cana-planta e soca. Não plantar outra cultura por 24 meses."})},
+  sulf:{nome:"Sulfentrazona 500 SC", ref:"Boral 500 SC e genéricos", tipo:"Pré",
+    dose:(w)=> w==="tiririca" ? {d:"1,6",u:"L/ha",n:"Mesma dose em qualquer solo."} : {d:"1,2",u:"L/ha",n:"Mesma dose em qualquer solo. Para tiririca: 1,6 L/ha."}},
+  isox:{nome:"Isoxaflutol 750 WG", ref:"Provence 750 WG", tipo:"Pré",
+    dose:(w,s,c)=>{
+      if(c==="planta"){ if(s==="arenoso") return {na:"Bula sem dose para cana-planta em solo arenoso."};
+        return {d:s==="medio"?"80 + 80":"90 + 90",u:"g/ha",n:"Duas aplicações: logo após o plantio e na entrelinha aos 60 dias."}; }
+      const seca={arenoso:"200 a 250",medio:"250 a 300",argiloso:"300 a 350"}[s], umida={arenoso:"100",medio:"125",argiloso:"150"}[s];
+      return {d:seca,u:"g/ha (soca seca)",n:`Soca úmida: ${umida} g/ha. Em solo arenoso, não aplicar de novembro a fevereiro. Confira a tabela da bula.`}; }},
+  imaz:{nome:"Imazapique 700 WG", ref:"Plateau", tipo:"Pré (soca)",
+    dose:(w,s,c)=>{
+      if(c==="planta") return {na:"Não aplicar em cana-planta."};
+      if(w==="tiririca"){ if(s==="arenoso") return {na:"Bula sem dose de tiririca para solo leve."};
+        return {d:s==="medio"?"190":"210",u:"g/ha",n:"Antes da brotação da soca. Matéria orgânica alta reduz o efeito sobre os tubérculos."}; }
+      return {d:s==="arenoso"?"150":"175",u:"g/ha",n:"Antes da brotação da soca."}; }},
+  inda:{nome:"Indaziflam 500 SC", ref:"Alion", tipo:"Pré e pós inicial",
+    dose:(w,s,c)=>{
+      const baixa=["colonião","caruru","colchao","amargoso"].includes(w)?"0,10":"0,15";
+      const d = s==="argiloso" ? "0,20" : baixa;
+      const n = (c==="planta" && s==="arenoso") ? "Não usar em cana-planta com menos de 10% de argila nem com menos de 1% de matéria orgânica." : "Uma aplicação por ano. Não usar com mudas pré-brotadas (MPB).";
+      return {d,u:"L/ha",n}; }},
+  amic:{nome:"Amicarbazona 700 WG", ref:"Dinamic e genéricos", tipo:"Pré e pós inicial",
+    dose:(w,s)=>{ if(s==="argiloso") return {d:"2,0",u:"kg/ha",n:"Pré na cana-planta ou logo após o corte na soca."};
+      return {d:["caruru","picao","corda"].includes(w)?"1,5":"1,0",u:"kg/ha",n:"Pré na cana-planta ou logo após o corte na soca."}; }},
+  clom:{nome:"Clomazona 360 CS", ref:"Gamit 360 CS e genéricos", tipo:"Pré",
+    dose:(w,s)=>({d:{arenoso:"3,0",medio:"3,0 a 3,5",argiloso:"3,5"}[s],u:"L/ha",n:"Uma aplicação por ciclo."})},
+  krism:{nome:"Ametrina + trifloxissulfurom WG", ref:"Krismat WG", tipo:"Pós",
+    dose:(w)=> w==="tiririca" ? {d:"2,0",u:"kg/ha",n:"Supressão da tiririca, após aplicação de 2,4-D. Espalhante 0,2%."}
+                              : {d:"1,75 a 2,0",u:"kg/ha",n:"Plantas daninhas pequenas. 2 a 4 semanas após o plantio ou 3 a 4 após o corte. Espalhante 0,2%."}},
+  halo:{nome:"Halossulfurom 750 WG", ref:"Sempra", tipo:"Pós",
+    dose:()=>({d:"150",u:"g/ha",n:"Com surfactante 1 L/ha. 30 a 40 dias após plantio ou corte. Uma aplicação por ciclo."})},
+  d24:{nome:"2,4-D amina 806 SL", ref:"DMA 806 BR e genéricos", tipo:"Pós",
+    dose:(w)=> ["picao","caruru"].includes(w) ? {d:"1,0 a 1,5",u:"L/ha",n:"Área total, com a cana até 30 cm, antes da formação dos colmos. Plantas daninhas com 3 a 5 folhas."}
+                                             : {d:"1,5",u:"L/ha",n:"Jato dirigido, antes da floração da planta daninha."}}
+};
+
+/* ---------- Plantas daninhas ---------- */
+const W = [
+  {id:"corda", grupo:"larga", nome:"Corda-de-viola", sci:"Ipomoea spp. (I. grandifolia, I. nil, I. purpurea)", ic:"🌸",
+   id_:["Trepadeira que se enrola nos colmos e atrapalha a colheita mecanizada.","Folhas em forma de coração, inteiras ou com 3 lóbulos.","Flores em forma de corneta: brancas, rosas, roxas ou vermelhas.","Plântula com as duas primeiras folhas em forma de \"borboleta\" (V)."],
+   h:["hexdiu","tebu","sulf","amic","clom","krism","d24"]},
+  {id:"caruru", grupo:"larga", nome:"Caruru", sci:"Amaranthus spp. (A. viridis, A. hybridus, A. retroflexus)", ic:"🌿",
+   id_:["Planta ereta, caule às vezes avermelhado.","Folhas ovais, alternas, com nervuras bem marcadas; o caruru-de-mancha tem mancha clara em V na folha.","Inflorescência em espiga densa no topo da planta.","Produz muitas sementes pretas e pequenas."],
+   h:["hexdiu","tebu","sulf","isox","inda","amic","clom","krism","d24"]},
+  {id:"picao", grupo:"larga", nome:"Picão-preto", sci:"Bidens pilosa", ic:"🌼",
+   id_:["Folhas opostas, divididas em 3 a 5 folíolos serrilhados.","Caule quadrado.","Flor com miolo amarelo e poucas pétalas brancas.","Sementes pretas e compridas, com ganchos que grudam na roupa."],
+   h:["hexdiu","tebu","inda","amic","krism","d24"]},
+  {id:"leiteiro", grupo:"larga", nome:"Leiteiro (amendoim-bravo)", sci:"Euphorbia heterophylla", ic:"🥛",
+   id_:["Solta leite branco (látex) quando quebra a folha ou o caule.","Folhas de formato variado, de ovais a estreitas.","Folhas de cima, perto das flores, com mancha clara ou avermelhada na base.","Ciclo rápido; aparece em fluxos após as chuvas."],
+   h:["tebu","sulf","d24"]},
+  {id:"trapoeraba", grupo:"larga", nome:"Trapoeraba", sci:"Commelina benghalensis", ic:"💧",
+   id_:["Caule suculento e rasteiro, que enraíza nos nós.","Folhas ovais com bainha envolvendo o caule.","Flores azuis pequenas, com duas pétalas maiores.","Tolera glifosato e forma sementes também embaixo da terra."],
+   h:["hexdiu","tebu","sulf","amic","clom","krism","d24"]},
+  {id:"colonião", grupo:"gram", nome:"Capim-colonião", sci:"Megathyrsus maximus (Panicum maximum)", ic:"🌾",
+   id_:["Touceira grande, de 1 a 3 m de altura; jovem, parece cana.","Folhas largas e compridas, com nervura central clara.","Panícula (cacho) grande e aberta.","Perene: rebrota da touceira; o controle químico vale para as plantas de semente."],
+   h:["hexdiu","tebu","sulf","isox","inda","clom"]},
+  {id:"braquiaria", grupo:"gram", nome:"Capim-braquiária", sci:"Urochloa decumbens (Brachiaria decumbens)", ic:"🌾",
+   id_:["Rasteiro, forma um tapete denso.","Folhas verde-escuras e com pelos.","Inflorescência com 2 a 5 ramos, com as sementes enfileiradas de um lado só.","Muito comum em áreas que já foram pasto."],
+   h:["hexdiu","tebu","sulf","isox","inda","amic","clom","krism"]},
+  {id:"amargoso", grupo:"gram", nome:"Capim-amargoso", sci:"Digitaria insularis", ic:"🌾",
+   id_:["Touceira com rizomas curtos e grossos na base.","Inflorescência peluda, esbranquiçada, parecendo pluma.","Folhas ásperas; a planta tem gosto amargo.","Resistente ao glifosato: touceiras adultas são difíceis de controlar."],
+   h:["inda"], obs:"Poucos produtos têm registro para capim-amargoso na cana. Touceiras grandes: arranquio ou controle na reforma do canavial, com graminicida indicado pelo agrônomo (graminicida mata a cana)."},
+  {id:"colchao", grupo:"gram", nome:"Capim-colchão", sci:"Digitaria horizontalis / D. sanguinalis", ic:"🌾",
+   id_:["Anual, rasteiro, enraíza nos nós.","Folhas macias, com pelos.","Inflorescência em \"dedos\": vários ramos finos saindo do mesmo ponto.","Muito comum logo após o plantio e o corte."],
+   h:["hexdiu","tebu","sulf","isox","inda","amic","clom","krism"]},
+  {id:"tiririca", grupo:"pere", nome:"Tiririca", sci:"Cyperus rotundus", ic:"🔺",
+   id_:["Caule triangular, sem nós (\"tiririca tem quina\").","Folhas brilhantes, saindo em roseta da base.","Inflorescência marrom-avermelhada em forma de guarda-chuva.","Tubérculos (batatinhas) em corrente no solo: é por eles que ela volta."],
+   h:["sulf","imaz","halo","krism","d24"], obs:"Combine produtos: um pré-emergente de solo e um pós. Uma aplicação raramente resolve."},
+  {id:"gramaseda", grupo:"pere", nome:"Grama-seda", sci:"Cynodon dactylon", ic:"🟩",
+   id_:["Perene rasteira, com estolões e rizomas que formam tapete.","Folhas curtas, finas e acinzentadas.","Inflorescência com 3 a 7 ramos finos em forma de dedos.","Comum em carreadores e áreas de reforma; rebrota com facilidade."],
+   h:["inda"], obs:"Na cana há poucas opções. O controle principal é na reforma do canavial, antes do plantio, com dessecação indicada pelo agrônomo."}
+];
+
+/* ---------- Estado ---------- */
+const store={ get(k){ try{return JSON.parse(localStorage.getItem("dan:"+k));}catch(_){return null;} }, set(k,v){ try{localStorage.setItem("dan:"+k,JSON.stringify(v));}catch(_){} } };
+let solo=store.get("solo")||"medio", cana=store.get("cana")||"soca";
+const SOLO_TXT={arenoso:"arenoso",medio:"médio",argiloso:"argiloso"}, CANA_TXT={planta:"cana-planta",soca:"cana-soca"};
+
+/* ---------- Fotos do campo (guardadas no celular) ---------- */
+const DB={ open(){ return new Promise((ok,err)=>{ const r=indexedDB.open("daninhasFotos",1); r.onupgradeneeded=()=>r.result.createObjectStore("f"); r.onsuccess=()=>ok(r.result); r.onerror=()=>err(r.error); }); },
+  async get(k){ const db=await this.open(); return new Promise(ok=>{ const q=db.transaction("f").objectStore("f").get(k); q.onsuccess=()=>ok(q.result||null); q.onerror=()=>ok(null); }); },
+  async put(k,v){ const db=await this.open(); return new Promise(ok=>{ const t=db.transaction("f","readwrite"); v===null?t.objectStore("f").delete(k):t.objectStore("f").put(v,k); t.oncomplete=()=>ok(); t.onerror=()=>ok(); }); } };
+const fotoURL={};
+async function loadFoto(id){ try{ const b=await DB.get(id); if(fotoURL[id]) URL.revokeObjectURL(fotoURL[id]); fotoURL[id]= b ? URL.createObjectURL(b) : null; }catch(_){ fotoURL[id]=null; } return fotoURL[id]; }
+async function reduz(file){
+  try{ const bmp=await createImageBitmap(file); const k=Math.min(1,1280/Math.max(bmp.width,bmp.height));
+    const c=document.createElement("canvas"); c.width=Math.round(bmp.width*k); c.height=Math.round(bmp.height*k);
+    c.getContext("2d").drawImage(bmp,0,0,c.width,c.height); return await new Promise(ok=>c.toBlob(b=>ok(b||file),"image/jpeg",0.82)); }catch(_){ return file; }
+}
+
+/* ---------- Listas ---------- */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function okCount(w){ return w.h.filter(k=>!H[k].dose(w.id,solo,cana).na).length; }
+function renderListas(){
+  ["larga","gram","pere"].forEach(g=>{
+    const v=document.getElementById("view-"+g);
+    v.innerHTML = W.filter(w=>w.grupo===g).map(w=>`<button class="item" data-id="${w.id}">
+      <div class="thumb">${fotoURL[w.id]?`<img src="${fotoURL[w.id]}" alt="">`:w.ic}</div>
+      <div class="t"><h3>${w.nome}</h3><p>${w.sci}</p><p class="n">${okCount(w)} herbicida(s) para solo ${SOLO_TXT[solo]}</p></div><div class="chev">›</div></button>`).join("");
+    v.querySelectorAll(".item").forEach(b=> b.addEventListener("click",()=> abrir(b.dataset.id)));
+  });
+  const hv=document.getElementById("view-herb");
+  hv.innerHTML = `<p class="hint">Todos os herbicidas do guia, com a dose para solo ${SOLO_TXT[solo]} e ${CANA_TXT[cana]}.</p>` + Object.entries(H).map(([k,p])=>{
+    const alvos=W.filter(w=>w.h.includes(k));
+    const r=p.dose(alvos[0].id,solo,cana);
+    return herbCard(p,r,"Controla: "+alvos.map(w=>w.nome).join(", "));
+  }).join("");
+}
+function herbCard(p,r,extra){
+  return `<div class="herb${r.na?" na":""}"><div class="top"><div><h5>${p.nome}</h5><div class="ref">${p.ref}</div></div>
+    <span class="pill${r.na?" na":""}">${r.na?"Não indicado":p.tipo}</span></div>
+    ${r.na?`<div class="nota">${r.na}${r.pos?" "+r.pos+".":""}</div>`:`<div class="dose">${r.d} <small>${r.u}</small></div>${r.n?`<div class="nota">${r.n}</div>`:""}`}
+    ${extra?`<div class="nota">${extra}</div>`:""}</div>`;
+}
+
+/* ---------- Ficha ---------- */
+let fichaId=null, voltarPara="larga";
+function texto(w){
+  const L=[`*Daninhas da Cana* — ${w.nome} (${w.sci})`,`Solo ${SOLO_TXT[solo]} · ${CANA_TXT[cana]}`,"","_Opções de herbicida:_"];
+  w.h.forEach(k=>{ const p=H[k], r=p.dose(w.id,solo,cana); L.push(r.na?`• ${p.nome}: não indicado (${r.na})`:`• ${p.nome} (${p.ref}): ${r.d} ${r.u}`); });
+  L.push("","Doses de bula de referência. Confirme com o receituário agronômico.");
+  return L.join("\n");
+}
+async function abrir(id, semAnimar){
+  const w=W.find(x=>x.id===id); if(!w) return;
+  if(current!=="ficha") voltarPara=current;
+  fichaId=id; await loadFoto(id);
+  const v=document.getElementById("view-ficha");
+  const ops=w.h.map(k=>({k,r:H[k].dose(id,solo,cana)})).sort((a,b)=>(!!a.r.na)-(!!b.r.na));
+  v.innerHTML=`<button class="back" id="back">‹ Voltar</button>
+   <div class="ficha"><h2>${w.nome}</h2><p class="sci">${w.sci}</p>
+    <div class="foto">${fotoURL[id]?`<img src="${fotoURL[id]}" alt="Foto de ${esc(w.nome)} tirada no campo">`:`<div style="font-size:54px">${w.ic}</div><div class="vazio">Ainda sem foto. Fotografe esta planta no campo: a foto fica guardada no seu celular.</div>`}
+     <div class="fbtns"><label class="fbtn" for="cam">📷 ${fotoURL[id]?"Trocar foto":"Tirar foto"}</label><label class="fbtn sec" for="gal">🖼️ Galeria</label>
+      ${fotoURL[id]?`<button class="fbtn sec" id="delFoto" type="button">Remover</button>`:""}
+      <a class="fbtn sec" href="https://commons.wikimedia.org/w/index.php?search=${encodeURIComponent(w.sci.split(" (")[0].split(" /")[0])}&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">🔎 Fotos na internet</a></div>
+     <input type="file" accept="image/*" capture="environment" id="cam" class="vh"><input type="file" accept="image/*" id="gal" class="vh"></div>
+    <h4>Como identificar</h4><ul>${w.id_.map(t=>`<li>${t}</li>`).join("")}</ul>
+    ${w.obs?`<p class="obs">${w.obs}</p>`:""}
+    <h4>Herbicidas — solo ${SOLO_TXT[solo]}, ${CANA_TXT[cana]}</h4>
+    ${ops.map(o=>herbCard(H[o.k],o.r)).join("")}
+    <a class="wa-btn" id="waBtn" href="https://wa.me/?text=${encodeURIComponent(texto(w))}" target="_blank" rel="noopener">📤 Enviar no WhatsApp</a>
+   </div>`;
+  document.getElementById("back").addEventListener("click",()=> show(voltarPara,-1));
+  const onFile=async e=>{ const f=e.target.files[0]; if(!f) return; await DB.put(id, await reduz(f)); await abrir(id,true); renderListas(); };
+  document.getElementById("cam").addEventListener("change",onFile);
+  document.getElementById("gal").addEventListener("change",onFile);
+  const del=document.getElementById("delFoto"); if(del) del.addEventListener("click",async()=>{ await DB.put(id,null); await abrir(id,true); renderListas(); });
+  document.getElementById("waBtn").addEventListener("click",async ev=>{
+    const txt=texto(w);
+    try{ const b=await DB.get(id);
+      if(b && navigator.canShare){ const file=new File([b],`${id}.jpg`,{type:"image/jpeg"}); if(navigator.canShare({files:[file]})){ ev.preventDefault(); await navigator.share({text:txt,files:[file]}); return; } }
+      if(navigator.share){ ev.preventDefault(); await navigator.share({text:txt}); }
+    }catch(_){}
+  });
+  if(!semAnimar) show("ficha",1);
+}
+
+/* ---------- Filtros ---------- */
+function seg(id,val,set){
+  const el=document.getElementById(id);
+  el.querySelectorAll("button").forEach(b=>{ b.classList.toggle("on",b.dataset.v===val); b.setAttribute("aria-pressed",b.dataset.v===val);
+    b.addEventListener("click",()=>{ set(b.dataset.v); el.querySelectorAll("button").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-pressed",x===b);}); renderListas(); if(current==="ficha"&&fichaId) abrir(fichaId,true); }); });
+}
+seg("segSolo",solo,v=>{solo=v;store.set("solo",v);});
+seg("segCana",cana,v=>{cana=v;store.set("cana",v);});
+
+/* ---------- Abas e arrasto ---------- */
+const TABS=["larga","gram","pere","herb"], tabBtns=[...document.querySelectorAll("nav.tabs button")];
+let current="larga";
+function show(name,dir){
+  if(name===current) return;
+  [...TABS,"ficha"].forEach(t=> document.getElementById("view-"+t).classList.remove("active","slide-l","slide-r"));
+  const v=document.getElementById("view-"+name); v.classList.add("active");
+  if(dir){ void v.offsetWidth; v.classList.add(dir>0?"slide-l":"slide-r"); }
+  const tabName = name==="ficha" ? voltarPara : name;
+  tabBtns.forEach(b=> b.classList.toggle("active", b.dataset.tab===tabName));
+  document.getElementById("hint").hidden = name==="ficha";
+  current=name;
+  scrollTo({top:0,behavior:"instant"});
+}
+tabBtns.forEach(b=> b.addEventListener("click",()=>{ const from=current==="ficha"?voltarPara:current; show(b.dataset.tab, Math.sign(TABS.indexOf(b.dataset.tab)-TABS.indexOf(from))||1); }));
+(function(){
+  let sx=0,sy=0,st=0,on=false,horiz=null,el=null;
+  document.addEventListener("touchstart",e=>{
+    on = e.touches.length===1 && current!=="ficha" && document.getElementById("installSheet").hidden && !e.target.closest("header.app,nav.tabs,.filtro");
+    if(!on) return; sx=e.touches[0].clientX; sy=e.touches[0].clientY; st=Date.now(); horiz=null; el=document.getElementById("view-"+current); el.classList.remove("slide-l","slide-r");
+  },{passive:true});
+  document.addEventListener("touchmove",e=>{
+    if(!on) return; const dx=e.touches[0].clientX-sx, dy=e.touches[0].clientY-sy;
+    if(horiz===null&&(Math.abs(dx)>5||Math.abs(dy)>5)) horiz=Math.abs(dx)>Math.abs(dy)*0.9;
+    if(horiz){ const i=TABS.indexOf(current); const edge=(dx>0&&i===0)||(dx<0&&i===TABS.length-1); el.style.transform=`translateX(${edge?dx*0.25:dx}px)`; }
+  },{passive:true});
+  document.addEventListener("touchend",e=>{
+    if(!on) return; on=false; el.style.transform="";
+    const dx=e.changedTouches[0].clientX-sx, fast=Math.abs(dx)/Math.max(1,Date.now()-st)>0.2;
+    if(!horiz||(Math.abs(dx)<28&&!(fast&&Math.abs(dx)>12))) return;
+    const i=TABS.indexOf(current), j=dx<0?i+1:i-1; if(j<0||j>=TABS.length) return; show(TABS[j],dx<0?1:-1);
+  },{passive:true});
+  document.addEventListener("touchcancel",()=>{ if(el) el.style.transform=""; on=false; },{passive:true});
+})();
+function setHeadH(){ document.documentElement.style.setProperty("--head-h",document.getElementById("appHead").offsetHeight+"px"); }
+setHeadH(); addEventListener("resize",setHeadH);
+
+/* ---------- Início ---------- */
+renderListas();
+Promise.all(W.map(w=>loadFoto(w.id))).then(renderListas);
+
+/* ---------- Off-line e instalação ---------- */
+function updateOffline(){ document.getElementById("offlineBadge").classList.toggle("show",!navigator.onLine); }
+addEventListener("online",updateOffline); addEventListener("offline",updateOffline); updateOffline();
+if("serviceWorker" in navigator){ addEventListener("load",()=> navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).catch(()=>{})); }
+let deferredInstall=null; const installBtn=document.getElementById("openInstall"), sheet=document.getElementById("installSheet");
+if(matchMedia("(display-mode: standalone)").matches||navigator.standalone===true) installBtn.hidden=true;
+addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferredInstall=e; });
+installBtn.addEventListener("click",async()=>{ if(deferredInstall){ deferredInstall.prompt(); const r=await deferredInstall.userChoice; deferredInstall=null; if(r&&r.outcome==="accepted") installBtn.hidden=true; return; } sheet.hidden=false; });
+document.getElementById("closeInstall").addEventListener("click",()=> sheet.hidden=true);
+sheet.addEventListener("click",e=>{ if(e.target===sheet) sheet.hidden=true; });
+addEventListener("appinstalled",()=> installBtn.hidden=true);
+</script>
+</body>
+</html>
