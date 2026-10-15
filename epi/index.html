@@ -11,7 +11,7 @@
 /* Layout: ficha de almoxarifado — placa de segurança no topo, usuário em uso, alerta de falta, abas */
 :root{
   --bg:#f3f2ef; --panel:#ffffff; --fg:#1d1f22; --muted:#666a70; --line:#dcdad4;
-  --accent:#e8620c; --accent-ink:#ffffff; --accent-soft:#fde9da;
+  --accent:#e8620c; --accent-ink:#ffffff; --tab-ink:#2b2e33; --accent-deep:#7c2d07; --tab-sel:#c2410c; --tab-sel-ink:#ffffff; --accent-soft:#fde9da;
   --ok:#1d7a46; --ok-soft:#dcf1e4; --warn:#a85d00; --warn-soft:#fbecd2; --bad:#b42318; --bad-soft:#fbe1de;
   --stripe:#1d1f22;
   --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
@@ -20,12 +20,12 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#151617; --panel:#1e2022; --fg:#ecebe7; --muted:#9c9fa4; --line:#33363a;
-  --accent:#ff7a24; --accent-ink:#1a0c02; --accent-soft:#3a2416;
+  --accent:#ff7a24; --accent-ink:#1a0c02; --tab-ink:#e2e1dd; --accent-deep:#b34f10; --tab-sel:#ff7a24; --tab-sel-ink:#1a0c02; --accent-soft:#3a2416;
   --ok:#5fcf8c; --ok-soft:#173225; --warn:#f0a948; --warn-soft:#38290f; --bad:#ff8579; --bad-soft:#3d1c19;
   --stripe:#ecebe7; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#151617; --panel:#1e2022; --fg:#ecebe7; --muted:#9c9fa4; --line:#33363a;
-  --accent:#ff7a24; --accent-ink:#1a0c02; --accent-soft:#3a2416;
+  --accent:#ff7a24; --accent-ink:#1a0c02; --tab-ink:#e2e1dd; --accent-deep:#b34f10; --tab-sel:#ff7a24; --tab-sel-ink:#1a0c02; --accent-soft:#3a2416;
   --ok:#5fcf8c; --ok-soft:#173225; --warn:#f0a948; --warn-soft:#38290f; --bad:#ff8579; --bad-soft:#3d1c19;
   --stripe:#ecebe7; color-scheme:dark}
 *{box-sizing:border-box}
@@ -65,9 +65,9 @@ h1{font:700 30px/1 var(--f-display);letter-spacing:.02em;text-transform:uppercas
 .alert ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
 .alert li{font-size:14px}
 .alert li .s{color:var(--muted);font-size:12px;margin-left:6px}
-nav{display:flex;gap:4px;margin:16px 0 14px;border-bottom:2px solid var(--line);overflow-x:auto}
-nav button{all:unset;cursor:pointer;padding:10px 9px;font:600 16px/1 var(--f-display);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
-nav button[aria-selected="true"]{color:var(--fg);border-color:var(--accent)}
+nav{display:flex;gap:2px;margin:16px 0 14px;padding:4px;background:var(--panel);border:2px solid var(--line);border-radius:10px;overflow-x:auto}
+nav button{all:unset;cursor:pointer;flex:1 1 auto;min-width:0;text-align:center;padding:12px 4px;border-radius:7px;font:700 clamp(13px,3.9vw,17px)/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--tab-ink);white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--tab-sel);color:var(--tab-sel-ink);box-shadow:0 2px 0 var(--accent-deep)}
 nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
@@ -104,8 +104,8 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 .seg button{all:unset;cursor:pointer;padding:7px 12px;border-radius:999px;border:1.5px solid var(--line);font-size:13px;font-weight:600;background:var(--panel)}
 .seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.summary{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:10px}
-.summary b{color:var(--fg);font-variant-numeric:tabular-nums}
+.summary{display:flex;gap:8px 18px;flex-wrap:wrap;font-size:15px;font-weight:500;color:var(--tab-ink);margin-bottom:12px}
+.summary b{color:var(--accent);font:700 19px/1 var(--f-display);font-variant-numeric:tabular-nums;margin-right:3px}
 .rows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
 .row{display:grid;grid-template-columns:44px 1fr auto;gap:6px 10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line)}
 .row:first-child{border-top:0}
