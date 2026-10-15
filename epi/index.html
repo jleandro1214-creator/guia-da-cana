@@ -37,6 +37,11 @@ body{margin:0;-webkit-text-size-adjust:100%}
 .brand{display:flex;align-items:center;gap:12px}
 .brand small{display:block;font:500 13px var(--f-body);color:var(--muted);text-transform:none;letter-spacing:0}
 .install{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;padding:10px 12px;border:1.5px dashed var(--accent);border-radius:8px;background:var(--accent-soft);font-size:15px}
+.solnote{margin:0 0 12px;color:var(--muted);font-size:15px}
+.solg{margin-top:14px}
+.solg h3{margin:0 0 8px;font:700 17px var(--f-display);text-transform:uppercase;letter-spacing:.05em;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.solg h3 span{color:var(--muted);font:500 14px var(--f-body);text-transform:none;letter-spacing:0}
+.pill.sol{background:var(--accent-soft);color:var(--accent)}
 .datacard{display:flex;flex-direction:column;gap:12px}
 .datacard p{margin:0;color:var(--muted);font-size:15px}
 .filebtn{position:relative}
@@ -226,6 +231,18 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
     </div>
     <div class="summary" id="est-sum"></div>
     <div class="rows" id="est-list"><div class="emptybox">Carregando EPIs…</div></div>
+    <div id="sol-box" hidden>
+      <p class="solnote">EPIs já pedidos no sistema que ainda não foram retirados para o estoque do gestor. Quando o EPI entra no estoque de quem pediu, ele sai daqui sozinho.</p>
+      <form class="panel grid" id="f-sol" autocomplete="off">
+        <div class="full"><label for="s-epi">EPI solicitado</label><div class="ac"><input id="s-epi" placeholder="Digite código ou descrição"></div></div>
+        <div><label for="s-qtd">Quantidade</label><input id="s-qtd" type="number" min="1" step="1" value="1" inputmode="numeric"></div>
+        <div><label for="s-ped">Nº do pedido (opcional)</label><input id="s-ped" inputmode="numeric" placeholder="Ex.: 458812"></div>
+        <div class="full"><label for="s-ges">Solicitado por</label><select id="s-ges"></select></div>
+        <div class="full actions"><button class="btn" type="submit">Registrar solicitação</button><span class="toast" id="t-sol" role="status"></span></div>
+      </form>
+      <div class="summary" id="sol-sum" style="margin-top:16px"></div>
+      <div id="sol-list"></div>
+    </div>
 
     <div class="sect">Cadastrar novo EPI</div>
     <form class="panel grid" id="f-novo" autocomplete="off">
@@ -239,8 +256,8 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
   <section id="view-hist" hidden>
     <div class="seg" id="seg-hist" role="group" aria-label="Tipo de movimento">
       <button type="button" data-k="entregas" aria-pressed="true">Entregas a funcionários</button>
-      <button type="button" data-k="retiradas" aria-pressed="false">Retiradas do almoxarifado</button>
-      <button type="button" data-k="entradas" aria-pressed="false">Entradas no almoxarifado</button>
+      <button type="button" data-k="solicitacoes" aria-pressed="false">Solicitações no almoxarifado</button>
+      <button type="button" data-k="entradas" aria-pressed="false">Entradas no estoque</button>
     </div>
     <div class="toolbar">
       <input id="q-hist" placeholder="Buscar matrícula, funcionário ou EPI">
@@ -291,7 +308,7 @@ const today = () => { const d=new Date(); d.setMinutes(d.getMinutes()-d.getTimez
 const fmtData = s => s ? s.split("-").reverse().join("/") : "";
 const store = { get(k){ try{return localStorage.getItem(k)}catch{return null} }, set(k,v){ try{ v==null?localStorage.removeItem(k):localStorage.setItem(k,v) }catch{} } };
 
-const S = { items:[], entradas:[], retiradas:[], entregas:[], funcs:new Map(), db:true };
+const S = { items:[], entradas:[], retiradas:[], entregas:[], solicitacoes:[], funcs:new Map(), db:true };
 const VIEWS=["entrega","estoque","hist","dados"];
 let selItem = null, me = null, estView = "total", histKind = "entregas";
 
@@ -322,7 +339,7 @@ for (const g of GESTORES){
 $("#data").value = today();
 
 function renderSeg(){
-  const opts=[{k:"total",t:"Estoque geral"},{k:"almox",t:"Almoxarifado"},...GESTORES.map(g=>({k:g.mat,t:curto(g.nome)+(me&&me.mat===g.mat?" (você)":"")}))];
+  const opts=[{k:"total",t:"Estoque geral"},{k:"sol",t:"Solicitação no almoxarifado"},...GESTORES.map(g=>({k:g.mat,t:curto(g.nome)+(me&&me.mat===g.mat?" (você)":"")}))];
   $("#seg-est").innerHTML=opts.map(o=>`<button type="button" data-k="${o.k}" aria-pressed="${o.k===estView}">${esc(o.t)}</button>`).join("");
 }
 $("#seg-est").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; estView=b.dataset.k; renderSeg(); renderEstoque(); });
@@ -405,10 +422,10 @@ function epiHint(){
   const h=$("#epi-hint");
   if(!selItem){ h.textContent=""; h.className="hint"; return; }
   const gm=curGestorMat(), sd=saldos(), q=+$("#qtd").value||0, ag=sd.geral.get(selItem.id)||0;
-  if(!gm){ h.textContent=`Almoxarifado: ${ag}. Selecione o gestor para ver o estoque dele.`; h.className="hint"; return; }
+  if(!gm){ h.textContent=`Estoque geral: ${sd.total.get(selItem.id)||0}. Selecione o gestor para ver o estoque dele.`; h.className="hint"; return; }
   const s=saldoDe(sd,gm,selItem.id), nome=gByMat(gm)?.nome.split(" ")[0]||"gestor";
   const falta = selItem.falta ? " Item em alerta de falta." : "";
-  if (s<=0){ h.textContent=`Sem estoque com ${nome} (saldo ${s}; almoxarifado ${ag}). Faça a retirada na aba Estoque.${falta}`; h.className="hint warn"; }
+  if (s<=0){ h.textContent=`Sem estoque com ${nome} (saldo ${s}). Lance a entrada ou veja a Solicitação no almoxarifado.${falta}`; h.className="hint warn"; }
   else if (q>s){ h.textContent=`Estoque de ${nome}: ${s}. A quantidade passa do saldo.${falta}`; h.className="hint warn"; }
   else { h.textContent=`Estoque de ${nome}: ${s} · após a entrega: ${s-q}${falta}`; h.className = selItem.falta?"hint warn":"hint ok"; }
 }
@@ -455,32 +472,96 @@ $("#f-entrega").addEventListener("submit", async e=>{
   b.disabled=false;
 });
 
+/* ---------- solicitações no almoxarifado ----------
+   Cada solicitação fica aberta até o EPI entrar no estoque de QUEM pediu.
+   As entradas no estoque do gestor abatem as solicitações dele, na ordem em que foram feitas. */
+function pendentes(){
+  const ev=[];
+  for(const s of S.solicitacoes) ev.push({t:s.criadoEm||0,k:0,g:String(s.gestorMat),it:s.itemId,q:+s.qtd||0,rec:s});
+  for(const e of S.entradas){ const d=String(e.dono||""); if(gByMat(d)&&(+e.qtd>0)) ev.push({t:e.criadoEm||0,k:1,g:d,it:e.itemId,q:+e.qtd}); }
+  for(const r of S.retiradas) if(+r.qtd>0) ev.push({t:r.criadoEm||0,k:1,g:String(r.gestorMat),it:r.itemId,q:+r.qtd});
+  ev.sort((a,b)=>a.t-b.t||a.k-b.k);
+  const filas=new Map(), out=new Map();
+  for(const x of ev){ const key=x.g+"|"+x.it; if(!filas.has(key)) filas.set(key,[]); const fila=filas.get(key);
+    if(x.k===0){ const o={rec:x.rec,rest:x.q}; fila.push(o); out.set(x.rec.id,o); }
+    else { let n=x.q; for(const o of fila){ if(n<=0) break; const d=Math.min(o.rest,n); o.rest-=d; n-=d; } } }
+  return out; // id da solicitação -> {rec, rest}
+}
+function pendPorGestorItem(pm){ const m=new Map(); for(const o of pm.values()) if(o.rest>0){ const k=o.rec.gestorMat+"|"+o.rec.itemId; m.set(k,(m.get(k)||0)+o.rest); } return m; }
+for (const g of GESTORES) $("#s-ges").add(new Option(g.nome,g.mat));
+let solItem=null, solDel=null;
+autocomplete($("#s-epi"), q=>{ const t=norm(q).split(" ").filter(Boolean); return S.items.filter(it=>t.every(x=>norm(itemLabel(it)).includes(x))).slice(0,40)
+  .map(it=>({value:it, html:`<span class="code">${esc(it.codigo||"—")}</span><span>${esc(it.descricao)}</span>`})); },
+  it=>{ solItem=it; $("#s-epi").value=itemLabel(it); $("#s-qtd").focus(); });
+$("#s-epi").addEventListener("input",()=>{ solItem=null; });
+function novaSolicitacao(it,qtd,gm,pedido){
+  const g=gByMat(gm);
+  return put("solicitacoes",{id:newId(),itemId:it.id,codigo:it.codigo||"",descricao:it.descricao,qtd,gestorMat:g.mat,gestor:gLabel(g),pedido:pedido||"",data:today(),registradoPor:me?gLabel(me):"",criadoEm:Date.now()});
+}
+$("#f-sol").addEventListener("submit",e=>{
+  e.preventDefault(); const t=$("#t-sol");
+  if(!solItem) return toast(t,"Escolha o EPI na lista de sugestões.");
+  const q=Math.floor(+$("#s-qtd").value); if(!(q>0)) return toast(t,"Informe uma quantidade maior que zero.");
+  const gm=$("#s-ges").value; if(!gm) return toast(t,"Escolha quem fez a solicitação.");
+  novaSolicitacao(solItem,q,gm,$("#s-ped").value.trim());
+  toast(t,`Solicitação registrada: ${q}× ${solItem.descricao} para ${gByMat(gm).nome}.`,true);
+  solItem=null; $("#s-epi").value=""; $("#s-qtd").value=1; $("#s-ped").value="";
+});
+function renderSol(){
+  const pm=pendentes(), terms=norm($("#q-est").value).split(" ").filter(Boolean);
+  const abertas=[...pm.values()].filter(o=>o.rest>0 && terms.every(t=>norm(`${o.rec.codigo} ${o.rec.descricao} ${o.rec.pedido}`).includes(t)));
+  const un=abertas.reduce((a,o)=>a+o.rest,0);
+  $("#sol-sum").innerHTML=`<span><b>${abertas.length}</b> solicitações em aberto</span><span><b>${un}</b> unidades aguardando retirada</span>`;
+  const el=$("#sol-list");
+  if(!abertas.length){ el.innerHTML=`<div class="rows"><div class="emptybox">Nenhuma solicitação em aberto${terms.length?" com esse filtro":""}.</div></div>`; return; }
+  const ord=[...GESTORES].sort((a,b)=>(b.mat===me?.mat)-(a.mat===me?.mat));
+  el.innerHTML=ord.map(g=>{
+    const lst=abertas.filter(o=>String(o.rec.gestorMat)===g.mat).sort((a,b)=>(a.rec.criadoEm||0)-(b.rec.criadoEm||0));
+    if(!lst.length) return "";
+    return `<div class="solg"><h3>${esc(g.nome)}${me?.mat===g.mat?" (você)":""}<span>${lst.reduce((a,o)=>a+o.rest,0)} un. aguardando</span></h3><div class="rows">${lst.map(o=>{ const r=o.rec;
+      return `<div class="row" data-sol="${esc(r.id)}"><span class="code">${esc(r.codigo||"—")}</span><span class="desc">${esc(r.descricao)}<span class="sub2">Pedido em ${fmtData(r.data)}${r.pedido?` · nº ${esc(r.pedido)}`:""}${o.rest<r.qtd?` · já chegaram ${r.qtd-o.rest} de ${r.qtd}`:""}</span></span><span class="qty">${o.rest}</span>
+      <div class="btns">${solDel===r.id?`<button class="btn danger sm" data-act="sol-del-ok" type="button">Cancelar solicitação</button><button class="btn ghost sm" data-act="sol-del-no" type="button">Manter</button>`:`<button class="btn sm" data-act="sol-chegou" type="button">Retirei: pôr no estoque</button><button class="btn ghost sm" data-act="sol-del" type="button">Cancelar</button>`}</div></div>`; }).join("")}</div></div>`;
+  }).join("");
+}
+$("#sol-list").addEventListener("click",e=>{
+  const row=e.target.closest("[data-sol]"), act=e.target.closest("[data-act]")?.dataset.act; if(!row||!act) return;
+  const id=row.dataset.sol, o=pendentes().get(id); if(!o) return;
+  if(act==="sol-del"){ solDel=id; renderSol(); }
+  else if(act==="sol-del-no"){ solDel=null; renderSol(); }
+  else if(act==="sol-del-ok"){ solDel=null; del("solicitacoes",id); }
+  else if(act==="sol-chegou"){
+    // entra no estoque de quem pediu; a solicitação sai sozinha
+    put("entradas",{id:newId(),itemId:o.rec.itemId,qtd:o.rest,dono:String(o.rec.gestorMat),data:today(),obs:`Retirado do almoxarifado${o.rec.pedido?" · pedido nº "+o.rec.pedido:""}`,registradoPor:me?gLabel(me):"",criadoEm:Date.now()});
+  }
+});
+
 /* ---------- estoque ---------- */
 function renderEstoque(){
   renderSeg();
-  const sd=saldos(), v=estView, terms=norm($("#q-est").value).split(" ").filter(Boolean), fil=$("#f-est").value;
-  const isGestor = v!=="total" && v!=="almox";
+  const v=estView, isSol=v==="sol";
+  $("#sol-box").hidden=!isSol; $("#est-list").hidden=isSol; $("#est-sum").hidden=isSol; $("#f-est").hidden=isSol;
+  if(isSol){ $("#s-ges").value = me?.mat || $("#s-ges").value; renderSol(); return; }
+  const sd=saldos(), pg=pendPorGestorItem(pendentes()), terms=norm($("#q-est").value).split(" ").filter(Boolean), fil=$("#f-est").value;
+  const isGestor = v!=="total";
   const list=S.items.filter(it=>terms.every(t=>norm(itemLabel(it)).includes(t)))
     .filter(it=>{ const s=saldoDe(sd,v,it.id); return fil==="todos"||(fil==="com"&&terms.length)||(fil==="falta"?it.falta:fil==="zerado"?s<=0:s!==0); });
   const tot=S.items.reduce((a,it)=>a+Math.max(0,saldoDe(sd,v,it.id)),0), com=S.items.filter(it=>saldoDe(sd,v,it.id)>0).length;
-  const nomeV = v==="total" ? "no estoque geral (todos)" : v==="almox" ? "no almoxarifado" : `no estoque de ${gByMat(v)?.nome}`;
+  const nomeV = v==="total" ? "no estoque geral (todos)" : `no estoque de ${gByMat(v)?.nome}`;
   $("#est-sum").innerHTML=`<span><b>${tot}</b> unidades ${esc(nomeV)}</span><span><b>${com}</b> tipos de EPI</span><span><b>${S.items.filter(i=>i.falta).length}</b> em alerta de falta</span>`;
   const el=$("#est-list");
   if(!S.items.length){ el.innerHTML=`<div class="emptybox">Nenhum EPI cadastrado ainda. Use “Cadastrar novo EPI” abaixo.</div>`; return; }
   if(!list.length){
-    el.innerHTML=`<div class="emptybox">${fil==="com" && !terms.length ? (isGestor ? `${esc(gByMat(v)?.nome)} não tem EPIs no estoque individual.<br>Use “Retirar do almoxarifado” ou lance uma entrada para ele (filtro “Todos os EPIs”).` : `Nenhum EPI em estoque aqui. Escolha “Todos os EPIs” no filtro para lançar entradas.`) : "Nenhum EPI encontrado com esse filtro."}</div>`; return; }
+    el.innerHTML=`<div class="emptybox">${fil==="com" && !terms.length ? (isGestor ? `${esc(gByMat(v)?.nome)} não tem EPIs no estoque individual.<br>Lance uma entrada (filtro “Todos os EPIs”) ou veja a Solicitação no almoxarifado.` : `Nenhum EPI em estoque. Escolha “Todos os EPIs” no filtro para lançar entradas.`) : "Nenhum EPI encontrado com esse filtro."}</div>`; return; }
   el.innerHTML=list.map(it=>{
     const s=saldoDe(sd,v,it.id);
     const pills=(it.falta?`<span class="pill falta">falta</span>`:"")+(s<0?`<span class="pill neg">negativo</span>`:s===0?`<span class="pill zero">zerado</span>`:"");
     const q=quemTem(sd,it.id);
-    const sub = v==="total" ? (q.length ? "Estoque de: "+q.join(" · ") : "Sem estoque com ninguém")
-      : v==="almox" ? (q.filter(x=>!x.startsWith("Almox")).length ? "Com gestores: "+q.filter(x=>!x.startsWith("Almox")).join(" · ") : "")
-      : `Almoxarifado: ${sd.geral.get(it.id)||0}`;
+    const solic = (isGestor?[gByMat(v)]:GESTORES).map(g=>{ const n=pg.get(g.mat+"|"+it.id)||0; return n?(isGestor?`${n}`:`${curto(g.nome)} ${n}`):""; }).filter(Boolean);
+    const sub = (v==="total" ? (q.length ? "Estoque de: "+q.join(" · ") : "Sem estoque com ninguém") : "")
+      + (solic.length ? (v==="total"?" — ":"")+"Solicitado no almoxarifado: "+solic.join(" · ") : "");
     const flag = `<button class="btn flag sm ${it.falta?"on":""}" data-act="falta" type="button" aria-pressed="${!!it.falta}">${it.falta?"Tirar alerta":"Alerta de falta"}</button>`;
-    const btns = isGestor
-      ? `<button class="btn ghost sm" data-act="entrada" type="button">+ Entrada</button><button class="btn sm" data-act="retirar" type="button">Retirar do almoxarifado</button>`
-      : `<button class="btn ghost sm" data-act="entrada" type="button">+ Entrada</button><button class="btn sm" data-act="retirar" type="button">Retirar p/ gestor</button>${flag}`;
-    return `<div class="row" data-id="${esc(it.id)}"><span class="code">${esc(it.codigo||"—")}</span><span class="desc">${esc(it.descricao)}${pills}${sub?`<span class="sub2">${esc(sub)}</span>`:""}</span><span class="qty">${s}</span><div class="btns">${btns}</div></div>`;
+    const btns = `<button class="btn ghost sm" data-act="entrada" type="button">+ Entrada</button><button class="btn sm" data-act="solicitar" type="button">Solicitar</button>${isGestor?"":flag}`;
+    return `<div class="row" data-id="${esc(it.id)}"><span class="code">${esc(it.codigo||"—")}</span><span class="desc">${esc(it.descricao)}${pills}${solic.length?`<span class="pill sol">solicitado</span>`:""}${sub?`<span class="sub2">${esc(sub)}</span>`:""}</span><span class="qty">${s}</span><div class="btns">${btns}</div></div>`;
   }).join("");
 }
 $("#q-est").addEventListener("input",renderEstoque); $("#f-est").addEventListener("change",renderEstoque);
@@ -488,40 +569,27 @@ $("#est-list").addEventListener("click", async e=>{
   const row=e.target.closest(".row"); if(!row) return;
   const act=e.target.closest("[data-act]")?.dataset.act; if(!act) return;
   const id=row.dataset.id, it=S.items.find(i=>i.id===id);
-  if(act==="entrada"||act==="retirar"){
+  if(act==="entrada"||act==="solicitar"){
     row.querySelector(".inline-form")?.remove();
     const f=document.createElement("div"); f.className="inline-form"; f.dataset.kind=act;
-    const isG = estView!=="total" && estView!=="almox";
-    const defG = isG ? estView : (me?.mat||"");
-    const defDono = estView==="almox" ? "almox" : (isG ? estView : (me?.mat||"almox"));
-    const donoOpts = [{k:"almox",t:"Almoxarifado"},...GESTORES.map(g=>({k:g.mat,t:g.nome}))]
-      .map(o=>`<option value="${o.k}" ${o.k===defDono?"selected":""}>Estoque de: ${esc(o.t)}</option>`).join("");
+    const defG = estView!=="total" ? estView : (me?.mat||GESTORES[0].mat);
+    const gOpts = pre => GESTORES.map(g=>`<option value="${g.mat}" ${g.mat===defG?"selected":""}>${pre}${esc(g.nome)}</option>`).join("");
     f.innerHTML = act==="entrada"
-      ? `<input type="number" step="1" placeholder="Qtd" aria-label="Quantidade de entrada" id="in-q-${esc(id)}"><select aria-label="De quem é o estoque" id="in-d-${esc(id)}">${donoOpts}</select><input class="wide" placeholder="Obs. (NF, ajuste…)" aria-label="Observação" id="in-o-${esc(id)}">`
-      : `<input type="number" min="1" step="1" placeholder="Qtd" aria-label="Quantidade retirada" id="rt-q-${esc(id)}"><select aria-label="Gestor que retira" id="rt-g-${esc(id)}">${GESTORES.map(g=>`<option value="${g.mat}" ${g.mat===defG?"selected":""}>${esc(g.nome)}</option>`).join("")}</select>`;
+      ? `<input type="number" step="1" placeholder="Qtd" aria-label="Quantidade de entrada" id="in-q-${esc(id)}"><select aria-label="De quem é o estoque" id="in-d-${esc(id)}">${gOpts("Estoque de: ")}</select><input class="wide" placeholder="Obs. (NF, ajuste…)" aria-label="Observação" id="in-o-${esc(id)}">`
+      : `<input type="number" min="1" step="1" placeholder="Qtd" aria-label="Quantidade solicitada" id="sl-q-${esc(id)}"><select aria-label="Quem solicitou" id="sl-g-${esc(id)}">${gOpts("Solicitado por: ")}</select><input class="wide" inputmode="numeric" placeholder="Nº do pedido (opcional)" aria-label="Número do pedido" id="sl-p-${esc(id)}">`;
     f.innerHTML += `<button class="btn sm" data-act="salvar" type="button">Salvar</button><button class="btn ghost sm" data-act="cancelar" type="button">Cancelar</button><span class="toast"></span>`;
     row.appendChild(f); f.querySelector("input").focus();
   } else if(act==="cancelar"){ row.querySelector(".inline-form")?.remove(); }
-  else if(act==="falta"){
-    if(!S.db) return; e.target.disabled=true;
-    try{ put("items",{...it,falta:!it.falta}); }catch(err){ $("#status").textContent=errMsg(err); e.target.disabled=false; }
-  }
+  else if(act==="falta"){ put("items",{...it,falta:!it.falta}); }
   else if(act==="salvar"){
     const f=row.querySelector(".inline-form"), q=Math.trunc(+f.querySelector("input").value), tt=f.querySelector(".toast");
-    if(!S.db) return toast(tt,"Sem conexão.");
+    const gm=f.querySelector("select").value, obs=f.querySelector("input.wide").value.trim();
     if(f.dataset.kind==="entrada"){
       if(!q) return toast(tt,"Informe a quantidade (negativo para ajuste de baixa).");
-      e.target.disabled=true;
-      const dono=f.querySelector("select").value;
-      try{ put("entradas",{id:newId(),itemId:id,qtd:q,dono,data:today(),obs:f.querySelector("input.wide").value.trim(),registradoPor:me?gLabel(me):"",criadoEm:Date.now()}); }
-      catch(err){ e.target.disabled=false; toast(tt,errMsg(err)); }
+      put("entradas",{id:newId(),itemId:id,qtd:q,dono:gm,data:today(),obs,registradoPor:me?gLabel(me):"",criadoEm:Date.now()});
     } else {
       if(!(q>0)) return toast(tt,"Informe uma quantidade maior que zero.");
-      const g=gByMat(f.querySelector("select").value), ag=saldos().geral.get(id)||0;
-      if(q>ag) return toast(tt,`O almoxarifado tem só ${ag}. Lance a entrada antes de retirar.`);
-      e.target.disabled=true;
-      try{ put("retiradas",{id:newId(),itemId:id,codigo:it.codigo||"",descricao:it.descricao,qtd:q,data:today(),gestorMat:g.mat,gestor:gLabel(g),registradoPor:me?gLabel(me):"",criadoEm:Date.now()}); }
-      catch(err){ e.target.disabled=false; toast(tt,errMsg(err)); }
+      novaSolicitacao(it,q,gm,obs);
     }
   }
 });
@@ -540,21 +608,22 @@ let pendingDel=null;
 function renderHist(){
   const terms=norm($("#q-hist").value).split(" ").filter(Boolean), g=$("#g-hist").value;
   const itemOf = id => S.items.find(i=>i.id===id) || {};
-  const src = histKind==="entregas" ? S.entregas : histKind==="retiradas" ? S.retiradas : S.entradas;
+  const src = histKind==="entregas" ? S.entregas : histKind==="solicitacoes" ? S.solicitacoes : S.entradas;
+  const pm = histKind==="solicitacoes" ? pendentes() : null;
   const list = src.map(x=>({...x, _desc:x.descricao||itemOf(x.itemId).descricao||"", _cod:x.codigo||itemOf(x.itemId).codigo||""}))
     .filter(x=>!g || (histKind==="entradas" ? String(x.dono||"almox")===g : (x.gestorMat||gMatFrom(x.gestor))===g))
     .filter(x=>terms.every(t=>norm(`${x.matricula||""} ${x.funcionario||""} ${x._cod} ${x._desc} ${x.gestor||""} ${x.obs||""}`).includes(t)))
     .sort((a,b)=>(b.data||"").localeCompare(a.data||"")||(b.criadoEm||0)-(a.criadoEm||0));
   const un=list.reduce((a,x)=>a+(+x.qtd||0),0);
-  const nome={entregas:"entregas",retiradas:"retiradas",entradas:"entradas"}[histKind];
+  const nome={entregas:"entregas",solicitacoes:"solicitações",entradas:"entradas"}[histKind];
   $("#hist-sum").innerHTML=`<span><b>${list.length}</b> ${nome}</span><span><b>${un}</b> unidades</span>`;
   const el=$("#hist-list");
-  if(!list.length){ el.innerHTML=`<div class="emptybox">${src.length?"Nada encontrado com esse filtro.":`Nenhuma ${nome.slice(0,-1)} registrada ainda.`}</div>`; return; }
+  if(!list.length){ el.innerHTML=`<div class="emptybox">${src.length?"Nada encontrado com esse filtro.":`Nenhum registro de ${nome} ainda.`}</div>`; return; }
   el.innerHTML=list.slice(0,300).map(x=>{
     const meta = histKind==="entregas"
       ? `<span>${fmtData(x.data)}</span><span>Mat. <b>${esc(x.matricula)}</b> · <b>${esc(x.funcionario)}</b></span><span>Gestor: ${esc(String(x.gestor||"").replace(/^\d+ - /,""))}</span>`
-      : histKind==="retiradas"
-      ? `<span>${fmtData(x.data)}</span><span>Retirado por <b>${esc(String(x.gestor||"").replace(/^\d+ - /,""))}</b></span>`
+      : histKind==="solicitacoes"
+      ? (()=>{ const r=pm.get(x.id)?.rest??0; return `<span>${fmtData(x.data)}</span><span>Solicitado por <b>${esc(String(x.gestor||"").replace(/^\d+ - /,""))}</b></span>${x.pedido?`<span>Pedido nº ${esc(x.pedido)}</span>`:""}<span>${r>0?`<b>Aguardando ${r}</b>`:"Retirado para o estoque"}</span>`; })()
       : `<span>${fmtData(x.data)}</span><span>Estoque de <b>${esc(donoNome(String(x.dono||"almox")))}</b></span>${x.obs?`<span>${esc(x.obs)}</span>`:""}${x.registradoPor?`<span>Lançado por ${esc(x.registradoPor.replace(/^\d+ - /,""))}</span>`:""}`;
     return `<div class="ent" data-id="${esc(x.id)}">
       <div class="top">${esc(x.qtd)}× ${esc(x._desc)} <span class="code">#${esc(x._cod||"—")}</span></div>
@@ -574,7 +643,7 @@ function renderAll(){ renderAlerta(); renderEstoque(); renderHist(); epiHint(); 
 
 /* ---------- início ---------- */
 /* ---------- dados no celular (funciona sem internet) ---------- */
-const DBKEY="epi-em-dia-v1", COLS=["items","entradas","retiradas","entregas","funcionarios"];
+const DBKEY="epi-em-dia-v1", COLS=["items","entradas","retiradas","entregas","funcionarios","solicitacoes"];
 const SEED={"items":{"i140":{"id":"i140","codigo":"140","descricao":"LANTERNA CAPACETE 12 LEDS","ord":1,"upd":1},"i149":{"id":"i149","codigo":"149","descricao":"LUVA VAQUETA - T9","ord":2,"upd":1},"i158":{"id":"i158","codigo":"158","descricao":"LUVA VAQUETA - T10","ord":3,"upd":1},"i-vaqueta-t11":{"id":"i-vaqueta-t11","codigo":"","descricao":"LUVA VAQUETA - T11","ord":4,"upd":1,"falta":true},"i129":{"id":"i129","codigo":"129","descricao":"PERNEIRA DE LONA TAMANHO ÚNICO - MARROM","ord":5,"upd":1},"i145":{"id":"i145","codigo":"145","descricao":"COLETE LARANJA - TAMANHO M","ord":6,"upd":1},"i146":{"id":"i146","codigo":"146","descricao":"COLETE LARANJA - TAMANHO XG","ord":7,"upd":1},"i147":{"id":"i147","codigo":"147","descricao":"COLETE LARANJA - TAMANHO G","ord":8,"upd":1},"i148":{"id":"i148","codigo":"148","descricao":"COLETE LARANJA - TAMANHO XXG","ord":9,"upd":1},"i150":{"id":"i150","codigo":"150","descricao":"COLETE LARANJA - TAMANHO XXXG","ord":10,"upd":1},"i162":{"id":"i162","codigo":"162","descricao":"PROTETOR AUDITIVO TIPO CONCHA","ord":11,"upd":1},"i166":{"id":"i166","codigo":"166","descricao":"PERNEIRA DE LONA TAMANHO GG - MARROM","ord":12,"upd":1},"i139":{"id":"i139","codigo":"139","descricao":"LUVA ALGODÃO/PVC - TAMANHO M","ord":13,"upd":1},"i68":{"id":"i68","codigo":"68","descricao":"LUVA RASPA CANO LONGO","ord":14,"upd":1},"i72":{"id":"i72","codigo":"72","descricao":"BOTINA COURO COM BIQUEIRA N°38","ord":15,"upd":1},"i73":{"id":"i73","codigo":"73","descricao":"BOTINA COURO COM BIQUEIRA N°39","ord":16,"upd":1},"i74":{"id":"i74","codigo":"74","descricao":"BOTINA COURO COM BIQUEIRA N°40","ord":17,"upd":1},"i75":{"id":"i75","codigo":"75","descricao":"BOTINA COURO COM BIQUEIRA N°41","ord":18,"upd":1},"i76":{"id":"i76","codigo":"76","descricao":"BOTINA COURO COM BIQUEIRA N°42","ord":19,"upd":1},"i77":{"id":"i77","codigo":"77","descricao":"BOTINA COURO COM BIQUEIRA N°43","ord":20,"upd":1},"i78":{"id":"i78","codigo":"78","descricao":"BOTINA COURO COM BIQUEIRA N°44","ord":21,"upd":1},"i79":{"id":"i79","codigo":"79","descricao":"BOTINA COURO COM BIQUEIRA N°45","ord":22,"upd":1},"i82":{"id":"i82","codigo":"82","descricao":"BOTINA COURO COM BIQUEIRA N°37","ord":23,"upd":1},"i97":{"id":"i97","codigo":"97","descricao":"CREME PROTETOR","ord":24,"upd":1},"i127":{"id":"i127","codigo":"127","descricao":"BONÉ S/ CASQUETE","ord":25,"upd":1},"i128":{"id":"i128","codigo":"128","descricao":"BONÉ C/ CASQUETE","ord":26,"upd":1},"i17":{"id":"i17","codigo":"17","descricao":"BOTINA COURO COM METARTAÇO N°35","ord":27,"upd":1},"i18":{"id":"i18","codigo":"18","descricao":"BOTINA COURO COM METARTAÇO N°36","ord":28,"upd":1},"i19":{"id":"i19","codigo":"19","descricao":"BOTINA COURO COM METARTAÇO N°37","ord":29,"upd":1},"i20":{"id":"i20","codigo":"20","descricao":"BOTINA COURO COM METARTAÇO N°38","ord":30,"upd":1},"i21":{"id":"i21","codigo":"21","descricao":"BOTINA COURO COM METARTAÇO N°39","ord":31,"upd":1},"i22":{"id":"i22","codigo":"22","descricao":"BOTINA COURO COM METARTAÇO N°40","ord":32,"upd":1},"i23":{"id":"i23","codigo":"23","descricao":"BOTINA COURO COM METARTAÇO N°41","ord":33,"upd":1},"i24":{"id":"i24","codigo":"24","descricao":"BOTINA COURO COM METARTAÇO N°42","ord":34,"upd":1},"i25":{"id":"i25","codigo":"25","descricao":"BOTINA COURO COM METARTAÇO N°43","ord":35,"upd":1},"i26":{"id":"i26","codigo":"26","descricao":"BOTINA COURO COM METARTAÇO N°44","ord":36,"upd":1},"i27":{"id":"i27","codigo":"27","descricao":"BOTINA COURO COM METARTAÇO N°45","ord":37,"upd":1},"i28":{"id":"i28","codigo":"28","descricao":"BOTINA COURO COM METARTAÇO N°46","ord":38,"upd":1},"i98":{"id":"i98","codigo":"98","descricao":"BOTINA COURO COM METARTAÇO N°47","ord":39,"upd":1},"i34":{"id":"i34","codigo":"34","descricao":"BOTINA COURO COM METARTAÇO N°34","ord":40,"upd":1},"i63":{"id":"i63","codigo":"63","descricao":"ÓCULOS INCOLOR","ord":41,"upd":1,"falta":true},"i64":{"id":"i64","codigo":"64","descricao":"ÓCULOS FUMÊ","ord":42,"upd":1,"falta":true},"i131":{"id":"i131","codigo":"131","descricao":"PROTETOR P","ord":43,"upd":1},"i132":{"id":"i132","codigo":"132","descricao":"PROTETOR M","ord":44,"upd":1},"i133":{"id":"i133","codigo":"133","descricao":"PROTETOR G","ord":45,"upd":1},"i134":{"id":"i134","codigo":"134","descricao":"PROTETOR GG","ord":46,"upd":1},"i135":{"id":"i135","codigo":"135","descricao":"PERNEIRA C/FIO P","ord":47,"upd":1},"i136":{"id":"i136","codigo":"136","descricao":"PERNEIRA C/FIO M","ord":48,"upd":1},"i137":{"id":"i137","codigo":"137","descricao":"PERNEIRA C/FIO G","ord":49,"upd":1},"i138":{"id":"i138","codigo":"138","descricao":"CARTÃO BROQUEIO","ord":50,"upd":1},"i152":{"id":"i152","codigo":"152","descricao":"BOLSA EPI","ord":51,"upd":1},"i155":{"id":"i155","codigo":"155","descricao":"LUVA NBR PRO 8","ord":52,"upd":1},"i156":{"id":"i156","codigo":"156","descricao":"LUVA NBR PRO 9","ord":53,"upd":1},"i157":{"id":"i157","codigo":"157","descricao":"LUVA NBR PRO 10","ord":54,"upd":1},"i166-2":{"id":"i166-2","codigo":"166","descricao":"PERNEIRA LONA GG","ord":55,"upd":1},"i168":{"id":"i168","codigo":"168","descricao":"PERNEIRA GESTOR","ord":56,"upd":1},"i69":{"id":"i69","codigo":"69","descricao":"BONÉ ARABE","ord":57,"upd":1},"i564422":{"id":"i564422","codigo":"564422","descricao":"BOTINA CPST N°40","ord":58,"upd":1}},"entradas":{"guz0t3373cujxqwlzx9g":{"id":"guz0t3373cujxqwlzx9g","itemId":"i140","qtd":2,"dono":"9646","data":"2026-10-15","obs":"","criadoEm":1792066779491,"upd":1},"kihr35dhtfgqoi4yvhxe":{"id":"kihr35dhtfgqoi4yvhxe","itemId":"i162","qtd":2,"dono":"9646","data":"2026-10-15","obs":"","criadoEm":1792066802014,"upd":1},"qusdg589eny6w76c49pl":{"id":"qusdg589eny6w76c49pl","itemId":"i564422","qtd":1,"dono":"9646","data":"2026-10-15","obs":"","criadoEm":1792067363893,"upd":1}},"retiradas":{},"entregas":{},"funcionarios":{}};
 let DB=null;
 function saveDB(){ try{ localStorage.setItem(DBKEY,JSON.stringify(DB)); return true; }
@@ -590,12 +659,12 @@ function del(c,id){ const r=DB[c][id]; if(r) put(c,{...r,del:true}); }
 function refresh(){
   const live=c=>Object.values(DB[c]).filter(r=>!r.del);
   S.items=live("items").sort((a,b)=>(a.ord??1e15)-(b.ord??1e15));
-  S.entradas=live("entradas"); S.retiradas=live("retiradas"); S.entregas=live("entregas");
+  S.entradas=live("entradas"); S.retiradas=live("retiradas"); S.entregas=live("entregas"); S.solicitacoes=live("solicitacoes");
   S.funcs=new Map(live("funcionarios").map(f=>[String(f.matricula),{matricula:String(f.matricula),nome:f.nome||""}]));
   if(selItem) selItem=S.items.find(i=>i.id===selItem.id)||selItem;
   const st=$("#status"); st.className="status";
   st.textContent=`${S.items.length} EPIs · salvo neste celular${navigator.onLine?"":" · sem internet"}`;
-  $("#d-info").textContent=`Guardado aqui: ${S.items.length} EPIs, ${S.entradas.length} entradas, ${S.retiradas.length} retiradas, ${S.entregas.length} entregas, ${S.funcs.size} funcionários.`;
+  $("#d-info").textContent=`Guardado aqui: ${S.items.length} EPIs, ${S.entradas.length} entradas, ${S.solicitacoes.length} solicitações, ${S.entregas.length} entregas, ${S.funcs.size} funcionários.`;
   const ls=store.get("epi-sync"); $("#d-sync").textContent= ls ? "Última troca de dados: "+ls : "";
   renderAll(); funcHint();
 }
