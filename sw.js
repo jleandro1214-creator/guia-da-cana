@@ -1,8 +1,8 @@
-/* Guia da Cana — funcionamento sem internet (cache guia-cana-v7).
+/* Guia da Cana — funcionamento sem internet (cache guia-cana-v8).
    Os apps Daninhas e Calculadora têm seus próprios service workers nas pastas deles. */
-const CACHE="guia-cana-v7";
+const CACHE="guia-cana-v8";
 const V="?v=6";
-const FILES=["./","index.html","app.js"+V,"base.js"+V,"fichas.js"+V,"daninhas/dados.js"+V,"daninhas/fazendas.js"+V,"manifest.webmanifest","icone-192.png","icone-512.png","icone-maskable-512.png","icone-apple.png"];
+const FILES=["./","index.html","app.js"+V,"base.js"+V,"fichas.js"+V,"daninhas/dados.js"+V,"daninhas/fazendas.js"+V,"manifest.webmanifest","icone2-192.png","icone2-512.png","icone2-maskable-512.png","icone2-apple.png"];
 const NOMES=FILES.map(f=>f.split("?")[0]);
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES.map(f=>new Request(f,{cache:"reload"})))).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith("guia-cana-")&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});

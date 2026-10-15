@@ -8,7 +8,7 @@ Versão anterior guardada para consulta: `v1/`
 - `index.html` — estrutura e estilo; `app.js` — telas e registros.
 - `base.js` — textos e fotos das fichas da versão 1 (mantidos).
 - `fichas.js` — campos novos das fichas padronizadas, referências e chave de sinais.
-- `sw.js` — funcionamento sem internet (cache `guia-cana-v7`). Não interfere nos apps das pastas `daninhas/` e `calculadora/`.
+- `sw.js` — funcionamento sem internet (cache `guia-cana-v8`). Não interfere nos apps das pastas `daninhas/` e `calculadora/`.
 
 ## Dados (só no aparelho)
 | Banco local | Conteúdo |

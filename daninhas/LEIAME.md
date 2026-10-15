@@ -8,7 +8,7 @@ Endereço: https://jleandro1214-creator.github.io/guia-da-cana/daninhas/
 - `app.js` — funcionamento (rotas, busca, filtros, calculadoras, caderno de campo, relatórios)
 - `dados.js` — banco técnico de referência: daninhas, herbicidas, mecanismos de ação e fotos. Tem versão e data de revisão.
 - `fazendas.js` — códigos e nomes das fazendas (planilha "Códigos e Seções")
-- `sw.js` — funcionamento sem internet (cache `daninhas-v4`)
+- `sw.js` — funcionamento sem internet (cache `daninhas-v5`)
 
 ## O que está pronto (etapas 1 a 4 do projeto)
 - Tela inicial com 6 módulos e busca geral (nome popular, científico, ingrediente ativo, nome comercial, mecanismo de ação, "grupo 2").
