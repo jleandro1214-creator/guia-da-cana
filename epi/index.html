@@ -279,8 +279,9 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
       <p>Cada celular guarda os próprios lançamentos. Para todos verem o mesmo estoque, envie seus dados aos outros gestores (pelo WhatsApp) e receba os deles. Nada é apagado: o app junta tudo e mantém a alteração mais recente.</p>
       <div class="actions">
         <button class="btn" type="button" id="b-enviar">Enviar meus dados</button>
-        <label class="btn ghost filebtn" for="f-receber" style="margin:0">Receber dados<input type="file" id="f-receber" accept=".json,application/json"></label>
+        <label class="btn ghost filebtn" for="f-receber" style="margin:0">Receber dados<input type="file" id="f-receber" accept="application/json,.json,application/octet-stream,text/plain"></label>
       </div>
+      <p class="hint" style="font-size:14px">Jeito mais fácil: no WhatsApp, segure o arquivo recebido, toque em <b>Compartilhar</b> e escolha <b>EPI em Dia</b>. Se usar o botão “Receber dados” e aparecer Câmera, toque em <b>Arquivos</b>.</p>
       <span class="toast" id="t-dados" role="status"></span>
       <p id="d-sync"></p>
     </div>
@@ -687,17 +688,32 @@ $("#b-enviar").addEventListener("click", async()=>{
     store.set("epi-sync",`enviado em ${new Date().toLocaleString("pt-BR")}`); refresh();
   }catch(err){ if(err?.name!=="AbortError") toast(t,"Não foi possível enviar: "+(err?.message||"erro")); }
 });
+function juntarDados(texto){
+  const t=$("#t-dados");
+  let inc; try{ inc=JSON.parse(texto); }catch{ return toast(t,"Arquivo inválido. Peça para enviarem de novo."); }
+  if(!inc||inc.app!=="epi-em-dia") return toast(t,"Esse arquivo não é do EPI em Dia.");
+  let n=0;
+  for(const c of COLS){ for(const [id,r] of Object.entries(inc[c]||{})){ const cur=DB[c][id]; if(!cur||(r.upd||0)>(cur.upd||0)){ DB[c][id]=r; n++; } } }
+  saveDB(); store.set("epi-sync",`recebido de ${String(inc.de||"outro gestor").replace(/^\d+ - /,"")} em ${new Date().toLocaleString("pt-BR")}`); refresh();
+  toast(t, n?`${n} lançamentos novos juntados.`:"Nada novo: você já tinha esses dados.", true);
+}
 $("#f-receber").addEventListener("change", async e=>{
   const t=$("#t-dados"), f=e.target.files[0]; e.target.value=""; if(!f) return;
-  try{
-    const inc=JSON.parse(await f.text());
-    if(inc.app!=="epi-em-dia") return toast(t,"Esse arquivo não é do EPI em Dia.");
-    let n=0;
-    for(const c of COLS){ for(const [id,r] of Object.entries(inc[c]||{})){ const cur=DB[c][id]; if(!cur||(r.upd||0)>(cur.upd||0)){ DB[c][id]=r; n++; } } }
-    saveDB(); store.set("epi-sync",`recebido de ${String(inc.de||"outro gestor").replace(/^\d+ - /,"")} em ${new Date().toLocaleString("pt-BR")}`); refresh();
-    toast(t, n?`${n} lançamentos novos juntados.`:"Nada novo: você já tinha esses dados.", true);
-  }catch{ toast(t,"Arquivo inválido. Peça para enviarem de novo."); }
+  if(/^(image|video|audio)\//.test(f.type)) return toast(t,"Isso é foto ou vídeo. Toque em Receber dados e escolha “Arquivos”.");
+  try{ juntarDados(await f.text()); }catch{ toast(t,"Não consegui abrir o arquivo. Tente de novo."); }
 });
+/* arquivo compartilhado direto do WhatsApp para o app */
+async function receberCompartilhado(){
+  if(!/[?&]recebido=/.test(location.search)) return;
+  history.replaceState(null,"",location.pathname);
+  document.querySelector('[data-view="dados"]').click();
+  const t=$("#t-dados");
+  try{
+    const c=await caches.open("epi-recebido"); const r=await c.match("ultimo");
+    if(!r) return toast(t,"Não chegou nenhum arquivo. Tente compartilhar de novo.");
+    await c.delete("ultimo"); juntarDados(await r.text());
+  }catch{ toast(t,"Não consegui ler o arquivo compartilhado."); }
+}
 
 /* instalar */
 let deferred=null;
@@ -725,5 +741,6 @@ try{ navigator.storage?.persist?.(); }catch{}
 loadDB();
 setUser(gByMat(store.get("epi-user")) || null);
 refresh();
+receberCompartilhado();
 </script>
 </body></html>
