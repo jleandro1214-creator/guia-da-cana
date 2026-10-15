@@ -9,7 +9,7 @@ Versão anterior guardada para consulta: `calculadora/v1/`
 - `app.js` — telas, cadastros, histórico, registros, painel, relatórios e backup.
 - `index.html` — estrutura e estilo (mesma identidade visual da v1).
 - `fazendas.js` — códigos e nomes das fazendas (planilha "Códigos e Seções").
-- `sw.js` — funcionamento sem internet (cache `calculadora-v2`).
+- `sw.js` — funcionamento sem internet (cache `calculadora-v3`).
 
 ## Fórmulas
 As 12 contas da v1 foram mantidas com as mesmas fórmulas. Entraram 5 novas: capacidade operacional, fertilizante formulado, desempenho da colheita, custo do diesel e conversor de unidades.
