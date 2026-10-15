@@ -271,12 +271,12 @@ ROTAS.herbicida = (k)=>{
       ${linhas("Titular",h.titular==="não conferido"?`<span class="badge pend">não conferido</span>`:esc(h.titular))}
       ${linhas("Registro MAPA",h.registro==="não conferido"?`<span class="badge pend">não conferido</span>`:esc(h.registro))}
       ${linhas("Mecanismo",h.moa.map(g=>`Grupo ${g} — ${esc(MECANISMOS[g].nome)}`).join("<br>"))}
-      ${linhas("Modalidade",esc(h.modalidade))}${linhas("Cultura","Cana-de-açúcar")}</dl>
-    <h4>Daninhas do guia citadas na bula</h4><p>${h.alvos.map(a=>`<a href="#/daninha/${a}">${esc(W(a).nome)}</a>`).join(", ")}</p>
+      ${linhas("Modalidade",esc(h.modalidade))}${linhas("Cultura","Cana-de-açúcar")}${h.cod?linhas("Código no estoque",esc(h.cod)):""}</dl>
+    <h4>Daninhas do guia citadas na bula</h4><p>${h.alvos.length?h.alvos.map(a=>`<a href="#/daninha/${a}">${esc(W(a).nome)}</a>`).join(", "):"Nenhuma das daninhas com ficha no guia."}</p>${h.outros?`<p class="nota">Outras daninhas da bula (sem ficha no guia): ${esc(h.outros)}</p>`:""}
     <h4>Dose da bula por solo e fase</h4>
     <div class="tw"><table class="t"><tr><th>Fase</th><th>Arenoso</th><th>Médio</th><th>Argiloso</th></tr>
-      ${["planta","soca"].map(c=>`<tr><td>${CANA_TXT[c]}</td>${["arenoso","medio","argiloso"].map(s=>{ const r=h.dose(h.alvos[0],s,c); return `<td>${r.na?`<span style="color:var(--warn)">não indicado</span>`:`<b>${r.d}</b> ${r.u}`}</td>`; }).join("")}</tr>`).join("")}</table></div>
-    <p class="nota">Dose da tabela calculada para "${esc(W(h.alvos[0]).nome)}". Algumas bulas variam a dose por espécie: veja na ficha de cada daninha.</p>
+      ${["planta","soca"].map(c=>`<tr><td>${CANA_TXT[c]}</td>${["arenoso","medio","argiloso"].map(s=>{ const r=h.dose(h.alvos[0]||"",s,c); return `<td>${r.na?`<span style="color:var(--warn)">não indicado</span>`:`<b>${r.d}</b> ${r.u}`}</td>`; }).join("")}</tr>`).join("")}</table></div>
+    <p class="nota">${h.alvos.length?`Dose da tabela calculada para "${esc(W(h.alvos[0]).nome)}". Algumas bulas variam a dose por espécie: veja na ficha de cada daninha.`:"Dose da bula para as daninhas listadas acima."}</p>
     <h4>Restrição por tipo de solo</h4>
     ${soloCampos(h)}
     <p class="nota">Faixas de argila usuais nas bulas; confira na bula deste produto se ela usa outras faixas. Use a análise de solo do talhão (argila e matéria orgânica) para escolher a linha certa.</p>

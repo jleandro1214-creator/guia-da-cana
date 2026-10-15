@@ -1,4 +1,4 @@
-# Daninhas da Cana — versão 4 (15/10/2026)
+# Daninhas da Cana — versão 5 (15/10/2026)
 
 App instalável (PWA) que roda inteiro no celular, sem servidor.
 Endereço: https://jleandro1214-creator.github.io/guia-da-cana/daninhas/
@@ -8,12 +8,12 @@ Endereço: https://jleandro1214-creator.github.io/guia-da-cana/daninhas/
 - `app.js` — funcionamento (rotas, busca, filtros, calculadoras, caderno de campo, relatórios)
 - `dados.js` — banco técnico de referência: daninhas, herbicidas, mecanismos de ação e fotos. Tem versão e data de revisão.
 - `fazendas.js` — códigos e nomes das fazendas (planilha "Códigos e Seções")
-- `sw.js` — funcionamento sem internet (cache `daninhas-v6`)
+- `sw.js` — funcionamento sem internet (cache `daninhas-v7`)
 
 ## O que está pronto (etapas 1 a 4 do projeto)
 - Tela inicial com 6 módulos e busca geral (nome popular, científico, ingrediente ativo, nome comercial, mecanismo de ação, "grupo 2").
 - 11 daninhas em 8 categorias, filtros por "o que você vê no campo", fichas com fotos ampliáveis e foto própria.
-- 12 produtos comerciais, cada um com a dose da **própria bula**, fonte, link e data da conferência.
+- 38 produtos comerciais (26 acrescentados da planilha de estoque de 01/10/2026), cada um com a dose da **própria bula**, fonte, link, data da conferência e código do estoque. Produtos genéricos da planilha (ametrina, diurom, trifluralina, mesotriona, amicarbazona 500) usam uma marca de referência indicada na ficha.
 - **Restrição por tipo de solo** (arenoso, médio, argiloso) em cada herbicida: faixa de argila, nível (não indicado / com restrição / sem restrição) e o que a bula diz. Filtro de solo também na lista de herbicidas.
 - Campos de tipo de solo e % de argila na vistoria, com aviso quando a argila não bate com o solo marcado.
 - Filtros de solo, fase do canavial e modalidade que começam como "Não informado" e não presumem nada.

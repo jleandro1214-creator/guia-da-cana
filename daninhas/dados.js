@@ -7,19 +7,24 @@
      "referencia"= referência técnica geral, ainda sem conferência de fonte
      "pendente"  = dado não conferido; não usar sem validação
    ===================================================================== */
-const DADOS_VERSAO = "2026.10.15-v4";
+const DADOS_VERSAO = "2026.10.15-v5";
 const DADOS_REVISAO = "15/10/2026";
 const DADOS_RESPONSAVEL = "Montagem inicial por assistente (Claude) — revisão por agrônomo responsável pendente";
 
 /* ---------- Mecanismos de ação (classificação HRAC/WSSA, numérica) ---------- */
 const MECANISMOS = {
-  "2":  {nome:"Inibidores da ALS",                         ex:"imazapique, halossulfurom, trifloxissulfurom"},
-  "4":  {nome:"Mimetizadores de auxina",                   ex:"2,4-D"},
-  "5":  {nome:"Inibidores do fotossistema II (sítio A)",   ex:"hexazinona, ametrina, amicarbazona"},
+  "0":  {nome:"Mecanismo desconhecido (organoarsenicais)", ex:"MSMA (antigo grupo 17 / Z)"},
+  "2":  {nome:"Inibidores da ALS",                         ex:"imazapique, imazapir, halossulfurom, trifloxissulfurom, diclosulam, metsulfurom"},
+  "3":  {nome:"Inibidores da formação de microtúbulos",    ex:"trifluralina"},
+  "4":  {nome:"Mimetizadores de auxina",                   ex:"2,4-D, picloram, fluroxipir, triclopir, aminopiralide"},
+  "5":  {nome:"Inibidores do fotossistema II (sítio A)",   ex:"hexazinona, ametrina, amicarbazona, metribuzim"},
   "7":  {nome:"Inibidores do fotossistema II (ureias)",    ex:"diurom, tebutiurom"},
+  "9":  {nome:"Inibidores da EPSPS",                       ex:"glifosato (não seletivo para a cana)"},
   "13": {nome:"Inibidores da síntese de carotenoides (DXP)", ex:"clomazona"},
-  "14": {nome:"Inibidores da PPO (Protox)",                ex:"sulfentrazona"},
-  "27": {nome:"Inibidores da HPPD",                        ex:"isoxaflutol"},
+  "14": {nome:"Inibidores da PPO (Protox)",                ex:"sulfentrazona, flumioxazina, carfentrazona"},
+  "15": {nome:"Inibidores de ácidos graxos de cadeia muito longa (VLCFA)", ex:"piroxasulfona"},
+  "18": {nome:"Inibidores da DHP sintase",                 ex:"asulam"},
+  "27": {nome:"Inibidores da HPPD",                        ex:"isoxaflutol, mesotriona"},
   "29": {nome:"Inibidores da síntese de celulose",         ex:"indaziflam"}
 };
 
@@ -36,11 +41,18 @@ const SOLOS = {
 /* Nível da restrição por solo: "nao" = não indicado | "restr" = indicado com restrição | "ok" = sem restrição além da dose */
 const NIVEL_SOLO = {nao:["pend","⛔ Não indicado"], restr:["ref","⚠ Com restrição"], ok:["ok","✓ Sem restrição de solo"]};
 
+/* Atalhos para produtos de pós-emergência e não seletivos (a bula não muda nada por solo) */
+const SOLO_POS = "Produto aplicado sobre as folhas das daninhas: a bula não restringe o uso por textura de solo.";
+const SOLO_IGUAL = "A bula não muda a dose por textura de solo.";
+const soloTodos = (t,n="ok")=>({arenoso:{n,t},medio:{n,t},argiloso:{n,t}});
+
 /* ---------- Herbicidas: cada entrada é UM produto comercial, com a bula lida ----------
+   cod    = código do produto na planilha de estoque (Acompanhamento Estoque — Herbicidas)
+   outros = daninhas da bula que não têm ficha no guia
    dose(daninha, solo, cana) -> {d, u, n} ou {na:"motivo"}
    Solo: "arenoso" | "medio" | "argiloso"; cana: "planta" | "soca"            */
 const HERBICIDAS = {
-  velpark:{ comercial:"Velpar K WG", titular:"Corteva Agriscience", ia:"Hexazinona + diurom", conc:"132 + 468 g/kg", form:"WG (granulado dispersível)",
+  velpark:{ cod:"11370", comercial:"Velpar K WG", titular:"Corteva Agriscience", ia:"Hexazinona + diurom", conc:"132 + 468 g/kg", form:"WG (granulado dispersível)",
     moa:["5","7"], registro:"não conferido", modalidade:"Pré e pós-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Revista Cultivar — ficha do produto (dados da bula)", link:"https://revistacultivar.com.br/pesticida/velpar-k-wg",
     alvos:["corda","caruru","picao","trapoeraba","coloniao","braquiaria","colchao"],
@@ -79,7 +91,7 @@ const HERBICIDAS = {
       argiloso:{n:"ok",t:"A bula não muda a dose por solo: 1,2 L/ha (tiririca 1,6 L/ha)."}},
     restricoes:["A bula não varia a dose por textura de solo na cana.","Volume de calda terrestre: 100 a 300 L/ha."],
     dose:(w)=> w==="tiririca" ? {d:"1,6",u:"L/ha",n:"Mesma dose em qualquer solo."} : {d:"1,2",u:"L/ha",n:"Mesma dose em qualquer solo."} },
-  provence:{ comercial:"Provence 750 WG", titular:"Bayer", ia:"Isoxaflutol", conc:"750 g/kg", form:"WG",
+  provence:{ cod:"120964", comercial:"Provence 750 WG", titular:"Bayer", ia:"Isoxaflutol", conc:"750 g/kg", form:"WG",
     moa:["27"], registro:"não conferido", modalidade:"Pré-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Provence 750 WG", link:"https://assets.revistacultivar.com.br/0c155355-4a10-4897-95ab-86e61490d82b_provence_750_wg_bula.pdf",
     alvos:["caruru","coloniao","braquiaria","colchao"],
@@ -90,7 +102,7 @@ const HERBICIDAS = {
     dose:(w,s,c)=>{ if(c==="planta"){ if(s==="arenoso") return {na:"Bula sem dose para cana-planta em solo arenoso."};
         return {d:s==="medio"?"80 + 80":"90 + 90",u:"g/ha",n:"Duas aplicações: após o plantio e na entrelinha aos 60 dias."}; }
       return {d:{arenoso:"200 a 250",medio:"250 a 300",argiloso:"300 a 350"}[s],u:"g/ha (soca seca)",n:"Soca úmida: "+{arenoso:"100",medio:"125",argiloso:"150"}[s]+" g/ha."}; } },
-  plateau:{ comercial:"Plateau", titular:"BASF", ia:"Imazapique", conc:"700 g/kg", form:"WG",
+  plateau:{ cod:"237572", comercial:"Plateau", titular:"BASF", ia:"Imazapique", conc:"700 g/kg", form:"WG",
     moa:["2"], registro:"não conferido", modalidade:"Pré-emergência (cana-soca)", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Plateau", link:"https://assets.revistacultivar.com.br/a6c0eecb-4406-4bbe-bed5-9b8e81fd960e_plateau_bula.pdf",
     alvos:["tiririca"],
@@ -101,7 +113,7 @@ const HERBICIDAS = {
     dose:(w,s,c)=>{ if(c==="planta") return {na:"Não aplicar em cana-planta."};
       if(s==="arenoso") return {na:"Bula sem dose de tiririca para solo leve."};
       return {d:s==="medio"?"190":"210",u:"g/ha"}; } },
-  alion:{ comercial:"Alion", titular:"Bayer", ia:"Indaziflam", conc:"500 g/L", form:"SC",
+  alion:{ cod:"397511", comercial:"Alion", titular:"Bayer", ia:"Indaziflam", conc:"500 g/L", form:"SC",
     moa:["29"], registro:"não conferido", modalidade:"Pré e pós-emergência inicial", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Alion", link:"https://painel.farmby.com.br/storage/bulas/alion.pdf",
     alvos:["caruru","picao","coloniao","braquiaria","amargoso","colchao","gramaseda"],
@@ -120,7 +132,7 @@ const HERBICIDAS = {
       argiloso:{n:"ok",t:"2,0 kg/ha."}},
     restricoes:["Aplicação única.","Pré na cana-planta ou logo após o corte na soca."],
     dose:(w,s)=> s==="argiloso" ? {d:"2,0",u:"kg/ha"} : {d:["caruru","picao","corda"].includes(w)?"1,5":"1,0",u:"kg/ha"} },
-  gamit:{ comercial:"Gamit 360 CS", titular:"FMC", ia:"Clomazona", conc:"360 g/L", form:"CS (suspensão de cápsulas)",
+  gamit:{ cod:"372525", comercial:"Gamit 360 CS", titular:"FMC", ia:"Clomazona", conc:"360 g/L", form:"CS (suspensão de cápsulas)",
     moa:["13"], registro:"não conferido", modalidade:"Pré-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Revista Cultivar — ficha do produto (dados da bula)", link:"https://revistacultivar.com.br/pesticida/gamit-360-cs",
     alvos:["corda","caruru","trapoeraba","coloniao","braquiaria","colchao"],
@@ -147,7 +159,7 @@ const HERBICIDAS = {
       argiloso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."}},
     restricoes:["Uma aplicação por ciclo.","30 a 40 dias após o plantio ou corte.","Surfactante (amina polioxietilenada) a 1,0 L/ha."],
     dose:()=>({d:"150",u:"g/ha"}) },
-  dma806:{ comercial:"2,4-D DMA 806 SL CAC", titular:"não conferido", ia:"2,4-D (sal dimetilamina)", conc:"806 g/L (670 g/L e.a.)", form:"SL (concentrado solúvel)",
+  dma806:{ cod:"69 (2,4-D — marca não informada na planilha)", comercial:"2,4-D DMA 806 SL CAC", titular:"não conferido", ia:"2,4-D (sal dimetilamina)", conc:"806 g/L (670 g/L e.a.)", form:"SL (concentrado solúvel)",
     moa:["4"], registro:"não conferido", modalidade:"Pós-emergência (área total ou jato dirigido)", status:"bula", conferido:"14/10/2026",
     fonte:"Bula 2,4-D DMA 806 SL CAC", link:"https://assets.revistacultivar.com.br/58e13de1-e1c1-4d1b-9563-fa50baa0256a_24d_dma_806_sl_cac_bula.pdf",
     alvos:["corda","caruru","picao","leiteiro","trapoeraba","tiririca"],
@@ -155,7 +167,237 @@ const HERBICIDAS = {
       medio:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."},
       argiloso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."}},
     restricoes:["Área total: cana até 30 cm, antes da formação dos colmos.","Jato dirigido: antes da floração da planta daninha.","Alto risco de deriva para culturas sensíveis vizinhas: siga as normas estaduais para 2,4-D."],
-    dose:(w)=> ["picao","caruru"].includes(w) ? {d:"1,0 a 1,5",u:"L/ha",n:"Área total, daninhas com 3 a 5 folhas."} : {d:"1,5",u:"L/ha",n:"Jato dirigido."} }
+    dose:(w)=> ["picao","caruru"].includes(w) ? {d:"1,0 a 1,5",u:"L/ha",n:"Área total, daninhas com 3 a 5 folhas."} : {d:"1,5",u:"L/ha",n:"Jato dirigido."} },
+
+  /* ===== Acrescentados em 15/10/2026 a partir da planilha de estoque de 01/10/2026 ===== */
+  combine:{ cod:"3001", comercial:"Combine 500 SC", titular:"Proventis Lifescience", ia:"Tebutiurom", conc:"500 g/L", form:"SC (suspensão concentrada)",
+    moa:["7"], registro:"MAPA nº 718701", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Combine 500 SC / Spike 500 SC (dados da bula)", link:"https://revistacultivar.com.br/pesticida/combine-500-sc-spike-500-sc",
+    alvos:["caruru","corda","picao","leiteiro","trapoeraba","coloniao","braquiaria","colchao"],
+    outros:"carrapicho-rasteiro, capim-marmelada, capim-carrapicho, capim-pé-de-galinha, falsa-serralha, picão-branco, beldroega, poaia-branca, guanxumas",
+    porSolo:{arenoso:{n:"ok",t:"1,6 a 2,0 L/ha."},medio:{n:"ok",t:"Areno-argiloso: 2,0 a 2,4 L/ha."},argiloso:{n:"ok",t:"2,4 L/ha."}},
+    restricoes:["Uma aplicação por ciclo, após o plantio (cana-planta) ou após o corte (cana-soca), em qualquer época do ano.","Mesma dose para cana-planta e soca.","Rotação: não implantar outras culturas por 24 meses após a última aplicação.","Terrestre: não aplicar com vento acima de 8 km/h nem nas horas mais quentes.","Intervalo de segurança: não determinado (modalidade de emprego)."],
+    dose:(w,s)=>({d:{arenoso:"1,6 a 2,0",medio:"2,0 a 2,4",argiloso:"2,4"}[s],u:"L/ha"}) },
+
+  ametrina:{ cod:"5287", comercial:"Ametrina 500 g/L (referência: Metrimex 500 SC)", titular:"Oxon Brasil", ia:"Ametrina", conc:"500 g/L", form:"SC",
+    moa:["5"], registro:"MAPA nº 1558106 (Metrimex 500 SC)", modalidade:"Pré e pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Metrimex 500 SC (dados da bula)", link:"https://revistacultivar.com.br/pesticida/metrimex-500-sc",
+    alvos:["colchao","caruru","trapoeraba","picao","corda"],
+    outros:"capim-carrapicho, capim-pé-de-galinha, capim-marmelada (pós), beldroega, guanxuma, falsa-serralha (pós)",
+    porSolo:soloTodos("5,0 a 6,0 L/ha. A bula não fixa dose por solo: usar as maiores em solo com mais argila ou matéria orgânica."),
+    restricoes:["A planilha não informa a marca: os dados são da bula do Metrimex 500 SC. Confira a bula da ametrina 500 g/L que está no estoque.","Uma aplicação por safra.","Picão-preto e corda-de-viola: só em pré-emergência.","Cana com mais de 40 cm: aplicação dirigida nas entrelinhas.","Exige 6 horas sem chuva; não aplicar em solo seco ou mal preparado.","Na pós, pode causar clorose passageira em algumas variedades (some em 3 a 4 semanas).","Restrição estadual no Paraná para caruru, trapoeraba, corda-de-viola e picão-preto em cana."],
+    dose:(w,s)=>({d:"5,0 a 6,0",u:"L/ha",n:(["picao","corda"].includes(w)?"Só em pré-emergência para esta daninha. ":"")+(s==="argiloso"?"Solo argiloso: preferir a dose maior.":s==="arenoso"?"Solo arenoso: preferir a dose menor.":"")}) },
+
+  sencor:{ cod:"5499", comercial:"Sencor 480", titular:"Bayer", ia:"Metribuzim", conc:"480 g/L", form:"SC",
+    moa:["5"], registro:"MAPA nº 1288594", modalidade:"Pré-emergência e pós-emergência inicial", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Sencor 480 (dados da bula)", link:"https://revistacultivar.com.br/pesticida/sencor-480",
+    alvos:["picao","caruru","corda","braquiaria","coloniao","colchao"],
+    outros:"beldroega, serralha, guanxuma, picão-branco, apaga-fogo, erva-quente, falsa-serralha, poaia-branca, capim-carrapicho, capim-pé-de-galinha, capim-marmelada e outras",
+    porSolo:{arenoso:{n:"ok",t:"3,0 L/ha (arenoso a médio: menor dose)."},medio:{n:"ok",t:"3,0 L/ha (arenoso a médio: menor dose)."},argiloso:{n:"ok",t:"4,0 L/ha."}},
+    restricoes:["Uma aplicação por ciclo.","Pré-emergência, ou logo após a emergência (daninhas com no máximo 4 folhas).","Intervalo de segurança: 120 dias.","Altamente móvel e persistente no solo, com risco de atingir água subterrânea."],
+    dose:(w,s)=>({d:s==="argiloso"?"4,0":"3,0",u:"L/ha"}) },
+
+  jump:{ cod:"37225", comercial:"Jump", titular:"ADAMA", ia:"Diurom + hexazinona", conc:"533 + 67 g/kg", form:"WG",
+    moa:["7","5"], registro:"MAPA nº 8808", modalidade:"Pré e pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Jump (dados da bula)", link:"https://revistacultivar.com.br/pesticida/jump",
+    alvos:["caruru","picao","braquiaria","trapoeraba","colchao","corda","coloniao"],
+    outros:"carrapicho-rasteiro, apaga-fogo, capim-marmelada, capim-carrapicho, capim-pé-de-galinha, falsa-serralha, beldroega, nabo-bravo, guanxuma",
+    porSolo:{arenoso:{n:"ok",t:"Pré: perto de 2,0 kg/ha."},medio:{n:"ok",t:"Pré: 2,0 a 3,5 kg/ha conforme argila, matéria orgânica e infestação."},argiloso:{n:"ok",t:"Pré: perto de 3,5 kg/ha (solo pesado, matéria orgânica alta, infestação alta)."}},
+    restricoes:["A planilha lista \"Jump / Advance\": os dados são da bula do Jump. Se vier outra marca, confira a bula dela.","Uma aplicação por ciclo (pré ou pós).","Pré: matéria orgânica de no mínimo 1,3%; solo úmido e sem torrões. Na soca, após enleirar a palha.","Pós: jato dirigido recomendado; 2,0 kg/ha (daninhas menores) ou 3,5 kg/ha (maiores).","Não aplicar em pós com umidade abaixo de 55% ou daninhas estressadas pela seca.","Intervalo de segurança: 150 dias. Uso exclusivo em cana."],
+    dose:(w,s)=>({d:{arenoso:"2,0",medio:"2,0 a 3,5",argiloso:"3,5"}[s],u:"kg/ha (pré)",n:"Pós-emergência: 2,0 kg/ha (daninhas pequenas) ou 3,5 kg/ha (maiores)."}) },
+
+  contain:{ cod:"51016", comercial:"Contain", titular:"BASF", ia:"Imazapir", conc:"250 g/L e.a. (266,3 g/L)", form:"SL (concentrado solúvel)",
+    moa:["2"], registro:"MAPA nº 128895", modalidade:"Pré-emergência na soca · pré/pós da tiririca antes do plantio", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Contain (dados da bula)", link:"https://revistacultivar.com.br/pesticida/contain",
+    alvos:["colchao","gramaseda","tiririca"], outros:"capim-marmelada",
+    porSolo:{arenoso:{n:"ok",t:"Soca: 0,5 L/ha (menor dose)."},medio:{n:"ok",t:"Soca: 0,5 a 0,8 L/ha."},argiloso:{n:"ok",t:"Soca: 0,8 L/ha. Matéria orgânica alta pode reduzir o residual."}},
+    restricoes:["Soca seca: logo após a colheita, em pré-emergência total da brotação, de abril a setembro.","Cana-planta: só para tiririca, no despraguejamento da área ANTES do plantio. Abrir o sulco no mínimo 60 dias depois (90 no plantio de inverno) e com 90 mm de chuva.","Causa fitotoxicidade se aplicado em pós-emergência da cana ou acima da dose.","Uma aplicação por ciclo. Adjuvante não iônico a 0,5%.","Não aplicar perto de árvores e plantas úteis; sem chuva nas 4 horas seguintes."],
+    dose:(w,s,c)=>{ if(c==="planta") return w==="tiririca" ? {d:"1,5 a 2,0",u:"L/ha",n:"Antes do plantio. Sulco só 60 dias depois (90 no inverno), com 90 mm de chuva."} : {na:"Na cana-planta a bula só indica o Contain para tiririca, antes do plantio."};
+      if(w==="tiririca") return {na:"Na soca a bula não indica o Contain para tiririca."};
+      return {d:{arenoso:"0,5",medio:"0,5 a 0,8",argiloso:"0,8"}[s],u:"L/ha",n:"Soca seca, logo após a colheita (abril a setembro)."}; } },
+
+  msma720:{ cod:"53394", comercial:"MSMA 720", titular:"UPL", ia:"MSMA", conc:"720 g/L", form:"SL (a planilha cita SC)",
+    moa:["0"], registro:"MAPA nº 6108", modalidade:"Pós-emergência (jato dirigido)", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha MSMA 720 (dados da bula)", link:"https://revistacultivar.com.br/pesticida/msma-720",
+    alvos:["caruru","picao","trapoeraba","tiririca","colchao","coloniao"],
+    outros:"carrapicho-de-carneiro, capim-marmelada, capim-carrapicho, capim-pé-de-galinha, picão-branco, rubim, mastruz, beldroega, guanxuma",
+    porSolo:soloTodos(SOLO_POS),
+    restricoes:["A planilha diz \"MSMA 720 SC\": os dados são da bula do MSMA 720 (UPL). Confira a marca do estoque.","Jato dirigido, sem atingir a cana; daninhas com menos de 20 cm.","Uma única aplicação.","Não aplicar com temperatura média abaixo de 20 °C nem em dia nublado; 6 horas sem chuva.","Reentrada: 7 dias (sem EPI).","Não plantar outras culturas por 2 anos após a última aplicação.","Capim-colonião: aplicação em manchas, dose em % na calda."],
+    dose:(w)=>({d:{caruru:"2,5 a 4,0",trapoeraba:"2,5 a 4,0",colchao:"2,5 a 4,0",picao:"2,5 a 3,5",tiririca:"2,5 a 3,5",coloniao:"2,5"}[w]||"2,5 a 4,0",u:"L/ha",n:"Jato dirigido, daninhas com menos de 20 cm."}) },
+
+  volcane:{ cod:"153668", comercial:"Volcane", titular:"Luxembourg Brasil (distribuição Sipcam Nichino)", ia:"MSMA", conc:"790 g/L", form:"SL",
+    moa:["0"], registro:"MAPA nº 4798", modalidade:"Pós-emergência (jato dirigido)", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Volcane (dados da bula)", link:"https://revistacultivar.com.br/pesticida/volcane",
+    alvos:["colchao","caruru","picao","braquiaria","corda","coloniao"],
+    outros:"carrapicho-de-carneiro, capim-marmelada, capim-carrapicho",
+    porSolo:soloTodos(SOLO_POS),
+    restricoes:["Jato dirigido, sem atingir a cana. Só equipamento terrestre.","Gramíneas e caruru até 12 cm; colonião, picão e corda-de-viola até 20 cm.","Uma aplicação por safra.","Não aplicar abaixo de 20 °C, em dia nublado ou com previsão de chuva.","Espalhante adesivo não iônico: 100 mL por 100 L de água.","Manter pessoas e animais fora da área por 7 dias."],
+    dose:(w)=> w==="coloniao" ? {d:"3,0",u:"L/ha",n:"Colonião de semente, abaixo de 20 cm."} : {d:"1,8 a 3,0",u:"L/ha",n:"Dose menor para daninhas menores. Jato dirigido."} },
+
+  boral:{ cod:"53554", comercial:"Boral 500 SC", titular:"FMC", ia:"Sulfentrazona", conc:"500 g/L", form:"SC",
+    moa:["14"], registro:"MAPA nº 7495", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Boral 500 SC / Capaz (dados da bula)", link:"https://revistacultivar.com.br/pesticida/boral-500-sc-capaz",
+    alvos:["caruru","corda","leiteiro","trapoeraba","coloniao","braquiaria","colchao"],
+    outros:"beldroega, capim-carrapicho, capim-marmelada, erva-quente, guanxuma-branca, poaia-branca",
+    porSolo:soloTodos("1,2 L/ha. "+SOLO_IGUAL),
+    restricoes:["Uma aplicação por ciclo, após o plantio, em pré-emergência da cana e das daninhas.","Precisa de umidade no solo; se estiver seco, esperar chuva acima de 10 mm.","Soca recém-brotada pode ter queima localizada nas folhas, com recuperação rápida.","Rotação com algodão: mínimo 18 meses.","Intervalo de segurança: não determinado."],
+    dose:()=>({d:"1,2",u:"L/ha",n:"Mesma dose em qualquer solo."}) },
+
+  roundupwg:{ cod:"57228", comercial:"Roundup WG", titular:"Monsanto do Brasil (Bayer)", ia:"Glifosato (sal de amônio)", conc:"720 g/kg e.a. (792,5 g/kg)", form:"WG",
+    moa:["9"], registro:"MAPA nº 2094", modalidade:"Pós-emergência das daninhas antes do plantio · erradicação de soqueira", status:"bula", conferido:"15/10/2026",
+    fonte:"Bula Roundup WG", link:"https://painel.farmby.com.br/storage/bulas/roundup-wg.pdf",
+    alvos:["coloniao","tiririca","gramaseda","amargoso","colchao","corda","picao","trapoeraba"],
+    outros:"junquinho, braquiarão",
+    porSolo:soloTodos("Aplicado sobre as folhas, antes do plantio: a bula não muda a dose por solo."),
+    restricoes:["NÃO SELETIVO: mata a cana. Só em área total antes do plantio ou para erradicar a soqueira na reforma.","Erradicação de soqueira: 2,0 a 3,0 kg/ha, com a folha-bandeira entre 0,6 e 1,0 m e antes de formar colmos.","Capim-amargoso e caruru têm biótipos resistentes a glifosato no Brasil.","Trapoeraba: duas aplicações com 28 a 30 dias de intervalo.","Chuva nas 4 horas seguintes reduz o efeito. Não capinar nem roçar antes ou logo depois.","Calda só em plástico, fibra, alumínio ou inox (corrói ferro)."],
+    dose:(w,s,c)=>{ if(c==="soca") return {na:"Não seletivo: na soca só serve para erradicar a soqueira na reforma (2,0 a 3,0 kg/ha)."};
+      const d={coloniao:"2,25",tiririca:"2,0 a 2,5",gramaseda:"2,5 a 3,5",amargoso:"1,5",colchao:"0,75 a 1,0",corda:"1,5 a 2,0",picao:"0,75",trapoeraba:"2,0 + 1,0 a 2,0"}[w];
+      return d ? {d,u:"kg/ha",n:"Antes do plantio, em área total. Nunca sobre a cana."+(w==="trapoeraba"?" Duas aplicações, 28 a 30 dias entre elas.":"")+(w==="amargoso"?" Há biótipos resistentes.":"")} : {na:"Bula sem dose para esta daninha."}; } },
+
+  roundup:{ cod:"516068", comercial:"Roundup Original DI", titular:"Monsanto do Brasil (Bayer)", ia:"Glifosato (sal de di-amônio)", conc:"370 g/L e.a. (445 g/L)", form:"SL",
+    moa:["9"], registro:"MAPA nº 513", modalidade:"Pós-emergência das daninhas antes do plantio · erradicação de soqueira", status:"bula", conferido:"15/10/2026",
+    fonte:"Bula Roundup Original DI", link:"https://assets.revistacultivar.com.br/6e265a6c-9d36-43f2-9ec1-c757bba8540a_roundup_original_di_bula.pdf",
+    alvos:["coloniao","braquiaria","amargoso","colchao","picao","caruru"], outros:"capim-marmelada",
+    porSolo:soloTodos("Aplicado sobre as folhas, antes do plantio: a bula não muda a dose por solo."),
+    restricoes:["A planilha diz \"Monsanto Roundup\": os dados são da bula do Roundup Original DI. Confira a versão do estoque (Original, Original DI, Original Mais têm doses diferentes).","NÃO SELETIVO: mata a cana. Só antes do plantio ou para erradicar a soqueira.","Erradicação de soqueira: 5,0 a 6,0 L/ha, com folhas de 0,6 a 1,0 m e antes de formar colmos.","Capim-amargoso e caruru têm biótipos resistentes a glifosato.","Chuva nas 4 horas seguintes reduz o efeito; não aplicar acima de 28 °C ou umidade abaixo de 55%."],
+    dose:(w,s,c)=>{ if(c==="soca") return {na:"Não seletivo: na soca só serve para erradicar a soqueira (5,0 a 6,0 L/ha)."};
+      const d={coloniao:"5 a 6",braquiaria:"3 a 5",amargoso:"3 a 5",colchao:"2 a 4",picao:"2 a 3",caruru:"1 a 2"}[w];
+      return d ? {d,u:"L/ha",n:"Antes do plantio, em área total. Nunca sobre a cana."} : {na:"Bula sem dose para esta daninha."}; } },
+
+  ally:{ cod:"209762", comercial:"Ally", titular:"FMC", ia:"Metsulfurom-metílico", conc:"600 g/kg", form:"WG (a planilha cita 60 DF)",
+    moa:["2"], registro:"MAPA nº 2492", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Ally (dados da bula)", link:"https://revistacultivar.com.br/pesticida/ally",
+    alvos:[], outros:"mussambê, beldroega, guanxumas (Sida cordifolia e S. rhombifolia) — nenhuma tem ficha no guia",
+    porSolo:{arenoso:{n:"ok",t:"30 g/ha (mussambê, beldroega e guanxumas)."},medio:{n:"restr",t:"30 g/ha, só para beldroega."},argiloso:{n:"nao",t:"Bula sem dose para solo pesado."}},
+    restricoes:["Uma aplicação por ciclo; máximo 30 g/ha por safra.","Pré-emergência, com solo úmido, bem preparado e sem torrões.","Aplicar com vento abaixo de 10 km/h, temperatura abaixo de 25 °C e umidade acima de 70%.","Intervalo de segurança: 90 dias.","Rotação: 60 dias para soja e feijão, 70 para milho, 90 para algodão e girassol."],
+    dose:(w,s)=> s==="argiloso" ? {na:"Bula sem dose para solo pesado."} : {d:"30",u:"g/ha",n:s==="medio"?"Em solo médio, só para beldroega.":"Mussambê, beldroega e guanxumas."} },
+
+  aurora:{ cod:"247872", comercial:"Aurora 400 EC", titular:"FMC", ia:"Carfentrazona-etílica", conc:"400 g/L", form:"EC (concentrado emulsionável)",
+    moa:["14"], registro:"MAPA nº 4900", modalidade:"Pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Aurora 400 EC (dados da bula)", link:"https://revistacultivar.com.br/pesticida/aurora-400-ec-coverge-400-ec-platform-400-ec",
+    alvos:["corda","caruru","trapoeraba"], outros:"beldroega",
+    porSolo:soloTodos(SOLO_POS),
+    restricoes:["Uma aplicação por ciclo. Óleo mineral a 0,5% na calda.","Ação de contato (não sistêmica).","Pré-colheita (corda-de-viola I. purpurea, I. hederifolia, I. quamoclit): 100 a 200 mL/ha.","Trapoeraba em jato dirigido nas entrelinhas: 75 a 125 mL/ha.","Também registrado como maturador (150 a 200 mL/ha, só aéreo, 30 a 40 dias antes da colheita).","Intervalo de segurança: 6 dias. Chuva até 2 horas depois reduz o efeito."],
+    dose:(w)=>({d:"50 a 75",u:"mL/ha",n:w==="corda"?"Pós inicial. Pré-colheita (I. purpurea, I. hederifolia): 100 a 200 mL/ha.":w==="trapoeraba"?"Jato dirigido nas entrelinhas: 75 a 125 mL/ha.":"Pós-emergência inicial da cana."}) },
+
+  dinamic:{ cod:"266514", comercial:"Dinamic", titular:"UPL", ia:"Amicarbazona", conc:"700 g/kg", form:"WG",
+    moa:["5"], registro:"MAPA nº 10601", modalidade:"Pré-emergência e pós-emergência precoce", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Dinamic (dados da bula)", link:"https://revistacultivar.com.br/pesticida/dinamic-dinamic-70-wdg-xtron-700-wg-herbicide-amitron-700-wg-herbicide-dinamic-700-wg-orion",
+    alvos:["caruru","picao","braquiaria","trapoeraba","colchao","corda","coloniao"],
+    outros:"carrapichos, capim-marmelada, capim-carrapicho, capim-pé-de-galinha, falsa-serralha, beldroega, mamona, mucuna, guanxumas, poaia-branca, melão-de-são-caetano",
+    porSolo:{arenoso:{n:"ok",t:"Menores doses da faixa (residual de 60 a 70 dias)."},medio:{n:"ok",t:"Dose dentro da faixa conforme infestação."},argiloso:{n:"ok",t:"Maiores doses da faixa."}},
+    restricoes:["Cana-planta: a bula proíbe as doses de 1,5 e 2,0 kg/ha, e também em variedades tipo PO (ex.: PO8862).","Uma aplicação por ciclo. Na soca, preferir o período seco, logo após o corte.","Pós precoce: daninhas com até 4 folhas.","Intervalo de segurança: 180 dias. Rotação: 1 ano para outras culturas.","Restrição estadual no Paraná para trapoeraba e falsa-serralha em cana."],
+    dose:(w,s,c)=>{ if(w==="corda") return {d:"0,6 a 1,2",u:"kg/ha",n:"Ipomoea nil e I. purpurea. I. grandifolia: 1,5 a 2,0 kg/ha, só na soca."};
+      if(c==="planta") return {na:"Para esta daninha a bula indica 1,5 a 2,0 kg/ha, doses proibidas em cana-planta."};
+      return {d:{arenoso:"1,5",medio:"1,5 a 2,0",argiloso:"2,0"}[s],u:"kg/ha"}; } },
+
+  flumyzin:{ cod:"317051", comercial:"Flumyzin 500 SC", titular:"Sumitomo Chemical", ia:"Flumioxazina", conc:"500 g/L", form:"SC (a planilha cita \"líquido\")",
+    moa:["14"], registro:"MAPA nº 22617", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Flumyzin 500 SC (dados da bula)", link:"https://revistacultivar.com.br/pesticida/flumyzin-500-sc",
+    alvos:["colchao","braquiaria","corda","picao"], outros:"capim-branco, capim-camalote",
+    porSolo:{arenoso:{n:"restr",t:"A bula só fala em solos médios e argilosos; não traz recomendação para solo arenoso."},medio:{n:"ok",t:"Menores doses da faixa."},argiloso:{n:"ok",t:"Maiores doses da faixa (residual mais longo)."}},
+    restricoes:["Não aplicar depois que a cana emergiu.","Uma aplicação. Intervalo de segurança: 180 dias.","Picão-preto e corda-de-viola (I. grandifolia): só em baixa infestação.","Não aplicar com seca prolongada; não misturar com produtos alcalinos.","A tabela da bula tem layout confuso: confira a dose por espécie na bula antes de aplicar."],
+    dose:(w,s)=>{ if(s==="arenoso") return {na:"Bula sem recomendação para solo arenoso."};
+      const f={colchao:["250","400"],braquiaria:["400","400"],corda:["150","250"],picao:["150","250"]}[w]||["250","400"];
+      return {d:s==="medio"?f[0]:f[1],u:"mL/ha",n:"Faixa da bula: "+(f[0]===f[1]?f[0]:f[0]+" a "+f[1])+" mL/ha."+(w==="corda"?" I. purpurea: 400 mL/ha.":"")}; } },
+
+  hexanortox:{ cod:"341636", comercial:"Hexazinona Nortox", titular:"Nortox", ia:"Hexazinona", conc:"250 g/L", form:"SL (concentrado solúvel)",
+    moa:["5"], registro:"MAPA nº 1509", modalidade:"Pré-emergência e pós-emergência inicial (jato dirigido)", status:"bula", conferido:"15/10/2026",
+    fonte:"Bula Hexazinona Nortox", link:"https://painel.farmby.com.br/storage/bulas/hexazinona-nortox.pdf",
+    alvos:["trapoeraba","picao","leiteiro","colchao","corda","coloniao"], outros:"capim-carrapicho, capim-marmelada",
+    porSolo:{arenoso:{n:"restr",t:"0,75 L/ha. Não aplicar em solo arenoso com menos de 1% de matéria orgânica."},medio:{n:"ok",t:"1,0 a 1,5 L/ha."},argiloso:{n:"ok",t:"1,5 a 2,0 L/ha."}},
+    restricoes:["Uma aplicação por ciclo. Mesma dose para cana-planta e soca.","Cana-planta: aplicar após as primeiras chuvas. Soca: após enleirar a palha.","Pós inicial em jato dirigido: folhas largas até 15 cm ou 2 a 4 folhas; gramíneas antes de perfilhar.","Não aplicar em cana fraca (pragas, doenças, geada, seca).","Intervalo de segurança: 150 dias. Rotação: 1 ano.","Restrição estadual no Paraná para picão-preto em cana."],
+    dose:(w,s)=>({d:{arenoso:"0,75",medio:"1,0 a 1,5",argiloso:"1,5 a 2,0"}[s],u:"L/ha"}) },
+
+  coact:{ cod:"357538", comercial:"Coact", titular:"Corteva (CTVA)", ia:"Diclosulam", conc:"840 g/kg", form:"WG",
+    moa:["2"], registro:"MAPA nº 5199", modalidade:"Pré-emergência das daninhas (cana em pré ou pós)", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Coact (dados da bula)", link:"https://revistacultivar.com.br/pesticida/coact",
+    alvos:["corda","colchao","tiririca"], outros:"capim-marmelada",
+    porSolo:soloTodos(SOLO_IGUAL),
+    restricoes:["Uma aplicação por ciclo.","Cana-planta: no plantio e/ou após o quebra-lombo. Soca: após o corte e/ou antes do fechamento.","Cana alta: equipamento tipo pingente para atingir o solo ou a palha.","Persistente e móvel no solo: risco para água subterrânea.","A tabela da bula não deixa claro qual dose vale para cada espécie: confira antes de aplicar."],
+    dose:(w)=>({d:{corda:"63 a 126",colchao:"63 a 105",tiririca:"105 a 126"}[w],u:"g/ha"}) },
+
+  diurom500:{ cod:"360795", comercial:"Diurom 500 g/L (referência: Diuron Nortox 500 SC)", titular:"Nortox", ia:"Diurom", conc:"500 g/L", form:"SC",
+    moa:["7"], registro:"MAPA nº 8895 (Diuron Nortox 500 SC)", modalidade:"Pré-emergência e pós-emergência (jato dirigido)", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Diuron Nortox 500 SC (dados da bula)", link:"https://revistacultivar.com.br/pesticida/diuron-nortox-500-sc",
+    alvos:["caruru","picao","colchao","amargoso"],
+    outros:"mentrasto, apaga-fogo, capim-marmelada, capim-carrapicho, tiririca (Cyperus sesquiflorus), pega-pega, capim-pé-de-galinha, guanxumas, poaia-branca e outras",
+    porSolo:{arenoso:{n:"ok",t:"Pré: 3,2 L/ha."},medio:{n:"ok",t:"Pré: 4,0 a 4,8 L/ha."},argiloso:{n:"ok",t:"Pré: 4,0 a 6,4 L/ha."}},
+    restricoes:["A planilha não informa a marca: os dados são da bula do Diuron Nortox 500 SC. Confira a bula do diurom do estoque.","Pós-emergência: 3,2 a 6,4 L/ha em jato dirigido, na fase inicial das daninhas.","Solo bem preparado e úmido, nunca seco.","Intervalo de segurança: 150 dias.","Capim-amargoso: a bula só traz dose em solo leve."],
+    dose:(w,s)=>{ if(w==="amargoso"&&s!=="arenoso") return {na:"Bula só traz dose de pré para capim-amargoso em solo leve. Pós: 3,2 a 6,4 L/ha."};
+      return {d:{arenoso:"3,2",medio:"4,0 a 4,8",argiloso:"4,0 a 6,4"}[s],u:"L/ha (pré)",n:"Pós (jato dirigido): 3,2 a 6,4 L/ha."}; } },
+
+  tractor:{ cod:"399426", comercial:"Tractor", titular:"Nufarm", ia:"2,4-D + picloram (sais de trietanolamina)", conc:"240 + 64 g/L e.a. (406 + 103 g/L)", form:"SL",
+    moa:["4"], registro:"MAPA nº 2708", modalidade:"Pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Bula Tractor (Nufarm, rev. 04 de 28/05/2018)", link:"https://cdn.nufarm.com/wp-content/uploads/sites/23/2018/07/17205725/F1703183408_TRACTOR_BulaAgrofit_Rev04_2018_05_28.pdf",
+    alvos:["corda"], outros:"mamona",
+    porSolo:soloTodos(SOLO_POS),
+    restricoes:["Há outro \"Tractor\" (Sumitomo, registro 18707) cuja bula não traz dose para cana: confira qual está no estoque.","O rótulo indica só cana-planta, com a cana em 6 folhas.","Corda-de-viola até 6 folhas; mamona até 4 folhas.","Uma aplicação. Não usar equipamento manual ou costal.","Vento até 6 km/h; aérea a no mínimo 2 km de culturas sensíveis.","Culturas sensíveis (algodão, tomate, soja, café, eucalipto, hortaliças) só 2 a 3 anos após aplicação em área total."],
+    dose:(w,s,c)=> c==="soca" ? {na:"O rótulo do Tractor (Nufarm) só indica cana-planta."} : {d:"0,75 a 2,0",u:"L/ha",n:"Cana com 6 folhas; corda-de-viola até 6 folhas."} },
+
+  provtotal:{ cod:"507400", comercial:"Provence Total", titular:"Bayer", ia:"Isoxaflutol + indaziflam", conc:"450 + 150 g/L", form:"SC",
+    moa:["27","29"], registro:"MAPA nº 8317", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Provence Total (dados da bula)", link:"https://revistacultivar.com.br/pesticida/provence-total",
+    alvos:["coloniao","braquiaria","colchao","amargoso","caruru","picao","leiteiro"], outros:"capim-marmelada, capim-carrapicho, capim-pé-de-galinha, capim-camalote",
+    porSolo:{arenoso:{n:"restr",t:"Menor dose. Não aplicar de novembro a fevereiro (Centro-Sul) nem em solo leve com menos de 1% de matéria orgânica."},medio:{n:"ok",t:"Menor dose da faixa."},argiloso:{n:"ok",t:"Maior dose da faixa."}},
+    restricoes:["Uma aplicação por ano.","Cana-planta: logo após o plantio. Soca: logo após a colheita; se já brotou, jato dirigido nas entrelinhas.","Solo arenoso: não aplicar nos meses mais chuvosos (nov. a fev. no Centro-Sul; maio a ago. no Nordeste).","Não aplicar em solo encharcado, em período muito seco, nem até 90 dias após calagem pesada.","Intervalo de segurança: 165 dias. Rotação: 24 meses (amendoim, soja e milho: 14 meses)."],
+    dose:(w,s)=>({d:s==="argiloso"?"0,30":"0,20",u:"L/ha",n:"Faixa da bula: 0,20 a 0,30 L/ha — menores em solo leve a médio, maiores em argiloso."}) },
+
+  arreio:{ cod:"529179", comercial:"Arreio Cana", titular:"ADAMA", ia:"Fluroxipir-meptílico + picloram", conc:"80 + 80 g/L e.a. (115 + 129,42 g/L)", form:"ME (microemulsão)",
+    moa:["4"], registro:"MAPA nº 3815 (Arreio Cana) · nº 5515 (Arreio / Arreio Pasto, mesma fórmula)", modalidade:"Pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Arreio Cana / Tayta 160 ME (dados da bula)", link:"https://revistacultivar.com.br/pesticida/arreio-cana-tayta-160-me",
+    alvos:["corda","caruru"], outros:"mamona, guanxuma, erva-quente",
+    porSolo:soloTodos(SOLO_POS),
+    restricoes:["Uma aplicação por ciclo. Óleo vegetal a 0,25% na calda.","Caruru: acima de 4 folhas e até 10 cm. Corda-de-viola e mamona: 4 a 6 folhas.","Chuva até 2 a 3 horas depois reduz o efeito.","Muito persistente: culturas sensíveis só 2 anos após aplicação em área total. Cuidado com deriva (algodão, tomate, uva e outras)."],
+    dose:()=>({d:"1,5 a 2,0",u:"L/ha",n:"Dose maior para plantas adultas já roçadas."}) },
+
+  yamato:{ cod:"541482", comercial:"Yamato SC", titular:"Iharabras", ia:"Piroxasulfona", conc:"500 g/L", form:"SC",
+    moa:["15"], registro:"MAPA nº 15520", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Bula Yamato SC", link:"https://painel.farmby.com.br/storage/bulas/yamato-sc.pdf",
+    alvos:["braquiaria","colchao","coloniao"],
+    porSolo:{arenoso:{n:"ok",t:"Faixa da bula; doses menores em solo leve."},medio:{n:"ok",t:"Faixa da bula conforme infestação."},argiloso:{n:"ok",t:"Doses mais altas em solo pesado ou alta infestação."}},
+    restricoes:["Uma aplicação, após o plantio ou após a colheita na soca, em pré-emergência total.","Preferir solo úmido; seca longa reduz o efeito.","Com fluxos de germinação ou alta infestação, complementar com pós-emergente.","A bula agrupa colchão e colonião numa mesma faixa sem separar claramente: confira na bula."],
+    dose:(w)=>({d:w==="braquiaria"?"300 a 400":"200 a 400",u:"mL/ha",n:"Maiores doses em solo pesado ou alta infestação."}) },
+
+  linear:{ cod:"546140", comercial:"Linear", titular:"Corteva (CTVA)", ia:"Aminopiralide + picloram + triclopir-butotílico", conc:"59,17 + 115,74 + 208,62 g/L", form:"EW (emulsão óleo em água)",
+    moa:["4"], registro:"MAPA nº 11318", modalidade:"Pré e pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Agrolink e CultivaSmart — dados da bula Linear", link:"https://www.agrolink.com.br/agrolinkfito/produto/linear_10629.html",
+    alvos:["corda"], outros:"mamona, mucuna-preta, bucha",
+    porSolo:soloTodos(SOLO_IGUAL),
+    restricoes:["Até 2 aplicações por ciclo: a 1ª em pré ou até 3 folhas da cana; a 2ª até 28 dias antes da colheita.","Corda-de-viola até 6 folhas: 0,5 a 1,5 L/ha. Pós tardia (mais de 12 folhas) ou pré-colheita: até 1,5 L/ha.","Intervalo de segurança: 28 dias.","Rotação: culturas intercalares só 24 meses após a última aplicação.","Drone: 50 m de faixa de segurança de culturas sensíveis."],
+    dose:()=>({d:"0,5 a 1,5",u:"L/ha",n:"Pós até 6 folhas (Ipomoea purpurea). I. nil em pós tardia: 1,5 L/ha."}) },
+
+  magneto:{ cod:"513421", comercial:"Amicarbazona 500 g/L (referência: Magneto SC)", titular:"Iharabras", ia:"Amicarbazona", conc:"500 g/L", form:"SC",
+    moa:["5"], registro:"MAPA nº 21319 (Magneto SC)", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Magneto SC (dados da bula)", link:"https://revistacultivar.com.br/pesticida/magneto-sc",
+    alvos:["corda"], outros:"melão-de-são-caetano, mamona, mucuna-preta (corda-de-viola da bula: Merremia aegyptia)",
+    porSolo:{arenoso:{n:"ok",t:"Menores doses da faixa."},medio:{n:"ok",t:"Faixa da bula conforme infestação."},argiloso:{n:"ok",t:"Maiores doses em solo pesado ou alta infestação."}},
+    restricoes:["A planilha não informa a marca: os dados são da bula do Magneto SC. Confira a bula da amicarbazona 500 g/L do estoque.","Uma aplicação, em pré-emergência total, após o plantio ou após o corte (soca na época seca).","Cana-planta: usar a menor dose (1,5 L/ha).","Chuva ou irrigação em excesso logo depois pode causar fitotoxicidade.","Intervalo de segurança: 180 dias."],
+    dose:(w,s,c)=> c==="planta" ? {d:"1,5",u:"L/ha",n:"Cana-planta: menor dose."} : {d:"1,5 a 2,8",u:"L/ha",n:"Maiores doses em solo pesado ou alta infestação."} },
+
+  eximia:{ cod:"563940", comercial:"Exímia", titular:"UPL", ia:"Asulam", conc:"400 g/L", form:"SL",
+    moa:["18"], registro:"MAPA nº 178704", modalidade:"Pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Exímia / Asulox 400 / Thunder (dados da bula)", link:"https://revistacultivar.com.br/pesticida/eximia-asulox-400-thunder",
+    alvos:["gramaseda","colchao","amargoso"], outros:"capim-pé-de-galinha, capim-marmelada, capim-favorito, capim-gengibre, capim-fino",
+    porSolo:soloTodos(SOLO_POS),
+    restricoes:["Uma aplicação, em pós-emergência da cana e das daninhas em pleno crescimento.","Não usar com temperatura média abaixo de 17 °C nem com seca; precisa de umidade no solo.","Chuva em menos de 8 horas compromete o controle.","Usar a calda logo depois de preparada (até 30 minutos)."],
+    dose:()=>({d:"9,0",u:"L/ha"}) },
+
+  trifluralina:{ cod:"303525", comercial:"Trifluralina (referência: Arrow)", titular:"Nortox", ia:"Trifluralina", conc:"450 g/L", form:"EC",
+    moa:["3"], registro:"MAPA nº 11707 (Arrow)", modalidade:"Pré-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Arrow (dados da bula)", link:"https://revistacultivar.com.br/pesticida/arrow",
+    alvos:["caruru","braquiaria","colchao","coloniao"], outros:"capim-marmelada, capim-carrapicho, capim-arroz, capim-pé-de-galinha, capim-favorito, capim-massambará, beldroega, poaia-branca",
+    porSolo:{arenoso:{n:"ok",t:"3,0 L/ha."},medio:{n:"ok",t:"Areno-argiloso: 4,0 L/ha."},argiloso:{n:"ok",t:"5,0 L/ha."}},
+    restricoes:["A planilha não informa a marca. Atenção: nem toda trifluralina tem registro para cana (a Trifluralina Nortox comum não tem). Os dados são do Arrow; confira a bula do produto do estoque.","Só plantio convencional; não recomendado em plantio direto.","Aplicar logo após o plantio, até 3 dias após o último preparo do solo. Não incorporar.","Não aplicar em solo seco."],
+    dose:(w,s,c)=> c==="soca" ? {na:"A bula indica aplicação logo após o plantio (cana-planta, plantio convencional)."} : {d:{arenoso:"3,0",medio:"4,0",argiloso:"5,0"}[s],u:"L/ha"} },
+
+  mesotriona:{ cod:"311757", comercial:"Mesotriona (referência: Callisto)", titular:"Syngenta", ia:"Mesotriona", conc:"480 g/L", form:"SC",
+    moa:["27"], registro:"MAPA nº 1004 (Callisto)", modalidade:"Pós-emergência", status:"bula", conferido:"15/10/2026",
+    fonte:"Revista Cultivar — ficha Callisto (dados da bula)", link:"https://revistacultivar.com.br/pesticida/callisto",
+    alvos:["corda","caruru","colchao"],
+    porSolo:soloTodos(SOLO_POS),
+    restricoes:["A planilha não informa a marca: os dados são da bula do Callisto. Confira a bula da mesotriona do estoque.","Uma aplicação por ciclo, com a cana até 8 folhas (após a brotação na planta ou o rebrote na soca).","Corda-de-viola com 2 a 4 folhas; capim-colchão até 1 perfilho.","Óleo mineral a 0,5% na calda.","Inseticidas fosforados ou carbamatos: 7 dias de distância.","Intervalo de segurança: 30 dias. Não aplicar com solo seco."],
+    dose:()=>({d:"0,25 a 0,30",u:"L/ha",n:"Com óleo mineral a 0,5%."}) }
 };
 
 /* ---------- Plantas daninhas ----------
