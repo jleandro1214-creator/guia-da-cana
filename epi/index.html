@@ -12,7 +12,7 @@
 :root{
   --bg:#f3f2ef; --panel:#ffffff; --fg:#1d1f22; --muted:#4a4e55; --line:#dcdad4;
   --accent:#e8620c; --accent-ink:#ffffff; --tab-ink:#2b2e33; --accent-deep:#7c2d07; --tab-sel:#c2410c; --tab-sel-ink:#ffffff; --accent-soft:#fde9da;
-  --ok:#16653a; --ok-soft:#dcf1e4; --warn:#8a4b00; --warn-soft:#fbecd2; --bad:#a61b11; --bad-soft:#fbe1de; --red:#c81e1e; --red-ink:#ffffff; --yel:#f5b800; --yel-ink:#1d1f22;
+  --ok:#16653a; --ok-soft:#dcf1e4; --warn:#8a4b00; --warn-soft:#fbecd2; --bad:#a61b11; --bad-soft:#fbe1de; --red:#c81e1e; --red-ink:#ffffff; --yel:#f5b800; --yel-ink:#1d1f22; --grn:#15803d; --grn-ink:#ffffff;
   --stripe:#1d1f22;
   --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -21,12 +21,12 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#151617; --panel:#1e2022; --fg:#ecebe7; --muted:#bfc2c7; --line:#33363a;
   --accent:#ff7a24; --accent-ink:#1a0c02; --tab-ink:#e2e1dd; --accent-deep:#b34f10; --tab-sel:#ff7a24; --tab-sel-ink:#1a0c02; --accent-soft:#3a2416;
-  --ok:#5fcf8c; --ok-soft:#173225; --warn:#f0a948; --warn-soft:#38290f; --bad:#ff8579; --bad-soft:#3d1c19; --red:#ff5a4e; --red-ink:#1a0505; --yel:#ffc928; --yel-ink:#1d1f22;
+  --ok:#5fcf8c; --ok-soft:#173225; --warn:#f0a948; --warn-soft:#38290f; --bad:#ff8579; --bad-soft:#3d1c19; --red:#ff5a4e; --red-ink:#1a0505; --yel:#ffc928; --yel-ink:#1d1f22; --grn:#4ade80; --grn-ink:#052e12;
   --stripe:#ecebe7; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#151617; --panel:#1e2022; --fg:#ecebe7; --muted:#bfc2c7; --line:#33363a;
   --accent:#ff7a24; --accent-ink:#1a0c02; --tab-ink:#e2e1dd; --accent-deep:#b34f10; --tab-sel:#ff7a24; --tab-sel-ink:#1a0c02; --accent-soft:#3a2416;
-  --ok:#5fcf8c; --ok-soft:#173225; --warn:#f0a948; --warn-soft:#38290f; --bad:#ff8579; --bad-soft:#3d1c19; --red:#ff5a4e; --red-ink:#1a0505; --yel:#ffc928; --yel-ink:#1d1f22;
+  --ok:#5fcf8c; --ok-soft:#173225; --warn:#f0a948; --warn-soft:#38290f; --bad:#ff8579; --bad-soft:#3d1c19; --red:#ff5a4e; --red-ink:#1a0505; --yel:#ffc928; --yel-ink:#1d1f22; --grn:#4ade80; --grn-ink:#052e12;
   --stripe:#ecebe7; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -122,6 +122,10 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 .row.crit .desc{color:var(--bad);font-weight:700}
 .row.crit .sub2{color:var(--fg)}
 .row.aten{box-shadow:inset 6px 0 0 var(--yel)}
+.row.okv{box-shadow:inset 6px 0 0 var(--grn)}
+.row.okv .qty{color:var(--ok)}
+.pill.ok{background:var(--grn);color:var(--grn-ink)}
+.pill.baixo{background:var(--yel);color:var(--yel-ink)}
 .row.crit .qty{color:var(--bad);font-size:26px}
 .qty{font:700 22px/1 var(--f-display);font-variant-numeric:tabular-nums;min-width:42px;text-align:right}
 .pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:1px}
@@ -366,6 +370,9 @@ function saldos(){
 const saldoDe = (sd, view, id) => (view==="total" ? sd.total.get(id) : view==="almox" ? sd.geral.get(id) : sd.ges.get(view)?.get(id)) || 0;
 const donoNome = d => d==="almox" ? "Almoxarifado" : (gByMat(d)?.nome || d);
 const curto = n => n.split(" ").slice(0,2).join(" ");
+/* EPIs de extrema importância: semáforo por quantidade (vermelho 0, amarelo 1-2, verde 3+) */
+const isVital = it => { const c=String(it.codigo||"").trim(), d=norm(it.descricao); return c==="63"||c==="64"||d.includes("luva vaqueta")||d.includes("oculos incolor")||d.includes("oculos fume"); };
+const vitalSt = q => q<=0?"crit":q<3?"aten":"okv";
 function quemTem(sd,id){
   const out=[]; const a=sd.geral.get(id)||0; if(a) out.push(`Almoxarifado: ${a}`);
   for (const g of GESTORES){ const v=sd.ges.get(g.mat).get(id)||0; if(v) out.push(`${curto(g.nome)}: ${v}`); }
@@ -551,18 +558,21 @@ function renderEstoque(){
   if(!S.items.length){ el.innerHTML=`<div class="emptybox">Nenhum EPI cadastrado ainda. Use “Cadastrar novo EPI” abaixo.</div>`; return; }
   if(!list.length){
     el.innerHTML=`<div class="emptybox">${fil==="com" && !terms.length ? (isGestor ? `${esc(gByMat(v)?.nome)} não tem EPIs no estoque individual.<br>Lance uma entrada (filtro “Todos os EPIs”) ou veja a Solicitação no almoxarifado.` : `Nenhum EPI em estoque. Escolha “Todos os EPIs” no filtro para lançar entradas.`) : "Nenhum EPI encontrado com esse filtro."}</div>`; return; }
-  const rank=it=>{const s=saldoDe(sd,v,it.id); return (it.falta||s<0)?0:1;};
+  const rank=it=>{const s=saldoDe(sd,v,it.id); return (isVital(it)?s<=0:(it.falta||s<0))?0:1;};
   list.sort((a,b)=>rank(a)-rank(b));
   el.innerHTML=list.map(it=>{
     const s=saldoDe(sd,v,it.id);
-    const pills=(it.falta?`<span class="pill falta">em falta</span>`:"")+(s<0?`<span class="pill neg">negativo</span>`:s===0?`<span class="pill zero">zerado</span>`:"");
+    const vital=isVital(it), vst=vital?vitalSt(s):"";
+    const pills= vital
+      ? (vst==="crit"?`<span class="pill falta">em falta</span>`:vst==="aten"?`<span class="pill baixo">estoque baixo</span>`:`<span class="pill ok">ok</span>`)
+      : (it.falta?`<span class="pill falta">em falta</span>`:"")+(s<0?`<span class="pill neg">negativo</span>`:s===0?`<span class="pill zero">zerado</span>`:"");
     const q=quemTem(sd,it.id);
     const solic = (isGestor?[gByMat(v)]:GESTORES).map(g=>{ const n=pg.get(g.mat+"|"+it.id)||0; return n?(isGestor?`${n}`:`${curto(g.nome)} ${n}`):""; }).filter(Boolean);
     const sub = (v==="total" ? (q.length ? "Estoque de: "+q.join(" · ") : "Sem estoque com ninguém") : "")
       + (solic.length ? (v==="total"?" — ":"")+"Solicitado no almoxarifado: "+solic.join(" · ") : "");
     const flag = `<button class="btn flag sm ${it.falta?"on":""}" data-act="falta" type="button" aria-pressed="${!!it.falta}">${it.falta?"Tirar alerta":"Alerta de falta"}</button>`;
     const btns = `<button class="btn ghost sm" data-act="entrada" type="button">+ Entrada</button><button class="btn sm" data-act="solicitar" type="button">Solicitar</button>${isGestor?"":flag}`;
-    const st=(it.falta||s<0)?"crit":(s===0||solic.length)?"aten":"";
+    const st=vital?vst:(it.falta||s<0)?"crit":(s===0||solic.length)?"aten":"";
     return `<div class="row ${st}" data-id="${esc(it.id)}"><span class="code">${esc(it.codigo||"—")}</span><span class="desc">${esc(it.descricao)}${pills}${solic.length?`<span class="pill sol">solicitado</span>`:""}${sub?`<span class="sub2">${esc(sub)}</span>`:""}</span><span class="qty">${s}</span><div class="btns">${btns}</div></div>`;
   }).join("");
 }
