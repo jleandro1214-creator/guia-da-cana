@@ -46,6 +46,11 @@ const SOLO_TXT={arenoso:"Arenoso",medio:"Textura média",argiloso:"Argiloso"};
 const CANA_TXT={planta:"Cana-planta",soca:"Cana-soca"};
 const STATUS = {bula:["ok","✓ Conferido na bula"], referencia:["ref","ⓘ Referência técnica — sem fonte conferida"], pendente:["pend","⚠ Pendente de validação"]};
 const badge = (st, extra="")=> `<span class="badge ${STATUS[st][0]}">${STATUS[st][1]}${extra}</span>`;
+const soloBadge = n=> `<span class="badge ${NIVEL_SOLO[n][0]}">${NIVEL_SOLO[n][1]}</span>`;
+function soloLinha(h){ if(!F.solo||!h.porSolo) return ""; const r=h.porSolo[F.solo];
+  return `<div class="soloLin">${soloBadge(r.n)} <span>${esc(SOLO_TXT[F.solo])}: ${esc(r.t)}</span></div>`; }
+function soloCampos(h){ return `<div class="solos">${Object.entries(SOLOS).map(([k,so])=>{ const r=h.porSolo[k];
+  return `<div class="solo n-${r.n}${F.solo===k?" sel":""}"><div class="sh"><b>${so.ic} ${esc(so.nome)}</b>${soloBadge(r.n)}</div><div class="sa">${esc(so.argila)}</div><p>${esc(r.t)}</p></div>`; }).join("")}</div>`; }
 const moaBadges = h=> h.moa.map(g=>`<span class="badge moa" title="${esc(MECANISMOS[g].nome)}">Grupo ${g}</span>`).join(" ");
 function refImg(f,alt){ return `<img src="${f.t}" data-alt="${f.s}" data-zoom="${f.s}" alt="${esc(alt)}" loading="lazy" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.dataset.alt='';}else{const s=this.closest('.slide');if(s)s.classList.add('falhou');this.remove();}">`; }
 function thumbOf(w){ const u=fotoURL[w.id]; const r=(REF[w.id]||[])[0]; return `<div class="thumb">${w.ic}${u?`<img src="${u}" alt="">`:(r?`<img src="${r.t}" alt="" loading="lazy" onerror="this.remove()">`:"")}</div>`; }
@@ -72,7 +77,7 @@ function doseHTML(hk, wid){
 }
 function herbCard(hk, wid){
   const h=HERBICIDAS[hk], d=doseHTML(hk,wid);
-  return `<div class="herb${d.na?" na":""}"><div class="top"><div><h5><a href="#/herbicida/${hk}">${esc(h.comercial)}</a></h5><div class="ref">${esc(h.ia)} · ${esc(h.conc)} · ${esc(h.modalidade)}</div></div>${moaBadges(h)}</div>${d.html}</div>`;
+  return `<div class="herb${d.na?" na":""}"><div class="top"><div><h5><a href="#/herbicida/${hk}">${esc(h.comercial)}</a></h5><div class="ref">${esc(h.ia)} · ${esc(h.conc)} · ${esc(h.modalidade)}</div></div>${moaBadges(h)}</div>${d.html}${soloLinha(h)}</div>`;
 }
 function passaModal(h){ if(!F.modal) return true; return F.modal==="pre" ? /pré/i.test(h.modalidade) : /pós/i.test(h.modalidade); }
 
@@ -106,7 +111,7 @@ ROTAS.busca = ()=>{
     ${ms.length?`<h2 class="tit">Mecanismos de ação</h2>`+ms.map(([g,m])=>`<div class="card"><b>Grupo ${g} — ${esc(m.nome)}</b><div class="nota">Exemplos: ${esc(m.ex)}</div><div class="nota">Produtos no guia: ${Object.entries(HERBICIDAS).filter(([,h])=>h.moa.includes(g)).map(([k,h])=>`<a href="#/herbicida/${k}">${esc(h.comercial)}</a>`).join(", ")||"—"}</div></div>`).join(""):""}`;
 };
 const itemDan = w=> `<a class="item" href="#/daninha/${w.id}">${thumbOf(w)}<div class="t"><h4>${esc(w.nome)}</h4><p class="sci">${esc(w.sci)}</p><p>${w.cat.map(c=>CATEGORIAS[c]).join(" · ")}</p></div><div class="chev">›</div></a>`;
-const itemHerb = (k,h)=> `<a class="item" href="#/herbicida/${k}"><div class="thumb">🧪</div><div class="t"><h4>${esc(h.comercial)}</h4><p>${esc(h.ia)} · ${esc(h.modalidade)}</p><p>${h.moa.map(g=>"Grupo "+g).join(" + ")} · ${h.alvos.length} daninha(s) no guia</p></div><div class="chev">›</div></a>`;
+const itemHerb = (k,h)=> `<a class="item" href="#/herbicida/${k}"><div class="thumb">🧪</div><div class="t"><h4>${esc(h.comercial)}</h4><p>${esc(h.ia)} · ${esc(h.modalidade)}</p><p>${h.moa.map(g=>"Grupo "+g).join(" + ")} · ${h.alvos.length} daninha(s) no guia</p>${F.solo&&h.porSolo?`<p style="margin-top:4px">${soloBadge(h.porSolo[F.solo].n)}</p>`:""}</div><div class="chev">›</div></a>`;
 
 /* ---------- Início ---------- */
 ROTAS.home = async ()=>{
@@ -145,7 +150,7 @@ ROTAS.identificar.after = ()=>{
 /* ---------- Ficha da daninha ---------- */
 function filtrosHTML(){
   const seg=(id,opts,val)=>`<div class="seg" id="${id}">${opts.map(([v,t])=>`<button data-v="${v}" class="${val===v?"on":""}">${t}</button>`).join("")}</div>`;
-  return `<span class="lb">Tipo de solo</span>${seg("fSolo",[["","Não informado"],["arenoso","Arenoso"],["medio","Médio"],["argiloso","Argiloso"]],F.solo)}
+  return `<span class="lb">Tipo de solo</span>${seg("fSolo",[["","Não informado"],["arenoso","Arenoso"],["medio","Médio"],["argiloso","Argiloso"]],F.solo)}${F.solo?`<p class="nota">${SOLOS[F.solo].ic} <b>${esc(SOLOS[F.solo].nome)}</b>: ${esc(SOLOS[F.solo].argila)}. ${esc(SOLOS[F.solo].obs)}</p>`:""}
     <span class="lb">Fase do canavial</span>${seg("fCana",[["","Não informado"],["planta","Cana-planta"],["soca","Cana-soca"]],F.cana)}
     <span class="lb">Modalidade</span>${seg("fModal",[["","Todas"],["pre","Pré-emergência"],["pos","Pós-emergência"]],F.modal)}`;
 }
@@ -244,12 +249,15 @@ ROTAS.herbicidas = ()=>{
     <span class="lb">Mecanismo de ação</span>
     <div class="chips"><button class="chip${!moaSel?" on":""}" data-moa="">Todos</button>${Object.entries(MECANISMOS).map(([g,m])=>`<button class="chip${moaSel===g?" on":""}" data-moa="${g}">Grupo ${g}</button>`).join("")}</div>
     ${moaSel?`<div class="info">Grupo ${moaSel}: ${esc(MECANISMOS[moaSel].nome)}</div>`:""}
+    <span class="lb">Tipo de solo</span><div class="seg" id="fSolo">${[["","Todos"],["arenoso","Arenoso"],["medio","Médio"],["argiloso","Argiloso"]].map(([v,t])=>`<button data-v="${v}" class="${F.solo===v?"on":""}">${t}</button>`).join("")}</div>
+    ${F.solo?`<p class="nota">${SOLOS[F.solo].ic} ${esc(SOLOS[F.solo].argila)}. Cada produto mostra a restrição da bula para este solo.</p>`:""}
     <span class="lb">Modalidade</span><div class="seg" id="fModal">${[["","Todas"],["pre","Pré"],["pos","Pós"]].map(([v,t])=>`<button data-v="${v}" class="${F.modal===v?"on":""}">${t}</button>`).join("")}</div><div style="height:12px"></div>
     ${hs.map(([k,h])=>itemHerb(k,h)).join("")||`<div class="vazio">Nenhum produto com esse filtro.</div>`}`;
 };
 ROTAS.herbicidas.after = ()=>{
   $$("[data-moa]").forEach(b=> b.onclick=()=>{ moaSel=b.dataset.moa; render.keepScroll=true; render(); });
   $$("#fModal button").forEach(b=> b.onclick=()=>{ F.modal=b.dataset.v; saveF(); render.keepScroll=true; render(); });
+  $$("#fSolo button").forEach(b=> b.onclick=()=>{ F.solo=b.dataset.v; saveF(); render.keepScroll=true; render(); });
 };
 ROTAS.herbicida = (k)=>{
   const h=HERBICIDAS[k]; if(!h) return `<div class="vazio">Produto não encontrado.</div>`;
@@ -269,6 +277,9 @@ ROTAS.herbicida = (k)=>{
     <div class="tw"><table class="t"><tr><th>Fase</th><th>Arenoso</th><th>Médio</th><th>Argiloso</th></tr>
       ${["planta","soca"].map(c=>`<tr><td>${CANA_TXT[c]}</td>${["arenoso","medio","argiloso"].map(s=>{ const r=h.dose(h.alvos[0],s,c); return `<td>${r.na?`<span style="color:var(--warn)">não indicado</span>`:`<b>${r.d}</b> ${r.u}`}</td>`; }).join("")}</tr>`).join("")}</table></div>
     <p class="nota">Dose da tabela calculada para "${esc(W(h.alvos[0]).nome)}". Algumas bulas variam a dose por espécie: veja na ficha de cada daninha.</p>
+    <h4>Restrição por tipo de solo</h4>
+    ${soloCampos(h)}
+    <p class="nota">Faixas de argila usuais nas bulas; confira na bula deste produto se ela usa outras faixas. Use a análise de solo do talhão (argila e matéria orgânica) para escolher a linha certa.</p>
     <h4>Restrições e condições da bula</h4><ul>${h.restricoes.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
     <h4>Segurança</h4><ul><li>Use os EPIs indicados na bula e no receituário.</li><li>Respeite as faixas de segurança e as condições de vento, temperatura e umidade para evitar deriva.</li><li>Dados de seletividade, EPI e intervalos não listados aqui: <b>consulte a bula completa</b>.</li></ul>
     <h4>Fonte</h4><p>${esc(h.fonte)} — <a href="${h.link}" target="_blank" rel="noopener">abrir bula</a><br><span class="nota">Conferido em ${h.conferido}. A bula pode ter sido atualizada depois: confira a versão vigente no AGROFIT/MAPA.</span></p>
@@ -360,7 +371,7 @@ const NIVEIS=["Baixo","Médio","Alto","Muito alto"], DISTR=["Localizada","Em reb
 ROTAS.vistoria = async (id)=>{
   const v = id && id!=="nova" ? await IDB.get("vistorias",Number(id)) : null;
   const ult = LS.get("ultVist",{});
-  const d = v || {data:hojeISO(), cod:ult.cod||"", faz:ult.faz||"", talhao:ult.talhao||"", resp:ult.resp||"", cana:ult.cana||""};
+  const d = v || {data:hojeISO(), cod:ult.cod||"", faz:ult.faz||"", talhao:ult.talhao||"", resp:ult.resp||"", cana:ult.cana||"", solo:ult.solo||"", argila:ult.argila||""};
   const opt=(arr,val)=>`<option value="">Não informado</option>`+arr.map(x=>`<option${x===val?" selected":""}>${esc(x)}</option>`).join("");
   return `<h2 class="tit">${v?"Editar vistoria":"Nova vistoria"}</h2>
   <form class="card" id="fv" autocomplete="off">
@@ -374,6 +385,9 @@ ROTAS.vistoria = async (id)=>{
       <div><label class="lb" for="v-var">Variedade</label><input class="f" id="v-var" value="${esc(d.variedade||"")}"></div>
       <div><label class="lb" for="v-cana">Tipo de canavial</label><select class="f" id="v-cana">${opt(["Cana-planta","Cana-soca"],d.cana)}</select></div>
       <div><label class="lb" for="v-idade">Idade / estádio da cana</label><input class="f" id="v-idade" value="${esc(d.idade||"")}" placeholder="ex.: 3 meses"></div>
+      <div><label class="lb" for="v-solo">Tipo de solo</label><select class="f" id="v-solo"><option value="">Não informado</option>${Object.entries(SOLOS).map(([k,so])=>`<option value="${k}"${d.solo===k?" selected":""}>${esc(so.nome)}</option>`).join("")}</select></div>
+      <div><label class="lb" for="v-argila">Argila (%) da análise</label><input class="f" id="v-argila" inputmode="decimal" value="${esc(d.argila||"")}" placeholder="opcional"></div>
+      <div class="full"><span class="nota" id="v-soloHint"></span></div>
       <div class="full"><label class="lb" for="v-esp">Espécie identificada</label><select class="f" id="v-esp"><option value="">Escolha…</option>${DANINHAS.map(w=>`<option value="${w.id}"${w.id===d.esp?" selected":""}>${esc(w.nome)}</option>`).join("")}<option value="outra"${d.esp==="outra"?" selected":""}>Outra / não identificada</option></select></div>
       <div class="full" id="v-outraBox" ${d.esp==="outra"?"":"hidden"}><label class="lb" for="v-outra">Qual?</label><input class="f" id="v-outra" value="${esc(d.outra||"")}"></div>
       <div><label class="lb" for="v-estd">Estádio da daninha</label><select class="f" id="v-estd">${opt(["Plântula","Até 4 folhas","Perfilhando / ramificando","Florescendo","Com sementes"],d.estd)}</select></div>
@@ -396,6 +410,10 @@ ROTAS.vistoria.after = async (id)=>{
   const rec = ant ? {...ant} : {id:Date.now(), fotos:[]};
   ligaFazenda($("#v-cod"),$("#v-faz"),$("#v-hint"));
   $("#v-esp").onchange=e=> $("#v-outraBox").hidden = e.target.value!=="outra";
+  const soloHint=()=>{ const a=num($("#v-argila").value), sel=$("#v-solo").value; const h=$("#v-soloHint"); if(!(a>=0&&a<=100)){ h.textContent=sel?SOLOS[sel].argila:""; return; }
+    const c=a<15?"arenoso":a<=35?"medio":"argiloso";
+    h.textContent = `${fmt(a,0)}% de argila corresponde a ${SOLOS[c].nome.toLowerCase()} pelas faixas usuais.` + (sel&&sel!==c?" Confira o tipo de solo marcado.":"") + (a<10?" Abaixo de 10%: Alion não pode ser usado em cana-planta.":""); };
+  $("#v-argila").addEventListener("input",soloHint); $("#v-solo").addEventListener("change",soloHint); soloHint();
   const fotosBox=$("#v-fotos");
   async function showFotos(){ fotosBox.innerHTML=""; for(const k of rec.fotos){ const b=await IDB.get("fotos",k); if(!b) continue; const u=URL.createObjectURL(b);
       const fig=document.createElement("div"); fig.innerHTML=`<img src="${u}" data-zoom="${u}" alt="Foto da vistoria" style="width:96px;height:96px;object-fit:cover;border-radius:10px;display:block"><button type="button" class="btn sec" style="padding:4px 8px;font-size:13px;margin-top:4px">Remover</button>`;
@@ -411,16 +429,16 @@ ROTAS.vistoria.after = async (id)=>{
       err=>{ $("#v-gpsTxt").textContent = err.code===1 ? "Permissão de localização negada. A vistoria pode ser salva sem local." : "Não foi possível obter o GPS agora. Tente de novo em área aberta."; },
       {enableHighAccuracy:true,timeout:20000,maximumAge:0}); };
   /* rascunho automático: não perder o que foi digitado */
-  const form=$("#fv"); const campos=["data","resp","cod","faz","talhao","var","cana","idade","esp","outra","estd","nivel","dist","obs","acomp","revisita"];
+  const form=$("#fv"); const campos=["data","resp","cod","faz","talhao","var","cana","idade","solo","argila","esp","outra","estd","nivel","dist","obs","acomp","revisita"];
   const ler=()=>{ const o={}; campos.forEach(c=>o[c]=$("#v-"+c).value.trim()); return o; };
   if(!ant){ const r=LS.get("rascVist",null); if(r){ campos.forEach(c=>{ if(r[c]) $("#v-"+c).value=r[c]; }); $("#v-outraBox").hidden=$("#v-esp").value!=="outra"; } }
   form.addEventListener("input",()=>{ if(!ant) LS.set("rascVist",ler()); });
   form.onsubmit=async e=>{ e.preventDefault(); const o=ler();
     if(!o.talhao){ toast("Informe o talhão"); $("#v-talhao").focus(); return; }
     if(!o.esp){ toast("Escolha a espécie"); $("#v-esp").focus(); return; }
-    Object.assign(rec,{data:o.data,resp:o.resp,cod:o.cod,faz:o.faz||fazNome(o.cod),talhao:o.talhao,variedade:o.var,cana:o.cana,idade:o.idade,esp:o.esp,outra:o.outra,estd:o.estd,nivel:o.nivel,dist:o.dist,obs:o.obs,acomp:o.acomp,revisita:o.revisita,alterado:new Date().toISOString()});
+    Object.assign(rec,{data:o.data,resp:o.resp,cod:o.cod,faz:o.faz||fazNome(o.cod),talhao:o.talhao,variedade:o.var,cana:o.cana,idade:o.idade,solo:o.solo,argila:o.argila,esp:o.esp,outra:o.outra,estd:o.estd,nivel:o.nivel,dist:o.dist,obs:o.obs,acomp:o.acomp,revisita:o.revisita,alterado:new Date().toISOString()});
     if(!rec.criado) rec.criado=rec.alterado;
-    await IDB.put("vistorias",rec); LS.set("rascVist",null); LS.set("ultVist",{cod:o.cod,faz:rec.faz,talhao:o.talhao,resp:o.resp,cana:o.cana});
+    await IDB.put("vistorias",rec); LS.set("rascVist",null); LS.set("ultVist",{cod:o.cod,faz:rec.faz,talhao:o.talhao,resp:o.resp,cana:o.cana,solo:o.solo,argila:o.argila});
     toast("Vistoria salva"); go("#/talhao/"+encodeURIComponent(chaveTalhao(rec))); };
   const del=$("#v-del"); if(del) del.onclick=async()=>{ if(del.dataset.ok!=="1"){ del.dataset.ok="1"; del.textContent="Toque de novo para excluir"; return; }
     for(const k of rec.fotos) await IDB.del("fotos",k); await IDB.del("vistorias",rec.id); toast("Vistoria excluída"); go("#/monitor"); };
@@ -432,7 +450,7 @@ ROTAS.talhao = async (k)=>{
   if(!vs.length && !as.length) return `<div class="vazio">Sem registros para este talhão.</div>`;
   const u=vs[0]||as[0];
   const alertas=alertasTalhao(as);
-  return `<h2 class="tit">${esc(u.faz||u.cod)} · Talhão ${esc(u.talhao)}</h2><p class="sub">${u.cod?"Código "+esc(u.cod)+" · ":""}${vs.length} vistoria(s), ${as.length} aplicação(ões)</p>
+  return `<h2 class="tit">${esc(u.faz||u.cod)} · Talhão ${esc(u.talhao)}</h2><p class="sub">${u.cod?"Código "+esc(u.cod)+" · ":""}${vs.length} vistoria(s), ${as.length} aplicação(ões)${(vs.find(v=>v.solo)||{}).solo?" · Solo: "+esc(SOLOS[vs.find(v=>v.solo).solo].nome)+(vs.find(v=>v.solo).argila?" ("+esc(vs.find(v=>v.solo).argila)+"% argila)":""):""}</p>
     ${alertas.map(t=>`<div class="alerta">${t}</div>`).join("")}
     <div class="btns" style="margin-top:0"><a class="btn" href="#/vistoria/nova">➕ Vistoria</a><a class="btn sec" href="#/aplicacao/nova">💧 Aplicação</a></div>
     <h3 style="margin:18px 0 8px">Histórico de infestação</h3>
@@ -550,8 +568,8 @@ function csv(linhas){ return "﻿"+linhas.map(l=>l.map(c=>{ const s=String(c??""
 ROTAS.relatorios.after = ()=>{
   $("#r-de").onchange=e=>{ rel.de=e.target.value; render.keepScroll=true; render(); }; $("#r-ate").onchange=e=>{ rel.ate=e.target.value; render.keepScroll=true; render(); };
   $("#x-vcsv").onclick=async()=>{ const vs=await IDB.all("vistorias");
-    baixa(`vistorias_${hojeISO()}.csv`, csv([["Data","Código","Fazenda","Talhão","Responsável","Variedade","Tipo de cana","Idade","Espécie","Estádio daninha","Nível","Distribuição","Acompanhar","Nova vistoria","Latitude","Longitude","Observações"],
-      ...vs.map(v=>[v.data,v.cod,v.faz,v.talhao,v.resp,v.variedade,v.cana,v.idade,nomeEsp(v),v.estd,v.nivel,v.dist,v.acomp,v.revisita,v.lat??"",v.lon??"",v.obs])]),"text/csv"); };
+    baixa(`vistorias_${hojeISO()}.csv`, csv([["Data","Código","Fazenda","Talhão","Responsável","Variedade","Tipo de cana","Idade","Tipo de solo","Argila %","Espécie","Estádio daninha","Nível","Distribuição","Acompanhar","Nova vistoria","Latitude","Longitude","Observações"],
+      ...vs.map(v=>[v.data,v.cod,v.faz,v.talhao,v.resp,v.variedade,v.cana,v.idade,v.solo?SOLOS[v.solo].nome:"",v.argila||"",nomeEsp(v),v.estd,v.nivel,v.dist,v.acomp,v.revisita,v.lat??"",v.lon??"",v.obs])]),"text/csv"); };
   $("#x-acsv").onclick=async()=>{ const as=await IDB.all("aplicacoes");
     baixa(`aplicacoes_${hojeISO()}.csv`, csv([["Data","Código","Fazenda","Talhão","Produto","Ingrediente ativo","Grupos","Dose","Calda L/ha","Área ha","Modalidade","Equipamento","Tempo","Estádio cana","Estádio daninhas","Responsável","Resultado","Falha","Data avaliação","Custo R$/ha","Observações"],
       ...as.map(a=>[a.data,a.cod,a.faz,a.talhao,a.produto,a.ia,(a.moa||[]).join("+"),a.dose,a.calda,a.area??"",a.modal,a.equip,a.clima,a.estCana,a.estDan,a.resp,a.resultado,a.falha,a.avalData,a.custo??"",a.obs])]),"text/csv"); };

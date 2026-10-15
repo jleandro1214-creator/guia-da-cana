@@ -106,6 +106,15 @@
   .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);opacity:0;}
   .herb{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px;}
   .herb.na{opacity:.62;}
+  .soloLin{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:14.5px;line-height:1.4;}
+  .soloLin span:last-child{flex:1;min-width:180px;color:var(--soft);}
+  .solos{display:grid;gap:10px;margin-top:6px;}
+  .solo{border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:12px;padding:10px 12px;}
+  .solo.n-restr{border-left-color:var(--info);} .solo.n-nao{border-left-color:var(--warn);}
+  .solo.sel{background:var(--tint);}
+  .solo .sh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+  .solo .sa{font-size:13.5px;color:var(--soft);margin-top:2px;}
+  .solo p{margin:6px 0 0;font-size:15px;line-height:1.45;}
   .herb .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
   .herb h5{margin:0;font-size:17.5px;} .herb .ref{font-size:14px;color:var(--soft);margin-top:2px;}
   .dose{font-size:20px;font-weight:800;color:var(--accent-strong);margin-top:8px;font-variant-numeric:tabular-nums;}

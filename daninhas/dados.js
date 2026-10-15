@@ -7,8 +7,8 @@
      "referencia"= referência técnica geral, ainda sem conferência de fonte
      "pendente"  = dado não conferido; não usar sem validação
    ===================================================================== */
-const DADOS_VERSAO = "2026.10.14-v3";
-const DADOS_REVISAO = "14/10/2026";
+const DADOS_VERSAO = "2026.10.15-v4";
+const DADOS_REVISAO = "15/10/2026";
 const DADOS_RESPONSAVEL = "Montagem inicial por assistente (Claude) — revisão por agrônomo responsável pendente";
 
 /* ---------- Mecanismos de ação (classificação HRAC/WSSA, numérica) ---------- */
@@ -23,6 +23,19 @@ const MECANISMOS = {
   "29": {nome:"Inibidores da síntese de celulose",         ex:"indaziflam"}
 };
 
+/* ---------- Tipos de solo (classes de textura usadas nas bulas) ----------
+   Faixas usuais de argila; cada bula pode definir faixas próprias (confira).   */
+const SOLOS = {
+  arenoso: {nome:"Arenoso (leve)",   argila:"menos de 15% de argila", ic:"🟨",
+            obs:"Pouca argila e matéria orgânica: o herbicida fica mais livre na água do solo. Bulas costumam usar doses menores ou proibir o uso em cana-planta."},
+  medio:   {nome:"Textura média",    argila:"15% a 35% de argila", ic:"🟧",
+            obs:"Faixa intermediária de dose na maioria das bulas."},
+  argiloso:{nome:"Argiloso (pesado)",argila:"mais de 35% de argila", ic:"🟫",
+            obs:"Mais argila e matéria orgânica retêm o herbicida: as bulas costumam indicar a maior dose."}
+};
+/* Nível da restrição por solo: "nao" = não indicado | "restr" = indicado com restrição | "ok" = sem restrição além da dose */
+const NIVEL_SOLO = {nao:["pend","⛔ Não indicado"], restr:["ref","⚠ Com restrição"], ok:["ok","✓ Sem restrição de solo"]};
+
 /* ---------- Herbicidas: cada entrada é UM produto comercial, com a bula lida ----------
    dose(daninha, solo, cana) -> {d, u, n} ou {na:"motivo"}
    Solo: "arenoso" | "medio" | "argiloso"; cana: "planta" | "soca"            */
@@ -31,6 +44,9 @@ const HERBICIDAS = {
     moa:["5","7"], registro:"não conferido", modalidade:"Pré e pós-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Revista Cultivar — ficha do produto (dados da bula)", link:"https://revistacultivar.com.br/pesticida/velpar-k-wg",
     alvos:["corda","caruru","picao","trapoeraba","coloniao","braquiaria","colchao"],
+    porSolo:{arenoso:{n:"restr",t:"Cana-planta: não indicado. Cana-soca: pré-emergência 1,8 a 2,0 kg/ha."},
+      medio:{n:"ok",t:"Cana-soca: 2,0 a 2,5 kg/ha (pré). Cana-planta: no máximo 2,0 kg/ha."},
+      argiloso:{n:"ok",t:"Cana-soca: 2,5 a 3,0 kg/ha (pré). Cana-planta: no máximo 2,0 kg/ha."}},
     restricoes:["Uma aplicação por ciclo.","Cana-planta em solo médio ou argiloso: dose máxima 2,0 kg/ha.","Não indicado em cana-planta em solo arenoso.","Pós: plantas daninhas com até 4 folhas (folha larga) ou até o 1º perfilho (gramíneas)."],
     dose:(w,s,c)=>{ if(s==="arenoso"&&c==="planta") return {na:"Não indicado em cana-planta em solo arenoso."};
       if(c==="planta") return {d:"até 2,0",u:"kg/ha",n:"Cana-planta: limite de 2,0 kg/ha. Pós-emergência: 2,5 kg/ha."};
@@ -39,6 +55,9 @@ const HERBICIDAS = {
     moa:["5","7"], registro:"não conferido", modalidade:"Pré e pós-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Hexaron WG — ADAMA", link:"https://www.adama.com/brasil/sites/adama_brazil/files/downloads/UTF-8%27%27Hexaron%25C2%25AE%2520WG%2520-%2520Bula.pdf",
     alvos:["corda","caruru","picao","trapoeraba","coloniao","braquiaria","colchao"],
+    porSolo:{arenoso:{n:"restr",t:"Pré-emergência só em cana-soca (1,8 a 2,0 kg/ha). Pós: 2,5 kg/ha."},
+      medio:{n:"ok",t:"Pré 2,0 a 2,5 kg/ha. Doses válidas para matéria orgânica entre 1,3% e 3,0%."},
+      argiloso:{n:"ok",t:"Pré 2,5 a 3,0 kg/ha. Doses válidas para matéria orgânica entre 1,3% e 3,0%."}},
     restricoes:["Doses de pré para matéria orgânica entre 1,3% e 3,0%.","Solo arenoso: pré-emergência só em cana-soca.","Não aplicar em plantas estressadas por seca ou acima de 30 °C."],
     dose:(w,s,c)=>{ if(s==="arenoso"&&c==="planta") return {na:"Pré em solo arenoso só em cana-soca. Pós: 2,5 kg/ha."};
       return {d:{arenoso:"1,8 a 2,0",medio:"2,0 a 2,5",argiloso:"2,5 a 3,0"}[s],u:"kg/ha (pré)",n:"Pós-emergência: 2,5 kg/ha em qualquer solo."}; } },
@@ -46,18 +65,27 @@ const HERBICIDAS = {
     moa:["7"], registro:"MAPA nº 14620", modalidade:"Pré-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Tebutiuron Nortox", link:"https://painel.farmby.com.br/storage/bulas/tebutiuron-nortox.pdf",
     alvos:["corda","caruru","picao","leiteiro","trapoeraba","coloniao","braquiaria","colchao"],
+    porSolo:{arenoso:{n:"ok",t:"1,6 a 2,0 L/ha (menor faixa da bula)."},
+      medio:{n:"ok",t:"2,0 a 2,4 L/ha."},
+      argiloso:{n:"ok",t:"2,4 L/ha."}},
     restricoes:["Mesma faixa para cana-planta e soca.","Rotação: não cultivar outras culturas por 24 meses após a aplicação."],
     dose:(w,s)=>({d:{arenoso:"1,6 a 2,0",medio:"2,0 a 2,4",argiloso:"2,4"}[s],u:"L/ha"}) },
   sulfupl:{ comercial:"Sulfentrazone UPL BR 500 SC", titular:"UPL", ia:"Sulfentrazona", conc:"500 g/L", form:"SC",
     moa:["14"], registro:"não conferido", modalidade:"Pré-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Sulfentrazone UPL BR 500 SC (versão 30/08/2022)", link:"https://agribrasilis.com/wp-content/uploads/2021/03/F780898673_Sulfentrazone-UPL-BR-500-SC_Bula_V2022-08-30.pdf",
     alvos:["corda","caruru","leiteiro","trapoeraba","coloniao","braquiaria","colchao","tiririca"],
+    porSolo:{arenoso:{n:"ok",t:"A bula não muda a dose por solo: 1,2 L/ha (tiririca 1,6 L/ha)."},
+      medio:{n:"ok",t:"A bula não muda a dose por solo: 1,2 L/ha (tiririca 1,6 L/ha)."},
+      argiloso:{n:"ok",t:"A bula não muda a dose por solo: 1,2 L/ha (tiririca 1,6 L/ha)."}},
     restricoes:["A bula não varia a dose por textura de solo na cana.","Volume de calda terrestre: 100 a 300 L/ha."],
     dose:(w)=> w==="tiririca" ? {d:"1,6",u:"L/ha",n:"Mesma dose em qualquer solo."} : {d:"1,2",u:"L/ha",n:"Mesma dose em qualquer solo."} },
   provence:{ comercial:"Provence 750 WG", titular:"Bayer", ia:"Isoxaflutol", conc:"750 g/kg", form:"WG",
     moa:["27"], registro:"não conferido", modalidade:"Pré-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Provence 750 WG", link:"https://assets.revistacultivar.com.br/0c155355-4a10-4897-95ab-86e61490d82b_provence_750_wg_bula.pdf",
     alvos:["caruru","coloniao","braquiaria","colchao"],
+    porSolo:{arenoso:{n:"restr",t:"Não aplicar de novembro a fevereiro (Centro-Sul). Cana-planta: bula sem dose. Soca: 200 a 250 g/ha (seca) ou 100 g/ha (úmida)."},
+      medio:{n:"ok",t:"Cana-planta: 80 + 80 g/ha. Soca: 250 a 300 g/ha (seca) ou 125 g/ha (úmida)."},
+      argiloso:{n:"ok",t:"Cana-planta: 90 + 90 g/ha. Soca: 300 a 350 g/ha (seca) ou 150 g/ha (úmida)."}},
     restricoes:["Solo arenoso: não aplicar de novembro a fevereiro (Centro-Sul).","A tabela da bula tem layout confuso: confira a dose por espécie na bula antes de aplicar."],
     dose:(w,s,c)=>{ if(c==="planta"){ if(s==="arenoso") return {na:"Bula sem dose para cana-planta em solo arenoso."};
         return {d:s==="medio"?"80 + 80":"90 + 90",u:"g/ha",n:"Duas aplicações: após o plantio e na entrelinha aos 60 dias."}; }
@@ -66,6 +94,9 @@ const HERBICIDAS = {
     moa:["2"], registro:"não conferido", modalidade:"Pré-emergência (cana-soca)", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Plateau", link:"https://assets.revistacultivar.com.br/a6c0eecb-4406-4bbe-bed5-9b8e81fd960e_plateau_bula.pdf",
     alvos:["tiririca"],
+    porSolo:{arenoso:{n:"nao",t:"Bula sem dose de tiririca para solo leve."},
+      medio:{n:"ok",t:"190 g/ha, só em cana-soca, antes da brotação."},
+      argiloso:{n:"ok",t:"210 g/ha, só em cana-soca. Matéria orgânica alta pode reduzir o efeito nos tubérculos."}},
     restricoes:["Não aplicar em cana-planta.","Aplicar antes da brotação da soca.","Matéria orgânica alta pode reduzir o efeito sobre os tubérculos.","Intervalo de segurança na cana: 150 dias."],
     dose:(w,s,c)=>{ if(c==="planta") return {na:"Não aplicar em cana-planta."};
       if(s==="arenoso") return {na:"Bula sem dose de tiririca para solo leve."};
@@ -74,6 +105,9 @@ const HERBICIDAS = {
     moa:["29"], registro:"não conferido", modalidade:"Pré e pós-emergência inicial", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Alion", link:"https://painel.farmby.com.br/storage/bulas/alion.pdf",
     alvos:["caruru","picao","coloniao","braquiaria","amargoso","colchao","gramaseda"],
+    porSolo:{arenoso:{n:"restr",t:"Cana-planta: proibido em solo com menos de 10% de argila ou menos de 1% de matéria orgânica — confira a análise do talhão. Dose 0,10 a 0,15 L/ha conforme a daninha."},
+      medio:{n:"ok",t:"0,10 a 0,15 L/ha conforme a daninha. Em cana-planta, confirme matéria orgânica de pelo menos 1%."},
+      argiloso:{n:"ok",t:"0,20 L/ha."}},
     restricoes:["Uma aplicação por ano (intervalo mínimo de 12 meses).","Não usar em cana-planta com menos de 10% de argila nem com menos de 1% de matéria orgânica.","Não usar com mudas pré-brotadas (MPB).","Intervalo de segurança: 165 dias."],
     dose:(w,s)=>{ const baixa=["coloniao","caruru","colchao","amargoso"].includes(w)?"0,10":"0,15";
       return {d:s==="argiloso"?"0,20":baixa,u:"L/ha"}; } },
@@ -81,30 +115,45 @@ const HERBICIDAS = {
     moa:["5"], registro:"não conferido", modalidade:"Pré e pós-emergência inicial", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Amicarbazone Nortox", link:"https://assets.revistacultivar.com.br/f722ffbe-4738-43d6-9306-6660600ef075_amicarbazone_nortox_bula.pdf",
     alvos:["corda","caruru","picao","trapoeraba","braquiaria","colchao"],
+    porSolo:{arenoso:{n:"ok",t:"1,0 a 1,5 kg/ha conforme a daninha."},
+      medio:{n:"ok",t:"1,0 a 1,5 kg/ha conforme a daninha."},
+      argiloso:{n:"ok",t:"2,0 kg/ha."}},
     restricoes:["Aplicação única.","Pré na cana-planta ou logo após o corte na soca."],
     dose:(w,s)=> s==="argiloso" ? {d:"2,0",u:"kg/ha"} : {d:["caruru","picao","corda"].includes(w)?"1,5":"1,0",u:"kg/ha"} },
   gamit:{ comercial:"Gamit 360 CS", titular:"FMC", ia:"Clomazona", conc:"360 g/L", form:"CS (suspensão de cápsulas)",
     moa:["13"], registro:"não conferido", modalidade:"Pré-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Revista Cultivar — ficha do produto (dados da bula)", link:"https://revistacultivar.com.br/pesticida/gamit-360-cs",
     alvos:["corda","caruru","trapoeraba","coloniao","braquiaria","colchao"],
+    porSolo:{arenoso:{n:"ok",t:"3,0 L/ha."},
+      medio:{n:"restr",t:"A bula não define dose própria para solo médio: 3,0 a 3,5 L/ha conforme a infestação, com o agrônomo."},
+      argiloso:{n:"ok",t:"3,5 L/ha."}},
     restricoes:["Uma aplicação por ciclo.","Intervalo de segurança na cana: 365 dias.","Solo médio: a bula não define dose própria; escolha conforme infestação."],
     dose:(w,s)=>({d:{arenoso:"3,0",medio:"3,0 a 3,5",argiloso:"3,5"}[s],u:"L/ha"}) },
   krismat:{ comercial:"Krismat WG", titular:"Syngenta", ia:"Ametrina + trifloxissulfurom-sódico", conc:"731,5 + 18,5 g/kg", form:"WG",
     moa:["5","2"], registro:"não conferido", modalidade:"Pós-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Revista Cultivar — ficha do produto (dados da bula)", link:"https://revistacultivar.com.br/pesticida/krismat-wg",
     alvos:["corda","caruru","picao","trapoeraba","braquiaria","colchao","tiririca"],
+    porSolo:{arenoso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."},
+      medio:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."},
+      argiloso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."}},
     restricoes:["Uma aplicação.","2 a 4 semanas após o plantio ou 3 a 4 semanas após o corte.","Espalhante adesivo não iônico a 0,2%.","Tiririca: só supressão, após 2,4-D."],
     dose:(w)=> w==="tiririca" ? {d:"2,0",u:"kg/ha",n:"Supressão, após aplicação de 2,4-D."} : {d:"1,75 a 2,0",u:"kg/ha",n:"1,75 kg/ha em baixa infestação."} },
   sempra:{ comercial:"Sempra", titular:"não conferido", ia:"Halossulfurom-metílico", conc:"750 g/kg", form:"WG",
     moa:["2"], registro:"não conferido", modalidade:"Pós-emergência", status:"bula", conferido:"14/10/2026",
     fonte:"Bula Sempra", link:"https://assets.revistacultivar.com.br/ef125e38-c7fd-45be-8e97-8030dfc4d8e2_sempra_bula.pdf",
     alvos:["tiririca"],
+    porSolo:{arenoso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."},
+      medio:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."},
+      argiloso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."}},
     restricoes:["Uma aplicação por ciclo.","30 a 40 dias após o plantio ou corte.","Surfactante (amina polioxietilenada) a 1,0 L/ha."],
     dose:()=>({d:"150",u:"g/ha"}) },
   dma806:{ comercial:"2,4-D DMA 806 SL CAC", titular:"não conferido", ia:"2,4-D (sal dimetilamina)", conc:"806 g/L (670 g/L e.a.)", form:"SL (concentrado solúvel)",
     moa:["4"], registro:"não conferido", modalidade:"Pós-emergência (área total ou jato dirigido)", status:"bula", conferido:"14/10/2026",
     fonte:"Bula 2,4-D DMA 806 SL CAC", link:"https://assets.revistacultivar.com.br/58e13de1-e1c1-4d1b-9563-fa50baa0256a_24d_dma_806_sl_cac_bula.pdf",
     alvos:["corda","caruru","picao","leiteiro","trapoeraba","tiririca"],
+    porSolo:{arenoso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."},
+      medio:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."},
+      argiloso:{n:"ok",t:"Produto de pós-emergência: a bula não restringe o uso por textura de solo."}},
     restricoes:["Área total: cana até 30 cm, antes da formação dos colmos.","Jato dirigido: antes da floração da planta daninha.","Alto risco de deriva para culturas sensíveis vizinhas: siga as normas estaduais para 2,4-D."],
     dose:(w)=> ["picao","caruru"].includes(w) ? {d:"1,0 a 1,5",u:"L/ha",n:"Área total, daninhas com 3 a 5 folhas."} : {d:"1,5",u:"L/ha",n:"Jato dirigido."} }
 };
