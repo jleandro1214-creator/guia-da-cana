@@ -178,7 +178,6 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
     <button role="tab" id="tab-entrega" aria-selected="true" data-view="entrega">Entregar</button>
     <button role="tab" id="tab-estoque" aria-selected="false" data-view="estoque">Estoque</button>
     <button role="tab" id="tab-hist" aria-selected="false" data-view="hist">Histórico</button>
-    <button role="tab" id="tab-dados" aria-selected="false" data-view="dados">Dados</button>
   </nav>
 
   <!-- ENTREGAR -->
@@ -265,32 +264,18 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
     </div>
     <div class="summary" id="hist-sum"></div>
     <div class="rows" id="hist-list"><div class="emptybox">Carregando…</div></div>
-  </section>
-
-  <!-- DADOS -->
-  <section id="view-dados" hidden>
+      <div class="sect" id="sync">Juntar com os outros gestores</div>
     <div class="panel datacard">
-      <div class="sect" style="margin:0">Sem internet</div>
-      <p>Tudo fica salvo neste celular e o app funciona sem sinal. Abra uma vez com internet depois de instalar.</p>
-      <p id="d-info"></p>
-    </div>
-    <div class="sect">Juntar com os outros gestores</div>
-    <div class="panel datacard">
-      <p>Cada celular guarda os próprios lançamentos. Para todos verem o mesmo estoque, envie seus dados aos outros gestores (pelo WhatsApp) e receba os deles. Nada é apagado: o app junta tudo e mantém a alteração mais recente.</p>
-      <div class="actions">
-        <button class="btn" type="button" id="b-enviar">Enviar meus dados</button>
-        <label class="btn ghost filebtn" for="f-receber" style="margin:0">Receber dados<input type="file" id="f-receber" accept="application/json,.json,application/octet-stream,text/plain"></label>
-      </div>
-      <p class="hint" style="font-size:14px">Jeito mais fácil: no WhatsApp, segure o arquivo recebido, toque em <b>Compartilhar</b> e escolha <b>EPI em Dia</b>. Se usar o botão “Receber dados” e aparecer Câmera, toque em <b>Arquivos</b>.</p>
+      <p>Cada celular guarda os próprios lançamentos. Toque em <b>Enviar meus dados</b> e mande pelo WhatsApp aos outros gestores.</p>
+      <p>Para <b>receber</b>: no WhatsApp, segure o arquivo que o gestor mandou, toque em <b>Compartilhar</b> e escolha <b>EPI em Dia</b>. O app junta tudo sozinho.</p>
+      <div class="actions"><button class="btn" type="button" id="b-enviar">Enviar meus dados</button></div>
       <span class="toast" id="t-dados" role="status"></span>
       <p id="d-sync"></p>
-    </div>
-    <div class="sect">Instalar</div>
-    <div class="panel datacard">
-      <p id="inst-help">No Chrome, toque no menu ⋮ e depois em “Instalar app” (ou “Adicionar à tela inicial”).</p>
-      <div class="actions"><button class="btn ghost" type="button" id="b-inst2" hidden>📲 Instalar app</button></div>
+      <p id="d-info"></p>
     </div>
   </section>
+
+  <!-- troca de dados (sem seletor de arquivo) -->
 </div>
 
 <script>
@@ -310,7 +295,7 @@ const fmtData = s => s ? s.split("-").reverse().join("/") : "";
 const store = { get(k){ try{return localStorage.getItem(k)}catch{return null} }, set(k,v){ try{ v==null?localStorage.removeItem(k):localStorage.setItem(k,v) }catch{} } };
 
 const S = { items:[], entradas:[], retiradas:[], entregas:[], solicitacoes:[], funcs:new Map(), db:true };
-const VIEWS=["entrega","estoque","hist","dados"];
+const VIEWS=["entrega","estoque","hist"];
 let selItem = null, me = null, estView = "total", histKind = "entregas";
 
 /* ---------- usuário (entrada pelos 4 primeiros números) ---------- */
@@ -679,7 +664,7 @@ $("#b-enviar").addEventListener("click", async()=>{
   const file=new File([body],nome,{type:"application/json"});
   try{
     if(navigator.canShare && navigator.canShare({files:[file]})){
-      await navigator.share({files:[file],title:"Dados EPI em Dia",text:`Dados de EPIs de ${me?me.nome:"gestor"} (${fmtData(today())}). Abra no app EPI em Dia > Dados > Receber dados.`});
+      await navigator.share({files:[file],title:"Dados EPI em Dia",text:`Dados de EPIs de ${me?me.nome:"gestor"} (${fmtData(today())}). Para juntar: segure este arquivo, toque em Compartilhar e escolha EPI em Dia.`});
       toast(t,"Dados enviados.",true);
     } else {
       const a=document.createElement("a"); a.href=URL.createObjectURL(file); a.download=nome; document.body.appendChild(a); a.click(); a.remove();
@@ -697,16 +682,12 @@ function juntarDados(texto){
   saveDB(); store.set("epi-sync",`recebido de ${String(inc.de||"outro gestor").replace(/^\d+ - /,"")} em ${new Date().toLocaleString("pt-BR")}`); refresh();
   toast(t, n?`${n} lançamentos novos juntados.`:"Nada novo: você já tinha esses dados.", true);
 }
-$("#f-receber").addEventListener("change", async e=>{
-  const t=$("#t-dados"), f=e.target.files[0]; e.target.value=""; if(!f) return;
-  if(/^(image|video|audio)\//.test(f.type)) return toast(t,"Isso é foto ou vídeo. Toque em Receber dados e escolha “Arquivos”.");
-  try{ juntarDados(await f.text()); }catch{ toast(t,"Não consegui abrir o arquivo. Tente de novo."); }
-});
 /* arquivo compartilhado direto do WhatsApp para o app */
 async function receberCompartilhado(){
   if(!/[?&]recebido=/.test(location.search)) return;
   history.replaceState(null,"",location.pathname);
-  document.querySelector('[data-view="dados"]').click();
+  document.querySelector('[data-view="hist"]').click();
+  setTimeout(()=>$("#sync").scrollIntoView({block:"start"}),50);
   const t=$("#t-dados");
   try{
     const c=await caches.open("epi-recebido"); const r=await c.match("ultimo");
@@ -718,14 +699,13 @@ async function receberCompartilhado(){
 /* instalar */
 let deferred=null;
 const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
-addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferred=e; if(!standalone()){ $("#inst").hidden=false; $("#b-inst2").hidden=false; } });
+addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferred=e; if(!standalone()){ $("#inst").hidden=false; } });
 async function instalar(){
-  if(deferred){ deferred.prompt(); await deferred.userChoice; deferred=null; $("#inst").hidden=true; $("#b-inst2").hidden=true; }
-  else document.querySelector('[data-view="dados"]').click();
+  if(deferred){ deferred.prompt(); await deferred.userChoice; deferred=null; $("#inst").hidden=true; }
+  else alert("No Chrome, toque no menu ⋮ e depois em “Instalar app” (ou “Adicionar à tela inicial”).");
 }
-$("#b-inst").addEventListener("click",instalar); $("#b-inst2").addEventListener("click",instalar);
-addEventListener("appinstalled",()=>{ $("#inst").hidden=true; $("#b-inst2").hidden=true; });
-if(standalone()) $("#inst-help").textContent="O app já está instalado neste celular.";
+$("#b-inst").addEventListener("click",instalar);
+addEventListener("appinstalled",()=>{ $("#inst").hidden=true; });
 if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 try{ navigator.storage?.persist?.(); }catch{}
 
