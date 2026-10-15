@@ -59,11 +59,12 @@ h1{font:700 30px/1 var(--f-display);letter-spacing:.02em;text-transform:uppercas
 .user .nm{font-weight:600;overflow-wrap:anywhere}
 .status{font-size:14px;font-weight:500;color:var(--muted);margin-top:8px;min-height:18px}
 .status.err{color:var(--bad)}
-.alert{margin-top:12px;border:2px solid var(--bad);background:var(--bad-soft);border-radius:8px;padding:10px 12px;display:flex;gap:12px;align-items:flex-start}
-.alert .ic{flex:none;width:26px;height:26px;border-radius:50%;background:var(--bad);color:var(--bad-soft);display:grid;place-items:center;font:700 18px/1 var(--f-display)}
-.alert h2{margin:0 0 4px;font:700 17px/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.05em;color:var(--bad)}
+.alert{margin-top:12px;border:3px solid var(--red);border-left-width:10px;background:var(--bad-soft);border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+.alert .ic{flex:none;width:32px;height:32px;border-radius:50%;background:var(--red);color:var(--red-ink);display:grid;place-items:center;font:700 22px/1 var(--f-display);animation:pulse 1.6s ease-in-out 3}
+@keyframes pulse{50%{transform:scale(1.18)}}
+.alert h2{margin:0 0 6px;font:700 21px/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.05em;color:var(--bad)}
 .alert ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
-.alert li{font-size:14px}
+.alert li{font-size:16px;font-weight:600}
 .alert li .s{color:var(--fg);opacity:.85;font-size:14px;margin-left:6px}
 nav{display:flex;gap:2px;margin:16px 0 14px;padding:4px;background:var(--panel);border:2px solid var(--line);border-radius:10px;overflow-x:auto}
 nav button{all:unset;cursor:pointer;flex:1 1 auto;min-width:0;text-align:center;padding:12px 4px;border-radius:7px;font:700 clamp(13px,3.9vw,17px)/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--tab-ink);white-space:nowrap}
@@ -117,13 +118,16 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 .row .desc{min-width:0;overflow-wrap:anywhere}
 .row .sub2{display:block;font-size:14px;color:var(--muted);margin-top:2px}
 .row .btns{grid-column:2/-1;display:flex;gap:6px;flex-wrap:wrap}
-.row.crit{box-shadow:inset 6px 0 0 var(--red)}
+.row.crit{box-shadow:inset 8px 0 0 var(--red);background:var(--bad-soft)}
+.row.crit .desc{color:var(--bad);font-weight:700}
+.row.crit .sub2{color:var(--fg)}
 .row.aten{box-shadow:inset 6px 0 0 var(--yel)}
-.row.crit .qty{color:var(--bad)}
+.row.crit .qty{color:var(--bad);font-size:26px}
 .qty{font:700 22px/1 var(--f-display);font-variant-numeric:tabular-nums;min-width:42px;text-align:right}
 .pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:1px}
 .pill.zero,.pill.sol{background:var(--yel);color:var(--yel-ink)}
-.pill.neg,.pill.falta{background:var(--red);color:var(--red-ink)}
+.pill.neg,.pill.falta{background:var(--red);color:var(--red-ink);font-size:13px;padding:3px 9px}
+.pill.falta::before{content:"⚠ "}
 .inline-form{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-top:6px}
 .inline-form input{width:100px;flex:0 0 auto}
 .inline-form input.wide{flex:1 1 140px;width:auto}
@@ -547,9 +551,11 @@ function renderEstoque(){
   if(!S.items.length){ el.innerHTML=`<div class="emptybox">Nenhum EPI cadastrado ainda. Use “Cadastrar novo EPI” abaixo.</div>`; return; }
   if(!list.length){
     el.innerHTML=`<div class="emptybox">${fil==="com" && !terms.length ? (isGestor ? `${esc(gByMat(v)?.nome)} não tem EPIs no estoque individual.<br>Lance uma entrada (filtro “Todos os EPIs”) ou veja a Solicitação no almoxarifado.` : `Nenhum EPI em estoque. Escolha “Todos os EPIs” no filtro para lançar entradas.`) : "Nenhum EPI encontrado com esse filtro."}</div>`; return; }
+  const rank=it=>{const s=saldoDe(sd,v,it.id); return (it.falta||s<0)?0:1;};
+  list.sort((a,b)=>rank(a)-rank(b));
   el.innerHTML=list.map(it=>{
     const s=saldoDe(sd,v,it.id);
-    const pills=(it.falta?`<span class="pill falta">falta</span>`:"")+(s<0?`<span class="pill neg">negativo</span>`:s===0?`<span class="pill zero">zerado</span>`:"");
+    const pills=(it.falta?`<span class="pill falta">em falta</span>`:"")+(s<0?`<span class="pill neg">negativo</span>`:s===0?`<span class="pill zero">zerado</span>`:"");
     const q=quemTem(sd,it.id);
     const solic = (isGestor?[gByMat(v)]:GESTORES).map(g=>{ const n=pg.get(g.mat+"|"+it.id)||0; return n?(isGestor?`${n}`:`${curto(g.nome)} ${n}`):""; }).filter(Boolean);
     const sub = (v==="total" ? (q.length ? "Estoque de: "+q.join(" · ") : "Sem estoque com ninguém") : "")
