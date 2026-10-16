@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Meus Apps</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1b3a24">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--bg:#f4f2ec;--card:#fff;--fg:#1c231d;--mut:#5d6a60;--line:#dfdbd0;--accent:#1b3a24;--accent-soft:#e2ece4;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#121613;--card:#1c221d;--fg:#e8ede9;--mut:#9aa89d;--line:#2d362f;--accent:#7fc08e;--accent-soft:#223527;color-scheme:dark}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+header{background:#1b3a24;color:#fff;padding:calc(18px + env(safe-area-inset-top)) 16px 18px}
+header h1{margin:0;font-size:26px}
+header p{margin:4px 0 0;opacity:.85;font-size:15px}
+main{max-width:680px;margin:0 auto;padding:14px 16px 40px}
+#q{width:100%;font-size:18px;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--fg);padding:8px 14px;border-radius:99px;font-size:15px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+h2{font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:20px 0 8px}
+.app{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.app img{width:58px;height:58px;border-radius:14px;flex:none}
+.app .t{flex:1;min-width:0}
+.app b{display:block;font-size:18px}
+.app small{display:block;color:var(--mut);font-size:15px}
+.acts{display:flex;gap:8px;margin-top:10px}
+.acts a,.acts button{flex:1;text-align:center;text-decoration:none;font:700 16px system-ui,sans-serif;padding:10px 6px;border-radius:10px;border:0}
+.abrir{background:var(--accent);color:var(--bg)}
+.comp{background:var(--accent-soft);color:var(--fg)}
+.vazio{color:var(--mut);text-align:center;padding:24px 0}
+.inst{display:flex;gap:10px;align-items:center;margin-top:14px;padding:12px;border:1.5px dashed var(--accent);border-radius:12px;background:var(--accent-soft);font-size:15px}
+.inst span{flex:1}.inst button{font:700 16px system-ui;padding:10px 12px;border:0;border-radius:10px;background:var(--accent);color:var(--bg)}
+footer{color:var(--mut);font-size:14px;text-align:center;margin-top:24px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:10px;font-size:15px}
+</style>
+</head>
+<body>
+<header><h1>📱 Meus Apps</h1><p>Todos os apps em um só lugar. Toque para abrir ou compartilhar.</p></header>
+<main>
+<input id="q" type="search" placeholder="Buscar app… (ex.: vinhaça, EPI)" autocomplete="off">
+<div class="chips" id="chips"></div>
+<div id="lista"></div>
+<div class="inst" id="inst" hidden><span>Instale esta central para achar seus apps com um toque.</span><button id="b-inst" type="button">📲 Instalar</button></div>
+<footer>Cada app instala separado no celular e funciona sem internet depois de aberto uma vez.</footer>
+</main>
+<div id="toast" hidden></div>
+<script>
+const BASE="https://jleandro1214-creator.github.io/guia-da-cana/";
+const APPS=[
+ {p:"",n:"Guia da Cana",d:"Pragas, doenças e anotações de campo",c:"Campo",i:"../icone2-192.png",k:"pragas doenças broca"},
+ {p:"daninhas/",n:"Daninhas da Cana",d:"Plantas daninhas, herbicidas e dose por solo",c:"Campo",i:"../daninhas/icone2-192.png",k:"herbicida mato"},
+ {p:"calculadora/",n:"Calculadora da Cana",d:"TCH, perfilhos, adubação, colheita e diesel",c:"Campo",i:"../calculadora/icone2-192.png",k:"conta cálculo atr"},
+ {p:"fazendas/",n:"Fazendas por Código",d:"Busca de fazendas por código ou nome",c:"Campo",i:"../fazendas/icon-192.png",k:"seção código"},
+ {p:"logistica-vinhaca/",n:"Logística Vinhaça",d:"Caminhões necessários por frente",c:"Vinhaça",i:"../logistica-vinhaca/icon-192.png",k:"caminhão trator frente"},
+ {p:"vinhaca-produtiva/",n:"Vinhaça Produtiva",d:"Lançamentos de aplicação com planilha CSV",c:"Vinhaça",i:"../vinhaca-produtiva/icon-192.png",k:"aplicação produtividade carreta"},
+ {p:"simulador-gs3/",n:"Simulador GS3 Vinhaça",d:"Treino do terminal GreenStar 3",c:"Vinhaça",i:"../simulador-gs3/icon-192.png",k:"greenstar gps terminal"},
+ {p:"aplicador/",n:"Catálogo Aplicador de Vinhaça",d:"Peças e inspeção do aplicador 22.500 L",c:"Vinhaça",i:"../aplicador/icon-192.png",k:"peça manutenção nonino"},
+ {p:"epi/",n:"EPI em Dia",d:"Estoque e entregas de EPIs por gestor",c:"Gestão",i:"../epi/icon-192.png",k:"epi segurança estoque luva"}
+];
+const CATS=["Todos","Campo","Vinhaça","Gestão"];let cat="Todos",q="";
+const $=s=>document.querySelector(s);
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function chips(){$("#chips").innerHTML=CATS.map(c=>`<button class="chip" aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join("")}
+function render(){
+ const t=norm(q);const f=APPS.filter(a=>(cat==="Todos"||a.c===cat)&&(!t||norm(a.n+" "+a.d+" "+a.k+" "+a.c).includes(t)));
+ if(!f.length){$("#lista").innerHTML='<p class="vazio">Nenhum app encontrado.</p>';return}
+ let h="";for(const c of CATS.slice(1)){const g=f.filter(a=>a.c===c);if(!g.length)continue;h+=`<h2>${c}</h2>`;
+  for(const a of g){const u=BASE+a.p;h+=`<div class="app"><img src="${a.i}" alt=""><div class="t"><b>${a.n}</b><small>${a.d}</small><div class="acts"><a class="abrir" href="${u}">Abrir</a><button class="comp" data-u="${u}" data-n="${a.n}">Compartilhar</button></div></div></div>`}}
+ $("#lista").innerHTML=h;
+}
+function toast(m){const e=$("#toast");e.textContent=m;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2200)}
+$("#chips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;chips();render()};
+$("#q").oninput=e=>{q=e.target.value;render()};
+$("#lista").onclick=async e=>{const b=e.target.closest(".comp");if(!b)return;
+ const txt=`${b.dataset.n}: abra no Chrome e toque em "Instalar app".`;
+ if(navigator.share){try{await navigator.share({title:b.dataset.n,text:txt,url:b.dataset.u})}catch(err){}return}
+ window.open("https://wa.me/?text="+encodeURIComponent(txt+" "+b.dataset.u),"_blank")};
+let def=null;const sa=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();def=e;if(!sa())$("#inst").hidden=false});
+$("#b-inst").onclick=async()=>{if(def){def.prompt();try{await def.userChoice}catch(e){}def=null;$("#inst").hidden=true}else alert('No Chrome, toque no menu ⋮ e depois em "Instalar app".')};
+addEventListener("appinstalled",()=>$("#inst").hidden=true);
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+chips();render();
+</script>
+</body>
+</html>

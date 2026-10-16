@@ -2,6 +2,7 @@
 
 Apps de celular (instaláveis e off-line) publicados no GitHub Pages:
 
+- **Meus Apps (central com todos):** https://jleandro1214-creator.github.io/guia-da-cana/apps/
 - Guia da Cana: https://jleandro1214-creator.github.io/guia-da-cana/
 - Calculadora da Cana: https://jleandro1214-creator.github.io/guia-da-cana/calculadora/
 - Daninhas da Cana: https://jleandro1214-creator.github.io/guia-da-cana/daninhas/
