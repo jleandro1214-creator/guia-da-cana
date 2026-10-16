@@ -1,0 +1,758 @@
+<!doctype html><html><head><meta charset=utf8><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#16384a"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="mobile-web-app-capable" content="yes"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Simulador GS3 Vinhaça</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: terminal de cabine (moldura) com barra de status, mapa + módulos da página de trabalho e trilho de softkeys. Tema único escuro, como uma tela de cabine. */
+:root{
+  color-scheme:dark;
+  --cab:#1c1f20; --bezel:#2a2e2f; --screen:#101820; --panel:#16212a; --panel2:#1c2933;
+  --line:#2a3945; --ink:#e3e9ed; --mute:#8a9ba7; --accent:#63b3d6;
+  --ok:#57bd84; --warn:#e5a03a; --bad:#de5e4b; --excl:#c2457e;
+  --f-disp:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-body:'Barlow',system-ui,sans-serif;
+  --f-num:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+html,body{background:var(--cab);color:var(--ink)}
+body{font-family:var(--f-body);font-size:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px}
+*{box-sizing:border-box}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.head h1{font-family:var(--f-disp);font-weight:700;font-size:26px;letter-spacing:.02em;margin:0;text-wrap:balance}
+.head p{margin:0;color:var(--mute);max-width:70ch;font-size:13px}
+.term{background:var(--bezel);border-radius:18px;padding:12px;box-shadow:inset 0 1px 0 #3a3f40,0 10px 30px #0006}
+.screen{background:var(--screen);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;border:1px solid #0b1015}
+/* barra de status */
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 10px;background:var(--panel2);border-bottom:1px solid var(--line)}
+.status .job{font-family:var(--f-disp);font-weight:600;font-size:16px;letter-spacing:.02em;margin-right:auto;min-width:0}
+.status .job small{color:var(--mute);font-weight:500;margin-left:6px}
+.chip{font-family:var(--f-disp);font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1px solid var(--line);background:var(--panel);white-space:nowrap}
+.chip.ok{color:var(--ok);border-color:#2f5a44}.chip.warn{color:var(--warn);border-color:#6b4d22}.chip.bad{color:var(--bad);border-color:#6d3127}
+.clock{font-family:var(--f-num);font-size:14px;padding:3px 8px;font-variant-numeric:tabular-nums}
+.ctl{display:flex;gap:6px;align-items:center}
+.btn{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer;font-family:var(--f-disp);font-weight:600;letter-spacing:.04em;font-size:14px}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);color:#0b1a22;border-color:var(--accent)}
+.btn.sm{padding:3px 8px;font-size:13px}
+select.btn{padding:5px 6px}
+/* área principal */
+.main{display:grid;grid-template-columns:minmax(0,1fr) 330px;min-height:520px}
+.mapcol{display:flex;flex-direction:column;border-right:1px solid var(--line);min-width:0}
+.guide{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.lightbar{display:flex;gap:3px;flex:1;justify-content:center;min-width:200px}
+.led{width:12px;height:12px;border-radius:2px;background:#22303a}
+.led.c{width:16px}
+.led.on.g{background:var(--ok);box-shadow:0 0 6px var(--ok)}.led.on.y{background:var(--warn);box-shadow:0 0 6px var(--warn)}.led.on.r{background:var(--bad);box-shadow:0 0 6px var(--bad)}
+.gnum{font-family:var(--f-num);font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.gnum b{color:var(--ink);font-weight:500}
+.mapbox{position:relative;flex:1;padding:10px;display:flex;flex-direction:column;gap:8px}
+canvas#map{width:100%;height:auto;display:block;border-radius:4px;background:#0c1217}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--mute)}
+.legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.banner{position:absolute;left:20px;right:20px;top:20px;background:#2a1f10ee;border:1px solid var(--warn);border-radius:8px;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.banner b{color:var(--warn);font-family:var(--f-disp);font-size:17px;letter-spacing:.03em}
+/* módulos */
+.mods{display:flex;flex-direction:column;min-width:0}
+.mod{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.mlab{font-family:var(--f-disp);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.big{font-family:var(--f-num);font-size:34px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:13px;color:var(--mute);margin-left:4px}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px}
+.row .v{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper .btn{width:32px;padding:4px 0;text-align:center}
+.secs{display:grid;gap:6px}
+.sec{border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:5px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--f-disp);font-weight:600;font-size:13px}
+.sec .bar{width:10px;height:38px;background:#22303a;border-radius:2px;position:relative;overflow:hidden}
+.sec .bar span{position:absolute;left:0;right:0;bottom:0;background:var(--ok)}
+.sec .tgt{position:absolute;left:-2px;right:-2px;height:1px;background:var(--ink)}
+.sec.off{opacity:.55}.sec.man{border-color:var(--bad)}
+.sec small{font-family:var(--f-num);font-size:10px;color:var(--mute);font-weight:400}
+.gauge{height:10px;background:#22303a;border-radius:3px;overflow:hidden}
+.gauge span{display:block;height:100%;background:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.toggle{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+.toggle input{accent-color:var(--accent);width:16px;height:16px}
+/* softkeys */
+.keys{display:flex;gap:4px;padding:6px;background:var(--panel2);border-top:1px solid var(--line);overflow-x:auto}
+.key{flex:1 0 auto;min-width:92px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 6px;cursor:pointer;font-family:var(--f-disp);font-weight:600;font-size:14px;letter-spacing:.04em;position:relative;text-align:center}
+.key[aria-current=page]{border-color:var(--accent);color:var(--accent);background:#14303e}
+.key .badge{position:absolute;top:-6px;right:-4px;background:var(--bad);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;font-family:var(--f-num)}
+/* páginas */
+.page{padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;align-content:start;min-height:520px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{margin:0;font-family:var(--f-disp);font-weight:700;font-size:18px;letter-spacing:.02em}
+.card p{margin:0;color:var(--mute);font-size:13px;line-height:1.45}
+.field{display:grid;grid-template-columns:1fr 130px;gap:8px;align-items:center;font-size:13px}
+.field input,.field select{background:var(--screen);border:1px solid var(--line);border-radius:5px;padding:6px 8px;width:100%;font-family:var(--f-num);font-size:13px}
+.field.txt{grid-template-columns:1fr 1.4fr}
+.field.txt input{font-family:var(--f-body)}
+.calc{background:var(--screen);border:1px dashed var(--line);border-radius:6px;padding:10px;font-family:var(--f-num);font-size:12.5px;line-height:1.6;overflow-x:auto}
+.calc b{color:var(--accent);font-weight:500}
+.note{font-size:12px;color:var(--mute);border-left:2px solid var(--warn);padding-left:8px;line-height:1.45}
+.res{font-family:var(--f-num);font-size:20px}
+.res.ok{color:var(--ok)}.res.warn{color:var(--warn)}.res.bad{color:var(--bad)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left}
+td.n{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums}
+th{font-family:var(--f-disp);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:12px;color:var(--mute)}
+.log{max-height:360px;overflow:auto;display:flex;flex-direction:column;gap:4px}
+.ev{display:grid;grid-template-columns:46px 70px 1fr;gap:8px;font-size:13px;padding:5px 6px;border-radius:4px;background:var(--screen)}
+.ev time{font-family:var(--f-num);color:var(--mute)}
+.ev .lv{font-family:var(--f-disp);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+.lv.info{color:var(--accent)}.lv.alerta{color:var(--warn)}.lv.alarme{color:var(--bad)}
+.scen{display:flex;flex-direction:column;gap:8px}
+.scen .ans{background:var(--screen);border-radius:6px;padding:10px;font-size:13px;line-height:1.5}
+pre.rep{white-space:pre-wrap;font-family:var(--f-num);font-size:12px;background:var(--screen);padding:10px;border-radius:6px;margin:0;max-height:300px;overflow:auto}
+.foot{color:var(--mute);font-size:12px;line-height:1.5;max-width:90ch}
+@media (max-width:860px){
+  .main{grid-template-columns:1fr}
+  .mapcol{border-right:0;border-bottom:1px solid var(--line)}
+  .mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .big{font-size:28px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <div class="head">
+    <h1>Simulador de terminal · Vinhaça localizada</h1>
+    <p>Treino do fluxo de trabalho de um terminal tipo GreenStar 3: recursos, laudo, controle de taxa, controle de seções, orientação e documentação. Todos os números iniciais são exemplos.</p>
+  </div>
+
+  <div class="term">
+    <div class="screen">
+      <div class="status">
+        <div class="job" id="sJob">T-12 <small>Vinhaça localizada</small></div>
+        <span class="clock" id="sClock">07:00</span>
+        <span class="chip ok" id="sGps">RTK</span>
+        <span class="chip ok" id="sAT">AutoTrac ativo</span>
+        <span class="chip ok" id="sSC">Seções auto</span>
+        <div class="ctl">
+          <button class="btn pri" id="bPlay" type="button">Pausar</button>
+          <select class="btn" id="sMult" aria-label="Velocidade da simulação">
+            <option value="1">1×</option><option value="10">10×</option><option value="30" selected>30×</option><option value="60">60×</option><option value="120">120×</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- PÁGINA DE TRABALHO -->
+      <div class="main" id="pg-run">
+        <div class="mapcol">
+          <div class="guide">
+            <span class="gnum">Passada <b id="gPass">1/34</b></span>
+            <div class="lightbar" id="lightbar" aria-label="Barra de luzes do erro lateral"></div>
+            <span class="gnum">Erro lateral <b id="gXte">0,0 cm</b></span>
+          </div>
+          <div class="mapbox">
+            <canvas id="map" width="900" height="600" aria-label="Mapa de cobertura do talhão"></canvas>
+            <div class="legend">
+              <span><i style="background:#57bd84"></i>Taxa ±15% do alvo</span>
+              <span><i style="background:#e5a03a"></i>Abaixo do alvo</span>
+              <span><i style="background:#de5e4b"></i>Acima do alvo</span>
+              <span><i style="background:#c2457e"></i>Aplicado na faixa de proteção</span>
+              <span><i style="background:repeating-linear-gradient(45deg,#c2457e55 0 3px,transparent 3px 6px);border:1px solid #c2457e"></i>Faixa de proteção (exclusão)</span>
+            </div>
+            <div class="banner" id="banner" hidden>
+              <b>Tanque vazio</b>
+              <span style="flex:1;min-width:180px">Aplicação parada. Aguarde o caminhão ou inicie o reabastecimento.</span>
+              <button class="btn pri" id="bRefill" type="button">Reabastecer agora</button>
+            </div>
+          </div>
+        </div>
+        <div class="mods">
+          <div class="mod">
+            <div class="mlab">Taxa aplicada (indicada) <span id="mTolChip" class="chip ok">Na meta</span></div>
+            <div class="big" id="mRate">0,0<small>m³/ha</small></div>
+            <div class="row"><span>Alvo</span>
+              <span class="stepper"><button class="btn" id="bAlvoM" type="button" aria-label="Diminuir alvo">−</button><span class="v" id="mAlvo">20,0</span><button class="btn" id="bAlvoP" type="button" aria-label="Aumentar alvo">+</button></span></div>
+            <div class="row"><span>Vazão do fluxômetro</span><span class="v" id="mFlow">0 L/min</span></div>
+            <div class="row"><span>K₂O equivalente (laudo)</span><span class="v" id="mK">0 kg/ha</span></div>
+          </div>
+          <div class="mod">
+            <div class="mlab">Velocidade <span class="v" id="mSpd" style="font-family:var(--f-num);color:var(--ink);font-size:14px">5,0 km/h</span></div>
+            <input type="range" id="rSpd" min="2" max="12" step="0.5" value="5" aria-label="Velocidade de deslocamento">
+            <div class="row"><span>Vel. máx. pela bomba</span><span class="v" id="mVmax">–</span></div>
+          </div>
+          <div class="mod">
+            <div class="mlab">Seções (toque para desligar) </div>
+            <div class="secs" id="secs"></div>
+            <label class="toggle"><input type="checkbox" id="cSC" checked> Controle de seção automático</label>
+          </div>
+          <div class="mod">
+            <div class="mlab">Tanque <span class="v" id="mTank" style="font-family:var(--f-num);color:var(--ink);font-size:14px">30,0 m³</span></div>
+            <div class="gauge"><span id="gTank" style="width:100%"></span></div>
+            <div class="row"><span>Autonomia no alvo</span><span class="v" id="mAut">–</span></div>
+          </div>
+          <div class="mod">
+            <div class="mlab">Totais do talhão</div>
+            <div class="row"><span>Área aplicada</span><span class="v" id="tArea">0,00 ha</span></div>
+            <div class="row"><span>Volume</span><span class="v" id="tVol">0 m³</span></div>
+            <div class="row"><span>K₂O aplicado</span><span class="v" id="tK">0 kg</span></div>
+            <div class="row"><span>Progresso</span><span class="v" id="tProg">0%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECURSOS -->
+      <div class="page" id="pg-rec" hidden>
+        <div class="card">
+          <h3>Recursos da operação</h3>
+          <p>Cliente, fazenda, talhão e tarefa. É isso que identifica os dados na documentação e no relatório.</p>
+          <div class="field txt"><label for="r_cli">Cliente</label><input id="r_cli"></div>
+          <div class="field txt"><label for="r_faz">Fazenda</label><input id="r_faz"></div>
+          <div class="field txt"><label for="r_tal">Talhão</label><input id="r_tal"></div>
+          <div class="field txt"><label for="r_op">Operação</label><input id="r_op"></div>
+          <div class="field txt"><label for="r_est">Estágio</label><input id="r_est"></div>
+          <div class="field txt"><label for="r_opr">Operador</label><input id="r_opr"></div>
+          <button class="btn pri" id="bRec" type="button">Salvar recursos</button>
+        </div>
+        <div class="card">
+          <h3>Implemento</h3>
+          <p>Aplicador de vinhaça localizada com uma saída por linha de cana. A largura de trabalho é o número de seções vezes o espaçamento.</p>
+          <div class="field"><label for="i_sec">Seções (saídas)</label><input id="i_sec" type="number" min="2" max="8" step="1"></div>
+          <div class="field"><label for="i_esp">Espaçamento entre linhas (m)</label><input id="i_esp" type="number" min="0.9" max="2.4" step="0.05"></div>
+          <div class="calc" id="i_calc"></div>
+          <p class="note">Mudar o implemento reinicia o talhão, porque muda o espaçamento entre passadas.</p>
+          <button class="btn pri" id="bImp" type="button">Salvar e reiniciar talhão</button>
+        </div>
+      </div>
+
+      <!-- PRODUTO E LAUDO -->
+      <div class="page" id="pg-prod" hidden>
+        <div class="card">
+          <h3>Laudo da vinhaça</h3>
+          <p>Digite o resultado do laudo do lote que será aplicado. Confira se o potássio está expresso como K₂O e em kg/m³.</p>
+          <div class="field"><label for="l_data">Data da amostra</label><input id="l_data" type="date"></div>
+          <div class="field"><label for="l_k">K₂O (kg/m³)</label><input id="l_k" type="number" min="0.1" step="0.1"></div>
+          <div class="field"><label for="l_n">N (kg/m³)</label><input id="l_n" type="number" min="0" step="0.05"></div>
+          <div class="field"><label for="l_ce">CE (dS/m)</label><input id="l_ce" type="number" min="0" step="0.1" placeholder="opcional"></div>
+          <div class="field"><label for="l_ph">pH</label><input id="l_ph" type="number" min="0" max="14" step="0.1" placeholder="opcional"></div>
+          <p class="note">Valor inicial de K₂O = 3,0 kg/m³ é só exemplo didático. A composição da vinhaça varia por usina, safra e diluição.</p>
+        </div>
+        <div class="card">
+          <h3>Dose pela recomendação</h3>
+          <p>Volume (m³/ha) = K₂O recomendado (kg/ha) ÷ K₂O da vinhaça (kg/m³).</p>
+          <div class="field"><label for="l_rec">K₂O recomendado (kg/ha)</label><input id="l_rec" type="number" min="0" step="5"></div>
+          <div class="calc" id="l_calc"></div>
+          <button class="btn pri" id="bUseDose" type="button">Usar como taxa alvo</button>
+        </div>
+        <div class="card">
+          <h3>Verificação P4.231 (CETESB)</h3>
+          <p>Dose máxima de vinhaça pela fórmula da Norma P4.231 para SP. A conta usa CTC e K do solo em cmolc/dm³.</p>
+          <div class="field"><label for="l_ctc">CTC do solo (cmolc/dm³)</label><input id="l_ctc" type="number" min="0.5" step="0.1"></div>
+          <div class="field"><label for="l_ks">K do solo (cmolc/dm³)</label><input id="l_ks" type="number" min="0" step="0.01"></div>
+          <div class="calc" id="l_cet"></div>
+          <p class="note">Verificação didática. A dose oficial sai do Plano de Aplicação de Vinhaça (PAV) da unidade, com a amostragem, profundidade e versão vigente da norma, sob responsável técnico.</p>
+        </div>
+      </div>
+
+      <!-- CONTROLE DE TAXA -->
+      <div class="page" id="pg-taxa" hidden>
+        <div class="card">
+          <h3>Controlador de taxa</h3>
+          <p>O controlador regula a vazão para manter a dose quando a velocidade ou o número de seções ligadas muda.</p>
+          <div class="field"><label for="c_pump">Vazão máxima da bomba (L/min)</label><input id="c_pump" type="number" min="200" step="50"></div>
+          <div class="field"><label for="c_tau">Tempo de resposta da válvula (s)</label><input id="c_tau" type="number" min="0.5" max="15" step="0.5"></div>
+          <div class="calc" id="c_calc"></div>
+          <button class="btn pri" id="bTaxa" type="button">Salvar</button>
+        </div>
+        <div class="card">
+          <h3>Logística do tanque</h3>
+          <div class="field"><label for="c_tank">Capacidade do tanque (m³)</label><input id="c_tank" type="number" min="5" step="1"></div>
+          <div class="field"><label for="c_ref">Tempo de reabastecimento (min)</label><input id="c_ref" type="number" min="1" step="1"></div>
+          <label class="toggle"><input type="checkbox" id="c_auto"> Reabastecimento automático (sem pausa para decidir)</label>
+          <div class="calc" id="c_log"></div>
+          <button class="btn pri" id="bTank" type="button">Salvar</button>
+        </div>
+        <div class="card">
+          <h3>Calibração do fluxômetro</h3>
+          <p>Teste de recipiente: colete o volume de uma saída por 60 s e compare com o que o terminal indica para ela.</p>
+          <div class="row"><span>Fator do fluxômetro atual</span><span class="v" id="c_fac">1,000</span></div>
+          <button class="btn" id="bTest" type="button">Executar teste de 60 s (seção 1)</button>
+          <div class="calc" id="c_test">Rode o teste com a aplicação em andamento e a seção 1 ligada.</div>
+          <button class="btn pri" id="bFac" type="button" hidden>Aplicar novo fator</button>
+        </div>
+      </div>
+
+      <!-- ORIENTAÇÃO -->
+      <div class="page" id="pg-ori" hidden>
+        <div class="card">
+          <h3>Orientação</h3>
+          <p>Linha AB reta no sentido das linhas de cana. A distância entre passadas é a largura do implemento.</p>
+          <div class="field"><label for="o_gps">Sinal de correção</label>
+            <select id="o_gps"><option value="RTK">RTK (±2,5 cm)</option><option value="SF1">SF1 (decímetros)</option><option value="NONE">Sem correção</option></select></div>
+          <div class="field"><label for="o_tol">Tolerância de erro lateral (cm)</label><input id="o_tol" type="number" min="2" max="50" step="1"></div>
+          <div class="calc" id="o_calc"></div>
+          <p class="note">Na aplicação localizada, o erro lateral desloca a vinhaça da linha para a entrelinha. Sem correção, o piloto automático se desliga.</p>
+          <button class="btn pri" id="bOri" type="button">Salvar</button>
+        </div>
+      </div>
+
+      <!-- TREINAMENTO -->
+      <div class="page" id="pg-tre" hidden>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Cenários de treinamento</h3>
+          <p>Inicie um cenário, volte à página Trabalho, observe o mapa e os módulos, e depois abra a resposta. "Restaurar normal" desfaz as falhas sem apagar o mapa.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="bNorm" type="button">Restaurar normal</button><button class="btn" id="bReset" type="button">Reiniciar talhão</button></div>
+        </div>
+        <div id="scenList" style="display:contents"></div>
+      </div>
+
+      <!-- DOCUMENTAÇÃO -->
+      <div class="page" id="pg-doc" hidden>
+        <div class="card">
+          <h3>Totais e qualidade</h3>
+          <table><tbody id="d_tab"></tbody></table>
+        </div>
+        <div class="card">
+          <h3>Tempos e capacidade operacional</h3>
+          <table><tbody id="d_time"></tbody></table>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Relatório da operação</h3>
+          <pre class="rep" id="d_rep"></pre>
+          <div><button class="btn pri" id="bCopy" type="button">Copiar relatório</button> <span id="copyMsg" class="gnum"></span></div>
+        </div>
+      </div>
+
+      <!-- MENSAGENS -->
+      <div class="page" id="pg-msg" hidden>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Centro de mensagens</h3>
+          <div class="log" id="logList"></div>
+        </div>
+      </div>
+
+      <nav class="keys" aria-label="Softkeys">
+        <button class="key" data-pg="run" aria-current="page" type="button">Trabalho</button>
+        <button class="key" data-pg="rec" type="button">Recursos</button>
+        <button class="key" data-pg="prod" type="button">Produto e laudo</button>
+        <button class="key" data-pg="taxa" type="button">Controle de taxa</button>
+        <button class="key" data-pg="ori" type="button">Orientação</button>
+        <button class="key" data-pg="tre" type="button">Treinamento</button>
+        <button class="key" data-pg="doc" type="button">Documentação</button>
+        <button class="key" data-pg="msg" type="button">Mensagens<span class="badge" id="msgBadge" hidden>0</span></button>
+      </nav>
+    </div>
+  </div>
+
+  <p class="foot">Simulador didático inspirado no fluxo de trabalho de terminais de agricultura de precisão. Não é software John Deere; telas, nomes e comportamento são ilustrativos. Doses, laudo e solo são exemplos: a aplicação real segue o laudo do lote, a recomendação agronômica, o PAV e a Norma CETESB P4.231 vigente.</p>
+</div>
+
+<script>
+(function(){
+const $=s=>document.getElementById(s);
+const fmt=(n,d=0)=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+/* ---------- configuração (exemplos) ---------- */
+const cfg={cliente:'Usina Exemplo (fictícia)',fazenda:'Fazenda Santa Rita',talhao:'T-12',operacao:'Vinhaça localizada',estagio:'Soqueira 3º corte',operador:'Operador 01',
+  nSec:4,espac:1.5,alvo:20,speed:5,pumpMax:1400,tau:3,tankCap:30,refillMin:18,autoRefill:false,
+  kvi:3.0,nvi:0.4,ce:'',ph:'',laudoData:'2026-10-01',recK2O:60,ctc:6.0,ks:0.15,meterF:1.0,xteTol:10};
+const env={gps:'RTK',autoSC:true,manualOff:[],clog:[],calErr:0};
+
+/* ---------- talhão (m) ---------- */
+const F={W:300,H:200,HL:12,c:1.5};
+const NX=Math.ceil(F.W/F.c),NY=Math.ceil(F.H/F.c);
+const EX={x0:200,x1:288,y0:160,y1:200};
+const vol=new Float32Array(NX*NY),tgt=new Float32Array(NX*NY),exc=new Uint8Array(NX*NY);
+const cellHa=F.c*F.c/10000;
+let S,secInfo=[],logs=[],unread=0,running=true,mult=30,testRes=null;
+
+function inEx(x,y){return x>=EX.x0&&x<=EX.x1&&y>=EX.y0&&y<=EX.y1}
+function eligibleHa(){let n=0;for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){const x=(i+.5)*F.c,y=(j+.5)*F.c;if(x>=F.HL&&x<=F.W-F.HL&&y<F.H&&!inEx(x,y))n++}return n*cellHa}
+let ELIG=eligibleHa();
+
+function resetSim(){
+  const w=cfg.nSec*cfg.espac;
+  S={w,nP:Math.ceil(F.H/w),p:0,dir:1,x:F.HL,mode:'pass',th:0,prev:'pass',Q:0,Qcmd:0,tank:cfg.tankCap*1000,xte:0,t:0,tA:0,tT:0,tR:0,refillLeft:0,
+    area:0,volL:0,exArea:0,lastCell:[],outTol:0,tolFlag:false,satFlag:false,exFlag:false,xteT:0,xteFlag:false,sat:false,rateInd:0,secRate:[],waitLogged:false};
+  vol.fill(0);tgt.fill(0);exc.fill(0);
+  env.manualOff=Array(cfg.nSec).fill(false);env.clog=env.clog.slice(0,cfg.nSec);while(env.clog.length<cfg.nSec)env.clog.push(false);
+  buildSecs();dirty=true;
+}
+let dirty=true;
+
+/* ---------- registro ---------- */
+function clock(t){const m=Math.floor(7*60+t/60);return String(Math.floor(m/60)%24).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
+function log(lv,msg){logs.unshift({t:S?S.t:0,lv,msg});if(lv!=='info')unread++;renderLog()}
+
+/* ---------- física ---------- */
+function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function updXte(dt){
+  const sig=env.gps==='RTK'?0.005:env.gps==='SF1'?0.04:0.12;
+  S.xte+=-0.05*S.xte*dt+sig*Math.sqrt(dt)*gauss();
+  if(env.gps==='RTK')S.xte=Math.max(-0.03,Math.min(0.03,S.xte));
+}
+function cy(){return S.w/2+S.p*S.w}
+
+function step(dt){
+  if(S.mode==='done')return;
+  S.t+=dt;
+  if(S.mode==='refill'){S.tR+=dt;S.Q=0;S.refillLeft-=dt;secOff();if(S.refillLeft<=0){S.tank=cfg.tankCap*1000;S.mode=S.prev;log('info','Tanque reabastecido ('+fmt(cfg.tankCap)+' m³). Aplicação retomada.')}return}
+  if(S.mode==='wait'){S.tR+=dt;S.Q=0;secOff();return}
+  updXte(dt);
+  const v=cfg.speed/3.6;
+  if(S.mode==='turn'){
+    S.tT+=dt;S.Q=0;secOff();
+    S.th+=v*dt/(S.w/2);
+    if(S.th>=Math.PI){S.p++;S.dir*=-1;S.mode='pass';S.th=0;S.x=S.dir>0?F.HL:F.W-F.HL;S.lastCell=[]}
+    return;
+  }
+  S.x+=S.dir*v*dt;S.tA+=dt;
+  apply(dt);
+  const end=S.dir>0?S.x>=F.W-F.HL:S.x<=F.HL;
+  if(end){
+    S.x=S.dir>0?F.W-F.HL:F.HL;
+    if(S.p>=S.nP-1){S.mode='done';S.Q=0;secOff();log('info','Talhão concluído. Documentação pronta.');running=false;syncPlay()}
+    else S.mode='turn';
+  }
+}
+function secOff(){secInfo.forEach(s=>{s.on=false;s.why='manobra'});S.secRate=secInfo.map(()=>0);S.rateInd=0}
+
+function apply(dt){
+  const n=cfg.nSec,base=cy();let nAct=0;
+  for(let i=0;i<n;i++){
+    const y=base+(i-(n-1)/2)*cfg.espac+S.xte,x=S.x;
+    const inF=y>0&&y<F.H&&x>=F.HL&&x<=F.W-F.HL;
+    const ci=Math.min(NX-1,Math.max(0,Math.floor(x/F.c))),cj=Math.min(NY-1,Math.max(0,Math.floor(y/F.c)));
+    const idx=cj*NX+ci,ex=inEx(x,y),over=inF&&vol[idx]>0&&idx!==S.lastCell[i];
+    let on=inF&&!env.manualOff[i],why='';
+    if(!inF)why='fora';else if(env.manualOff[i])why='manual';
+    else if(env.autoSC&&ex){on=false;why='exclusão'}
+    else if(env.autoSC&&over){on=false;why='sobrepos.'}
+    secInfo[i]={on,why,idx,ex};if(on)nAct++;
+  }
+  const wAct=nAct*cfg.espac;
+  let Qcmd=nAct?cfg.alvo*1000*cfg.speed*wAct/600:0;
+  S.sat=Qcmd>cfg.pumpMax;if(S.sat)Qcmd=cfg.pumpMax;S.Qcmd=Qcmd;
+  if(!nAct)S.Q=0;else S.Q+=(Qcmd-S.Q)*(1-Math.exp(-dt/cfg.tau));
+  const Qtrue=S.Q*(1+env.calErr)/cfg.meterF;
+  let sw=0;secInfo.forEach((s,i)=>{if(s.on)sw+=env.clog[i]?0.4:1});
+  S.secRate=[];
+  secInfo.forEach((s,i)=>{
+    if(!s.on){S.secRate[i]=0;return}
+    const q=Qtrue*(env.clog[i]?0.4:1)/sw,dep=q/60*dt;
+    if(vol[s.idx]===0){S.area+=cellHa;tgt[s.idx]=cfg.alvo;if(s.ex){exc[s.idx]=1;S.exArea+=cellHa}}
+    vol[s.idx]+=dep;S.lastCell[i]=s.idx;
+    S.secRate[i]=q*600/(cfg.speed*cfg.espac)/1000;
+    if(s.ex&&!S.exFlag){S.exFlag=true;log('alarme','Aplicação dentro da faixa de proteção. Controle de seção automático está desligado?')}
+  });
+  dirty=true;
+  S.volL+=Qtrue/60*dt;S.tank-=Qtrue/60*dt;
+  S.rateInd=wAct?S.Q*600/(cfg.speed*wAct)/1000:0;
+  // alarmes
+  if(S.sat&&!S.satFlag){S.satFlag=true;log('alarme','Vazão máxima da bomba atingida ('+fmt(cfg.pumpMax)+' L/min). Reduza a velocidade para manter a dose.')}
+  if(!S.sat)S.satFlag=false;
+  if(nAct&&Math.abs(S.rateInd-cfg.alvo)/cfg.alvo>0.1){S.outTol+=dt;if(S.outTol>3&&!S.tolFlag){S.tolFlag=true;log('alerta','Taxa indicada fora de ±10% do alvo por mais de 3 s.')}}
+  else{S.outTol=0;S.tolFlag=false}
+  if(Math.abs(S.xte)*100>cfg.xteTol){S.xteT+=dt;if(S.xteT>2&&!S.xteFlag){S.xteFlag=true;log('alerta','Erro lateral acima de '+cfg.xteTol+' cm: vinhaça saindo da linha de cana.')}}
+  else{S.xteT=0;S.xteFlag=false}
+  if(S.tank<=0){
+    S.tank=0;S.Q=0;S.prev='pass';
+    if(cfg.autoRefill){S.mode='refill';S.refillLeft=cfg.refillMin*60;log('info','Tanque vazio. Reabastecimento automático ('+cfg.refillMin+' min).')}
+    else{S.mode='wait';log('alerta','Tanque vazio. Aplicação parada aguardando reabastecimento.')}
+  }
+}
+
+/* ---------- mapa ---------- */
+const cv=$('map'),ctx=cv.getContext('2d');
+const grid=document.createElement('canvas');grid.width=NX;grid.height=NY;const gctx=grid.getContext('2d');const img=gctx.createImageData(NX,NY);
+const COL={ok:[87,189,132],low:[229,160,58],high:[222,94,75],ex:[194,69,126]};
+function paintGrid(){
+  const d=img.data,cur=new Set(S.lastCell);
+  for(let k=0;k<NX*NY;k++){
+    const o=k*4,v=vol[k];
+    if(v<=0){d[o+3]=0;continue}
+    let c;
+    if(exc[k])c=COL.ex;
+    else if(cur.has(k))c=COL.ok;
+    else{const r=(v/1000)/cellHa/tgt[k];c=r<0.85?COL.low:r>1.15?COL.high:COL.ok}
+    d[o]=c[0];d[o+1]=c[1];d[o+2]=c[2];d[o+3]=225;
+  }
+  gctx.putImageData(img,0,0);dirty=false;
+}
+function sizeCanvas(){
+  const r=cv.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);
+  const w=Math.max(280,r.width);cv.width=Math.round(w*dpr);cv.height=Math.round(w*(F.H+16)/(F.W+16)*dpr);
+}
+function draw(){
+  if(dirty)paintGrid();
+  const W=cv.width,H=cv.height,m=8*W/(F.W+16),s=(W-2*m)/F.W;
+  const X=x=>m+x*s,Y=y=>m+y*s;
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#0c1217';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#2a251d';ctx.fillRect(X(0),Y(0),F.W*s,F.H*s);
+  ctx.fillStyle='#352f25';ctx.fillRect(X(0),Y(0),F.HL*s,F.H*s);ctx.fillRect(X(F.W-F.HL),Y(0),F.HL*s,F.H*s);
+  // linhas de cana
+  ctx.strokeStyle='rgba(120,160,90,.28)';ctx.lineWidth=Math.max(1,s*0.25);ctx.beginPath();
+  for(let y=F.c/2;y<F.H;y+=F.c){ctx.moveTo(X(F.HL),Y(y));ctx.lineTo(X(F.W-F.HL),Y(y))}ctx.stroke();
+  // cobertura
+  ctx.imageSmoothingEnabled=false;ctx.globalAlpha=.92;ctx.drawImage(grid,X(0),Y(0),NX*F.c*s,NY*F.c*s);ctx.globalAlpha=1;
+  // exclusão
+  ctx.save();ctx.beginPath();ctx.rect(X(EX.x0),Y(EX.y0),(EX.x1-EX.x0)*s,(EX.y1-EX.y0)*s);ctx.clip();
+  ctx.strokeStyle='rgba(194,69,126,.45)';ctx.lineWidth=Math.max(1,s*.4);ctx.beginPath();
+  for(let k=-F.H;k<F.W;k+=4){ctx.moveTo(X(k),Y(F.H));ctx.lineTo(X(k+F.H),Y(0))}ctx.stroke();ctx.restore();
+  ctx.strokeStyle='#c2457e';ctx.lineWidth=1.5;ctx.strokeRect(X(EX.x0),Y(EX.y0),(EX.x1-EX.x0)*s,(EX.y1-EX.y0)*s);
+  ctx.fillStyle='#e9a6c6';ctx.font=`600 ${Math.max(10,11*W/900*1.4)}px 'Barlow Condensed',sans-serif`;ctx.fillText('FAIXA DE PROTEÇÃO',X(EX.x0)+4,Y(EX.y0)-4);
+  // contorno
+  ctx.strokeStyle='#d8dfe3';ctx.lineWidth=2;ctx.strokeRect(X(0),Y(0),F.W*s,F.H*s);
+  // linha guia
+  if(S.mode!=='done'){ctx.setLineDash([6,5]);ctx.strokeStyle='#63b3d6';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(X(0),Y(cy()));ctx.lineTo(X(F.W),Y(cy()));ctx.stroke();ctx.setLineDash([])}
+  // trator e barra
+  const p=pose();ctx.save();ctx.translate(X(p.x),Y(p.y));ctx.rotate(p.h);
+  const half=cfg.nSec*cfg.espac/2*s,sw=cfg.espac*s;
+  for(let i=0;i<cfg.nSec;i++){const si=secInfo[i]||{};ctx.fillStyle=si.on?(env.clog[i]?'#e5a03a':'#57bd84'):'#55636d';ctx.fillRect(-5*s/1.5,-half+i*sw+1,3,sw-2)}
+  ctx.fillStyle='#e3e9ed';ctx.beginPath();const L=Math.max(10,7*s);ctx.moveTo(L,0);ctx.lineTo(-L*.6,-L*.55);ctx.lineTo(-L*.6,L*.55);ctx.closePath();ctx.fill();
+  ctx.restore();
+}
+function pose(){
+  if(S.mode==='turn'){const r=S.w/2,xe=S.dir>0?F.W-F.HL:F.HL,c=cy();const x=xe+S.dir*r*Math.sin(S.th),y=c+r-r*Math.cos(S.th);return{x,y,h:Math.atan2(Math.sin(S.th),S.dir*Math.cos(S.th))}}
+  return{x:S.x,y:cy()+S.xte,h:S.dir>0?0:Math.PI}
+}
+
+/* ---------- interface da página de trabalho ---------- */
+function buildSecs(){
+  const box=$('secs');box.style.gridTemplateColumns=`repeat(${cfg.nSec},1fr)`;box.innerHTML='';
+  for(let i=0;i<cfg.nSec;i++){
+    const b=document.createElement('button');b.type='button';b.className='sec';b.id='sec'+i;
+    b.innerHTML=`S${i+1}<span class="bar"><span id="sb${i}"></span><i class="tgt" id="st${i}"></i></span><small id="sr${i}">–</small>`;
+    b.onclick=()=>{env.manualOff[i]=!env.manualOff[i];log('info',`Seção ${i+1} ${env.manualOff[i]?'desligada':'ligada'} manualmente.`)};
+    box.appendChild(b);
+  }
+  secInfo=Array.from({length:cfg.nSec},()=>({on:false,why:''}));
+}
+const leds=[];(function(){const lb=$('lightbar');for(let i=-7;i<=7;i++){const d=document.createElement('i');d.className='led'+(i===0?' c':'');lb.appendChild(d);leds.push(d)}})();
+
+function ui(){
+  const pass=Math.min(S.p+1,S.nP);
+  $('gPass').textContent=pass+'/'+S.nP;
+  $('gXte').textContent=(S.xte>=0?'+':'')+fmt(S.xte*100,1)+' cm';
+  const k=Math.max(-7,Math.min(7,Math.round(S.xte*100/(cfg.xteTol/3))));
+  leds.forEach((d,i)=>{const pos=i-7;let on=pos===0?Math.abs(k)<=0:(k>0?pos>0&&pos<=k:pos<0&&pos>=k);const cls=Math.abs(pos)<=3?'g':Math.abs(pos)<=5?'y':'r';d.className='led'+(pos===0?' c':'')+(on||pos===0&&k===0?' on '+(pos===0?'g':cls):'')});
+  $('sClock').textContent=clock(S.t);
+  $('mRate').innerHTML=fmt(S.rateInd,1)+'<small>m³/ha</small>';
+  $('mAlvo').textContent=fmt(cfg.alvo,1)+' m³/ha';
+  $('mFlow').textContent=fmt(S.Q,0)+' L/min';
+  $('mK').textContent=fmt(S.rateInd*cfg.kvi,0)+' kg/ha';
+  const tc=$('mTolChip');const act=secInfo.some(s=>s.on);
+  if(!act){tc.className='chip';tc.textContent=S.mode==='turn'?'Manobra':S.mode==='done'?'Concluído':S.mode==='pass'?'Seções off':'Parado'}
+  else if(S.sat){tc.className='chip bad';tc.textContent='Bomba no limite'}
+  else if(Math.abs(S.rateInd-cfg.alvo)/cfg.alvo>0.1){tc.className='chip warn';tc.textContent='Fora da meta'}
+  else{tc.className='chip ok';tc.textContent='Na meta'}
+  $('mSpd').textContent=fmt(cfg.speed,1)+' km/h';
+  const vmax=cfg.pumpMax*600/(cfg.alvo*1000*cfg.nSec*cfg.espac);
+  $('mVmax').textContent=fmt(vmax,1)+' km/h';$('mVmax').style.color=cfg.speed>vmax?'var(--bad)':'';
+  for(let i=0;i<cfg.nSec;i++){
+    const si=secInfo[i]||{},r=S.secRate[i]||0,b=$('sec'+i);
+    b.className='sec'+(si.on?'':' off')+(env.manualOff[i]?' man':'');
+    const full=cfg.alvo*1.6;$('sb'+i).style.height=Math.min(100,r/full*100)+'%';
+    $('sb'+i).style.background=!si.on?'#55636d':Math.abs(r-cfg.alvo)/cfg.alvo>0.15?(r<cfg.alvo?'var(--warn)':'var(--bad)'):'var(--ok)';
+    $('st'+i).style.bottom=(cfg.alvo/full*100)+'%';
+    $('sr'+i).textContent=si.on?fmt(r,1):(si.why||'off');
+  }
+  $('mTank').textContent=fmt(S.tank/1000,1)+' m³';
+  $('gTank').style.width=Math.max(0,S.tank/(cfg.tankCap*1000)*100)+'%';
+  $('gTank').style.background=S.tank<cfg.tankCap*150?'var(--bad)':S.tank<cfg.tankCap*300?'var(--warn)':'var(--accent)';
+  $('mAut').textContent=S.mode==='refill'?'Reabastecendo… '+Math.ceil(S.refillLeft/60)+' min':fmt(S.tank/1000/cfg.alvo,2)+' ha';
+  $('tArea').textContent=fmt(S.area,2)+' ha';
+  $('tVol').textContent=fmt(S.volL/1000,1)+' m³';
+  $('tK').textContent=fmt(S.volL/1000*cfg.kvi,0)+' kg';
+  $('tProg').textContent=fmt(Math.min(100,S.area/ELIG*100),0)+'%';
+  $('banner').hidden=S.mode!=='wait';
+  const g=$('sGps');g.textContent=env.gps==='NONE'?'Sem correção':env.gps;g.className='chip '+(env.gps==='RTK'?'ok':env.gps==='SF1'?'warn':'bad');
+  const at=$('sAT');const atOn=env.gps!=='NONE';at.textContent=atOn?'AutoTrac ativo':'AutoTrac desativado';at.className='chip '+(atOn?'ok':'bad');
+  const sc=$('sSC');sc.textContent=env.autoSC?'Seções auto':'Seções manual';sc.className='chip '+(env.autoSC?'ok':'warn');
+  $('cSC').checked=env.autoSC;
+  $('sJob').innerHTML=`${esc(cfg.talhao)} <small>${esc(cfg.operacao)} · ${esc(cfg.fazenda)}</small>`;
+  const mb=$('msgBadge');mb.hidden=!unread;mb.textContent=unread;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+/* ---------- laço ---------- */
+let last=performance.now();
+function loop(now){
+  const dtr=Math.min(0.1,(now-last)/1000);last=now;
+  if(running&&S.mode!=='done'){
+    let rem=dtr*mult;const h=Math.max(0.05,Math.min(0.3,0.4/(cfg.speed/3.6)));
+    while(rem>0){const d=Math.min(h,rem);step(d);rem-=d;if(S.mode==='done')break}
+  }
+  draw();ui();if(curPage==='doc')renderDoc();
+  requestAnimationFrame(loop);
+}
+function syncPlay(){$('bPlay').textContent=running?'Pausar':'Continuar'}
+$('bPlay').onclick=()=>{running=!running;syncPlay()};
+$('sMult').onchange=e=>mult=+e.target.value;
+$('rSpd').oninput=e=>{cfg.speed=+e.target.value};
+$('bAlvoM').onclick=()=>{cfg.alvo=Math.max(1,cfg.alvo-1);log('info','Taxa alvo alterada para '+fmt(cfg.alvo,1)+' m³/ha.')};
+$('bAlvoP').onclick=()=>{cfg.alvo=cfg.alvo+1;log('info','Taxa alvo alterada para '+fmt(cfg.alvo,1)+' m³/ha.')};
+$('cSC').onchange=e=>{env.autoSC=e.target.checked;log(env.autoSC?'info':'alerta','Controle de seção automático '+(env.autoSC?'ligado.':'desligado.'))};
+$('bRefill').onclick=()=>{S.mode='refill';S.refillLeft=cfg.refillMin*60;log('info','Reabastecimento iniciado ('+cfg.refillMin+' min).')};
+
+/* ---------- softkeys ---------- */
+let curPage='run';
+document.querySelectorAll('.key').forEach(k=>k.onclick=()=>show(k.dataset.pg));
+function show(pg){
+  curPage=pg;document.querySelectorAll('.key').forEach(k=>k.toggleAttribute('aria-current',k.dataset.pg===pg));
+  document.querySelectorAll('.key').forEach(k=>{if(k.dataset.pg===pg)k.setAttribute('aria-current','page')});
+  ['run','rec','prod','taxa','ori','tre','doc','msg'].forEach(p=>$('pg-'+p).hidden=p!==pg);
+  if(pg==='run')requestAnimationFrame(sizeCanvas);
+  if(pg==='msg'){unread=0;renderLog()}
+  fillForms();
+}
+
+/* ---------- formulários ---------- */
+function fillForms(){
+  const set=(id,v)=>{const e=$(id);if(e&&document.activeElement!==e)e.value=v};
+  set('r_cli',cfg.cliente);set('r_faz',cfg.fazenda);set('r_tal',cfg.talhao);set('r_op',cfg.operacao);set('r_est',cfg.estagio);set('r_opr',cfg.operador);
+  set('i_sec',cfg.nSec);set('i_esp',cfg.espac);
+  set('l_data',cfg.laudoData);set('l_k',cfg.kvi);set('l_n',cfg.nvi);set('l_ce',cfg.ce);set('l_ph',cfg.ph);set('l_rec',cfg.recK2O);set('l_ctc',cfg.ctc);set('l_ks',cfg.ks);
+  set('c_pump',cfg.pumpMax);set('c_tau',cfg.tau);set('c_tank',cfg.tankCap);set('c_ref',cfg.refillMin);$('c_auto').checked=cfg.autoRefill;
+  $('c_fac').textContent=fmt(cfg.meterF,3);
+  set('o_gps',env.gps);set('o_tol',cfg.xteTol);
+  calcAll();
+}
+const num=id=>parseFloat($(id).value);
+function calcAll(){
+  const ns=num('i_sec')||cfg.nSec,es=num('i_esp')||cfg.espac;
+  $('i_calc').innerHTML=`Largura = ${ns} × ${fmt(es,2)} m = <b>${fmt(ns*es,2)} m</b><br>Passadas no talhão de ${F.H} m: <b>${Math.ceil(F.H/(ns*es))}</b>`;
+  const k=num('l_k'),rec=num('l_rec');
+  const dose=k>0?rec/k:0;
+  $('l_calc').innerHTML=k>0?`${fmt(rec,0)} kg/ha ÷ ${fmt(k,2)} kg/m³ = <b>${fmt(dose,1)} m³/ha</b><br>N junto: ${fmt(dose*(num('l_n')||0),0)} kg/ha (fração disponível depende da forma)`:'Informe o K₂O do laudo.';
+  const ctc=num('l_ctc'),ks=num('l_ks');
+  if(k>0&&ctc>0){
+    const sat=ks/ctc*100,dmax=(Math.max(0,0.05*ctc-ks)*3744+185)/k;
+    const alvo=cfg.alvo,cls=alvo>dmax?'bad':alvo>0.9*dmax?'warn':'ok';
+    $('l_cet').innerHTML=`V = [(0,05 × CTC − ks) × 3744 + 185] ÷ kvi<br>= [(0,05 × ${fmt(ctc,2)} − ${fmt(ks,2)}) × 3744 + 185] ÷ ${fmt(k,2)}<br>K na CTC: ${fmt(sat,1)}% ${sat>=5?'(≥ 5%: dose limitada à reposição de 185 kg/ha de K₂O)':''}<br>Dose máxima: <b>${fmt(dmax,0)} m³/ha</b><br><span class="res ${cls}">Alvo atual ${fmt(alvo,1)} m³/ha: ${cls==='bad'?'ACIMA do limite':cls==='warn'?'próximo do limite':'dentro do limite'}</span>`;
+  }else $('l_cet').textContent='Informe CTC, K do solo e K₂O da vinhaça.';
+  const pump=num('c_pump')||cfg.pumpMax,w=cfg.nSec*cfg.espac,q=cfg.alvo*1000*cfg.speed*w/600,vmax=pump*600/(cfg.alvo*1000*w);
+  $('c_calc').innerHTML=`Q (L/min) = taxa (m³/ha) × 1000 × v (km/h) × L (m) ÷ 600<br>= ${fmt(cfg.alvo,1)} × 1000 × ${fmt(cfg.speed,1)} × ${fmt(w,2)} ÷ 600 = <b>${fmt(q,0)} L/min</b><br>Velocidade máxima com a bomba: ${fmt(pump,0)} × 600 ÷ (${fmt(cfg.alvo,1)} × 1000 × ${fmt(w,2)}) = <b>${fmt(vmax,1)} km/h</b>`;
+  const tk=num('c_tank')||cfg.tankCap,rf=num('c_ref')||cfg.refillMin,haT=tk/cfg.alvo,tApp=haT/(cfg.speed*w/10)*60;
+  $('c_log').innerHTML=`Área por tanque: ${fmt(tk,0)} ÷ ${fmt(cfg.alvo,1)} = <b>${fmt(haT,2)} ha</b><br>Tempo aplicando por tanque (sem manobras): <b>${fmt(tApp,0)} min</b><br>Ciclo com reabastecimento: ${fmt(tApp+rf,0)} min → eficiência máx. <b>${fmt(tApp/(tApp+rf)*100,0)}%</b>`;
+  const tol=num('o_tol')||cfg.xteTol;
+  $('o_calc').innerHTML=`Distância entre passadas: <b>${fmt(cfg.nSec*cfg.espac,2)} m</b><br>Tolerância atual: <b>${fmt(tol,0)} cm</b> (${fmt(tol/(cfg.espac*100)*100,0)}% do espaçamento)`;
+}
+document.querySelectorAll('.page input,.page select').forEach(e=>e.addEventListener('input',calcAll));
+$('bRec').onclick=()=>{cfg.cliente=$('r_cli').value;cfg.fazenda=$('r_faz').value;cfg.talhao=$('r_tal').value;cfg.operacao=$('r_op').value;cfg.estagio=$('r_est').value;cfg.operador=$('r_opr').value;log('info','Recursos salvos.')};
+$('bImp').onclick=()=>{const n=Math.round(num('i_sec')),e=num('i_esp');if(!(n>=2&&n<=8&&e>=0.9&&e<=2.4)){log('alerta','Implemento inválido: use 2 a 8 seções e espaçamento de 0,9 a 2,4 m.');return}cfg.nSec=n;cfg.espac=e;resetSim();log('info',`Implemento: ${n} seções × ${fmt(e,2)} m. Talhão reiniciado.`)};
+$('bUseDose').onclick=()=>{const k=num('l_k'),r=num('l_rec');if(!(k>0&&r>=0))return;saveLaudo();cfg.alvo=Math.round(r/k*10)/10;log('info','Taxa alvo definida pela recomendação: '+fmt(cfg.alvo,1)+' m³/ha.');calcAll()};
+function saveLaudo(){cfg.laudoData=$('l_data').value;cfg.kvi=num('l_k')||cfg.kvi;cfg.nvi=num('l_n')||0;cfg.ce=$('l_ce').value;cfg.ph=$('l_ph').value;cfg.recK2O=num('l_rec')||0;cfg.ctc=num('l_ctc')||cfg.ctc;cfg.ks=num('l_ks')||0}
+['l_data','l_k','l_n','l_ce','l_ph','l_rec','l_ctc','l_ks'].forEach(id=>$(id).addEventListener('change',saveLaudo));
+$('bTaxa').onclick=()=>{cfg.pumpMax=num('c_pump')||cfg.pumpMax;cfg.tau=num('c_tau')||cfg.tau;log('info','Controlador de taxa salvo.')};
+$('bTank').onclick=()=>{const old=cfg.tankCap;cfg.tankCap=num('c_tank')||cfg.tankCap;cfg.refillMin=num('c_ref')||cfg.refillMin;cfg.autoRefill=$('c_auto').checked;if(S.tank>cfg.tankCap*1000)S.tank=cfg.tankCap*1000;log('info','Logística do tanque salva.')};
+$('bOri').onclick=()=>{env.gps=$('o_gps').value;cfg.xteTol=num('o_tol')||cfg.xteTol;log(env.gps==='RTK'?'info':'alerta','Sinal de correção: '+(env.gps==='NONE'?'sem correção — AutoTrac desativado':env.gps)+'.')};
+$('bTest').onclick=()=>{
+  if(!(secInfo[0]&&secInfo[0].on)||S.Q<=0){$('c_test').textContent='A seção 1 precisa estar ligada e aplicando. Volte para Trabalho e tente quando a máquina estiver na passada.';$('bFac').hidden=true;return}
+  let sw=0;secInfo.forEach((s,i)=>{if(s.on)sw+=env.clog[i]?0.4:1});
+  const ind=S.Q/secInfo.filter(s=>s.on).length,real=S.Q*(1+env.calErr)/cfg.meterF*(env.clog[0]?0.4:1)/sw;
+  const meas=real*(1+gauss()*0.01);testRes={ind,meas};
+  const nf=cfg.meterF*ind/meas;
+  $('c_test').innerHTML=`Terminal indica para a saída: <b>${fmt(ind,1)} L</b> em 60 s<br>Volume coletado no recipiente: <b>${fmt(meas,1)} L</b><br>Diferença: ${fmt((meas/ind-1)*100,1)}%<br>Novo fator = ${fmt(cfg.meterF,3)} × ${fmt(ind,1)} ÷ ${fmt(meas,1)} = <b>${fmt(nf,3)}</b>`+(Math.abs(meas/ind-1)<0.03?'<br>Diferença dentro de ±3%: não precisa recalibrar.':'');
+  $('bFac').hidden=Math.abs(meas/ind-1)<0.03;testRes.nf=nf;
+};
+$('bFac').onclick=()=>{if(!testRes)return;cfg.meterF=testRes.nf;$('c_fac').textContent=fmt(cfg.meterF,3);$('bFac').hidden=true;log('info','Fator do fluxômetro ajustado para '+fmt(cfg.meterF,3)+'.')};
+
+/* ---------- treinamento ---------- */
+const SCEN=[
+ {t:'1. Entupimento na seção 3',d:'Uma saída fica parcialmente entupida (40% da vazão). Observe a taxa indicada, as barras das seções e as cores do mapa.',
+  go:()=>{env.clog[Math.min(2,cfg.nSec-1)]=true;log('alerta','[Cenário] Saída da seção 3 com restrição.')},
+  a:'O fluxômetro mede a vazão total, então o controlador continua "na meta" e aumenta a bomba. A seção entupida fica abaixo do alvo (amarelo) e as outras passam acima (vermelho). Com 4 seções, cada saída livre recebe cerca de 1/3,4 da vazão, ou seja, uns 18% a mais. Lição: dose total certa não garante distribuição certa. Inspecione as saídas a cada abastecimento e faça teste de recipiente por saída.'},
+ {t:'2. Velocidade acima da capacidade da bomba',d:'A velocidade sobe para 9 km/h. Compare a vazão pedida com a vazão máxima da bomba.',
+  go:()=>{cfg.speed=9;$('rSpd').value=9;log('info','[Cenário] Velocidade alterada para 9 km/h.')},
+  a:'Q = taxa × 1000 × v × L ÷ 600. Com 20 m³/ha, 9 km/h e 6 m, a bomba precisaria de 1.800 L/min. Com 1.400 L/min disponíveis, a taxa real cai para cerca de 15,6 m³/ha. A velocidade máxima é 1.400 × 600 ÷ (20 × 1000 × 6) = 7 km/h. Lição: dimensione velocidade e bomba juntas.'},
+ {t:'3. Perda do sinal RTK',d:'A correção cai para SF1. Observe o erro lateral e a barra de luzes.',
+  go:()=>{env.gps='SF1';log('alerta','[Cenário] Correção RTK perdida. Operando em SF1.')},
+  a:'O erro lateral passa de poucos centímetros para a casa de 10 a 25 cm. Na aplicação localizada isso tira a vinhaça da faixa próxima à linha e pode encostar na passada vizinha. Defina uma tolerância e uma regra de parada: por exemplo, pausar quando o erro passar da tolerância por mais de alguns segundos e retomar quando o RTK voltar.'},
+ {t:'4. Fluxômetro descalibrado',d:'O sensor passa a ler 15% abaixo da vazão real. O terminal continua mostrando a taxa na meta.',
+  go:()=>{env.calErr=0.15;log('info','[Cenário] Erro de calibração introduzido no fluxômetro (oculto).')},
+  a:'O terminal regula pelo que lê. Se o sensor lê 15% a menos, a dose real fica 15% acima (vermelho no mapa, consumo de tanque maior que o esperado). Só o teste de recipiente revela. Vá em Controle de taxa → Executar teste de 60 s → Aplicar novo fator. O consumo de tanque por hectare é um bom indicador de rotina.'},
+ {t:'5. Controle de seção desligado perto da faixa de proteção',d:'O controle automático de seção é desligado. Acompanhe quando a máquina passar pela faixa de proteção.',
+  go:()=>{env.autoSC=false;log('alerta','[Cenário] Controle de seção automático desligado.')},
+  a:'Sem o controle automático, as saídas continuam abertas dentro da faixa de exclusão (magenta no mapa) e também nas sobreposições. Isso é não conformidade ambiental. Na prática: limites e exclusões cadastrados no talhão, controle de seção sempre ativo e checagem do mapa como aplicado.'},
+ {t:'6. Tanque menor e reabastecimento demorado',d:'Tanque de 15 m³ e 30 min de reabastecimento. Veja o efeito na capacidade operacional em Documentação.',
+  go:()=>{cfg.tankCap=15;cfg.refillMin=30;if(S.tank>15000)S.tank=15000;log('info','[Cenário] Tanque de 15 m³, reabastecimento de 30 min.')},
+  a:'Cada tanque cobre 0,75 ha a 20 m³/ha (cerca de 25 min aplicando a 5 km/h com 6 m). Com 30 min de reabastecimento, a máquina passa mais tempo parada que aplicando. O gargalo é logístico: mais caminhões, ponto de abastecimento mais perto ou tanque maior.'}
+];
+(function(){const box=$('scenList');SCEN.forEach((s,i)=>{const c=document.createElement('div');c.className='card scen';c.innerHTML=`<h3>${s.t}</h3><p>${s.d}</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" type="button" id="sg${i}">Iniciar cenário</button><button class="btn" type="button" id="sa${i}">Ver resposta</button></div><div class="ans" id="ans${i}" hidden>${s.a}</div>`;box.appendChild(c);
+  c.querySelector('#sg'+i).onclick=()=>{s.go();if(S.mode==='done')resetSim();running=true;syncPlay();show('run')};
+  c.querySelector('#sa'+i).onclick=()=>{const a=$('ans'+i);a.hidden=!a.hidden}})})();
+$('bNorm').onclick=()=>{env.clog=env.clog.map(()=>false);env.calErr=0;env.gps='RTK';env.autoSC=true;env.manualOff=env.manualOff.map(()=>false);cfg.speed=5;$('rSpd').value=5;cfg.tankCap=30;cfg.refillMin=18;log('info','Condições normais restauradas.');fillForms()};
+$('bReset').onclick=()=>{resetSim();log('info','Talhão reiniciado.');running=true;syncPlay();show('run')};
+
+/* ---------- documentação ---------- */
+function stats(){
+  let n=0,inn=0,sum=0,sq=0;const cur=new Set(S.lastCell);
+  for(let k=0;k<NX*NY;k++){if(vol[k]>0&&!exc[k]&&!cur.has(k)){const r=(vol[k]/1000)/cellHa;const rr=r/tgt[k];n++;sum+=r;sq+=r*r;if(rr>=0.85&&rr<=1.15)inn++}}
+  const mean=n?sum/n:0,sd=n>1?Math.sqrt(Math.max(0,sq/n-mean*mean)):0;
+  return{pct:n?inn/n*100:0,cv:mean?sd/mean*100:0,mean};
+}
+const hm=s=>{const m=Math.round(s/60);return Math.floor(m/60)+' h '+String(m%60).padStart(2,'0')+' min'};
+function renderDoc(){
+  const st=stats(),vm3=S.volL/1000,dose=S.area?vm3/S.area:0,tot=S.t||1;
+  $('d_tab').innerHTML=[
+    ['Área aplicada',fmt(S.area,2)+' ha'],['Área útil do talhão',fmt(ELIG,2)+' ha'],['Volume aplicado',fmt(vm3,1)+' m³'],['Dose média',fmt(dose,1)+' m³/ha'],
+    ['K₂O total (laudo '+fmt(cfg.kvi,2)+' kg/m³)',fmt(vm3*cfg.kvi,0)+' kg'],['K₂O médio',fmt(dose*cfg.kvi,0)+' kg/ha'],
+    ['Células dentro de ±15% do alvo',fmt(st.pct,0)+'%'],['CV da taxa',fmt(st.cv,1)+'%'],
+    ['Aplicado na faixa de proteção',fmt(S.exArea*10000,0)+' m²']
+  ].map(r=>`<tr><td>${r[0]}</td><td class="n">${r[1]}</td></tr>`).join('');
+  $('d_time').innerHTML=[
+    ['Aplicando',hm(S.tA)],['Manobras',hm(S.tT)],['Reabastecimento / espera',hm(S.tR)],['Tempo total',hm(S.t)],
+    ['Eficiência de campo',fmt(S.tA/tot*100,0)+'%'],['Capacidade operacional efetiva',fmt(S.area/(tot/3600),2)+' ha/h'],
+    ['Capacidade teórica (v × L ÷ 10)',fmt(cfg.speed*cfg.nSec*cfg.espac/10,2)+' ha/h']
+  ].map(r=>`<tr><td>${r[0]}</td><td class="n">${r[1]}</td></tr>`).join('');
+  $('d_rep').textContent=report(st,vm3,dose,tot);
+}
+function report(st,vm3,dose,tot){
+  return `RELATÓRIO DE APLICAÇÃO – VINHAÇA LOCALIZADA (SIMULAÇÃO)
+Cliente: ${cfg.cliente} | Fazenda: ${cfg.fazenda} | Talhão: ${cfg.talhao}
+Operação: ${cfg.operacao} | Estágio: ${cfg.estagio} | Operador: ${cfg.operador}
+Implemento: ${cfg.nSec} seções × ${fmt(cfg.espac,2)} m = ${fmt(cfg.nSec*cfg.espac,2)} m
+Laudo (${cfg.laudoData}): K2O ${fmt(cfg.kvi,2)} kg/m³ | N ${fmt(cfg.nvi,2)} kg/m³${cfg.ce!==''?' | CE '+cfg.ce+' dS/m':''}${cfg.ph!==''?' | pH '+cfg.ph:''}
+Taxa alvo: ${fmt(cfg.alvo,1)} m³/ha | Recomendação: ${fmt(cfg.recK2O,0)} kg K2O/ha
+
+Área aplicada: ${fmt(S.area,2)} de ${fmt(ELIG,2)} ha (${fmt(Math.min(100,S.area/ELIG*100),0)}%)
+Volume: ${fmt(vm3,1)} m³ | Dose média: ${fmt(dose,1)} m³/ha
+K2O: ${fmt(vm3*cfg.kvi,0)} kg (${fmt(dose*cfg.kvi,0)} kg/ha)
+Uniformidade: ${fmt(st.pct,0)}% das células em ±15% | CV ${fmt(st.cv,1)}%
+Faixa de proteção: ${S.exArea>0?'APLICADO '+fmt(S.exArea*10000,0)+' m² – NÃO CONFORME':'sem aplicação'}
+
+Tempos: aplicando ${hm(S.tA)} | manobras ${hm(S.tT)} | reabastecimento ${hm(S.tR)} | total ${hm(S.t)}
+Eficiência de campo: ${fmt(S.tA/tot*100,0)}% | Capacidade efetiva: ${fmt(S.area/(tot/3600),2)} ha/h
+
+Ocorrências:
+${logs.filter(l=>l.lv!=='info').slice(0,12).map(l=>clock(l.t)+' ['+l.lv+'] '+l.msg).join('\n')||'nenhuma'}
+
+Dados simulados para treinamento. Não usar como registro oficial.`;
+}
+$('bCopy').onclick=()=>{const t=$('d_rep').textContent;const m=$('copyMsg');
+  try{navigator.clipboard.writeText(t).then(()=>m.textContent='Relatório copiado.',()=>sel())}catch(e){sel()}
+  function sel(){const r=document.createRange();r.selectNodeContents($('d_rep'));const s=getSelection();s.removeAllRanges();s.addRange(r);m.textContent='Texto selecionado. Copie com Ctrl+C.'}};
+
+function renderLog(){
+  const el=$('logList');if(!el)return;
+  el.innerHTML=logs.slice(0,200).map(l=>`<div class="ev"><time>${clock(l.t)}</time><span class="lv ${l.lv}">${l.lv}</span><span>${esc(l.msg)}</span></div>`).join('')||'<p>Sem mensagens.</p>';
+}
+
+/* ---------- início: estado de trabalho realista ---------- */
+resetSim();
+log('info','Início da operação no talhão '+cfg.talhao+'. Laudo carregado: K₂O 3,0 kg/m³ (exemplo).');
+while(S.p<6&&S.mode!=='done')step(0.3);
+unread=0;renderLog();
+window.addEventListener('resize',sizeCanvas);
+sizeCanvas();fillForms();syncPlay();
+requestAnimationFrame(t=>{last=t;loop(t)});
+})();
+</script>
+
+<div id="pwa-inst" hidden style="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:9999;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;background:#16384a;color:#fff;font:600 16px system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.3)"><span style="flex:1">Use como aplicativo, até sem internet.</span><button id="pwa-b" type="button" style="font:700 16px system-ui,sans-serif;padding:10px 14px;border:0;border-radius:9px;background:#fff;color:#16384a">📲 Instalar app</button><button id="pwa-x" type="button" aria-label="Fechar" style="font:700 18px system-ui;border:0;background:transparent;color:#fff;padding:6px">✕</button></div>
+<script>(function(){var d=null,b=document.getElementById('pwa-inst');
+function sa(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone}
+var off=false;try{off=localStorage.getItem('pwa-x-simulador-gs3')==='1'}catch(e){}
+addEventListener('beforeinstallprompt',function(e){e.preventDefault();d=e;if(!sa()&&!off)b.hidden=false});
+document.getElementById('pwa-b').onclick=async function(){if(d){d.prompt();try{await d.userChoice}catch(e){}d=null;b.hidden=true}else alert('No Chrome, toque no menu ⋮ e depois em "Instalar app".')};
+document.getElementById('pwa-x').onclick=function(){b.hidden=true;try{localStorage.setItem('pwa-x-simulador-gs3','1')}catch(e){}};
+addEventListener('appinstalled',function(){b.hidden=true});
+if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});})();</script>
+</body></html>

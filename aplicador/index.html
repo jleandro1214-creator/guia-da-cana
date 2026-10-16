@@ -1,0 +1,679 @@
+<!doctype html><html><head><meta charset=utf8><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#B5651D"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="mobile-web-app-capable" content="yes"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Catálogo Aplicador de Vinhaça 22.500 L</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: manual de oficina — prancha técnica no topo, depois fichas de peças por conjunto, cada uma com ilustração própria */
+:root{
+  --bg:#F1F3EF; --paper:#FFFFFF; --ink:#1D2621; --muted:#5B675F; --rule:#CCD3CB;
+  --accent:#B5651D;          /* âmbar-marrom da vinhaça */
+  --accent-ink:#FFFFFF;
+  --steel:#8E9A93; --steel-2:#B8C2BC; --rubber:#2B302D; --tank:#E3E8E2; --tank-edge:#6E7A73;
+  --liquid:#9A5A22; --cane:#4E8A3E; --soil:#B79B7A; --hyd:#2F6E8E;
+  --ok:#2F7A4B; --ok-bg:#E2F0E5; --warn:#8A5A00; --warn-bg:#F7EBD2;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141917; --paper:#1C2320; --ink:#E4EAE5; --muted:#9AA79F; --rule:#34403A;
+  --accent:#E08A3C; --accent-ink:#1A120A;
+  --steel:#6F7C75; --steel-2:#4C5852; --rubber:#0B0D0C; --tank:#2A3430; --tank-edge:#9AAAA1;
+  --liquid:#C27A38; --cane:#6FAE5C; --soil:#7E6850; --hyd:#5FA7CB;
+  --ok:#7CCB95; --ok-bg:#1E3326; --warn:#E6B65C; --warn-bg:#3A2E15; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --paper:#1C2320; --ink:#E4EAE5; --muted:#9AA79F; --rule:#34403A;
+  --accent:#E08A3C; --accent-ink:#1A120A;
+  --steel:#6F7C75; --steel-2:#4C5852; --rubber:#0B0D0C; --tank:#2A3430; --tank-edge:#9AAAA1;
+  --liquid:#C27A38; --cane:#6FAE5C; --soil:#7E6850; --hyd:#5FA7CB;
+  --ok:#7CCB95; --ok-bg:#1E3326; --warn:#E6B65C; --warn-bg:#3A2E15; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:flex;flex-direction:column;gap:36px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.08}
+h1{font-size:clamp(2rem,6vw,3.3rem);font-weight:700;letter-spacing:.01em}
+h2{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:600}
+h3{font-size:1.25rem;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);font-size:1.05rem}
+header{display:flex;flex-direction:column;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:20px}
+.spec{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--f-mono);font-size:.85rem;color:var(--muted)}
+.spec b{color:var(--ink);font-weight:500}
+.note{background:var(--warn-bg);color:var(--ink);border-left:4px solid var(--warn);padding:12px 16px;font-size:.95rem}
+.note strong{color:var(--warn)}
+section{display:flex;flex-direction:column;gap:16px}
+.plate{background:var(--paper);border:1px solid var(--rule);padding:14px}
+.scroll{overflow-x:auto}
+.scroll svg{display:block;min-width:720px;width:100%;height:auto}
+.cap{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:.88rem}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border:1px solid var(--tank-edge);display:inline-block}
+
+/* SVG paint */
+svg text{font-family:var(--f-mono);fill:var(--ink)}
+.ln{stroke:var(--ink);stroke-width:1.6;fill:none}
+.thin{stroke:var(--tank-edge);stroke-width:1;fill:none}
+.dash{stroke:var(--tank-edge);stroke-width:1.2;stroke-dasharray:6 5;fill:none}
+.tank{fill:var(--tank);stroke:var(--tank-edge);stroke-width:2}
+.steel{fill:var(--steel);stroke:var(--ink);stroke-width:1.2}
+.steel2{fill:var(--steel-2);stroke:var(--ink);stroke-width:1}
+.rub{fill:var(--rubber)}
+.hub{fill:var(--steel-2);stroke:var(--ink);stroke-width:1}
+.liq{fill:var(--liquid);opacity:.85}
+.liqs{stroke:var(--liquid);stroke-width:3;fill:none}
+.hyd{stroke:var(--hyd);stroke-width:2.5;fill:none}
+.cane{fill:var(--cane)}
+.canes{stroke:var(--cane);stroke-width:2.5;fill:none;stroke-linecap:round}
+.soil{fill:var(--soil);opacity:.55}
+.ground{stroke:var(--muted);stroke-width:1.5}
+.co circle{fill:var(--accent)}
+.co text{fill:var(--accent-ink);font-size:12px;font-weight:500;text-anchor:middle;dominant-baseline:central}
+.lead-l{stroke:var(--accent);stroke-width:1.2}
+.lbl{font-size:12px}
+.lbl-m{font-size:11px;fill:var(--muted)}
+.box{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.boxa{fill:var(--paper);stroke:var(--accent);stroke-width:2}
+
+/* fichas */
+.group{background:var(--paper);border:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:0}
+.group-fig{border-right:1px solid var(--rule);padding:16px;display:flex;flex-direction:column;gap:10px;justify-content:flex-start}
+.group-fig svg{width:100%;height:auto}
+.group-body{padding:16px 18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.parts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.part{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 12px;padding-block:12px;border-top:1px solid var(--rule)}
+.part:first-child{border-top:0;padding-top:4px}
+.num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-family:var(--f-mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;font-weight:500}
+.pname{font-weight:600;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.pdesc{grid-column:2;color:var(--ink);font-size:.95rem}
+.pcheck{grid-column:2;color:var(--muted);font-size:.88rem}
+.pcheck b{color:var(--ink);font-weight:600}
+.chip{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;white-space:nowrap}
+.chip.c{background:var(--ok-bg);color:var(--ok)}
+.chip.t{background:var(--warn-bg);color:var(--warn)}
+
+.calc{background:var(--paper);border:1px solid var(--rule);padding:18px;display:flex;flex-direction:column;gap:12px}
+.formula{font-family:var(--f-mono);font-size:1rem;background:var(--bg);padding:12px 14px;border-left:4px solid var(--accent);overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--f-mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+.tblwrap{overflow-x:auto}
+.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.check div{background:var(--paper);border:1px solid var(--rule);padding:14px 16px}
+.check ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:.93rem}
+.src{font-size:.9rem;color:var(--muted)}
+.src ol{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.src a{color:var(--accent)}
+footer{border-top:3px solid var(--ink);padding-top:14px;font-size:.85rem;color:var(--muted)}
+
+@media (max-width:720px){
+  .group{grid-template-columns:minmax(0,1fr)}
+  .group-fig{border-right:0;border-bottom:1px solid var(--rule)}
+  .group-fig svg{max-width:340px}
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Catálogo técnico ilustrado · Eu Agrônomo</span>
+  <h1>Aplicador de Vinhaça Localizada 22.500 L — versão arrasto</h1>
+  <p class="lead">Peça por peça: onde fica, para que serve e o que inspecionar. Referência: conjunto aplicador Nonino de 22,5 m³ (tanque em fibra, plataforma de arrasto tridem, bombeamento hidráulico e braços distribuidores).</p>
+  <div class="spec">
+    <span>Capacidade <b>22.500 L</b></span>
+    <span>Tanque <b>fibra de vidro laminada</b></span>
+    <span>Rodagem <b>tridem (3 eixos)</b></span>
+    <span>Bombeamento <b>hidráulico, até ~5.000 L/min*</b></span>
+    <span>Aplicação <b>braços laterais, 2 a 4 bicos por braço*</b></span>
+  </div>
+  <div class="note"><strong>Como ler este catálogo.</strong> A Nonino não publica um catálogo explodido de peças desse modelo. Cada peça leva uma etiqueta:
+    <span class="chip c">confirmado</span> quando a fonte do fabricante ou da imprensa técnica cita o item, e
+    <span class="chip t">típico</span> quando é componente padrão desse tipo de implemento, a confirmar no manual e no catálogo de peças da sua unidade. Os desenhos são esquemáticos, fora de escala e sem representar marca. *Valores conforme reportagem técnica; confirme no manual do seu equipamento.</div>
+</header>
+
+<!-- PRANCHA 1 -->
+<section id="vista-lateral">
+  <span class="eyebrow">Prancha 1</span>
+  <h2>Vista lateral geral</h2>
+  <div class="plate">
+    <div class="scroll">
+<svg viewBox="0 0 980 430" role="img" aria-label="Vista lateral esquemática do aplicador de vinhaça com peças numeradas">
+  <!-- solo -->
+  <line class="ground" x1="0" y1="372" x2="980" y2="372"/>
+  <!-- trator (parcial) -->
+  <rect class="steel2" x="8" y="150" width="78" height="120" rx="6"/>
+  <rect class="tank" x="18" y="162" width="56" height="50" rx="3"/>
+  <rect class="steel" x="0" y="140" width="94" height="12"/>
+  <line class="ln" x1="38" y1="140" x2="38" y2="112"/><circle class="steel" cx="38" cy="108" r="7"/>
+  <circle class="rub" cx="46" cy="312" r="58"/><circle class="hub" cx="46" cy="312" r="24"/>
+  <text class="lbl-m" x="12" y="398">trator (parcial)</text>
+  <!-- mangueiras hidráulicas -->
+  <path class="hyd" d="M86 252 C120 252 140 262 170 268 L840 268"/>
+  <!-- cabeçalho -->
+  <polygon class="steel" points="92,292 250,282 250,300 92,300"/>
+  <circle class="hub" cx="96" cy="296" r="7"/>
+  <!-- macaco -->
+  <rect class="steel" x="200" y="298" width="12" height="54"/>
+  <rect class="steel" x="190" y="352" width="32" height="8"/>
+  <rect class="steel2" x="196" y="284" width="20" height="14"/>
+  <!-- chassi -->
+  <rect class="steel" x="236" y="282" width="610" height="20"/>
+  <!-- escada -->
+  <g class="ln"><line x1="258" y1="150" x2="258" y2="282"/><line x1="282" y1="150" x2="282" y2="282"/>
+  <line x1="258" y1="175" x2="282" y2="175"/><line x1="258" y1="200" x2="282" y2="200"/><line x1="258" y1="225" x2="282" y2="225"/><line x1="258" y1="250" x2="282" y2="250"/></g>
+  <!-- tanque -->
+  <rect class="tank" x="250" y="104" width="570" height="174" rx="87"/>
+  <rect class="liq" x="262" y="190" width="546" height="78" rx="30"/>
+  <line class="dash" x1="400" y1="112" x2="400" y2="270"/>
+  <line class="dash" x1="535" y1="108" x2="535" y2="274"/>
+  <line class="dash" x1="670" y1="112" x2="670" y2="270"/>
+  <!-- boca de visita -->
+  <rect class="steel" x="455" y="86" width="74" height="20" rx="3"/><rect class="steel2" x="447" y="80" width="90" height="8" rx="2"/>
+  <!-- respiro -->
+  <path class="ln" d="M620 104 L620 84 L636 84"/><circle class="steel" cx="638" cy="84" r="5"/>
+  <!-- indicador de nível -->
+  <rect x="762" y="132" width="12" height="130" rx="5" class="tank"/><rect x="764" y="200" width="8" height="60" class="liq"/>
+  <line class="thin" x1="768" y1="132" x2="768" y2="118"/>
+  <!-- bocal de carga -->
+  <path class="steel" d="M318 246 L318 262 L300 262 L300 246 Z"/><circle class="steel2" cx="298" cy="254" r="11"/>
+  <!-- dreno -->
+  <rect class="steel" x="525" y="276" width="20" height="10"/><circle class="steel2" cx="535" cy="292" r="6"/>
+  <!-- suspensão tridem -->
+  <rect class="steel" x="572" y="302" width="250" height="10" rx="4"/>
+  <circle class="hub" cx="652" cy="307" r="6"/><circle class="hub" cx="742" cy="307" r="6"/>
+  <!-- para-lamas -->
+  <path class="ln" d="M548 312 C548 262 612 262 612 312"/>
+  <path class="ln" d="M658 312 C658 262 722 262 722 312"/>
+  <path class="ln" d="M768 312 C768 262 832 262 832 312"/>
+  <!-- rodas -->
+  <circle class="rub" cx="580" cy="330" r="42"/><circle class="hub" cx="580" cy="330" r="16"/>
+  <circle class="rub" cx="690" cy="330" r="42"/><circle class="hub" cx="690" cy="330" r="16"/>
+  <circle class="rub" cx="800" cy="330" r="42"/><circle class="hub" cx="800" cy="330" r="16"/>
+  <!-- conjunto de bombeamento traseiro -->
+  <rect class="steel2" x="840" y="250" width="58" height="34" rx="4"/>
+  <rect class="steel" x="846" y="256" width="22" height="22" rx="3"/>
+  <circle class="steel" cx="884" cy="267" r="12"/>
+  <path class="liqs" d="M810 274 L846 274"/>
+  <path class="liqs" d="M896 262 L912 262 L912 226"/>
+  <rect class="steel2" x="905" y="214" width="14" height="14"/>
+  <rect class="steel2" x="905" y="190" width="14" height="18" rx="3"/>
+  <rect class="steel" x="903" y="172" width="18" height="12"/>
+  <!-- manifold e braço -->
+  <rect class="steel" x="890" y="150" width="60" height="16"/>
+  <path class="liqs" d="M944 166 L944 350"/>
+  <path class="steel" d="M936 350 L952 350 L948 364 L940 364 Z"/>
+  <path class="liqs" d="M944 366 L938 372"/>
+  <!-- lanterna -->
+  <rect x="826" y="232" width="12" height="8" fill="var(--accent)"/>
+  <!-- legendas numeradas -->
+  <g class="co">
+    <line class="lead-l" x1="96" y1="296" x2="96" y2="330"/><circle cx="96" cy="340" r="11"/><text x="96" y="340">1</text>
+    <line class="lead-l" x1="160" y1="290" x2="160" y2="250"/><circle cx="160" cy="240" r="11"/><text x="160" y="240">2</text>
+    <line class="lead-l" x1="206" y1="356" x2="240" y2="356"/><circle cx="250" cy="356" r="11"/><text x="250" y="356">3</text>
+    <line class="lead-l" x1="130" y1="257" x2="130" y2="220"/><circle cx="130" cy="210" r="11"/><text x="130" y="210">4</text>
+    <line class="lead-l" x1="460" y1="300" x2="460" y2="330"/><circle cx="460" cy="340" r="11"/><text x="460" y="340">5</text>
+    <circle cx="470" cy="150" r="11"/><text x="470" y="150">6</text>
+    <line class="lead-l" x1="492" y1="80" x2="492" y2="58"/><circle cx="492" cy="48" r="11"/><text x="492" y="48">7</text>
+    <line class="lead-l" x1="638" y1="78" x2="638" y2="58"/><circle cx="638" cy="48" r="11"/><text x="638" y="48">8</text>
+    <line class="lead-l" x1="768" y1="118" x2="768" y2="58"/><circle cx="768" cy="48" r="11"/><text x="768" y="48">9</text>
+    <circle cx="400" cy="150" r="11"/><text x="400" y="150">10</text>
+    <line class="lead-l" x1="298" y1="266" x2="298" y2="330"/><circle cx="298" cy="340" r="11"/><text x="298" y="340">11</text>
+    <line class="lead-l" x1="535" y1="298" x2="535" y2="388"/><circle cx="535" cy="398" r="11"/><text x="535" y="398">12</text>
+    <line class="lead-l" x1="652" y1="307" x2="635" y2="250"/><circle cx="632" cy="240" r="11"/><text x="632" y="240">13</text>
+    <line class="lead-l" x1="690" y1="372" x2="690" y2="388"/><circle cx="690" cy="398" r="11"/><text x="690" y="398">14</text>
+    <line class="lead-l" x1="790" y1="290" x2="745" y2="250"/><circle cx="738" cy="240" r="11"/><text x="738" y="240">15</text>
+    <line class="lead-l" x1="857" y1="284" x2="857" y2="388"/><circle cx="857" cy="398" r="11"/><text x="857" y="398">16</text>
+    <line class="lead-l" x1="896" y1="270" x2="930" y2="300"/><circle cx="905" cy="318" r="11"/><text x="905" y="318">17</text>
+    <line class="lead-l" x1="905" y1="221" x2="870" y2="221"/><circle cx="860" cy="221" r="11"/><text x="860" y="221">18</text>
+    <line class="lead-l" x1="905" y1="199" x2="870" y2="196"/><circle cx="860" cy="194" r="11"/><text x="860" y="194">19</text>
+    <line class="lead-l" x1="903" y1="178" x2="870" y2="170"/><circle cx="860" cy="168" r="11"/><text x="860" y="168">20</text>
+    <line class="lead-l" x1="920" y1="150" x2="920" y2="128"/><circle cx="920" cy="118" r="11"/><text x="920" y="118">21</text>
+    <line class="lead-l" x1="948" y1="200" x2="966" y2="200"/><circle cx="966" cy="190" r="11"/><text x="966" y="190">22</text><line class="lead-l" x1="948" y1="300" x2="966" y2="300"/><circle cx="966" cy="290" r="11"/><text x="966" y="290">23</text>
+    <line class="lead-l" x1="952" y1="358" x2="966" y2="380"/><circle cx="966" cy="392" r="11"/><text x="966" y="392">24</text>
+    <line class="lead-l" x1="38" y1="100" x2="38" y2="62"/><circle cx="38" cy="52" r="11"/><text x="38" y="52">25</text>
+    <line class="lead-l" x1="56" y1="186" x2="110" y2="160"/><circle cx="120" cy="156" r="11"/><text x="120" y="156">25</text>
+    <line class="lead-l" x1="832" y1="232" x2="822" y2="205"/><circle cx="820" cy="195" r="11"/><text x="820" y="195">26</text>
+    <line class="lead-l" x1="270" y1="150" x2="290" y2="62"/><circle cx="290" cy="52" r="11"/><text x="290" y="52">27</text>
+  </g>
+</svg>
+    </div>
+    <p class="cap">Esquema fora de escala. Tracejado = quebra-ondas internos. Azul = linhas hidráulicas do trator. Marrom = vinhaça.</p>
+  </div>
+</section>
+
+<!-- PRANCHA 2 -->
+<section id="vista-traseira">
+  <span class="eyebrow">Prancha 2</span>
+  <h2>Vista traseira: como a vinhaça chega à linha de cana</h2>
+  <div class="plate">
+    <div class="scroll">
+<svg viewBox="0 0 980 400" role="img" aria-label="Vista traseira com braços laterais aplicando vinhaça em faixas ao lado das linhas de cana">
+  <rect class="soil" x="0" y="340" width="980" height="60"/>
+  <line class="ground" x1="0" y1="340" x2="980" y2="340"/>
+  <!-- linhas de cana -->
+  <g>
+    <g transform="translate(110,0)"><path class="canes" d="M0 340 L-8 270 M0 340 L0 262 M0 340 L8 272 M0 340 L-16 290 M0 340 L16 292"/></g>
+    <g transform="translate(225,0)"><path class="canes" d="M0 340 L-8 270 M0 340 L0 262 M0 340 L8 272 M0 340 L-16 290 M0 340 L16 292"/></g>
+    <g transform="translate(340,0)"><path class="canes" d="M0 340 L-8 270 M0 340 L0 262 M0 340 L8 272 M0 340 L-16 290 M0 340 L16 292"/></g>
+    <g transform="translate(640,0)"><path class="canes" d="M0 340 L-8 270 M0 340 L0 262 M0 340 L8 272 M0 340 L-16 290 M0 340 L16 292"/></g>
+    <g transform="translate(755,0)"><path class="canes" d="M0 340 L-8 270 M0 340 L0 262 M0 340 L8 272 M0 340 L-16 290 M0 340 L16 292"/></g>
+    <g transform="translate(870,0)"><path class="canes" d="M0 340 L-8 270 M0 340 L0 262 M0 340 L8 272 M0 340 L-16 290 M0 340 L16 292"/></g>
+  </g>
+  <!-- tanque e rodas -->
+  <ellipse class="tank" cx="490" cy="150" rx="140" ry="112"/>
+  <path class="liq" d="M366 196 A140 112 0 0 0 614 196 Z"/>
+  <rect class="steel" x="360" y="258" width="260" height="18"/>
+  <rect class="rub" x="392" y="276" width="40" height="64" rx="8"/>
+  <rect class="rub" x="548" y="276" width="40" height="64" rx="8"/>
+  <!-- barra / braços -->
+  <rect class="steel" x="70" y="226" width="840" height="12"/>
+  <path class="liqs" d="M490 262 L490 232"/>
+  <!-- descidas e bicos -->
+  <g>
+    <path class="liqs" d="M132 238 L132 318"/><path class="steel" d="M124 318 L140 318 L136 330 L128 330 Z"/>
+    <path class="liqs" d="M247 238 L247 318"/><path class="steel" d="M239 318 L255 318 L251 330 L243 330 Z"/>
+    <path class="liqs" d="M318 238 L318 318"/><path class="steel" d="M310 318 L326 318 L322 330 L314 330 Z"/>
+    <path class="liqs" d="M662 238 L662 318"/><path class="steel" d="M654 318 L670 318 L666 330 L658 330 Z"/>
+    <path class="liqs" d="M733 238 L733 318"/><path class="steel" d="M725 318 L741 318 L737 330 L729 330 Z"/>
+    <path class="liqs" d="M848 238 L848 318"/><path class="steel" d="M840 318 L856 318 L852 330 L844 330 Z"/>
+  </g>
+  <!-- faixas aplicadas -->
+  <g class="liq">
+    <rect x="120" y="336" width="26" height="8" rx="3"/><rect x="235" y="336" width="26" height="8" rx="3"/>
+    <rect x="305" y="336" width="26" height="8" rx="3"/><rect x="649" y="336" width="26" height="8" rx="3"/>
+    <rect x="720" y="336" width="26" height="8" rx="3"/><rect x="835" y="336" width="26" height="8" rx="3"/>
+  </g>
+  <!-- cotas -->
+  <g>
+    <line class="thin" x1="110" y1="370" x2="225" y2="370"/><line class="thin" x1="110" y1="364" x2="110" y2="376"/><line class="thin" x1="225" y1="364" x2="225" y2="376"/>
+    <text class="lbl-m" x="167" y="390" text-anchor="middle">espaçamento entre linhas</text>
+  </g>
+  <text class="lbl" x="490" y="140" text-anchor="middle">tanque 22,5 m³</text>
+  <text class="lbl-m" x="490" y="158" text-anchor="middle">(corte esquemático)</text>
+  <text class="lbl" x="70" y="214">braço esquerdo</text>
+  <text class="lbl" x="910" y="214" text-anchor="end">braço direito</text>
+  <text class="lbl-m" x="490" y="392" text-anchor="middle">rodas trafegando na entrelinha</text>
+  <g class="co">
+    <line class="lead-l" x1="160" y1="232" x2="180" y2="186"/><circle cx="184" cy="176" r="11"/><text x="184" y="176">22</text>
+    <line class="lead-l" x1="132" y1="290" x2="70" y2="290"/><circle cx="58" cy="290" r="11"/><text x="58" y="290">23</text>
+    <line class="lead-l" x1="140" y1="326" x2="70" y2="318"/><circle cx="58" cy="320" r="11"/><text x="58" y="320">24</text>
+  </g>
+</svg>
+    </div>
+    <p class="cap">Número de linhas, bicos por braço e distância do bico à touceira variam com a configuração e o projeto agronômico. Confira na sua máquina.</p>
+  </div>
+</section>
+
+<!-- PRANCHA 3 -->
+<section id="circuito">
+  <span class="eyebrow">Prancha 3</span>
+  <h2>Circuito da vinhaça e circuito hidráulico</h2>
+  <p>Dois circuitos trabalham juntos. O <b>hidráulico</b> (azul) leva óleo do trator para girar a bomba. O <b>de vinhaça</b> (marrom) tira o líquido do tanque, mede, regula e entrega aos bicos.</p>
+  <div class="plate">
+    <div class="scroll">
+<svg viewBox="0 0 980 300" role="img" aria-label="Fluxograma dos circuitos hidráulico e de vinhaça">
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="var(--liquid)"/></marker>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="var(--hyd)"/></marker>
+  </defs>
+  <!-- hidráulico -->
+  <rect class="box" x="20" y="24" width="140" height="54" rx="4"/><text class="lbl" x="90" y="47" text-anchor="middle">Controle remoto</text><text class="lbl-m" x="90" y="64" text-anchor="middle">do trator (óleo)</text>
+  <rect class="box" x="230" y="24" width="140" height="54" rx="4"/><text class="lbl" x="300" y="47" text-anchor="middle">16 Motor</text><text class="lbl-m" x="300" y="64" text-anchor="middle">hidráulico</text>
+  <path class="hyd" d="M160 44 L228 44" marker-end="url(#ah)"/>
+  <path class="hyd" d="M230 62 L162 62" marker-end="url(#ah)"/>
+  <text class="lbl-m" x="194" y="38" text-anchor="middle">pressão</text><text class="lbl-m" x="194" y="78" text-anchor="middle">retorno</text>
+  <path class="hyd" d="M300 78 L300 136" marker-end="url(#ah)"/><text class="lbl-m" x="308" y="110">eixo</text>
+  <!-- vinhaça -->
+  <rect class="box" x="20" y="140" width="130" height="54" rx="4"/><text class="lbl" x="85" y="163" text-anchor="middle">6 Tanque</text><text class="lbl-m" x="85" y="180" text-anchor="middle">saída de fundo</text>
+  <rect class="boxa" x="235" y="140" width="130" height="54" rx="4"/><text class="lbl" x="300" y="163" text-anchor="middle">17 Bomba</text><text class="lbl-m" x="300" y="180" text-anchor="middle">centrífuga</text>
+  <rect class="box" x="400" y="140" width="110" height="54" rx="4"/><text class="lbl" x="455" y="163" text-anchor="middle">18 Filtro</text><text class="lbl-m" x="455" y="180" text-anchor="middle">de linha</text>
+  <rect class="box" x="545" y="140" width="120" height="54" rx="4"/><text class="lbl" x="605" y="163" text-anchor="middle">19 Fluxômetro</text><text class="lbl-m" x="605" y="180" text-anchor="middle">mede L/min</text>
+  <rect class="box" x="700" y="140" width="120" height="54" rx="4"/><text class="lbl" x="760" y="163" text-anchor="middle">20 Válvula</text><text class="lbl-m" x="760" y="180" text-anchor="middle">reguladora</text>
+  <rect class="box" x="850" y="140" width="112" height="54" rx="4"/><text class="lbl" x="906" y="163" text-anchor="middle">21 Seções</text><text class="lbl-m" x="906" y="180" text-anchor="middle">e bicos 22–24</text>
+  <path class="liqs" d="M150 167 L233 167" marker-end="url(#ab)"/>
+  <path class="liqs" d="M365 167 L398 167" marker-end="url(#ab)"/>
+  <path class="liqs" d="M510 167 L543 167" marker-end="url(#ab)"/>
+  <path class="liqs" d="M665 167 L698 167" marker-end="url(#ab)"/>
+  <path class="liqs" d="M820 167 L848 167" marker-end="url(#ab)"/>
+  <!-- retorno -->
+  <path class="liqs" d="M760 194 L760 240 L85 240 L85 196" marker-end="url(#ab)" stroke-dasharray="7 5"/>
+  <text class="lbl-m" x="420" y="234" text-anchor="middle">retorno / alívio ao tanque (quando houver no circuito)</text>
+  <!-- controle -->
+  <rect class="box" x="560" y="24" width="250" height="54" rx="4"/><text class="lbl" x="685" y="47" text-anchor="middle">25 Monitor + GNSS</text><text class="lbl-m" x="685" y="64" text-anchor="middle">lê velocidade e vazão, corrige a válvula</text>
+  <path class="thin" d="M605 78 L605 138" stroke-dasharray="3 3"/><path class="thin" d="M760 78 L760 138" stroke-dasharray="3 3"/>
+  <text class="lbl-m" x="612" y="110">sinal</text><text class="lbl-m" x="767" y="110">comando</text>
+  <text class="lbl-m" x="20" y="285">Ordem exata dos itens no circuito pode variar entre versões. Confirme no manual.</text>
+</svg>
+    </div>
+  </div>
+</section>
+
+<!-- FICHAS -->
+<section id="fichas">
+  <span class="eyebrow">Fichas de peças</span>
+  <h2>Peça por peça, por conjunto</h2>
+  <p>Os números batem com as pranchas acima.</p>
+</section>
+
+<!-- A: engate -->
+<section>
+<div class="group">
+  <div class="group-fig">
+    <h3>A · Engate e apoio</h3>
+<svg viewBox="0 0 260 170" role="img" aria-label="Detalhe do cabeçalho, olhal e macaco de apoio">
+  <line class="ground" x1="0" y1="150" x2="260" y2="150"/>
+  <polygon class="steel" points="20,70 200,58 200,82 20,82"/>
+  <circle class="hub" cx="26" cy="76" r="11"/><circle cx="26" cy="76" r="5" fill="var(--paper)"/>
+  <rect class="steel" x="150" y="82" width="14" height="56"/><rect class="steel" x="138" y="138" width="38" height="9"/>
+  <rect class="steel2" x="146" y="44" width="22" height="16"/><path class="ln" d="M168 50 L188 40"/>
+  <path class="hyd" d="M30 54 C70 40 140 40 240 46"/>
+  <rect class="steel" x="200" y="52" width="60" height="36"/>
+  <g class="co"><circle cx="26" cy="108" r="10"/><text x="26" y="108">1</text>
+  <circle cx="96" cy="100" r="10"/><text x="96" y="100">2</text>
+  <circle cx="190" cy="120" r="10"/><text x="190" y="120">3</text>
+  <circle cx="90" cy="30" r="10"/><text x="90" y="30">4</text></g>
+</svg>
+  </div>
+  <div class="group-body">
+    <ul class="parts">
+      <li class="part"><span class="num">1</span><span class="pname">Olhal / engate da barra de tração <span class="chip t">típico</span></span>
+        <span class="pdesc">Liga a carreta à barra de tração do trator. Transmite todo o esforço de tração e frenagem da carga de ~22,5 t de líquido mais o peso próprio.</span>
+        <span class="pcheck"><b>Inspecionar:</b> desgaste/ovalização do furo, trincas na solda, pino e trava do pino sempre presentes.</span></li>
+      <li class="part"><span class="num">2</span><span class="pname">Cabeçalho (lança) <span class="chip t">típico</span></span>
+        <span class="pdesc">Viga que une o olhal ao chassi e define a distância entre trator e tanque, o que influencia raio de manobra e alinhamento na linha.</span>
+        <span class="pcheck"><b>Inspecionar:</b> trincas, empenamento após manobras fechadas em cabeceira, parafusos de fixação.</span></li>
+      <li class="part"><span class="num">3</span><span class="pname">Macaco de apoio (pé de descanso) <span class="chip t">típico</span></span>
+        <span class="pdesc">Sustenta o cabeçalho quando a carreta está desengatada, para engatar e desengatar com segurança. Só deve trabalhar com o tanque vazio ou conforme o manual.</span>
+        <span class="pcheck"><b>Inspecionar:</b> recolher antes de rodar; manivela e sapata íntegras.</span></li>
+      <li class="part"><span class="num">4</span><span class="pname">Mangueiras hidráulicas e chicote elétrico <span class="chip t">típico</span></span>
+        <span class="pdesc">Levam óleo do controle remoto do trator ao motor hidráulico da bomba, e energia e sinal para iluminação, válvulas e sensores.</span>
+        <span class="pcheck"><b>Inspecionar:</b> engates rápidos limpos e tampados, sem vazamento; mangueira sem esmagamento na curva de manobra; conectores sem oxidação.</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- B: tanque -->
+<section>
+<div class="group">
+  <div class="group-fig">
+    <h3>B · Tanque e acessórios</h3>
+<svg viewBox="0 0 260 180" role="img" aria-label="Corte do tanque mostrando quebra-ondas, boca de visita, respiro, nível, carga e dreno">
+  <rect class="tank" x="14" y="40" width="232" height="110" rx="55"/>
+  <rect class="liq" x="24" y="96" width="212" height="46" rx="20"/>
+  <line class="dash" x1="80" y1="46" x2="80" y2="144"/><line class="dash" x1="130" y1="42" x2="130" y2="148"/><line class="dash" x1="180" y1="46" x2="180" y2="144"/>
+  <rect class="steel" x="108" y="26" width="44" height="14" rx="2"/>
+  <path class="ln" d="M196 42 L196 26 L206 26"/>
+  <rect class="tank" x="226" y="60" width="8" height="78" rx="3"/><rect class="liq" x="227" y="98" width="6" height="40"/>
+  <circle class="steel2" cx="30" cy="132" r="9"/>
+  <rect class="steel" x="124" y="150" width="12" height="10"/>
+  <g class="co"><circle cx="130" cy="12" r="10"/><text x="130" y="12">7</text>
+  <circle cx="214" cy="14" r="10"/><text x="214" y="14">8</text>
+  <circle cx="248" cy="160" r="10"/><text x="248" y="160">9</text>
+  <circle cx="80" cy="74" r="10"/><text x="80" y="74">10</text>
+  <circle cx="30" cy="164" r="10"/><text x="30" y="164">11</text>
+  <circle cx="154" cy="168" r="10"/><text x="154" y="168">12</text>
+  <circle cx="130" cy="74" r="10"/><text x="130" y="74">6</text></g>
+</svg>
+  </div>
+  <div class="group-body">
+    <ul class="parts">
+      <li class="part"><span class="num">6</span><span class="pname">Tanque em fibra de vidro laminada <span class="chip c">confirmado</span></span>
+        <span class="pdesc">Reservatório de 22.500 L. A fibra é imune à corrosão da vinhaça (ácida e com sais) e permite controle estrutural do laminado. Peso cheio: em torno de 22,5 t só de líquido, considerando densidade próxima de 1 t/m³.</span>
+        <span class="pcheck"><b>Inspecionar:</b> trincas, bolhas ou delaminação na fibra, principalmente nos apoios sobre o chassi; cintas de fixação apertadas.</span></li>
+      <li class="part"><span class="num">7</span><span class="pname">Boca de visita (tampa superior) <span class="chip t">típico</span></span>
+        <span class="pdesc">Acesso para inspeção e limpeza interna. Em alguns projetos também serve para carga por cima.</span>
+        <span class="pcheck"><b>Inspecionar:</b> vedação e trava. <b>Segurança:</b> entrada no tanque é espaço confinado: exige procedimento NR-33, ventilação e vigia.</span></li>
+      <li class="part"><span class="num">8</span><span class="pname">Respiro <span class="chip t">típico</span></span>
+        <span class="pdesc">Deixa o ar entrar e sair durante carga e descarga. Sem ele, o tanque pode sofrer vácuo ou sobrepressão e a bomba perde rendimento.</span>
+        <span class="pcheck"><b>Inspecionar:</b> desobstruído (crosta de vinhaça seca entope).</span></li>
+      <li class="part"><span class="num">9</span><span class="pname">Indicador de nível <span class="chip t">típico</span></span>
+        <span class="pdesc">Visor ou régua que mostra o volume. Serve para saber o que falta aplicar e para conferir a dose pelo volume gasto por área.</span>
+        <span class="pcheck"><b>Inspecionar:</b> visor limpo e legível; compare com o volume registrado no monitor.</span></li>
+      <li class="part"><span class="num">10</span><span class="pname">Quebra-ondas internos (chicanas) <span class="chip t">típico</span></span>
+        <span class="pdesc">Paredes internas com passagem que freiam o balanço do líquido em frenagem, curva e terreno irregular. Dão estabilidade e reduzem esforço no chassi e no engate.</span>
+        <span class="pcheck"><b>Inspecionar:</b> na limpeza interna, ver fixação e acúmulo de sólidos.</span></li>
+      <li class="part"><span class="num">11</span><span class="pname">Bocal de carregamento (engate rápido) <span class="chip t">típico</span></span>
+        <span class="pdesc">Recebe a vinhaça do ponto de abastecimento (caminhão, tanque pulmão ou adutora). A velocidade de carga define boa parte do tempo de ciclo.</span>
+        <span class="pcheck"><b>Inspecionar:</b> vedação, tampa e válvula de retenção; registre o tempo de carga.</span></li>
+      <li class="part"><span class="num">12</span><span class="pname">Válvula de dreno de fundo <span class="chip t">típico</span></span>
+        <span class="pdesc">Esvazia completamente o tanque e retira sedimentos na limpeza e na manutenção.</span>
+        <span class="pcheck"><b>Inspecionar:</b> fechada e travada antes de carregar; drenar só em local autorizado.</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- C: rodagem -->
+<section>
+<div class="group">
+  <div class="group-fig">
+    <h3>C · Chassi e rodagem tridem</h3>
+<svg viewBox="0 0 260 160" role="img" aria-label="Detalhe do chassi, suspensão em balancim, eixos e pneus">
+  <line class="ground" x1="0" y1="150" x2="260" y2="150"/>
+  <rect class="steel" x="6" y="30" width="248" height="16"/>
+  <rect class="steel" x="20" y="60" width="220" height="10" rx="4"/>
+  <path class="ln" d="M60 46 L60 60 M130 46 L130 60 M200 46 L200 60"/>
+  <circle class="hub" cx="95" cy="65" r="5"/><circle class="hub" cx="165" cy="65" r="5"/>
+  <circle class="rub" cx="50" cy="108" r="38"/><circle class="hub" cx="50" cy="108" r="14"/>
+  <circle class="rub" cx="130" cy="108" r="38"/><circle class="hub" cx="130" cy="108" r="14"/>
+  <circle class="rub" cx="210" cy="108" r="38"/><circle class="hub" cx="210" cy="108" r="14"/>
+  <g class="co"><circle cx="20" cy="16" r="10"/><text x="20" y="16">5</text>
+  <circle cx="95" cy="88" r="10"/><text x="95" y="88">13</text>
+  <circle cx="130" cy="108" r="10"/><text x="130" y="108">14</text>
+  <circle cx="240" cy="74" r="10"/><text x="240" y="74">15</text></g>
+</svg>
+  </div>
+  <div class="group-body">
+    <ul class="parts">
+      <li class="part"><span class="num">5</span><span class="pname">Chassi / plataforma de arrasto <span class="chip c">confirmado</span></span>
+        <span class="pdesc">Estrutura que recebe o tanque, os eixos e o conjunto de bombeamento. O fabricante oferece o mesmo aplicador em plataforma de arrasto ou sobre chassi de caminhão.</span>
+        <span class="pcheck"><b>Inspecionar:</b> trincas em soldas e travessas, corrosão por respingo de vinhaça, berços de apoio do tanque.</span></li>
+      <li class="part"><span class="num">13</span><span class="pname">Suspensão (balancim / feixe de molas) <span class="chip t">típico</span></span>
+        <span class="pdesc">Distribui a carga entre os três eixos e acompanha as ondulações do terreno, mantendo os pneus apoiados. Menos impacto na estrutura e no tanque.</span>
+        <span class="pcheck"><b>Inspecionar:</b> buchas, pinos do balancim, molas quebradas, grampos (abraçadeiras) soltos.</span></li>
+      <li class="part"><span class="num">14</span><span class="pname">Eixos tridem e cubos <span class="chip c">confirmado</span></span>
+        <span class="pdesc">Três eixos dividem o peso e reduzem a carga por eixo, o que diminui a compactação sob o pneu. A Nonino divulgou teste do aplicador 22.500 tipo tridem.</span>
+        <span class="pcheck"><b>Inspecionar:</b> folga e temperatura de cubos, lubrificação dos rolamentos, porcas de roda com torque correto.</span></li>
+      <li class="part"><span class="num">15</span><span class="pname">Rodas, pneus e para-lamas <span class="chip t">típico</span></span>
+        <span class="pdesc">Pneus de flutuação espalham o peso e reduzem o afundamento e a compactação. Os para-lamas seguram barro e respingos.</span>
+        <span class="pcheck"><b>Inspecionar:</b> calibragem conforme a carga (pressão menor = menos compactação, dentro do limite do fabricante do pneu), cortes laterais, bitola compatível com a entrelinha.</span></li>
+    </ul>
+    <p class="note"><strong>Ligação com o solo.</strong> Uma carreta cheia passa várias vezes na mesma entrelinha. Em solo argiloso úmido (Latossolo, Nitossolo), o risco de compactação é maior. Trafegue sempre na mesma faixa e evite entrar com solo encharcado.</p>
+  </div>
+</div>
+</section>
+
+<!-- D: bombeamento -->
+<section>
+<div class="group">
+  <div class="group-fig">
+    <h3>D · Bombeamento e controle de vazão</h3>
+<svg viewBox="0 0 260 190" role="img" aria-label="Detalhe do motor hidráulico, bomba centrífuga, filtro, fluxômetro e válvula">
+  <rect class="steel" x="14" y="104" width="50" height="40" rx="5"/>
+  <path class="hyd" d="M14 112 L0 112 M14 136 L0 136"/>
+  <rect class="steel2" x="64" y="118" width="14" height="12"/>
+  <circle class="steel" cx="104" cy="124" r="26"/><circle class="hub" cx="104" cy="124" r="8"/>
+  <path class="liqs" d="M104 150 L104 176 L40 176"/>
+  <path class="liqs" d="M130 116 L160 116 L160 30 L250 30"/>
+  <rect class="steel2" x="150" y="140" width="0" height="0"/>
+  <rect class="steel2" x="150" y="88" width="20" height="18" rx="3"/>
+  <rect class="steel2" x="148" y="58" width="24" height="20" rx="10"/>
+  <rect class="steel" x="196" y="22" width="22" height="16"/><path class="ln" d="M207 22 L207 10 L216 10"/>
+  <g class="co"><circle cx="38" cy="90" r="10"/><text x="38" y="90">16</text>
+  <circle cx="104" cy="88" r="10"/><text x="104" y="88">17</text>
+  <circle cx="192" cy="98" r="10"/><text x="192" y="98">18</text>
+  <circle cx="192" cy="68" r="10"/><text x="192" y="68">19</text>
+  <circle cx="240" cy="54" r="10"/><text x="240" y="54">20</text></g>
+  <text class="lbl-m" x="40" y="168">sucção do tanque</text>
+</svg>
+  </div>
+  <div class="group-body">
+    <ul class="parts">
+      <li class="part"><span class="num">16</span><span class="pname">Motor hidráulico <span class="chip c">confirmado</span></span>
+        <span class="pdesc">Converte o óleo sob pressão do trator em rotação para a bomba. A reportagem técnica sobre o aplicador Nonino cita bombeamento hidráulico de até ~5.000 L/min, com sistema de aplicação de bombeamento independente.</span>
+        <span class="pcheck"><b>Inspecionar:</b> vazamentos, temperatura do óleo do trator em jornadas longas, vazão do controle remoto ajustada conforme o manual.</span></li>
+      <li class="part"><span class="num">17</span><span class="pname">Bomba de vinhaça <span class="chip t">típico (centrífuga)</span></span>
+        <span class="pdesc">Succiona do tanque e empurra para a linha de aplicação. Vazão estável é o que garante dose uniforme do início ao fim do tanque.</span>
+        <span class="pcheck"><b>Inspecionar:</b> selo mecânico (vazamento), rotor com desgaste por sólidos, ruído de cavitação quando o tanque esvazia.</span></li>
+      <li class="part"><span class="num">18</span><span class="pname">Filtro de linha <span class="chip t">típico</span></span>
+        <span class="pdesc">Retém fibras, bagacilho e sólidos que entopem bicos e travam válvulas. Vinhaça tem sólidos em suspensão, então o filtro é peça de rotina.</span>
+        <span class="pcheck"><b>Inspecionar:</b> limpar a cada turno ou conforme perda de vazão; elemento sem rasgos.</span></li>
+      <li class="part"><span class="num">19</span><span class="pname">Fluxômetro (medidor de vazão) <span class="chip c">confirmado (controle de fluxo)</span></span>
+        <span class="pdesc">Mede quantos litros por minuto estão saindo. É o sensor que permite ao controlador manter a taxa. O fabricante cita integração com sistemas de automação para controle de fluxo de líquidos.</span>
+        <span class="pcheck"><b>Inspecionar:</b> aferir com teste de balde ou volume conhecido do tanque; limpar incrustação.</span></li>
+      <li class="part"><span class="num">20</span><span class="pname">Válvula reguladora (proporcional) <span class="chip t">típico</span></span>
+        <span class="pdesc">Abre e fecha conforme o comando do monitor para manter a dose quando a velocidade muda. Pode ter retorno ao tanque, que também agita o líquido.</span>
+        <span class="pcheck"><b>Inspecionar:</b> resposta rápida ao comando, sem travamento por sólidos.</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- E: distribuição -->
+<section>
+<div class="group">
+  <div class="group-fig">
+    <h3>E · Distribuição localizada</h3>
+<svg viewBox="0 0 260 200" role="img" aria-label="Detalhe do braço, mangueira de descida e bico aplicando faixa ao lado da linha de cana">
+  <rect class="soil" x="0" y="168" width="260" height="32"/>
+  <line class="ground" x1="0" y1="168" x2="260" y2="168"/>
+  <rect class="steel" x="0" y="24" width="260" height="12"/>
+  <rect class="steel2" x="40" y="12" width="60" height="12"/>
+  <path class="liqs" d="M120 36 L120 120"/>
+  <rect class="steel2" x="113" y="118" width="14" height="10"/>
+  <path class="steel" d="M110 128 L130 128 L126 146 L114 146 Z"/>
+  <path class="liqs" d="M118 148 C114 156 112 162 110 166 M122 148 C126 156 128 162 130 166"/>
+  <rect class="liq" x="104" y="164" width="32" height="8" rx="3"/>
+  <g transform="translate(190,0)"><path class="canes" d="M0 168 L-8 100 M0 168 L0 90 M0 168 L8 102 M0 168 L-16 120 M0 168 L16 122"/></g>
+  <line class="thin" x1="120" y1="186" x2="190" y2="186"/><line class="thin" x1="120" y1="181" x2="120" y2="191"/><line class="thin" x1="190" y1="181" x2="190" y2="191"/>
+  <text class="lbl-m" x="155" y="198" text-anchor="middle">distância à touceira</text>
+  <g class="co"><circle cx="70" cy="56" r="10"/><text x="70" y="56">21</text>
+  <circle cx="230" cy="54" r="10"/><text x="230" y="54">22</text>
+  <circle cx="90" cy="90" r="10"/><text x="90" y="90">23</text>
+  <circle cx="90" cy="138" r="10"/><text x="90" y="138">24</text></g>
+</svg>
+  </div>
+  <div class="group-body">
+    <ul class="parts">
+      <li class="part"><span class="num">21</span><span class="pname">Distribuidor (manifold) e válvulas de seção <span class="chip t">típico</span></span>
+        <span class="pdesc">Divide a vazão entre os braços e permite abrir ou fechar seções em cabeceira, falhas, áreas de restrição ambiental ou sobreposição.</span>
+        <span class="pcheck"><b>Inspecionar:</b> todas as seções abrem e fecham pelo monitor; vazão parecida entre saídas.</span></li>
+      <li class="part"><span class="num">22</span><span class="pname">Braços distribuidores laterais <span class="chip c">confirmado</span></span>
+        <span class="pdesc">Um de cada lado do tanque, com 2 a 4 bicos por braço segundo reportagem técnica. Posicionam as saídas sobre as linhas de cana enquanto as rodas andam na entrelinha.</span>
+        <span class="pcheck"><b>Inspecionar:</b> alinhamento com as linhas, articulações e travas de transporte, empenamento por batida em carreador.</span></li>
+      <li class="part"><span class="num">23</span><span class="pname">Mangueiras de descida <span class="chip t">típico</span></span>
+        <span class="pdesc">Levam a vinhaça do braço até o bico perto do solo. Bico baixo reduz deriva e respingo e coloca o líquido na faixa certa, mesmo com palha.</span>
+        <span class="pcheck"><b>Inspecionar:</b> dobras, rachaduras, abraçadeiras; altura do bico igual em todas as linhas.</span></li>
+      <li class="part"><span class="num">24</span><span class="pname">Bicos / ponteiras de aplicação <span class="chip c">confirmado</span></span>
+        <span class="pdesc">Formam o jato e definem a largura da faixa. A posição em relação à touceira segue o projeto agronômico da usina.</span>
+        <span class="pcheck"><b>Inspecionar:</b> entupimento, desgaste (aumenta vazão), uniformidade entre bicos: coleta de 1 minuto em cada bico e compare. Variação acima do limite interno pede troca.</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- F: automação -->
+<section>
+<div class="group">
+  <div class="group-fig">
+    <h3>F · Automação, sinalização e acesso</h3>
+<svg viewBox="0 0 260 170" role="img" aria-label="Detalhe do monitor de cabine, antena GNSS, lanterna e escada">
+  <rect class="box" x="14" y="30" width="110" height="74" rx="6"/>
+  <rect class="tank" x="22" y="38" width="94" height="50" rx="3"/>
+  <path class="canes" d="M30 80 L50 62 L70 70 L104 46" stroke="var(--accent)"/>
+  <circle class="steel" cx="40" cy="96" r="4"/><circle class="steel" cx="60" cy="96" r="4"/><circle class="steel" cx="80" cy="96" r="4"/>
+  <path class="ln" d="M180 70 L180 40"/><ellipse class="steel" cx="180" cy="34" rx="20" ry="8"/>
+  <path class="thin" d="M200 24 C212 30 212 40 200 46 M206 18 C222 28 222 42 206 52"/>
+  <rect x="150" y="120" width="26" height="14" fill="var(--accent)"/><rect x="180" y="120" width="26" height="14" class="steel2"/>
+  <g class="ln"><line x1="222" y1="90" x2="222" y2="160"/><line x1="246" y1="90" x2="246" y2="160"/><line x1="222" y1="108" x2="246" y2="108"/><line x1="222" y1="126" x2="246" y2="126"/><line x1="222" y1="144" x2="246" y2="144"/></g>
+  <g class="co"><circle cx="128" cy="22" r="10"/><text x="128" y="22">25</text>
+  <circle cx="156" cy="24" r="10"/><text x="156" y="24">25</text>
+  <circle cx="164" cy="152" r="10"/><text x="164" y="152">26</text>
+  <circle cx="234" cy="78" r="10"/><text x="234" y="78">27</text></g>
+</svg>
+  </div>
+  <div class="group-body">
+    <ul class="parts">
+      <li class="part"><span class="num">25</span><span class="pname">Monitor / controlador de taxa e antena GNSS <span class="chip c">confirmado</span></span>
+        <span class="pdesc">O fabricante cita integração com sistemas de automação como Trimble, Topcon e John Deere. O controlador cruza velocidade (GNSS ou radar) com a vazão do fluxômetro e corrige a válvula para manter m³/ha. Também gera o mapa de aplicação para rastreabilidade.</span>
+        <span class="pcheck"><b>Inspecionar:</b> dose programada igual à ordem de serviço; largura e número de seções cadastrados certos; fator de calibração do fluxômetro atualizado; exportação diária dos registros.</span></li>
+      <li class="part"><span class="num">26</span><span class="pname">Sinalização (lanternas e faixas refletivas) <span class="chip t">típico</span></span>
+        <span class="pdesc">Torna o conjunto visível em carreadores e estradas, à noite e com poeira. Item de segurança e de exigência legal no deslocamento.</span>
+        <span class="pcheck"><b>Inspecionar:</b> todas acesas, lentes limpas, faixas sem descolar.</span></li>
+      <li class="part"><span class="num">27</span><span class="pname">Escada e plataforma de acesso <span class="chip t">típico</span></span>
+        <span class="pdesc">Acesso seguro à boca de visita e ao respiro.</span>
+        <span class="pcheck"><b>Inspecionar:</b> degraus antiderrapantes limpos, corrimão firme. Trabalho acima de 2 m segue NR-35.</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- CALIBRAÇÃO -->
+<section id="calibracao">
+  <span class="eyebrow">Como as peças trabalham juntas</span>
+  <h2>Vazão, velocidade e dose</h2>
+  <div class="calc">
+    <p>O monitor (25) mantém esta relação automaticamente. Saber fazer a conta à mão serve para conferir se o fluxômetro (19) e a largura cadastrada estão certos.</p>
+    <div class="formula">Q (L/min) = D (L/ha) × v (km/h) × L (m) ÷ 600</div>
+    <p class="cap">Q = vazão total · D = dose · v = velocidade · L = largura total atendida (nº de linhas × espaçamento). O 600 converte km/h × m em ha/min e acerta as unidades.</p>
+    <div class="tblwrap">
+    <table>
+      <thead><tr><th>Exemplo didático (valores hipotéticos)</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Dose D</td><td>30 m³/ha = 30.000 L/ha</td></tr>
+        <tr><td>Velocidade v</td><td>6 km/h</td></tr>
+        <tr><td>Largura L (4 linhas × 1,5 m)</td><td>6 m</td></tr>
+        <tr><td>Vazão Q = 30.000 × 6 × 6 ÷ 600</td><td><b>1.800 L/min</b> (≈ 450 L/min por bico)</td></tr>
+        <tr><td>Área por tanque = 22,5 m³ ÷ 30 m³/ha</td><td><b>0,75 ha</b></td></tr>
+        <tr><td>Tempo aplicando por tanque = 22.500 ÷ 1.800</td><td><b>12,5 min</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note"><strong>Atenção.</strong> Exemplo só para treinar a conta. A dose real vem do K₂O do laudo da vinhaça, da análise de solo, da recomendação agronômica e do limite do plano ambiental da unidade (em SP, Norma CETESB P4.231). Se a velocidade subir sem a vazão acompanhar, a dose cai.</p>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <span class="eyebrow">Para a equipe</span>
+  <h2>Inspeção antes do turno</h2>
+  <div class="check">
+    <div><h3>Engate e rodagem</h3><ul>
+      <li>Pino e trava do engate (1)</li><li>Macaco recolhido (3)</li><li>Mangueiras e chicote sem vazamento ou esmagamento (4)</li><li>Pneus calibrados, porcas e cubos (14, 15)</li><li>Suspensão sem molas ou pinos quebrados (13)</li></ul></div>
+    <div><h3>Tanque e circuito</h3><ul>
+      <li>Dreno fechado e travado (12)</li><li>Respiro livre (8)</li><li>Filtro limpo (18)</li><li>Bomba sem vazamento no selo (17)</li><li>Fibra sem trincas nos apoios (6)</li></ul></div>
+    <div><h3>Aplicação</h3><ul>
+      <li>Dose no monitor = ordem de serviço (25)</li><li>Todas as seções respondem (21)</li><li>Bicos desentupidos e na mesma altura (23, 24)</li><li>Braços alinhados com as linhas (22)</li><li>Talhão liberado, solo sem encharcamento</li></ul></div>
+  </div>
+</section>
+
+<section class="src" id="fontes">
+  <h3>Fontes</h3>
+  <ol>
+    <li><a href="https://www.nonino.com.br" target="_blank" rel="noopener">Nonino — página do Aplicador de Vinhaça</a>: montagem em arrasto ou caminhão, integração com automação para controle de fluxo.</li>
+    <li>Nonino — artigo sobre o aplicador de 3ª geração: tanque em fibra de vidro laminada.</li>
+    <li>Portal RPAnews — reportagem sobre a carreta de aplicação localizada: tanques de 22.500 a 35.000 L, bombeamento hidráulico de 5.000 L/min, aplicação com bombeamento independente.</li>
+    <li>Revista RPAnews — "Vinhaça bem localizada": braço distribuidor de cada lado, com 2 a 4 bicos.</li>
+    <li>Agrishow digital — Conjunto Aplicador de Vinhaça 22.500 L arrasto: automação Trimble, Topcon e John Deere.</li>
+    <li>Nonino (Facebook) — teste do aplicador 22.500 tipo tridem.</li>
+    <li>ESALQ/USP — circuito hidráulico de pulverizadores (base para nomenclatura de filtro, regulador, retorno e bicos).</li>
+  </ol>
+</section>
+
+<footer>Material didático do Eu Agrônomo. Não substitui o manual do operador, o catálogo de peças do fabricante, o procedimento da unidade nem as normas NR-12, NR-31, NR-33 e NR-35. Itens marcados como típicos devem ser conferidos na sua máquina.</footer>
+
+</div>
+
+<div id="pwa-inst" hidden style="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:9999;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;background:#B5651D;color:#fff;font:600 16px system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.3)"><span style="flex:1">Use como aplicativo, até sem internet.</span><button id="pwa-b" type="button" style="font:700 16px system-ui,sans-serif;padding:10px 14px;border:0;border-radius:9px;background:#fff;color:#B5651D">📲 Instalar app</button><button id="pwa-x" type="button" aria-label="Fechar" style="font:700 18px system-ui;border:0;background:transparent;color:#fff;padding:6px">✕</button></div>
+<script>(function(){var d=null,b=document.getElementById('pwa-inst');
+function sa(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone}
+var off=false;try{off=localStorage.getItem('pwa-x-aplicador')==='1'}catch(e){}
+addEventListener('beforeinstallprompt',function(e){e.preventDefault();d=e;if(!sa()&&!off)b.hidden=false});
+document.getElementById('pwa-b').onclick=async function(){if(d){d.prompt();try{await d.userChoice}catch(e){}d=null;b.hidden=true}else alert('No Chrome, toque no menu ⋮ e depois em "Instalar app".')};
+document.getElementById('pwa-x').onclick=function(){b.hidden=true;try{localStorage.setItem('pwa-x-aplicador','1')}catch(e){}};
+addEventListener('appinstalled',function(){b.hidden=true});
+if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});})();</script>
+</body></html>

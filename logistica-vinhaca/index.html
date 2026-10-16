@@ -1,0 +1,522 @@
+<!doctype html><html><head><meta charset=utf8><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1d7a43"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="mobile-web-app-capable" content="yes"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Logística Vinhaça Beta</title>
+<link rel="apple-touch-icon" sizes="180x180" class="appicon" href="data:image/png;base64,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"><link rel="icon" type="image/png" sizes="192x192" class="appicon" href="data:image/png;base64,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"><meta name="theme-color" content="#2C2C2A"><script>document.querySelectorAll(".appicon").forEach(function(l){document.head.appendChild(l)})</script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: coluna única mobile-first; seletor de visual, totais, parâmetros, frentes, gráfico e relatório.
+   Três visuais por data-skin: campo (padrão, claro/escuro), cabine (escuro fixo, alto contraste), prancheta (técnico, compacto). */
+:root{
+  --bg:#f2f5f1; --surface:#ffffff; --surface2:#e8eee7; --line:#d3ddd2;
+  --fg:#18241b; --mut:#5b6e60; --accent:#1d7a43; --accent-fg:#ffffff;
+  --bad:#b4372c; --bad-bg:#fbe9e6; --warn:#8a5a00; --warn-bg:#fff3d6; --ok:#1d7a43;
+  --bar-loc:#c9772b;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --num:"Barlow",system-ui,sans-serif;
+  --r:12px; --r-sm:8px; --bw:1px; --big:34px; --gap:12px; --case:uppercase;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1611; --surface:#152019; --surface2:#1c2a21; --line:#2a3b2f;
+  --fg:#e5eee7; --mut:#93a99a; --accent:#2a9a58; --accent-fg:#ffffff;
+  --bad:#ff8a7d; --bad-bg:#3a1b17; --warn:#ffcf6b; --warn-bg:#3a2c0c; --ok:#5fd18f;
+  --bar-loc:#e39548; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1611; --surface:#152019; --surface2:#1c2a21; --line:#2a3b2f;
+  --fg:#e5eee7; --mut:#93a99a; --accent:#2a9a58; --accent-fg:#ffffff;
+  --bad:#ff8a7d; --bad-bg:#3a1b17; --warn:#ffcf6b; --warn-bg:#3a2c0c; --ok:#5fd18f;
+  --bar-loc:#e39548; color-scheme:dark}
+
+/* Visual 2 — Cabine: escuro fixo para uso à noite e no sol forte, números grandes, âmbar de sinalização */
+:root[data-skin="cabine"]{
+  --bg:#0c1115; --surface:#141b21; --surface2:#1d262e; --line:#33414c;
+  --fg:#f3f6f8; --mut:#a5b3bd; --accent:#ffb21f; --accent-fg:#1a1200;
+  --bad:#ff6b5e; --bad-bg:#3d1512; --warn:#ffd24d; --warn-bg:#3a2e08; --ok:#56e39a;
+  --bar-loc:#5fb6ff;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --num:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --r:6px; --r-sm:4px; --bw:1.5px; --big:46px; --gap:14px;
+  color-scheme:dark}
+
+/* Visual 3 — Prancheta: técnico e compacto, tinta azul, cantos retos, números monoespaçados */
+:root[data-skin="prancheta"]{
+  --bg:#edf0f5; --surface:#fbfcfe; --surface2:#e3e8f0; --line:#b9c3d3;
+  --fg:#14213a; --mut:#56627a; --accent:#1f4fa3; --accent-fg:#ffffff;
+  --bad:#b3261e; --bad-bg:#fbe7e5; --warn:#7a5300; --warn-bg:#fff1cc; --ok:#1d6f3f;
+  --bar-loc:#8a8f99;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:2px; --r-sm:2px; --bw:1px; --big:28px; --gap:8px; --case:none;
+  color-scheme:light}
+@media (prefers-color-scheme: dark){:root[data-skin="prancheta"]:not([data-theme="light"]){
+  --bg:#0d1422; --surface:#131c2e; --surface2:#1a253b; --line:#2e3d5a;
+  --fg:#e3e9f5; --mut:#93a1bd; --accent:#7fa8ff; --accent-fg:#0a1530;
+  --bad:#ff8a80; --bad-bg:#3b1716; --warn:#ffd36b; --warn-bg:#382a0a; --ok:#6bd39a;
+  --bar-loc:#8d97ab; color-scheme:dark}}
+:root[data-skin="prancheta"][data-theme="dark"]{
+  --bg:#0d1422; --surface:#131c2e; --surface2:#1a253b; --line:#2e3d5a;
+  --fg:#e3e9f5; --mut:#93a1bd; --accent:#7fa8ff; --accent-fg:#0a1530;
+  --bad:#ff8a80; --bad-bg:#3b1716; --warn:#ffd36b; --warn-bg:#382a0a; --ok:#6bd39a;
+  --bar-loc:#8d97ab; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.4}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 48px;display:flex;flex-direction:column;gap:var(--gap)}
+header{display:flex;align-items:center;gap:10px}
+.logo{width:40px;height:40px;border-radius:10px;overflow:hidden;flex:none;display:block}.logo svg{display:block}
+h1{font-family:var(--display);font-size:24px;margin:0;line-height:1;letter-spacing:.3px;text-transform:var(--case)}
+h1 small{display:block;font-family:var(--body);font-size:12px;color:var(--mut);text-transform:none;letter-spacing:0;font-weight:500;margin-top:3px}
+.beta{margin-left:auto;background:var(--warn-bg);color:var(--warn);font-weight:700;font-size:12px;padding:4px 9px;border-radius:var(--r-sm);letter-spacing:.6px}
+
+.skins{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}
+.skins .lbl{white-space:nowrap}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:var(--bw) solid var(--line);border-radius:var(--r-sm);overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--fg);padding:8px 4px;font-weight:600;font-size:13.5px;font-family:var(--body)}
+.seg button+button{border-left:var(--bw) solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg)}
+
+.totals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tot{background:var(--surface);border:var(--bw) solid var(--line);border-radius:var(--r);padding:10px;min-width:0}
+.lbl{font-size:10.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.7px;font-weight:600}
+.big{font-family:var(--num);font-size:var(--big);font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums}
+.sub{font-size:11.5px;color:var(--mut);margin-top:2px;min-height:1em}
+.neg{color:var(--bad)} .pos{color:var(--ok)}
+.alert{border-radius:var(--r-sm);padding:10px 12px;font-weight:600;font-size:13.5px}
+.alert.bad{background:var(--bad-bg);color:var(--bad);border:var(--bw) solid var(--bad)}
+.alert.warn{background:var(--warn-bg);color:var(--warn);border:var(--bw) solid var(--warn)}
+.panel,.frente{background:var(--surface);border:var(--bw) solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.panel h2{font-family:var(--display);font-size:18px;margin:0;text-transform:var(--case);letter-spacing:.4px;text-wrap:balance}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.fld{display:flex;flex-direction:column;gap:3px;min-width:0}
+.fld label,.fld .fl{font-size:12px;color:var(--mut);font-weight:500}
+.inp{position:relative}
+.inp input,.txt{width:100%;background:var(--surface2);border:var(--bw) solid var(--line);color:var(--fg);border-radius:var(--r-sm);padding:9px 38px 9px 10px;font:inherit;font-family:var(--num);font-size:16px;font-variant-numeric:tabular-nums}
+.txt{padding-right:10px;font-family:var(--body)}
+.inp span{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--mut);pointer-events:none}
+input.bad{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button{font:inherit;cursor:pointer}
+button:disabled{opacity:.45;cursor:default}
+.btn{border:0;border-radius:var(--r-sm);padding:12px;font-weight:700;font-size:14.5px;background:var(--accent);color:var(--accent-fg);font-family:var(--body)}
+.btn.ghost{background:var(--surface);color:var(--fg);border:var(--bw) solid var(--line)}
+.btn.arm,.rm.arm{background:var(--bad);color:var(--bg);border-color:var(--bad)}
+.row-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fhead{display:flex;gap:8px;align-items:center}
+.tag{font-family:var(--display);font-weight:700;font-size:16px;background:var(--surface2);border-radius:var(--r-sm);padding:5px 8px;color:var(--accent)}
+.fhead input{flex:1;min-width:0;background:var(--surface2);border:var(--bw) solid var(--line);color:var(--fg);border-radius:var(--r-sm);padding:9px 10px;font:inherit;font-weight:700;font-size:16px}
+.rm{height:38px;min-width:38px;padding:0 10px;border-radius:var(--r-sm);border:var(--bw) solid var(--line);background:var(--surface2);color:var(--bad);font-size:18px;white-space:nowrap}
+.rm.arm{font-size:12.5px;font-weight:700}
+.stepper{display:flex;align-items:center;border:var(--bw) solid var(--line);border-radius:var(--r-sm);background:var(--surface2);overflow:hidden}
+.stepper button{width:40px;height:40px;border:0;background:transparent;color:var(--fg);font-size:20px;font-weight:700}
+.stepper output{flex:1;text-align:center;font-weight:700;font-size:16px;font-family:var(--num);font-variant-numeric:tabular-nums}
+.lim{font-size:11px;color:var(--warn);min-height:1em}
+.trtab{display:flex;flex-direction:column;gap:6px}
+.trh,.trr{display:grid;grid-template-columns:44px 1fr 1fr;gap:8px;align-items:center}
+.trh{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.trk{font-family:var(--display);font-weight:700;font-size:16px;color:var(--accent);text-align:center;background:var(--surface2);border-radius:var(--r-sm);padding:8px 0}
+.trr>input{width:100%;min-width:0;background:var(--surface2);border:var(--bw) solid var(--line);color:var(--fg);border-radius:var(--r-sm);padding:9px 10px;font:inherit;font-family:var(--num);font-size:16px;font-variant-numeric:tabular-nums}
+.trm{display:flex;justify-content:space-between;align-items:baseline;border-top:var(--bw) solid var(--line);padding-top:8px;font-size:13px;color:var(--mut)}
+.trm strong{color:var(--fg);font-size:16px;font-family:var(--num);font-variant-numeric:tabular-nums}
+.res{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--surface2);border-radius:var(--r-sm);padding:8px}
+.res>div{text-align:center;min-width:0}
+.res .k{font-size:9.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.res .v{font-weight:700;font-size:14.5px;font-family:var(--num);font-variant-numeric:tabular-nums;margin-top:2px}
+.res .nec{background:var(--accent);color:var(--accent-fg);border-radius:var(--r-sm);padding:4px 2px}
+.res .nec .k{color:var(--accent-fg);opacity:.85}
+.formula{font-size:12px;color:var(--mut)}
+.chart{display:flex;flex-direction:column;gap:10px}
+.crow{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:center}
+.crow .nm{font-size:12.5px;font-weight:600;overflow-wrap:anywhere}
+.bars{display:flex;flex-direction:column;gap:3px}
+.bar{height:14px;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;font-size:11px;font-weight:700;color:var(--accent-fg);min-width:20px;font-family:var(--num);font-variant-numeric:tabular-nums}
+.bar.n{background:var(--accent)} .bar.l{background:var(--bar-loc);color:var(--bg)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mut)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+textarea{width:100%;min-height:170px;background:var(--surface2);border:var(--bw) solid var(--line);color:var(--fg);border-radius:var(--r-sm);padding:10px;font:13px/1.45 ui-monospace,Menlo,monospace}
+.foot{font-size:12px;color:var(--mut);text-align:center}
+.dl{display:flex;flex-direction:column;gap:6px}
+.dl .note{margin:0;text-align:center}
+.note{font-size:12px;color:var(--mut);margin:0}
+
+/* Ajustes de forma por visual */
+:root[data-skin="cabine"] .lbl{font-size:12px}
+:root[data-skin="cabine"] .res .v{font-size:18px}
+:root[data-skin="cabine"] .res .k{font-size:11px}
+:root[data-skin="cabine"] .alert{font-size:15px}
+:root[data-skin="cabine"] .stepper button{width:48px;height:48px}
+:root[data-skin="cabine"] .bar{height:20px;font-size:13px}
+:root[data-skin="cabine"] .tot{border-color:var(--line);background:var(--surface2)}
+:root[data-skin="prancheta"] .tot,:root[data-skin="prancheta"] .panel,:root[data-skin="prancheta"] .frente{box-shadow:0 1px 0 var(--line)}
+:root[data-skin="prancheta"] .panel h2,:root[data-skin="prancheta"] .fhead{border-bottom:var(--bw) solid var(--line);padding-bottom:6px}
+:root[data-skin="prancheta"] .res{background:transparent;border:var(--bw) solid var(--line);padding:6px}
+:root[data-skin="prancheta"] .res>div:not(.nec){border-right:1px dashed var(--line)}
+:root[data-skin="prancheta"] .res>div:nth-child(4n){border-right:0}
+:root[data-skin="prancheta"] .inp input,:root[data-skin="prancheta"] .trr>input{padding-block:7px;background:var(--surface)}
+:root[data-skin="prancheta"] .bar{height:12px;border-radius:0}
+@media (max-width:380px){.res{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}:root[data-skin="prancheta"] .res>div:nth-child(2n){border-right:0}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="logo"><svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><rect width="64" height="64" fill="#F1EFE8"/><rect x="8" y="10" width="48" height="44" rx="6" fill="#2C2C2A"/><rect x="14" y="38" width="6" height="10" rx="1" fill="#5DCAA5"/><rect x="23" y="32" width="6" height="16" rx="1" fill="#5DCAA5"/><rect x="32" y="26" width="6" height="22" rx="1" fill="#1D9E75"/><path d="M47 16s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z" fill="#BA7517"/><ellipse cx="45" cy="27" rx="1.5" ry="2.5" fill="#FAC775"/></svg></div>
+  <h1>Logística Vinhaça<small>Cálculo de caminhões</small></h1>
+  <span class="beta">BETA 3</span>
+</header>
+
+<div class="skins">
+  <span class="lbl" id="skinLbl">Visual</span>
+  <div class="seg" role="group" aria-labelledby="skinLbl">
+    <button type="button" data-skin="campo" id="skCampo">Campo</button>
+    <button type="button" data-skin="cabine" id="skCabine">Cabine</button>
+    <button type="button" data-skin="prancheta" id="skPranch">Prancheta</button>
+  </div>
+</div>
+
+<section class="dl" id="dlBox" hidden>
+  <button class="btn" id="dlBtn" type="button">⬇ Baixar aplicativo</button>
+  <p class="note" id="dlMsg">Salva o app no celular como arquivo. Abra pelo Chrome para usar mesmo sem internet. Os dados preenchidos vão junto.</p>
+</section>
+
+<section class="totals" aria-label="Totais">
+  <div class="tot"><div class="lbl">Necessário</div><div class="big" id="tNec">0</div><div class="sub" id="tNecSub"></div></div>
+  <div class="tot"><div class="lbl">Locado</div><div class="big" id="tLoc">0</div><div class="sub"></div></div>
+  <div class="tot"><div class="lbl">Saldo</div><div class="big" id="tSal">0</div><div class="sub" id="tSalSub"></div></div>
+</section>
+
+<div id="alerts" style="display:flex;flex-direction:column;gap:8px"></div>
+
+<section class="panel" aria-labelledby="pg">
+  <h2 id="pg">Parâmetros gerais</h2>
+  <div class="grid3">
+    <div class="fld"><label for="pCarga">Carga usina</label><div class="inp"><input id="pCarga" type="text" inputmode="decimal" autocomplete="off"><span>min</span></div></div>
+    <div class="fld"><label for="pDesc">Descarga pátio</label><div class="inp"><input id="pDesc" type="text" inputmode="decimal" autocomplete="off"><span>min</span></div></div>
+    <div class="fld"><label for="pFila">Fila rampa</label><div class="inp"><input id="pFila" type="text" inputmode="decimal" autocomplete="off"><span>min</span></div></div>
+  </div>
+  <div class="grid3">
+    <div class="fld"><label for="pVcar">Veloc. carregado</label><div class="inp"><input id="pVcar" type="text" inputmode="decimal" autocomplete="off"><span>km/h</span></div></div>
+    <div class="fld"><label for="pVvaz">Veloc. vazio</label><div class="inp"><input id="pVvaz" type="text" inputmode="decimal" autocomplete="off"><span>km/h</span></div></div>
+    <div class="fld"><label for="pBoc">Bocais usina</label><div class="inp"><input id="pBoc" type="text" inputmode="numeric" autocomplete="off"><span>un.</span></div></div>
+  </div>
+  <div class="grid3">
+    <div class="fld"><label for="pDisp">Disponib. mecânica</label><div class="inp"><input id="pDisp" type="text" inputmode="decimal" autocomplete="off"><span>%</span></div></div>
+    <div class="fld"><label for="pVcam">Volume caminhão</label><div class="inp"><input id="pVcam" type="text" inputmode="decimal" autocomplete="off"><span>m³</span></div></div>
+    <div class="fld"><label for="pVut">Carreta trator útil</label><div class="inp"><input id="pVut" type="text" inputmode="decimal" autocomplete="off"><span>m³</span></div></div>
+  </div>
+  <p class="note">Aceita vírgula ou ponto. Campos em vermelho estão vazios ou fora do intervalo e a frente fica sem resultado até serem corrigidos.</p>
+</section>
+
+<button class="btn ghost" id="addF" type="button">+ Adicionar frente</button>
+
+<div id="frentes" style="display:flex;flex-direction:column;gap:var(--gap)"></div>
+
+<section class="panel" aria-labelledby="ch">
+  <h2 id="ch">Necessário × locado</h2>
+  <div class="legend"><span><i style="background:var(--accent)"></i>Necessário</span><span><i style="background:var(--bar-loc)"></i>Locado</span></div>
+  <div class="chart" id="chart"></div>
+</section>
+
+<section class="panel" aria-labelledby="rl">
+  <h2 id="rl">Relatório WhatsApp</h2>
+  <div class="grid2">
+    <div class="fld"><label for="mTurno">Turno</label><input class="txt" id="mTurno" type="text" autocomplete="off" placeholder="ex.: A, noite"></div>
+    <div class="fld"><label for="mResp">Responsável</label><input class="txt" id="mResp" type="text" autocomplete="off" placeholder="nome"></div>
+  </div>
+  <button class="btn" id="genRel" type="button">Gerar relatório</button>
+  <div id="relBox" hidden style="display:flex;flex-direction:column;gap:8px">
+    <textarea id="relTxt" readonly aria-label="Texto do relatório"></textarea>
+    <div class="row-btns">
+      <button class="btn ghost" id="copyRel" type="button">Copiar texto</button>
+      <a class="btn" id="waLink" href="#" target="_blank" rel="noopener" style="text-align:center;text-decoration:none">Abrir no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<p class="foot">Ciclo = carga + descarga + fila + ida (carregado) + volta (vazio).<br>Necessário = (ciclo ÷ intervalo) ÷ disponibilidade, arredondado para cima, + reserva.</p>
+<div style="display:flex;justify-content:center"><button class="btn ghost" id="reset" type="button" style="font-size:12.5px;padding:8px 12px">Restaurar exemplo</button></div>
+</div>
+
+<script id="app">
+const KEY='lv-beta-v3', OLDKEY='lv-beta-v2';
+const T=(n,c)=>({n,c});
+const DEF={
+  skin:'campo', meta:{turno:'',resp:''},
+  g:{pCarga:20,pDesc:10,pFila:15,pVcar:40,pVvaz:60,pBoc:2,pDisp:90,pVcam:64,pVut:20.5},
+  f:[
+    {nome:'F1 Sto Antonio 2',dist:41.9,res:1,loc:0,tr:[T('66328',33),T('66631',33),T('64077',33)]},
+    {nome:'F2 Alambari',dist:44.3,res:1,loc:0,tr:[T('66331',35),T('66297',35),T('66329',35)]},
+    {nome:'F3',dist:34,res:1,loc:0,tr:[T('',33),T('',33),T('',33),T('',33)]},
+    {nome:'F4',dist:21.5,res:1,loc:0,tr:[T('',33),T('',33),T('',33)]}
+  ]};
+const RULE={pCarga:v=>v>0,pDesc:v=>v>=0,pFila:v=>v>=0,pVcar:v=>v>0,pVvaz:v=>v>0,pBoc:v=>v>=1,pDisp:v=>v>0&&v<=100,pVcam:v=>v>0,pVut:v=>v>0};
+const G=Object.keys(RULE);
+const MAXTR=8;
+
+/* null = vazio ou inválido */
+const num=v=>{if(v==null)return null;const s=String(v).trim().replace(/\s/g,'').replace(',','.');if(s==='')return null;const n=Number(s);return isFinite(n)?n:null};
+const shown=v=>v==null?'':String(v).replace('.',',');
+const fmt=(n,d=1)=>n==null||!isFinite(n)?'—':n.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isP=v=>v!=null&&v>0;
+const z=v=>v==null?0:v;
+const avgC=f=>{const v=f.tr.map(t=>t.c).filter(isP);return v.length?v.reduce((a,b)=>a+b,0)/v.length:33};
+
+/* Carregar: usa o estado mais recente entre o salvo no aparelho e o embutido no arquivo baixado */
+function load(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+let st=null;
+const cands=[load(KEY),window.__LV_STATE||null].filter(s=>s&&s.f);
+if(cands.length)st=cands.sort((a,b)=>(b.ts||0)-(a.ts||0))[0];
+if(!st){const old=load(OLDKEY);if(old&&old.f)st=old}
+if(!st)st=JSON.parse(JSON.stringify(DEF));
+st.g=Object.assign({},DEF.g,st.g);delete st.g.pVtot;
+st.meta=Object.assign({turno:'',resp:''},st.meta);
+if(!['campo','cabine','prancheta'].includes(st.skin))st.skin='campo';
+const save=()=>{st.ts=Date.now();try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+
+/* Visual */
+function applySkin(){
+  document.documentElement.dataset.skin=st.skin;
+  document.querySelectorAll('.seg [data-skin]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.skin===st.skin));
+}
+document.querySelectorAll('.seg [data-skin]').forEach(b=>b.onclick=()=>{st.skin=b.dataset.skin;applySkin();save()});
+
+/* Confirmação em dois toques (o visualizador não mostra confirm()) */
+function twoTap(btn,armLabel,action){
+  if(btn.dataset.armed){action();return}
+  const orig=btn.innerHTML;btn.dataset.armed='1';btn.classList.add('arm');btn.textContent=armLabel;
+  clearTimeout(btn._t);btn._t=setTimeout(()=>{delete btn.dataset.armed;btn.classList.remove('arm');btn.innerHTML=orig},3000);
+}
+
+function bindGeneral(){
+  G.forEach(id=>{const el=document.getElementById(id);el.value=shown(st.g[id]);el.oninput=()=>{st.g[id]=num(el.value);calc()}});
+  const t=document.getElementById('mTurno'),r=document.getElementById('mResp');
+  t.value=st.meta.turno;r.value=st.meta.resp;
+  t.oninput=()=>{st.meta.turno=t.value;save()};r.oninput=()=>{st.meta.resp=r.value;save()};
+}
+
+function render(){
+  const box=document.getElementById('frentes');box.innerHTML='';
+  st.f.forEach((f,i)=>{
+    const d=document.createElement('article');d.className='frente';
+    const full=f.tr.length>=MAXTR;
+    d.innerHTML=`
+    <div class="fhead"><span class="tag">F${i+1}</span>
+      <input id="nome${i}" value="${esc(f.nome)}" aria-label="Nome da frente">
+      <button class="rm" type="button" aria-label="Remover frente" data-rm="${i}">×</button></div>
+    <div class="grid2">
+      <div class="fld"><label for="dist${i}">Distância só ida</label><div class="inp"><input id="dist${i}" type="text" inputmode="decimal" autocomplete="off" value="${shown(f.dist)}"><span>km</span></div></div>
+      <div class="fld"><label for="res${i}">Reserva</label><div class="inp"><input id="res${i}" type="text" inputmode="numeric" autocomplete="off" value="${shown(f.res)}"><span>un.</span></div></div>
+    </div>
+    <div class="grid2">
+      <div class="fld"><span class="fl" id="ntl${i}">Nº de tratores</span>
+        <div class="stepper" role="group" aria-labelledby="ntl${i}"><button type="button" data-dec="${i}" aria-label="Menos um trator" ${f.tr.length<=1?'disabled':''}>−</button><output aria-live="polite">${f.tr.length}</output><button type="button" data-inc="${i}" aria-label="Mais um trator" ${full?'disabled':''}>+</button></div>
+        <div class="lim">${full?`Máximo de ${MAXTR} tratores por frente`:''}</div></div>
+      <div class="fld"><label for="loc${i}">Caminhões locados</label><div class="inp"><input id="loc${i}" type="text" inputmode="numeric" autocomplete="off" value="${shown(f.loc)}"><span>un.</span></div></div>
+    </div>
+    <div class="trtab">
+      <div class="trh"><span>Trator</span><span>Nº da frota</span><span>Ciclo</span></div>
+      ${f.tr.map((t,j)=>`<div class="trr"><span class="trk">${j+1}</span>
+        <input id="trn${i}_${j}" inputmode="numeric" autocomplete="off" value="${esc(t.n)}" aria-label="Número do trator ${j+1}" placeholder="nº">
+        <div class="inp"><input id="trc${i}_${j}" type="text" inputmode="decimal" autocomplete="off" value="${shown(t.c)}" aria-label="Ciclo do trator ${j+1} em minutos"><span>min</span></div></div>`).join('')}
+      <div class="trm"><span>Ciclo médio da frente</span><strong id="o_avg${i}"></strong></div>
+    </div>
+    <div class="res">
+      <div><div class="k">Consumo frente</div><div class="v" id="o_cons${i}"></div></div>
+      <div><div class="k">Intervalo</div><div class="v" id="o_int${i}"></div></div>
+      <div><div class="k">Ida + volta</div><div class="v" id="o_iv${i}"></div></div>
+      <div><div class="k">Ciclo caminhão</div><div class="v" id="o_cic${i}"></div></div>
+      <div><div class="k">Na estrada</div><div class="v" id="o_est${i}"></div></div>
+      <div><div class="k">Com disponib.</div><div class="v" id="o_disp${i}"></div></div>
+      <div class="nec"><div class="k">Necessário</div><div class="v" id="o_nec${i}"></div></div>
+      <div><div class="k">Saldo</div><div class="v" id="o_sal${i}"></div></div>
+    </div>
+    <div class="formula" id="o_f${i}"></div>`;
+    box.appendChild(d);
+    const bind=(id,k,isNum=true)=>{const el=document.getElementById(id);el.addEventListener('input',()=>{f[k]=isNum?num(el.value):el.value;calc()})};
+    bind('nome'+i,'nome',false);bind('dist'+i,'dist');bind('res'+i,'res');bind('loc'+i,'loc');
+    f.tr.forEach((t,j)=>{
+      document.getElementById(`trn${i}_${j}`).addEventListener('input',e=>{t.n=e.target.value;save()});
+      document.getElementById(`trc${i}_${j}`).addEventListener('input',e=>{t.c=num(e.target.value);calc()});
+    });
+  });
+  box.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>twoTap(b,'Remover?',()=>{st.f.splice(+b.dataset.rm,1);render()}));
+  box.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>{const f=st.f[+b.dataset.inc];if(f.tr.length<MAXTR){f.tr.push(T('',Math.round(avgC(f)*10)/10));render()}});
+  box.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const f=st.f[+b.dataset.dec];if(f.tr.length>1){f.tr.pop();render()}});
+  calc();
+}
+
+function compute(){
+  const g=st.g;
+  const gBad=G.filter(id=>!(g[id]!=null&&RULE[id](g[id])));
+  const gOk=!gBad.length;
+  const disp=gOk?g.pDisp/100:1;
+  let consTot=0;
+  const rows=st.f.map(f=>{
+    const n=f.tr.length;
+    const fOk=isP(f.dist)&&f.tr.every(t=>isP(t.c))&&z(f.res)>=0&&z(f.loc)>=0;
+    const ok=gOk&&fOk;
+    const loc=Math.max(0,Math.round(z(f.loc)));
+    const avg=avgC(f);
+    if(!ok)return {f,n,ok,fOk,avg,loc};
+    const cons=f.tr.reduce((s,t)=>s+g.pVut/t.c,0);
+    const inter=g.pVcam/cons;
+    const ida=f.dist/g.pVcar*60, volta=f.dist/g.pVvaz*60;
+    const parado=g.pCarga+g.pDesc+g.pFila;
+    const ciclo=parado+ida+volta;
+    const est=ciclo/inter;
+    const comDisp=est/disp;
+    const nec=Math.ceil(comDisp-1e-9)+Math.max(0,Math.round(z(f.res)));
+    consTot+=cons;
+    return {f,n,ok,fOk,avg,cons,inter,ida,volta,parado,ciclo,est,comDisp,nec,loc,sal:loc-nec};
+  });
+  /* Capacidade da usina: m³/min que os bocais conseguem entregar */
+  const capM3=gOk?g.pVcam*g.pBoc/g.pCarga:0;
+  const sat=gOk&&consTot>0&&consTot>capM3+1e-9;
+  return {rows,consTot,gOk,gBad,capM3,sat,pct:consTot>0?capM3/consTot*100:100};
+}
+
+function mark(id,ok){const el=document.getElementById(id);if(el){el.classList.toggle('bad',!ok);el.setAttribute('aria-invalid',ok?'false':'true')}}
+
+function calc(){
+  save();
+  const {rows,consTot,gOk,gBad,capM3,sat,pct}=compute(),g=st.g;
+  G.forEach(id=>mark(id,!gBad.includes(id)));
+  const allOk=rows.every(r=>r.ok);
+  let tN=0,tL=0,nFalta=0;
+  rows.forEach((r,i)=>{
+    const f=r.f;
+    mark('dist'+i,isP(f.dist));mark('res'+i,z(f.res)>=0);mark('loc'+i,z(f.loc)>=0);
+    f.tr.forEach((t,j)=>mark(`trc${i}_${j}`,isP(t.c)));
+    tL+=r.loc;
+    const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+    s('o_avg'+i,fmt(r.avg)+' min');
+    const sl=document.getElementById('o_sal'+i);
+    if(!r.ok){
+      ['o_cons','o_int','o_iv','o_cic','o_est','o_disp','o_nec'].forEach(k=>s(k+i,'—'));
+      if(sl){sl.textContent='—';sl.className='v'}
+      s('o_f'+i,r.fOk?'Sem resultado: corrija os parâmetros gerais em vermelho.':'Sem resultado: preencha distância e o ciclo de todos os tratores (valores maiores que zero).');
+      return;
+    }
+    tN+=r.nec;if(r.sal<0)nFalta++;
+    s('o_cons'+i,fmt(r.cons,2)+' m³/min');s('o_int'+i,fmt(r.inter)+' min');
+    s('o_iv'+i,fmt(r.ida+r.volta)+' min');s('o_cic'+i,fmt(r.ciclo)+' min');
+    s('o_est'+i,fmt(r.est,2));s('o_disp'+i,fmt(r.comDisp,2));s('o_nec'+i,r.nec);
+    if(sl){sl.textContent=(r.sal>0?'+':'')+r.sal;sl.className='v '+(r.sal<0?'neg':'pos')}
+    s('o_f'+i,`Consumo = soma de (${fmt(g.pVut)} m³ ÷ ciclo de cada trator), ${r.n} tratores · Ida ${fmt(r.ida)} min a ${fmt(g.pVcar,0)} km/h + volta ${fmt(r.volta)} min a ${fmt(g.pVvaz,0)} km/h + ${fmt(r.parado,0)} min parado`);
+  });
+  const tn=document.getElementById('tNec'),ts=document.getElementById('tSal');
+  document.getElementById('tLoc').textContent=tL;
+  if(allOk){
+    tn.textContent=tN;const sal=tL-tN;ts.textContent=(sal>0?'+':'')+sal;ts.className='big '+(sal<0?'neg':'pos');
+    document.getElementById('tNecSub').textContent=`${rows.length} frente${rows.length===1?'':'s'}`;
+    document.getElementById('tSalSub').textContent=nFalta?`${nFalta} frente${nFalta>1?'s':''} com falta`:'nenhuma frente com falta';
+    document.getElementById('tSalSub').className='sub'+(nFalta?' neg':'');
+  }else{
+    tn.textContent='—';ts.textContent='—';ts.className='big';
+    document.getElementById('tNecSub').textContent='dados incompletos';
+    document.getElementById('tSalSub').textContent='';
+  }
+
+  const al=[];
+  const inval=[];if(!gOk)inval.push('Parâmetros gerais');rows.forEach(r=>{if(!r.fOk)inval.push(r.f.nome||'frente sem nome')});
+  if(inval.length)al.push(['bad',`Dados vazios ou inválidos em: ${inval.join(', ')}. Os totais só aparecem com tudo preenchido.`]);
+  const falt=rows.filter(r=>r.ok&&r.sal<0).map(r=>`faltam ${-r.sal} caminhões em ${r.f.nome}`);
+  if(falt.length)al.push(['bad',falt.join(' · ').replace(/^./,c=>c.toUpperCase())]);
+  if(sat){
+    al.push(['warn',`Usina no limite: ${g.pBoc} bocais entregam ${fmt(capM3,2)} m³/min e as frentes consomem ${fmt(consTot,2)} m³/min. A usina atende ${fmt(pct,0)}% do consumo. Locar mais caminhões não resolve, só aumenta a fila acima de ${fmt(g.pFila,0)} min. Saídas: mais bocais, carga mais rápida ou menos tratores rodando.`]);
+  }
+  document.getElementById('alerts').innerHTML=al.map(([c,t])=>`<div class="alert ${c}" role="status">${esc(t)}</div>`).join('');
+
+  const max=Math.max(1,...rows.map(r=>Math.max(r.ok?r.nec:0,r.loc)));
+  document.getElementById('chart').innerHTML=rows.map(r=>`<div class="crow"><div class="nm">${esc(r.f.nome)}</div><div class="bars">
+    <div class="bar n" style="width:${(r.ok?r.nec:0)/max*100}%">${r.ok?r.nec:'—'}</div>
+    <div class="bar l" style="width:${r.loc/max*100}%">${r.loc}</div></div></div>`).join('');
+}
+
+function relatorio(){
+  const {rows,consTot,capM3,sat,pct}=compute(),g=st.g,m=st.meta;
+  const d=new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+  let tN=0,tL=0,ok=true;
+  let t=`*LOGÍSTICA VINHAÇA LOCALIZADA*\n${d}${m.turno?` · Turno ${m.turno}`:''}\n${m.resp?`Resp.: ${m.resp}\n`:''}\n`;
+  rows.forEach(r=>{tL+=r.loc;
+    const frota=r.f.tr.map(x=>String(x.n||'').trim()).filter(Boolean);
+    if(!r.ok){ok=false;t+=`*${r.f.nome}*: dados incompletos\n\n`;return}
+    tN+=r.nec;
+    t+=`*${r.f.nome}* — ${fmt(r.f.dist)} km · ${r.n} tratores${frota.length?` (${frota.join(', ')})`:''}\n`;
+    t+=`Ciclo trator ${fmt(r.avg)} min · 1 caminhão a cada ${fmt(r.inter)} min · ciclo caminhão ${fmt(r.ciclo)} min\n`;
+    t+=`Necessário ${r.nec} · Locado ${r.loc} · Saldo ${r.sal>0?'+':''}${r.sal}\n\n`;});
+  t+=ok?`*TOTAL*: necessário ${tN} · locado ${tL} · saldo ${tL-tN>0?'+':''}${tL-tN}\n`:`*TOTAL*: incompleto, há frentes sem dados\n`;
+  t+=`Vel. ${fmt(g.pVcar,0)}/${fmt(g.pVvaz,0)} km/h · fila ${fmt(g.pFila,0)} min · disp. ${fmt(g.pDisp,0)}% · ${g.pBoc} bocais\n`;
+  if(sat)t+=`⚠ Usina atende ${fmt(pct,0)}% do consumo (${fmt(capM3,2)} de ${fmt(consTot,2)} m³/min). Mais caminhão não resolve.\n`;
+  return t;
+}
+document.getElementById('genRel').onclick=()=>{
+  const t=relatorio();document.getElementById('relTxt').value=t;
+  document.getElementById('waLink').href='https://wa.me/?text='+encodeURIComponent(t);
+  const b=document.getElementById('relBox');b.hidden=false;b.scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+document.getElementById('copyRel').onclick=async e=>{
+  const ta=document.getElementById('relTxt');
+  try{await navigator.clipboard.writeText(ta.value);e.target.textContent='Copiado'}
+  catch(err){ta.focus();ta.select();e.target.textContent='Texto selecionado'}
+  setTimeout(()=>e.target.textContent='Copiar texto',1800);
+};
+document.getElementById('addF').onclick=()=>{st.f.push({nome:'Nova frente',dist:30,res:1,loc:0,tr:[T('',33),T('',33),T('',33)]});render()};
+document.getElementById('reset').onclick=e=>twoTap(e.currentTarget,'Toque de novo para apagar tudo e restaurar',()=>{
+  const skin=st.skin;st=JSON.parse(JSON.stringify(DEF));st.skin=skin;
+  const b=document.getElementById('reset');delete b.dataset.armed;b.classList.remove('arm');b.textContent='Restaurar exemplo';
+  bindGeneral();render();
+});
+applySkin();bindGeneral();render();
+
+function buildFile(){
+  const q=s=>document.querySelector(s);
+  const wrap=q('.wrap').cloneNode(true);
+  ['#frentes','#alerts','#chart'].forEach(s=>{const e=wrap.querySelector(s);if(e)e.innerHTML=''});
+  wrap.querySelector('#relBox').hidden=true;
+  wrap.querySelector('#dlBox').hidden=true;
+  const font=q('link[href*="fonts.googleapis"]');
+  save();
+  const state=JSON.stringify(st).replace(/</g,'\\u003c');
+  return '<!doctype html><html lang="pt-BR" data-skin="'+st.skin+'"><head><meta charset="utf-8">'
+    +'<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+    +q('title').outerHTML+Array.from(document.querySelectorAll('.appicon,meta[name=theme-color]')).map(e=>e.outerHTML).join('')+(font?font.outerHTML:'')+q('style').outerHTML
+    +'<style>body{margin:0;font-size:15px}[hidden]{display:none!important}</style></head><body>'
+    +wrap.outerHTML
+    +'<script>window.__LV_STATE='+state+';<\/script>'
+    +'<script>'+q('#app').textContent+'<\/script></body></html>';
+}
+(async()=>{
+  let downloads=null;
+  try{downloads=window.claude?.use?await window.claude.use('downloads'):null}catch(e){}
+  if(!downloads)return;
+  const box=document.getElementById('dlBox'),btn=document.getElementById('dlBtn'),msg=document.getElementById('dlMsg');
+  box.hidden=false;
+  btn.onclick=async()=>{
+    btn.disabled=true;
+    try{
+      await downloads.save({filename:'Logistica-Vinhaca.html',data:buildFile()});
+      msg.textContent='App salvo. Abra o arquivo Logistica-Vinhaca.html no Chrome do celular.';
+    }catch(err){
+      const c=err&&err.code;
+      if(c==='declined')msg.textContent='Download cancelado. Toque de novo quando quiser salvar.';
+      else if(c==='rate_limited')msg.textContent='Já existe um pedido de download aberto. Confirme ou feche e tente de novo.';
+      else{msg.textContent='Este aparelho não permite baixar o arquivo por aqui.';btn.hidden=true}
+    }finally{btn.disabled=false}
+  };
+})();
+</script>
+
+<div id="pwa-inst" hidden style="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:9999;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;background:#1d7a43;color:#fff;font:600 16px system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.3)"><span style="flex:1">Use como aplicativo, até sem internet.</span><button id="pwa-b" type="button" style="font:700 16px system-ui,sans-serif;padding:10px 14px;border:0;border-radius:9px;background:#fff;color:#1d7a43">📲 Instalar app</button><button id="pwa-x" type="button" aria-label="Fechar" style="font:700 18px system-ui;border:0;background:transparent;color:#fff;padding:6px">✕</button></div>
+<script>(function(){var d=null,b=document.getElementById('pwa-inst');
+function sa(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone}
+var off=false;try{off=localStorage.getItem('pwa-x-logistica-vinhaca')==='1'}catch(e){}
+addEventListener('beforeinstallprompt',function(e){e.preventDefault();d=e;if(!sa()&&!off)b.hidden=false});
+document.getElementById('pwa-b').onclick=async function(){if(d){d.prompt();try{await d.userChoice}catch(e){}d=null;b.hidden=true}else alert('No Chrome, toque no menu ⋮ e depois em "Instalar app".')};
+document.getElementById('pwa-x').onclick=function(){b.hidden=true;try{localStorage.setItem('pwa-x-logistica-vinhaca','1')}catch(e){}};
+addEventListener('appinstalled',function(){b.hidden=true});
+if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});})();</script>
+</body></html>
