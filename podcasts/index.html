@@ -51,6 +51,13 @@ h2{font-size:21px;font-weight:800;margin:24px 0 12px}
 .hero p{margin:0;color:var(--mut);font-size:15px}
 .fav{margin-top:12px;height:44px;padding:0 16px;border-radius:22px;border:2px solid var(--ink);background:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px}
 .fav.on{background:var(--ink);color:#fff}
+.fav.on svg{fill:currentColor}
+.epw{display:flex;align-items:center;gap:4px;border-bottom:1px solid var(--line)}
+.epw>.ep,.epw>.pod{border-bottom:none;flex:1;min-width:0}
+.hb{width:46px;height:46px;border-radius:23px;border:none;background:none;color:#6B7280;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hb.on{color:#BE185D}.hb.on svg{fill:currentColor}
+#sh-fav{margin:0 0 18px;border-color:#4B5563;color:#fff}
+#sh-fav.on{background:#fff;color:var(--ink)}
 .ep{width:100%;display:flex;gap:12px;align-items:center;padding:14px 0;border:none;border-bottom:1px solid var(--line);background:none;text-align:left}
 .ep .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .ep b{font-size:17px;font-weight:600;line-height:1.3}
@@ -111,6 +118,7 @@ nav button.on{color:var(--ink);font-weight:600}
   <img class="art" id="sh-img" alt="">
   <h3 id="sh-t"></h3>
   <p class="pn" id="sh-p"></p>
+  <button class="fav" id="sh-fav"></button>
   <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Posição do episódio">
   <div class="times"><span id="sh-cur">0:00</span><span id="sh-dur">--:--</span></div>
   <div class="ctrls">
@@ -195,7 +203,7 @@ function home(){
  <h1>Bora ouvir<i>.</i></h1>
  <form class="search" onsubmit="event.preventDefault();go({v:'search',q:this.q.value.trim()})">${IC.search}<input name="q" placeholder="O que você procura?" enterkeyhint="search" aria-label="Buscar podcasts"></form>
  <div class="chips">${QUICK.map(n=>catChip(n)).join("")}</div>
- ${cont.length?`<h2>Continue ouvindo</h2><div>${cont.map(epRowHist).join("")}</div>`:""}
+ ${cont.length?`<h2>Continue ouvindo</h2><div>${cont.map((e,i)=>epRowHist(e,i,"hist")).join("")}</div>`:""}
  <h2>Suas pastas</h2><div class="grid">${tiles()}</div>`;
  showInst();
 }
@@ -212,7 +220,7 @@ async function cat(name){const fc=findCat(name);if(!fc)return go({v:"home"},true
 async function pod(id,n,img,a){
  const favs=LS.get("favs",[]);const isFav=favs.some(x=>x.id===id);
  M.innerHTML=`${backBtn()}<div class="hero">${img?`<img src="${esc(img)}" alt="">`:'<span class="ph" style="width:140px;height:140px;border-radius:20px"></span>'}<div><h1>${esc(n)}</h1><p>${esc(a)}</p></div></div>
- <button class="fav${isFav?" on":""}" id="favb">${IC.heart}${isFav?"Na biblioteca":"Salvar na biblioteca"}</button>
+ <button class="fav${isFav?" on":""}" id="favb">${IC.heart}${isFav?"Canal favorito":"Favoritar canal"}</button>
  <h2>Episódios</h2><div id="eps"><div class="spin" role="status" aria-label="Carregando"></div></div>`;
  $("#favb").onclick=()=>{let fs=LS.get("favs",[]);if(fs.some(x=>x.id===id))fs=fs.filter(x=>x.id!==id);else fs.unshift({id,n,img,a});LS.set("favs",fs);pod(id,n,img,a)};
  const E=$("#eps");
@@ -222,12 +230,21 @@ let curList=[];
 function fmtDate(d){try{return new Date(d).toLocaleDateString("pt-BR",{day:"2-digit",month:"short",year:"numeric"})}catch{return""}}
 function fmtT(s){s=Math.max(0,Math.floor(s||0));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0")}
 function fmtDur(ms){if(!ms)return"";const m=Math.round(ms/60000);return m>=60?Math.floor(m/60)+" h "+(m%60)+" min":m+" min"}
+const favEps=()=>LS.get("favEps",[]);
+const isFavEp=id=>favEps().some(x=>x.id===id);
+const epData=e=>({id:e.id,n:e.n,u:e.u,ms:e.ms,img:e.img,pod:e.pod,podImg:e.podImg,podId:e.podId,desc:(e.desc||"").slice(0,600)});
+function toggleFavEp(e){let f=favEps();if(f.some(x=>x.id===e.id))f=f.filter(x=>x.id!==e.id);else f.unshift(epData(e));LS.set("favEps",f);
+ document.querySelectorAll('.hb[data-id="'+e.id+'"]').forEach(b=>{const on=isFavEp(e.id);b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);b.setAttribute("aria-label",on?"Tirar dos favoritos":"Favoritar episódio")});
+ if(cur&&cur.id===e.id)ui();if(view.v==="lib")lib()}
+function heartBtn(e,call){const on=isFavEp(e.id);return`<button class="hb${on?" on":""}" data-id="${e.id}" aria-pressed="${on}" aria-label="${on?"Tirar dos favoritos":"Favoritar episódio"}" onclick="${call}">${IC.heart}</button>`}
+function favIdx(i){toggleFavEp(curList[i])}
+function favFrom(src,i){const e=LS.get(src,[])[i];if(e)toggleFavEp(e)}
 function epRow(e,i){const now=cur&&cur.id===e.id;const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
- return`<button class="ep${now?" now":""}" onclick="playIdx(${i})"><span class="t"><b>${esc(e.n)}</b><small>${[fmtDate(e.d),fmtDur(e.ms)].filter(Boolean).join(" · ")}</small>${e.desc?`<p>${esc(e.desc)}</p>`:""}${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl">${now&&!au.paused?IC.pause:IC.play}</span></button>`}
-function epRowHist(e,i){const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
- return`<button class="pod" onclick="playHist(${i})">${e.img||e.podImg?`<img src="${esc(e.img||e.podImg)}" alt="" loading="lazy">`:'<span class="ph"></span>'}<span class="t"><b>${esc(e.n)}</b><small>${esc(e.pod)}</small>${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl" style="width:44px;height:44px;border-radius:22px;background:var(--soft);display:flex;align-items:center;justify-content:center">${IC.play}</span></button>`}
+ return`<div class="epw"><button class="ep${now?" now":""}" onclick="playIdx(${i})"><span class="t"><b>${esc(e.n)}</b><small>${[fmtDate(e.d),fmtDur(e.ms)].filter(Boolean).join(" · ")}</small>${e.desc?`<p>${esc(e.desc)}</p>`:""}${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl">${now&&!au.paused?IC.pause:IC.play}</span></button>${heartBtn(e,"favIdx("+i+")")}</div>`}
+function epRowHist(e,i,src){src=src||"hist";const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
+ return`<div class="epw"><button class="pod" onclick="playFrom('${src}',${i})">${e.img||e.podImg?`<img src="${esc(e.img||e.podImg)}" alt="" loading="lazy">`:'<span class="ph"></span>'}<span class="t"><b>${esc(e.n)}</b><small>${esc(e.pod)}</small>${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl" style="width:44px;height:44px;border-radius:22px;background:var(--soft);display:flex;align-items:center;justify-content:center">${IC.play}</span></button>${heartBtn(e,"favFrom('"+src+"',"+i+")")}</div>`}
 function playIdx(i){const e=curList[i];if(cur&&cur.id===e.id){toggle();return}play(e)}
-function playHist(i){const e=LS.get("hist",[])[i];if(e)play(e)}
+function playFrom(src,i){const e=LS.get(src,[])[i];if(!e)return;if(cur&&cur.id===e.id){toggle();return}play(e)}
 let sTimer;
 function search(q){
  M.innerHTML=`<h1>Buscar</h1><form class="search" id="sf">${IC.search}<input name="q" id="sq" value="${esc(q)}" placeholder="Podcast, tema ou pessoa" enterkeyhint="search" aria-label="Buscar podcasts"></form><div id="res"></div>`;
@@ -239,9 +256,10 @@ async function run(q,push){const R=$("#res");if(!R)return;history.replaceState({
  if(!q){R.innerHTML=FOLDERS.map(f=>`<h2>${f.n}</h2><div class="chips" style="margin-top:0">${f.cats.map(c=>catChip(c[0])).join("")}</div>`).join("");return}
  R.innerHTML='<div class="spin" role="status" aria-label="Carregando"></div>';
  try{const ps=await searchPods([q]);if(view.v!=="search"||view.q!==q)return;R.innerHTML=ps.length?ps.map(podRow).join(""):`<div class="msg">Nada encontrado para “${esc(q)}”.</div>`}catch{errBox(R)}}
-function lib(){const favs=LS.get("favs",[]),hist=LS.get("hist",[]);
- M.innerHTML=`<h1>Biblioteca</h1><h2>Podcasts salvos</h2>${favs.length?favs.map(podRow).join(""):'<p class="hint">Toque em “Salvar na biblioteca” num podcast para ele aparecer aqui.</p>'}
- <h2>Ouvidos recentemente</h2>${hist.length?hist.map(epRowHist).join(""):'<p class="hint">Os episódios que você ouvir aparecem aqui, e voltam de onde você parou.</p>'}`}
+function lib(){const favs=LS.get("favs",[]),hist=LS.get("hist",[]),fe=favEps();
+ M.innerHTML=`<h1>Biblioteca</h1><h2>Canais favoritos</h2>${favs.length?favs.map(podRow).join(""):'<p class="hint">Toque em “Favoritar canal” na página de um podcast para ele aparecer aqui.</p>'}
+ <h2>Episódios favoritos</h2>${fe.length?fe.map((e,i)=>epRowHist(e,i,"favEps")).join(""):'<p class="hint">Toque no coração ao lado de um episódio para guardar ele aqui.</p>'}
+ <h2>Ouvidos recentemente</h2>${hist.length?hist.map((e,i)=>epRowHist(e,i,"hist")).join(""):'<p class="hint">Os episódios que você ouvir aparecem aqui, e voltam de onde você parou.</p>'}`}
 
 /* ---------- player ---------- */
 let cur=null;const SPEEDS=[1,1.25,1.5,2,0.75];let sp=LS.get("speed",1);
@@ -249,7 +267,7 @@ function play(e){cur=e;au.src=e.u;au.playbackRate=sp;
  const pos=LS.get("pos:"+e.id,0);
  au.onloadedmetadata=()=>{if(pos>5&&(!au.duration||pos<au.duration-10))au.currentTime=pos;au.onloadedmetadata=null};
  doPlay();
- let h=LS.get("hist",[]).filter(x=>x.id!==e.id);h.unshift({id:e.id,n:e.n,u:e.u,ms:e.ms,img:e.img,pod:e.pod,podImg:e.podImg,desc:(e.desc||"").slice(0,600)});LS.set("hist",h.slice(0,30));
+ let h=LS.get("hist",[]).filter(x=>x.id!==e.id);h.unshift(epData(e));LS.set("hist",h.slice(0,30));
  if("mediaSession"in navigator){const art=e.img||e.podImg;navigator.mediaSession.metadata=new MediaMetadata({title:e.n,artist:e.pod,artwork:art?[{src:art,sizes:"600x600"}]:[]})}
  ui();if(view.v==="pod")refreshEps();
 }
@@ -264,6 +282,7 @@ function ui(){const m=$("#mini");if(!cur){m.hidden=true;return}m.hidden=false;
  const ic=au.paused?IC.play:IC.pause,lb=au.paused?"Tocar":"Pausar";
  $("#mini-play").innerHTML=ic;$("#mini-play").setAttribute("aria-label",lb);
  $("#sh-play").innerHTML=ic.replace(/20/g,"30");$("#sh-play").setAttribute("aria-label",lb);
+ const fv=isFavEp(cur.id);const sf=$("#sh-fav");sf.className="fav"+(fv?" on":"");sf.innerHTML=IC.heart+(fv?"Episódio favorito":"Favoritar episódio");sf.setAttribute("aria-pressed",fv);
  $("#sh-speed").textContent="Velocidade "+String(sp).replace(".",",")+"x"}
 function msState(){if("mediaSession"in navigator){try{navigator.mediaSession.playbackState=au.paused?"paused":"playing"}catch{}}}
 au.addEventListener("play",()=>{ui();refreshEps();msState()});
@@ -289,6 +308,7 @@ $("#sh-speed").onclick=()=>{sp=SPEEDS[(SPEEDS.indexOf(sp)+1)%SPEEDS.length];au.p
 $("#mini-open").onclick=()=>{$("#sheet").hidden=false;history.pushState({...view,sheet:1},"")};
 function closeSheet(fromPop){$("#sheet").hidden=true;if(!fromPop)history.back()}
 $("#sh-close").onclick=()=>closeSheet();
+$("#sh-fav").onclick=()=>{if(cur)toggleFavEp(cur)};
 if("mediaSession"in navigator){const ms=navigator.mediaSession;
  const H=(n,f)=>{try{ms.setActionHandler(n,f)}catch{}};
  H("play",()=>doPlay());H("pause",()=>doPause());H("stop",()=>doPause());
