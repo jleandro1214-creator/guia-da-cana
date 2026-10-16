@@ -248,12 +248,15 @@ let cur=null;const SPEEDS=[1,1.25,1.5,2,0.75];let sp=LS.get("speed",1);
 function play(e){cur=e;au.src=e.u;au.playbackRate=sp;
  const pos=LS.get("pos:"+e.id,0);
  au.onloadedmetadata=()=>{if(pos>5&&(!au.duration||pos<au.duration-10))au.currentTime=pos;au.onloadedmetadata=null};
- au.play().catch(()=>{});
+ doPlay();
  let h=LS.get("hist",[]).filter(x=>x.id!==e.id);h.unshift({id:e.id,n:e.n,u:e.u,ms:e.ms,img:e.img,pod:e.pod,podImg:e.podImg,desc:(e.desc||"").slice(0,600)});LS.set("hist",h.slice(0,30));
  if("mediaSession"in navigator){const art=e.img||e.podImg;navigator.mediaSession.metadata=new MediaMetadata({title:e.n,artist:e.pod,artwork:art?[{src:art,sizes:"600x600"}]:[]})}
  ui();if(view.v==="pod")refreshEps();
 }
-function toggle(){if(!cur)return;au.paused?au.play().catch(()=>{}):au.pause()}
+let userPaused=false,interrupted=false,retryAt=0;
+function doPlay(){userPaused=false;interrupted=false;return au.play().catch(()=>{})}
+function doPause(){userPaused=true;interrupted=false;au.pause()}
+function toggle(){if(!cur)return;au.paused?doPlay():doPause()}
 function refreshEps(){const E=$("#eps");if(E&&curList.length)E.innerHTML=curList.map((e,i)=>epRow(e,i)).join("")}
 function ui(){const m=$("#mini");if(!cur){m.hidden=true;return}m.hidden=false;
  const img=cur.img||cur.podImg||"";$("#mini-img").src=img;$("#mini-img").style.visibility=img?"visible":"hidden";$("#mini-t").textContent=cur.n;$("#mini-p").textContent=cur.pod;
@@ -262,7 +265,11 @@ function ui(){const m=$("#mini");if(!cur){m.hidden=true;return}m.hidden=false;
  $("#mini-play").innerHTML=ic;$("#mini-play").setAttribute("aria-label",lb);
  $("#sh-play").innerHTML=ic.replace(/20/g,"30");$("#sh-play").setAttribute("aria-label",lb);
  $("#sh-speed").textContent="Velocidade "+String(sp).replace(".",",")+"x"}
-au.addEventListener("play",()=>{ui();refreshEps()});au.addEventListener("pause",()=>{ui();refreshEps();savePos()});
+function msState(){if("mediaSession"in navigator){try{navigator.mediaSession.playbackState=au.paused?"paused":"playing"}catch{}}}
+au.addEventListener("play",()=>{ui();refreshEps();msState()});
+au.addEventListener("pause",()=>{ui();refreshEps();savePos();msState();
+ /* o celular pausou sozinho (tela apagada, saiu do app): tenta continuar */
+ if(!userPaused&&cur&&!au.ended){interrupted=true;if(Date.now()-retryAt>4000){retryAt=Date.now();setTimeout(()=>{if(interrupted&&!userPaused)au.play().catch(()=>{})},400)}}});
 au.addEventListener("ended",()=>{if(cur)LS.set("pos:"+cur.id,0)});
 au.addEventListener("error",()=>{if(cur&&au.src)alert("Não consegui tocar este episódio. Pode ser a internet ou o arquivo do podcast.")});
 let lastSave=0;function savePos(){if(cur&&au.currentTime>0)LS.set("pos:"+cur.id,Math.floor(au.currentTime))}
@@ -271,7 +278,8 @@ au.addEventListener("timeupdate",()=>{const d=au.duration||0,t=au.currentTime;
  $("#mini-bar").style.width=d?(t/d*100)+"%":"0";
  if(!dragging){$("#seek").value=d?Math.round(t/d*1000):0;$("#sh-cur").textContent=fmtT(t)}
  $("#sh-dur").textContent=d&&isFinite(d)?fmtT(d):"--:--";
- if(Date.now()-lastSave>5000){lastSave=Date.now();savePos()}});
+ if(Date.now()-lastSave>5000){lastSave=Date.now();savePos();
+  if("mediaSession"in navigator&&navigator.mediaSession.setPositionState&&d&&isFinite(d)){try{navigator.mediaSession.setPositionState({duration:d,playbackRate:au.playbackRate,position:Math.min(t,d)})}catch{}}}});
 $("#seek").oninput=e=>{dragging=true;const d=au.duration||0;$("#sh-cur").textContent=fmtT(d*e.target.value/1000)};
 $("#seek").onchange=e=>{const d=au.duration||0;if(d)au.currentTime=d*e.target.value/1000;dragging=false};
 const skip=s=>{if(cur)au.currentTime=Math.max(0,Math.min((au.duration||1e9),au.currentTime+s))};
@@ -282,9 +290,12 @@ $("#mini-open").onclick=()=>{$("#sheet").hidden=false;history.pushState({...view
 function closeSheet(fromPop){$("#sheet").hidden=true;if(!fromPop)history.back()}
 $("#sh-close").onclick=()=>closeSheet();
 if("mediaSession"in navigator){const ms=navigator.mediaSession;
- ms.setActionHandler("play",()=>au.play());ms.setActionHandler("pause",()=>au.pause());
- ms.setActionHandler("seekbackward",()=>skip(-15));ms.setActionHandler("seekforward",()=>skip(30))}
-addEventListener("visibilitychange",savePos);
+ const H=(n,f)=>{try{ms.setActionHandler(n,f)}catch{}};
+ H("play",()=>doPlay());H("pause",()=>doPause());H("stop",()=>doPause());
+ H("seekbackward",()=>skip(-15));H("seekforward",()=>skip(30));
+ H("seekto",d=>{if(d&&d.seekTime!=null)au.currentTime=d.seekTime})}
+addEventListener("visibilitychange",()=>{savePos();if(!document.hidden&&interrupted&&!userPaused&&cur)au.play().catch(()=>{})});
+addEventListener("pagehide",savePos);
 
 /* ---------- arrastar para os lados troca de aba ---------- */
 (()=>{let x0=null,y0=0;const TABS=["home","search","lib"];
