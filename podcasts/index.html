@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ondas · Podcasts</title>
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800&display=swap">
+<style>
+:root{--ink:#111827;--mut:#5B6270;--line:#E5E7EB;--soft:#F1F2F5;--bg:#FFFFFF;--acc:#C2410C}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Outfit',system-ui,sans-serif;font-size:17px}
+button,input{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+#main{padding:20px 18px 190px;max-width:620px;margin:0 auto;min-height:100vh}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1;margin:6px 0 16px}
+h1 i{color:var(--acc);font-style:normal}
+h2{font-size:21px;font-weight:800;margin:24px 0 12px}
+.row{display:flex;align-items:center;gap:10px}
+.topbar{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.logo{font-weight:800;letter-spacing:3px;font-size:15px}
+.inst{height:40px;padding:0 14px;border-radius:20px;border:none;background:var(--ink);color:#fff;font-weight:600;font-size:15px}
+.search{display:flex;align-items:center;gap:10px;height:54px;padding:0 16px;border-radius:14px;border:2px solid var(--ink)}
+.search input{flex:1;border:none;outline:none;background:transparent;font-size:17px;min-width:0}
+.search svg{flex-shrink:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chip{height:40px;padding:0 15px;border-radius:20px;border:none;background:var(--soft);font-size:15px}
+.chip.on{background:var(--ink);color:#fff;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{text-align:left;border:none;border-radius:20px;padding:16px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-height:150px}
+.tile b{font-size:18px;font-weight:800;line-height:1.1;overflow-wrap:anywhere;hyphens:auto}
+.tile small{font-size:13px;line-height:1.4;opacity:.95}
+.back{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 14px 0 8px;border-radius:22px;border:none;background:var(--soft);font-weight:600;font-size:16px}
+.band{border-radius:22px;padding:22px 18px;color:#fff;margin:14px 0 16px}
+.band h1{margin:0 0 4px;font-size:32px}
+.band p{margin:0;font-size:15px;opacity:.95}
+.catbtn{width:100%;display:flex;justify-content:space-between;align-items:center;min-height:64px;padding:0 18px;margin-bottom:10px;border-radius:16px;border:none;font-size:19px;font-weight:600;text-align:left}
+.pod{width:100%;display:flex;align-items:center;gap:14px;padding:10px 0;border:none;border-bottom:1px solid var(--line);background:none;text-align:left}
+.pod img,.ph{width:68px;height:68px;border-radius:14px;object-fit:cover;background:var(--soft);flex-shrink:0}
+.pod .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.pod b{font-size:17px;font-weight:600;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pod small{font-size:14px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero{display:flex;gap:16px;align-items:flex-end;margin:14px 0 6px}
+.hero img{width:140px;height:140px;border-radius:20px;object-fit:cover;background:var(--soft);flex-shrink:0}
+.hero h1{font-size:25px;margin:0 0 6px;letter-spacing:-.5px}
+.hero p{margin:0;color:var(--mut);font-size:15px}
+.fav{margin-top:12px;height:44px;padding:0 16px;border-radius:22px;border:2px solid var(--ink);background:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px}
+.fav.on{background:var(--ink);color:#fff}
+.ep{width:100%;display:flex;gap:12px;align-items:center;padding:14px 0;border:none;border-bottom:1px solid var(--line);background:none;text-align:left}
+.ep .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ep b{font-size:17px;font-weight:600;line-height:1.3}
+.ep small{font-size:14px;color:var(--mut)}
+.ep p{margin:0;font-size:14px;color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ep .pl{width:46px;height:46px;border-radius:23px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ep.now .pl{background:var(--acc);color:#fff}
+.bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin-top:4px}
+.bar span{display:block;height:100%;background:var(--acc)}
+.msg{padding:28px 6px;text-align:center;color:var(--mut);font-size:17px;line-height:1.45}
+.msg button{margin-top:12px;height:46px;padding:0 20px;border-radius:23px;border:none;background:var(--ink);color:#fff;font-weight:600}
+.spin{width:34px;height:34px;border:4px solid var(--line);border-top-color:var(--ink);border-radius:50%;margin:30px auto;animation:r 0.8s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+#mini{position:fixed;left:10px;right:10px;bottom:calc(74px + env(safe-area-inset-bottom));max-width:600px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:18px;background:var(--ink);color:#fff;z-index:5}
+#mini .open{flex:1;min-width:0;display:flex;align-items:center;gap:12px;background:none;border:none;color:#fff;text-align:left;padding:0}
+#mini img{width:46px;height:46px;border-radius:12px;object-fit:cover;background:#374151;flex-shrink:0}
+#mini .t{min-width:0;display:flex;flex-direction:column;gap:2px}
+#mini b{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mini small{font-size:13px;color:#C7CBD4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbtn{width:48px;height:48px;border-radius:24px;border:none;background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#mini .prog{position:absolute;left:14px;right:14px;bottom:3px;height:3px;border-radius:2px;background:#374151;overflow:hidden}
+#mini .prog span{display:block;height:100%;background:var(--acc);width:0}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:6px 0 calc(8px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);z-index:4}
+nav button{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:84px;padding:6px 0;border:none;background:none;font-size:13px;color:#6B7280}
+nav button.on{color:var(--ink);font-weight:600}
+#sheet{position:fixed;inset:0;background:var(--ink);color:#fff;z-index:10;display:flex;flex-direction:column;padding:16px 22px calc(26px + env(safe-area-inset-bottom));overflow-y:auto}
+#sheet .close{align-self:flex-start;height:44px;padding:0 14px 0 8px;border-radius:22px;border:none;background:#1F2937;color:#fff;display:flex;align-items:center;gap:6px;font-weight:600}
+#sheet .art{width:min(78vw,330px);aspect-ratio:1;border-radius:24px;object-fit:cover;background:#374151;margin:26px auto 22px;display:block}
+#sheet h3{margin:0;font-size:23px;line-height:1.25;font-weight:800}
+#sheet .pn{margin:6px 0 20px;color:#C7CBD4;font-size:16px}
+#seek{width:100%;accent-color:var(--acc);height:28px}
+.times{display:flex;justify-content:space-between;font-size:14px;color:#C7CBD4}
+.ctrls{display:flex;justify-content:center;align-items:center;gap:26px;margin-top:18px}
+.ctrls .sm{width:58px;height:58px;border-radius:29px;border:none;background:#1F2937;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.ctrls .big{width:78px;height:78px;border-radius:39px;border:none;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center}
+.speed{margin:22px auto 0;height:44px;padding:0 20px;border-radius:22px;border:2px solid #374151;background:none;color:#fff;font-weight:600;display:block}
+.desc{margin-top:22px;font-size:15px;line-height:1.5;color:#D1D5DB;white-space:pre-line}
+.hint{font-size:15px;color:var(--mut);margin:10px 0 0}
+</style>
+</head>
+<body>
+<main id="main"></main>
+
+<div id="mini" hidden>
+  <button class="open" id="mini-open" aria-label="Abrir player"><img id="mini-img" alt=""><span class="t"><b id="mini-t"></b><small id="mini-p"></small></span></button>
+  <button class="pbtn" id="mini-play" aria-label="Tocar"></button>
+  <div class="prog"><span id="mini-bar"></span></div>
+</div>
+
+<nav>
+  <button data-tab="home" class="on"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>Início</button>
+  <button data-tab="search"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Buscar</button>
+  <button data-tab="lib"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4v16M9 4v16M14 4l6 16"/></svg>Biblioteca</button>
+</nav>
+
+<section id="sheet" hidden aria-label="Player">
+  <button class="close" id="sh-close"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>Fechar</button>
+  <img class="art" id="sh-img" alt="">
+  <h3 id="sh-t"></h3>
+  <p class="pn" id="sh-p"></p>
+  <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Posição do episódio">
+  <div class="times"><span id="sh-cur">0:00</span><span id="sh-dur">--:--</span></div>
+  <div class="ctrls">
+    <button class="sm" id="sh-back" aria-label="Voltar 15 segundos"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4h4"/></svg>15</button>
+    <button class="big" id="sh-play" aria-label="Tocar"></button>
+    <button class="sm" id="sh-fwd" aria-label="Avançar 30 segundos"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 12a8 8 0 1 1-3-6.2"/><path d="M20 4v4h-4"/></svg>30</button>
+  </div>
+  <button class="speed" id="sh-speed">Velocidade 1x</button>
+  <div class="desc" id="sh-desc"></div>
+</section>
+
+<audio id="au" preload="none"></audio>
+
+<script>
+const FOLDERS=[
+ {id:"ciencia",n:"Ciência e Natureza",c:"#1D4ED8",t:"#E3EBFD",cats:[["Ciências",["ciência","divulgação científica"]],["Física",["física"]],["Astronomia",["astronomia","espaço"]],["Agronomia",["agronomia","agro","agricultura"]],["Meio Ambiente",["meio ambiente","sustentabilidade"]]]},
+ {id:"sociedade",n:"Sociedade",c:"#C2410C",t:"#FCE7DC",cats:[["Política",["política"]],["Economia e Finanças",["economia","finanças"]],["Notícias do dia",["notícias","jornal"]],["História e Filosofia",["história","filosofia"]]]},
+ {id:"cultura",n:"Cultura e Arte",c:"#BE185D",t:"#FBE3EE",cats:[["Cinema",["cinema","filmes"]],["Desenhos",["desenhos animados","animação","anime"]],["Música",["música"]],["Literatura",["literatura","livros"]]]},
+ {id:"entret",n:"Entretenimento",c:"#7C3AED",t:"#EEE5FD",cats:[["Humor",["humor","comédia"]],["True Crime",["true crime","crime"]],["Games",["games","videogame"]],["Esportes",["esporte","futebol"]]]},
+ {id:"desenv",n:"Desenvolvimento",c:"#0F766E",t:"#DCF2EF",cats:[["Tecnologia e IA",["tecnologia","inteligência artificial"]],["Empreendedorismo",["empreendedorismo","negócios"]],["Educação e Idiomas",["educação","aprender inglês"]]]},
+ {id:"vida",n:"Vida e Bem-estar",c:"#A16207",t:"#F8EDD3",cats:[["Saúde",["saúde","bem-estar"]],["Religião e Espiritualidade",["espiritualidade","religião"]]]}
+];
+const QUICK=["Cinema","Política","Agronomia","Astronomia"];
+const $=s=>document.querySelector(s);
+const M=$("#main"),au=$("#au");
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const IC={
+ play:'<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>',
+ pause:'<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>',
+ back:'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6"/></svg>',
+ chev:'<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>',
+ heart:'<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+ search:'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>'
+};
+function findCat(name){for(const f of FOLDERS)for(const c of f.cats)if(c[0]===name)return{f,c};return null}
+
+/* ---------- catálogo (iTunes, via JSONP) ---------- */
+const mem={};
+function jsonp(url){return new Promise((res,rej)=>{const cb="cb"+Date.now()+Math.random().toString(36).slice(2);const s=document.createElement("script");
+ const clean=()=>{clearTimeout(tm);delete window[cb];s.remove()};const tm=setTimeout(()=>{clean();rej(new Error("tempo"))},15000);
+ window[cb]=d=>{clean();res(d)};s.onerror=()=>{clean();rej(new Error("rede"))};s.src=url+"&callback="+cb;document.head.appendChild(s)})}
+async function cached(key,fn){if(mem[key])return mem[key];try{const v=await fn();mem[key]=v;LS.set("c:"+key,v);return v}catch(e){const old=LS.get("c:"+key,null);if(old){mem[key]=old;return old}throw e}}
+function mapPod(r){return{id:r.collectionId,n:r.collectionName||r.trackName,a:r.artistName||"",img:(r.artworkUrl600||r.artworkUrl100||"").replace("http:","https:")}}
+function searchPods(terms){return cached("s:"+terms.join("|"),async()=>{
+ const all=await Promise.all(terms.map(t=>jsonp("https://itunes.apple.com/search?media=podcast&entity=podcast&country=BR&limit=30&term="+encodeURIComponent(t)).then(d=>d.results||[]).catch(()=>[])));
+ if(all.every(a=>!a.length)&&!navigator.onLine)throw new Error("off");
+ const seen=new Set(),out=[];const L=Math.max(...all.map(a=>a.length));
+ for(let i=0;i<L;i++)for(const a of all){const r=a[i];if(r&&r.collectionId&&!seen.has(r.collectionId)){seen.add(r.collectionId);out.push(mapPod(r))}}
+ return out})}
+function getEps(id){return cached("e:"+id,async()=>{
+ const d=await jsonp("https://itunes.apple.com/lookup?media=podcast&entity=podcastEpisode&limit=60&country=BR&id="+id);
+ const rs=d.results||[];const p=rs.find(r=>r.wrapperType==="track"&&r.kind==="podcast")||rs[0];
+ const eps=rs.filter(r=>r.wrapperType==="podcastEpisode"&&r.episodeUrl).map(r=>({id:r.trackId,n:r.trackName,u:r.episodeUrl,d:r.releaseDate,ms:r.trackTimeMillis||0,img:(r.artworkUrl600||r.artworkUrl160||"").replace("http:","https:"),desc:r.description||r.shortDescription||""}));
+ return{pod:p?mapPod(p):null,eps}})}
+
+/* ---------- navegação ---------- */
+let view={v:"home"},tab="home";
+function go(v,replace){view=v;if(v.v==="home"||v.v==="search"||v.v==="lib")tab=v.v;
+ (replace?history.replaceState:history.pushState).call(history,v,"");render();scrollTo(0,0)}
+addEventListener("popstate",e=>{if(!$("#sheet").hidden){closeSheet(true);return}view=e.state||{v:"home"};if(["home","search","lib"].includes(view.v))tab=view.v;render()});
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go({v:b.dataset.tab}));
+const backBtn=()=>`<button class="back" onclick="history.back()">${IC.back}Voltar</button>`;
+function loading(){M.innerHTML+=`<div class="spin" role="status" aria-label="Carregando"></div>`}
+function errBox(el){el.innerHTML=`<div class="msg">Não consegui carregar agora.<br>Confira a internet e tente de novo.<br><button onclick="render()">Tentar de novo</button></div>`}
+
+function render(){
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));
+ const v=view;
+ if(v.v==="home")return home();
+ if(v.v==="folder")return folder(v.id);
+ if(v.v==="cat")return cat(v.name);
+ if(v.v==="pod")return pod(v.id,v.n,v.img,v.a);
+ if(v.v==="search")return search(v.q||"");
+ if(v.v==="lib")return lib();
+}
+function tiles(){return FOLDERS.map(f=>`<button class="tile" style="background:${f.c}" onclick="go({v:'folder',id:'${f.id}'})"><b>${f.n}</b><small>${f.cats.map(c=>c[0]).join(" · ")}</small></button>`).join("")}
+function catChip(n,on){return`<button class="chip${on?" on":""}" onclick="go({v:'cat',name:'${n}'})">${n}</button>`}
+function home(){
+ const cont=LS.get("hist",[]).slice(0,6);
+ M.innerHTML=`<div class="topbar"><span class="logo">ONDAS</span><button class="inst" id="inst" hidden onclick="instalar()">📲 Instalar app</button></div>
+ <h1>Bora ouvir<i>.</i></h1>
+ <form class="search" onsubmit="event.preventDefault();go({v:'search',q:this.q.value.trim()})">${IC.search}<input name="q" placeholder="O que você procura?" enterkeyhint="search" aria-label="Buscar podcasts"></form>
+ <div class="chips">${QUICK.map(n=>catChip(n)).join("")}</div>
+ ${cont.length?`<h2>Continue ouvindo</h2><div>${cont.map(epRowHist).join("")}</div>`:""}
+ <h2>Suas pastas</h2><div class="grid">${tiles()}</div>`;
+ showInst();
+}
+function folder(id){const f=FOLDERS.find(x=>x.id===id);if(!f)return go({v:"home"},true);
+ M.innerHTML=`${backBtn()}<div class="band" style="background:${f.c}"><h1>${f.n}</h1><p>${f.cats.length} categorias</p></div>
+ ${f.cats.map(c=>`<button class="catbtn" style="background:${f.t};color:${f.c}" onclick="go({v:'cat',name:'${c[0]}'})">${c[0]}${IC.chev}</button>`).join("")}`}
+function podRow(p){return`<button class="pod" data-p='${esc(JSON.stringify(p))}' onclick="openPod(this)">${p.img?`<img src="${esc(p.img)}" alt="" loading="lazy">`:'<span class="ph"></span>'}<span class="t"><b>${esc(p.n)}</b><small>${esc(p.a)}</small></span>${IC.chev}</button>`}
+function openPod(el){const p=JSON.parse(el.dataset.p);go({v:"pod",id:p.id,n:p.n,img:p.img,a:p.a})}
+async function cat(name){const fc=findCat(name);if(!fc)return go({v:"home"},true);const {f,c}=fc;
+ M.innerHTML=`${backBtn()}<div class="band" style="background:${f.c}"><h1>${c[0]}</h1><p>${f.n}</p></div><div id="list"></div>`;
+ const L=$("#list");L.innerHTML='<div class="spin" role="status" aria-label="Carregando"></div>';
+ try{const ps=await searchPods(c[1]);if(view.v!=="cat"||view.name!==name)return;
+  L.innerHTML=ps.length?ps.map(podRow).join(""):'<div class="msg">Nenhum podcast encontrado nesta categoria.</div>'}catch{errBox(L)}}
+async function pod(id,n,img,a){
+ const favs=LS.get("favs",[]);const isFav=favs.some(x=>x.id===id);
+ M.innerHTML=`${backBtn()}<div class="hero">${img?`<img src="${esc(img)}" alt="">`:'<span class="ph" style="width:140px;height:140px;border-radius:20px"></span>'}<div><h1>${esc(n)}</h1><p>${esc(a)}</p></div></div>
+ <button class="fav${isFav?" on":""}" id="favb">${IC.heart}${isFav?"Na biblioteca":"Salvar na biblioteca"}</button>
+ <h2>Episódios</h2><div id="eps"><div class="spin" role="status" aria-label="Carregando"></div></div>`;
+ $("#favb").onclick=()=>{let fs=LS.get("favs",[]);if(fs.some(x=>x.id===id))fs=fs.filter(x=>x.id!==id);else fs.unshift({id,n,img,a});LS.set("favs",fs);pod(id,n,img,a)};
+ const E=$("#eps");
+ try{const d=await getEps(id);if(view.v!=="pod"||view.id!==id)return;curList=d.eps.map(e=>({...e,pod:n,podId:id,podImg:img}));
+  E.innerHTML=curList.length?curList.map((e,i)=>epRow(e,i)).join(""):'<div class="msg">Este podcast não tem episódios disponíveis para ouvir aqui.</div>'}catch{errBox(E)}}
+let curList=[];
+function fmtDate(d){try{return new Date(d).toLocaleDateString("pt-BR",{day:"2-digit",month:"short",year:"numeric"})}catch{return""}}
+function fmtT(s){s=Math.max(0,Math.floor(s||0));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0")}
+function fmtDur(ms){if(!ms)return"";const m=Math.round(ms/60000);return m>=60?Math.floor(m/60)+" h "+(m%60)+" min":m+" min"}
+function epRow(e,i){const now=cur&&cur.id===e.id;const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
+ return`<button class="ep${now?" now":""}" onclick="playIdx(${i})"><span class="t"><b>${esc(e.n)}</b><small>${[fmtDate(e.d),fmtDur(e.ms)].filter(Boolean).join(" · ")}</small>${e.desc?`<p>${esc(e.desc)}</p>`:""}${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl">${now&&!au.paused?IC.pause:IC.play}</span></button>`}
+function epRowHist(e,i){const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
+ return`<button class="pod" onclick="playHist(${i})">${e.img||e.podImg?`<img src="${esc(e.img||e.podImg)}" alt="" loading="lazy">`:'<span class="ph"></span>'}<span class="t"><b>${esc(e.n)}</b><small>${esc(e.pod)}</small>${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl" style="width:44px;height:44px;border-radius:22px;background:var(--soft);display:flex;align-items:center;justify-content:center">${IC.play}</span></button>`}
+function playIdx(i){const e=curList[i];if(cur&&cur.id===e.id){toggle();return}play(e)}
+function playHist(i){const e=LS.get("hist",[])[i];if(e)play(e)}
+let sTimer;
+function search(q){
+ M.innerHTML=`<h1>Buscar</h1><form class="search" id="sf">${IC.search}<input name="q" id="sq" value="${esc(q)}" placeholder="Podcast, tema ou pessoa" enterkeyhint="search" aria-label="Buscar podcasts"></form><div id="res"></div>`;
+ const inp=$("#sq");$("#sf").onsubmit=e=>{e.preventDefault();inp.blur();run(inp.value.trim(),true)};
+ inp.oninput=()=>{clearTimeout(sTimer);sTimer=setTimeout(()=>run(inp.value.trim()),500)};
+ run(q);if(!q)setTimeout(()=>inp.focus(),50);
+}
+async function run(q,push){const R=$("#res");if(!R)return;history.replaceState({v:"search",q},"");view={v:"search",q};
+ if(!q){R.innerHTML=FOLDERS.map(f=>`<h2>${f.n}</h2><div class="chips" style="margin-top:0">${f.cats.map(c=>catChip(c[0])).join("")}</div>`).join("");return}
+ R.innerHTML='<div class="spin" role="status" aria-label="Carregando"></div>';
+ try{const ps=await searchPods([q]);if(view.v!=="search"||view.q!==q)return;R.innerHTML=ps.length?ps.map(podRow).join(""):`<div class="msg">Nada encontrado para “${esc(q)}”.</div>`}catch{errBox(R)}}
+function lib(){const favs=LS.get("favs",[]),hist=LS.get("hist",[]);
+ M.innerHTML=`<h1>Biblioteca</h1><h2>Podcasts salvos</h2>${favs.length?favs.map(podRow).join(""):'<p class="hint">Toque em “Salvar na biblioteca” num podcast para ele aparecer aqui.</p>'}
+ <h2>Ouvidos recentemente</h2>${hist.length?hist.map(epRowHist).join(""):'<p class="hint">Os episódios que você ouvir aparecem aqui, e voltam de onde você parou.</p>'}`}
+
+/* ---------- player ---------- */
+let cur=null;const SPEEDS=[1,1.25,1.5,2,0.75];let sp=LS.get("speed",1);
+function play(e){cur=e;au.src=e.u;au.playbackRate=sp;
+ const pos=LS.get("pos:"+e.id,0);
+ au.onloadedmetadata=()=>{if(pos>5&&(!au.duration||pos<au.duration-10))au.currentTime=pos;au.onloadedmetadata=null};
+ au.play().catch(()=>{});
+ let h=LS.get("hist",[]).filter(x=>x.id!==e.id);h.unshift({id:e.id,n:e.n,u:e.u,ms:e.ms,img:e.img,pod:e.pod,podImg:e.podImg,desc:(e.desc||"").slice(0,600)});LS.set("hist",h.slice(0,30));
+ if("mediaSession"in navigator){const art=e.img||e.podImg;navigator.mediaSession.metadata=new MediaMetadata({title:e.n,artist:e.pod,artwork:art?[{src:art,sizes:"600x600"}]:[]})}
+ ui();if(view.v==="pod")refreshEps();
+}
+function toggle(){if(!cur)return;au.paused?au.play().catch(()=>{}):au.pause()}
+function refreshEps(){const E=$("#eps");if(E&&curList.length)E.innerHTML=curList.map((e,i)=>epRow(e,i)).join("")}
+function ui(){const m=$("#mini");if(!cur){m.hidden=true;return}m.hidden=false;
+ const img=cur.img||cur.podImg||"";$("#mini-img").src=img;$("#mini-img").style.visibility=img?"visible":"hidden";$("#mini-t").textContent=cur.n;$("#mini-p").textContent=cur.pod;
+ $("#sh-img").src=img;$("#sh-img").style.visibility=img?"visible":"hidden";$("#sh-t").textContent=cur.n;$("#sh-p").textContent=cur.pod;$("#sh-desc").textContent=cur.desc||"";
+ const ic=au.paused?IC.play:IC.pause,lb=au.paused?"Tocar":"Pausar";
+ $("#mini-play").innerHTML=ic;$("#mini-play").setAttribute("aria-label",lb);
+ $("#sh-play").innerHTML=ic.replace(/20/g,"30");$("#sh-play").setAttribute("aria-label",lb);
+ $("#sh-speed").textContent="Velocidade "+String(sp).replace(".",",")+"x"}
+au.addEventListener("play",()=>{ui();refreshEps()});au.addEventListener("pause",()=>{ui();refreshEps();savePos()});
+au.addEventListener("ended",()=>{if(cur)LS.set("pos:"+cur.id,0)});
+au.addEventListener("error",()=>{if(cur&&au.src)alert("Não consegui tocar este episódio. Pode ser a internet ou o arquivo do podcast.")});
+let lastSave=0;function savePos(){if(cur&&au.currentTime>0)LS.set("pos:"+cur.id,Math.floor(au.currentTime))}
+let dragging=false;
+au.addEventListener("timeupdate",()=>{const d=au.duration||0,t=au.currentTime;
+ $("#mini-bar").style.width=d?(t/d*100)+"%":"0";
+ if(!dragging){$("#seek").value=d?Math.round(t/d*1000):0;$("#sh-cur").textContent=fmtT(t)}
+ $("#sh-dur").textContent=d&&isFinite(d)?fmtT(d):"--:--";
+ if(Date.now()-lastSave>5000){lastSave=Date.now();savePos()}});
+$("#seek").oninput=e=>{dragging=true;const d=au.duration||0;$("#sh-cur").textContent=fmtT(d*e.target.value/1000)};
+$("#seek").onchange=e=>{const d=au.duration||0;if(d)au.currentTime=d*e.target.value/1000;dragging=false};
+const skip=s=>{if(cur)au.currentTime=Math.max(0,Math.min((au.duration||1e9),au.currentTime+s))};
+$("#sh-back").onclick=()=>skip(-15);$("#sh-fwd").onclick=()=>skip(30);
+$("#sh-play").onclick=toggle;$("#mini-play").onclick=toggle;
+$("#sh-speed").onclick=()=>{sp=SPEEDS[(SPEEDS.indexOf(sp)+1)%SPEEDS.length];au.playbackRate=sp;LS.set("speed",sp);ui()};
+$("#mini-open").onclick=()=>{$("#sheet").hidden=false;history.pushState({...view,sheet:1},"")};
+function closeSheet(fromPop){$("#sheet").hidden=true;if(!fromPop)history.back()}
+$("#sh-close").onclick=()=>closeSheet();
+if("mediaSession"in navigator){const ms=navigator.mediaSession;
+ ms.setActionHandler("play",()=>au.play());ms.setActionHandler("pause",()=>au.pause());
+ ms.setActionHandler("seekbackward",()=>skip(-15));ms.setActionHandler("seekforward",()=>skip(30))}
+addEventListener("visibilitychange",savePos);
+
+/* ---------- arrastar para os lados troca de aba ---------- */
+(()=>{let x0=null,y0=0;const TABS=["home","search","lib"];
+ document.addEventListener("touchstart",e=>{if(!$("#sheet").hidden||e.target.closest("input,.chips")){x0=null;return}x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+ document.addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+  if(Math.abs(dx)<60||Math.abs(dx)<Math.abs(dy)*1.5)return;if(!TABS.includes(view.v))return;
+  const i=TABS.indexOf(view.v)+(dx<0?1:-1);if(i>=0&&i<TABS.length)go({v:TABS[i]})},{passive:true})})();
+
+/* ---------- instalar ---------- */
+let deferred=null;const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+function showInst(){const b=$("#inst");if(b)b.hidden=standalone()}
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;showInst()});
+async function instalar(){if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;showInst()}
+ else alert("No Chrome, toque no menu ⋮ e depois em “Instalar app” (ou “Adicionar à tela inicial”).")}
+addEventListener("appinstalled",()=>{const b=$("#inst");if(b)b.hidden=true});
+if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+try{navigator.storage?.persist?.()}catch{}
+
+history.replaceState(view,"");render();
+</script>
+</body>
+</html>

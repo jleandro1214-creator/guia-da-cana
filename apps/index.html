@@ -58,9 +58,10 @@ const APPS=[
  {p:"vinhaca-produtiva/",n:"Vinhaça Produtiva",d:"Lançamentos de aplicação com planilha CSV",c:"Vinhaça",i:"../vinhaca-produtiva/icon-192.png",k:"aplicação produtividade carreta"},
  {p:"simulador-gs3/",n:"Simulador GS3 Vinhaça",d:"Treino do terminal GreenStar 3",c:"Vinhaça",i:"../simulador-gs3/icon-192.png",k:"greenstar gps terminal"},
  {p:"aplicador/",n:"Catálogo Aplicador de Vinhaça",d:"Peças e inspeção do aplicador 22.500 L",c:"Vinhaça",i:"../aplicador/icon-192.png",k:"peça manutenção nonino"},
- {p:"epi/",n:"EPI em Dia",d:"Estoque e entregas de EPIs por gestor",c:"Gestão",i:"../epi/icon-192.png",k:"epi segurança estoque luva"}
+ {p:"epi/",n:"EPI em Dia",d:"Estoque e entregas de EPIs por gestor",c:"Gestão",i:"../epi/icon-192.png",k:"epi segurança estoque luva"},
+ {p:"podcasts/",n:"Ondas",d:"Podcasts por tema, para ouvir no app",c:"Lazer",i:"../podcasts/icon-192.png",k:"podcast áudio ouvir cinema política ciência"}
 ];
-const CATS=["Todos","Campo","Vinhaça","Gestão"];let cat="Todos",q="";
+const CATS=["Todos","Campo","Vinhaça","Gestão","Lazer"];let cat="Todos",q="";
 const $=s=>document.querySelector(s);
 const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 function chips(){$("#chips").innerHTML=CATS.map(c=>`<button class="chip" aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join("")}
