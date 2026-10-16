@@ -116,13 +116,24 @@ function resultadoHTML(c,out,quando){
       ${out.prem&&out.prem.length?`<b style="font-size:14px">Premissas</b><ul>${out.prem.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}
       <p style="font-size:13.5px;color:var(--soft);margin:6px 0 0">${quando?`Calculado em ${dataHora(quando)}`:""}${ctx.tal||ctx.faz?` · ${esc(ctx.faz||ctx.cod)}${ctx.tal?" / talhão "+esc(ctx.tal):""}`:""}</p></details>`;
 }
+/* Campos de referência (bom/regular/ruim) e de como fazer a análise */
+function refHTML(id){
+  const R0=(typeof REFS!=="undefined")&&REFS[id]; if(!R0) return "";
+  let tab="";
+  if(R0.ref){ const cls=R0.ref.cols?null:["","bom","reg","ruim"];
+    const cols=R0.ref.cols||["O que avaliar","🟢 Bom","🟡 Regular","🔴 Ruim"];
+    tab=`<div class="tw"><table class="t refT"><thead><tr>${cols.map((h,n)=>`<th class="${cls?cls[n]:""}">${esc(h)}</th>`).join("")}</tr></thead><tbody>${R0.ref.rows.map(r=>`<tr>${r.map((x,n)=>`<td class="${cls?cls[n]:""}">${esc(x)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+      ${R0.ref.nota?`<p class="refN">${esc(R0.ref.nota)}</p>`:""}${R0.ref.cols?"":`<p class="refN">${esc(REF_AVISO)}</p>`}`; }
+  return `<details class="ajuda ref"><summary>📊 Referência: bom, regular e ruim</summary>${tab}</details>
+    ${R0.como?`<details class="ajuda como"><summary>🔎 Como fazer a análise</summary><ol>${R0.como.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></details>`:""}`;
+}
 ROTAS.m=(mod)=>{
   if(!MODULOS[mod]) mod="campo";
   const cs=CALCS.filter(c=>c.mod===mod);
   return `<nav class="tabs" id="tabs">${MODS.map(k=>`<a href="#/m/${k}" class="${k===mod?"on":""}">${MODULOS[k].ic} ${MODULOS[k].nome}</a>`).join("")}</nav>
     ${edicao?`<div class="edit-bar">${edicao.modo==="editar"?"✏️ Editando o cálculo salvo de "+dataHora(edicao.rec.quando)+". Ao salvar, a versão anterior fica guardada.":"📄 Cópia de um cálculo salvo. Ao salvar, vira um registro novo."} <button class="btn sec peq" id="cancEd" type="button">Cancelar</button></div>`:""}
     <div class="view" id="view">${cs.map(c=>{ const raw = (edicao&&edicao.rec.tipo===c.id) ? edicao.rec.raw : LS.get(c.id,{});
-      return `<article class="calc" id="calc-${c.id}"><h3>${c.title}</h3><p class="desc">${c.desc}</p>
+      return `<article class="calc" id="calc-${c.id}"><h3>${c.title}</h3><p class="desc">${c.desc}</p>${refHTML(c.id)}
         <div class="fields">${c.inputs.map(i=>inputHTML(c,i,raw)).join("")}</div>
         <div class="out"></div>
         <div class="btns"><button class="btn" data-act="salvar" type="button">💾 Salvar</button><button class="btn sec" data-act="limpar" type="button">Limpar</button>

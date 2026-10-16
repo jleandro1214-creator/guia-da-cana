@@ -91,6 +91,16 @@
   details.mem{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;}
   details.mem summary{font-weight:700;color:var(--accent-strong);cursor:pointer;font-size:15px;}
   details.mem ol,details.mem ul{margin:8px 0;padding-left:22px;font-size:14.5px;line-height:1.5;font-variant-numeric:tabular-nums;}
+  details.ajuda{margin:0 0 10px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--bg);}
+  details.ajuda summary{font-weight:700;color:var(--accent-strong);cursor:pointer;font-size:15.5px;}
+  details.ajuda ol{margin:8px 0 2px;padding-left:22px;font-size:15px;line-height:1.5;}
+  details.ajuda ol li{margin-bottom:4px;}
+  table.refT{margin-top:8px;font-size:14px;background:var(--card);border-radius:8px;}
+  table.refT th,table.refT td{padding:7px 6px;line-height:1.3;}
+  table.refT th.bom,table.refT td.bom{background:var(--ok-tint);color:var(--ok);font-weight:700;}
+  table.refT th.reg,table.refT td.reg{background:var(--info-tint);color:var(--info);font-weight:700;}
+  table.refT th.ruim,table.refT td.ruim{background:var(--warn-tint);color:var(--warn);font-weight:700;}
+  p.refN{margin:8px 0 2px;font-size:13.5px;color:var(--soft);line-height:1.45;}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--accent);color:var(--on-accent);border:none;border-radius:12px;padding:12px 15px;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;}
   .btn.sec{background:var(--card);color:var(--accent-strong);border:1px solid var(--line);}
   .btn.full{width:100%;} .btn.wa{background:#25D366;color:#fff;} .btn.peq{padding:8px 11px;font-size:14.5px;}
@@ -162,6 +172,7 @@
 <datalist id="listaFazendas"></datalist><datalist id="listaTalhoes"></datalist><datalist id="listaEquip"></datalist>
 <script src="fazendas.js"></script>
 <script src="calcs.js"></script>
+<script src="referencias.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

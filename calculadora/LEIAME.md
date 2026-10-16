@@ -9,7 +9,7 @@ Versão anterior guardada para consulta: `calculadora/v1/`
 - `app.js` — telas, cadastros, histórico, registros, painel, relatórios e backup.
 - `index.html` — estrutura e estilo (mesma identidade visual da v1).
 - `fazendas.js` — códigos e nomes das fazendas (planilha "Códigos e Seções").
-- `sw.js` — funcionamento sem internet (cache `calculadora-v4`).
+- `sw.js` — funcionamento sem internet (cache `calculadora-v5`).
 
 ## Fórmulas
 As 12 contas da v1 foram mantidas com as mesmas fórmulas. Entraram 5 novas: capacidade operacional, fertilizante formulado, desempenho da colheita, custo do diesel e conversor de unidades.
@@ -30,3 +30,6 @@ Todas foram conferidas com 61 casos de teste contra resultados calculados à par
 | Dados | Ficam só no aparelho, no navegador. Faça backup regularmente. |
 | Integração com o Daninhas da Cana | O cadastro fica no banco local `guiaCana`, que fica no mesmo endereço dos outros apps. A ligação do Daninhas com esse cadastro é a próxima etapa. |
 | Preço do diesel | Informado pelo usuário. O app não busca preços. |
+
+## Referências e passo a passo (16/10/2026)
+- `referencias.js` — em cada cálculo, faixas Bom / Regular / Ruim e "Como fazer a análise". Valores gerais do Centro-Sul; edite aqui se a usina tiver metas próprias.
