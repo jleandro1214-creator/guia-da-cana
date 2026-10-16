@@ -56,7 +56,7 @@ h2{font-size:21px;font-weight:800;margin:24px 0 12px}
 .epw>.ep,.epw>.pod{border-bottom:none;flex:1;min-width:0}
 .hb{width:46px;height:46px;border-radius:23px;border:none;background:none;color:#6B7280;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .hb.on{color:#BE185D}.hb.on svg{fill:currentColor}
-#sh-fav{margin:0 0 18px;border-color:#4B5563;color:#fff}
+#sh-fav{border-color:#4B5563;color:#fff}
 #sh-fav.on{background:#fff;color:var(--ink)}
 .ep{width:100%;display:flex;gap:12px;align-items:center;padding:14px 0;border:none;border-bottom:1px solid var(--line);background:none;text-align:left}
 .ep .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
@@ -118,7 +118,7 @@ nav button.on{color:var(--ink);font-weight:600}
   <img class="art" id="sh-img" alt="">
   <h3 id="sh-t"></h3>
   <p class="pn" id="sh-p"></p>
-  <button class="fav" id="sh-fav"></button>
+  <div class="row" style="flex-wrap:wrap;margin-bottom:18px"><button class="fav" id="sh-fav" style="margin:0"></button><button class="fav" id="sh-share" style="margin:0;border-color:#4B5563;color:#fff">Compartilhar</button></div>
   <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Posição do episódio">
   <div class="times"><span id="sh-cur">0:00</span><span id="sh-dur">--:--</span></div>
   <div class="ctrls">
@@ -263,11 +263,11 @@ function lib(){const favs=LS.get("favs",[]),hist=LS.get("hist",[]),fe=favEps();
 
 /* ---------- player ---------- */
 let cur=null;const SPEEDS=[1,1.25,1.5,2,0.75];let sp=LS.get("speed",1);
-function play(e){cur=e;au.src=e.u;au.playbackRate=sp;
+function addHist(e){let h=LS.get("hist",[]).filter(x=>x.id!==e.id);h.unshift(epData(e));LS.set("hist",h.slice(0,30))}
+function play(e){prepare(e);doPlay()}
+function prepare(e){cur=e;au.src=e.u;au.playbackRate=sp;
  const pos=LS.get("pos:"+e.id,0);
  au.onloadedmetadata=()=>{if(pos>5&&(!au.duration||pos<au.duration-10))au.currentTime=pos;au.onloadedmetadata=null};
- doPlay();
- let h=LS.get("hist",[]).filter(x=>x.id!==e.id);h.unshift(epData(e));LS.set("hist",h.slice(0,30));
  if("mediaSession"in navigator){const art=e.img||e.podImg;navigator.mediaSession.metadata=new MediaMetadata({title:e.n,artist:e.pod,artwork:art?[{src:art,sizes:"600x600"}]:[]})}
  ui();if(view.v==="pod")refreshEps();
 }
@@ -285,7 +285,7 @@ function ui(){const m=$("#mini");if(!cur){m.hidden=true;return}m.hidden=false;
  const fv=isFavEp(cur.id);const sf=$("#sh-fav");sf.className="fav"+(fv?" on":"");sf.innerHTML=IC.heart+(fv?"Episódio favorito":"Favoritar episódio");sf.setAttribute("aria-pressed",fv);
  $("#sh-speed").textContent="Velocidade "+String(sp).replace(".",",")+"x"}
 function msState(){if("mediaSession"in navigator){try{navigator.mediaSession.playbackState=au.paused?"paused":"playing"}catch{}}}
-au.addEventListener("play",()=>{ui();refreshEps();msState()});
+au.addEventListener("play",()=>{if(cur)addHist(cur);ui();refreshEps();msState()});
 au.addEventListener("pause",()=>{ui();refreshEps();savePos();msState();
  /* o celular pausou sozinho (tela apagada, saiu do app): tenta continuar */
  if(!userPaused&&cur&&!au.ended){interrupted=true;if(Date.now()-retryAt>4000){retryAt=Date.now();setTimeout(()=>{if(interrupted&&!userPaused)au.play().catch(()=>{})},400)}}});
@@ -309,6 +309,10 @@ $("#mini-open").onclick=()=>{$("#sheet").hidden=false;history.pushState({...view
 function closeSheet(fromPop){$("#sheet").hidden=true;if(!fromPop)history.back()}
 $("#sh-close").onclick=()=>closeSheet();
 $("#sh-fav").onclick=()=>{if(cur)toggleFavEp(cur)};
+$("#sh-share").onclick=async()=>{if(!cur)return;const url=location.origin+location.pathname+"?p="+(cur.podId||"")+"&e="+cur.id;
+ const txt="Ouça “"+cur.n+"” ("+cur.pod+") no Ondas";
+ try{if(navigator.share){await navigator.share({title:cur.n,text:txt,url});return}}catch(err){if(err&&err.name==="AbortError")return}
+ location.href="https://wa.me/?text="+encodeURIComponent(txt+" "+url)};
 if("mediaSession"in navigator){const ms=navigator.mediaSession;
  const H=(n,f)=>{try{ms.setActionHandler(n,f)}catch{}};
  H("play",()=>doPlay());H("pause",()=>doPause());H("stop",()=>doPause());
@@ -334,7 +338,28 @@ addEventListener("appinstalled",()=>{const b=$("#inst");if(b)b.hidden=true});
 if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 try{navigator.storage?.persist?.()}catch{}
 
-history.replaceState(view,"");render();
+/* ---------- atalho: ?ouvir=nome do podcast&ep=palavra  ou  ?p=id&e=idEpisodio ---------- */
+const nrm=x=>String(x||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function toast(t){let el=$("#toast");if(!el){el=document.createElement("div");el.id="toast";el.setAttribute("role","status");el.style.cssText="position:fixed;left:16px;right:16px;top:16px;max-width:560px;margin:0 auto;padding:14px 16px;border-radius:14px;background:#111827;color:#fff;font-size:16px;z-index:20;text-align:center";document.body.appendChild(el)}
+ el.textContent=t;el.hidden=!t}
+async function deepLink(){const u=new URLSearchParams(location.search);const ouvir=u.get("ouvir"),pid=u.get("p"),eid=u.get("e"),epq=u.get("ep");
+ if(!ouvir&&!pid)return;
+ history.replaceState({v:"home"},"",location.pathname);
+ toast("Procurando"+(ouvir?" “"+ouvir+"”":" o episódio")+"…");
+ try{let meta=null,id=pid?Number(pid):null;
+  if(!id){const ps=await searchPods([ouvir]);const q=nrm(ouvir);meta=ps.find(x=>nrm(x.n)===q)||ps.find(x=>nrm(x.n).includes(q))||ps[0];
+   if(!meta){toast("Não achei o podcast “"+ouvir+"”.");setTimeout(()=>toast(""),4000);return}id=meta.id}
+  const d=await getEps(id);meta=meta||d.pod||{n:"Podcast",img:"",a:""};
+  const eps=d.eps.map(e=>({...e,pod:meta.n,podId:id,podImg:meta.img}));
+  go({v:"pod",id,n:meta.n,img:meta.img,a:meta.a});
+  if(!eps.length){toast("Esse podcast não tem episódios para ouvir aqui.");setTimeout(()=>toast(""),4000);return}
+  let e=null;if(eid)e=eps.find(x=>String(x.id)===String(eid));
+  if(!e&&epq){const w=nrm(epq).split(/\s+/).filter(Boolean);e=eps.find(x=>w.every(k=>nrm(x.n).includes(k)))}
+  e=e||eps[0];
+  toast("");prepare(e);$("#sheet").hidden=false;history.pushState({...view,sheet:1},"");$("#sh-play").focus();
+ }catch{toast("Não consegui abrir agora. Confira a internet.");setTimeout(()=>toast(""),4000)}}
+
+history.replaceState(view,"");render();deepLink();
 </script>
 </body>
 </html>
