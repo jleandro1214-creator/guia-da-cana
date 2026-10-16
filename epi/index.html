@@ -668,11 +668,65 @@ function loadDB(){
 const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 function put(c,rec){ const r={...rec,upd:Date.now()}; DB[c][r.id]=r; saveDB(); refresh(); return r; }
 function del(c,id){ const r=DB[c][id]; if(r) put(c,{...r,del:true}); }
+const FUNC_BASE = [
+  ["9160","FABIANO SACOMAN SOARES"],
+  ["21930","GIOVANI LAZARO BATISTA"],
+  ["11961","JULIO CESAR VALDEVITE"],
+  ["11872","PAULO SERGIO SILVA LIMA"],
+  ["14347","RICARDO VENANCIO"],
+  ["14673","JONATAN DE ASSIS MATOS"],
+  ["12617","CLAUDINEI MACHADO"],
+  ["8259","FABIO APARECIDO NASSARO"],
+  ["14366","LUIZ HENRIQUE DA SILVA"],
+  ["13987","VITOR RODRIGUES DIMAS"],
+  ["13264","CASSIO RODRIGUES SERAPIAO"],
+  ["13981","PAULO RICARDO DA SILVA"],
+  ["10309","ANDERSON DAMIAO MANDUCA"],
+  ["12099","EZEQUIEL LIMA DA COSTA"],
+  ["13221","CASSIANO BENTO DA SILVA"],
+  ["9685","VANIR CARDOSO RAMALHO"],
+  ["9007","VAGNER LUIS GOMES ORTEIRO"],
+  ["9797","VILOMAR LIMA DA COSTA"],
+  ["7015","ARICLENES APARECIDO DE OLIVEIRA"],
+  ["13265","DOSREIS FERREIRA DE FARIAS"],
+  ["14684","CLEVERSON MOREIRA DOS SANTOS"],
+  ["8961","CLODOALDO FEITEIRO SILVA"],
+  ["8505","ALEXANDRE APARECIDO LUIZ"],
+  ["12384","HENRIQUE CESAR DOS REIS"],
+  ["9780","JOSE REINALDO MECCHIA"],
+  ["13601","CLAUDINEI A. MOREIRA DOS SANTOS"],
+  ["10831","LUCILIO PINHEIRO DE BRITO"],
+  ["23294","EMERSON LUIS ESPADONI"],
+  ["21202","VAGNER ALVES"],
+  ["23348","ALEXANDER ESPADONI"],
+  ["13200","JOAO CORREA DA SILVA"],
+  ["14360","CLEIDSON MOREIRA DOS SANTOS"],
+  ["8327","LUIS HENRIQUE SCASSE"],
+  ["23243","VITOR DE CASSIO SANTOS PEDROSO"],
+  ["8350","JOVAIR DE SOUZA DA SILVA"],
+  ["12143","LUIZ JOSE DA SILVA"],
+  ["13867","WASHINGTON FELIPE FRANCO LEITE"],
+  ["12318","JARES SANTOS DE CARVALHO"],
+  ["7713","VANDERLEI GOMES DOS SANTOS"],
+  ["8045","VANDEIR DE SOUZA DOS SANTOS"],
+  ["14676","CARLOS HENRIQUE G. DE SOUZA"],
+  ["12131","AILTON CARDOSO DA SILVA"],
+  ["14180","FABIO DONIZETI FERMINO"],
+  ["21931","WELTON JHON JOSE GUIMARAES"],
+  ["14672","MARCELO OLIVEIRA DE ALMEIDA"],
+  ["22139","TIAGO AURELIO DAVID"],
+  ["11659","FRANCISCO DA SILVA FERREIRA"],
+  ["14826","GEOVANIO FEITOSA DOS SANTOS"],
+  ["13899","DIEGO CARDOSO DA SILVA"],
+  ["14674","DOUGLAS APARECIDO BARBOSA"],
+  ["20983","CLEBERSSON RIBEIRO DE AGUIAR"]
+];
 function refresh(){
   const live=c=>Object.values(DB[c]).filter(r=>!r.del);
   S.items=live("items").sort((a,b)=>(a.ord??1e15)-(b.ord??1e15));
   S.entradas=live("entradas"); S.retiradas=live("retiradas"); S.entregas=live("entregas"); S.solicitacoes=live("solicitacoes");
-  S.funcs=new Map(live("funcionarios").map(f=>[String(f.matricula),{matricula:String(f.matricula),nome:f.nome||""}]));
+  S.funcs=new Map(FUNC_BASE.map(([m,n])=>[m,{matricula:m,nome:n}]));
+  for(const f of live("funcionarios")) S.funcs.set(String(f.matricula),{matricula:String(f.matricula),nome:f.nome||""});
   if(selItem) selItem=S.items.find(i=>i.id===selItem.id)||selItem;
   const st=$("#status"); st.className="status";
   st.textContent=`${S.items.length} EPIs · salvo neste celular${navigator.onLine?"":" · sem internet"}`;
