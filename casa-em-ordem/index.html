@@ -56,6 +56,9 @@ label.f{display:block;font-size:15px;color:var(--mute);margin:10px 0 4px}
 
 /* Geladeira */
 details.cat{border-top:1px solid var(--line);padding:10px 0}
+.addown{background:var(--bg);border-radius:16px;padding:12px;margin:12px 0 4px}
+.chip.mine{border-style:dashed}
+.chip .rmv{margin-left:8px;color:var(--mute);font-size:14px;padding:2px 2px 2px 6px;border-left:1px solid var(--line)}
 details.cat:first-of-type{border-top:0}
 details.cat summary{list-style:none;font-weight:600;cursor:pointer;display:flex;justify-content:space-between}
 details.cat summary::-webkit-details-marker{display:none}
@@ -153,6 +156,18 @@ nav .badge{position:absolute;top:2px;right:22%;background:var(--bad);color:#fff;
     <div class="card">
       <div class="row between"><h3 style="margin:0">O que você tem em casa?</h3><button class="btn ghost small" id="clear-have">Limpar</button></div>
       <p class="mute small" style="margin:4px 0 0">Toque nos ingredientes. Sal, óleo, água e pimenta o app considera que você já tem.</p>
+      <div class="addown">
+        <label class="f" for="own-n" style="margin-top:0">Não achou? Adicione o que tem em casa</label>
+        <div class="row">
+          <input type="text" id="own-n" placeholder="Ex.: Repolho, Inhame, Quiabo" maxlength="30">
+          <button class="btn" id="own-add" aria-label="Adicionar">＋</button>
+        </div>
+        <select id="own-s" style="margin-top:8px" aria-label="Seção">
+          <option value="H">Hortifrúti</option><option value="L">Frios e laticínios</option><option value="A">Açougue</option>
+          <option value="M">Mercearia</option><option value="P">Padaria</option><option value="S">Sobras de comida pronta</option><option value="O">Outros</option>
+        </select>
+        <p class="mute small" style="margin:6px 0 0">Os itens que você criar aparecem com ✕ para apagar.</p>
+      </div>
       <div id="cats"></div>
     </div>
     <div class="chips scroll" id="filters" style="margin-bottom:6px"></div>
@@ -225,12 +240,13 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;',
 
 /* ================= CATÁLOGO DE INGREDIENTES ================= */
 const SECS={H:'Hortifrúti',A:'Açougue',L:'Frios e laticínios',P:'Padaria',M:'Mercearia',S:'Sobras de comida pronta',O:'Outros'};
+const norm=t=>String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
 const SEC_ORDER=['H','A','L','P','M','O'];
 const ING={};
 [
  ['H','tomate','Tomate'],['H','cebola','Cebola'],['H','alho','Alho'],['H','batata','Batata'],['H','batata-doce','Batata-doce'],
  ['H','cenoura','Cenoura'],['H','abobrinha','Abobrinha'],['H','chuchu','Chuchu'],['H','brocolis','Brócolis'],['H','couve','Couve'],
- ['H','alface','Alface'],['H','pimentao','Pimentão'],['H','cheiro','Cheiro-verde'],['H','limao','Limão'],['H','banana','Banana'],
+ ['H','alface','Alface'],['H','repolho','Repolho'],['H','pimentao','Pimentão'],['H','cheiro','Cheiro-verde'],['H','limao','Limão'],['H','banana','Banana'],
  ['A','frango','Peito de frango'],['A','coxa','Coxa e sobrecoxa'],['A','carne-moida','Carne moída'],['A','carne','Carne bovina'],
  ['A','linguica','Linguiça calabresa'],['A','bacon','Bacon'],['A','peixe','Filé de peixe'],['A','salsicha','Salsicha'],
  ['L','ovo','Ovos'],['L','leite','Leite'],['L','queijo','Queijo mussarela'],['L','presunto','Presunto'],['L','manteiga','Manteiga'],
@@ -287,6 +303,8 @@ const RAW=[
 ['frango-desfiado','Frango desfiado com milho','🌽',15,'sobras rapido semforno marmita',4,'frango-desfiado 2 xíc;milho 1 lata;tomate 1 un;cebola 1 un;requeijao 2 colher','Refogue a cebola e o tomate.|Junte o frango e o milho e misture.|Desligue e misture o requeijão. Serve no pão, na tapioca ou com arroz.'],
 ['escondidinho-sobras','Escondidinho de sobras','🥧',25,'sobras marmita',4,'carne-pronta 2 xíc;pure 3 xíc;queijo 150 g','Coloque a carne pronta numa travessa.|Cubra com o purê.|Espalhe o queijo e leve ao forno até gratinar.'],
 ['omelete-macarrao','Omelete de macarrão','🍝',15,'sobras rapido barato semforno',3,'macarrao-cozido 2 xíc;ovo 4 un;queijo 50 g;tomate 1 un','Bata os ovos com sal e misture o macarrão, o tomate e o queijo.|Despeje numa frigideira untada e tampe em fogo baixo.|Vire com a ajuda de um prato e doure o outro lado.'],
+['repolho-refogado','Repolho refogado','🥬',15,'rapido barato semforno marmita',4,'repolho 0.5 un;cebola 1 un;alho 2 dente;tomate 1 un','Corte o repolho bem fininho e lave.|Refogue cebola e alho num fio de óleo.|Junte o tomate picado e depois o repolho, mexendo.|Tampe por 5 minutos, acerte o sal e sirva ainda firme.'],
+['salada-repolho','Salada de repolho com cenoura','🥗',10,'rapido barato semforno',4,'repolho 0.5 un;cenoura 1 un;limao 1 un','Fatie o repolho bem fino e rale a cenoura.|Tempere com limão, sal e azeite.|Deixe 10 minutos antes de servir para amaciar.'],
 ['creme-legumes','Creme de legumes','🥣',15,'sobras rapido barato semforno',3,'legumes-cozidos 3 xíc;leite 1 xíc;cebola 0.5 un','Refogue a cebola.|Bata os legumes cozidos com o leite no liquidificador.|Volte para a panela, aqueça e acerte o sal.']
 ];
 const REC=RAW.map(r=>({id:r[0],name:r[1],em:r[2],min:r[3],tags:r[4].split(' ').filter(Boolean),serves:r[5],
@@ -311,12 +329,14 @@ const INTERVALS=[[7,'toda semana'],[15,'a cada 15 dias'],[30,'todo mês'],[60,'a
 const TASK_ICONS=['💧','🚰','❄️','🔥','🐜','🧊','🧺','🍂','🛏️','🔌','💡','🚿','🪟','🧹','🌿','🐶','🚗','🔐','🧯','🛠️'];
 
 /* ================= ESTADO ================= */
-function blank(){return {have:[],filter:'all',people:4,plan:{},list:[],tasks:JSON.parse(JSON.stringify(DEFAULT_TASKS)),contacts:[]};}
+function blank(){return {custom:[],have:[],filter:'all',people:4,plan:{},list:[],tasks:JSON.parse(JSON.stringify(DEFAULT_TASKS)),contacts:[]};}
 let state;
 try{ state=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){ state=null; }
 if(!state) state=blank();
 const b0=blank(); Object.keys(b0).forEach(k=>{ if(state[k]===undefined) state[k]=b0[k]; });
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+function loadCustom(){ Object.keys(ING).forEach(k=>{ if(ING[k].custom) delete ING[k]; }); state.custom.forEach(c=>ING[c.k]={s:c.s,n:c.n,custom:true}); }
+loadCustom();
 
 let toastT;
 function toast(m){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.appendChild(t);}t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400);}
@@ -358,19 +378,39 @@ function renderCats(){
   const box=$('#cats'); const open={}; box.querySelectorAll('details').forEach(d=>open[d.dataset.s]=d.open);
   box.innerHTML='';
   const hs=haveSet();
-  ['H','L','A','M','P','S'].forEach((s,idx)=>{
+  ['H','L','A','M','P','O','S'].forEach((s,idx)=>{
     const keys=Object.keys(ING).filter(k=>ING[k].s===s);
+    if(!keys.length) return;
     const n=keys.filter(k=>hs.has(k)).length;
     const d=document.createElement('details'); d.className='cat'; d.dataset.s=s;
     d.open=open[s]!==undefined?open[s]:(idx<2);
     d.innerHTML=`<summary>${s==='S'?'♻️ ':''}${SECS[s]}${n?` <span class="mute small" style="font-weight:400">· ${n} marcado${n>1?'s':''}</span>`:''}</summary>`;
     const c=document.createElement('div'); c.className='chips';
-    keys.forEach(k=>{const b=document.createElement('button');b.className='chip'+(hs.has(k)?' have':'');b.textContent=ING[k].n;
+    keys.forEach(k=>{const b=document.createElement('button');b.className='chip'+(hs.has(k)?' have':'')+(ING[k].custom?' mine':'');b.textContent=ING[k].n;
       b.onclick=()=>{ const i=state.have.indexOf(k); if(i>=0) state.have.splice(i,1); else state.have.push(k); save(); renderCats(); renderRecs(); };
+      if(ING[k].custom){ const x=document.createElement('span'); x.className='rmv'; x.textContent='✕'; x.setAttribute('aria-label','Apagar item');
+        x.onclick=e=>{ e.stopPropagation(); if(confirm('Apagar "'+ING[k].n+'" da lista?')){ state.custom=state.custom.filter(c=>c.k!==k); state.have=state.have.filter(h=>h!==k); loadCustom(); save(); renderCats(); renderRecs(); } };
+        b.appendChild(x); }
       c.appendChild(b);});
     d.appendChild(c); box.appendChild(d);
   });
 }
+$('#own-add').onclick=()=>{
+  const n=$('#own-n').value.trim().replace(/\s+/g,' '); if(!n){toast('Escreva o nome do alimento');return;}
+  const ex=Object.keys(ING).find(k=>norm(ING[k].n)===norm(n)||norm(ING[k].n).split(' ')[0]===norm(n)&&norm(n).length>3);
+  if(ex){ if(!state.have.includes(ex)) state.have.push(ex); save(); $('#own-n').value=''; renderCats(); renderRecs(); toast('“'+ING[ex].n+'” já estava na lista — marquei pra você ✓'); return; }
+  const name=n.charAt(0).toUpperCase()+n.slice(1);
+  const k='c_'+Date.now().toString(36);
+  const sec=$('#own-s').value||'O';
+  state.custom.push({k,n:name,s:sec}); state.have.push(k); loadCustom(); save();
+  $('#own-n').value='';
+  const d=document.querySelector('details.cat[data-s="'+sec+'"]'); if(d) d.open=true;
+  renderCats(); const d2=document.querySelector('details.cat[data-s="'+sec+'"]'); if(d2) d2.open=true;
+  renderRecs(); toast('“'+name+'” adicionado e marcado ✓');
+};
+$('#own-n').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#own-add').click(); });
+$('#own-n').addEventListener('input',()=>{ const v=norm($('#own-n').value); if(v.length<3) return;
+  const guess=guessSec($('#own-n').value); if(guess!=='O') $('#own-s').value=guess; });
 $('#clear-have').onclick=()=>{ if(!state.have.length) return; if(confirm('Desmarcar todos os ingredientes?')){ state.have=[]; save(); renderCats(); renderRecs(); } };
 function renderFilters(){
   const f=$('#filters'); f.innerHTML='';
@@ -668,7 +708,7 @@ function contactSheet(c){
   if(!isNew) $('#ct-del').onclick=()=>{ if(confirm('Apagar '+c.n+'?')){ state.contacts=state.contacts.filter(x=>x!==c); save(); closeSheet(); renderContacts(); } };
 }
 $('#add-contact').onclick=()=>contactSheet(null);
-$('#reset').onclick=()=>{ if(confirm('Apagar ingredientes, cardápio, lista, tarefas e contatos deste celular? Não dá para desfazer.')){ state=blank(); save(); renderAll(); toast('Dados apagados'); } };
+$('#reset').onclick=()=>{ if(confirm('Apagar ingredientes, cardápio, lista, tarefas e contatos deste celular? Não dá para desfazer.')){ state=blank(); loadCustom(); save(); renderAll(); toast('Dados apagados'); } };
 
 /* ================= ABAS ================= */
 const TABS=['geladeira','cardapio','compras','casa']; let cur=0;
