@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bichos do Mundo</title>
+<meta name="theme-color" content="#1f4d36">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{
+  --verde:#1f4d36; --verde2:#2d6a4b; --creme:#f6f1e6; --papel:#fffdf8; --tinta:#1d2420; --cinza:#5d6862;
+  --linha:#e4ddcc; --cor:#2d6a4b;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--creme);color:var(--tinta);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:10;background:var(--verde);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 0}
+.topo{display:flex;align-items:center;gap:10px}
+.topo h1{font-size:22px;margin:0;flex:1;letter-spacing:.2px}
+.topo h1 small{display:block;font-size:13px;font-weight:400;opacity:.8}
+.btn{border:0;border-radius:999px;padding:9px 14px;font:600 15px system-ui;background:#fff;color:var(--verde);cursor:pointer}
+.btn.claro{background:rgba(255,255,255,.16);color:#fff}
+.busca{margin:10px 0 8px;display:flex}
+.busca input{flex:1;border:0;border-radius:12px;padding:12px 14px;font-size:17px;background:#fff;color:var(--tinta)}
+nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:4px 0 10px;margin:0 -16px;padding-left:16px;padding-right:16px}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;border:0;border-radius:999px;padding:9px 14px;font:600 16px system-ui;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;white-space:nowrap}
+nav button[aria-selected=true]{background:#fff;color:var(--verde)}
+main{padding:14px 16px 90px;max-width:900px;margin:0 auto;min-height:70vh}
+.intro{display:flex;gap:12px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-left:6px solid var(--cor);border-radius:14px;padding:12px 14px;margin-bottom:14px}
+.intro .em{font-size:34px}
+.intro p{margin:0;color:var(--cinza);font-size:16px}
+.intro b{color:var(--tinta);font-size:18px}
+.grade{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:640px){.grade{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--papel);border:1px solid var(--linha);border-radius:16px;overflow:hidden;cursor:pointer;text-align:left;padding:0;font:inherit;color:inherit;display:flex;flex-direction:column}
+.card:active{transform:scale(.98)}
+.foto{position:relative;aspect-ratio:4/3;background:#dfe7df center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:44px}
+.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s}
+.foto img.ok{opacity:1}
+.card .txt{padding:9px 11px 12px}
+.card h3{margin:0;font-size:17px;line-height:1.25}
+.card i{display:block;color:var(--cinza);font-size:14px}
+.selo{display:inline-block;margin-top:6px;font:700 12px system-ui;padding:3px 8px;border-radius:999px;color:#fff}
+.vazio{text-align:center;color:var(--cinza);padding:40px 10px}
+/* ficha */
+.ficha{position:fixed;inset:0;z-index:30;background:var(--creme);overflow-y:auto;animation:sobe .22s ease-out}
+@keyframes sobe{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.ficha .foto{aspect-ratio:auto;height:min(52vh,420px);font-size:80px}
+.voltar{position:fixed;top:calc(12px + env(safe-area-inset-top));left:12px;z-index:31;border:0;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font:700 16px system-ui;padding:10px 16px;cursor:pointer}
+.ficha .corpo{padding:16px 16px 60px;max-width:760px;margin:0 auto}
+.ficha h2{margin:0;font-size:28px;line-height:1.15}
+.ficha .sci{color:var(--cinza);font-style:italic;font-size:17px}
+.ficha .grupo{font-size:15px;color:var(--cinza);margin-top:2px}
+.tabela{margin:16px 0;background:var(--papel);border:1px solid var(--linha);border-radius:14px;overflow:hidden}
+.linha{display:flex;gap:10px;padding:11px 14px;border-top:1px solid var(--linha)}
+.linha:first-child{border-top:0}
+.linha .ic{font-size:22px;width:28px;flex:none;text-align:center}
+.linha .k{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--cinza);font-weight:700}
+.caixa{border-radius:14px;padding:12px 14px;margin:12px 0}
+.caixa.curio{background:#fff4d6;border:1px solid #f0dca0}
+.caixa.alerta{background:#fde4e1;border:1px solid #f1b7ae}
+.caixa b{display:block;margin-bottom:2px}
+.credito{font-size:13px;color:var(--cinza)}
+.credito a,.wiki{color:var(--verde2)}
+.wiki{display:inline-block;margin-top:8px;font-weight:700}
+#instalar{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:20;box-shadow:0 4px 16px rgba(0,0,0,.25);background:var(--verde);color:#fff;padding:13px 18px;font-size:16px}
+.dica{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:21;background:#222;color:#fff;border-radius:14px;padding:14px 16px;font-size:16px}
+.baixar{width:100%;margin-top:18px;background:var(--papel);color:var(--verde);border:1px dashed var(--verde2);border-radius:14px;padding:13px;font:700 16px system-ui;cursor:pointer}
+.baixar small{display:block;font-weight:400;color:var(--cinza)}
+</style>
+</head>
+<body>
+<header>
+  <div class="topo">
+    <h1>🐾 Bichos do Mundo<small id="sub">Fichas e fotos reais</small></h1>
+    <button class="btn claro" id="btnBusca" aria-label="Buscar">🔎</button>
+  </div>
+  <div class="busca" id="caixaBusca" hidden><input id="q" type="search" placeholder="Buscar bicho… (ex.: onça, cobra)" autocomplete="off"></div>
+  <nav id="abas" role="tablist"></nav>
+</header>
+<main id="conteudo"></main>
+<button class="btn" id="instalar" hidden>📲 Instalar app</button>
+<div class="dica" id="dica" hidden>Para instalar: toque no menu <b>⋮</b> do Chrome e depois em <b>Instalar app</b> (ou "Adicionar à tela inicial").</div>
+<div class="ficha" id="ficha" hidden></div>
+
+<script>
+const GRUPOS = [
+ {id:"mam", nome:"Mamíferos", em:"🦁", cor:"#b5651d", txt:"Têm pelos, sangue quente e mamam leite quando filhotes."},
+ {id:"ave", nome:"Aves", em:"🦜", cor:"#2a7fb8", txt:"Têm penas, bico e botam ovos. Quase todas voam."},
+ {id:"rep", nome:"Répteis", em:"🐊", cor:"#5f7d2b", txt:"Pele com escamas, sangue frio. Cobras, lagartos, jacarés e tartarugas."},
+ {id:"anf", nome:"Anfíbios", em:"🐸", cor:"#1c8a6e", txt:"Vivem entre a água e a terra. Pele fina e úmida."},
+ {id:"pei", nome:"Peixes", em:"🐟", cor:"#1d5f9e", txt:"Respiram por brânquias e nadam com nadadeiras."},
+ {id:"inv", nome:"Insetos e outros", em:"🐝", cor:"#8a4f9e", txt:"Animais sem coluna: insetos, aranhas, escorpiões, polvos, caramujos."}
+];
+const STATUS = {
+ LC:["Pouco preocupante","#3d8b4f"], NT:["Quase ameaçada","#8a9a1f"], VU:["Vulnerável","#d39b12"],
+ EN:["Em perigo","#d8641c"], CR:["Criticamente em perigo","#c0272d"], DD:["Dados insuficientes","#7b7b7b"],
+ NA:["Não avaliada","#7b7b7b"], DOM:["Doméstico","#5b6fa8"], INV:["Invasora no Brasil","#a3392f"], EXO:["Exótica, criada no Brasil","#7a5aa8"]
+};
+// g=grupo n=nome s=científico t=tipo h=habitat o=onde vive a=alimentação tm=tamanho p=peso v=vida st=status c=curiosidade al=alerta br=brasileiro f=títulos extras p/ foto
+const BICHOS = [
+// MAMÍFEROS
+{g:"mam",n:"Onça-pintada",s:"Panthera onca",t:"Felino",o:"Américas, do México à Argentina (no Brasil: Amazônia, Pantanal, Cerrado)",h:"Florestas e áreas alagadas, sempre perto de água",a:"Carnívora: capivaras, queixadas, jacarés, veados",tm:"1,1 a 1,85 m de corpo + cauda de 45 a 75 cm",p:"56 a 96 kg (machos do Pantanal passam de 100 kg)",v:"12 a 15 anos na natureza",st:"NT",c:"É o maior felino das Américas e tem uma das mordidas mais fortes entre os felinos: consegue furar o casco de tartarugas e o crânio das presas. Ao contrário de muitos gatos, adora nadar.",br:1},
+{g:"mam",n:"Capivara",s:"Hydrochoerus hydrochaeris",t:"Roedor",o:"América do Sul, em quase todo o Brasil",h:"Beira de rios, lagos, brejos e até parques urbanos",a:"Herbívora: capins e plantas aquáticas; também invade lavouras de cana e milho",tm:"1,0 a 1,3 m",p:"35 a 66 kg",v:"8 a 10 anos",st:"LC",c:"É o maior roedor do mundo. Seus dedos têm uma pequena membrana que ajuda a nadar, e ela consegue ficar até 5 minutos debaixo d'água.",al:"Pode carregar o carrapato-estrela, que transmite a febre maculosa. Em áreas com capivara, use roupa clara, calça por dentro da bota e confira o corpo depois.",br:1},
+{g:"mam",n:"Lobo-guará",s:"Chrysocyon brachyurus",t:"Canídeo",o:"Centro da América do Sul; no Brasil, principalmente no Cerrado",h:"Campos abertos, cerrados e bordas de mata",a:"Onívoro: pequenos roedores, aves, insetos e muita fruta, como a lobeira",tm:"Cerca de 90 cm de altura no ombro; pernas bem compridas",p:"20 a 30 kg",v:"Até 15 anos em cativeiro",st:"NT",c:"Não é lobo nem raposa: é o maior canídeo da América do Sul. As pernas longas ajudam a enxergar por cima do capim alto. Ele estampa a nota de R$ 200.",br:1},
+{g:"mam",n:"Tamanduá-bandeira",s:"Myrmecophaga tridactyla",t:"Xenartro (mesmo grupo das preguiças e tatus)",o:"América Central e do Sul; no Brasil, Cerrado e Pantanal",h:"Campos, cerrados e matas abertas",a:"Formigas e cupins: pode comer cerca de 30 mil por dia",tm:"1,8 a 2,1 m contando a cauda",p:"22 a 40 kg",v:"Cerca de 16 anos",st:"VU",c:"Não tem dentes. A língua chega a 60 cm e entra e sai do cupinzeiro até 150 vezes por minuto.",al:"Parece manso, mas as garras da frente são enormes. Nunca encurrale um tamanduá: ele se defende de pé, abraçando.",br:1},
+{g:"mam",n:"Anta",s:"Tapirus terrestris",t:"Perissodáctilo (parente do cavalo)",o:"América do Sul, em quase todo o Brasil",h:"Florestas e matas perto de rios",a:"Herbívora: folhas, brotos e muitas frutas",tm:"1,8 a 2,5 m de comprimento",p:"150 a 300 kg",v:"25 a 30 anos",st:"VU",c:"É o maior mamífero terrestre do Brasil. É chamada de 'jardineira da floresta' porque espalha sementes pelo caminho nas fezes.",br:1},
+{g:"mam",n:"Preguiça-de-três-dedos",s:"Bradypus variegatus",t:"Xenartro",o:"América Central e do Sul; Amazônia e Mata Atlântica",h:"Copa das árvores em florestas tropicais",a:"Folhas, brotos e flores",tm:"42 a 80 cm",p:"2,2 a 6,3 kg",v:"20 a 30 anos",st:"LC",c:"Desce da árvore só cerca de uma vez por semana, para fazer as necessidades. No pelo cresce uma alga esverdeada que ajuda na camuflagem.",br:1},
+{g:"mam",n:"Boto-cor-de-rosa",s:"Inia geoffrensis",t:"Golfinho de rio",o:"Bacias do Amazonas e do Orinoco",h:"Rios, lagos e florestas alagadas",a:"Peixes, caranguejos e tartaruguinhas",tm:"Até 2,5 m",p:"Até 185 kg (machos)",v:"Cerca de 30 anos",st:"EN",c:"É o maior golfinho de água doce. As vértebras do pescoço não são grudadas, então ele vira a cabeça para os lados, o que ajuda a nadar entre os troncos da floresta alagada.",br:1},
+{g:"mam",n:"Boi / vaca",s:"Bos taurus",f:["Cattle"],t:"Ruminante",o:"No mundo inteiro; o Brasil tem um dos maiores rebanhos do planeta",h:"Pastagens e fazendas",a:"Herbívoro: capim, silagem, ração",tm:"1,2 a 1,5 m de altura (varia com a raça)",p:"400 a 900 kg (touros passam de 1 tonelada)",v:"18 a 22 anos",st:"DOM",c:"O estômago tem 4 partes (rúmen, retículo, omaso e abomaso). Ele engole rápido e depois volta o alimento à boca para mastigar de novo: isso é ruminar.",br:0},
+{g:"mam",n:"Cavalo",s:"Equus caballus",f:["Horse"],t:"Equino",o:"No mundo inteiro",h:"Pastagens e fazendas",a:"Herbívoro: capim, feno e grãos",tm:"1,4 a 1,8 m de altura na cernelha",p:"380 a 1.000 kg",v:"25 a 30 anos",st:"DOM",c:"Consegue cochilar em pé porque as pernas 'travam' sem gastar força. Tem os maiores olhos entre os mamíferos terrestres.",br:0},
+{g:"mam",n:"Leão",s:"Panthera leo",t:"Felino",o:"África (savanas) e uma pequena área na Índia",h:"Savanas e campos abertos",a:"Carnívoro: zebras, gnus, búfalos",tm:"1,4 a 2,5 m de corpo",p:"120 a 250 kg",v:"10 a 14 anos na natureza",st:"VU",c:"É o único felino que vive em grupos, os bandos. O rugido pode ser ouvido a até 8 km de distância. Quem mais caça são as fêmeas.",br:0},
+{g:"mam",n:"Elefante-africano",s:"Loxodonta africana",t:"Proboscídeo",o:"África, ao sul do Saara",h:"Savanas, florestas e semidesertos",a:"Herbívoro: até 150 kg de capim, folhas e cascas por dia",tm:"Até 4 m de altura",p:"4 a 6 toneladas",v:"60 a 70 anos",st:"EN",c:"É o maior animal terrestre vivo. A gestação dura cerca de 22 meses, a mais longa entre os mamíferos. A tromba tem dezenas de milhares de músculos.",br:0},
+{g:"mam",n:"Girafa",s:"Giraffa camelopardalis",t:"Ruminante",o:"África",h:"Savanas com árvores espalhadas",a:"Folhas de acácia e outras árvores",tm:"4,5 a 5,5 m de altura",p:"800 a 1.200 kg",v:"Cerca de 25 anos",st:"VU",c:"É o animal mais alto do mundo. Mesmo com o pescoço enorme, tem só 7 vértebras nele, igual a nós. A língua escura tem uns 50 cm.",br:0},
+{g:"mam",n:"Baleia-azul",s:"Balaenoptera musculus",t:"Cetáceo",o:"Todos os oceanos, inclusive a costa do Brasil",h:"Mar aberto",a:"Krill (camarõezinhos): até 4 toneladas por dia",tm:"Até 30 m",p:"Até 150 toneladas",v:"80 a 90 anos",st:"EN",c:"É o maior animal que já existiu na Terra, maior que qualquer dinossauro. O coração tem o tamanho de um carro pequeno.",br:0},
+// AVES
+{g:"ave",n:"Arara-azul",s:"Anodorhynchus hyacinthinus",t:"Psitacídeo (família dos papagaios)",o:"Pantanal, Cerrado e parte da Amazônia",h:"Palmeirais e matas abertas",a:"Sementes de palmeiras, como acuri e bocaiuva",tm:"Cerca de 1 m da cabeça à ponta da cauda",p:"1,2 a 1,7 kg",v:"Mais de 50 anos",st:"VU",c:"É a maior arara do mundo. O bico é tão forte que quebra cocos que a gente só abre com martelo. Fazem ninho em ocos de árvores, muitas vezes no manduvi.",br:1},
+{g:"ave",n:"Tucano-toco",s:"Ramphastos toco",t:"Ranfastídeo",o:"Centro e leste da América do Sul",h:"Cerrado, Pantanal, bordas de mata e até cidades",a:"Frutas, insetos, ovos e filhotes de outras aves",tm:"55 a 65 cm (o bico tem cerca de 20 cm)",p:"Cerca de 540 g",v:"Cerca de 20 anos",st:"LC",c:"O bico parece pesado, mas é oco por dentro, como uma esponja. Ele ajuda a soltar calor do corpo, como um radiador.",br:1},
+{g:"ave",n:"Harpia (gavião-real)",s:"Harpia harpyja",t:"Ave de rapina",o:"Do México à Argentina; no Brasil, principalmente na Amazônia",h:"Florestas altas e preservadas",a:"Preguiças, macacos e outros animais das copas",tm:"Cerca de 1 m de comprimento e 2 m de asa aberta",p:"Fêmeas de 6 a 9 kg; machos menores",v:"25 a 35 anos",st:"VU",c:"É uma das águias mais fortes do mundo. As garras de trás chegam a 13 cm, do tamanho das garras de um urso.",br:1},
+{g:"ave",n:"Ema",s:"Rhea americana",t:"Ave corredora (não voa)",o:"América do Sul; no Brasil, Cerrado, Pantanal e campos do Sul",h:"Campos abertos, cerrados e até pastagens",a:"Onívora: folhas, sementes, insetos, pequenos lagartos",tm:"Até 1,7 m de altura",p:"20 a 40 kg",v:"Cerca de 15 anos",st:"NT",c:"É a maior ave do Brasil. Quem choca os ovos e cuida dos filhotes é o macho, que pode juntar ovos de várias fêmeas no mesmo ninho.",br:1},
+{g:"ave",n:"Quero-quero",s:"Vanellus chilensis",t:"Ave limícola",o:"América do Sul inteira",h:"Campos, pastos, gramados e até campos de futebol",a:"Insetos, minhocas e pequenos invertebrados",tm:"35 a 38 cm",p:"250 a 430 g",v:"Cerca de 10 anos",st:"LC",c:"Tem um esporão pontudo na dobra da asa. Quando alguém chega perto do ninho, faz voos rasantes e grita sem parar. É a ave símbolo do Rio Grande do Sul.",br:1},
+{g:"ave",n:"Coruja-buraqueira",s:"Athene cunicularia",t:"Coruja",o:"Américas",h:"Campos, pastos, beira de estradas e terrenos urbanos",a:"Insetos, roedores, pequenos répteis",tm:"19 a 28 cm",p:"150 a 250 g",v:"6 a 9 anos",st:"LC",c:"Diferente da maioria das corujas, vive em tocas no chão e fica ativa também de dia. Ajuda muito a controlar ratos e gafanhotos.",br:1},
+{g:"ave",n:"Beija-flor-tesoura",s:"Eupetomena macroura",t:"Troquilídeo",o:"América do Sul; muito comum no Brasil",h:"Cerrado, bordas de mata, jardins e quintais",a:"Néctar de flores e pequenos insetos",tm:"15 a 19 cm (com a cauda em tesoura)",p:"6 a 9 g",v:"Cerca de 10 anos",st:"LC",c:"Bate as asas dezenas de vezes por segundo e consegue voar para trás. É um dos maiores beija-flores do Brasil e bem brigão: expulsa os outros das flores.",br:1},
+{g:"ave",n:"Avestruz",s:"Struthio camelus",t:"Ave corredora (não voa)",o:"África; criada em fazendas no Brasil",h:"Savanas e semidesertos",a:"Onívora: plantas, sementes, insetos",tm:"Até 2,7 m de altura",p:"63 a 145 kg",v:"30 a 40 anos",st:"LC",c:"É a maior ave do mundo e bota o maior ovo: cerca de 1,4 kg, o mesmo que uns 24 ovos de galinha. Corre a 70 km/h.",br:0},
+{g:"ave",n:"Pinguim-imperador",s:"Aptenodytes forsteri",t:"Pinguim",o:"Antártida",h:"Gelo e mar gelado",a:"Peixes, krill e lulas",tm:"1,1 a 1,3 m de altura",p:"22 a 45 kg",v:"Cerca de 20 anos",st:"NT",c:"O macho choca o ovo em cima dos pés por uns 2 meses, no inverno mais frio do planeta, sem comer nada. Mergulha a mais de 500 m de profundidade.",br:0},
+// RÉPTEIS
+{g:"rep",n:"Jacaré-do-pantanal",s:"Caiman yacare",t:"Crocodiliano",o:"Pantanal, Bolívia, Paraguai e norte da Argentina",h:"Rios, lagoas e brejos",a:"Peixes (principalmente piranhas), caramujos, aves",tm:"2,5 a 3 m",p:"Até cerca de 60 kg",v:"Cerca de 50 anos",st:"LC",c:"Quase foi extinto pela caça do couro nos anos 1980. Com a proteção, a população se recuperou: hoje o Pantanal tem milhões deles.",br:1},
+{g:"rep",n:"Sucuri-verde",s:"Eunectes murinus",t:"Serpente (não peçonhenta)",o:"América do Sul tropical, Amazônia e Pantanal",h:"Rios, brejos e lagos",a:"Capivaras, peixes, aves, jacarés",tm:"Até 6 m ou mais (fêmeas são bem maiores)",p:"Até cerca de 100 kg",v:"Cerca de 10 anos na natureza",st:"NA",c:"É a cobra mais pesada do mundo. Não tem veneno: mata enrolando e apertando a presa. Os filhotes já nascem vivos, não saem de ovos.",br:1},
+{g:"rep",n:"Jararaca",s:"Bothrops jararaca",t:"Serpente peçonhenta",o:"Sul e Sudeste do Brasil, Paraguai e Argentina",h:"Mata Atlântica, roças, canaviais e áreas com entulho",a:"Roedores, sapos e lagartos",tm:"Cerca de 1,2 m (até 1,6 m)",p:"Até cerca de 1 kg",v:"Cerca de 15 anos",st:"NA",c:"Do veneno dela os cientistas brasileiros criaram o captopril, remédio usado no mundo todo contra pressão alta.",al:"É peçonhenta e a que mais causa acidentes no Sudeste. Em caso de picada: mantenha a pessoa calma e deitada, NÃO faça torniquete, NÃO corte nem chupe o local, e leve rápido ao hospital. O tratamento é o soro antibotrópico. Use bota de cano alto e luva no campo.",br:1},
+{g:"rep",n:"Cascavel",s:"Crotalus durissus",t:"Serpente peçonhenta",o:"Quase todo o Brasil, em áreas abertas",h:"Cerrado, campos, pastos e lavouras",a:"Roedores",tm:"Até 1,6 m",p:"Até cerca de 2 kg",v:"Cerca de 20 anos",st:"LC",c:"O chocalho na ponta da cauda é feito de anéis de pele seca. Ganha um anel novo a cada troca de pele, então não dá para saber a idade contando os anéis.",al:"Peçonhenta e perigosa: o veneno age nos nervos e nos rins. Mesma conduta: sem torniquete, sem cortar, hospital rápido. O tratamento é o soro anticrotálico.",br:1},
+{g:"rep",n:"Teiú",s:"Salvator merianae",t:"Lagarto",o:"Centro e leste da América do Sul",h:"Matas, cerrados, roças e quintais",a:"Onívoro: ovos, frutas, insetos, pintinhos",tm:"Até 1,4 m",p:"Até cerca de 5 kg",v:"15 a 20 anos",st:"LC",c:"Na época de reprodução, consegue deixar o corpo uns graus mais quente que o ambiente, algo raro em répteis. No inverno, hiberna em tocas.",br:1},
+{g:"rep",n:"Jabuti-piranga",s:"Chelonoidis carbonarius",t:"Quelônio terrestre",o:"Norte da América do Sul e boa parte do Brasil",h:"Florestas, cerrados e matas secas",a:"Frutas, folhas e flores caídas",tm:"Casco de 30 a 50 cm",p:"Até cerca de 10 kg",v:"Mais de 50 anos",st:"NA",c:"As escamas vermelhas nas patas dão o nome 'piranga' (vermelho em tupi). Criar em casa sem autorização do Ibama é crime.",br:1},
+{g:"rep",n:"Tartaruga-verde",s:"Chelonia mydas",t:"Tartaruga marinha",o:"Mares tropicais do mundo; desova em ilhas do Brasil, como Trindade",h:"Mar, recifes e bancos de algas",a:"Adulta come algas e capim marinho; filhote come também bichinhos",tm:"Casco de 80 a 120 cm",p:"110 a 190 kg",v:"Mais de 80 anos",st:"LC",c:"A fêmea volta para botar ovos na mesma praia onde nasceu, depois de anos no mar. Graças a projetos de proteção como o Tamar, a espécie se recuperou e saiu da lista de ameaçadas em 2025.",br:1},
+{g:"rep",n:"Dragão-de-komodo",s:"Varanus komodoensis",t:"Lagarto",o:"Algumas ilhas da Indonésia",h:"Savanas secas e florestas",a:"Carnívoro: veados, porcos selvagens, búfalos",tm:"2 a 3 m",p:"70 a 90 kg",v:"Cerca de 30 anos",st:"EN",c:"É o maior lagarto do mundo. A mordida tem glândulas de veneno que impedem o sangue de coagular.",br:0},
+// ANFÍBIOS
+{g:"anf",n:"Sapo-cururu",s:"Rhinella marina",t:"Sapo",o:"América do Sul e Central; levado para a Austrália, onde virou praga",h:"Matas, pastos, quintais e cidades",a:"Insetos, besouros, pequenos animais",tm:"10 a 15 cm (até 24 cm)",p:"Até 1 kg ou mais",v:"10 a 15 anos",st:"LC",c:"Ajuda muito a controlar baratas e insetos no quintal. A Austrália trouxe o cururu para comer besouros da cana, e ele virou uma praga por lá.",al:"As glândulas atrás dos olhos soltam um veneno leitoso. Não é perigoso só de tocar (lave as mãos), mas pode matar cães que mordem o sapo.",br:1},
+{g:"anf",n:"Rã-touro",s:"Lithobates catesbeianus",t:"Rã",o:"Nativa da América do Norte; criada em ranários no Brasil",h:"Lagos, açudes e brejos",a:"Come quase tudo que cabe na boca: insetos, peixes, outras rãs",tm:"9 a 15 cm (até 20 cm)",p:"Até 0,5 kg",v:"8 a 10 anos",st:"INV",c:"O coaxar grave parece o mugido de um boi, por isso o nome. Escapou de criações e hoje compete com as rãs nativas.",br:0},
+{g:"anf",n:"Perereca-de-olhos-vermelhos",s:"Agalychnis callidryas",t:"Perereca",o:"América Central",h:"Florestas tropicais úmidas, perto de água",a:"Grilos, moscas e mariposas",tm:"5 a 7 cm",p:"Poucos gramas",v:"Cerca de 5 anos",st:"LC",c:"Dorme de dia com os olhos fechados e as cores escondidas. Se é incomodada, abre de repente os olhos vermelhos e mostra as patas laranja para assustar o predador.",br:0},
+{g:"anf",n:"Sapo-dardo-dourado",s:"Phyllobates terribilis",t:"Sapo venenoso",o:"Floresta do Pacífico da Colômbia",h:"Chão de florestas tropicais úmidas",a:"Formigas, cupins e pequenos insetos",tm:"4,7 a 5,5 cm",p:"Cerca de 30 g",v:"Até 10 anos em cativeiro",st:"EN",c:"Um dos animais mais venenosos do planeta. Indígenas usavam o veneno da pele na ponta de dardos. Criado em cativeiro, perde o veneno, porque ele vem da dieta.",br:0},
+{g:"anf",n:"Axolote",s:"Ambystoma mexicanum",t:"Salamandra",o:"Lagos de Xochimilco, na Cidade do México",h:"Canais e lagos de água fria",a:"Vermes, larvas, pequenos peixes",tm:"15 a 45 cm (geralmente uns 23 cm)",p:"60 a 230 g",v:"10 a 15 anos",st:"CR",c:"Passa a vida toda com cara de filhote e brânquias de fora. Consegue regenerar patas, cauda e até partes do coração e do cérebro.",br:0},
+{g:"anf",n:"Cobra-cega",s:"Siphonops annulatus",t:"Cecília (anfíbio sem patas)",o:"América do Sul; quase todo o Brasil",h:"Debaixo da terra, em solo úmido de matas e roças",a:"Minhocas, cupins e larvas",tm:"30 a 45 cm",p:"Poucas dezenas de gramas",v:"Pouco conhecida",st:"LC",c:"Parece cobra ou minhoca, mas é um anfíbio, parente dos sapos. Os filhotes comem uma camada especial da pele da mãe.",br:1},
+// PEIXES
+{g:"pei",n:"Pirarucu",s:"Arapaima gigas",t:"Peixe de água doce",o:"Bacia do Amazonas",h:"Lagos e rios de várzea",a:"Outros peixes",tm:"Até 3 m",p:"Até 200 kg",v:"Cerca de 18 anos",st:"DD",c:"É um dos maiores peixes de água doce do mundo. Respira ar: precisa subir à superfície a cada 15 ou 20 minutos. A língua óssea e as escamas já foram usadas como lixa.",br:1},
+{g:"pei",n:"Tambaqui",s:"Colossoma macropomum",t:"Peixe de água doce",o:"Bacias do Amazonas e do Orinoco",h:"Rios e florestas alagadas",a:"Frutas e sementes que caem na água",tm:"Até 1 m",p:"Até 30 kg",v:"Mais de 20 anos",st:"NA",c:"Tem dentes parecidos com os nossos, para quebrar sementes duras. É o peixe nativo mais criado em tanques no Brasil.",br:1},
+{g:"pei",n:"Dourado",s:"Salminus brasiliensis",t:"Peixe de água doce",o:"Bacias do Prata, Paraná e São Francisco",h:"Rios de correnteza",a:"Outros peixes",tm:"Até 1 m",p:"Até 25 kg",v:"Cerca de 15 anos",st:"LC",c:"Chamado de 'rei do rio', dá saltos fora d'água quando fisgado. Sobe os rios na piracema para se reproduzir, época em que a pesca é proibida.",br:1},
+{g:"pei",n:"Piranha-vermelha",s:"Pygocentrus nattereri",t:"Peixe de água doce",o:"Bacias do Amazonas, Paraná e Pantanal",h:"Rios e lagoas",a:"Onívora: peixes, insetos, sementes, carcaças",tm:"25 a 33 cm",p:"Até 3,5 kg",v:"Cerca de 10 anos",st:"NA",c:"A fama de assassina é exagerada: vive em cardumes mais para se proteger do que para atacar. Ataques a pessoas são raros e acontecem mais na seca, com pouca comida.",br:1},
+{g:"pei",n:"Tilápia-do-nilo",s:"Oreochromis niloticus",t:"Peixe de água doce",o:"Nativa da África; criada em todo o Brasil",h:"Tanques, represas e rios",a:"Onívora: algas, plâncton e ração",tm:"Até 60 cm",p:"Até cerca de 4 kg",v:"Cerca de 10 anos",st:"EXO",c:"É o peixe mais produzido em piscicultura no Brasil. A fêmea guarda os ovos e os filhotes dentro da boca para protegê-los.",br:0},
+{g:"pei",n:"Cavalo-marinho",s:"Hippocampus reidi",t:"Peixe marinho",o:"Costa do Atlântico nas Américas, incluindo o Brasil",h:"Recifes, manguezais e bancos de algas",a:"Pequenos crustáceos",tm:"Até cerca de 17 cm",p:"Poucos gramas",v:"1 a 4 anos",st:"NT",c:"É o macho que fica 'grávido': a fêmea coloca os ovos numa bolsa na barriga dele, e é ele quem dá à luz os filhotes.",br:1},
+{g:"pei",n:"Peixe-palhaço",s:"Amphiprion ocellaris",t:"Peixe marinho",o:"Oceanos Índico e Pacífico",h:"Recifes de coral, dentro de anêmonas",a:"Algas, plâncton e pequenos crustáceos",tm:"8 a 11 cm",p:"Cerca de 20 g",v:"6 a 10 anos",st:"LC",c:"Vive entre os tentáculos de anêmonas, que queimam outros peixes, mas não ele. Todos nascem machos; o maior do grupo vira fêmea.",br:0},
+{g:"pei",n:"Tubarão-branco",s:"Carcharodon carcharias",t:"Tubarão",o:"Mares temperados do mundo todo",h:"Costa e mar aberto",a:"Focas, leões-marinhos, peixes grandes",tm:"4 a 6 m",p:"680 a 1.100 kg (até cerca de 2 toneladas)",v:"Mais de 70 anos",st:"VU",c:"Tem cerca de 300 dentes em várias fileiras; quando um cai, outro vem para a frente. Sente uma gota de sangue a centenas de metros.",br:0},
+// INVERTEBRADOS
+{g:"inv",n:"Abelha-europeia",s:"Apis mellifera",t:"Inseto",o:"Mundo todo; no Brasil predomina a abelha africanizada",h:"Colmeias em ocos, caixas e construções",a:"Néctar e pólen das flores",tm:"1 a 1,5 cm",p:"Cerca de 0,1 g",v:"Operárias: cerca de 6 semanas; rainha: 2 a 5 anos",st:"DD",c:"Para fazer 1 kg de mel, as abelhas visitam milhões de flores. Sem a polinização delas, muitas frutas e lavouras produziriam bem menos.",al:"A africanizada é muito defensiva. Se um enxame atacar, corra em linha reta para longe e proteja o rosto; não pule na água. Quem tem alergia deve procurar socorro na hora.",br:0},
+{g:"inv",n:"Jataí",s:"Tetragonisca angustula",t:"Abelha sem ferrão",o:"Do México à Argentina; quase todo o Brasil",h:"Ocos de árvores, muros e caixas",a:"Néctar e pólen",tm:"4 a 5 mm",p:"Muito leve",v:"Operárias: cerca de 1 mês; rainha: alguns anos",st:"NA",c:"Não tem ferrão e é ótima para criar em casa. A entrada do ninho é um caninho de cera, e de noite as guardas o fecham.",br:1},
+{g:"inv",n:"Formiga saúva",s:"Atta sexdens",f:["Atta (ant)"],t:"Inseto (formiga cortadeira)",o:"América do Sul",h:"Ninhos enormes debaixo da terra",a:"Cortam folhas para cultivar um fungo, que é o alimento delas",tm:"Operárias de 2 a 15 mm; a rainha (içá) bem maior",p:"Muito leve",v:"Rainha: mais de 10 anos",st:"NA",c:"Um ninho pode ter milhões de formigas e centenas de câmaras. Elas são 'agricultoras': não comem a folha, usam para plantar fungo.",al:"Praga importante em canaviais, eucalipto e pastagens. O controle costuma ser feito com isca formicida.",br:1},
+{g:"inv",n:"Joaninha-de-sete-pintas",s:"Coccinella septempunctata",t:"Inseto (besouro)",o:"Europa, Ásia e América do Norte",h:"Hortas, jardins e lavouras",a:"Pulgões e cochonilhas",tm:"5 a 8 mm",p:"Muito leve",v:"Até 1 ano",st:"LC",c:"É uma aliada do agricultor: a larva e a adulta comem dezenas de pulgões por dia. As cores fortes avisam que tem gosto ruim.",br:0},
+{g:"inv",n:"Borboleta-monarca",s:"Danaus plexippus",t:"Inseto (borboleta)",o:"Américas; também aparece no Brasil",h:"Campos, jardins e beira de estradas",a:"Lagarta: folhas de oficial-de-sala (Asclepias); adulta: néctar",tm:"9 a 10 cm de asa aberta",p:"Menos de 1 g",v:"2 a 6 semanas; a geração que migra vive até 8 meses",st:"LC",c:"Na América do Norte, faz uma migração de até 4.500 km até o México. A lagarta come uma planta tóxica e fica com gosto ruim para os pássaros.",br:0},
+{g:"inv",n:"Aranha-armadeira",s:"Phoneutria nigriventer",t:"Aracnídeo peçonhento",o:"Sul e Sudeste do Brasil",h:"Matas, bananais, entulhos, dentro de sapatos e roupas",a:"Insetos e pequenos animais",tm:"Corpo de 4 a 5 cm; com as pernas, até 17 cm",p:"Poucos gramas",v:"Cerca de 2 anos (fêmeas mais)",st:"NA",c:"O nome vem da posição de ataque: ergue as patas da frente como se 'armasse' o bote. Não faz teia: caça andando à noite.",al:"Peçonhenta. A picada dói muito. Sacuda sapatos, botas e luvas antes de usar. Em caso de picada, procure o hospital (existe soro antiaracnídico).",br:1},
+{g:"inv",n:"Escorpião-amarelo",s:"Tityus serrulatus",t:"Aracnídeo peçonhento",o:"Brasil, principalmente Sudeste e Centro-Oeste",h:"Cidades: esgotos, entulhos, frestas e caixas de gordura",a:"Baratas e grilos",tm:"Até 7 cm",p:"Poucos gramas",v:"3 a 5 anos",st:"NA",c:"Quase não existem machos: as fêmeas se reproduzem sozinhas (partenogênese), por isso se espalham tão rápido.",al:"É o escorpião mais perigoso do Brasil, principalmente para crianças e idosos. Em caso de picada, vá logo ao pronto-socorro; o tratamento é o soro antiescorpiônico. Mantenha o quintal sem entulho e os ralos fechados.",br:1},
+{g:"inv",n:"Polvo-comum",s:"Octopus vulgaris",t:"Molusco",o:"Mares do mundo, incluindo a costa brasileira",h:"Fundos rochosos e recifes",a:"Caranguejos, siris e outros moluscos",tm:"Até cerca de 1,3 m com os braços",p:"3 a 10 kg",v:"1 a 2 anos",st:"LC",c:"Tem 3 corações e sangue azul. Muda de cor e de textura em segundos e é muito inteligente: abre potes e escapa de aquários.",br:1},
+{g:"inv",n:"Caramujo-africano",s:"Lissachatina fulica",f:["Achatina fulica"],t:"Molusco terrestre",o:"Nativo da África; espalhado pelo Brasil todo",h:"Quintais, hortas, terrenos baldios",a:"Plantas, verduras e até lixo",tm:"Concha de até 20 cm",p:"Até cerca de 200 g",v:"3 a 5 anos",st:"INV",c:"Foi trazido nos anos 1980 para ser vendido como escargot, não deu certo e se espalhou. Cada um bota centenas de ovos por ano.",al:"Pode transmitir vermes que causam doenças. Nunca pegue com a mão sem luva. Para eliminar: recolha com luva, quebre a concha e enterre com cal. Lave bem verduras da horta.",br:0}
+];
+
+const $ = s => document.querySelector(s);
+const abas = $("#abas"), cont = $("#conteudo"), ficha = $("#ficha");
+let atual = "mam", busca = "";
+const ordem = GRUPOS.map(g => g.id);
+
+/* ---------- fotos reais (Wikipédia / Wikimedia Commons) ---------- */
+let cacheFotos = {};
+try { cacheFotos = JSON.parse(localStorage.getItem("bichos-fotos") || "{}"); } catch (e) {}
+function salvaCache(){ try { localStorage.setItem("bichos-fotos", JSON.stringify(cacheFotos)); } catch (e) {} }
+const tamanho = (url, px) => url.replace(/\/(\d+)px-/, "/" + px + "px-");
+const pedidos = {};
+function fotoDe(b){
+  if (cacheFotos[b.s]) return Promise.resolve(cacheFotos[b.s]);
+  if (pedidos[b.s]) return pedidos[b.s];
+  const tentativas = [["en", b.s], ...(b.f || []).map(t => ["en", t]), ["pt", b.n]];
+  pedidos[b.s] = (async () => {
+    for (const [lang, t] of tentativas) {
+      try {
+        const r = await fetch(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(t.replace(/ /g, "_"))}`);
+        if (!r.ok) continue;
+        const j = await r.json();
+        if (j.thumbnail && j.thumbnail.source) {
+          const info = { th: j.thumbnail.source, orig: j.originalimage ? j.originalimage.source : j.thumbnail.source,
+                         w: j.originalimage ? j.originalimage.width : j.thumbnail.width };
+          cacheFotos[b.s] = info; salvaCache(); return info;
+        }
+      } catch (e) { break; } // sem internet
+    }
+    delete pedidos[b.s];
+    return null;
+  })();
+  return pedidos[b.s];
+}
+function urlFoto(info, px){
+  if (!info) return null;
+  if (info.w && info.w <= px) return info.orig;
+  return /\/\d+px-/.test(info.th) ? tamanho(info.th, px) : info.th;
+}
+function colocaFoto(box, b, px){
+  fotoDe(b).then(info => {
+    const u = urlFoto(info, px); if (!u) return;
+    const img = new Image();
+    img.alt = b.n; img.loading = "lazy"; img.decoding = "async";
+    img.onload = () => img.classList.add("ok");
+    img.onerror = () => { if (img.src !== info.th) img.src = info.th; else img.remove(); };
+    img.src = u;
+    box.appendChild(img);
+  });
+}
+
+/* ---------- telas ---------- */
+function montaAbas(){
+  abas.innerHTML = "";
+  GRUPOS.forEach(g => {
+    const bt = document.createElement("button");
+    bt.setAttribute("role", "tab");
+    bt.setAttribute("aria-selected", g.id === atual && !busca);
+    bt.textContent = g.em + " " + g.nome;
+    bt.onclick = () => { if (busca) limpaBusca(); vai(g.id); };
+    abas.appendChild(bt);
+  });
+}
+function grupo(id){ return GRUPOS.find(g => g.id === id); }
+function selo(st){ const s = STATUS[st] || STATUS.NA; return `<span class="selo" style="background:${s[1]}">${s[0]}</span>`; }
+function card(b){
+  const g = grupo(b.g);
+  const bt = document.createElement("button");
+  bt.className = "card";
+  bt.innerHTML = `<div class="foto" style="background-color:${g.cor}22">${g.em}</div>
+    <div class="txt"><h3>${b.n}</h3><i>${b.s}</i>${selo(b.st)}</div>`;
+  colocaFoto(bt.querySelector(".foto"), b, 500);
+  bt.onclick = () => abre(b);
+  return bt;
+}
+function lista(){
+  cont.innerHTML = "";
+  let itens;
+  if (busca) {
+    const q = norm(busca);
+    itens = BICHOS.filter(b => norm(b.n + " " + b.s + " " + b.t + " " + b.o + " " + grupo(b.g).nome + (/Serpente/.test(b.t) ? " cobra" : "") + (b.al ? " perigo veneno peçonhento" : "")).includes(q));
+    const p = document.createElement("p"); p.style.color = "var(--cinza)";
+    p.textContent = itens.length ? `${itens.length} resultado(s) para "${busca}"` : "";
+    cont.appendChild(p);
+  } else {
+    const g = grupo(atual);
+    document.documentElement.style.setProperty("--cor", g.cor);
+    itens = BICHOS.filter(b => b.g === atual);
+    const ib = document.createElement("div"); ib.className = "intro";
+    ib.innerHTML = `<div class="em">${g.em}</div><div><b>${g.nome}</b> · ${itens.length} espécies<p>${g.txt}</p></div>`;
+    cont.appendChild(ib);
+  }
+  if (!itens.length) { cont.insertAdjacentHTML("beforeend", `<div class="vazio">Nenhum bicho encontrado 🐾</div>`); return; }
+  const gr = document.createElement("div"); gr.className = "grade";
+  itens.forEach(b => gr.appendChild(card(b)));
+  cont.appendChild(gr);
+  if (!busca) {
+    const bx = document.createElement("button"); bx.className = "baixar";
+    bx.innerHTML = `⬇️ Guardar todas as fotos no celular<small>Para ver os bichos sem internet</small>`;
+    bx.onclick = () => baixarTudo(bx);
+    cont.appendChild(bx);
+  }
+}
+function vai(id, deslize){
+  atual = id; montaAbas(); lista();
+  const sel = abas.querySelector('[aria-selected="true"]');
+  if (sel) sel.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  if (!deslize) window.scrollTo(0, 0); else window.scrollTo({ top: 0 });
+}
+const linha = (ic, k, v) => v ? `<div class="linha"><div class="ic">${ic}</div><div><div class="k">${k}</div>${v}</div></div>` : "";
+function abre(b, semHist){
+  const g = grupo(b.g);
+  ficha.innerHTML = `<button class="voltar" id="fechar">← Voltar</button>
+   <div class="foto" style="background-color:${g.cor}33">${g.em}</div>
+   <div class="corpo">
+     <h2>${b.n}</h2><div class="sci">${b.s}</div>
+     <div class="grupo">${g.em} ${g.nome} · ${b.t}${b.br ? " · 🇧🇷 vive no Brasil" : ""}</div>
+     ${selo(b.st)}
+     <div class="tabela">
+       ${linha("🌎","Onde vive",b.o)}${linha("🌿","Habitat",b.h)}${linha("🍽️","Alimentação",b.a)}
+       ${linha("📏","Tamanho",b.tm)}${linha("⚖️","Peso",b.p)}${linha("⏳","Tempo de vida",b.v)}
+       ${linha("🛡️","Conservação",(STATUS[b.st]||STATUS.NA)[0])}
+     </div>
+     <div class="caixa curio"><b>💡 Você sabia?</b>${b.c}</div>
+     ${b.al ? `<div class="caixa alerta"><b>⚠️ Atenção</b>${b.al}</div>` : ""}
+     <div class="credito">Foto: Wikimedia Commons, via Wikipédia.</div>
+     <a class="wiki" target="_blank" rel="noopener" href="https://pt.wikipedia.org/w/index.php?search=${encodeURIComponent(b.s)}">Ler mais na Wikipédia →</a>
+   </div>`;
+  colocaFoto(ficha.querySelector(".foto"), b, 960);
+  ficha.hidden = false; ficha.scrollTop = 0; document.body.style.overflow = "hidden";
+  $("#fechar").onclick = () => history.back();
+  if (!semHist) history.pushState({ ficha: b.s }, "");
+}
+function fecha(){ ficha.hidden = true; ficha.innerHTML = ""; document.body.style.overflow = ""; }
+window.addEventListener("popstate", () => { if (!ficha.hidden) fecha(); });
+
+/* ---------- busca ---------- */
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+$("#btnBusca").onclick = () => {
+  const cx = $("#caixaBusca");
+  cx.hidden = !cx.hidden;
+  if (!cx.hidden) $("#q").focus(); else limpaBusca();
+};
+$("#q").oninput = e => { busca = e.target.value.trim(); montaAbas(); lista(); };
+function limpaBusca(){ busca = ""; $("#q").value = ""; $("#caixaBusca").hidden = true; montaAbas(); lista(); }
+
+/* ---------- arrastar para trocar de aba ---------- */
+let x0 = null, y0 = 0;
+cont.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+cont.addEventListener("touchend", e => {
+  if (x0 === null || busca) return;
+  const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+  if (Math.abs(dx) < 28 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+  const i = ordem.indexOf(atual) + (dx < 0 ? 1 : -1);
+  if (i >= 0 && i < ordem.length) vai(ordem[i], true);
+}, { passive: true });
+
+/* ---------- guardar fotos para usar sem internet ---------- */
+async function baixarTudo(bt){
+  if (!navigator.onLine) { bt.innerHTML = "📵 Conecte à internet para guardar as fotos"; return; }
+  let feitos = 0; const total = BICHOS.length;
+  bt.disabled = true;
+  for (const b of BICHOS) {
+    try {
+      const info = await fotoDe(b);
+      for (const px of [500, 960]) { const u = urlFoto(info, px); if (u) await fetch(u, { mode: "no-cors" }); }
+    } catch (e) {}
+    feitos++; bt.innerHTML = `⏳ Guardando fotos… ${feitos} de ${total}`;
+  }
+  bt.innerHTML = "✅ Fotos guardadas! Agora funciona sem internet."; bt.disabled = false;
+}
+
+/* ---------- instalar ---------- */
+let pedido = null;
+const instalado = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+const bInst = $("#instalar");
+if (!instalado) bInst.hidden = false;
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); pedido = e; bInst.hidden = false; });
+bInst.onclick = async () => {
+  if (pedido) { pedido.prompt(); await pedido.userChoice; pedido = null; }
+  else { const d = $("#dica"); d.hidden = !d.hidden; setTimeout(() => d.hidden = true, 7000); }
+};
+window.addEventListener("appinstalled", () => { bInst.hidden = true; $("#dica").hidden = true; });
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+
+$("#sub").textContent = `${BICHOS.length} bichos · fotos reais`;
+montaAbas(); lista();
+</script>
+</body>
+</html>
