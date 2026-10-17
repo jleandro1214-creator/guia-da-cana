@@ -32,7 +32,9 @@ main{max-width:680px;margin:0 auto;padding:0 12px 60px}
 select{font-size:15px;padding:8px 10px;border-radius:10px;border:1px solid var(--linha);background:#fff;color:var(--txt)}
 .ativos{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .ativos button{border:0;background:#DDEDE4;color:var(--pri);border-radius:14px;padding:4px 10px;font-size:14px;font-weight:600}
-#painelFiltros{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:6px 12px 12px;margin-top:8px}
+#painelFiltros{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:6px 12px 12px;margin-top:8px;max-height:62vh;overflow-y:auto}
+.acoesFiltro{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;position:sticky;bottom:-12px;background:#fff;padding:10px 0 2px;margin-top:6px}
+.acoesFiltro .btn{margin-top:0}
 .grupo{margin-top:10px}
 .grupo b{display:block;font-size:14px;color:var(--sub);margin-bottom:6px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -247,7 +249,7 @@ let cmp=[];try{cmp=JSON.parse(localStorage.getItem("var-cmp")||"[]").filter(n=>V
 function salva(){try{localStorage.setItem("var-filtros",JSON.stringify(sel));localStorage.setItem("var-cmp",JSON.stringify(cmp))}catch(e){}}
 function montaPainel(){
  $("#painelFiltros").innerHTML=GRUPOS.map(g=>`<div class="grupo"><b>${g.t}</b><div class="chips">${g.op.map(o=>`<button class="chip" data-g="${g.id}" data-o="${esc(o)}" aria-pressed="${sel[g.id].includes(o)}">${o}</button>`).join("")}</div></div>`).join("")+
- `<button class="btn sec" id="limpar" style="margin-top:14px">Limpar filtros</button>`;
+ `<div class="acoesFiltro"><button class="btn sec" id="limpar">Limpar filtros</button><button class="btn" id="aplicar">✓ Filtrar</button></div>`;
 }
 function filtra(){
  const q=norm($("#q").value.trim());
@@ -280,7 +282,8 @@ function render(){
  const at=[];GRUPOS.forEach(g=>sel[g.id].forEach(o=>at.push(`<button data-g="${g.id}" data-o="${esc(o)}">${g.id==="amb"?"Amb. ":""}${o} ✕</button>`)));
  $("#ativos").innerHTML=at.join("");
  const n=GRUPOS.reduce((a,g)=>a+sel[g.id].length,0);
- $("#btnFiltros").textContent=n?`⚙️ Filtros (${n})`:"⚙️ Filtros";$("#btnFiltros").classList.toggle("ativo",n>0);
+ $("#btnFiltros").textContent=n?`⚙️ Filtros (${n})`:"⚙️ Filtros";
+ const ap=$("#aplicar");if(ap)ap.textContent=`✓ Filtrar (${l.length})`;$("#btnFiltros").classList.toggle("ativo",n>0);
  salva();
 }
 function alterna(g,o){const s=sel[g];const i=s.indexOf(o);i<0?s.push(o):s.splice(i,1);montaPainel();render()}
@@ -348,7 +351,8 @@ function topo(){document.documentElement.style.setProperty("--hh",$("#hdr").offs
 /* ---------- Eventos ---------- */
 $("#q").addEventListener("input",render);$("#ordem").addEventListener("change",render);
 $("#btnFiltros").onclick=()=>{$("#painelFiltros").hidden=!$("#painelFiltros").hidden};
-$("#painelFiltros").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b)alterna(b.dataset.g,b.dataset.o);if(e.target.id==="limpar"){GRUPOS.forEach(g=>sel[g.id]=[]);montaPainel();render()}});
+$("#painelFiltros").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b)alterna(b.dataset.g,b.dataset.o);if(e.target.id==="limpar"){GRUPOS.forEach(g=>sel[g.id]=[]);montaPainel();render()}
+ if(e.target.id==="aplicar"){render();$("#painelFiltros").hidden=true;scrollTo({top:0,behavior:"smooth"})}});
 $("#ativos").addEventListener("click",e=>{const b=e.target.closest("button");if(b)alterna(b.dataset.g,b.dataset.o)});
 document.addEventListener("click",e=>{const c=e.target.closest(".card[data-v],.gl[data-v]");if(c)ficha(c.dataset.v)});
 $("#inMeta").addEventListener("input",extracao);
