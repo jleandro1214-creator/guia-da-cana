@@ -70,6 +70,34 @@ main{padding:14px 16px 90px;max-width:900px;margin:0 auto;min-height:70vh}
 .dica{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:21;background:#222;color:#fff;border-radius:14px;padding:14px 16px;font-size:16px}
 .baixar{width:100%;margin-top:18px;background:var(--papel);color:var(--verde);border:1px dashed var(--verde2);border-radius:14px;padding:13px;font:700 16px system-ui;cursor:pointer}
 .baixar small{display:block;font-weight:400;color:var(--cinza)}
+/* quiz */
+.emquiz #instalar,.emquiz #dica{display:none!important}
+nav button.qz{background:#e8a63c;color:#2a1d05}
+nav button.qz[aria-selected=true]{background:#fff;color:#a8650a}
+.qcard{background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:16px;margin-bottom:14px}
+.qcard h2{margin:0 0 4px;font-size:24px}
+.qcard p{margin:4px 0;color:var(--cinza)}
+.temas{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.temas button{border:2px solid var(--linha);background:#fff;border-radius:999px;padding:9px 14px;font:600 16px system-ui;cursor:pointer;color:var(--tinta)}
+.temas button.sel{border-color:#a8650a;background:#fff4d6}
+.grande{width:100%;border:0;border-radius:14px;padding:16px;font:800 19px system-ui;background:#a8650a;color:#fff;cursor:pointer;margin-top:6px}
+.grande.sec{background:var(--papel);color:var(--verde);border:2px solid var(--verde2)}
+.barra{height:8px;background:var(--linha);border-radius:99px;overflow:hidden;margin:4px 0 12px}
+.barra div{height:100%;background:#a8650a;transition:width .3s}
+.qtopo{display:flex;justify-content:space-between;font-weight:700;color:var(--cinza);font-size:15px}
+.pergunta{font-size:21px;font-weight:800;line-height:1.3;margin:6px 0 12px}
+.qfoto{border-radius:16px;overflow:hidden;margin-bottom:12px;aspect-ratio:4/3;font-size:70px}
+.citacao{background:#fff4d6;border:1px solid #f0dca0;border-radius:14px;padding:12px 14px;font-size:17px;margin-bottom:12px}
+.opcoes{display:grid;gap:10px}
+.opcoes button{text-align:left;border:2px solid var(--linha);background:#fff;border-radius:14px;padding:14px;font:600 17px/1.35 system-ui;color:var(--tinta);cursor:pointer}
+.opcoes button.certa{border-color:#3d8b4f;background:#e3f3e6}
+.opcoes button.errada{border-color:#c0272d;background:#fde4e1}
+.opcoes button:disabled{cursor:default}
+.retorno{margin-top:12px;font-size:17px}
+.retorno b{font-size:19px}
+.fim{text-align:center}
+.fim .nota{font-size:64px;font-weight:900;color:#a8650a;line-height:1}
+.fim .estrelas{font-size:40px;margin:8px 0}
 </style>
 </head>
 <body>
@@ -161,12 +189,48 @@ const BICHOS = [
 {g:"inv",n:"Escorpião-amarelo",s:"Tityus serrulatus",t:"Aracnídeo peçonhento",o:"Brasil, principalmente Sudeste e Centro-Oeste",h:"Cidades: esgotos, entulhos, frestas e caixas de gordura",a:"Baratas e grilos",tm:"Até 7 cm",p:"Poucos gramas",v:"3 a 5 anos",st:"NA",c:"Quase não existem machos: as fêmeas se reproduzem sozinhas (partenogênese), por isso se espalham tão rápido.",al:"É o escorpião mais perigoso do Brasil, principalmente para crianças e idosos. Em caso de picada, vá logo ao pronto-socorro; o tratamento é o soro antiescorpiônico. Mantenha o quintal sem entulho e os ralos fechados.",br:1},
 {g:"inv",n:"Polvo-comum",s:"Octopus vulgaris",t:"Molusco",o:"Mares do mundo, incluindo a costa brasileira",h:"Fundos rochosos e recifes",a:"Caranguejos, siris e outros moluscos",tm:"Até cerca de 1,3 m com os braços",p:"3 a 10 kg",v:"1 a 2 anos",st:"LC",c:"Tem 3 corações e sangue azul. Muda de cor e de textura em segundos e é muito inteligente: abre potes e escapa de aquários.",br:1},
 {g:"inv",n:"Caramujo-africano",s:"Lissachatina fulica",f:["Achatina fulica"],t:"Molusco terrestre",o:"Nativo da África; espalhado pelo Brasil todo",h:"Quintais, hortas, terrenos baldios",a:"Plantas, verduras e até lixo",tm:"Concha de até 20 cm",p:"Até cerca de 200 g",v:"3 a 5 anos",st:"INV",c:"Foi trazido nos anos 1980 para ser vendido como escargot, não deu certo e se espalhou. Cada um bota centenas de ovos por ano.",al:"Pode transmitir vermes que causam doenças. Nunca pegue com a mão sem luva. Para eliminar: recolha com luva, quebre a concha e enterre com cal. Lave bem verduras da horta.",br:0}
+,
+// ===== NOVOS (v2) =====
+{g:"mam",n:"Mico-leão-dourado",s:"Leontopithecus rosalia",t:"Primata",o:"Só no Brasil: Mata Atlântica do Rio de Janeiro",h:"Florestas baixas e úmidas",a:"Frutas, insetos, ovos e pequenos lagartos",tm:"20 a 34 cm + cauda de 32 a 40 cm",p:"500 a 700 g",v:"Cerca de 15 anos",st:"EN",c:"Chegou perto de sumir nos anos 1970, com só uns 200 na natureza. Graças a projetos de proteção, hoje são milhares. Ele aparece na nota de R$ 20.",br:1},
+{g:"mam",n:"Tatu-galinha",s:"Dasypus novemcinctus",t:"Xenartro",o:"Do sul dos EUA à Argentina; todo o Brasil",h:"Matas, cerrados, pastos e roças",a:"Insetos, larvas, minhocas e frutas",tm:"35 a 57 cm + cauda",p:"2,5 a 6,5 kg",v:"12 a 15 anos",st:"LC",c:"Quase sempre nascem 4 filhotes idênticos, todos do mesmo óvulo: são quadrigêmeos. Consegue prender a respiração por uns 6 minutos.",br:1},
+{g:"mam",n:"Queixada",s:"Tayassu pecari",t:"Porco-do-mato",o:"Do México à Argentina; boa parte do Brasil",h:"Florestas e cerrados",a:"Frutas, sementes, raízes e pequenos animais",tm:"90 a 139 cm",p:"25 a 40 kg",v:"Cerca de 13 anos",st:"VU",c:"Anda em bandos de dezenas a centenas de animais. Quando se sente ameaçado, bate os dentes fazendo um barulho alto, que deu origem ao nome.",al:"Bandos grandes podem atacar. Se ouvir o bater de dentes, afaste-se e, se precisar, suba numa árvore.",br:1},
+{g:"mam",n:"Ariranha",s:"Pteronura brasiliensis",t:"Mustelídeo (família das lontras)",o:"Amazônia e Pantanal",h:"Rios e lagos de água limpa",a:"Peixes, como piranhas e traíras",tm:"Até 1,8 m com a cauda",p:"22 a 32 kg",v:"Cerca de 12 anos",st:"EN",c:"É a maior lontra do mundo. A mancha clara no pescoço de cada uma é diferente, como uma impressão digital. Vive em famílias que caçam juntas.",br:1},
+{g:"mam",n:"Gambá-de-orelha-branca",s:"Didelphis albiventris",t:"Marsupial",o:"América do Sul; quase todo o Brasil",h:"Matas, roças, forros de casa e cidades",a:"Onívoro: frutas, insetos, ovos, escorpiões e até cobras",tm:"30 a 40 cm + cauda",p:"0,5 a 2 kg",v:"2 a 3 anos",st:"LC",c:"É parente do canguru: os filhotes crescem numa bolsa na barriga da mãe. Resiste a boa parte do veneno de cobras e come escorpiões, então é um ótimo vizinho.",br:1},
+{g:"mam",n:"Morcego-vampiro",s:"Desmodus rotundus",t:"Morcego",o:"Do México à Argentina; todo o Brasil",h:"Cavernas, ocos de árvores, casas abandonadas",a:"Sangue, principalmente de bois, cavalos e porcos",tm:"7 a 9 cm de corpo",p:"25 a 40 g",v:"Cerca de 9 anos (até 20 em cativeiro)",st:"LC",c:"Não chupa o sangue: faz um corte pequeno e lambe. A saliva tem uma substância que não deixa o sangue coagular, estudada para remédios contra derrame.",al:"Transmite raiva aos animais da fazenda. Se notar mordidas no gado, vacine o rebanho e avise o órgão de defesa agropecuária do estado. Nunca pegue morcego com a mão.",br:1},
+{g:"mam",n:"Tigre",s:"Panthera tigris",t:"Felino",o:"Ásia: Índia, Sudeste Asiático e Rússia",h:"Florestas, manguezais e taiga",a:"Carnívoro: veados, javalis, búfalos",tm:"Corpo de 1,5 a 2,5 m",p:"90 a 300 kg",v:"10 a 15 anos",st:"EN",c:"É o maior felino do mundo. As listras de cada tigre são únicas e aparecem até na pele, não só no pelo.",br:0},
+{g:"mam",n:"Urso-polar",s:"Ursus maritimus",t:"Urso",o:"Ártico: Canadá, Alasca, Groenlândia, Rússia e Noruega",h:"Gelo do mar e costa gelada",a:"Focas, principalmente",tm:"2 a 2,5 m (machos)",p:"350 a 700 kg",v:"25 a 30 anos",st:"VU",c:"A pele dele é preta e o pelo é transparente; parece branco porque reflete a luz. Com o gelo derretendo, fica cada vez mais difícil caçar.",br:0},
+{g:"ave",n:"João-de-barro",s:"Furnarius rufus",t:"Passarinho",o:"Sul e centro da América do Sul",h:"Campos, pastos, beira de estrada e cidades",a:"Insetos, larvas e minhocas",tm:"18 a 20 cm",p:"49 a 65 g",v:"Cerca de 10 anos",st:"LC",c:"O casal constrói a casa com barro e palha, com uma parede interna que separa a entrada do quarto, protegendo os filhotes do vento e dos predadores.",br:1},
+{g:"ave",n:"Seriema",s:"Cariama cristata",t:"Ave corredora",o:"Centro e leste da América do Sul",h:"Cerrado, campos e pastos",a:"Insetos, lagartos, roedores e cobras",tm:"75 a 90 cm",p:"Cerca de 1,5 kg",v:"Cerca de 15 anos",st:"LC",c:"Pega cobras e lagartos com o bico e bate no chão até matar. O canto parece uma gargalhada e é ouvido de longe. Prefere correr a voar.",br:1},
+{g:"ave",n:"Urubu-de-cabeça-preta",s:"Coragyps atratus",t:"Ave necrófaga",o:"Américas; todo o Brasil",h:"Campos, lixões, cidades e beira de estrada",a:"Animais mortos e restos",tm:"56 a 74 cm (1,5 m de asa aberta)",p:"1,6 a 2,7 kg",v:"Mais de 20 anos",st:"LC",c:"É o 'lixeiro' da natureza: limpa carcaças que espalhariam doenças. O suco do estômago é tão ácido que mata bactérias perigosas.",br:1},
+{g:"ave",n:"Papagaio-verdadeiro",s:"Amazona aestiva",t:"Psitacídeo",o:"Nordeste ao Sul do Brasil, Bolívia, Paraguai e Argentina",h:"Matas, cerrado e Pantanal",a:"Frutas, sementes e flores",tm:"35 a 37 cm",p:"Cerca de 400 g",v:"Mais de 60 anos",st:"NT",c:"Imita a voz humana e outros sons. É um dos animais mais traficados do Brasil: comprar sem nota do Ibama é crime.",br:1},
+{g:"ave",n:"Bem-te-vi",s:"Pitangus sulphuratus",t:"Passarinho",o:"Do México à Argentina; todo o Brasil",h:"Qualquer lugar: matas, roças, cidades",a:"Insetos, frutas, peixinhos e até girinos",tm:"20 a 25 cm",p:"52 a 68 g",v:"Cerca de 6 anos",st:"LC",c:"O nome vem do próprio canto, que parece dizer 'bem-te-vi'. É corajoso e enfrenta até gaviões para defender o ninho.",br:1},
+{g:"ave",n:"Galinha",s:"Gallus gallus domesticus",f:["Chicken"],t:"Galiforme",o:"No mundo inteiro",h:"Quintais, sítios e granjas",a:"Milho, ração, insetos e restos de comida",tm:"40 a 70 cm",p:"1,5 a 4 kg",v:"5 a 10 anos",st:"DOM",c:"Descende de uma ave selvagem da Ásia, o galo-banquiva. Uma galinha poedeira bota cerca de 300 ovos por ano. Existem mais galinhas do que pessoas no mundo.",br:0},
+{g:"ave",n:"Flamingo",s:"Phoenicopterus roseus",t:"Ave pernalta",o:"África, sul da Europa e Ásia",h:"Lagoas rasas e salgadas",a:"Camarõezinhos e algas filtrados da água",tm:"1,2 a 1,45 m de altura",p:"2 a 4 kg",v:"30 a 40 anos",st:"LC",c:"Nasce cinza. Fica rosa por causa dos pigmentos dos camarõezinhos e algas que come. Descansa equilibrado numa perna só.",br:0},
+{g:"rep",n:"Coral-verdadeira",s:"Micrurus corallinus",t:"Serpente peçonhenta",o:"Sul, Sudeste e Nordeste do Brasil, Argentina e Paraguai",h:"Mata Atlântica, folhas no chão e troncos",a:"Outras cobras pequenas, cobras-cegas e lagartos",tm:"60 a 80 cm",p:"Poucas centenas de gramas",v:"Pouco conhecida",st:"LC",c:"Tem a boca pequena e é tímida, então os acidentes são raros. Existem 'falsas corais' quase iguais, que não são perigosas.",al:"O veneno ataca os nervos e pode parar a respiração. Como é difícil diferenciar a falsa da verdadeira, trate TODA coral como perigosa. Em caso de picada, hospital rápido (soro antielapídico).",br:1},
+{g:"rep",n:"Iguana",s:"Iguana iguana",t:"Lagarto",o:"Do México ao sul do Brasil",h:"Árvores perto de rios",a:"Herbívora: folhas, flores e frutas",tm:"Até 1,7 m com a cauda",p:"4 a 8 kg",v:"15 a 20 anos",st:"LC",c:"Tem um 'terceiro olho' no alto da cabeça, que percebe luz e sombra e avisa quando uma ave de rapina se aproxima. Se cair de uma árvore alta, aguenta bem a queda.",br:1},
+{g:"rep",n:"Lagartixa-de-parede",s:"Hemidactylus mabouia",t:"Lagarto",o:"Nativa da África; espalhada por todo o Brasil",h:"Paredes e forros de casas",a:"Mosquitos, mariposas, baratinhas",tm:"10 a 12 cm",p:"Poucos gramas",v:"Cerca de 5 anos",st:"EXO",c:"Sobe paredes lisas graças a milhões de pelinhos nos dedos. Solta a cauda para fugir, e ela cresce de novo. Ajuda a controlar mosquitos em casa.",br:0},
+{g:"rep",n:"Crocodilo-do-nilo",s:"Crocodylus niloticus",t:"Crocodiliano",o:"África",h:"Rios, lagos e pântanos",a:"Peixes, zebras, gnus e o que chegar perto da água",tm:"3,5 a 5 m",p:"225 a 750 kg",v:"Cerca de 70 anos",st:"LC",c:"Pode passar meses sem comer. A temperatura do ninho decide se o filhote será macho ou fêmea.",br:0},
+{g:"rep",n:"Camaleão-de-véu",s:"Chamaeleo calyptratus",t:"Lagarto",o:"Iêmen e Arábia Saudita",h:"Montanhas e vales com árvores",a:"Insetos e algumas folhas",tm:"35 a 60 cm",p:"90 a 180 g",v:"5 a 8 anos",st:"LC",c:"Cada olho se move sozinho, então ele olha para dois lados ao mesmo tempo. A língua é mais comprida que o corpo e sai em menos de um décimo de segundo.",br:0},
+{g:"anf",n:"Rã-pimenta",s:"Leptodactylus labyrinthicus",t:"Rã",o:"Centro e leste do Brasil, Paraguai e Bolívia",h:"Cerrado, brejos e açudes",a:"Insetos, outros sapos e até pequenas cobras",tm:"Até 18 cm",p:"Até cerca de 0,5 kg",v:"Cerca de 10 anos",st:"LC",c:"É uma das maiores rãs do Brasil. O nome vem da pele, que solta uma substância que arde nos olhos como pimenta.",br:1},
+{g:"anf",n:"Perereca-de-banheiro",s:"Scinax fuscovarius",t:"Perereca",o:"Centro e Sul do Brasil, Paraguai, Bolívia e Argentina",h:"Banheiros, caixas d'água, bromélias e brejos",a:"Mosquitos e pequenos insetos",tm:"4 a 5 cm",p:"Poucos gramas",v:"Poucos anos",st:"LC",c:"Tem ventosas nos dedos que grudam em azulejo e vidro. Aparece no banheiro porque gosta de umidade e dos insetos atraídos pela luz. É inofensiva.",br:1},
+{g:"anf",n:"Sapo-de-chifre",s:"Ceratophrys aurita",t:"Sapo",o:"Mata Atlântica do Brasil",h:"Chão de mata úmida, entre as folhas",a:"Outros sapos, roedores, lagartos",tm:"Até cerca de 18 cm",p:"Até 0,5 kg",v:"10 anos ou mais",st:"LC",c:"Fica enterrado esperando a presa passar e engole bichos quase do tamanho dele. As 'pontas' sobre os olhos parecem chifres e ajudam a camuflar entre folhas.",br:1},
+{g:"anf",n:"Salamandra-gigante-da-china",s:"Andrias davidianus",t:"Salamandra",o:"China",h:"Rios de montanha, frios e limpos",a:"Peixes, caranguejos e insetos",tm:"Até 1,8 m",p:"Até 50 kg",v:"Mais de 60 anos",st:"CR",c:"É o maior anfíbio do mundo. Respira quase só pela pele, que é cheia de dobras para aumentar a área. O som que faz lembra choro de bebê.",br:0},
+{g:"pei",n:"Pintado",s:"Pseudoplatystoma corruscans",t:"Bagre (peixe de couro)",o:"Bacias do Prata e do São Francisco; Pantanal",h:"Rios grandes e fundos",a:"Outros peixes",tm:"Até 1,6 m",p:"Até cerca de 80 kg",v:"Cerca de 20 anos",st:"NA",c:"Não tem escamas, só couro com pintas pretas. Caça mais à noite usando os bigodes (barbilhões) para sentir as presas.",br:1},
+{g:"pei",n:"Tucunaré",s:"Cichla ocellaris",t:"Peixe de água doce",o:"Amazônia; levado para represas de todo o Brasil",h:"Lagos e rios calmos",a:"Outros peixes e camarões",tm:"Até 75 cm",p:"Até cerca de 7 kg",v:"Cerca de 10 anos",st:"LC",c:"Tem uma pinta escura com borda amarela na cauda que parece um olho, para confundir predadores. Fora da Amazônia, vira invasor e come os peixes nativos.",br:1},
+{g:"pei",n:"Poraquê",s:"Electrophorus electricus",t:"Peixe elétrico",o:"Amazônia e Guianas",h:"Rios, igarapés e alagados de águas lentas",a:"Peixes",tm:"Até 2,5 m",p:"Até 20 kg",v:"Cerca de 15 anos",st:"LC",c:"Produz choques de centenas de volts para atordoar as presas. Parece enguia, mas não é: é parente dos peixes-faca. Respira ar na superfície.",al:"O choque pode derrubar uma pessoa dentro d'água. Não mexa se encontrar um.",br:1},
+{g:"pei",n:"Arraia-de-fogo",s:"Potamotrygon motoro",t:"Arraia de água doce",o:"Bacias do Amazonas, Paraná e Pantanal",h:"Fundo de areia ou lama em rios rasos",a:"Peixinhos, caramujos, larvas e camarões",tm:"Disco de até 50 cm",p:"Até cerca de 15 kg",v:"Cerca de 15 anos",st:"DD",c:"Fica enterrada na areia só com os olhos de fora. As pintas laranja com borda preta dão o nome 'de fogo'.",al:"Tem um ferrão na cauda que causa dor muito forte e ferida que demora a sarar. Em rios rasos, ande arrastando os pés para espantar a arraia. Se ferroar, lave, ponha o local em água morna e procure atendimento.",br:1},
+{g:"pei",n:"Baiacu",s:"Sphoeroides testudineus",t:"Peixe marinho",o:"Costa do Atlântico nas Américas, incluindo o Brasil",h:"Manguezais, estuários e praias",a:"Caranguejos, mariscos e camarões",tm:"Até cerca de 30 cm",p:"Até cerca de 0,5 kg",v:"Poucos anos",st:"LC",c:"Quando se assusta, engole água e incha como uma bola para não ser engolido.",al:"Fígado, ovas e pele têm um veneno fortíssimo que não sai com o cozimento. Não coma baiacu: já houve mortes no Brasil.",br:1},
+{g:"inv",n:"Carrapato-estrela",s:"Amblyomma sculptum",f:["Amblyomma cajennense"],t:"Aracnídeo (carrapato)",o:"Brasil, principalmente Sudeste e Centro-Oeste",h:"Pastos e beira de rios com capivaras e cavalos",a:"Sangue de cavalos, capivaras, antas e pessoas",tm:"2 a 6 mm (adulto)",p:"Muito leve",v:"Até cerca de 2 anos",st:"NA",c:"As formas jovens, chamadas 'micuins', são tão pequenas que andam em grupos de centenas e grudam juntas na roupa.",al:"Transmite a febre maculosa, que pode matar. Depois de andar no pasto, confira o corpo; retire o carrapato girando com pinça. Se tiver febre até 2 semanas depois, vá ao médico e conte do carrapato.",br:1},
+{g:"inv",n:"Taturana (lagarta-de-fogo)",s:"Lonomia obliqua",t:"Inseto (lagarta de mariposa)",o:"Sul e Sudeste do Brasil",h:"Troncos de árvores frutíferas e nativas",a:"Folhas de árvores",tm:"Lagarta de 6 a 7 cm",p:"Poucos gramas",v:"Fase de lagarta: cerca de 2 meses",st:"NA",c:"Ficam juntas no tronco durante o dia, bem camufladas, e sobem para comer folhas à noite.",al:"O contato com os espinhos pode causar sangramentos graves. Olhe antes de encostar a mão em troncos. Se tocar, lave com água fria e vá ao hospital (existe soro antilonômico).",br:1},
+{g:"inv",n:"Mosquito-da-dengue",s:"Aedes aegypti",t:"Inseto",o:"Regiões quentes do mundo; todo o Brasil",h:"Dentro e perto das casas",a:"Machos: néctar. Fêmeas: sangue, para produzir ovos",tm:"Cerca de 5 mm",p:"Muito leve",v:"Cerca de 30 dias",st:"EXO",c:"Só a fêmea pica. Os ovos aguentam mais de um ano secos e eclodem quando chove.",al:"Transmite dengue, zika e chikungunya. Elimine água parada: pratinhos de vaso, pneus, calhas e garrafas. Febre alta com dor no corpo: procure o posto de saúde.",br:0},
+{g:"inv",n:"Aranha-caranguejeira",s:"Lasiodora parahybana",t:"Aracnídeo",o:"Nordeste do Brasil",h:"Tocas no chão, troncos e pedras",a:"Insetos, pequenos sapos e lagartos",tm:"Corpo de até 10 cm; com as pernas, até 25 cm",p:"Até cerca de 100 g",v:"Fêmeas: mais de 15 anos",st:"NA",c:"É uma das maiores aranhas do mundo. Assusta pelo tamanho, mas o veneno é fraco para pessoas.",al:"Quando incomodada, solta pelos da barriga que irritam a pele e os olhos. Não pegue com a mão.",br:1},
+{g:"inv",n:"Minhoca",s:"Lumbricus terrestris",t:"Anelídeo",o:"Origem na Europa; parentes no mundo todo",h:"Solo úmido e rico em matéria orgânica",a:"Folhas e restos de plantas no solo",tm:"15 a 30 cm",p:"Poucos gramas",v:"4 a 8 anos",st:"LC",c:"Não tem olhos nem pulmões: respira pela pele, que precisa ficar úmida. Abre túneis que deixam entrar ar e água, e as fezes dela são um ótimo adubo (húmus).",br:0}
 ];
 
 const $ = s => document.querySelector(s);
 const abas = $("#abas"), cont = $("#conteudo"), ficha = $("#ficha");
 let atual = "mam", busca = "";
-const ordem = GRUPOS.map(g => g.id);
+const ordem = [...GRUPOS.map(g => g.id), "quiz"];
 
 /* ---------- fotos reais (Wikipédia / Wikimedia Commons) ---------- */
 let cacheFotos = {};
@@ -224,6 +288,12 @@ function montaAbas(){
     bt.onclick = () => { if (busca) limpaBusca(); vai(g.id); };
     abas.appendChild(bt);
   });
+  const qz = document.createElement("button");
+  qz.className = "qz"; qz.setAttribute("role", "tab");
+  qz.setAttribute("aria-selected", atual === "quiz" && !busca);
+  qz.textContent = "🎯 Quiz";
+  qz.onclick = () => { if (busca) limpaBusca(); vai("quiz"); };
+  abas.appendChild(qz);
 }
 function grupo(id){ return GRUPOS.find(g => g.id === id); }
 function selo(st){ const s = STATUS[st] || STATUS.NA; return `<span class="selo" style="background:${s[1]}">${s[0]}</span>`; }
@@ -238,6 +308,8 @@ function card(b){
   return bt;
 }
 function lista(){
+  document.body.classList.toggle("emquiz", !busca && atual === "quiz");
+  if (!busca && atual === "quiz") return quiz();
   cont.innerHTML = "";
   let itens;
   if (busca) {
@@ -297,6 +369,119 @@ function abre(b, semHist){
 }
 function fecha(){ ficha.hidden = true; ficha.innerHTML = ""; document.body.style.overflow = ""; }
 window.addEventListener("popstate", () => { if (!ficha.hidden) fecha(); });
+
+/* ---------- QUIZ ---------- */
+const QZ = { tema: "todos", qs: [], i: 0, pontos: 0, resp: false };
+const embaralha = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const sorteia = (a, n) => embaralha(a).slice(0, n);
+function recorde(){ try { return +localStorage.getItem("bichos-recorde") || 0; } catch (e) { return 0; } }
+function salvaRecorde(n){ try { if (n > recorde()) localStorage.setItem("bichos-recorde", n); } catch (e) {} }
+function escondeNome(txt, b){
+  let t = txt;
+  b.n.split(/[\s()\/-]+/).filter(w => w.length > 3).forEach(w => {
+    t = t.replace(new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), "___");
+  });
+  return t;
+}
+function distratores(certo, pool, campo, n){
+  const mesmo = pool.filter(b => b !== certo && b.g === certo.g && b[campo] !== certo[campo]);
+  const outros = BICHOS.filter(b => b !== certo && b.g !== certo.g && b[campo] !== certo[campo]);
+  return [...sorteia(mesmo, n), ...sorteia(outros, n)].slice(0, n);
+}
+function criaPergunta(b, pool){
+  const temFoto = cacheFotos[b.s] || navigator.onLine;
+  const tipos = temFoto ? ["foto", "foto", "grupo", "come", "onde", "curio"] : ["curio", "grupo", "come", "onde", "curio"];
+  if (b.br && b.g !== "pei") tipos.push("brasil");
+  const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+  if (tipo === "foto" || tipo === "curio") {
+    const ops = embaralha([b, ...distratores(b, pool, "n", 3)]);
+    return { tipo, b, txt: tipo === "foto" ? "Que bicho é esse?" : "De qual bicho é esta curiosidade?",
+             cit: tipo === "curio" ? escondeNome(b.c, b) : null, ops: ops.map(o => o.n), certa: b.n };
+  }
+  if (tipo === "grupo") {
+    const g = grupo(b.g);
+    const ops = embaralha([g, ...sorteia(GRUPOS.filter(x => x !== g), 3)]);
+    return { tipo, b, txt: `O(a) ${b.n} pertence a qual grupo?`, ops: ops.map(o => o.em + " " + o.nome), certa: g.em + " " + g.nome };
+  }
+  if (tipo === "come" || tipo === "onde") {
+    const campo = tipo === "come" ? "a" : "o";
+    const ops = embaralha([b, ...distratores(b, pool, campo, 3)]);
+    return { tipo, b, txt: tipo === "come" ? `O que o(a) ${b.n} come?` : `Onde vive o(a) ${b.n}?`, ops: ops.map(o => o[campo]), certa: b[campo] };
+  }
+  // brasil: um que vive no Brasil e três que não vivem
+  const fora = BICHOS.filter(x => !x.br && !/Brasil/.test(x.o) && !["DOM", "EXO", "INV"].includes(x.st) && !/Brasil/.test(x.h));
+  const ops = embaralha([b, ...sorteia(fora, 3)]);
+  return { tipo, b, txt: "Qual destes bichos vive na natureza do Brasil?", ops: ops.map(o => o.n), certa: b.n };
+}
+function quiz(){
+  cont.innerHTML = "";
+  const temas = [{ id: "todos", em: "🌍", nome: "Todos" }, ...GRUPOS];
+  const r = recorde();
+  const box = document.createElement("div"); box.className = "qcard";
+  box.innerHTML = `<h2>🎯 Quiz dos Bichos</h2>
+    <p>10 perguntas com fotos e curiosidades. Escolha o tema:</p>
+    <div class="temas">${temas.map(t => `<button data-t="${t.id}" class="${t.id === QZ.tema ? "sel" : ""}">${t.em} ${t.nome}</button>`).join("")}</div>
+    <button class="grande" id="comecar">▶️ Começar</button>
+    ${r ? `<p style="text-align:center;margin-top:12px">🏆 Seu recorde: <b>${r} de 10</b></p>` : ""}`;
+  cont.appendChild(box);
+  box.querySelectorAll(".temas button").forEach(bt => bt.onclick = () => { QZ.tema = bt.dataset.t; quiz(); });
+  $("#comecar").onclick = comecaQuiz;
+}
+function comecaQuiz(){
+  const pool = QZ.tema === "todos" ? BICHOS : BICHOS.filter(b => b.g === QZ.tema);
+  QZ.qs = sorteia(pool, 10).map(b => criaPergunta(b, pool));
+  QZ.i = 0; QZ.pontos = 0;
+  mostraPergunta();
+}
+function mostraPergunta(){
+  const q = QZ.qs[QZ.i]; QZ.resp = false;
+  const g = grupo(q.b.g);
+  cont.innerHTML = `<div class="qcard">
+    <div class="qtopo"><span>Pergunta ${QZ.i + 1} de ${QZ.qs.length}</span><span>⭐ ${QZ.pontos}</span></div>
+    <div class="barra"><div style="width:${QZ.i / QZ.qs.length * 100}%"></div></div>
+    ${q.tipo === "foto" ? `<div class="foto qfoto" style="background-color:${g.cor}22">❓</div>` : ""}
+    <div class="pergunta">${q.txt}</div>
+    ${q.cit ? `<div class="citacao">💡 ${q.cit}</div>` : ""}
+    <div class="opcoes">${q.ops.map((o, k) => `<button data-k="${k}">${o}</button>`).join("")}</div>
+    <div class="retorno" id="retorno"></div></div>`;
+  if (q.tipo === "foto") colocaFoto(cont.querySelector(".qfoto"), q.b, 500);
+  cont.querySelectorAll(".opcoes button").forEach(bt => bt.onclick = () => responde(bt, q));
+  window.scrollTo(0, 0);
+}
+function responde(bt, q){
+  if (QZ.resp) return; QZ.resp = true;
+  const acertou = q.ops[+bt.dataset.k] === q.certa;
+  cont.querySelectorAll(".opcoes button").forEach(b => {
+    b.disabled = true;
+    if (q.ops[+b.dataset.k] === q.certa) b.classList.add("certa");
+  });
+  if (acertou) QZ.pontos++; else bt.classList.add("errada");
+  try { navigator.vibrate && navigator.vibrate(acertou ? 40 : [60, 60, 60]); } catch (e) {}
+  const ult = QZ.i === QZ.qs.length - 1;
+  $("#retorno").innerHTML = `<b>${acertou ? "✅ Acertou!" : "❌ Quase!"}</b>
+    ${q.tipo === "foto" || q.tipo === "curio" || q.tipo === "brasil" ? `<br>É o(a) <b>${q.b.n}</b>.` : ""}
+    <br>${q.tipo === "curio" ? "" : q.b.c}
+    <button class="grande" id="prox">${ult ? "🏁 Ver resultado" : "Próxima ➜"}</button>
+    <button class="grande sec" id="verficha">📖 Ver ficha do bicho</button>`;
+  $("#prox").onclick = () => { if (ult) fimQuiz(); else { QZ.i++; mostraPergunta(); } };
+  $("#verficha").onclick = () => abre(q.b);
+  $("#retorno").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+function fimQuiz(){
+  const n = QZ.pontos, total = QZ.qs.length, antes = recorde();
+  salvaRecorde(n);
+  const est = n >= 9 ? 3 : n >= 6 ? 2 : n >= 3 ? 1 : 0;
+  const msg = n === total ? "Perfeito! Você é um especialista em bichos! 🏆" : n >= 7 ? "Muito bem! Você manda bem nos bichos!" : n >= 4 ? "Bom! Dá para melhorar lendo as fichas." : "Que tal olhar as fichas e tentar de novo?";
+  cont.innerHTML = `<div class="qcard fim">
+    <p>Você acertou</p><div class="nota">${n}/${total}</div>
+    <div class="estrelas">${"⭐".repeat(est)}${"☆".repeat(3 - est)}</div>
+    <p style="font-size:18px;color:var(--tinta)">${msg}</p>
+    ${n > antes ? `<p><b>🎉 Novo recorde!</b></p>` : ""}
+    <button class="grande" id="denovo">🔄 Jogar de novo</button>
+    <button class="grande sec" id="trocar">Trocar tema</button></div>`;
+  $("#denovo").onclick = comecaQuiz;
+  $("#trocar").onclick = quiz;
+}
 
 /* ---------- busca ---------- */
 const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
