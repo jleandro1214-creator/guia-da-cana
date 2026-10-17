@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Variedades de Cana</title>
+<meta name="description" content="Variedades de cana-de-açúcar de São Paulo: colheita, ambiente, sanidade e pontos de atenção">
+<meta name="theme-color" content="#1F5F4A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--pri:#1F5F4A;--pri2:#2F7A5F;--fundo:#F3F2EC;--card:#fff;--txt:#1D2420;--sub:#5B655F;--linha:#DCD9CC;
+--prec:#E3B934;--med:#5E9E4C;--tard:#C26A2E;--ok:#3E8E41;--mod:#C9A227;--sus:#C0392B;--ni:#B9B9B9;--aten:#E07B1A}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{margin:0;background:var(--fundo);color:var(--txt);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+header{position:sticky;top:0;z-index:30;background:var(--pri);color:#fff;padding:10px 14px 0;padding-top:max(10px,env(safe-area-inset-top))}
+.topo{display:flex;align-items:center;gap:10px}
+.topo h1{font-size:20px;margin:0;flex:1}
+.topo h1 small{display:block;font-size:13px;font-weight:400;opacity:.85}
+#btnInstalar{background:#F2C14E;color:#2b2200;border:0;border-radius:20px;padding:8px 12px;font-weight:700;font-size:15px}
+nav{display:flex;margin-top:8px}
+nav button{flex:1;background:none;border:0;color:#cfe5da;font-size:15.5px;font-weight:600;padding:10px 2px 11px;border-bottom:3px solid transparent;position:relative}
+nav button[aria-selected=true]{color:#fff;border-bottom-color:#F2C14E}
+nav .badge{position:absolute;top:1px;right:0;background:#F2C14E;color:#222;border-radius:10px;font-size:12px;padding:0 6px}
+main{max-width:680px;margin:0 auto;padding:0 12px 60px}
+.busca{position:sticky;top:var(--hh,100px);z-index:20;background:var(--fundo);padding:10px 0 6px}
+.busca input{width:100%;font-size:17px;padding:12px 14px;border-radius:12px;border:1px solid var(--linha);background:#fff}
+.linhaFiltros{display:flex;gap:8px;margin-top:8px;align-items:center}
+.btnFiltro{border:1px solid var(--pri2);background:#fff;color:var(--pri);border-radius:20px;padding:8px 14px;font-weight:700;font-size:15px}
+.btnFiltro.ativo{background:var(--pri2);color:#fff}
+select{font-size:15px;padding:8px 10px;border-radius:10px;border:1px solid var(--linha);background:#fff;color:var(--txt)}
+.ativos{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.ativos button{border:0;background:#DDEDE4;color:var(--pri);border-radius:14px;padding:4px 10px;font-size:14px;font-weight:600}
+#painelFiltros{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:6px 12px 12px;margin-top:8px}
+.grupo{margin-top:10px}
+.grupo b{display:block;font-size:14px;color:var(--sub);margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--linha);background:#fff;border-radius:18px;padding:7px 12px;font-size:15px;color:var(--txt)}
+.chip[aria-pressed=true]{background:var(--pri2);border-color:var(--pri2);color:#fff;font-weight:700}
+.conta{font-size:14px;color:var(--sub);margin:8px 2px}
+.card{background:var(--card);border:1px solid var(--linha);border-radius:14px;padding:12px 14px;margin:10px 0;display:block;width:100%;text-align:left;color:inherit;font:inherit}
+.card .l1{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card .nome{font-size:19px;font-weight:800;color:var(--pri)}
+.card .ob{font-size:14px;color:var(--sub)}
+.tag{display:inline-block;border-radius:10px;padding:1px 8px;font-size:13px;font-weight:700;color:#fff}
+.t-Precoce{background:var(--prec);color:#3a2d00}.t-Média{background:var(--med)}.t-Tardia{background:var(--tard)}
+.aten{display:inline-flex;align-items:center;gap:4px;background:#FDEBD6;color:#8A4300;border-radius:10px;padding:1px 8px;font-size:13px;font-weight:700}
+.meses{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin:9px 0 3px}
+.meses i{height:10px;border-radius:2px;background:#ECEAE2}
+.meses i.on{background:var(--med)}
+.rotMes{display:grid;grid-template-columns:repeat(12,1fr);font-size:10.5px;color:var(--sub);text-align:center}
+.info{display:flex;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--sub);margin-top:6px}
+.info b{color:var(--txt)}
+.doen{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.dz{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--sub)}
+.dz i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.c-ok{background:var(--ok)}.c-mod{background:var(--mod)}.c-sus{background:var(--sus)}.c-ni{background:var(--ni)}.c-aten{background:var(--aten)}
+/* ficha */
+#ficha{position:fixed;inset:0;z-index:50;background:var(--fundo);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.fichaTopo{position:sticky;top:0;background:var(--pri);color:#fff;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));display:flex;align-items:center;gap:10px;z-index:2}
+.fichaTopo button{background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:10px;padding:8px 12px;font-size:16px;font-weight:700}
+.fichaTopo h2{flex:1;margin:0;font-size:21px}
+.fichaCorpo{max-width:680px;margin:0 auto;padding:6px 12px 50px}
+.bloco{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px 14px;margin:10px 0}
+.bloco h3{margin:0 0 8px;font-size:16px;color:var(--pri)}
+.atencao{background:#FFF4E6;border:1px solid #F3C893}
+.atencao h3{color:#8A4300}
+.atencao li{margin:5px 0}
+dl.kv{margin:0}
+dl.kv dt{font-size:14px;color:var(--sub);margin-top:8px}
+dl.kv dd{margin:1px 0 0;font-size:16.5px}
+.tabDoen{width:100%;border-collapse:collapse;font-size:15.5px}
+.tabDoen td{padding:7px 4px;border-top:1px solid #eee}
+.tabDoen td:last-child{text-align:right}
+.pill{display:inline-block;border-radius:10px;padding:2px 9px;font-size:13.5px;font-weight:700;color:#fff}
+.pill.c-ni{color:#444}
+.numeros{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.num{background:#F1F6F2;border-radius:12px;padding:8px;text-align:center}
+.num b{display:block;font-size:22px;color:var(--pri)}
+.num span{font-size:13px;color:var(--sub)}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px;font-size:17px;font-weight:700;background:var(--pri2);color:#fff;margin-top:10px}
+.btn.sec{background:#fff;color:var(--pri);border:1px solid var(--pri2)}
+.fonteTxt{font-size:13px;color:var(--sub)}
+/* calendário */
+.gantt{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:10px 10px 6px;margin:10px 0}
+.gl{display:grid;grid-template-columns:104px 1fr;align-items:center;gap:6px;padding:5px 0;border-top:1px solid #f0eee6;width:100%;background:none;border-left:0;border-right:0;border-bottom:0;font:inherit;color:inherit;text-align:left}
+.gl:first-of-type{border-top:0}
+.gl span{font-size:13.5px;font-weight:700;color:var(--pri);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gl .meses{margin:0}
+.gl .meses i{height:14px}
+.leg{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--sub);margin:8px 0}
+.leg i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+/* comparar */
+.cmp{overflow-x:auto;background:#fff;border:1px solid var(--linha);border-radius:14px;margin:10px 0}
+.cmp table{border-collapse:collapse;min-width:100%;font-size:14.5px}
+.cmp th,.cmp td{padding:8px;border-bottom:1px solid #eee;vertical-align:top;text-align:left;min-width:120px}
+.cmp th{background:#F1F6F2;color:var(--pri);position:sticky;top:0}
+.cmp td:first-child,.cmp th:first-child{position:sticky;left:0;background:#FAFAF6;min-width:96px;font-weight:700;color:var(--sub);font-size:13px}
+.vazio{text-align:center;color:var(--sub);padding:30px 10px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{border-bottom:1px solid #eee;padding:6px 4px;text-align:center}
+.tbl th{color:var(--pri);font-size:13.5px}
+.tbl td:first-child,.tbl th:first-child{text-align:left}
+.meta{display:flex;align-items:center;gap:8px;margin:6px 0 4px;font-size:15px}
+.meta input{width:90px;font-size:17px;padding:6px 8px;border-radius:8px;border:1px solid var(--linha)}
+.aviso{font-size:14px;color:var(--sub);background:#ECEAE0;border-radius:10px;padding:8px 10px;margin:10px 0}
+a{color:#1F5FBF}
+.fontes li{margin:6px 0;font-size:15px}
+</style>
+</head>
+<body>
+<header id="hdr">
+ <div class="topo"><h1>Variedades de Cana<small>São Paulo · colheita, ambiente e sanidade</small></h1><button id="btnInstalar" hidden>📲 Instalar app</button></div>
+ <nav role="tablist">
+  <button data-aba="lista" aria-selected="true">Variedades</button>
+  <button data-aba="cal" aria-selected="false">Calendário</button>
+  <button data-aba="cmp" aria-selected="false">Comparar<span class="badge" id="nCmp" hidden>0</span></button>
+  <button data-aba="guia" aria-selected="false">Guia</button>
+ </nav>
+</header>
+
+<main>
+<section id="aba-lista">
+ <div class="busca" id="busca">
+  <input id="q" type="search" placeholder="🔎 Buscar variedade, obtentor, doença…" autocomplete="off">
+  <div class="linhaFiltros">
+   <button class="btnFiltro" id="btnFiltros">⚙️ Filtros</button>
+   <select id="ordem" aria-label="Ordenar">
+    <option value="area">Maior área em SP</option>
+    <option value="plant">Mais plantada (renovação)</option>
+    <option value="ciclo">Mais precoce primeiro</option>
+    <option value="nome">Nome (A–Z)</option>
+    <option value="aten">Mais pontos de atenção</option>
+   </select>
+  </div>
+  <div class="ativos" id="ativos"></div>
+  <div id="painelFiltros" hidden></div>
+ </div>
+ <p class="conta" id="conta"></p>
+ <div id="lista"></div>
+</section>
+
+<section id="aba-cal" hidden>
+ <h2 style="font-size:18px;color:var(--pri);margin:14px 2px 4px">Janela de colheita</h2>
+ <div class="leg"><span><i style="background:var(--prec)"></i>Precoce</span><span><i style="background:#9BB24A"></i>Precoce a média</span><span><i style="background:var(--med)"></i>Média</span><span><i style="background:var(--tard)"></i>Média-tardia / tardia</span></div>
+ <div class="gantt" id="gantt"></div>
+ <h2 style="font-size:18px;color:var(--pri);margin:18px 2px 4px">Épocas de plantio (regra geral em SP)</h2>
+ <div class="gantt" id="ganttPlantio"></div>
+ <p class="aviso">Os obtentores não definem plantio por variedade. Regra prática: precoce → plantio de ano e meio (jan–mar) para colher em abr–jun; tardia → ano e meio ou cana de ano (set–nov) para colher em ago–nov.</p>
+</section>
+
+<section id="aba-cmp" hidden>
+ <p class="conta" style="margin-top:14px">Toque em <b>＋ Comparar</b> na ficha de até 3 variedades.</p>
+ <div id="cmp"></div>
+</section>
+
+<section id="aba-guia" hidden>
+ <div class="bloco"><h3>Como ler as cores</h3>
+  <div class="doen" style="flex-direction:column;gap:6px">
+   <span class="dz"><i class="c-ok"></i>Resistente ou tolerante</span>
+   <span class="dz"><i class="c-mod"></i>Moderadamente resistente / tolerante</span>
+   <span class="dz"><i class="c-sus"></i>Suscetível</span>
+   <span class="dz"><i class="c-aten"></i>Atenção (pode apresentar)</span>
+   <span class="dz"><i class="c-ni"></i>Nota não publicada pelo obtentor</span>
+  </div>
+  <p class="fonteTxt">Bolinhas do cartão, na ordem: FM ferrugem marrom · FA ferrugem alaranjada · Ca carvão · Es escaldadura · Mo mosaico. "*" = obtentor cita resistência geral sem nota de cada doença.</p>
+ </div>
+ <div class="bloco"><h3>Ambientes de produção</h3>
+  <table class="tbl"><tr><th>Amb.</th><th style="text-align:left">Perfil do solo</th></tr>
+  <tr><td><b>A</b></td><td style="text-align:left">Muito alto potencial: profundo, fértil, boa água disponível</td></tr>
+  <tr><td><b>B</b></td><td style="text-align:left">Alto: fértil a mediano, boa retenção de água</td></tr>
+  <tr><td><b>C</b></td><td style="text-align:left">Médio: fertilidade e água médias</td></tr>
+  <tr><td><b>D</b></td><td style="text-align:left">Baixo: pobre ou arenoso, retém pouca água</td></tr>
+  <tr><td><b>E</b></td><td style="text-align:left">Muito baixo: arenoso, ácido, com alumínio</td></tr></table>
+  <p class="fonteTxt">O filtro de ambiente usa as letras citadas pelo obtentor; quando ele só diz "restritivo" ou "favorável", foi convertido para C–D ou A–B. Cada usina pode ter sua própria matriz.</p>
+ </div>
+ <div class="bloco"><h3>Quanto a cana extrai (kg por 100 t de colmos)</h3>
+  <div class="meta">Sua meta: <input id="inMeta" type="number" inputmode="numeric" value="100" min="20" max="250"> t/ha</div>
+  <table class="tbl" id="tabExt"></table>
+  <p class="fonteTxt">P e K em elemento (não P₂O₅/K₂O). Fonte: Fernandes, UNESP Ilha Solteira.</p>
+ </div>
+ <div class="bloco"><h3>Adubação da cana-soca (kg/ha)</h3>
+  <table class="tbl"><tr><th>Meta</th><th>N</th><th>P₂O₅<br>P≤15</th><th>K₂O<br>K≤1,5</th><th>K₂O<br>1,5–3</th><th>K₂O<br>K&gt;3</th></tr>
+  <tr><td>&lt;60 t</td><td>60</td><td>30</td><td>90</td><td>60</td><td>30</td></tr>
+  <tr><td>60–80 t</td><td>80</td><td>30</td><td>110</td><td>80</td><td>50</td></tr>
+  <tr><td>80–100 t</td><td>100</td><td>30</td><td>130</td><td>100</td><td>70</td></tr>
+  <tr><td>&gt;100 t</td><td>120</td><td>30</td><td>150</td><td>120</td><td>90</td></tr></table>
+  <p class="fonteTxt">P resina em mg/dm³; K em mmolc/dm³. Com P &gt; 15, P₂O₅ = 0. Vinhaça substitui total ou parte do K₂O. Fonte: IAC/Copersucar via UNESP.</p>
+ </div>
+ <div class="bloco"><h3>Cana-planta (Boletim 100 IAC)</h3>
+  <p style="margin:0 0 6px"><b>N:</b> 30 kg/ha no sulco + 30–60 kg/ha em cobertura.</p>
+  <table class="tbl"><tr><th>P₂O₅ · meta</th><th>P 0–6</th><th>7–15</th><th>16–40</th><th>&gt;40</th></tr>
+  <tr><td>&lt;100 t</td><td>180</td><td>100</td><td>60</td><td>40</td></tr><tr><td>100–150 t</td><td>180</td><td>120</td><td>80</td><td>60</td></tr><tr><td>&gt;150 t</td><td>—</td><td>140</td><td>100</td><td>80</td></tr></table>
+  <table class="tbl" style="margin-top:10px"><tr><th>K₂O · meta</th><th>K 0–0,7</th><th>0,8–1,5</th><th>1,6–3</th><th>3,1–6</th></tr>
+  <tr><td>&lt;100 t</td><td>100</td><td>80</td><td>40</td><td>40</td></tr><tr><td>100–150 t</td><td>150</td><td>120</td><td>80</td><td>60</td></tr><tr><td>&gt;150 t</td><td>200</td><td>160</td><td>120</td><td>80</td></tr></table>
+ </div>
+ <div class="bloco"><h3>Faixa adequada na folha +1</h3>
+  <table class="tbl"><tr><th>Macro</th><th>g/kg</th><th>Micro</th><th>mg/kg</th></tr>
+  <tr><td>N</td><td>18–25</td><td>B</td><td>10–30</td></tr><tr><td>P</td><td>1,5–3,0</td><td>Cu</td><td>6–15</td></tr>
+  <tr><td>K</td><td>10–16</td><td>Fe</td><td>40–250</td></tr><tr><td>Ca</td><td>2–8</td><td>Mn</td><td>25–250</td></tr>
+  <tr><td>Mg</td><td>1–3</td><td>Zn</td><td>10–50</td></tr><tr><td>S</td><td>1,5–3,0</td><td></td><td></td></tr></table>
+  <p class="fonteTxt">Raij et al., Boletim 100 (IAC). Micros: Zn e Cu 5–7 kg/ha no sulco; boro 20–30 kg/ha de bórax ou ácido bórico 0,5% foliar.</p>
+ </div>
+ <div class="bloco"><h3>Instalar no celular</h3>
+  <p>Abra no Chrome e toque em <b>📲 Instalar app</b>. Sem o botão: menu ⋮ → <b>Instalar app</b>. Abra uma vez com internet; depois funciona sem sinal.</p>
+  <button class="btn" id="btnInstalar2">📲 Instalar app</button><p class="fonteTxt" id="instNota" hidden></p>
+ </div>
+ <div class="bloco fontes"><h3>Fontes</h3><ul id="fontes"></ul></div>
+ <p class="aviso">Informações públicas dos obtentores (RIDESA, CTC, IAC, CanaVialis) e Censo Varietal IAC 2024/25. Produtividades são de ensaios; a escolha da variedade e a adubação devem seguir a análise de solo e a matriz de ambientes da usina.</p>
+</section>
+</main>
+
+<div id="ficha" hidden></div>
+
+<script>
+"use strict";
+const V=[{"v": "CTC4", "ob": "CTC", "obg": "CTC", "area": 0.131, "plant": 0.061, "mat": "Média", "col": "Meio de safra", "meses": [6, 8], "plantio": "Ano e meio (jan–mar); ou inverno (mai–jul) com irrigação/vinhaça", "amb": "A, B e C (médio a bom potencial)", "ambL": "ABC", "exig": "Média a alta", "prod": "Alta produtividade e alto teor de sacarose", "flor": "Não informado nas fontes", "doen": {"fm": "MR", "fa": "Não informado nas fontes", "ca": "R", "es": "R", "mo": "R"}, "obs": "Boa para colheita mecanizada; tolera pisoteio de máquinas.", "fonte": "Agroadvance; Censo IAC 2024/25", "atencao": ["Ferrugem marrom só moderadamente resistente: vistoriar em anos úmidos.", "Nota para ferrugem alaranjada não publicada."], "tmat": ["Média"], "texig": ["Média", "Alta"]}, {"v": "RB966928", "ob": "RIDESA (UFPR)", "obg": "RIDESA", "area": 0.109, "plant": 0.063, "mat": "Precoce a média", "col": "Abr a jun (até jul)", "meses": [4, 7], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "Média a alta fertilidade (A, B). Evitar ambientes restritivos.", "ambL": "AB", "exig": "Alta (muito responsiva)", "prod": "TCH médio 108 t/ha em 4 cortes (+11% sobre padrões precoces); alta estabilidade", "flor": "Corte fora do período útil pode induzir florescimento", "doen": {"fm": "T", "fa": "T", "ca": "MT", "es": "T", "mo": "T"}, "obs": "Amarelinho: tolerante. Carvão aumenta em ambiente restritivo. Pokkah boeng em anos favoráveis à doença.", "fonte": "CBAB (registro RB966928); Agroadvance", "atencao": ["Não plantar em ambiente restritivo: o carvão aumenta.", "Pokkah boeng em anos favoráveis à doença.", "Colher dentro do período útil (abr–jul): corte fora de época pode induzir florescimento.", "Exigente: precisa de solo de média a alta fertilidade."], "tmat": ["Precoce", "Média"], "texig": ["Alta"]}, {"v": "RB975242", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.079, "plant": 0.128, "mat": "Tardia", "col": "Ago a nov", "meses": [8, 11], "plantio": "Ano e meio (jan–abr) ou ano (set–nov) para colher no fim da safra", "amb": "C e D (médio e baixo potencial); rústica", "ambL": "CD", "exig": "Baixa a média", "prod": "Alta produtividade e alta estabilidade; destaque em TCH", "flor": "Não floresce e não isoporiza", "doen": {"fm": "R*", "fa": "R*", "ca": "R*", "es": "R*", "mo": "R*"}, "obs": "*Fontes citam 'resistente às principais doenças' sem detalhar cada uma. Ótima brotação sob colheita mecanizada; excelente perfilhamento na soca. A mais plantada em SP na renovação 2024/25.", "fonte": "Canaonline (RB975242); Canaonline (novas RB); Censo IAC", "atencao": ["Tardia: não colher antes de agosto.", "Notas por doença não publicadas (obtentor cita resistência geral)."], "tmat": ["Tardia"], "texig": ["Baixa", "Média"]}, {"v": "RB867515", "ob": "RIDESA (UFV)", "obg": "RIDESA", "area": 0.068, "plant": 0.035, "mat": "Média a tardia", "col": "Meio a fim de safra (jul a nov)", "meses": [7, 11], "plantio": "Ano e meio (jan–mar); ou inverno (mai–jul) com irrigação/vinhaça", "amb": "Ambientes restritivos; solos arenosos e de baixa fertilidade", "ambL": "DE", "exig": "Baixa (rústica)", "prod": "Cerca de 100 t/ha nos ensaios; alta produtividade de sacarose; resistente à seca", "flor": "Monitorar isoporização", "doen": {"fm": "R", "fa": "Não informado nas fontes", "ca": "T", "es": "T", "mo": "T"}, "obs": "Atenção à estria vermelha. Brotação lenta com frio.", "fonte": "Agroadvance; Embrapa (RJ); UFV (registro)", "atencao": ["Estria vermelha: única doença com ressalva.", "Monitorar isoporização no fim de safra.", "Brotação lenta com frio."], "tmat": ["Média", "Tardia"], "texig": ["Baixa"]}, {"v": "CTC9001", "ob": "CTC", "obg": "CTC", "area": 0.055, "plant": 0.021, "mat": "Precoce", "col": "Abr a jul", "meses": [4, 7], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "B, C e D (restritivos); desenvolvida para o Cerrado", "ambL": "BCD", "exig": "Baixa a média", "prod": "+29% de Pol/ha sobre as duas mais plantadas nos ensaios do Cerrado", "flor": "Não informado nas fontes", "doen": {"fm": "T", "fa": "T", "ca": "Não informado nas fontes", "es": "T", "mo": "S"}, "obs": "Suscetível ao mosaico. Boa para plantio e colheita mecanizados.", "fonte": "Agroadvance; Assovale/CTC", "atencao": ["Suscetível ao mosaico: usar muda sadia e eliminar touceiras doentes.", "Precoce: colher de abril a julho."], "tmat": ["Precoce"], "texig": ["Baixa", "Média"]}, {"v": "RB975201", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.045, "plant": 0.055, "mat": "Média a tardia", "col": "Ago a nov", "meses": [8, 11], "plantio": "Ano e meio (jan–abr) ou ano (set–nov) para colher no fim da safra", "amb": "A, B e C", "ambL": "ABC", "exig": "Média a alta; responde à irrigação", "prod": "Alta produtividade; destaque em TCH; bom desempenho com seca (Araçatuba)", "flor": "Não floresce e não isoporiza", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Sanidade citada como ponto forte, sem detalhar doenças.", "fonte": "Canaonline (novas RB); UFG/RIDESA; Socicana/RIDESA", "atencao": ["Notas por doença não publicadas.", "Média-tardia: colher de agosto a novembro."], "tmat": ["Média", "Tardia"], "texig": ["Média", "Alta"]}, {"v": "CTC9003", "ob": "CTC", "obg": "CTC", "area": 0.042, "plant": 0.035, "mat": "Precoce", "col": "Início a meio de safra", "meses": [4, 7], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "Série 9000: solos restritivos e Cerrado", "ambL": "CD", "exig": "Baixa a média", "prod": "Índice de Pol 18% acima das variedades de mercado; longo período útil", "flor": "Não floresce", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Alto perfilhamento. Boa para plantio mecanizado.", "fonte": "CTC; Assovale/CTC", "atencao": ["Notas por doença não publicadas.", "Janela exata de colheita não publicada (precoce)."], "tmat": ["Precoce"], "texig": ["Baixa", "Média"]}, {"v": "CV7870", "ob": "CanaVialis (Monsanto)", "obg": "CanaVialis", "area": 0.038, "plant": 0.03, "mat": "Média", "col": "Destaque em jun e jul", "meses": [6, 7], "plantio": "Ano e meio (jan–mar); ou inverno (mai–jul) com irrigação/vinhaça", "amb": "C e D (intermediários)", "ambL": "CD", "exig": "Média", "prod": "Qualidade de matéria-prima; boa adaptabilidade", "flor": "Não informado nas fontes", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Porte ereto; boa germinação no plantio mecanizado.", "fonte": "Revista Cultivar (lançamento CanaVialis)", "atencao": ["Notas por doença não publicadas."], "tmat": ["Média"], "texig": ["Média"]}, {"v": "RB985476", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.036, "plant": 0.048, "mat": "Média", "col": "Jul a set", "meses": [7, 9], "plantio": "Ano e meio (jan–mar); ou inverno (mai–jul) com irrigação/vinhaça", "amb": "A, B e C (intermediários e favoráveis)", "ambL": "ABC", "exig": "Média a alta (responsiva)", "prod": "TCH 130 t/ha vs 126 da RB867515 (42 colheitas em SP); TPH +4%", "flor": "Pode florescer em anos indutores; não isoporiza", "doen": {"fm": "R", "fa": "R", "ca": "R", "es": "T", "mo": "MR"}, "obs": "Perfilhamento e longevidade altos; ótima rebrota.", "fonte": "CBAB (registro RB985476); Canaonline", "atencao": ["Pode florescer em anos indutores.", "Mosaico: só moderadamente resistente."], "tmat": ["Média"], "texig": ["Média", "Alta"]}, {"v": "RB975033", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.026, "plant": 0.044, "mat": "Não informado nas fontes", "col": "Não informado nas fontes", "meses": null, "plantio": "Ano e meio (jan–mar) — regra geral", "amb": "Restritivos (baixa fertilidade, pouca água); solo intermediário", "ambL": "CD", "exig": "Baixa", "prod": "Destaque em ATR (alto teor de sacarose)", "flor": "Não informado nas fontes", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Atenção", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Pode apresentar carvão. Boa tolerância à seca.", "fonte": "JornalCana (RIDESA); Socicana/RIDESA", "atencao": ["Pode apresentar carvão: muda sadia e roguing.", "Maturação e janela de colheita não publicadas."], "tmat": [], "texig": ["Baixa"]}, {"v": "RB855156", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.025, "plant": 0.021, "mat": "Precoce (muito precoce)", "col": "A partir da 2ª quinzena de abr (abr a mai)", "meses": [4, 5], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "Não informado nas fontes", "ambL": "", "exig": "Não informado nas fontes", "prod": "Cerca de 93 t/ha nos ensaios (RJ)", "flor": "Não informado nas fontes", "doen": {"fm": "R*", "fa": "Não informado nas fontes", "ca": "R*", "es": "R*", "mo": "R*"}, "obs": "*Fonte cita 'excelente sanidade' sem detalhar. Tolerante ao frio. Pode tombar (hábito decumbente). Referência de precocidade.", "fonte": "Embrapa (RJ); Revista Canavieiros", "atencao": ["Pode tombar (hábito decumbente).", "Muito precoce: colher em abril e maio."], "tmat": ["Precoce"], "texig": []}, {"v": "CTC9002", "ob": "CTC", "obg": "CTC", "area": 0.02, "plant": 0.005, "mat": "Não informado nas fontes", "col": "Não informado nas fontes", "meses": null, "plantio": "Ano e meio (jan–mar) — regra geral", "amb": "Solos restritivos; tolera seca", "ambL": "CD", "exig": "Baixa a média", "prod": "+25% de Pol/ha sobre variedades populares (ensaios Cerrado)", "flor": "Não informado nas fontes", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Boa para plantio mecanizado.", "fonte": "CTC; Assovale/CTC", "atencao": ["Maturação, janela de colheita e notas de doença não publicadas."], "tmat": [], "texig": ["Baixa", "Média"]}, {"v": "RB005014", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.019, "plant": 0.033, "mat": "Média", "col": "Jul a set", "meses": [7, 9], "plantio": "Ano e meio (jan–mar); ou inverno (mai–jul) com irrigação/vinhaça", "amb": "Favoráveis e intermediários; fertilidade moderada ou maior", "ambL": "ABC", "exig": "Alta", "prod": "TCH acima de 119 t/ha; PC ~15,5%; responde à irrigação", "flor": "Raro florescimento; pouca ou nenhuma isoporização", "doen": {"fm": "R", "fa": "R", "ca": "R", "es": "R", "mo": "R"}, "obs": "Perfilhamento alto; ótima rebrota e longevidade. Em ambiente restrito produz menos que a RB867515.", "fonte": "CBAB (registro RB005014); Socicana/RIDESA", "atencao": ["Exigente: em ambiente restrito produz menos que a RB867515."], "tmat": ["Média"], "texig": ["Alta"]}, {"v": "CTC2994", "ob": "CTC", "obg": "CTC", "area": 0.018, "plant": 0.029, "mat": "Precoce a média", "col": "Abr a set (destaque jun a set)", "meses": [4, 9], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "B (ensaio Ribeirão Preto)", "ambL": "B", "exig": "Média", "prod": "ATR igual ou pouco acima da CTC4 no início e meio de safra", "flor": "Florescimento raro", "doen": {"fm": "T*", "fa": "T*", "ca": "T*", "es": "T*", "mo": "T*"}, "obs": "*CTC cita 'destaque em sanidade, sem perdas relevantes por doenças', sem detalhar cada uma.", "fonte": "Socicana/CTC (2023)", "atencao": ["Notas por doença não publicadas (CTC cita boa sanidade geral)."], "tmat": ["Precoce", "Média"], "texig": ["Média"]}, {"v": "IACSP95-5094", "ob": "IAC", "obg": "IAC", "area": 0.018, "plant": 0.019, "mat": "Média", "col": "Jul a set (até out em ambiente favorável)", "meses": [7, 10], "plantio": "Ano e meio (jan–mar); ou inverno (mai–jul) com irrigação/vinhaça", "amb": "Favoráveis (responsiva); vai bem em ambiente C na rebrota", "ambL": "AB", "exig": "Alta (responde a água e nutrição)", "prod": "Relato de 130 t/ha na média de 5 cortes (fazenda)", "flor": "Raro florescimento; não isoporiza", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Atenção à cigarrinha e à broca em áreas com histórico (muita palha). Ereta, não tomba; rebrota vigorosa.", "fonte": "Revista Canavieiros (IACSP95-5094)", "atencao": ["Cigarrinha e broca em áreas com histórico (produz muita palha).", "Muita palha: atenção ao risco de fogo na colheita em tempo seco.", "Exigente: responde a água e nutrição."], "tmat": ["Média"], "texig": ["Alta"]}, {"v": "CTC9006", "ob": "CTC", "obg": "CTC", "area": 0.018, "plant": 0.05, "mat": "Média", "col": "Mai a set (maturador em maio)", "meses": [5, 9], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "A a D (rústica); ensaios em C e D", "ambL": "ABCD", "exig": "Baixa a média", "prod": "+1,0 a +2,0 t ATR/ha sobre RB975242, RB975201 e RB975033 nos ensaios CTC", "flor": "Não informado nas fontes", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "CTC destaca rusticidade e alta produtividade para meio de safra.", "fonte": "Socicana/CTC (2023)", "atencao": ["Para colher em maio, usar maturador.", "Notas por doença não publicadas."], "tmat": ["Média"], "texig": ["Baixa", "Média"]}, {"v": "RB975952", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.018, "plant": 0.016, "mat": "Precoce (hiperprecoce)", "col": "Abr a mai (até meados de jun)", "meses": [4, 6], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "A, B e C (média a alta fertilidade); evitar solos muito argilosos", "ambL": "ABC", "exig": "Média a alta", "prod": "TCH acima de 114,9 t/ha; sacarose ~14,5%", "flor": "Florescimento raro; pouca isoporização", "doen": {"fm": "R", "fa": "R", "ca": "R", "es": "R", "mo": "R"}, "obs": "Boa brotação sob colheita mecanizada; tolerância à seca.", "fonte": "CBAB (registro RB975952); Canaonline", "atencao": ["Evitar solos muito argilosos.", "Hiperprecoce: colher de abril a meados de junho."], "tmat": ["Precoce"], "texig": ["Média", "Alta"]}, {"v": "CV6654", "ob": "CanaVialis (Monsanto)", "obg": "CanaVialis", "area": 0.015, "plant": 0.008, "mat": "Precoce a média", "col": "Até agosto (não isoporiza)", "meses": [5, 8], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "B, C e D", "ambL": "BCD", "exig": "Média", "prod": "Destaque em perfilhamento e colhibilidade", "flor": "Não isoporiza", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Fonte cita boa sanidade, sem detalhar.", "fonte": "Revista Cultivar (lançamento CanaVialis)", "atencao": ["Colher até agosto.", "Notas por doença não publicadas."], "tmat": ["Precoce", "Média"], "texig": ["Média"]}, {"v": "RB975375", "ob": "RIDESA (UFSCar)", "obg": "RIDESA", "area": 0.014, "plant": 0.027, "mat": "Média a tardia", "col": "Meio a fim de safra", "meses": [7, 10], "plantio": "Ano e meio (jan–mar); ou inverno (mai–jul) com irrigação/vinhaça", "amb": "Destaque nas regiões de Jaú, Ribeirão Preto, Piracicaba e S. J. do Rio Preto", "ambL": "", "exig": "Não informado nas fontes", "prod": "Muito rica em açúcar; alto perfilhamento", "flor": "Não informado nas fontes", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Pode apresentar estria vermelha. Ótima brotação.", "fonte": "Canaonline (novas RB); Socicana/RIDESA; Revista Canavieiros", "atencao": ["Pode apresentar estria vermelha.", "Ambiente e janela exata não publicados."], "tmat": ["Média", "Tardia"], "texig": []}, {"v": "CTC1007", "ob": "CTC", "obg": "CTC", "area": 0.014, "plant": 0.032, "mat": "Precoce", "col": "Início de safra", "meses": [4, 6], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "Ensaios em ambiente A (Ribeirão) e E (Pitangueiras)", "ambL": "ABCDE", "exig": "Baixa a alta (ampla)", "prod": "Alta produtividade e riqueza", "flor": "Não informado nas fontes", "doen": {"fm": "T*", "fa": "T*", "ca": "T*", "es": "T*", "mo": "T*"}, "obs": "*CTC a descreve como 'a variedade de maior sanidade do mercado', sem detalhar cada doença.", "fonte": "Socicana/CTC (2023)", "atencao": ["Notas por doença não publicadas (CTC cita alta sanidade geral)."], "tmat": ["Precoce"], "texig": ["Baixa", "Média", "Alta"]}, {"v": "IACSP01-5503", "ob": "IAC", "obg": "IAC", "area": null, "plant": null, "mat": "Média, período útil longo", "col": "Mai a nov", "meses": [5, 11], "plantio": "Ano e meio (jan–mar) para colher no início da safra seguinte", "amb": "Restritivos: solo com pouca água disponível e baixa fertilidade; Cerrado", "ambL": "DE", "exig": "Baixa (rústica)", "prod": "Cerca de 15% de ganho agroindustrial sobre a RB867515", "flor": "Não informado nas fontes", "doen": {"fm": "Não informado nas fontes", "fa": "Não informado nas fontes", "ca": "Não informado nas fontes", "es": "Não informado nas fontes", "mo": "Não informado nas fontes"}, "obs": "Fora do top 20 de SP, mas 1,7% do Centro-Sul e entre as mais plantadas do IAC.", "fonte": "Revista Cultivar (IAC 130 anos); Censo IAC", "atencao": ["Notas por doença não publicadas."], "tmat": ["Média"], "texig": ["Baixa"]}];
+const FONTES=[["Censo Varietal IAC – safra 2024/25 (Boletim 245)", "https://www.iac.sp.gov.br/media/publicacoes/iacbt245.pdf"], ["RB966928 – registro (Crop Breeding and Applied Biotechnology)", "https://scielo.br/j/cbab/a/38fdNF3bBL6dyyPn9fspnck/?lang=en"], ["RB985476 – registro (CBAB)", "https://scielo.br/j/cbab/a/JrBPWghfySP5WMrm56cszQP/?lang=en"], ["RB975952 – registro (CBAB)", "https://scielo.br/j/cbab/a/T4xp9dt7pXbZBQZLMtWKh3k/?lang=en"], ["RB005014 – registro (CBAB)", "https://scielo.br/j/cbab/a/YjF7ynnfNrTRg8SyrPGp8qq/?lang=en"], ["RB867515 – registro (UFV)", "https://locus.ufv.br/items/3829312e-3c6e-4624-92e5-b33694a12272/full"], ["Conheça a RB975242 (Canaonline)", "https://www.canaonline.com.br/conteudo/conheca-a-rb975242-variedade-indicada-para-ambientes-de-medio-e-baixo-potencial-e-colheita-no-final-de-safra.html"], ["Novas variedades RB e futuras liberações (Canaonline)", "https://canaonline.com.br/conteudo/novas-variedades-rb-e-futuras-liberacoes.html"], ["Ridesa lança 21 variedades (JornalCana)", "https://jornalcana.com.br/mercado/usinas/ridesa-lanca-21-variedades-de-cana-de-acucar/"], ["Variedades RB – RIDESA/UFG", "https://files.cercomp.ufg.br/weby/up/237/o/Varieds_RB_cana_GOeTO.pdf"], ["Apresentação RIDESA – Socicana (2023)", "https://socicana.com.br/wp-content/uploads/Apresentacao-Ridesa-Variedades-de-Cana_compressed.pdf"], ["Apresentação CTC – Socicana (2023)", "https://socicana.com.br/wp-content/uploads/Apresentacao-CTC-Variedades-de-Cana_compressed.pdf"], ["5 variedades mais cultivadas (Agroadvance)", "https://agroadvance.com.br/blog-5-variedades-de-cana-mais-cultivadas/"], ["Variedades CTC são destaque no campo (CTC)", "https://ctc.com.br/variedades-ctc-sao-destaque-no-campo/"], ["CTC lança variedades para o Cerrado (Assovale)", "https://www.assovale.com.br/noticias/1921/ctc-lanca-variedades-de-cana-que-produzem-mais-adaptaveis-ao-cerrado-brasileiro"], ["Monsanto lança três variedades – CV7870, CV6654 (Revista Cultivar)", "https://www.revistacultivar.com.br/noticias/monsanto-lanca-tres-variedades-de-cana-de-acucar"], ["A rebrota fantástica da IACSP95-5094 (Revista Canavieiros)", "https://www.revistacanavieiros.com.br/a-rebrota-fantastica-da-iacsp95-5094"], ["IAC lança IACSP01-5503 (Revista Cultivar)", "https://www.revistacultivar.com.br/noticias/instituto-agronomico-completa-130-anos-e-lanca-duas-variedades-de-cana-com-alto-desempenho"], ["Variedades recomendadas para o RJ (Embrapa)", "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1076623/1/SistemadeProducao23Incluido7.pdf"], ["E aí, como estão as variedades RB? (Revista Canavieiros)", "https://www.revistacanavieiros.com.br/e-ai-como-estao-as-variedades-rb"], ["Nutrição e adubação da cana (UNESP Ilha Solteira)", "https://www.feis.unesp.br/Home/departamentos/fitotecniatecnologiadealimentosesocioeconomia716/nutricao-e-adubacao-fabiana.pdf"], ["Adubo para cana (Aegro)", "https://aegro.com.br/blog/adubo-para-cana/"]];
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const pct=x=>x==null?"fora do top 20":(x*100).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1})+"%";
+const MES=["J","F","M","A","M","J","J","A","S","O","N","D"],MESN=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+const DOEN=[["fm","Ferrugem marrom","FM"],["fa","Ferrugem alaranjada","FA"],["ca","Carvão","Ca"],["es","Escaldadura","Es"],["mo","Mosaico","Mo"]];
+const REA={"R":["Resistente","ok"],"R*":["Resistente*","ok"],"T":["Tolerante","ok"],"T*":["Tolerante*","ok"],"MR":["Mod. resistente","mod"],"MT":["Mod. tolerante","mod"],"S":["Suscetível","sus"],"Atenção":["Pode apresentar","aten"]};
+const rea=v=>REA[v]||["Não publicada","ni"];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function corMat(v){const t=v.tmat;if(t.includes("Tardia"))return"var(--tard)";if(t.includes("Precoce")&&t.includes("Média"))return"#9BB24A";if(t.includes("Precoce"))return"var(--prec)";return"var(--med)"}
+function barra(v){return`<div class="meses">${MESN.map((_,i)=>`<i${v.meses&&i+1>=v.meses[0]&&i+1<=v.meses[1]?` class="on" style="background:${corMat(v)}"`:""}></i>`).join("")}</div>`}
+const rotulo=`<div class="rotMes">${MES.map(m=>`<span>${m}</span>`).join("")}</div>`;
+
+/* ---------- Filtros ---------- */
+const GRUPOS=[
+ {id:"mat",t:"Maturação",op:["Precoce","Média","Tardia"],ok:(v,o)=>v.tmat.includes(o)},
+ {id:"amb",t:"Ambiente de produção",op:["A","B","C","D","E"],ok:(v,o)=>v.ambL.includes(o)},
+ {id:"mes",t:"Colher em",op:MESN.slice(3,11),ok:(v,o)=>{const m=MESN.indexOf(o)+1;return v.meses&&m>=v.meses[0]&&m<=v.meses[1]}},
+ {id:"exig",t:"Exigência em fertilidade",op:["Baixa","Média","Alta"],ok:(v,o)=>v.texig.includes(o)},
+ {id:"ob",t:"Obtentor",op:["RIDESA","CTC","IAC","CanaVialis"],ok:(v,o)=>v.obg===o},
+ {id:"san",t:"Resistente ou tolerante a (todas marcadas)",op:["Ferrugem marrom","Ferrugem alaranjada","Carvão","Escaldadura","Mosaico"],todos:true,
+  ok:(v,o)=>{const k=DOEN.find(d=>d[1]===o)[0];return["ok","mod"].includes(rea(v.doen[k])[1])}},
+ {id:"extra",t:"Outros",op:["Não floresce / raro","Sem suscetível conhecido","Top 10 em área"],todos:true,
+  ok:(v,o)=>o==="Não floresce / raro"?/não floresce|raro florescimento|florescimento raro/i.test(v.flor):o==="Top 10 em área"?V.indexOf(v)<10:!Object.values(v.doen).some(x=>x==="S"||x==="Atenção")}
+];
+let sel={};try{sel=JSON.parse(localStorage.getItem("var-filtros")||"{}")}catch(e){}
+GRUPOS.forEach(g=>{if(!Array.isArray(sel[g.id]))sel[g.id]=[]});
+let cmp=[];try{cmp=JSON.parse(localStorage.getItem("var-cmp")||"[]").filter(n=>V.some(v=>v.v===n))}catch(e){}
+function salva(){try{localStorage.setItem("var-filtros",JSON.stringify(sel));localStorage.setItem("var-cmp",JSON.stringify(cmp))}catch(e){}}
+function montaPainel(){
+ $("#painelFiltros").innerHTML=GRUPOS.map(g=>`<div class="grupo"><b>${g.t}</b><div class="chips">${g.op.map(o=>`<button class="chip" data-g="${g.id}" data-o="${esc(o)}" aria-pressed="${sel[g.id].includes(o)}">${o}</button>`).join("")}</div></div>`).join("")+
+ `<button class="btn sec" id="limpar" style="margin-top:14px">Limpar filtros</button>`;
+}
+function filtra(){
+ const q=norm($("#q").value.trim());
+ return V.filter(v=>{
+  if(q&&!norm([v.v,v.ob,v.mat,v.amb,v.prod,v.obs,v.atencao.join(" "),v.flor].join(" ")).includes(q))return false;
+  return GRUPOS.every(g=>{const s=sel[g.id];if(!s.length)return true;return g.todos?s.every(o=>g.ok(v,o)):s.some(o=>g.ok(v,o))});
+ });
+}
+function ordena(l){
+ const o=$("#ordem").value;const c=[...l];
+ if(o==="area")c.sort((a,b)=>(b.area??-1)-(a.area??-1));
+ if(o==="plant")c.sort((a,b)=>(b.plant??-1)-(a.plant??-1));
+ if(o==="nome")c.sort((a,b)=>a.v.localeCompare(b.v));
+ if(o==="ciclo")c.sort((a,b)=>(a.meses?a.meses[0]+a.meses[1]/100:99)-(b.meses?b.meses[0]+b.meses[1]/100:99));
+ if(o==="aten")c.sort((a,b)=>b.atencao.length-a.atencao.length);
+ return c;
+}
+function cartao(v){
+ return`<button class="card" data-v="${v.v}"><div class="l1"><span class="nome">${v.v}</span><span class="ob">${esc(v.ob)}</span></div>
+ <div class="l1" style="margin-top:4px">${v.tmat.map(t=>`<span class="tag t-${t}">${t}</span>`).join(" ")||'<span class="tag" style="background:#999">Maturação ?</span>'}
+  <span class="aten">⚠️ ${v.atencao.length} ${v.atencao.length>1?"pontos":"ponto"} de atenção</span></div>
+ ${barra(v)}${rotulo}
+ <div class="info"><span>Colheita: <b>${esc(v.col)}</b></span><span>Ambiente: <b>${v.ambL?v.ambL.split("").join(", "):"—"}</b></span><span>Área SP: <b>${pct(v.area)}</b></span><span>Plantio: <b>${pct(v.plant)}</b></span></div>
+ <div class="doen">${DOEN.map(([k,,s])=>`<span class="dz"><i class="c-${rea(v.doen[k])[1]}"></i>${s}</span>`).join("")}</div></button>`;
+}
+function render(){
+ const l=ordena(filtra());
+ $("#conta").textContent=`${l.length} de ${V.length} variedades`;
+ $("#lista").innerHTML=l.length?l.map(cartao).join(""):`<p class="vazio">Nenhuma variedade com esses filtros.<br>Tente tirar algum.</p>`;
+ const at=[];GRUPOS.forEach(g=>sel[g.id].forEach(o=>at.push(`<button data-g="${g.id}" data-o="${esc(o)}">${g.id==="amb"?"Amb. ":""}${o} ✕</button>`)));
+ $("#ativos").innerHTML=at.join("");
+ const n=GRUPOS.reduce((a,g)=>a+sel[g.id].length,0);
+ $("#btnFiltros").textContent=n?`⚙️ Filtros (${n})`:"⚙️ Filtros";$("#btnFiltros").classList.toggle("ativo",n>0);
+ salva();
+}
+function alterna(g,o){const s=sel[g];const i=s.indexOf(o);i<0?s.push(o):s.splice(i,1);montaPainel();render()}
+
+/* ---------- Ficha ---------- */
+function ficha(nome){
+ const v=V.find(x=>x.v===nome);if(!v)return;
+ const em=cmp.includes(v.v);
+ $("#ficha").innerHTML=`<div class="fichaTopo"><button id="fVoltar">← Voltar</button><h2>${v.v}</h2></div><div class="fichaCorpo">
+ <p class="fonteTxt" style="margin:8px 2px">${esc(v.ob)} · ${v.tmat.map(t=>`<span class="tag t-${t}">${t}</span>`).join(" ")}</p>
+ <div class="bloco atencao"><h3>⚠️ Pontos de atenção</h3><ul style="margin:0;padding-left:20px">${v.atencao.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>
+ <div class="bloco"><h3>Colheita e plantio</h3>${barra(v)}${rotulo}
+  <dl class="kv"><dt>Maturação</dt><dd>${esc(v.mat)}</dd><dt>Época de colheita</dt><dd>${esc(v.col)}</dd><dt>Plantio sugerido (pelo ciclo)</dt><dd>${esc(v.plantio)}</dd></dl></div>
+ <div class="bloco"><h3>Solo e exigência</h3><dl class="kv"><dt>Ambiente de produção / solo</dt><dd>${esc(v.amb)}</dd><dt>Exigência em fertilidade</dt><dd>${esc(v.exig)}</dd></dl></div>
+ <div class="bloco"><h3>Produtividade</h3><div class="numeros"><div class="num"><b>${pct(v.area)}</b><span>da área de SP</span></div><div class="num"><b>${pct(v.plant)}</b><span>do plantio 2024/25</span></div></div>
+  <dl class="kv"><dt>Referência</dt><dd>${esc(v.prod)}</dd><dt>Florescimento / isoporização</dt><dd>${esc(v.flor)}</dd></dl></div>
+ <div class="bloco"><h3>Doenças</h3><table class="tabDoen">${DOEN.map(([k,n])=>{const r=rea(v.doen[k]);return`<tr><td>${n}</td><td><span class="pill c-${r[1]}">${r[0]}</span></td></tr>`}).join("")}</table>
+  <p style="margin:10px 0 0;font-size:15.5px">${esc(v.obs)}</p></div>
+ <button class="btn${em?" sec":""}" id="fCmp">${em?"✓ Na comparação (tocar para tirar)":"＋ Comparar"}</button>
+ <p class="fonteTxt" style="margin-top:12px">Fonte: ${esc(v.fonte)}</p></div>`;
+ $("#ficha").hidden=false;$("#ficha").scrollTop=0;document.body.style.overflow="hidden";
+ history.pushState({ficha:v.v},"");
+ $("#fVoltar").onclick=()=>history.back();
+ $("#fCmp").onclick=()=>{const i=cmp.indexOf(v.v);if(i>=0)cmp.splice(i,1);else{if(cmp.length>=3)cmp.shift();cmp.push(v.v)}salva();atualizaCmp();
+  const b=$("#fCmp"),on=cmp.includes(v.v);b.classList.toggle("sec",on);b.textContent=on?"✓ Na comparação (tocar para tirar)":"＋ Comparar"};
+}
+function fechaFicha(){$("#ficha").hidden=true;document.body.style.overflow=""}
+addEventListener("popstate",()=>{if(!$("#ficha").hidden)fechaFicha()});
+
+/* ---------- Comparar ---------- */
+function atualizaCmp(){
+ $("#nCmp").hidden=!cmp.length;$("#nCmp").textContent=cmp.length;
+ if(!cmp.length){$("#cmp").innerHTML=`<p class="vazio">Nenhuma variedade escolhida ainda.</p>`;return}
+ const vs=cmp.map(n=>V.find(v=>v.v===n));
+ const lin=[["Maturação",v=>esc(v.mat)],["Colheita",v=>barra(v)+esc(v.col)],["Ambiente",v=>esc(v.amb)],["Exigência",v=>esc(v.exig)],["Área SP",v=>pct(v.area)],["Plantio SP",v=>pct(v.plant)],["Produtividade",v=>esc(v.prod)],["Florescimento",v=>esc(v.flor)],
+  ...DOEN.map(([k,n])=>[n,v=>{const r=rea(v.doen[k]);return`<span class="pill c-${r[1]}">${r[0]}</span>`}]),["⚠️ Atenção",v=>v.atencao.map(esc).join("<br>• ").replace(/^/,"• ")]];
+ $("#cmp").innerHTML=`<div class="cmp"><table><tr><th></th>${vs.map(v=>`<th>${v.v}</th>`).join("")}</tr>${lin.map(([t,f])=>`<tr><td>${t}</td>${vs.map(v=>`<td>${f(v)}</td>`).join("")}</tr>`).join("")}</table></div>
+ <button class="btn sec" id="limpaCmp">Limpar comparação</button>`;
+ $("#limpaCmp").onclick=()=>{cmp=[];salva();atualizaCmp()};
+}
+
+/* ---------- Calendário ---------- */
+function calendario(){
+ const l=[...V].sort((a,b)=>(a.meses?a.meses[0]*100+a.meses[1]:9999)-(b.meses?b.meses[0]*100+b.meses[1]:9999));
+ $("#gantt").innerHTML=`<div class="gl" style="pointer-events:none"><span></span>${rotulo}</div>`+l.map(v=>`<button class="gl" data-v="${v.v}"><span>${v.v}</span>${v.meses?barra(v):'<div class="fonteTxt">janela não publicada</div>'}</button>`).join("");
+ const P=[["Ano e meio",[1,3],"#4E8A3E"],["Cana de ano",[9,11],"#2E77B8"],["Inverno*",[5,8],"#7B8B9A"]];
+ $("#ganttPlantio").innerHTML=`<div class="gl" style="pointer-events:none"><span></span>${rotulo}</div>`+P.map(([n,m,c])=>`<div class="gl"><span>${n}</span><div class="meses">${MESN.map((_,i)=>`<i${i+1>=m[0]&&i+1<=m[1]?` style="background:${c}"`:""}></i>`).join("")}</div></div>`).join("")+`<p class="fonteTxt" style="margin:6px 4px">*Inverno com irrigação de salvamento ou vinhaça.</p>`;
+}
+function extracao(){
+ const E=[["N",154,131],["P",18,21],["K",153,173],["Ca",107,67],["Mg",51,45],["S",47,39]];
+ const m=Math.max(0,+$("#inMeta").value||0);
+ $("#tabExt").innerHTML=`<tr><th>Nutriente</th><th>Planta</th><th>Soca</th><th>Sua meta (soca)</th></tr>`+E.map(([n,p,s])=>`<tr><td><b>${n}</b></td><td>${p}</td><td>${s}</td><td><b>${Math.round(s*m/100)}</b> kg/ha</td></tr>`).join("");
+}
+
+/* ---------- Abas ---------- */
+const ABAS=["lista","cal","cmp","guia"];let aba="lista";
+function vai(a){aba=a;ABAS.forEach(x=>{$("#aba-"+x).hidden=x!==a;$(`nav [data-aba=${x}]`).setAttribute("aria-selected",String(x===a))});scrollTo(0,0)}
+$("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)vai(b.dataset.aba)});
+let x0=null,y0=0;
+document.addEventListener("touchstart",e=>{if(!$("#ficha").hidden||e.target.closest("input,select,.chips,.cmp")){x0=null;return}x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+ if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.5){const i=ABAS.indexOf(aba)+(dx<0?1:-1);if(i>=0&&i<ABAS.length)vai(ABAS[i])}},{passive:true});
+function topo(){document.documentElement.style.setProperty("--hh",$("#hdr").offsetHeight+"px")}addEventListener("resize",topo);
+
+/* ---------- Eventos ---------- */
+$("#q").addEventListener("input",render);$("#ordem").addEventListener("change",render);
+$("#btnFiltros").onclick=()=>{$("#painelFiltros").hidden=!$("#painelFiltros").hidden};
+$("#painelFiltros").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b)alterna(b.dataset.g,b.dataset.o);if(e.target.id==="limpar"){GRUPOS.forEach(g=>sel[g.id]=[]);montaPainel();render()}});
+$("#ativos").addEventListener("click",e=>{const b=e.target.closest("button");if(b)alterna(b.dataset.g,b.dataset.o)});
+document.addEventListener("click",e=>{const c=e.target.closest(".card[data-v],.gl[data-v]");if(c)ficha(c.dataset.v)});
+$("#inMeta").addEventListener("input",extracao);
+$("#fontes").innerHTML=FONTES.map(([t,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("");
+
+/* ---------- Instalar ---------- */
+let pedido=null;const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;if(!standalone())$("#btnInstalar").hidden=false});
+async function instalar(){if(pedido){pedido.prompt();await pedido.userChoice;pedido=null;$("#btnInstalar").hidden=true}else{const n=$("#instNota");n.hidden=false;n.textContent=standalone()?"O app já está instalado. 👍":"Toque nos três pontinhos ⋮ do Chrome e escolha \"Instalar app\".";vai("guia");n.scrollIntoView({behavior:"smooth"})}}
+$("#btnInstalar").onclick=instalar;$("#btnInstalar2").onclick=instalar;addEventListener("appinstalled",()=>$("#btnInstalar").hidden=true);
+if(standalone())$("#btnInstalar2").hidden=true;
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+topo();montaPainel();render();calendario();extracao();atualizaCmp();
+</script>
+</body>
+</html>
