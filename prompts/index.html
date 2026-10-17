@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prompteca · Prompts por tema</title>
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;800&display=swap">
+<style>
+:root{--ink:#14112B;--mut:#5E5A75;--line:#E6E3F0;--soft:#F3F1FA;--bg:#FFFFFF;--acc:#6D28D9;--acc2:#EDE6FD}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sora',system-ui,sans-serif;font-size:17px}
+button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 16px 0;padding-top:max(14px,env(safe-area-inset-top))}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;max-width:640px;margin:0 auto}
+.logo{font-weight:800;font-size:26px;letter-spacing:-.8px}
+.logo i{color:var(--acc);font-style:normal}
+.inst{height:40px;padding:0 14px;border-radius:20px;border:none;background:var(--ink);color:#fff;font-weight:600;font-size:15px;white-space:nowrap}
+.search{display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:14px;border:2px solid var(--ink);max-width:640px;margin:12px auto 0}
+.search input{flex:1;border:none;outline:none;background:transparent;font-size:17px;min-width:0}
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:12px 0;max-width:640px;margin:0 auto;scroll-behavior:smooth}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;height:42px;padding:0 15px;border-radius:21px;border:none;background:var(--soft);font-size:15px;font-weight:500;display:flex;align-items:center;gap:6px}
+.tab[aria-selected=true]{background:var(--acc);color:#fff;font-weight:600}
+.tab .n{font-size:12px;opacity:.75}
+#main{padding:4px 16px 120px;max-width:640px;margin:0 auto;min-height:70vh}
+.intro{color:var(--mut);font-size:15px;line-height:1.5;margin:4px 0 14px}
+.card{width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:18px;padding:16px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
+.card:active{background:var(--soft)}
+.card .ic{flex-shrink:0;width:46px;height:46px;border-radius:14px;background:var(--acc2);display:grid;place-items:center;font-size:24px}
+.card b{display:block;font-size:17px;font-weight:600;line-height:1.3}
+.card small{display:block;color:var(--mut);font-size:14px;line-height:1.45;margin-top:4px}
+.card .tag{display:inline-block;margin-top:8px;font-size:12px;font-weight:600;color:var(--acc);background:var(--acc2);padding:3px 9px;border-radius:10px}
+.vazio{text-align:center;color:var(--mut);padding:40px 10px;line-height:1.6}
+.addbtn{width:100%;height:54px;border-radius:16px;border:2px dashed var(--acc);background:transparent;color:var(--acc);font-weight:600;margin-bottom:14px}
+/* tela do prompt */
+#det{position:fixed;inset:0;background:var(--bg);z-index:20;overflow-y:auto;padding:0 16px 40px}
+#det .wrap{max-width:640px;margin:0 auto}
+.dtop{position:sticky;top:0;background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:12px 0;padding-top:max(12px,env(safe-area-inset-top));z-index:2}
+.back{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 14px 0 8px;border-radius:22px;border:none;background:var(--soft);font-weight:600}
+.star{width:48px;height:48px;border-radius:24px;border:none;background:var(--soft);font-size:24px}
+.star.on{background:#FEF3C7}
+#det h2{font-size:25px;font-weight:800;letter-spacing:-.5px;line-height:1.2;margin:8px 0 6px}
+#det .sub{color:var(--mut);font-size:15px;line-height:1.5;margin:0 0 16px}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.fld textarea{width:100%;min-height:52px;border:1.5px solid var(--line);border-radius:12px;padding:12px;font-size:17px;resize:vertical;line-height:1.4;outline:none}
+.fld textarea:focus{border-color:var(--acc)}
+.ph{font-size:13px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin:18px 0 8px}
+.prev{background:var(--soft);border-radius:16px;padding:16px;font-size:16px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.prev mark{background:#FDE68A;border-radius:4px;padding:0 3px}
+.prev em{font-style:normal;background:var(--acc2);color:var(--acc);border-radius:4px;padding:0 3px;font-weight:600}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.act{height:56px;border-radius:16px;border:none;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px}
+.act.p{background:var(--acc);color:#fff;grid-column:1/-1;height:60px;font-size:17px}
+.act.s{background:var(--soft)}
+.act.d{background:#FEE2E2;color:#991B1B}
+.tip{margin-top:18px;font-size:14px;color:var(--mut);line-height:1.55;border-left:3px solid var(--acc);padding-left:12px}
+/* formulário novo prompt */
+.form input,.form select{width:100%;height:52px;border:1.5px solid var(--line);border-radius:12px;padding:0 12px;font-size:17px;outline:none;background:var(--bg)}
+.form textarea{min-height:180px}
+.hint{font-size:13px;color:var(--mut);margin-top:6px;line-height:1.5}
+#toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:13px 20px;border-radius:24px;font-weight:600;font-size:15px;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+#ajuda{position:fixed;inset:0;background:rgba(20,17,43,.55);z-index:40;display:flex;align-items:flex-end}
+#ajuda .box{background:var(--bg);width:100%;border-radius:22px 22px 0 0;padding:22px 20px 30px;line-height:1.6;max-width:640px;margin:0 auto}
+#ajuda h3{margin:0 0 8px;font-size:21px}
+#ajuda ol{padding-left:20px;margin:8px 0 16px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="logo">Prompt<i>eca</i></div>
+    <button class="inst" id="instBtn">📲 Instalar app</button>
+  </div>
+  <label class="search">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Buscar prompt…" autocomplete="off">
+  </label>
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+</header>
+<main id="main"></main>
+
+<section id="det" hidden><div class="wrap" id="detIn"></div></section>
+<div id="toast" hidden></div>
+<div id="ajuda" hidden><div class="box">
+  <h3>Instalar no celular</h3>
+  <ol><li>Toque no menu <b>⋮</b> do Chrome (canto de cima).</li><li>Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li></ol>
+  <button class="act p" style="width:100%" id="ajudaOk">Entendi</button>
+</div></div>
+
+<script>
+/* Campos para preencher: [[nome do campo]] */
+const TABS=[
+ {id:"fav",n:"⭐ Favoritos"},
+ {id:"trab",n:"💼 Trabalho"},
+ {id:"agro",n:"🌱 Agro"},
+ {id:"est",n:"📚 Estudos"},
+ {id:"esc",n:"✍️ Escrita"},
+ {id:"din",n:"💰 Dinheiro"},
+ {id:"casa",n:"🏠 Casa e Família"},
+ {id:"cri",n:"🎨 Criatividade"},
+ {id:"tec",n:"📱 Tecnologia"},
+ {id:"meus",n:"📝 Meus prompts"}
+];
+const P=[
+/* TRABALHO */
+{t:"trab",i:"📧",n:"E-mail profissional",d:"Escreve um e-mail claro e educado",p:"Escreva um e-mail profissional para [[para quem]] sobre [[assunto]]. O que preciso dizer: [[pontos principais]]. Tom: [[tom (ex.: cordial, firme, formal)]]. Seja direto, com no máximo 3 parágrafos e um assunto curto no começo."},
+{t:"trab",i:"🗒️",n:"Ata de reunião",d:"Organiza anotações soltas em uma ata",p:"Transforme estas anotações de reunião em uma ata organizada, com: participantes, assuntos discutidos, decisões tomadas e tarefas (quem faz o quê e até quando).\n\nAnotações:\n[[cole suas anotações]]"},
+{t:"trab",i:"📊",n:"Relatório semanal",d:"Resumo do que foi feito na semana",p:"Monte um relatório semanal curto para meu gestor, com: o que foi feito, resultados em números, problemas encontrados e próximos passos. Minha área: [[sua área]]. O que aconteceu na semana: [[o que você fez]]."},
+{t:"trab",i:"🦺",n:"DDS – Diálogo de Segurança",d:"Roteiro de 5 minutos para a equipe",p:"Crie um roteiro de DDS (Diálogo Diário de Segurança) de 5 minutos sobre [[tema (ex.: uso de EPI, calor, trânsito interno)]] para uma equipe de [[tipo de equipe]]. Use linguagem simples, um exemplo real do dia a dia, 3 perguntas para a equipe responder e uma frase final de impacto."},
+{t:"trab",i:"🧭",n:"Plano de ação 5W2H",d:"Transforma um problema em plano",p:"Monte um plano de ação no formato 5W2H (O quê, Por quê, Onde, Quando, Quem, Como, Quanto custa) para resolver este problema: [[descreva o problema]]. Apresente em tabela e sugira 3 ações prioritárias."},
+{t:"trab",i:"🗣️",n:"Conversa difícil com a equipe",d:"Como dar um feedback sem brigar",p:"Preciso conversar com [[quem (ex.: um operador da equipe)]] sobre [[situação]]. Me ajude a preparar a conversa: como começar, o que dizer, o que evitar e como fechar com um combinado claro. Quero ser firme, mas respeitoso."},
+{t:"trab",i:"📄",n:"Currículo",d:"Monta ou melhora seu currículo",p:"Monte um currículo profissional e objetivo para a vaga de [[cargo desejado]]. Meus dados e experiência: [[cole aqui sua experiência, cursos e formação]]. Destaque resultados com números e deixe em até 1 página."},
+{t:"trab",i:"🤝",n:"Preparar entrevista",d:"Perguntas prováveis e boas respostas",p:"Vou fazer uma entrevista para [[cargo]] na empresa [[empresa ou ramo]]. Liste as 10 perguntas mais prováveis e me ajude a montar boas respostas com base na minha experiência: [[sua experiência]]."},
+{t:"trab",i:"📢",n:"Comunicado para a equipe",d:"Aviso curto para grupo de WhatsApp",p:"Escreva um comunicado curto para o grupo de WhatsApp da equipe avisando sobre [[o aviso]]. Use linguagem simples, emojis com moderação e deixe claro o que cada um precisa fazer e até quando."},
+
+/* AGRO */
+{t:"agro",i:"🌾",n:"Diagnóstico de praga ou doença",d:"Descreva os sintomas e receba hipóteses",p:"Sou da área de [[cultura (ex.: cana-de-açúcar)]]. Na lavoura estou vendo: [[descreva os sintomas, onde aparecem e há quanto tempo]]. Quais são as causas mais prováveis? Para cada uma, diga como confirmar no campo e quais medidas de manejo costumam ser usadas. Indique quando devo chamar um agrônomo."},
+{t:"agro",i:"💧",n:"Vinhaça: explicar para a equipe",d:"Explicação simples sobre aplicação",p:"Explique de forma simples, para operadores de campo, [[assunto (ex.: por que controlar a dose de vinhaça)]]. Use exemplos práticos, linguagem do dia a dia e termine com 5 cuidados importantes."},
+{t:"agro",i:"🚜",n:"Checklist de máquina",d:"Inspeção antes de iniciar o turno",p:"Crie um checklist de inspeção antes do turno para [[máquina ou equipamento]]. Separe em: itens de segurança, mecânica, hidráulica, elétrica e limpeza. Formato de lista para marcar OK / Não OK."},
+{t:"agro",i:"🧮",n:"Fazer uma conta de campo",d:"Explica e confere cálculos",p:"Me ajude a calcular [[o que precisa calcular (ex.: volume de vinhaça por hectare)]]. Dados que tenho: [[seus números]]. Mostre a conta passo a passo e confira se o resultado faz sentido."},
+{t:"agro",i:"🌦️",n:"Planejar operação pelo clima",d:"O que fazer com chuva, seca ou vento",p:"Estou planejando [[operação (ex.: aplicação, plantio, colheita)]] para os próximos dias. A previsão é: [[previsão do tempo]]. Quais os riscos e o que você recomenda ajustar no planejamento?"},
+{t:"agro",i:"📋",n:"Procedimento operacional (POP)",d:"Passo a passo padrão de uma tarefa",p:"Escreva um Procedimento Operacional Padrão para [[tarefa]]. Inclua: objetivo, EPIs necessários, materiais, passo a passo numerado, riscos e o que fazer em caso de problema. Linguagem simples para quem está no campo."},
+{t:"agro",i:"📈",n:"Analisar produtividade",d:"Entender números da safra",p:"Tenho estes dados de produtividade: [[cole os números (talhão, área, produção, TCH etc.)]]. Analise, aponte os melhores e piores resultados, possíveis causas e o que vale investigar."},
+{t:"agro",i:"🎓",n:"Treinamento rápido",d:"Mini aula para novos funcionários",p:"Monte um treinamento de 15 minutos para novos funcionários sobre [[tema]]. Inclua: objetivo, 3 a 5 pontos principais, um exemplo prático e um teste rápido com 5 perguntas e respostas."},
+
+/* ESTUDOS */
+{t:"est",i:"🧠",n:"Explicar como se eu tivesse 12 anos",d:"Entender qualquer assunto difícil",p:"Explique [[assunto]] como se eu tivesse 12 anos. Use comparações do dia a dia, exemplos e termine com um resumo de 3 frases."},
+{t:"est",i:"📝",n:"Resumo de texto",d:"Cola o texto e recebe os pontos principais",p:"Resuma o texto abaixo em tópicos com as ideias principais, depois um resumo em 5 linhas e 3 perguntas para eu testar se entendi.\n\nTexto:\n[[cole o texto]]"},
+{t:"est",i:"❓",n:"Simulado",d:"Perguntas para treinar para prova",p:"Crie um simulado com [[quantidade]] questões de múltipla escolha sobre [[matéria ou tema]], nível [[fácil, médio ou difícil]]. Mostre o gabarito comentado só no final."},
+{t:"est",i:"🗓️",n:"Plano de estudos",d:"Cronograma que cabe na sua rotina",p:"Monte um plano de estudos para [[objetivo (ex.: concurso, curso técnico)]]. Tenho [[horas por dia]] por dia, nos dias [[dias da semana]], até [[data da prova ou meta]]. Divida por semanas e inclua revisões."},
+{t:"est",i:"🗺️",n:"Mapa mental",d:"Organiza o assunto em tópicos",p:"Faça um mapa mental em texto (tópicos e subtópicos) sobre [[assunto]], do geral para o específico, com palavras-chave curtas."},
+{t:"est",i:"👨‍🏫",n:"Professor particular",d:"Aprende fazendo perguntas",p:"Seja meu professor de [[matéria]]. Me ensine [[tema]] aos poucos: explique um ponto, me faça uma pergunta, espere minha resposta e só então avance. Corrija meus erros com paciência."},
+{t:"est",i:"🌎",n:"Treinar outro idioma",d:"Conversa para praticar",p:"Vamos conversar em [[idioma]]. Meu nível é [[iniciante, intermediário ou avançado]]. Fale sobre [[tema da conversa]], corrija meus erros no fim de cada resposta e explique em português."},
+
+/* ESCRITA */
+{t:"esc",i:"✨",n:"Melhorar um texto",d:"Corrige e deixa mais claro",p:"Revise o texto abaixo: corrija português, deixe mais claro e fluido, sem mudar o sentido. Depois liste o que você mudou.\n\nTexto:\n[[cole o texto]]"},
+{t:"esc",i:"📣",n:"Post para redes sociais",d:"Legenda com chamada e hashtags",p:"Crie 3 opções de legenda para um post no [[rede (Instagram, Facebook, LinkedIn)]] sobre [[assunto]]. Público: [[para quem]]. Comece com uma frase que prenda a atenção, termine com uma chamada para ação e sugira 5 hashtags."},
+{t:"esc",i:"🎉",n:"Mensagem de aniversário",d:"Texto carinhoso e personalizado",p:"Escreva uma mensagem de aniversário para [[pessoa e relação (ex.: meu pai)]]. Algumas coisas sobre ela: [[lembranças, jeito, gostos]]. Tom: [[emocionante, divertido ou simples]]. Tamanho: curta, para WhatsApp."},
+{t:"esc",i:"🙏",n:"Pedido de desculpas",d:"Reconhecer o erro do jeito certo",p:"Me ajude a escrever um pedido de desculpas para [[pessoa]] por [[o que aconteceu]]. Quero ser sincero, sem me justificar demais, e propor como resolver."},
+{t:"esc",i:"🎤",n:"Discurso curto",d:"Para homenagem, festa ou evento",p:"Escreva um discurso de [[duração (ex.: 2 minutos)]] para [[ocasião]]. Pontos que quero falar: [[pontos]]. Linguagem natural, fácil de falar em voz alta."},
+{t:"esc",i:"📜",n:"Ofício ou requerimento",d:"Documento formal para órgão ou empresa",p:"Redija um [[ofício, requerimento ou carta formal]] para [[destinatário]] solicitando [[o pedido]]. Meus dados: [[nome e informações necessárias]]. Use o formato padrão com data, assunto e fechamento."},
+{t:"esc",i:"📖",n:"História para crianças",d:"Historinha para contar antes de dormir",p:"Crie uma história infantil de 5 minutos para uma criança de [[idade]] anos chamada [[nome]], que gosta de [[o que a criança gosta]]. Com uma pequena lição sobre [[valor (ex.: amizade, coragem)]]."},
+
+/* DINHEIRO */
+{t:"din",i:"📒",n:"Organizar orçamento do mês",d:"Para onde vai o dinheiro",p:"Me ajude a organizar meu orçamento mensal. Renda: [[renda do mês]]. Gastos fixos: [[aluguel, contas, parcelas]]. Gastos variáveis: [[mercado, lazer etc.]]. Monte uma tabela, mostre quanto sobra e sugira onde dá para economizar."},
+{t:"din",i:"🎯",n:"Meta de economia",d:"Quanto guardar por mês",p:"Quero juntar [[valor]] para [[objetivo]] até [[prazo]]. Quanto preciso guardar por mês? Sugira um plano realista e dicas para não desistir."},
+{t:"din",i:"⚖️",n:"Comparar compras",d:"À vista, parcelado ou financiado",p:"Quero comprar [[produto]]. Opções: [[ex.: R$ 3.000 à vista ou 12x de R$ 290]]. Compare as opções, calcule os juros embutidos e me diga os prós e contras de cada uma. Lembre que a decisão final é minha."},
+{t:"din",i:"🛒",n:"Lista de mercado econômica",d:"Compra do mês gastando menos",p:"Monte uma lista de compras do mês para [[número de pessoas]] pessoas com orçamento de [[valor]]. Priorize itens básicos, sugira trocas mais baratas e cardápio simples para aproveitar tudo."},
+{t:"din",i:"💡",n:"Renda extra",d:"Ideias de acordo com suas habilidades",p:"Sei fazer [[suas habilidades]] e tenho [[horas livres]] livres por semana. Sugira 5 ideias de renda extra realistas, quanto custa para começar e o primeiro passo de cada uma."},
+
+/* CASA E FAMÍLIA */
+{t:"casa",i:"🍲",n:"Receita com o que tem em casa",d:"Diga os ingredientes e receba ideias",p:"Tenho em casa: [[ingredientes]]. Sugira 3 receitas simples que dá para fazer com isso, com modo de preparo passo a passo e tempo de preparo."},
+{t:"casa",i:"📆",n:"Cardápio da semana",d:"Almoço e janta planejados",p:"Monte um cardápio semanal de almoço e janta para [[número de pessoas]] pessoas, prático, gostoso e econômico. Preferências ou restrições: [[preferências]]. Inclua a lista de compras no final."},
+{t:"casa",i:"🧹",n:"Rotina de limpeza",d:"Divide tarefas pela semana",p:"Crie uma rotina de limpeza semanal para uma casa com [[cômodos]], dividindo as tarefas entre [[quem mora na casa]]. Cada dia com no máximo 30 minutos."},
+{t:"casa",i:"🎈",n:"Festa ou passeio",d:"Planejamento com lista e custos",p:"Me ajude a planejar [[tipo de evento (ex.: aniversário de 5 anos)]] para [[número de convidados]] pessoas, com orçamento de [[valor]]. Faça uma lista de tarefas, compras e uma ordem do que fazer em cada semana."},
+{t:"casa",i:"🧒",n:"Brincadeiras com as crianças",d:"Atividades sem tela",p:"Sugira 10 brincadeiras sem tela para crianças de [[idade]] anos, usando coisas que tenho em casa. Para [[dentro de casa ou ao ar livre]]."},
+{t:"casa",i:"🔧",n:"Conserto em casa",d:"Passo a passo de reparo simples",p:"Em casa, [[descreva o problema (ex.: torneira pingando)]]. Me explique o que pode ser, quais ferramentas preciso e o passo a passo para consertar com segurança. Avise quando for melhor chamar um profissional."},
+
+/* CRIATIVIDADE */
+{t:"cri",i:"🖼️",n:"Prompt para gerar imagem",d:"Descrição detalhada para IA de imagem",p:"Crie um prompt detalhado em inglês para uma IA geradora de imagens, mostrando [[o que quer na imagem]], no estilo [[estilo (ex.: foto realista, aquarela, desenho animado)]]. Inclua iluminação, enquadramento, cores e clima."},
+{t:"cri",i:"💭",n:"Chuva de ideias",d:"20 ideias sobre qualquer coisa",p:"Me dê 20 ideias criativas para [[o que precisa (ex.: nome de loja, presente, tema de festa)]]. Varie entre ideias simples, ousadas e engraçadas."},
+{t:"cri",i:"🎵",n:"Letra de música original",d:"Música sobre um tema que você escolher",p:"Escreva uma letra de música original no estilo [[gênero (ex.: sertanejo, gospel, rap)]] sobre [[tema]]. Com 2 estrofes e refrão fácil de cantar."},
+{t:"cri",i:"🎬",n:"Roteiro de vídeo curto",d:"Reels, TikTok ou Shorts",p:"Crie um roteiro de vídeo de [[duração (ex.: 30 segundos)]] sobre [[assunto]] para [[rede]]. Divida em cenas: o que aparece, o que eu falo e o texto na tela. Os primeiros 3 segundos precisam prender a atenção."},
+{t:"cri",i:"🏷️",n:"Nome e slogan",d:"Para negócio ou projeto",p:"Sugira 10 nomes e 5 slogans para [[negócio ou projeto]], que vende [[produto ou serviço]] para [[público]]. Explique rapidamente a ideia de cada nome."},
+
+/* TECNOLOGIA */
+{t:"tec",i:"📲",n:"Criar um app",d:"Peça para a IA montar um app",p:"Quero um app de celular que [[o que o app faz]]. Quem vai usar: [[quem]]. Telas e funções que preciso: [[lista de funções]]. Ele precisa funcionar sem internet e ser instalável no celular. Faça tudo e me entregue o link."},
+{t:"tec",i:"📑",n:"Fórmula de planilha",d:"Excel ou Google Planilhas",p:"No [[Excel ou Google Planilhas]], tenho [[descreva as colunas]]. Quero [[o que quer calcular]]. Me dê a fórmula pronta e explique como colar."},
+{t:"tec",i:"🛠️",n:"Resolver problema no celular",d:"Passo a passo para Android",p:"Meu celular [[modelo]] está com este problema: [[descreva]]. Me dê um passo a passo simples, do mais fácil ao mais difícil, para tentar resolver."},
+{t:"tec",i:"🎯",n:"Melhorar um prompt",d:"Deixa qualquer pedido mais preciso",p:"Melhore este prompt para que a IA entenda exatamente o que eu quero. Pergunte o que faltar e depois me entregue a versão final.\n\nMeu prompt:\n[[cole o prompt]]"},
+{t:"tec",i:"🔒",n:"Isso é golpe?",d:"Confere mensagens suspeitas",p:"Recebi esta mensagem: [[cole a mensagem]]. Ela tem sinais de golpe? Explique os sinais, o que eu devo fazer e o que não devo fazer."}
+];
+const ICON_MEUS="📝";
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let favs=load("pr_favs",[]), meus=load("pr_meus",[]), tab=load("pr_tab","trab"), q="";
+if(!TABS.some(t=>t.id===tab))tab="trab";
+const keyOf=x=>x.u?("u:"+x.u):("p:"+x.n);
+const all=()=>P.concat(meus.map(m=>({...m,t:"meus",i:ICON_MEUS})));
+const fields=p=>[...new Set([...p.matchAll(/\[\[(.+?)\]\]/g)].map(m=>m[1]))];
+
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,1800)}
+
+function renderTabs(){
+  const cnt={fav:favs.length,meus:meus.length};
+  $("#tabs").innerHTML=TABS.map(t=>`<button class="tab" role="tab" data-t="${t.id}" aria-selected="${t.id===tab&&!q}">${t.n}${cnt[t.id]?` <span class="n">${cnt[t.id]}</span>`:""}</button>`).join("");
+  const on=$(`.tab[data-t="${tab}"]`);if(on&&!q)on.scrollIntoView({inline:"center",block:"nearest"});
+}
+function card(x){
+  const tn=TABS.find(t=>t.id===x.t);
+  return `<button class="card" data-k="${esc(keyOf(x))}"><span class="ic">${x.i}</span><span><b>${esc(x.n)}</b><small>${esc(x.d||"Prompt salvo por você")}</small>${(q||tab==="fav")&&tn?`<span class="tag">${tn.n}</span>`:""}</span></button>`;
+}
+function render(){
+  renderTabs();
+  let list,html="";
+  if(q){
+    const t=norm(q);list=all().filter(x=>norm(x.n+" "+(x.d||"")+" "+x.p).includes(t));
+    html=`<p class="intro">${list.length} resultado(s) para “${esc(q)}”</p>`;
+  }else if(tab==="fav"){
+    list=all().filter(x=>favs.includes(keyOf(x)));
+    if(!list.length)html=`<p class="vazio">⭐<br>Nenhum favorito ainda.<br>Abra um prompt e toque na estrela para guardar aqui.</p>`;
+  }else if(tab==="meus"){
+    list=all().filter(x=>x.t==="meus");
+    html=`<button class="addbtn" id="novo">＋ Criar meu prompt</button>`;
+    if(!list.length)html+=`<p class="vazio">Guarde aqui os prompts que você mais usa.<br>Use <b>[[ ]]</b> para criar campos de preencher.</p>`;
+  }else{
+    list=P.filter(x=>x.t===tab);
+    html=`<p class="intro">Toque num prompt, preencha os campos e copie ou abra direto no Claude.</p>`;
+  }
+  $("#main").innerHTML=html+list.map(card).join("")+(q&&!list.length?`<p class="vazio">Nada encontrado.</p>`:"");
+}
+
+/* Tela do prompt */
+let cur=null,vals={};
+function fill(p,html){
+  return p.replace(/\[\[(.+?)\]\]/g,(m,f)=>{const v=(vals[f]||"").trim();
+    if(!html)return v||`[${f}]`;
+    return v?`<mark>${esc(v)}</mark>`:`<em>[${esc(f)}]</em>`;});
+}
+function openDet(x){
+  cur=x;vals={};const fs=fields(x.p);const fav=favs.includes(keyOf(x));
+  $("#detIn").innerHTML=`
+  <div class="dtop"><button class="back" id="voltar">‹ Voltar</button><button class="star ${fav?"on":""}" id="star" aria-label="Favorito">${fav?"⭐":"☆"}</button></div>
+  <h2>${x.i} ${esc(x.n)}</h2><p class="sub">${esc(x.d||"Prompt salvo por você")}</p>
+  ${fs.length?`<div class="ph">Preencha</div>`+fs.map((f,ix)=>`<div class="fld"><label for="f${ix}">${esc(f)}</label><textarea id="f${ix}" data-f="${esc(f)}" rows="1"></textarea></div>`).join(""):""}
+  <div class="ph">Prompt pronto</div><div class="prev" id="prev"></div>
+  <div class="acts">
+    <button class="act p" id="copiar">📋 Copiar prompt</button>
+    <button class="act s" id="claude">🤖 Abrir no Claude</button>
+    <button class="act s" id="compart">📤 Compartilhar</button>
+    ${x.t==="meus"?`<button class="act s" id="editar">✏️ Editar</button><button class="act d" id="apagar">🗑️ Apagar</button>`:""}
+  </div>
+  <p class="tip">Dica: quanto mais detalhes você colocar nos campos, melhor a resposta. Campos vazios ficam entre colchetes para você completar depois.</p>`;
+  upd();$("#det").hidden=false;$("#det").scrollTop=0;document.body.style.overflow="hidden";
+  history.pushState({d:1},"");
+}
+function upd(){ $("#prev").innerHTML=fill(cur.p,true) }
+function closeDet(){ $("#det").hidden=true;document.body.style.overflow="";cur=null;render() }
+function texto(){ return fill(cur.p,false) }
+async function copiar(t){
+  try{await navigator.clipboard.writeText(t);toast("✅ Copiado!")}
+  catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("✅ Copiado!")}catch(_){toast("Não deu para copiar")}a.remove()}
+}
+
+/* Formulário: novo / editar */
+function openForm(x){
+  cur=null;
+  $("#detIn").innerHTML=`
+  <div class="dtop"><button class="back" id="voltar">‹ Voltar</button></div>
+  <h2>${x?"Editar prompt":"Novo prompt"}</h2>
+  <div class="form">
+   <div class="fld"><label for="fn">Nome</label><input id="fn" maxlength="60" value="${x?esc(x.n):""}" placeholder="Ex.: Relatório da frente"></div>
+   <div class="fld"><label for="fd">Descrição curta (opcional)</label><input id="fd" maxlength="90" value="${x?esc(x.d||""):""}"></div>
+   <div class="fld"><label for="fp">Prompt</label><textarea id="fp" placeholder="Escreva seu prompt…">${x?esc(x.p):""}</textarea>
+   <p class="hint">Para criar um campo de preencher, escreva entre colchetes duplos. Ex.: Resuma o dia da <b>[[frente]]</b> com os números <b>[[dados]]</b>.</p></div>
+   <button class="act p" style="width:100%" id="salvar">💾 Salvar</button>
+  </div>`;
+  $("#det").hidden=false;$("#det").scrollTop=0;document.body.style.overflow="hidden";
+  $("#salvar").onclick=()=>{
+    const n=$("#fn").value.trim(),p=$("#fp").value.trim(),d=$("#fd").value.trim();
+    if(!n||!p){toast("Preencha nome e prompt");return}
+    if(x){const m=meus.find(m=>m.u===x.u);Object.assign(m,{n,d,p})}
+    else meus.unshift({u:Date.now().toString(36),n,d,p});
+    save("pr_meus",meus);tab="meus";save("pr_tab",tab);toast("✅ Salvo!");
+    history.back();
+  };
+  history.pushState({d:1},"");
+}
+
+/* Eventos */
+document.addEventListener("click",e=>{
+  const tb=e.target.closest(".tab");if(tb){tab=tb.dataset.t;save("pr_tab",tab);q="";$("#q").value="";render();window.scrollTo(0,0);return}
+  const c=e.target.closest(".card");if(c){const x=all().find(x=>keyOf(x)===c.dataset.k);if(x)openDet(x);return}
+  const id=e.target.closest("button")?.id;
+  if(id==="novo")openForm(null);
+  else if(id==="voltar")history.back();
+  else if(id==="star"){const k=keyOf(cur);favs=favs.includes(k)?favs.filter(f=>f!==k):[k,...favs];save("pr_favs",favs);
+    const on=favs.includes(k);const s=$("#star");s.classList.toggle("on",on);s.textContent=on?"⭐":"☆";toast(on?"⭐ Adicionado aos favoritos":"Removido dos favoritos")}
+  else if(id==="copiar")copiar(texto());
+  else if(id==="claude"){const t=texto();copiar(t);window.open("https://claude.ai/new?q="+encodeURIComponent(t),"_blank")}
+  else if(id==="compart"){const t=texto();if(navigator.share)navigator.share({title:cur.n,text:t}).catch(()=>{});else window.open("https://wa.me/?text="+encodeURIComponent(t),"_blank")}
+  else if(id==="editar"){const x=cur;history.back();setTimeout(()=>openForm(meus.find(m=>m.u===x.u)),60)}
+  else if(id==="apagar"){if(confirm("Apagar este prompt?")){const u=cur.u;meus=meus.filter(m=>m.u!==u);favs=favs.filter(f=>f!=="u:"+u);save("pr_meus",meus);save("pr_favs",favs);toast("Apagado");history.back()}}
+});
+document.addEventListener("input",e=>{
+  if(e.target.dataset.f!==undefined&&cur){vals[e.target.dataset.f]=e.target.value;upd();e.target.style.height="auto";e.target.style.height=e.target.scrollHeight+"px"}
+  if(e.target.id==="q"){q=e.target.value.trim();render()}
+});
+window.addEventListener("popstate",()=>{if(!$("#det").hidden)closeDet()});
+
+/* Arrastar para o lado troca de aba */
+let sx=0,sy=0;
+$("#main").addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+$("#main").addEventListener("touchend",e=>{
+  if(q)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)<28||Math.abs(dx)<Math.abs(dy)*1.3)return;
+  const i=TABS.findIndex(t=>t.id===tab),n=i+(dx<0?1:-1);
+  if(n>=0&&n<TABS.length){tab=TABS[n].id;save("pr_tab",tab);render();window.scrollTo(0,0)}
+},{passive:true});
+
+/* Instalar */
+let dp=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+if(standalone)$("#instBtn").hidden=true;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e});
+addEventListener("appinstalled",()=>{$("#instBtn").hidden=true;toast("✅ App instalado!")});
+$("#instBtn").onclick=async()=>{if(dp){dp.prompt();await dp.userChoice;dp=null}else $("#ajuda").hidden=false};
+$("#ajudaOk").onclick=()=>$("#ajuda").hidden=true;
+$("#ajuda").onclick=e=>{if(e.target.id==="ajuda")$("#ajuda").hidden=true};
+
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+render();
+</script>
+</body>
+</html>
