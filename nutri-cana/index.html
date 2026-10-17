@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nutri Cana</title>
+<meta name="description" content="Simulador da ação de macro e micronutrientes na cana-de-açúcar e no solo">
+<meta name="theme-color" content="#2F5D2A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--verde:#2F5D2A;--verde2:#4E8A3E;--fundo:#F4F1E8;--card:#fff;--txt:#1E241B;--sub:#5B6355;--linha:#DDD6C4;--terra:#8A5A32;
+--muito:#C0392B;--baixo:#E08A1E;--ok:#3E8E41;--alto:#2E77B8;--exc:#7B3FA0}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--fundo);color:var(--txt);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+header{position:sticky;top:0;z-index:20;background:var(--verde);color:#fff;padding:10px 14px 0;padding-top:max(10px,env(safe-area-inset-top))}
+.topo{display:flex;align-items:center;gap:10px}
+.topo h1{font-size:20px;margin:0;flex:1;letter-spacing:.2px}
+.topo h1 small{display:block;font-size:13px;font-weight:400;opacity:.85}
+#btnInstalar{background:#F2C14E;color:#2b2200;border:0;border-radius:20px;padding:8px 12px;font-weight:700;font-size:15px}
+nav{display:flex;margin-top:8px}
+nav button{flex:1;background:none;border:0;color:#d9e8d2;font-size:16px;font-weight:600;padding:10px 2px 11px;border-bottom:3px solid transparent}
+nav button[aria-selected=true]{color:#fff;border-bottom-color:#F2C14E}
+main{max-width:640px;margin:0 auto}
+section.aba{padding:0 0 40px}
+.painel{position:sticky;top:var(--hh,104px);z-index:10;background:linear-gradient(#EAF2E3,#F4F1E8);border-bottom:1px solid var(--linha);padding:8px 12px 4px}
+.indic{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ind{background:#fff;border-radius:12px;padding:6px 8px;text-align:center;border:1px solid var(--linha)}
+.ind b{display:block;font-size:22px;line-height:1.1}
+.ind span{font-size:13px;color:var(--sub)}
+.ind .barra{height:5px;background:#eee;border-radius:3px;margin-top:4px;overflow:hidden}
+.ind .barra i{display:block;height:100%;background:var(--ok);border-radius:3px;transition:width .4s}
+.planta{display:block;width:100%;height:32vh;min-height:190px;max-height:330px}
+.recolher{display:block;margin:0 auto;background:none;border:0;color:var(--sub);font-size:14px;padding:2px 10px}
+.painel.mini .planta{display:none}
+.wrap{padding:10px 12px}
+.card{background:var(--card);border:1px solid var(--linha);border-radius:14px;padding:12px 14px;margin:10px 0}
+.card h2{font-size:18px;margin:0 0 8px;color:var(--verde)}
+.card h3{font-size:16px;margin:12px 0 6px}
+.cenarios{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}
+.cenarios button{flex:0 0 auto;border:1px solid var(--verde2);background:#fff;color:var(--verde);border-radius:20px;padding:8px 13px;font-size:15px;font-weight:600}
+.cenarios button:active{background:#E3EFDB}
+.campo{margin:12px 0}
+.campo label,.campo .rot{display:flex;justify-content:space-between;font-weight:600;margin-bottom:6px}
+.campo label output,.campo .rot output{font-weight:700;color:var(--verde)}
+.seg{display:flex;border:1px solid var(--verde2);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:#fff;font-size:15px;padding:10px 2px;color:var(--txt);border-left:1px solid var(--linha)}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed=true]{background:var(--verde2);color:#fff;font-weight:700}
+input[type=range]{width:100%;height:34px;accent-color:var(--verde2)}
+.nota{font-size:14px;color:var(--sub);margin:4px 0 0}
+.nut{display:grid;grid-template-columns:44px 1fr;gap:4px 10px;align-items:center;padding:10px 0;border-top:1px solid #eee}
+.nut:first-of-type{border-top:0}
+.sim{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:17px;color:#fff;background:var(--verde2)}
+.sim.micro{background:#7A8B3A}
+.nut .linha1{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.nut .linha1 b{font-size:16px}
+.nut .linha1 span{font-size:14px;color:var(--sub)}
+.nut input{grid-column:1/3}
+.disp{grid-column:1/3;display:flex;align-items:center;gap:8px;font-size:14px}
+.disp .tr{flex:1;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--muito) 0 25%,var(--baixo) 25% 42.5%,var(--ok) 42.5% 65%,var(--alto) 65% 80%,var(--exc) 80%);position:relative;opacity:.85}
+.disp .tr i{position:absolute;top:-4px;width:4px;height:18px;background:#111;border-radius:2px;transform:translateX(-2px);transition:left .3s}
+.pill{display:inline-block;border-radius:12px;padding:1px 9px;font-size:13px;font-weight:700;color:#fff;white-space:nowrap}
+.c-muito{background:var(--muito)}.c-baixo{background:var(--baixo)}.c-ok{background:var(--ok)}.c-alto{background:var(--alto)}.c-exc{background:var(--exc)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.chips .pill{font-size:12px;padding:1px 7px}
+.prob{border-left:5px solid var(--baixo);padding:8px 10px;margin:10px 0;background:#FFF9F0;border-radius:0 10px 10px 0}
+.prob.muito{border-color:var(--muito);background:#FDF1EF}
+.prob.exc{border-color:var(--exc);background:#F7F0FB}
+.prob.alto{border-color:var(--alto);background:#EFF5FB}
+.prob h4{margin:0 0 4px;font-size:16px}
+.prob p{margin:3px 0;font-size:15px}
+.tudo-ok{background:#EEF7EA;border-left:5px solid var(--ok);padding:10px;border-radius:0 10px 10px 0}
+details.ficha{background:#fff;border:1px solid var(--linha);border-radius:14px;margin:10px 0;overflow:hidden}
+details.ficha summary{list-style:none;display:flex;align-items:center;gap:12px;padding:10px 12px;font-weight:700;font-size:17px}
+details.ficha summary::-webkit-details-marker{display:none}
+details.ficha summary small{display:block;font-weight:400;color:var(--sub);font-size:14px}
+details.ficha[open] summary{background:#F0F6EC}
+.ficha .corpo{padding:4px 14px 12px}
+.ficha dt{font-weight:700;color:var(--verde);margin-top:9px;font-size:15px}
+.ficha dd{margin:2px 0 0;font-size:16px}
+.filtro{display:flex;gap:8px;margin:8px 0}
+.filtro button{flex:1}
+.quiz-planta{width:100%;height:300px;display:block;background:linear-gradient(#EAF2E3,#F7F4EC);border-radius:12px}
+.pista{background:#FFF8E1;border-radius:10px;padding:8px 10px;font-size:15px;margin:8px 0}
+.ops{display:grid;gap:8px}
+.ops button{font-size:17px;padding:13px;border-radius:12px;border:1px solid var(--linha);background:#fff;text-align:left;font-weight:600;color:var(--txt)}
+.ops button.certo{background:#DFF1DA;border-color:var(--ok)}
+.ops button.errado{background:#F9DEDA;border-color:var(--muito)}
+.placar{display:flex;justify-content:space-between;font-weight:700;color:var(--sub)}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px;font-size:17px;font-weight:700;background:var(--verde2);color:#fff;margin-top:10px}
+.btn.sec{background:#fff;color:var(--verde);border:1px solid var(--verde2)}
+.leg{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:15px}
+.aviso{font-size:14px;color:var(--sub);background:#F0EDE3;border-radius:10px;padding:8px 10px}
+@keyframes balanca{0%,100%{transform:rotate(-.8deg)}50%{transform:rotate(.8deg)}}
+.balanca{transform-box:view-box;transform-origin:180px 250px;animation:balanca 5s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.balanca{animation:none}}
+</style>
+</head>
+<body>
+<header id="hdr">
+  <div class="topo">
+    <h1>Nutri Cana<small>Simulador de nutrientes na cana e no solo</small></h1>
+    <button id="btnInstalar" hidden>📲 Instalar app</button>
+  </div>
+  <nav role="tablist">
+    <button role="tab" data-aba="sim" aria-selected="true">Simular</button>
+    <button role="tab" data-aba="treino" aria-selected="false">Treino</button>
+    <button role="tab" data-aba="fichas" aria-selected="false">Nutrientes</button>
+    <button role="tab" data-aba="ajuda" aria-selected="false">Ajuda</button>
+  </nav>
+</header>
+
+<main id="main">
+<!-- ===== SIMULAR ===== -->
+<section class="aba" id="aba-sim">
+  <div class="painel" id="painel">
+    <div class="indic">
+      <div class="ind"><b id="vTCH">–</b><span>TCH (t/ha)</span><div class="barra"><i id="bTCH"></i></div></div>
+      <div class="ind"><b id="vATR">–</b><span>ATR (kg/t)</span><div class="barra"><i id="bATR"></i></div></div>
+      <div class="ind"><b id="vTAH">–</b><span>t ATR/ha</span><div class="barra"><i id="bTAH"></i></div></div>
+    </div>
+    <svg id="svgPlanta" class="planta" viewBox="0 0 360 400" role="img" aria-label="Touceira de cana"></svg>
+    <button class="recolher" id="btnRecolher">▲ recolher a planta</button>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h2>Cenários prontos</h2>
+      <div class="cenarios" id="cenarios"></div>
+      <p class="nota">Toque num cenário e veja a cana reagir. Depois mexa nos controles abaixo.</p>
+    </div>
+
+    <div class="card" id="cardDiag">
+      <h2>O que a cana está mostrando</h2>
+      <div id="diag"></div>
+    </div>
+
+    <div class="card">
+      <h2>Solo e ciclo</h2>
+      <div class="campo"><div class="rot">Ciclo</div>
+        <div class="seg" data-campo="ciclo"><button data-v="planta">Cana-planta</button><button data-v="soca">Cana-soca</button></div></div>
+      <div class="campo"><div class="rot">Tipo de solo</div>
+        <div class="seg" data-campo="solo"><button data-v="arenoso">Arenoso</button><button data-v="medio">Médio</button><button data-v="argiloso">Argiloso</button></div></div>
+      <div class="campo"><label for="inPh">pH do solo (antes da calagem) <output id="oPh"></output></label>
+        <input type="range" id="inPh" min="4" max="7.5" step="0.1"></div>
+      <div class="campo"><label for="inMo">Matéria orgânica <output id="oMo"></output></label>
+        <input type="range" id="inMo" min="0.5" max="5" step="0.5"></div>
+      <p class="nota" id="phFinal"></p>
+    </div>
+
+    <div class="card">
+      <h2>Manejo da área</h2>
+      <div class="campo"><div class="rot">Calcário <output id="oCal"></output></div>
+        <div class="seg" data-campo="cal"><button data-v="0">0</button><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4 t</button></div></div>
+      <div class="campo"><div class="rot">Gesso agrícola <output id="oGes"></output></div>
+        <div class="seg" data-campo="ges"><button data-v="0">0</button><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3 t</button></div></div>
+      <div class="campo"><div class="rot">Vinhaça <output id="oVin"></output></div>
+        <div class="seg" data-campo="vin"><button data-v="0">0</button><button data-v="100">100</button><button data-v="150">150</button><button data-v="200">200</button><button data-v="300">300 m³</button></div></div>
+      <div class="campo"><div class="rot">Torta de filtro <output id="oTor"></output></div>
+        <div class="seg" data-campo="tor"><button data-v="0">0</button><button data-v="10">10</button><button data-v="20">20</button><button data-v="30">30 t</button></div></div>
+      <div class="campo"><div class="rot">Palhada</div>
+        <div class="seg" data-campo="pal"><button data-v="0">Retirada</button><button data-v="1">Mantida no solo</button></div></div>
+      <p class="nota">Doses por hectare. Calcário corrige o pH da camada de cima; gesso leva cálcio e enxofre para o fundo e diminui o alumínio.</p>
+    </div>
+
+    <div class="card">
+      <h2>Macronutrientes</h2>
+      <p class="nota">O controle é quanto existe no solo + adubo (100% = o necessário). A barrinha mostra quanto a cana consegue <b>de fato</b> aproveitar.</p>
+      <div id="listaMacro"></div>
+    </div>
+    <div class="card">
+      <h2>Micronutrientes</h2>
+      <div id="listaMicro"></div>
+    </div>
+    <button class="btn sec" id="btnZerar">↺ Voltar para a lavoura equilibrada</button>
+    <p class="aviso" style="margin-top:14px">Valores didáticos para entender o comportamento dos nutrientes. Não use como recomendação de adubação: para isso vale a análise de solo e foliar com o agrônomo.</p>
+  </div>
+</section>
+
+<!-- ===== TREINO ===== -->
+<section class="aba" id="aba-treino" hidden>
+  <div class="wrap">
+    <div class="card">
+      <div class="placar"><span id="qNum">Pergunta 1</span><span id="qPlacar">Acertos: 0</span></div>
+      <h2 style="margin-top:6px">Qual é o problema desta cana?</h2>
+      <svg id="svgQuiz" class="quiz-planta" viewBox="0 0 360 400" role="img" aria-label="Cana com sintoma"></svg>
+      <div class="pista" id="qPista"></div>
+      <div class="ops" id="qOps"></div>
+      <div id="qResp"></div>
+    </div>
+    <p class="nota">Dica: olhe primeiro <b>onde</b> está o sintoma. Folhas de baixo (velhas) = nutriente que anda na planta (N, P, K, Mg). Folhas novas do ponteiro = nutriente que não anda (Ca, S, B, Zn, Cu, Mn, Fe).</p>
+  </div>
+</section>
+
+<!-- ===== FICHAS ===== -->
+<section class="aba" id="aba-fichas" hidden>
+  <div class="wrap">
+    <div class="seg filtro" id="filtroFicha"><button data-v="todos" aria-pressed="true">Todos</button><button data-v="macro" aria-pressed="false">Macros</button><button data-v="micro" aria-pressed="false">Micros</button></div>
+    <div id="fichas"></div>
+  </div>
+</section>
+
+<!-- ===== AJUDA ===== -->
+<section class="aba" id="aba-ajuda" hidden>
+  <div class="wrap">
+    <div class="card">
+      <h2>Como usar</h2>
+      <p><b>1.</b> Na aba <b>Simular</b>, escolha um cenário pronto ou monte o seu: ciclo, solo, pH, matéria orgânica e manejo.</p>
+      <p><b>2.</b> Mexa nos nutrientes. A touceira muda na hora: altura, número de colmos, grossura, cor das folhas e tamanho das raízes.</p>
+      <p><b>3.</b> Leia "O que a cana está mostrando": explica o sintoma, a causa e como corrigir.</p>
+      <p><b>4.</b> Na aba <b>Treino</b>, tente adivinhar o nutriente olhando a planta. Bom para treinar equipe de campo.</p>
+    </div>
+    <div class="card">
+      <h2>Cores da disponibilidade</h2>
+      <div class="leg">
+        <span class="pill c-muito">Muito baixo</span><span>deficiência forte, sintoma visível</span>
+        <span class="pill c-baixo">Baixo</span><span>fome escondida, já perde produção</span>
+        <span class="pill c-ok">Adequado</span><span>faixa boa</span>
+        <span class="pill c-alto">Alto</span><span>sobra; pode atrapalhar outro nutriente</span>
+        <span class="pill c-exc">Excesso</span><span>toxidez ou desequilíbrio</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Na planta</h2>
+      <p><b>Folhas velhas</b> (de baixo): N amarelo geral, P arroxeado, K bordas queimadas, Mg manchas cor de ferrugem.</p>
+      <p><b>Folhas novas</b> (ponteiro): S amarelo-claro, Fe listras esbranquiçadas, Mn e Zn listras amarelas, Cu ponteiro caído, Ca e B pontas secas e deformadas.</p>
+      <p><b>No solo</b>: abaixo da linha da terra aparecem as raízes. Alumínio, falta de cálcio e de fósforo deixam a raiz curta.</p>
+    </div>
+    <div class="card">
+      <h2>Instalar no celular</h2>
+      <p>Abra no Chrome e toque em <b>📲 Instalar app</b>. Se o botão não aparecer, toque nos três pontinhos ⋮ e depois em <b>Instalar app</b> (ou "Adicionar à tela inicial").</p>
+      <p>Depois de aberto uma vez com internet, funciona sem sinal no campo.</p>
+      <button class="btn" id="btnInstalar2">📲 Instalar app</button>
+      <p class="nota" id="instNota" hidden></p>
+    </div>
+    <p class="aviso">Simulador com valores didáticos. As respostas reais variam com variedade, clima, ambiente de produção e histórico da área.</p>
+  </div>
+</section>
+</main>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const fmt=(x,d=0)=>x.toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
+
+/* ---------- Nutrientes ---------- */
+const NUT=[
+ {k:"N",n:"Nitrogênio",t:"macro",mob:"velha"},{k:"P",n:"Fósforo",t:"macro",mob:"velha"},{k:"K",n:"Potássio",t:"macro",mob:"velha"},
+ {k:"Ca",n:"Cálcio",t:"macro",mob:"nova"},{k:"Mg",n:"Magnésio",t:"macro",mob:"velha"},{k:"S",n:"Enxofre",t:"macro",mob:"nova"},
+ {k:"B",n:"Boro",t:"micro",mob:"nova"},{k:"Zn",n:"Zinco",t:"micro",mob:"nova"},{k:"Cu",n:"Cobre",t:"micro",mob:"nova"},
+ {k:"Mn",n:"Manganês",t:"micro",mob:"nova"},{k:"Fe",n:"Ferro",t:"micro",mob:"nova"},{k:"Mo",n:"Molibdênio",t:"micro",mob:"velha"}
+];
+const NOME=Object.fromEntries(NUT.map(x=>[x.k,x.n]));
+
+const FICHA={
+N:{abs:"Nitrato (NO₃⁻) e amônio (NH₄⁺)",mov:"Móvel: o sintoma começa nas folhas velhas",fun:"Forma proteínas e clorofila. Puxa o perfilhamento e o crescimento das folhas.",
+ def:"Folhas velhas amarelando por inteiro, de forma uniforme. Poucos perfilhos, colmos finos e curtos, touceira rala.",exc:"Muito crescimento de folha, acamamento, maturação atrasada e queda no ATR.",
+ fon:"Ureia, nitrato de amônio, sulfato de amônio, vinhaça e torta de filtro (em menor quantidade).",int:"Excesso de N com pouco K deixa a cana mais sensível a acamamento e doenças.",
+ cana:"A cana-planta responde pouco ao N (aproveita a matéria orgânica e a fixação biológica). A soca responde bem à adubação de cobertura.",cor:"Adubação nitrogenada na soca; cuidado com perdas de ureia na palhada (volatilização)."},
+P:{abs:"Fosfato (H₂PO₄⁻)",mov:"Móvel: sintoma em folhas velhas",fun:"Energia da planta (ATP), raízes e perfilhamento.",
+ def:"Folhas velhas com tons arroxeados ou avermelhados, poucos perfilhos, colmos finos, raízes curtas.",exc:"Raramente tóxico, mas em excesso atrapalha o zinco.",
+ fon:"Superfosfato simples e triplo, MAP, fosfatos naturais e torta de filtro.",int:"Fica preso (fixado) em solo argiloso e ácido, rico em ferro e alumínio. Excesso de P induz falta de Zn.",
+ cana:"Aplicado no sulco de plantio, perto da raiz. A torta de filtro é ótima fonte.",cor:"Corrigir o pH com calcário e colocar P no sulco; usar torta de filtro."},
+K:{abs:"Potássio (K⁺)",mov:"Móvel: sintoma em folhas velhas",fun:"Controla a água na planta, ativa enzimas e leva o açúcar da folha para o colmo.",
+ def:"Bordas e pontas das folhas velhas amarelas e depois secas, como queimadas. Nervura central avermelhada. Colmos finos, entrenós curtos, ATR baixo.",exc:"Consumo de luxo, mais cinzas no caldo (atrapalha a fábrica) e falta de Mg e Ca por competição.",
+ fon:"Cloreto de potássio (KCl) e vinhaça.",int:"Compete com magnésio e cálcio na entrada da raiz.",
+ cana:"É o nutriente que a cana mais extrai. A vinhaça repõe boa parte do K da área.",cor:"Vinhaça na dose certa ou KCl; manter a palhada também devolve K."},
+Ca:{abs:"Cálcio (Ca²⁺)",mov:"Imóvel: sintoma nas folhas novas e nas raízes",fun:"Parede das células e crescimento das pontas de raiz.",
+ def:"Folhas novas com pontas secas, deformadas e enroladas no ponteiro. Raízes curtas e grossas.",exc:"Em excesso eleva demais o pH (quando vem do calcário) e atrapalha K, Mg e micros.",
+ fon:"Calcário, gesso agrícola, torta de filtro e vinhaça.",int:"Excesso de K e de Mg diminui a absorção de Ca.",
+ cana:"O gesso leva cálcio para a camada de 20 a 60 cm, onde o calcário não chega.",cor:"Calagem e gessagem conforme a análise de solo."},
+Mg:{abs:"Magnésio (Mg²⁺)",mov:"Móvel: sintoma em folhas velhas",fun:"Centro da molécula de clorofila.",
+ def:"Folhas velhas com pintas amareladas que viram manchas marrom-avermelhadas, com aspecto de ferrugem.",exc:"Raro; muito Mg pode baixar a absorção de K e Ca.",
+ fon:"Calcário dolomítico ou magnesiano, sulfato de magnésio e vinhaça.",int:"Excesso de K (ex.: muita vinhaça ou KCl) provoca falta de Mg.",
+ cana:"Atenção em áreas com vinhaça alta há muitos anos.",cor:"Usar calcário dolomítico e ajustar a dose de vinhaça."},
+S:{abs:"Sulfato (SO₄²⁻)",mov:"Pouco móvel: sintoma nas folhas novas",fun:"Forma proteínas e aminoácidos; ajuda o uso do nitrogênio.",
+ def:"Folhas novas amarelo-claras por inteiro, mais estreitas. Parece falta de N, mas começa no ponteiro.",exc:"Raramente causa problema.",
+ fon:"Gesso agrícola, sulfato de amônio, superfosfato simples e vinhaça.",int:"Anda junto com o N: falta de S diminui o aproveitamento do nitrogênio.",
+ cana:"Comum em áreas com só ureia, KCl e superfosfato triplo, sem gesso.",cor:"Gesso agrícola ou sulfato de amônio."},
+B:{abs:"Ácido bórico (H₃BO₃)",mov:"Imóvel: sintoma no ponteiro",fun:"Parede das células, transporte de açúcar e crescimento das pontas.",
+ def:"Folhas novas deformadas, com pequenas lesões transparentes entre as nervuras; ponteiro embolado. Em casos fortes, a gema de crescimento morre.",exc:"Pontas e bordas das folhas velhas secando. A faixa entre falta e excesso é estreita.",
+ fon:"Ácido bórico, bórax e ulexita.",int:"Falta em solo arenoso (lava fácil) e pobre em matéria orgânica; pH alto diminui.",
+ cana:"Aplicar com cuidado e sempre bem distribuído, por causa do risco de toxidez.",cor:"Boro no sulco ou via foliar, em dose pequena."},
+Zn:{abs:"Zinco (Zn²⁺)",mov:"Imóvel: sintoma nas folhas novas",fun:"Ativa enzimas e o hormônio de crescimento (auxina).",
+ def:"Folhas novas com listras largas amareladas, folhas curtas e entrenós curtos (cana atarracada).",exc:"Raro; em excesso causa clorose e prejudica raízes.",
+ fon:"Sulfato de zinco, óxido de zinco e torta de filtro.",int:"pH alto (calagem pesada) e muito fósforo reduzem o zinco.",
+ cana:"Muito usado no sulco de plantio junto com o fósforo.",cor:"Sulfato de zinco no sulco de plantio."},
+Cu:{abs:"Cobre (Cu²⁺)",mov:"Imóvel: sintoma no ponteiro",fun:"Enzimas da fotossíntese e formação de lignina (dá firmeza ao colmo).",
+ def:"Ponteiro caído: folhas novas moles, curvadas para baixo, com manchas verdes. Colmos fracos.",exc:"Tóxico às raízes em excesso.",
+ fon:"Sulfato de cobre e torta de filtro.",int:"Matéria orgânica muito alta prende o cobre; pH alto também reduz.",
+ cana:"Mais comum em solos orgânicos ou arenosos.",cor:"Sulfato de cobre no sulco ou via foliar."},
+Mn:{abs:"Manganês (Mn²⁺)",mov:"Imóvel: sintoma nas folhas novas",fun:"Fotossíntese (quebra da água) e enzimas.",
+ def:"Folhas novas com listras amareladas entre as nervuras, da ponta para o meio da folha.",exc:"Em solo muito ácido (pH abaixo de 5) fica tóxico: pintas e manchas escuras nas folhas velhas.",
+ fon:"Sulfato de manganês e torta de filtro.",int:"pH alto falta Mn; pH baixo sobra Mn. Excesso de Mn atrapalha o ferro.",
+ cana:"A calagem resolve a toxidez; calagem demais provoca falta.",cor:"Ajustar o pH; se faltar, sulfato de manganês foliar."},
+Fe:{abs:"Ferro (Fe²⁺)",mov:"Imóvel: sintoma nas folhas novas",fun:"Formação de clorofila e transporte de energia.",
+ def:"Folhas novas com listras amarelas a quase brancas entre as nervuras; em casos fortes o ponteiro fica esbranquiçado.",exc:"Raro em solo bem drenado.",
+ fon:"Sulfato ferroso e quelatos de ferro.",int:"pH alto e excesso de Mn reduzem o ferro.",
+ cana:"Aparece em reboleiras com pH alto ou após calagem exagerada.",cor:"Corrigir o pH; ferro quelatado via foliar."},
+Mo:{abs:"Molibdato (MoO₄²⁻)",mov:"Médio: sintoma parecido com falta de N",fun:"Ajuda a transformar o nitrato e a fixação biológica de N.",
+ def:"Amarelecimento parecido com falta de N, com listras finas nas folhas.",exc:"Muito raro.",
+ fon:"Molibdato de sódio ou de amônio, em dose muito pequena.",int:"É o único micro que aumenta com o pH: a calagem ajuda.",
+ cana:"Liga com o aproveitamento do nitrogênio.",cor:"Calagem; molibdênio via foliar ou no tolete."},
+Cl:{t:"micro",n:"Cloro",abs:"Cloreto (Cl⁻)",mov:"Móvel",fun:"Equilíbrio de água e fotossíntese.",
+ def:"Muito rara na cana, porque o KCl e a chuva fornecem cloro.",exc:"Doses muito altas de KCl podem salinizar e queimar raízes.",
+ fon:"Cloreto de potássio (KCl).",int:"Vem junto com o potássio do KCl.",cana:"Não precisa adubar com cloro.",cor:"—"},
+Ni:{t:"micro",n:"Níquel",abs:"Níquel (Ni²⁺)",mov:"Móvel",fun:"Enzima urease (usa a ureia dentro da planta).",
+ def:"Muito rara; pontas das folhas com necrose por acúmulo de ureia.",exc:"Tóxico em solos contaminados.",
+ fon:"Sulfato de níquel (raramente usado).",int:"Liga com o uso da ureia.",cana:"Normalmente não é preciso aplicar.",cor:"—"}
+};
+
+/* ---------- Estado ---------- */
+const EQUI={ciclo:"planta",solo:"medio",ph:5.2,mo:2.5,cal:2,ges:1,vin:0,tor:0,pal:0,
+ lv:{N:100,P:100,K:100,Ca:80,Mg:85,S:80,B:100,Zn:100,Cu:100,Mn:100,Fe:100,Mo:100}};
+const copia=o=>JSON.parse(JSON.stringify(o));
+const CEN=[
+ {n:"✅ Lavoura equilibrada",s:{}},
+ {n:"🟥 Solo ácido sem calcário",s:{solo:"argiloso",ph:4.4,cal:0,ges:0}},
+ {n:"🏜️ Areia sem adubo",s:{solo:"arenoso",mo:1,ph:5.2,lv:{N:40,K:35,B:45,S:50,P:70}}},
+ {n:"💧 Vinhaça demais",s:{vin:300,cal:2,lv:{K:100,Mg:70}}},
+ {n:"⚪ Calcário demais",s:{ph:6.1,cal:4}},
+ {n:"🌾 Soca sem nitrogênio",s:{ciclo:"soca",pal:1,lv:{N:30}}},
+ {n:"🟢 Ureia demais",s:{ciclo:"soca",lv:{N:190}}},
+ {n:"🧪 Pouco P no plantio",s:{solo:"argiloso",lv:{P:35}}}
+];
+let st=copia(EQUI);
+try{const g=JSON.parse(localStorage.getItem("nutricana-estado")||"null");if(g&&g.lv)st=Object.assign(copia(EQUI),g)}catch(e){}
+function salvar(){try{localStorage.setItem("nutricana-estado",JSON.stringify(st))}catch(e){}}
+function aplicaCenario(c){st=copia(EQUI);const s=copia(c.s);if(s.lv){Object.assign(st.lv,s.lv);delete s.lv}Object.assign(st,s);sincroniza();atualiza()}
+
+/* ---------- Modelo ---------- */
+function disponibilidadePH(k,ph,solo){
+ let f=1;
+ switch(k){
+  case"N":f=ph<5.5?1-.12*(5.5-ph):1;break;
+  case"P":{const fix={arenoso:.6,medio:1,argiloso:1.4}[solo];f=ph<6.2?1-.2*fix*(6.2-ph):ph>7?1-.3*(ph-7):1;break}
+  case"K":f=ph<5.3?1-.12*(5.3-ph):1;break;
+  case"Ca":case"Mg":f=ph<5.8?1-.28*(5.8-ph):1;break;
+  case"B":f=ph>6.8?1-.4*(ph-6.8):ph<5?1-.1*(5-ph):1;break;
+  case"Zn":case"Cu":f=ph>6.2?1-.4*(ph-6.2):ph<5.2?1+.1*(5.2-ph):1;break;
+  case"Mn":f=ph>6.2?1-.45*(ph-6.2):ph<5.5?1+.7*(5.5-ph):1;break;
+  case"Fe":f=ph>6.5?1-.45*(ph-6.5):ph<5.3?1+.25*(5.3-ph):1;break;
+  case"Mo":f=ph<5.5?1-.3*(5.5-ph):1;break;
+ }
+ return clamp(f,.1,2);
+}
+function fatorSolo(k,solo){
+ if(solo==="arenoso")return({N:.85,K:.85,B:.8,S:.85,Zn:.9,Cu:.9})[k]||1;
+ return 1;
+}
+function fatorMO(k,mo){
+ const d=clamp(mo,.5,6)-2.5;
+ return clamp(1+(({N:.08,B:.1,S:.06,Zn:.03,Cu:-.06})[k]||0)*d,.5,1.4);
+}
+function calcula(s){
+ const soca=s.ciclo==="soca",pal=!!+s.pal;
+ const calK={arenoso:.45,medio:.38,argiloso:.3}[s.solo];
+ const ph=clamp(s.ph+s.cal*calK+s.vin*.0008+s.tor*.005,3.8,8.2);
+ const mo=s.mo+s.vin*.002+s.tor*.03+(pal?.4:0);
+ const add={N:s.vin*.0008+s.tor*.008+(pal&&soca?-.08:0),P:s.tor*.025,K:s.vin*.004+(pal?.12:0),
+  Ca:s.cal*.15+s.ges*.12+s.vin*.0008+s.tor*.01,Mg:s.cal*.08+s.vin*.0006,S:s.ges*.25+s.vin*.0012,
+  Zn:s.tor*.006,Cu:s.tor*.004,Mn:s.tor*.004};
+ const ef={},inf={};
+ for(const {k} of NUT){
+  const base=s.lv[k]/100,a=add[k]||0,tot=Math.max(0,base+a);
+  const fph=disponibilidadePH(k,ph,s.solo),fso=fatorSolo(k,s.solo),fmo=fatorMO(k,mo);
+  ef[k]=tot*fph*fso*fmo;inf[k]={base,add:a,fph,fso,fmo,ant:0,antDe:""};
+ }
+ const ant=(alvo,de,lim,coef)=>{if(ef[de]>lim){const r=(ef[de]-lim)*coef;ef[alvo]=Math.max(0,ef[alvo]-r);inf[alvo].ant+=r;inf[alvo].antDe+=(inf[alvo].antDe?" e ":"")+de}};
+ ant("Mg","K",1.3,.45);ant("Ca","K",1.3,.2);ant("Zn","P",1.4,.5);ant("Fe","Mn",1.4,.3);
+ const alTop=Math.max(0,5-ph),alSub=Math.max(0,5-s.ph)*(1-Math.min(1,s.ges*.35));
+ const r=resultado(ef,{soca,solo:s.solo,pal,alTop,alSub});
+ return Object.assign(r,{ph,mo,ef,inf,alTop,alSub});
+}
+const PESO={N:[.25,.45],P:[.4,.25],K:[.45,.45],Ca:[.25,.25],Mg:[.2,.2],S:[.2,.2],B:[.15,.15],Zn:[.15,.15],Cu:[.12,.12],Mn:[.12,.12],Fe:[.08,.08],Mo:[.08,.08]};
+const resp=s=>s>=1?1:1-Math.pow(1-clamp(s,0,1),1.4);
+function resultado(ef,c){
+ let prod=1;const g={};
+ for(const {k} of NUT){
+  g[k]=resp(ef[k]);const w=PESO[k][c.soca?1:0];prod*=1-w*(1-g[k]);
+  if(["B","Mn","Cu","Zn","Fe"].includes(k)&&ef[k]>1.6)prod*=1-Math.min(.3,.35*(ef[k]-1.6));
+ }
+ const lodge=ef.N>1.6;if(lodge)prod*=.95;
+ const raiz=clamp(1-c.alTop*.6-c.alSub*.5-Math.max(0,.85-ef.P)*.5-Math.max(0,.85-ef.Ca)*.5,.2,1);
+ const pot={arenoso:100,medio:120,argiloso:130}[c.solo]*(c.soca?.75:1)*(c.soca&&c.pal?1.03:1);
+ const tch=pot*prod*(.7+.3*raiz);
+ let atr=145-18*(1-g.K)-6*(1-g.P)-5*(1-g.B)-(ef.N>1.3?14*(ef.N-1.3):0)-(ef.K>1.5?10*(ef.K-1.5):0)-(ef.Mg<.85?4*(1-g.Mg):0);
+ atr=clamp(atr,95,150);
+ return {tch,atr,tah:tch*atr/1000,pot,raiz,g,vis:visual(ef,g,tch,raiz,c)};
+}
+function situacao(k,s){
+ if(s<.5)return{c:"muito",t:"Muito baixo"};
+ if(s<.85)return{c:"baixo",t:"Baixo"};
+ if(s<=1.3)return{c:"ok",t:"Adequado"};
+ if(s<=1.6)return{c:"alto",t:"Alto"};
+ return{c:"exc",t:["Mn","B","Cu","Zn","Fe"].includes(k)?"Tóxico":"Excesso"};
+}
+
+/* ---------- Visual da planta ---------- */
+function visual(ef,g,tch,raiz,c){
+ const sevD=s=>clamp((.9-s)/.6,0,1),sevT=s=>clamp((s-1.5)/.6,0,1);
+ const velha=[["N","amarelo",sevD(ef.N)],["Mo","amarelo",sevD(ef.Mo)*.8],["P","roxo",sevD(ef.P)],["K","borda",sevD(ef.K)],["Mg","ferrugem",sevD(ef.Mg)],["Mn","pintas",sevT(ef.Mn)],["B","pontaTox",sevT(ef.B)]];
+ const nova=[["S","palido",sevD(ef.S)],["Fe","branca",sevD(ef.Fe)],["Mn","listraMn",sevD(ef.Mn)],["Zn","listraZn",sevD(ef.Zn)],["Cu","murcho",sevD(ef.Cu)],["B","ponta",sevD(ef.B)],["Ca","ponta",sevD(ef.Ca)]];
+ const pega=l=>l.reduce((a,b)=>b[2]>a[2]?b:a,["","normal",0]);
+ const v=pega(velha),n=pega(nova);
+ const perf=.4*g.N+.4*g.P+.2*g.K;
+ return{
+  colmos:clamp(Math.round(3+5*perf+(c.soca?1:0)),3,9),
+  altura:clamp(tch/130,.15,1.05),
+  diam:4.5+5*g.K*(.6+.4*g.Ca),
+  acama:ef.N>1.6?clamp((ef.N-1.6)*45,0,24):0,
+  raiz,alSub:c.alSub,solo:c.solo,
+  velha:{tipo:v[1],sev:v[2],k:v[0]},
+  nova:{tipo:n[1],sev:n[2],k:n[0]},
+  curta:Math.max(n[1]==="listraZn"?n[2]:0,n[1]==="ponta"?n[2]*.6:0)
+ };
+}
+const hex=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));
+function mix(a,b,t){t=clamp(t,0,1);const A=hex(a),B=hex(b);return"#"+A.map((x,i)=>Math.round(x+(B[i]-x)*t).toString(16).padStart(2,"0")).join("")}
+const VERDE_V="#4C8A39",VERDE_N="#5FA544",MARROM="#8A5A2B";
+function estiloFolha(sim,nova){
+ const base=nova?VERDE_N:VERDE_V,s=sim.sev,e={cor:base,ponta:0,borda:0,listra:null,listraOp:0,pinta:0,droop:0};
+ switch(sim.tipo){
+  case"amarelo":e.cor=mix(base,"#D9D35C",s);e.ponta=s>.7?(s-.7)*.8:0;break;
+  case"roxo":e.cor=mix(base,"#8C4F80",s*.75);break;
+  case"borda":e.cor=mix(base,"#B9BE4E",s*.45);e.borda=s;e.ponta=s*.45;break;
+  case"ferrugem":e.cor=mix(base,"#B9B44A",s*.5);e.listra="#B8652E";e.listraOp=s*.9;break;
+  case"pintas":e.cor=mix(base,"#A9B04A",s*.4);e.pinta=s;break;
+  case"pontaTox":e.cor=mix(base,"#A8B24C",s*.3);e.ponta=s*.5;e.borda=s*.5;break;
+  case"palido":e.cor=mix(base,"#E3E39A",s);break;
+  case"branca":e.cor=mix(base,"#E9EDC4",s*.75);e.listra="#F7F8E6";e.listraOp=s;break;
+  case"listraMn":e.cor=mix(base,"#9DBB52",s*.5);e.listra="#E6E07A";e.listraOp=s*.95;break;
+  case"listraZn":e.cor=mix(base,"#AFC35A",s*.5);e.listra="#EEEBB2";e.listraOp=s;break;
+  case"murcho":e.cor=mix(base,"#8DAF55",s*.4);e.droop=s;break;
+  case"ponta":e.cor=mix(base,"#9DB050",s*.3);e.ponta=s*.55;e.borda=s*.25;break;
+ }
+ return e;
+}
+function rnd(seed){let x=seed|0;return()=>{x=(x*1103515245+12345)&0x7fffffff;return x/0x7fffffff}}
+function desenha(svg,v){
+ const id=svg.id,G=250,R=rnd(7),ns="";
+ const eV=estiloFolha(v.velha,false),eN=estiloFolha(v.nova,true);
+ const grad=(gid,e,dir)=>{const tip=MARROM,p=clamp(1-e.ponta,0,1);
+  return `<linearGradient id="${gid}" x1="${dir?0:1}" x2="${dir?1:0}" y1="0" y2="0"><stop offset="0" stop-color="${e.cor}"/><stop offset="${Math.max(0,p-.08)}" stop-color="${e.cor}"/><stop offset="${p}" stop-color="${e.ponta?mix(e.cor,tip,.7):e.cor}"/><stop offset="1" stop-color="${e.ponta?tip:e.cor}"/></linearGradient>`};
+ const corSolo={arenoso:["#D8B88A","#CDAA79","#C29C6B"],medio:["#A9764A","#9A6940","#8C5D38"],argiloso:["#8E432C","#7E3A26","#703322"]}[v.solo];
+ let h=`<defs>${grad(id+"vR",eV,1)}${grad(id+"vL",eV,0)}${grad(id+"nR",eN,1)}${grad(id+"nL",eN,0)}
+ <pattern id="${id}lv" width="6" height="3.2" patternUnits="userSpaceOnUse"><rect width="6" height="1.3" fill="${eV.listra||"#000"}"/></pattern>
+ <pattern id="${id}ln" width="6" height="3.2" patternUnits="userSpaceOnUse"><rect width="6" height="1.4" fill="${eN.listra||"#000"}"/></pattern>
+ <pattern id="${id}pt" width="14" height="9" patternUnits="userSpaceOnUse"><circle cx="3" cy="2.5" r="1.4" fill="#5A2E12"/><circle cx="10" cy="6.5" r="1.1" fill="#6B3A18"/></pattern>
+ <pattern id="${id}al" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="8" fill="#C0392B" opacity=".35"/></pattern>
+ <linearGradient id="${id}ce" x1="0" x2="1"><stop offset="0" stop-color="#9C8A3C"/><stop offset=".45" stop-color="#D2BE62"/><stop offset="1" stop-color="#8E7C34"/></linearGradient>
+ <linearGradient id="${id}ceu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF2E3" stop-opacity="0"/><stop offset="1" stop-color="#DCEBD0"/></linearGradient></defs>`;
+ h+=`<rect x="0" y="0" width="360" height="${G}" fill="url(#${id}ceu)"/>`;
+ // solo
+ [0,1,2].forEach(i=>{h+=`<rect x="0" y="${G+i*50}" width="360" height="50" fill="${corSolo[i]}"/>`});
+ if(v.alSub>.15)h+=`<rect x="0" y="${G+50}" width="360" height="100" fill="url(#${id}al)" opacity="${clamp(v.alSub,0,1)}"/><text x="352" y="${G+96}" text-anchor="end" font-size="11" fill="#fff" font-weight="700">alumínio tóxico</text>`;
+ ["0–20 cm","20–40 cm","40–60 cm"].forEach((t,i)=>{h+=`<text x="6" y="${G+16+i*50}" font-size="11" fill="#fff" opacity=".9">${t}</text>`});
+ // raízes
+ const nr=10+v.colmos*2,prof=30+v.raiz*118;
+ h+=`<g stroke="#F1E6CC" stroke-linecap="round" fill="none" opacity=".95">`;
+ for(let i=0;i<nr;i++){let x=180+(R()-.5)*v.colmos*14,y=G+2,ang=(R()-.5)*1.9;const len=prof*(.55+R()*.45);let d=`M${x.toFixed(1)},${y}`;const passos=6;
+  for(let j=0;j<passos;j++){ang+=(R()-.5)*.5;x+=Math.sin(ang)*len/passos;y+=Math.cos(ang)*len/passos;d+=` L${x.toFixed(1)},${Math.min(398,y).toFixed(1)}`}
+  h+=`<path d="${d}" stroke-width="${(1.6-i/nr).toFixed(2)}"/>`}
+ h+=`</g>`;
+ // touceira
+ const n=v.colmos;h+=`<g class="balanca">`;
+ const ordem=[...Array(n).keys()].sort((a,b)=>Math.abs(b-(n-1)/2)-Math.abs(a-(n-1)/2));
+ for(const i of ordem){
+  const off=i-(n-1)/2,bx=180+off*13,ang=off*5+v.acama*(1+i*.15);
+  const H=(55+140*v.altura)*(.92+R()*.12),d=v.diam*(.9+R()*.2);
+  const topoColmo=G-H*.68;
+  let s=`<g transform="rotate(${ang.toFixed(1)} ${bx} ${G})">`;
+  // colmo e nós
+  s+=`<rect x="${bx-d/2}" y="${topoColmo}" width="${d}" height="${H*.68}" rx="${d/2}" fill="url(#${id}ce)"/>`;
+  const nn=6;for(let j=1;j<nn;j++){const y=G-H*.68*j/nn;s+=`<rect x="${bx-d/2-.6}" y="${y-1}" width="${d+1.2}" height="2.2" rx="1" fill="#6E5E25"/>`}
+  // bainha / palmito
+  s+=`<path d="M${bx-d/2},${topoColmo+4} L${bx-1.5},${G-H} L${bx+1.5},${G-H} L${bx+d/2},${topoColmo+4}Z" fill="${mix(eN.cor,"#3E7A2E",.35)}"/>`;
+  // folhas
+  const Lb=(38+62*v.altura)*(.95+R()*.1);
+  const folhas=[];
+  for(let j=0;j<3;j++)folhas.push({y:G-H*(.5+j*.07),lado:j%2?1:-1,nova:false,L:Lb*(1.05-j*.03)});
+  for(let j=0;j<3;j++)folhas.push({y:G-H*(.74+j*.075),lado:(j+1)%2?1:-1,nova:true,L:Lb*(.95-j*.12)*(1-.4*v.curta)});
+  for(const f of folhas){
+   const e=f.nova?eN:eV,L=f.L,sd=f.lado*(i%2?-1:1),x=bx,y=f.y;
+   const up=f.nova?.55-1.05*e.droop:-.28,w=3.2+L*.035;
+   const tx=x+sd*L*.9,ty=y-L*up,cx=x+sd*L*.45,cy=y-L*Math.max(up+.25,.35);
+   const p=`M${x.toFixed(1)},${y.toFixed(1)} Q${cx.toFixed(1)},${(cy-w).toFixed(1)} ${tx.toFixed(1)},${ty.toFixed(1)} Q${cx.toFixed(1)},${(cy+w).toFixed(1)} ${x.toFixed(1)},${(y+2.5).toFixed(1)}Z`;
+   const g=`${id}${f.nova?"n":"v"}${sd>0?"R":"L"}`;
+   s+=`<path d="${p}" fill="url(#${g})"${e.borda?` stroke="${MARROM}" stroke-width="${(e.borda*1.8).toFixed(2)}" stroke-opacity="${(.4+e.borda*.6).toFixed(2)}"`:""}/>`;
+   if(e.listra&&e.listraOp>.05)s+=`<path d="${p}" fill="url(#${id}${f.nova?"ln":"lv"})" opacity="${e.listraOp.toFixed(2)}"/>`;
+   if(e.pinta>.05)s+=`<path d="${p}" fill="url(#${id}pt)" opacity="${(e.pinta*.85).toFixed(2)}"/>`;
+   s+=`<path d="M${x},${y} Q${cx.toFixed(1)},${cy.toFixed(1)} ${tx.toFixed(1)},${ty.toFixed(1)}" stroke="#E8F0C8" stroke-width=".7" fill="none" opacity=".55"/>`;
+  }
+  // cartucho (folha-bandeira enrolada)
+  const cl=Lb*.55*(1-.4*v.curta),dr=eN.droop;
+  s+=`<path d="M${bx-1.6},${G-H+2} Q${bx+dr*18},${G-H-cl*.7} ${bx+dr*cl*.8},${G-H-cl*(1-dr*.9)} Q${bx+1+dr*14},${G-H-cl*.5} ${bx+1.6},${G-H+2}Z" fill="${eN.ponta>.2?mix(eN.cor,MARROM,eN.ponta):eN.cor}"/>`;
+  s+=`</g>`;h+=s;
+ }
+ h+=`</g><line x1="0" y1="${G}" x2="360" y2="${G}" stroke="#5B3B1E" stroke-width="2"/>`;
+ svg.innerHTML=h;
+}
+
+/* ---------- Diagnóstico em texto ---------- */
+const SINT_V={amarelo:"folhas velhas amarelando por inteiro",roxo:"folhas velhas arroxeadas",borda:"bordas e pontas das folhas velhas queimadas",ferrugem:"manchas cor de ferrugem nas folhas velhas",pintas:"pintas escuras nas folhas velhas",pontaTox:"pontas das folhas velhas secando"};
+function problemas(r){
+ const L=[];
+ for(const {k,n} of NUT){
+  const s=r.ef[k],sit=situacao(k,s);if(sit.c==="ok")continue;
+  const i=r.inf[k],causas=[],baixo=s<.85;
+  if(baixo){
+   if(i.base<.85)causas.push(`pouco ${n.toLowerCase()} no solo/adubo (${fmt(i.base*100)}%)`);
+   if(i.fph<.88)causas.push(k==="P"&&r.ph<6.2?`fósforo preso pelo solo ácido (pH ${fmt(r.ph,1)})`:r.ph>6.4?`pH alto (${fmt(r.ph,1)}) trava o ${n.toLowerCase()}`:`pH baixo (${fmt(r.ph,1)}) atrapalha a absorção`);
+   if(i.fso<1)causas.push("solo arenoso perde por lavagem (lixiviação)");
+   if(i.fmo<.95)causas.push(k==="Cu"?"matéria orgânica alta prende o cobre":"pouca matéria orgânica");
+   if(i.ant>.04)causas.push(`excesso de ${i.antDe} compete na raiz`);
+   if(k==="N"&&st.pal&&st.ciclo==="soca")causas.push("palhada prende parte do N no início (imobilização)");
+  }else{
+   if(i.base>1.3)causas.push("dose alta no solo/adubo");
+   if(k==="K"&&st.vin>=200)causas.push(`vinhaça alta (${st.vin} m³/ha)`);
+   if(i.fph>1.15)causas.push(`solo muito ácido (pH ${fmt(r.ph,1)}) solta ${n.toLowerCase()} demais`);
+   if((k==="Ca"||k==="Mg")&&st.cal>=3)causas.push("muito calcário");
+  }
+  if(!causas.length)causas.push("combinação de solo e manejo");
+  const f=FICHA[k];
+  L.push({k,n,s,sit,sev:baixo?(1-s):(s-1.3),sint:baixo?f.def:f.exc,causas,cor:baixo?f.cor:corExcesso(k)});
+ }
+ L.sort((a,b)=>b.sev-a.sev);
+ return L;
+}
+function corExcesso(k){return({N:"Reduzir a dose de N; dividir a adubação.",K:"Baixar a dose de vinhaça/KCl e conferir Mg na análise.",Mn:"Calagem para subir o pH.",B:"Suspender o boro e irrigar/esperar a chuva lavar.",Fe:"Melhorar a drenagem e o pH.",Zn:"Suspender o zinco.",Cu:"Suspender o cobre; matéria orgânica ajuda.",Ca:"Evitar nova calagem; acompanhar K e Mg.",Mg:"Equilibrar com K e Ca.",P:"Suspender o P e cuidar do zinco.",S:"Sem ação necessária.",Mo:"Sem ação necessária."})[k]||""}
+
+/* ---------- Interface: Simular ---------- */
+function montaNutrientes(){
+ const linha=({k,n,t})=>`<div class="nut" data-k="${k}"><div class="sim ${t}">${k}</div><div><div class="linha1"><b>${n}</b><span><output id="o${k}"></output> no solo</span></div></div>
+  <input type="range" id="in${k}" min="0" max="200" step="5" aria-label="${n}">
+  <div class="disp"><div class="tr"><i id="m${k}"></i></div><span class="pill" id="p${k}"></span></div></div>`;
+ $("#listaMacro").innerHTML=NUT.filter(x=>x.t==="macro").map(linha).join("");
+ $("#listaMicro").innerHTML=NUT.filter(x=>x.t==="micro").map(linha).join("");
+ for(const {k} of NUT)$("#in"+k).addEventListener("input",e=>{st.lv[k]=+e.target.value;atualiza()});
+}
+function sincroniza(){
+ $$(".seg[data-campo]").forEach(sg=>{const c=sg.dataset.campo;sg.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v==String(st[c]))))});
+ $("#inPh").value=st.ph;$("#inMo").value=st.mo;
+ for(const {k} of NUT)$("#in"+k).value=st.lv[k];
+}
+let raf=0;
+function atualiza(){cancelAnimationFrame(raf);raf=requestAnimationFrame(atualizaJa)}
+function atualizaJa(){
+ const r=calcula(st);
+ $("#oPh").textContent=fmt(st.ph,1);$("#oMo").textContent=fmt(st.mo,1)+"%";
+ $("#oCal").textContent=st.cal+" t/ha";$("#oGes").textContent=st.ges+" t/ha";$("#oVin").textContent=st.vin+" m³/ha";$("#oTor").textContent=st.tor+" t/ha";
+ $("#phFinal").innerHTML=`pH depois da correção: <b>${fmt(r.ph,1)}</b>`+(r.alTop>0?" · <b style='color:#C0392B'>alumínio ativo na superfície</b>":"")+(r.alSub>.15?" · alumínio no fundo do solo (gesso ajuda)":"");
+ for(const {k} of NUT){
+  const s=r.ef[k],sit=situacao(k,s);
+  $("#o"+k).textContent=st.lv[k]+"%";
+  $("#m"+k).style.left=clamp(s/2*100,0,100)+"%";
+  const p=$("#p"+k);p.className="pill c-"+sit.c;p.textContent=`${sit.t} · ${fmt(s*100)}%`;
+ }
+ $("#vTCH").textContent=fmt(r.tch);$("#vATR").textContent=fmt(r.atr);$("#vTAH").textContent=fmt(r.tah,1);
+ const cor=x=>x>.9?"var(--ok)":x>.7?"var(--baixo)":"var(--muito)";
+ const pTCH=r.tch/r.pot,pATR=(r.atr-95)/50,pTAH=r.tah/(r.pot*.145);
+ [["bTCH",pTCH],["bATR",pATR],["bTAH",pTAH]].forEach(([id,x])=>{const b=$("#"+id);b.style.width=clamp(x*100,3,100)+"%";b.style.background=cor(x)});
+ desenha($("#svgPlanta"),r.vis);
+ // diagnóstico
+ const L=problemas(r);let h="";
+ if(r.alTop>.1||r.alSub>.15)h+=`<div class="prob muito"><h4>Alumínio tóxico ${r.alTop>.1?"na camada de cima":"no fundo do solo"}</h4><p>Raízes curtas e grossas, a cana sofre mais na seca.</p><p><b>Correção:</b> ${r.alTop>.1?"calcário para subir o pH; ":""}gesso para levar cálcio ao fundo.</p></div>`;
+ for(const p of L.slice(0,6))h+=`<div class="prob ${p.sit.c}"><h4>${p.n} (${p.k}) – ${p.sit.t.toLowerCase()} <span class="pill c-${p.sit.c}">${fmt(p.s*100)}%</span></h4><p><b>Sintoma:</b> ${p.sint}</p><p><b>Por quê:</b> ${p.causas.join("; ")}.</p><p><b>Correção:</b> ${p.cor}</p></div>`;
+ if(L.length>6)h+=`<p class="nota">E mais: ${L.slice(6).map(p=>`${p.n} ${p.sit.t.toLowerCase()}`).join(", ")}.</p>`;
+ if(!h)h=`<div class="tudo-ok"><b>Cana equilibrada.</b> Folhas verdes, bom perfilhamento e raiz funda. Produção perto do potencial deste solo (${fmt(r.pot)} t/ha).</div>`;
+ const perda=Math.max(0,r.pot-r.tch);
+ if(perda>3)h+=`<p class="nota">Perda estimada em relação ao potencial: <b>${fmt(perda)} t/ha</b> (${fmt(perda/r.pot*100)}%).</p>`;
+ $("#diag").innerHTML=h;
+ salvar();
+}
+function iniciaSimular(){
+ montaNutrientes();
+ $("#cenarios").innerHTML=CEN.map((c,i)=>`<button data-i="${i}">${c.n}</button>`).join("");
+ $("#cenarios").addEventListener("click",e=>{const b=e.target.closest("button");if(b){aplicaCenario(CEN[+b.dataset.i]);window.scrollTo({top:0,behavior:"smooth"})}});
+ $$(".seg[data-campo]").forEach(sg=>sg.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const c=sg.dataset.campo,v=b.dataset.v;st[c]=isNaN(+v)?v:+v;sincroniza();atualiza()}));
+ $("#inPh").addEventListener("input",e=>{st.ph=+e.target.value;atualiza()});
+ $("#inMo").addEventListener("input",e=>{st.mo=+e.target.value;atualiza()});
+ $("#btnZerar").addEventListener("click",()=>{aplicaCenario(CEN[0]);window.scrollTo({top:0,behavior:"smooth"})});
+ $("#btnRecolher").addEventListener("click",()=>{const p=$("#painel");p.classList.toggle("mini");$("#btnRecolher").textContent=p.classList.contains("mini")?"▼ mostrar a planta":"▲ recolher a planta"});
+ sincroniza();atualizaJa();
+}
+
+/* ---------- Treino ---------- */
+const CASOS=[
+ {r:"Falta de nitrogênio",ef:{N:.3},c:{soca:true},p:"Cana-soca, sem adubação de cobertura."},
+ {r:"Falta de fósforo",ef:{P:.3},p:"Solo argiloso, vermelho e ácido; plantio sem fósforo no sulco."},
+ {r:"Falta de potássio",ef:{K:.3},p:"Solo arenoso, sem vinhaça e sem KCl há duas safras."},
+ {r:"Falta de cálcio",ef:{Ca:.3},p:"Área nunca recebeu calcário nem gesso."},
+ {r:"Falta de magnésio",ef:{Mg:.3},p:"Calcário calcítico (pobre em Mg) e muita vinhaça há anos."},
+ {r:"Falta de enxofre",ef:{S:.3},p:"Só ureia, KCl e superfosfato triplo há anos; nunca entrou gesso."},
+ {r:"Falta de boro",ef:{B:.3},p:"Solo arenoso, pobre em matéria orgânica."},
+ {r:"Falta de zinco",ef:{Zn:.3},p:"Calagem pesada e muito fósforo no plantio. Cana atarracada."},
+ {r:"Falta de cobre",ef:{Cu:.3},p:"Solo muito rico em matéria orgânica, perto da várzea."},
+ {r:"Falta de manganês",ef:{Mn:.3},p:"pH passou de 7 depois de calagem pesada. Listras do meio para a ponta."},
+ {r:"Falta de ferro",ef:{Fe:.3},p:"Reboleira com pH alto; ponteiro quase branco."},
+ {r:"Excesso de manganês",ef:{Mn:2.3},p:"pH 4,3, solo nunca corrigido."},
+ {r:"Excesso de boro",ef:{B:2.3},p:"Aplicaram boro duas vezes na mesma área por engano."},
+ {r:"Excesso de nitrogênio",ef:{N:2.2},c:{soca:true},p:"Dose dobrada de ureia na soca."}
+];
+let qz={i:0,ok:0,feitas:0,ordem:[],resp:false};
+function embaralha(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function novaPergunta(){
+ if(!qz.ordem.length)qz.ordem=embaralha([...CASOS.keys()]);
+ const caso=CASOS[qz.ordem.pop()];qz.caso=caso;qz.resp=false;
+ const ef={};for(const {k} of NUT)ef[k]=1;Object.assign(ef,caso.ef);
+ const c=Object.assign({soca:false,solo:"medio",pal:false,alTop:0,alSub:0},caso.c||{});
+ const r=resultado(ef,c);desenha($("#svgQuiz"),r.vis);
+ $("#qPista").innerHTML="🔎 <b>Pista:</b> "+caso.p;
+ const erradas=embaralha(CASOS.filter(x=>x!==caso).map(x=>x.r)).slice(0,3);
+ $("#qOps").innerHTML=embaralha([caso.r,...erradas]).map(o=>`<button>${o}</button>`).join("");
+ $("#qResp").innerHTML="";$("#qNum").textContent="Pergunta "+(qz.feitas+1);
+}
+function responde(b){
+ if(qz.resp)return;qz.resp=true;qz.feitas++;
+ const certo=b.textContent===qz.caso.r;if(certo)qz.ok++;
+ $$("#qOps button").forEach(x=>{if(x.textContent===qz.caso.r)x.classList.add("certo");else if(x===b)x.classList.add("errado")});
+ const k=Object.keys(qz.caso.ef)[0],exc=qz.caso.ef[k]>1,f=FICHA[k];
+ $("#qResp").innerHTML=`<div class="prob ${certo?"alto":"muito"}" style="margin-top:12px"><h4>${certo?"✅ Acertou!":"❌ Era: "+qz.caso.r}</h4><p>${exc?f.exc:f.def}</p><p><b>Correção:</b> ${exc?corExcesso(k):f.cor}</p></div><button class="btn" id="qProx">Próxima ➜</button>`;
+ $("#qPlacar").textContent=`Acertos: ${qz.ok} de ${qz.feitas}`;
+ $("#qProx").addEventListener("click",()=>{novaPergunta();$("#aba-treino").scrollIntoView({behavior:"smooth"})});
+}
+function iniciaTreino(){$("#qOps").addEventListener("click",e=>{const b=e.target.closest("button");if(b)responde(b)});novaPergunta()}
+
+/* ---------- Fichas ---------- */
+function iniciaFichas(){
+ const todos=[...NUT,{k:"Cl",n:"Cloro",t:"micro"},{k:"Ni",n:"Níquel",t:"micro"}];
+ const campos=[["abs","Forma que a raiz absorve"],["mov","Mobilidade na planta"],["fun","Para que serve"],["def","Sintoma de falta na cana"],["exc","Excesso"],["fon","Fontes"],["int","Interações"],["cana","Na cana"],["cor","Como corrigir"]];
+ $("#fichas").innerHTML=todos.map(({k,n,t})=>{const f=FICHA[k];return`<details class="ficha" data-t="${t}"><summary><div class="sim ${t}">${k}</div><div>${n}<small>${t==="macro"?"Macronutriente":"Micronutriente"} · ${f.mov.split(":")[0]}</small></div></summary><div class="corpo"><dl>${campos.filter(([c])=>f[c]&&f[c]!=="—").map(([c,l])=>`<dt>${l}</dt><dd>${f[c]}</dd>`).join("")}</dl></div></details>`}).join("");
+ $("#filtroFicha").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$$("#filtroFicha button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  $$("#fichas details").forEach(d=>d.hidden=!(b.dataset.v==="todos"||d.dataset.t===b.dataset.v))});
+}
+
+/* ---------- Abas e arrasto ---------- */
+const ABAS=["sim","treino","fichas","ajuda"];let abaAtual="sim";
+function vaiPara(a){abaAtual=a;ABAS.forEach(x=>{$("#aba-"+x).hidden=x!==a;$(`nav [data-aba=${x}]`).setAttribute("aria-selected",String(x===a))});window.scrollTo(0,0);try{localStorage.setItem("nutricana-aba",a)}catch(e){}}
+$("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)vaiPara(b.dataset.aba)});
+let tx0=null,ty0=0;
+document.addEventListener("touchstart",e=>{if(e.target.closest("input,.seg,.cenarios,svg")){tx0=null;return}tx0=e.touches[0].clientX;ty0=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",e=>{if(tx0===null)return;const dx=e.changedTouches[0].clientX-tx0,dy=e.changedTouches[0].clientY-ty0;tx0=null;
+ if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.5){const i=ABAS.indexOf(abaAtual)+(dx<0?1:-1);if(i>=0&&i<ABAS.length)vaiPara(ABAS[i])}},{passive:true});
+function ajustaTopo(){document.documentElement.style.setProperty("--hh",$("#hdr").offsetHeight+"px")}
+addEventListener("resize",ajustaTopo);
+
+/* ---------- Instalar ---------- */
+let pedido=null;
+const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;if(!standalone())$("#btnInstalar").hidden=false});
+async function instalar(){
+ if(pedido){pedido.prompt();await pedido.userChoice;pedido=null;$("#btnInstalar").hidden=true}
+ else{const n=$("#instNota");n.hidden=false;n.textContent=standalone()?"O app já está instalado. 👍":"Toque nos três pontinhos ⋮ do Chrome e escolha \"Instalar app\" ou \"Adicionar à tela inicial\".";vaiPara("ajuda");n.scrollIntoView({behavior:"smooth"})}
+}
+$("#btnInstalar").addEventListener("click",instalar);$("#btnInstalar2").addEventListener("click",instalar);
+addEventListener("appinstalled",()=>{$("#btnInstalar").hidden=true});
+if(standalone())$("#btnInstalar2").hidden=true;
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+/* ---------- Início ---------- */
+ajustaTopo();iniciaSimular();iniciaTreino();iniciaFichas();
+try{const a=localStorage.getItem("nutricana-aba");if(ABAS.includes(a))vaiPara(a)}catch(e){}
+</script>
+</body>
+</html>
