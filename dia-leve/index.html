@@ -121,6 +121,12 @@ nav button.on{color:var(--pri);background:var(--pri2);font-weight:700}
 .icons{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 .icons button{font-size:24px;width:46px;height:46px;border-radius:12px;border:2px solid transparent;background:var(--pri2);cursor:pointer}
 .icons button.on{border-color:var(--pri)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.formbox{background:var(--bg);border-radius:18px;padding:14px;margin-top:14px}
+.formbox input,.formbox select{background:var(--card)}
+.formbox.editing{outline:2px solid var(--pri)}
+.preview{margin-top:10px;font-size:15px;color:var(--pri);font-weight:600;min-height:20px}
+.ed.sel{background:var(--pri2);border-radius:12px}
 label.f{display:block;font-size:15px;color:var(--mute);margin:10px 0 4px}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;z-index:20;font-size:16px;max-width:90%;text-align:center}
 </style>
@@ -219,13 +225,38 @@ label.f{display:block;font-size:15px;color:var(--mute);margin:10px 0 4px}
   <div class="sheet">
     <div class="row" style="justify-content:space-between"><h2 style="margin:0">Meus hábitos</h2><button class="btn ghost" id="ed-close">Fechar</button></div>
     <div id="ed-list"></div>
-    <h3 style="margin-top:16px">Novo hábito</h3>
-    <div class="icons" id="ed-icons"></div>
-    <label class="f" for="ed-name">Nome</label>
-    <input type="text" id="ed-name" placeholder="Ex.: Alongar 5 minutos" maxlength="40">
-    <label class="f" for="ed-goal">Quantas vezes por dia?</label>
-    <input type="number" id="ed-goal" value="1" min="1" max="30" inputmode="numeric">
-    <button class="btn" style="width:100%;margin-top:14px" id="ed-add">➕ Adicionar</button>
+    <div class="formbox" id="ed-form">
+      <h3 id="ed-title" style="margin-top:4px">Novo hábito</h3>
+      <div class="icons" id="ed-icons"></div>
+      <label class="f" for="ed-name">Nome</label>
+      <input type="text" id="ed-name" placeholder="Ex.: Beber água, Alongar" maxlength="40">
+      <div class="grid2">
+        <div>
+          <label class="f" for="ed-goal">Meta por dia</label>
+          <input type="number" id="ed-goal" value="1" min="1" max="50" inputmode="numeric">
+        </div>
+        <div>
+          <label class="f" for="ed-unit">Unidade</label>
+          <input type="text" id="ed-unit" list="units" placeholder="copos, vezes…" maxlength="16">
+          <datalist id="units"><option value="copos"><option value="garrafas"><option value="vezes"><option value="vez"><option value="séries"><option value="refeições"><option value="noite"></datalist>
+        </div>
+      </div>
+      <label class="f">Tamanho de cada (opcional)</label>
+      <div class="grid2">
+        <input type="number" id="ed-size" placeholder="Ex.: 250" min="0" step="any" inputmode="decimal">
+        <select id="ed-measure">
+          <option value="">— sem medida —</option>
+          <option value="ml">ml</option><option value="L">L</option>
+          <option value="min">minutos</option><option value="h">horas</option>
+          <option value="páginas">páginas</option><option value="km">km</option>
+          <option value="passos">passos</option><option value="g">gramas</option>
+          <option value="repetições">repetições</option>
+        </select>
+      </div>
+      <div class="preview" id="ed-preview"></div>
+      <button class="btn" style="width:100%;margin-top:12px" id="ed-add">➕ Adicionar</button>
+      <button class="btn ghost" style="width:100%;margin-top:4px" id="ed-cancel" hidden>Cancelar edição</button>
+    </div>
   </div>
 </div>
 
@@ -248,12 +279,13 @@ const $=s=>document.querySelector(s);
 
 /* ---------- Dados ---------- */
 const DEFAULT_HABITS=[
-  {id:'agua',icon:'💧',name:'Beber água',goal:8,unit:'copos'},
-  {id:'sono',icon:'😴',name:'Dormir 7h ou mais',goal:1},
-  {id:'caminhar',icon:'🚶',name:'Caminhar 20 min',goal:1},
-  {id:'ler',icon:'📖',name:'Ler 10 páginas',goal:1},
-  {id:'respirar',icon:'🌬️',name:'Pausa de respiração',goal:1}
+  {id:'agua',icon:'💧',name:'Beber água',goal:8,unit:'copos',size:250,measure:'ml'},
+  {id:'sono',icon:'😴',name:'Dormir bem',goal:1,unit:'noite',size:7,measure:'h'},
+  {id:'caminhar',icon:'🚶',name:'Caminhar',goal:1,unit:'vez',size:20,measure:'min'},
+  {id:'ler',icon:'📖',name:'Ler',goal:1,unit:'vez',size:10,measure:'páginas'},
+  {id:'respirar',icon:'🌬️',name:'Pausa de respiração',goal:1,unit:'vez',size:1,measure:'min'}
 ];
+const OLD_NAMES={sono:'Dormir 7h ou mais',caminhar:'Caminhar 20 min',ler:'Ler 10 páginas'};
 let mem=null;
 function load(){
   try{const raw=localStorage.getItem(KEY); if(raw) return JSON.parse(raw);}catch(e){}
@@ -265,6 +297,31 @@ if(!state.habits) state.habits=DEFAULT_HABITS.slice();
 if(!state.log) state.log={};
 if(!state.moods) state.moods=[];
 if(!state.start){ state.start=dkey(); save(); }
+/* atualiza hábitos padrão da versão anterior */
+state.habits.forEach(h=>{
+  const d=DEFAULT_HABITS.find(x=>x.id===h.id);
+  if(d && h.measure===undefined){
+    if(OLD_NAMES[h.id]===h.name || d.name===h.name){ h.name=d.name; }
+    h.unit=h.unit||d.unit; h.size=d.size; h.measure=d.measure;
+  }
+});
+save();
+
+/* ---------- Quantidades ---------- */
+function num(v){ return (Math.round(v*10)/10).toLocaleString('pt-BR'); }
+function amount(v,m){
+  if(!m) return num(v);
+  if(m==='ml' && v>=1000) return num(v/1000)+' L';
+  if(m==='g' && v>=1000) return num(v/1000)+' kg';
+  if(m==='min' && v>=60){ const h=Math.floor(v/60), r=Math.round(v%60); return h+' h'+(r?' '+r+' min':''); }
+  return num(v)+' '+m;
+}
+function hasSize(h){ return h.size>0 && h.measure; }
+function unitLabel(h,n){ const u=(h.unit||'').trim(); if(!u) return n===1?'vez':'vezes'; return u; }
+function describe(h){
+  if(h.goal>1) return h.goal+' '+unitLabel(h,h.goal)+(hasSize(h)?' de '+amount(h.size,h.measure):'')+' por dia';
+  return hasSize(h)?amount(h.size,h.measure)+' por dia':'1 vez por dia';
+}
 
 function dkey(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function daysAgo(n){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-n);return d;}
@@ -307,7 +364,14 @@ function renderHoje(){
     const c=cnt(day,h.id), ok=c>=h.goal; if(ok) done++;
     const st=habitStreak(h);
     const el=document.createElement('div'); el.className='habit'+(ok?' done':'');
-    const meta=(h.goal>1?`${c} de ${h.goal}${h.unit?' '+esc(h.unit):''}`:(ok?'Feito!':'Ainda não'))+(st>0?` · 🔥 ${st} dia${st>1?'s':''}`:'');
+    let meta;
+    if(h.goal>1){
+      meta=`${c} de ${h.goal} ${esc(unitLabel(h,h.goal))}`;
+      if(hasSize(h)) meta+=` · ${esc(amount(c*h.size,h.measure))} de ${esc(amount(h.goal*h.size,h.measure))}`;
+    }else{
+      meta=(hasSize(h)?'Meta: '+esc(amount(h.size,h.measure))+' · ':'')+(ok?'Feito!':'Ainda não');
+    }
+    if(st>0) meta+=` · 🔥 ${st} dia${st>1?'s':''}`;
     el.innerHTML=`<div class="ico">${esc(h.icon)}</div>
       <div class="info"><div class="name">${esc(h.name)}</div><div class="meta">${meta}</div>
       ${h.goal>1?`<div class="bar"><i style="width:${Math.min(100,c/h.goal*100)}%"></i></div>`:''}</div>`;
@@ -333,31 +397,72 @@ function renderHoje(){
 
 /* ---------- Editor ---------- */
 const ICONS=['💧','😴','🚶','📖','🌬️','🧘','🍎','🥗','💊','🏋️','🚴','🧹','🙏','☀️','📵','✍️','🎵','🦷','🚭','💰'];
-let newIcon='🧘';
+let newIcon='🧘', editId=null;
+function renderIcons(){
+  const ic=$('#ed-icons'); ic.innerHTML='';
+  const list=ICONS.includes(newIcon)?ICONS:[newIcon].concat(ICONS);
+  list.forEach(e=>{const b=document.createElement('button');b.textContent=e;b.type='button';if(e===newIcon)b.className='on';b.onclick=()=>{newIcon=e;renderIcons();};ic.appendChild(b);});
+}
 function renderEditor(){
   const l=$('#ed-list'); l.innerHTML='';
   if(!state.habits.length) l.innerHTML='<p class="mute">Nenhum hábito ainda.</p>';
   state.habits.forEach((h,i)=>{
-    const r=document.createElement('div'); r.className='ed';
-    r.innerHTML=`<div class="ico">${esc(h.icon)}</div><div class="t">${esc(h.name)}<div class="mute small">${h.goal}x por dia</div></div>`;
+    const r=document.createElement('div'); r.className='ed'+(h.id===editId?' sel':'');
+    r.innerHTML=`<div class="ico">${esc(h.icon)}</div><div class="t">${esc(h.name)}<div class="mute small">${esc(describe(h))}</div></div>`;
     const up=document.createElement('button'); up.className='btn ghost small'; up.textContent='↑'; up.setAttribute('aria-label','Subir');
     up.disabled=i===0; up.onclick=()=>{const a=state.habits; [a[i-1],a[i]]=[a[i],a[i-1]]; save(); renderEditor(); renderHoje();};
-    const del=document.createElement('button'); del.className='btn danger small'; del.textContent='Remover';
-    del.onclick=()=>{ if(confirm('Remover "'+h.name+'"?')){ state.habits.splice(i,1); save(); renderEditor(); renderHoje(); } };
-    r.appendChild(up); r.appendChild(del); l.appendChild(r);
+    const ed=document.createElement('button'); ed.className='btn soft small'; ed.textContent='Editar';
+    ed.onclick=()=>startEdit(h);
+    const del=document.createElement('button'); del.className='btn danger small'; del.textContent='✕'; del.setAttribute('aria-label','Remover');
+    del.onclick=()=>{ if(confirm('Remover "'+h.name+'"?')){ state.habits.splice(i,1); if(editId===h.id) resetForm(); save(); renderEditor(); renderHoje(); } };
+    r.appendChild(up); r.appendChild(ed); r.appendChild(del); l.appendChild(r);
   });
-  const ic=$('#ed-icons'); ic.innerHTML='';
-  ICONS.forEach(e=>{const b=document.createElement('button');b.textContent=e;b.type='button';if(e===newIcon)b.className='on';b.onclick=()=>{newIcon=e;renderEditor();};ic.appendChild(b);});
+  renderIcons(); updatePreview();
 }
-$('#edit-habits').onclick=()=>{renderEditor();$('#editor').hidden=false;};
+function readForm(){
+  let goal=parseInt($('#ed-goal').value,10); if(!(goal>=1)) goal=1; if(goal>50) goal=50;
+  let size=parseFloat(String($('#ed-size').value).replace(',','.')); if(!(size>0)) size=0;
+  return {name:$('#ed-name').value.trim(),goal,unit:$('#ed-unit').value.trim(),size,measure:size?$('#ed-measure').value:''};
+}
+function updatePreview(){
+  const f=readForm();
+  if(!f.name){$('#ed-preview').textContent='';return;}
+  let t='Meta: '+describe(Object.assign({},f));
+  if(f.goal>1 && f.size && f.measure) t+=' = '+amount(f.goal*f.size,f.measure)+' no total';
+  $('#ed-preview').textContent=t;
+}
+['#ed-name','#ed-goal','#ed-unit','#ed-size','#ed-measure'].forEach(s=>$(s).addEventListener('input',updatePreview));
+function startEdit(h){
+  editId=h.id; newIcon=h.icon;
+  $('#ed-name').value=h.name; $('#ed-goal').value=h.goal; $('#ed-unit').value=h.unit||'';
+  $('#ed-size').value=h.size||''; $('#ed-measure').value=h.measure||'';
+  $('#ed-title').textContent='Editar: '+h.name; $('#ed-add').textContent='💾 Salvar alterações';
+  $('#ed-cancel').hidden=false; $('#ed-form').classList.add('editing');
+  renderEditor(); $('#ed-form').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function resetForm(){
+  editId=null; newIcon='🧘';
+  $('#ed-name').value=''; $('#ed-goal').value=1; $('#ed-unit').value=''; $('#ed-size').value=''; $('#ed-measure').value='';
+  $('#ed-title').textContent='Novo hábito'; $('#ed-add').textContent='➕ Adicionar';
+  $('#ed-cancel').hidden=true; $('#ed-form').classList.remove('editing');
+}
+$('#ed-cancel').onclick=()=>{resetForm();renderEditor();};
+$('#edit-habits').onclick=()=>{resetForm();renderEditor();$('#editor').hidden=false;};
 $('#ed-close').onclick=()=>{$('#editor').hidden=true;};
 $('#editor').onclick=e=>{if(e.target.id==='editor')$('#editor').hidden=true;};
 $('#ed-add').onclick=()=>{
-  const name=$('#ed-name').value.trim(); let goal=parseInt($('#ed-goal').value,10);
-  if(!name){toast('Escreva o nome do hábito');return;}
-  if(!(goal>=1)) goal=1; if(goal>30) goal=30;
-  state.habits.push({id:'h'+Date.now().toString(36),icon:newIcon,name,goal});
-  save(); $('#ed-name').value=''; $('#ed-goal').value=1; renderEditor(); renderHoje(); toast('Hábito adicionado ✅');
+  const f=readForm();
+  if(!f.name){toast('Escreva o nome do hábito');return;}
+  if(f.size && !f.measure){toast('Escolha a medida (ml, minutos…)');return;}
+  if(editId){
+    const h=state.habits.find(x=>x.id===editId);
+    if(h) Object.assign(h,f,{icon:newIcon});
+    toast('Hábito atualizado ✅');
+  }else{
+    state.habits.push(Object.assign({id:'h'+Date.now().toString(36),icon:newIcon},f));
+    toast('Hábito adicionado ✅');
+  }
+  save(); resetForm(); renderEditor(); renderHoje();
 };
 
 /* ---------- Respirar ---------- */
