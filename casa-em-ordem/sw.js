@@ -1,5 +1,5 @@
-const CACHE = 'casaemordem-v3';
-const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
+const CACHE = 'casaemordem-v4';
+const FILES = ['./', './index.html', './manual.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
@@ -22,8 +22,8 @@ self.addEventListener('fetch', e => {
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
-        .then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', copy)); return res; })
-        .catch(() => caches.match('./index.html').then(r => r || caches.match('./')))
+        .then(res => { if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); } return res; })
+        .catch(() => caches.match(req, {ignoreSearch: true}).then(r => r || caches.match('./index.html')))
     );
     return;
   }
