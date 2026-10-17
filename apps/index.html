@@ -64,9 +64,10 @@ const APPS=[
  {p:"podcasts/",n:"Ondas",d:"Podcasts por tema, para ouvir no app",c:"Lazer",i:"../podcasts/icon-192.png",k:"podcast áudio ouvir cinema política ciência"},
  {p:"bichos/",n:"Bichos do Mundo",d:"87 animais com fichas, fotos reais e quiz",c:"Lazer",i:"../bichos/icon-192.png",k:"animais bicho mamífero ave réptil cobra peixe inseto quiz jogo"},
  {p:"dia-leve/",n:"Dia Leve",d:"Hábitos, pausas de respiração e diário do humor",c:"Bem-estar",i:"../dia-leve/icon-192.png",k:"hábito água sono respiração ansiedade humor saúde meditação"},
+ {p:"casa-em-ordem/",n:"Casa em Ordem",d:"Receitas com o que tem, cardápio, compras e manutenção da casa",c:"Casa",i:"../casa-em-ordem/icon-192.png",k:"receita geladeira sobras cardápio cozinha lista compras mercado manutenção caixa água gás filtro eletricista"},
  {p:"prompts/",n:"Prompteca",d:"Prompts prontos para IA, separados por tema",c:"Gestão",i:"../prompts/icon-192.png",k:"prompt ia claude chatgpt texto email"}
 ];
-const CATS=["Todos","Campo","Vinhaça","Gestão","Bem-estar","Lazer"];let cat="Todos",q="";
+const CATS=["Todos","Campo","Vinhaça","Gestão","Casa","Bem-estar","Lazer"];let cat="Todos",q="";
 const $=s=>document.querySelector(s);
 const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 function chips(){$("#chips").innerHTML=CATS.map(c=>`<button class="chip" aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join("")}

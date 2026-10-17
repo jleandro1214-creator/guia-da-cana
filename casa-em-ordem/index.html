@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Casa em Ordem</title>
+<meta name="description" content="Receitas com o que tem na geladeira, cardápio da semana, lista de compras e manutenção da casa. Funciona sem internet.">
+<meta name="theme-color" content="#c4622d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+[hidden]{display:none!important}
+:root{
+  --bg:#faf6f1; --card:#ffffff; --ink:#2b2420; --mute:#7a6d64; --line:#ece3da;
+  --pri:#c4622d; --pri2:#fbe9dd; --ok:#3d8b5a; --ok2:#e3f2e8; --warn:#c98a12; --warn2:#fbf0d6; --bad:#c2453b; --bad2:#fae1de;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#1a1613; --card:#24201c; --ink:#f1e9e2; --mute:#b3a499; --line:#3a332d; --pri:#ec8a55; --pri2:#3b2a20;
+    --ok:#6cc08a; --ok2:#203427; --warn:#e8b54a; --warn2:#3a311b; --bad:#ef7d72; --bad2:#3d2321}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;overscroll-behavior-y:contain}
+header{padding:calc(14px + env(safe-area-inset-top)) 16px 8px;display:flex;align-items:center;gap:10px}
+header h1{margin:0;font-size:23px;letter-spacing:-.3px;white-space:nowrap}
+header .sub{color:var(--mute);font-size:15px}
+header .grow{flex:1;min-width:0}
+.btn{border:0;border-radius:14px;padding:12px 16px;font:inherit;font-weight:600;background:var(--pri);color:#fff;cursor:pointer}
+.btn.soft{background:var(--pri2);color:var(--pri)}
+.btn.ghost{background:transparent;color:var(--pri);padding:8px 10px}
+.btn.small{padding:8px 12px;font-size:15px;border-radius:12px}
+.btn.okb{background:var(--ok);color:#fff}
+.btn.danger{background:transparent;color:var(--bad)}
+.btn.full{width:100%}
+.btn:disabled{opacity:.45}
+main{flex:1;overflow:hidden;position:relative}
+.panel{position:absolute;inset:0;overflow-y:auto;padding:4px 16px 110px;-webkit-overflow-scrolling:touch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+h2{font-size:20px;margin:6px 0 10px}
+h3{font-size:17px;margin:0 0 8px}
+.mute{color:var(--mute)}
+.small{font-size:15px}
+.row{display:flex;gap:8px;align-items:center}
+.between{justify-content:space-between}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chips.scroll::-webkit-scrollbar{display:none}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 14px;font:inherit;font-size:16px;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.chip.have{background:var(--ok2);border-color:var(--ok);color:var(--ink)}
+.chip.have::before{content:"✓ ";color:var(--ok);font-weight:700}
+input[type=text],input[type=number],input[type=date],input[type=tel],select,textarea{width:100%;font:inherit;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+label.f{display:block;font-size:15px;color:var(--mute);margin:10px 0 4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* Geladeira */
+details.cat{border-top:1px solid var(--line);padding:10px 0}
+details.cat:first-of-type{border-top:0}
+details.cat summary{list-style:none;font-weight:600;cursor:pointer;display:flex;justify-content:space-between}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat summary::after{content:"▾";color:var(--mute)}
+details.cat[open] summary::after{content:"▴"}
+details.cat .chips{margin-top:10px}
+.rec{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--line);margin-bottom:10px;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit}
+.rec .em{font-size:34px;width:46px;text-align:center;flex:none}
+.rec .t{flex:1;min-width:0}
+.rec .n{font-weight:600}
+.rec .m{color:var(--mute);font-size:14px}
+.tag{display:inline-block;font-size:13px;font-weight:600;border-radius:999px;padding:2px 9px;margin-top:4px}
+.tag.ok{background:var(--ok2);color:var(--ok)}
+.tag.warn{background:var(--warn2);color:var(--warn)}
+.tag.bad{background:var(--bad2);color:var(--bad)}
+.secttl{font-size:15px;font-weight:700;color:var(--mute);margin:16px 4px 8px;text-transform:uppercase;letter-spacing:.4px}
+
+/* Detalhe */
+.ing{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.ing .miss{color:var(--bad);font-weight:600}
+.ing .have{color:var(--ok)}
+ol.steps{padding-left:22px;margin:8px 0}
+ol.steps li{margin-bottom:8px}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:40px;height:40px;border-radius:50%;border:0;background:var(--pri2);color:var(--pri);font-size:22px;font-weight:700;cursor:pointer}
+
+/* Cardápio */
+.day{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px 14px;margin-bottom:10px}
+.day.today{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri)}
+.day h3{display:flex;justify-content:space-between;align-items:center;margin:0 0 6px}
+.day h3 small{color:var(--pri);font-size:13px}
+.slot{display:flex;align-items:center;gap:10px;width:100%;border:1px dashed var(--line);background:var(--bg);border-radius:14px;padding:10px 12px;margin-top:6px;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.slot.filled{border-style:solid;background:var(--pri2);border-color:transparent}
+.slot .lb{font-size:13px;color:var(--mute);width:56px;flex:none}
+.slot .rn{flex:1;font-weight:600}
+.slot .plus{color:var(--pri);font-weight:600}
+.hint{margin-top:8px;background:var(--warn2);border-radius:12px;padding:8px 10px;font-size:14px;display:flex;gap:8px;align-items:center}
+.hint span{flex:1}
+
+/* Compras */
+.item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.box{width:30px;height:30px;border-radius:9px;border:2px solid var(--pri);flex:none;display:grid;place-items:center;background:transparent;color:#fff;font-size:18px;cursor:pointer;padding:0}
+.item.done .box{background:var(--pri)}
+.item.done .nm{text-decoration:line-through;color:var(--mute)}
+.item .nm{flex:1}
+.item .q{color:var(--mute);font-size:15px;white-space:nowrap}
+.item .x{border:0;background:none;color:var(--mute);font-size:18px;padding:4px 6px;cursor:pointer}
+
+/* Casa */
+.task{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--line);margin-bottom:10px}
+.task .ic{font-size:30px;width:42px;text-align:center;flex:none}
+.task .t{flex:1;min-width:0;cursor:pointer}
+.task .n{font-weight:600}
+.task .m{font-size:14px;color:var(--mute)}
+.task.late{border-color:var(--bad);background:var(--bad2)}
+.task.soon{border-color:var(--warn)}
+.contact{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.contact:last-child{border-bottom:0}
+.contact .t{flex:1;min-width:0}
+.contact a{text-decoration:none;font-size:22px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--pri2)}
+.hist{font-size:15px;padding:8px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}
+.money{background:var(--pri2);border-radius:16px;padding:12px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.money b{font-size:22px;color:var(--pri)}
+
+/* Nav */
+nav{position:fixed;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{border:0;background:none;font:inherit;font-size:13px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:14px;cursor:pointer;position:relative}
+nav button span{font-size:24px}
+nav button.on{color:var(--pri);background:var(--pri2);font-weight:700}
+nav .badge{position:absolute;top:2px;right:22%;background:var(--bad);color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:1px 6px}
+
+/* Sheet */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10;display:flex;align-items:flex-end}
+.sheet{background:var(--card);width:100%;max-height:90vh;overflow-y:auto;border-radius:24px 24px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
+.sheet .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.sheet .top h2{margin:0;font-size:21px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;z-index:30;font-size:16px;max-width:90%;text-align:center}
+.empty{text-align:center;color:var(--mute);padding:20px 10px}
+.empty .big{font-size:44px}
+</style>
+</head>
+<body>
+<header>
+  <div class="grow">
+    <h1>Casa em Ordem</h1>
+    <div class="sub" id="hdr-sub"></div>
+  </div>
+  <button class="btn small" id="install-btn" hidden>📲 Instalar</button>
+</header>
+
+<main id="main">
+  <!-- GELADEIRA -->
+  <section class="panel" id="p-geladeira">
+    <div class="card">
+      <div class="row between"><h3 style="margin:0">O que você tem em casa?</h3><button class="btn ghost small" id="clear-have">Limpar</button></div>
+      <p class="mute small" style="margin:4px 0 0">Toque nos ingredientes. Sal, óleo, água e pimenta o app considera que você já tem.</p>
+      <div id="cats"></div>
+    </div>
+    <div class="chips scroll" id="filters" style="margin-bottom:6px"></div>
+    <div id="rec-list"></div>
+  </section>
+
+  <!-- CARDÁPIO -->
+  <section class="panel" id="p-cardapio" hidden>
+    <div class="card">
+      <div class="row between">
+        <div><h3 style="margin:0">Cardápio da semana</h3><div class="mute small">Quantidades para quantas pessoas?</div></div>
+        <div class="stepper"><button id="ppl-minus" aria-label="Menos pessoas">−</button><b id="ppl" style="min-width:24px;text-align:center">4</b><button id="ppl-plus" aria-label="Mais pessoas">+</button></div>
+      </div>
+      <div class="grid2" style="margin-top:12px">
+        <button class="btn" id="gen-list">🛒 Gerar lista</button>
+        <button class="btn soft" id="clear-plan">Limpar semana</button>
+      </div>
+    </div>
+    <div id="week"></div>
+  </section>
+
+  <!-- COMPRAS -->
+  <section class="panel" id="p-compras" hidden>
+    <div class="card">
+      <h3>Adicionar item</h3>
+      <div class="row">
+        <input type="text" id="new-item" placeholder="Ex.: detergente, 2 kg de arroz" maxlength="60">
+        <button class="btn" id="add-item" aria-label="Adicionar">＋</button>
+      </div>
+    </div>
+    <div id="shop"></div>
+    <div class="grid2" id="shop-actions">
+      <button class="btn" id="share-list">💬 Enviar lista</button>
+      <button class="btn soft" id="clear-done">Tirar comprados</button>
+    </div>
+  </section>
+
+  <!-- CASA -->
+  <section class="panel" id="p-casa" hidden>
+    <div class="money"><span class="small">Gasto com a casa em <span id="yr"></span></span><b id="spent">R$ 0</b></div>
+    <div id="tasks"></div>
+    <button class="btn soft full" id="add-task">➕ Nova tarefa da casa</button>
+    <div class="card" style="margin-top:14px">
+      <div class="row between"><h3 style="margin:0">Contatos de serviço</h3><button class="btn ghost small" id="add-contact">➕ Novo</button></div>
+      <div id="contacts"></div>
+    </div>
+    <div class="card">
+      <h3>Seus dados</h3>
+      <p class="mute small" style="margin-top:0">Tudo fica salvo só neste celular.</p>
+      <button class="btn danger small" id="reset">🗑️ Apagar todos os dados</button>
+    </div>
+  </section>
+</main>
+
+<nav id="nav">
+  <button data-tab="geladeira" class="on"><span>🧊</span>Geladeira</button>
+  <button data-tab="cardapio"><span>📅</span>Cardápio</button>
+  <button data-tab="compras"><span>🛒</span>Compras<i class="badge" id="b-shop" hidden></i></button>
+  <button data-tab="casa"><span>🔧</span>Casa<i class="badge" id="b-casa" hidden></i></button>
+</nav>
+
+<div class="sheet-bg" id="sheet" hidden><div class="sheet" id="sheet-body"></div></div>
+
+<script>
+(function(){
+'use strict';
+const KEY='casaemordem-v1';
+const $=s=>document.querySelector(s);
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ================= CATÁLOGO DE INGREDIENTES ================= */
+const SECS={H:'Hortifrúti',A:'Açougue',L:'Frios e laticínios',P:'Padaria',M:'Mercearia',S:'Sobras de comida pronta',O:'Outros'};
+const SEC_ORDER=['H','A','L','P','M','O'];
+const ING={};
+[
+ ['H','tomate','Tomate'],['H','cebola','Cebola'],['H','alho','Alho'],['H','batata','Batata'],['H','batata-doce','Batata-doce'],
+ ['H','cenoura','Cenoura'],['H','abobrinha','Abobrinha'],['H','chuchu','Chuchu'],['H','brocolis','Brócolis'],['H','couve','Couve'],
+ ['H','alface','Alface'],['H','pimentao','Pimentão'],['H','cheiro','Cheiro-verde'],['H','limao','Limão'],['H','banana','Banana'],
+ ['A','frango','Peito de frango'],['A','coxa','Coxa e sobrecoxa'],['A','carne-moida','Carne moída'],['A','carne','Carne bovina'],
+ ['A','linguica','Linguiça calabresa'],['A','bacon','Bacon'],['A','peixe','Filé de peixe'],['A','salsicha','Salsicha'],
+ ['L','ovo','Ovos'],['L','leite','Leite'],['L','queijo','Queijo mussarela'],['L','presunto','Presunto'],['L','manteiga','Manteiga'],
+ ['L','creme','Creme de leite'],['L','requeijao','Requeijão'],
+ ['P','pao','Pão francês'],['P','pao-forma','Pão de forma'],
+ ['M','arroz','Arroz'],['M','feijao','Feijão'],['M','macarrao','Macarrão'],['M','farinha-trigo','Farinha de trigo'],
+ ['M','farinha-mandioca','Farinha de mandioca'],['M','fuba','Fubá'],['M','flocao','Flocão de milho'],['M','tapioca','Goma de tapioca'],
+ ['M','aveia','Aveia'],['M','molho-tomate','Molho de tomate'],['M','milho','Milho em lata'],['M','ervilha','Ervilha em lata'],
+ ['M','atum','Atum em lata'],['M','acucar','Açúcar'],['M','fermento','Fermento em pó'],['M','achocolatado','Achocolatado'],
+ ['S','arroz-cozido','Arroz pronto'],['S','feijao-cozido','Feijão pronto'],['S','frango-desfiado','Frango desfiado'],
+ ['S','carne-pronta','Carne pronta'],['S','macarrao-cozido','Macarrão pronto'],['S','legumes-cozidos','Legumes cozidos'],['S','pure','Purê pronto']
+].forEach(([s,k,n])=>ING[k]={s,n});
+
+/* ================= RECEITAS ================= */
+/* [id, nome, emoji, minutos, tags, rende, ingredientes "chave qtd unid;...", passos "a|b|c", gera sobra] */
+const RAW=[
+['omelete','Omelete de queijo e tomate','🍳',10,'rapido barato semforno',2,'ovo 4 un;queijo 50 g;tomate 1 un;cebola 0.5 un','Bata os ovos com uma pitada de sal.|Pique o tomate e a cebola e misture aos ovos.|Despeje numa frigideira untada, em fogo baixo.|Coloque o queijo por cima, tampe e espere firmar. Dobre ao meio e sirva.'],
+['ovo-mexido','Ovo mexido com tomate','🍅',10,'rapido barato semforno',2,'ovo 4 un;tomate 1 un;cebola 0.5 un','Refogue a cebola picada num fio de óleo.|Junte o tomate picado e deixe 2 minutos.|Acrescente os ovos batidos e mexa devagar até ficar cremoso.|Acerte o sal e sirva.'],
+['arroz','Arroz branco soltinho','🍚',25,'barato semforno marmita',4,'arroz 2 xíc;alho 2 dente;cebola 0.5 un','Refogue o alho e a cebola picados no óleo.|Junte o arroz e frite 2 minutos, mexendo.|Coloque 4 xícaras de água quente e sal.|Tampe em fogo baixo até secar (uns 15 minutos). Desligue e deixe abafado 5 minutos.','arroz-cozido'],
+['feijao','Feijão caseiro','🫘',60,'barato semforno marmita',6,'feijao 500 g;alho 3 dente;cebola 1 un;bacon 100 g','Deixe o feijão de molho por algumas horas e escorra.|Cozinhe na pressão com água por uns 30 minutos depois de pegar pressão.|Frite o bacon, junte alho e cebola e doure.|Misture o refogado ao feijão, acerte o sal e deixe engrossar 10 minutos.','feijao-cozido'],
+['frango-grelhado','Frango grelhado no limão','🍗',25,'semforno marmita',4,'frango 600 g;alho 3 dente;limao 1 un','Corte o frango em bifes finos.|Tempere com alho amassado, suco do limão e sal. Deixe 10 minutos.|Grelhe numa frigideira bem quente, 4 minutos de cada lado.','frango-desfiado'],
+['frango-ensopado','Frango ensopado com batata','🍲',45,'barato semforno marmita',4,'coxa 1000 g;batata 3 un;cenoura 1 un;tomate 2 un;cebola 1 un;alho 3 dente;cheiro 1 maço','Tempere o frango com sal e alho e doure na panela.|Junte cebola e tomate picados e refogue.|Coloque água até cobrir, tampe e cozinhe 20 minutos.|Junte batata e cenoura em pedaços e cozinhe até ficarem macias.|Finalize com cheiro-verde.','frango-desfiado'],
+['strogonoff','Strogonoff de frango','🍛',35,'semforno marmita',4,'frango 600 g;creme 1 cx;molho-tomate 1 sachê;cebola 1 un;alho 2 dente','Corte o frango em cubos, tempere e doure.|Junte cebola e alho e refogue.|Coloque o molho de tomate e deixe 10 minutos.|Desligue o fogo e misture o creme de leite. Sirva com arroz.'],
+['carne-moida','Carne moída refogada','🥩',20,'rapido barato semforno marmita',4,'carne-moida 500 g;tomate 2 un;cebola 1 un;alho 2 dente;cheiro 1 maço','Doure a carne moída na panela, soltando bem.|Junte cebola e alho e refogue.|Acrescente o tomate picado e um pouco de água. Deixe 10 minutos.|Acerte o sal e finalize com cheiro-verde.','carne-pronta'],
+['bolonhesa','Macarrão à bolonhesa','🍝',30,'semforno marmita',4,'macarrao 500 g;carne-moida 500 g;molho-tomate 1 sachê;cebola 1 un;alho 2 dente','Cozinhe o macarrão em água com sal e escorra.|Doure a carne com cebola e alho.|Junte o molho de tomate e deixe apurar 10 minutos.|Misture com o macarrão e sirva.','macarrao-cozido'],
+['alho-oleo','Macarrão alho e óleo','🧄',15,'rapido barato semforno',4,'macarrao 500 g;alho 6 dente;cheiro 1 maço','Cozinhe o macarrão e reserve um pouco da água.|Doure o alho fatiado em bastante óleo, sem queimar.|Misture o macarrão, um pouco da água do cozimento e o cheiro-verde.','macarrao-cozido'],
+['escondidinho','Escondidinho de carne moída','🥧',50,'marmita',4,'batata 1000 g;carne-moida 500 g;leite 200 ml;manteiga 2 colher;queijo 150 g;cebola 1 un','Cozinhe as batatas e amasse com leite, manteiga e sal.|Refogue a carne moída com a cebola.|Numa travessa, coloque a carne e cubra com o purê.|Espalhe o queijo e leve ao forno até gratinar (uns 20 minutos).'],
+['arroz-forno','Arroz de forno','🧀',35,'sobras marmita',4,'arroz-cozido 4 xíc;presunto 150 g;queijo 150 g;milho 1 lata;ervilha 1 lata;molho-tomate 1 sachê','Misture o arroz pronto com milho, ervilha, presunto picado e o molho.|Coloque numa travessa e cubra com o queijo.|Leve ao forno até derreter e dourar (uns 20 minutos).'],
+['bolinho-arroz','Bolinho de arroz','🟡',25,'sobras barato semforno',4,'arroz-cozido 2 xíc;ovo 1 un;farinha-trigo 0.5 xíc;queijo 50 g;cheiro 1 maço','Misture o arroz, o ovo, o queijo, o cheiro-verde e sal.|Junte farinha aos poucos até dar liga.|Faça bolinhas com duas colheres e frite em óleo quente até dourar.'],
+['tropeiro','Feijão tropeiro','🥓',25,'sobras semforno marmita',4,'feijao-cozido 3 xíc;farinha-mandioca 1 xíc;bacon 150 g;linguica 200 g;ovo 3 un;couve 1 maço;cebola 1 un;alho 2 dente','Frite o bacon e a linguiça em rodelas.|Junte cebola e alho e refogue.|Mexa os ovos na mesma panela.|Acrescente o feijão escorrido e a couve fatiada.|Desligue e vá jogando a farinha, misturando até ficar no ponto.'],
+['mexidao','Mexidão de sobras','🍳',15,'sobras rapido barato semforno',3,'arroz-cozido 2 xíc;feijao-cozido 1 xíc;ovo 3 un;linguica 150 g;cebola 1 un;cheiro 1 maço','Frite a linguiça picada com a cebola.|Junte os ovos e mexa.|Coloque o arroz e o feijão escorrido e misture até esquentar.|Finalize com cheiro-verde.'],
+['torta-frango','Torta de liquidificador de frango','🥧',50,'sobras marmita',6,'ovo 3 un;leite 2 xíc;farinha-trigo 2 xíc;fermento 1 colher;frango-desfiado 2 xíc;tomate 1 un;milho 1 lata;cebola 0.5 un','Bata no liquidificador ovos, leite, meia xícara de óleo, farinha e sal.|Misture o fermento com uma colher.|Numa forma untada, coloque metade da massa, o frango, tomate, milho e cebola.|Cubra com o resto da massa e asse a 200 °C por uns 35 minutos.'],
+['panqueca','Panqueca de carne','🥞',40,'marmita',4,'farinha-trigo 1 xíc;leite 1.5 xíc;ovo 2 un;carne-moida 400 g;molho-tomate 1 sachê;queijo 100 g','Bata farinha, leite, ovos e sal até ficar liso.|Faça discos finos numa frigideira untada.|Recheie com a carne refogada e enrole.|Cubra com molho e queijo e aqueça até derreter.'],
+['sopa-legumes','Sopa de legumes','🥣',40,'barato semforno marmita',4,'batata 2 un;cenoura 2 un;abobrinha 1 un;chuchu 1 un;cebola 1 un;alho 2 dente;macarrao 100 g','Refogue cebola e alho.|Junte os legumes em cubos e 1,5 litro de água.|Cozinhe 20 minutos e coloque o macarrão.|Cozinhe até o macarrão ficar macio e acerte o sal.','legumes-cozidos'],
+['caldo-verde','Caldo verde','🥬',40,'barato semforno',4,'batata 5 un;couve 1 maço;linguica 200 g;cebola 1 un;alho 2 dente','Cozinhe as batatas com cebola e alho em 1,5 litro de água.|Bata tudo no liquidificador e volte para a panela.|Junte a linguiça frita em rodelas.|Na hora de servir, coloque a couve bem fininha e ferva 2 minutos.'],
+['sopa-feijao','Sopa de feijão com macarrão','🍲',25,'sobras barato semforno',4,'feijao-cozido 3 xíc;macarrao 150 g;cebola 0.5 un;alho 2 dente;cheiro 1 maço','Bata o feijão pronto no liquidificador com um pouco de água.|Refogue cebola e alho e junte o feijão batido.|Coloque o macarrão e cozinhe até ficar macio.|Finalize com cheiro-verde.'],
+['peixe-assado','Peixe assado com batatas','🐟',45,'',4,'peixe 600 g;batata 4 un;tomate 2 un;cebola 1 un;limao 1 un;pimentao 1 un','Tempere o peixe com limão e sal.|Forre uma assadeira com batatas em rodelas finas.|Coloque o peixe e cubra com tomate, cebola e pimentão.|Regue com azeite, cubra com papel-alumínio e asse 30 minutos a 200 °C.'],
+['bife-acebolado','Bife acebolado','🥩',20,'rapido semforno',4,'carne 600 g;cebola 2 un;alho 2 dente','Tempere os bifes com sal e alho.|Frite em frigideira bem quente, poucos de cada vez.|Na mesma frigideira, doure a cebola em rodelas e jogue por cima.'],
+['carne-panela','Carne de panela com batata','🍖',70,'semforno marmita',5,'carne 1000 g;batata 3 un;cenoura 2 un;tomate 2 un;cebola 1 un;alho 3 dente','Corte a carne em cubos, tempere e doure bem na pressão.|Junte cebola, alho e tomate e refogue.|Coloque água até cobrir e cozinhe 35 minutos na pressão.|Acrescente batata e cenoura e cozinhe mais 10 minutos.','carne-pronta'],
+['salada','Salada completa','🥗',10,'rapido barato semforno',4,'alface 1 pé;tomate 2 un;cenoura 1 un;cebola 0.5 un;ovo 2 un;limao 1 un','Cozinhe os ovos por 10 minutos.|Lave e corte a alface, o tomate e a cebola. Rale a cenoura.|Monte com os ovos em rodelas e tempere com limão, sal e azeite.'],
+['pure','Purê de batata','🥔',30,'barato semforno',4,'batata 1000 g;leite 200 ml;manteiga 2 colher','Cozinhe as batatas descascadas até ficarem bem macias.|Amasse ainda quentes.|Leve ao fogo com manteiga, leite e sal, mexendo até ficar cremoso.','pure'],
+['legumes-refogados','Legumes refogados','🥦',20,'rapido barato semforno marmita',4,'brocolis 1 un;cenoura 2 un;abobrinha 1 un;alho 3 dente','Corte os legumes em pedaços parecidos.|Doure o alho no azeite.|Junte a cenoura primeiro, depois brócolis e abobrinha. Refogue até ficarem macios mas firmes.','legumes-cozidos'],
+['cuscuz','Cuscuz nordestino com ovo','🌽',15,'rapido barato semforno',3,'flocao 2 xíc;ovo 3 un;manteiga 1 colher','Hidrate o flocão com sal e água aos poucos, até ficar úmido e soltinho. Espere 10 minutos.|Coloque na cuscuzeira e cozinhe no vapor por 10 minutos.|Sirva com manteiga e ovo frito ou mexido.'],
+['tapioca','Tapioca de queijo e presunto','🫓',10,'rapido semforno',2,'tapioca 1 xíc;queijo 100 g;presunto 100 g','Peneire a goma numa frigideira antiaderente fria e espalhe.|Leve ao fogo médio até a massa grudar e soltar do fundo.|Recheie com queijo e presunto, dobre e deixe derreter.'],
+['misto','Misto quente','🥪',10,'rapido barato semforno',4,'pao-forma 8 fatia;queijo 150 g;presunto 150 g;manteiga 1 colher','Monte os sanduíches com queijo e presunto.|Passe manteiga por fora.|Doure numa frigideira tampada até o queijo derreter.'],
+['cachorro-quente','Cachorro-quente','🌭',20,'rapido barato semforno',4,'pao 8 un;salsicha 8 un;molho-tomate 1 sachê;cebola 1 un;tomate 1 un','Refogue a cebola e o tomate picados.|Junte o molho e as salsichas cortadas e deixe 10 minutos.|Sirva no pão.'],
+['atum-macarrao','Macarrão com atum','🐟',20,'rapido barato semforno marmita',4,'macarrao 500 g;atum 2 lata;molho-tomate 1 sachê;cebola 1 un;alho 2 dente','Cozinhe o macarrão e escorra.|Refogue cebola e alho, junte o atum escorrido e o molho.|Misture tudo e sirva.','macarrao-cozido'],
+['farofa','Farofa de ovo e banana','🍌',15,'rapido barato semforno',4,'farinha-mandioca 2 xíc;ovo 3 un;banana 2 un;manteiga 2 colher;cebola 0.5 un','Derreta a manteiga e doure a cebola.|Mexa os ovos e junte a banana em rodelas.|Acrescente a farinha aos poucos, mexendo até ficar soltinha. Acerte o sal.'],
+['polenta','Polenta mole com carne moída','🍲',35,'barato semforno',4,'fuba 2 xíc;carne-moida 500 g;molho-tomate 1 sachê;cebola 1 un','Dissolva o fubá em 1 litro de água fria com sal.|Leve ao fogo mexendo sempre até engrossar (uns 20 minutos).|À parte, refogue a carne com cebola e molho.|Sirva a polenta com o molho por cima.'],
+['marmita-fit','Frango com batata-doce e brócolis','🍠',40,'marmita',4,'batata-doce 4 un;frango 500 g;brocolis 1 un','Cozinhe ou asse a batata-doce em rodelas.|Grelhe o frango temperado em cubos.|Cozinhe o brócolis no vapor por 5 minutos.|Divida em potes. Dura 3 dias na geladeira.'],
+['panqueca-banana','Panqueca de banana e aveia','🍌',10,'rapido barato semforno',2,'banana 2 un;ovo 2 un;aveia 4 colher','Amasse as bananas e misture com ovos e aveia.|Coloque porções numa frigideira untada em fogo baixo.|Vire quando dourar embaixo.'],
+['mingau','Mingau de aveia','🥣',10,'rapido barato semforno',2,'leite 500 ml;aveia 6 colher;banana 1 un;acucar 2 colher','Misture leite, aveia e açúcar na panela.|Mexa em fogo baixo até engrossar.|Sirva com banana em rodelas.'],
+['bolo-cenoura','Bolo de cenoura','🥕',50,'',10,'cenoura 3 un;ovo 3 un;acucar 2 xíc;farinha-trigo 2 xíc;fermento 1 colher;achocolatado 4 colher;leite 0.5 xíc','Bata no liquidificador cenoura, ovos, 1 xícara de óleo e o açúcar.|Misture a farinha e por último o fermento.|Asse em forma untada a 180 °C por uns 40 minutos.|Para a cobertura, ferva achocolatado com leite e um pouco de açúcar e jogue por cima.'],
+['frango-desfiado','Frango desfiado com milho','🌽',15,'sobras rapido semforno marmita',4,'frango-desfiado 2 xíc;milho 1 lata;tomate 1 un;cebola 1 un;requeijao 2 colher','Refogue a cebola e o tomate.|Junte o frango e o milho e misture.|Desligue e misture o requeijão. Serve no pão, na tapioca ou com arroz.'],
+['escondidinho-sobras','Escondidinho de sobras','🥧',25,'sobras marmita',4,'carne-pronta 2 xíc;pure 3 xíc;queijo 150 g','Coloque a carne pronta numa travessa.|Cubra com o purê.|Espalhe o queijo e leve ao forno até gratinar.'],
+['omelete-macarrao','Omelete de macarrão','🍝',15,'sobras rapido barato semforno',3,'macarrao-cozido 2 xíc;ovo 4 un;queijo 50 g;tomate 1 un','Bata os ovos com sal e misture o macarrão, o tomate e o queijo.|Despeje numa frigideira untada e tampe em fogo baixo.|Vire com a ajuda de um prato e doure o outro lado.'],
+['creme-legumes','Creme de legumes','🥣',15,'sobras rapido barato semforno',3,'legumes-cozidos 3 xíc;leite 1 xíc;cebola 0.5 un','Refogue a cebola.|Bata os legumes cozidos com o leite no liquidificador.|Volte para a panela, aqueça e acerte o sal.']
+];
+const REC=RAW.map(r=>({id:r[0],name:r[1],em:r[2],min:r[3],tags:r[4].split(' ').filter(Boolean),serves:r[5],
+  ing:r[6].split(';').map(x=>{const p=x.trim().split(' ');return {k:p[0],q:parseFloat(p[1]),u:p.slice(2).join(' ')};}),
+  steps:r[7].split('|'),gera:r[8]||null}));
+const RBYID={}; REC.forEach(r=>RBYID[r.id]=r);
+const FILTERS=[['all','Todas'],['rapido','⚡ Rápidas'],['barato','💰 Baratas'],['semforno','🔥 Sem forno'],['marmita','🍱 Marmita'],['sobras','♻️ Usa sobras']];
+
+/* ================= TAREFAS DA CASA ================= */
+const DEFAULT_TASKS=[
+ ['caixa','💧',"Limpar a caixa d'água",180],
+ ['filtro','🚰','Trocar o refil do filtro de água',180],
+ ['ar','❄️','Limpar o filtro do ar-condicionado',30],
+ ['gas','🔥','Trocar o botijão de gás',60],
+ ['dedetizar','🐜','Dedetização',180],
+ ['geladeira','🧊','Limpar a geladeira',30],
+ ['maquina','🧺','Limpar a máquina de lavar',30],
+ ['calhas','🍂','Limpar calhas e ralos',90],
+ ['colchao','🛏️','Virar o colchão',90]
+].map(t=>({id:t[0],icon:t[1],name:t[2],every:t[3],hist:[]}));
+const INTERVALS=[[7,'toda semana'],[15,'a cada 15 dias'],[30,'todo mês'],[60,'a cada 2 meses'],[90,'a cada 3 meses'],[180,'a cada 6 meses'],[365,'todo ano'],[730,'a cada 2 anos']];
+const TASK_ICONS=['💧','🚰','❄️','🔥','🐜','🧊','🧺','🍂','🛏️','🔌','💡','🚿','🪟','🧹','🌿','🐶','🚗','🔐','🧯','🛠️'];
+
+/* ================= ESTADO ================= */
+function blank(){return {have:[],filter:'all',people:4,plan:{},list:[],tasks:JSON.parse(JSON.stringify(DEFAULT_TASKS)),contacts:[]};}
+let state;
+try{ state=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){ state=null; }
+if(!state) state=blank();
+const b0=blank(); Object.keys(b0).forEach(k=>{ if(state[k]===undefined) state[k]=b0[k]; });
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+
+let toastT;
+function toast(m){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.appendChild(t);}t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400);}
+function dkey(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function parseD(k){const p=k.split('-');return new Date(+p[0],+p[1]-1,+p[2],12);}
+function fmtD(k){return parseD(k).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}).replace(/ de /g,' ').replace('.','');}
+function daysBetween(a,b){return Math.round((parseD(b)-parseD(a))/86400000);}
+function money(v){return 'R$ '+(v||0).toLocaleString('pt-BR',{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2});}
+
+/* ================= SHEET ================= */
+function openSheet(html){ $('#sheet-body').innerHTML=html; $('#sheet').hidden=false; $('#sheet-body').scrollTop=0; }
+function closeSheet(){ $('#sheet').hidden=true; }
+$('#sheet').addEventListener('click',e=>{ if(e.target.id==='sheet') closeSheet(); if(e.target.closest('[data-close]')) closeSheet(); });
+
+/* ================= QUANTIDADES ================= */
+const COUNTABLE=['un','dente','lata','cx','sachê','maço','pé','fatia'];
+function frac(v){
+  const w=Math.floor(v), r=v-w;
+  const f=r<0.13?'':r<0.38?'¼':r<0.63?'½':r<0.88?'¾':'';
+  const ww=r>=0.88?w+1:w;
+  return (ww?ww:'')+(f?(ww?' ':'')+f:'')||'0';
+}
+function fq(q,u,shop){
+  if(u==='g'){ if(q>=1000) return (Math.round(q/100)/10).toLocaleString('pt-BR')+' kg'; return Math.max(10,Math.round(q/10)*10)+' g'; }
+  if(u==='ml'){ if(q>=1000) return (Math.round(q/100)/10).toLocaleString('pt-BR')+' L'; return Math.max(10,Math.round(q/10)*10)+' ml'; }
+  if(shop && u==='dente'){ const n=Math.ceil(q/10-0.01); return n+(n>1?' cabeças':' cabeça'); }
+  if(shop && COUNTABLE.includes(u)){ const n=Math.ceil(q-0.01); return n+' '+plural(u,n); }
+  return frac(q)+' '+plural(u,q);
+}
+function plural(u,n){
+  if(n<=1) return u;
+  return ({lata:'latas',cx:'caixas',sachê:'sachês',maço:'maços',pé:'pés',fatia:'fatias',dente:'dentes',colher:'colheres'})[u]||u;
+}
+function haveSet(){ return new Set(state.have); }
+function missing(r,hs){ return r.ing.filter(i=>!hs.has(i.k)); }
+
+/* ================= GELADEIRA ================= */
+function renderCats(){
+  const box=$('#cats'); const open={}; box.querySelectorAll('details').forEach(d=>open[d.dataset.s]=d.open);
+  box.innerHTML='';
+  const hs=haveSet();
+  ['H','L','A','M','P','S'].forEach((s,idx)=>{
+    const keys=Object.keys(ING).filter(k=>ING[k].s===s);
+    const n=keys.filter(k=>hs.has(k)).length;
+    const d=document.createElement('details'); d.className='cat'; d.dataset.s=s;
+    d.open=open[s]!==undefined?open[s]:(idx<2);
+    d.innerHTML=`<summary>${s==='S'?'♻️ ':''}${SECS[s]}${n?` <span class="mute small" style="font-weight:400">· ${n} marcado${n>1?'s':''}</span>`:''}</summary>`;
+    const c=document.createElement('div'); c.className='chips';
+    keys.forEach(k=>{const b=document.createElement('button');b.className='chip'+(hs.has(k)?' have':'');b.textContent=ING[k].n;
+      b.onclick=()=>{ const i=state.have.indexOf(k); if(i>=0) state.have.splice(i,1); else state.have.push(k); save(); renderCats(); renderRecs(); };
+      c.appendChild(b);});
+    d.appendChild(c); box.appendChild(d);
+  });
+}
+$('#clear-have').onclick=()=>{ if(!state.have.length) return; if(confirm('Desmarcar todos os ingredientes?')){ state.have=[]; save(); renderCats(); renderRecs(); } };
+function renderFilters(){
+  const f=$('#filters'); f.innerHTML='';
+  FILTERS.forEach(([k,l])=>{const b=document.createElement('button');b.className='chip'+(state.filter===k?' on':'');b.textContent=l;
+    b.onclick=()=>{state.filter=k;save();renderFilters();renderRecs();};f.appendChild(b);});
+}
+function recCard(r,hs){
+  const m=missing(r,hs);
+  const b=document.createElement('button'); b.className='rec';
+  const tag=!hs.size?'':m.length===0?'<span class="tag ok">Dá pra fazer agora</span>':m.length<=2?`<span class="tag warn">Falta: ${esc(m.map(i=>ING[i.k].n.toLowerCase()).join(', '))}</span>`:`<span class="tag bad">Faltam ${m.length} itens</span>`;
+  b.innerHTML=`<div class="em">${r.em}</div><div class="t"><div class="n">${esc(r.name)}</div><div class="m">⏱ ${r.min} min · rende ${r.serves} porç${r.serves>1?'ões':'ão'}</div>${tag}</div>`;
+  b.onclick=()=>openRecipe(r.id);
+  return b;
+}
+function renderRecs(){
+  const l=$('#rec-list'); l.innerHTML=''; const hs=haveSet();
+  let list=REC.filter(r=>state.filter==='all'||r.tags.includes(state.filter));
+  if(!hs.size){
+    l.insertAdjacentHTML('beforeend','<div class="secttl">Todas as receitas</div>');
+    list.forEach(r=>l.appendChild(recCard(r,hs))); return;
+  }
+  list=list.map(r=>({r,m:missing(r,hs).length})).sort((a,b)=>a.m-b.m||a.r.min-b.r.min);
+  const now=list.filter(x=>x.m===0), almost=list.filter(x=>x.m>0&&x.m<=2), rest=list.filter(x=>x.m>2);
+  if(now.length){ l.insertAdjacentHTML('beforeend',`<div class="secttl">✅ Dá pra fazer agora (${now.length})</div>`); now.forEach(x=>l.appendChild(recCard(x.r,hs))); }
+  if(almost.length){ l.insertAdjacentHTML('beforeend',`<div class="secttl">🛒 Falta pouco (${almost.length})</div>`); almost.forEach(x=>l.appendChild(recCard(x.r,hs))); }
+  if(!now.length&&!almost.length) l.insertAdjacentHTML('beforeend','<div class="empty"><div class="big">🥲</div>Nenhuma receita com esses itens ainda. Marque mais ingredientes.</div>');
+  if(rest.length){
+    const d=document.createElement('details'); d.innerHTML=`<summary class="secttl" style="cursor:pointer">Outras receitas (${rest.length}) ▾</summary>`;
+    rest.forEach(x=>d.appendChild(recCard(x.r,hs))); l.appendChild(d);
+  }
+}
+let recPpl=null;
+function openRecipe(id,ppl){
+  const r=RBYID[id]; if(!r) return; const hs=haveSet();
+  recPpl=ppl||recPpl||state.people; const f=recPpl/r.serves; const m=missing(r,hs);
+  let ings=r.ing.map(i=>`<div class="ing"><span>${esc(ING[i.k].n)}</span><span class="${hs.has(i.k)?'have':'miss'}">${esc(fq(i.q*f,i.u))} ${hs.has(i.k)?'✓':''}</span></div>`).join('');
+  ings+=`<div class="ing mute small"><span>Sal, óleo e água</span><span>a gosto</span></div>`;
+  openSheet(`<div class="top"><h2>${r.em} ${esc(r.name)}</h2><button class="btn ghost" data-close>Fechar</button></div>
+    <div class="mute small">⏱ ${r.min} min${r.tags.includes('semforno')?' · sem forno':''}${r.tags.includes('marmita')?' · boa para marmita':''}</div>
+    <div class="row between" style="margin:12px 0 4px"><b>Ingredientes</b>
+      <div class="stepper"><button id="rp-m" aria-label="Menos porções">−</button><span><b>${recPpl}</b> porç${recPpl>1?'ões':'ão'}</span><button id="rp-p" aria-label="Mais porções">+</button></div></div>
+    ${ings}
+    <h3 style="margin-top:16px">Modo de preparo</h3>
+    <ol class="steps">${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+    <div class="grid2" style="margin-top:10px">
+      <button class="btn" id="rp-plan">📅 Pôr no cardápio</button>
+      <button class="btn soft" id="rp-shop" ${m.length?'':'disabled'}>🛒 Faltantes na lista</button>
+    </div>`);
+  $('#rp-m').onclick=()=>{ if(recPpl>1){recPpl--; openRecipe(id,recPpl);} };
+  $('#rp-p').onclick=()=>{ if(recPpl<30){recPpl++; openRecipe(id,recPpl);} };
+  $('#rp-shop').onclick=()=>{
+    let n=0; m.forEach(i=>{ if(ING[i.k].s==='S') return; addShop(ING[i.k].n, fq(i.q*f,i.u,true), ING[i.k].s, 'receita'); n++; });
+    save(); renderShop(); toast(n?`${n} ite${n>1?'ns':'m'} na lista de compras 🛒`:'São sobras: não vão para a lista');
+  };
+  $('#rp-plan').onclick=()=>pickSlot(id);
+}
+
+/* ================= CARDÁPIO ================= */
+const DAYS=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const MEALS=[['a','Almoço'],['j','Jantar']];
+function todayIdx(){ return (new Date().getDay()+6)%7; }
+function slot(d,m){ return (state.plan[d]&&state.plan[d][m])||''; }
+function setSlot(d,m,id){ if(!state.plan[d]) state.plan[d]={}; state.plan[d][m]=id; save(); }
+function pickSlot(id){
+  const r=RBYID[id];
+  let h=`<div class="top"><h2>Em qual refeição?</h2><button class="btn ghost" data-close>Fechar</button></div><p class="mute small" style="margin-top:0">${r.em} ${esc(r.name)}</p>`;
+  DAYS.forEach((dn,d)=>{ h+=`<div class="row" style="margin-bottom:8px"><b style="width:84px">${dn}${d===todayIdx()?' •':''}</b>`+
+    MEALS.map(([m,ml])=>{const cur=slot(d,m);return `<button class="chip${cur===id?' on':''}" style="flex:1" data-d="${d}" data-m="${m}">${ml}${cur&&cur!==id?' ↺':''}</button>`;}).join('')+'</div>'; });
+  h+='<p class="mute small">↺ = já tem prato, vai trocar.</p>';
+  openSheet(h);
+  $('#sheet-body').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{ setSlot(+b.dataset.d,b.dataset.m,id); closeSheet(); renderWeek(); toast(`${DAYS[+b.dataset.d]}, ${b.dataset.m==='a'?'almoço':'jantar'}: ${r.name}`); });
+}
+function chooseRecipe(d,m){
+  const cur=slot(d,m);
+  const draw=q=>{
+    const t=(q||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    const hs=haveSet();
+    const list=REC.filter(r=>!t||r.name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(t))
+      .map(r=>({r,m:missing(r,hs).length})).sort((a,b)=>hs.size?a.m-b.m:0);
+    $('#pick-list').innerHTML=list.map(x=>`<button class="rec" data-id="${x.r.id}"><div class="em">${x.r.em}</div><div class="t"><div class="n">${esc(x.r.name)}</div><div class="m">⏱ ${x.r.min} min${hs.size?(x.m?` · falta${x.m>1?'m':''} ${x.m}`:' · tem tudo ✅'):''}</div></div></button>`).join('');
+    $('#pick-list').querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{ setSlot(d,m,b.dataset.id); closeSheet(); renderWeek(); });
+  };
+  openSheet(`<div class="top"><h2>${DAYS[d]} · ${m==='a'?'Almoço':'Jantar'}</h2><button class="btn ghost" data-close>Fechar</button></div>
+    ${cur?`<div class="grid2" style="margin-bottom:10px"><button class="btn soft" id="pk-see">Ver receita</button><button class="btn danger" id="pk-rm">Tirar do dia</button></div>`:''}
+    <input type="text" id="pick-q" placeholder="🔎 Buscar receita…" style="margin-bottom:10px">
+    <div id="pick-list"></div>`);
+  draw('');
+  $('#pick-q').oninput=e=>draw(e.target.value);
+  if(cur){ $('#pk-rm').onclick=()=>{ setSlot(d,m,''); closeSheet(); renderWeek(); }; $('#pk-see').onclick=()=>openRecipe(cur); }
+}
+function leftoverHint(d){
+  const prev=(d+6)%7; const gen=new Set();
+  MEALS.forEach(([m])=>{ const r=RBYID[slot(prev,m)]; if(r&&r.gera) gen.add(r.gera); });
+  if(!gen.size) return null;
+  const empty=MEALS.find(([m])=>!slot(d,m)); if(!empty) return null;
+  const used=new Set(); Object.values(state.plan).forEach(p=>Object.values(p||{}).forEach(id=>id&&used.add(id)));
+  const cand=REC.filter(r=>r.tags.includes('sobras') && r.ing.some(i=>gen.has(i.k))).sort((a,b)=>(used.has(a.id)-used.has(b.id)));
+  if(!cand.length) return null;
+  const k=[...gen].find(g=>cand[0].ing.some(i=>i.k===g));
+  return {r:cand[0],m:empty[0],what:ING[k].n.toLowerCase()};
+}
+function renderWeek(){
+  $('#ppl').textContent=state.people;
+  const w=$('#week'); w.innerHTML=''; const ti=todayIdx();
+  for(let i=0;i<7;i++){
+    const d=(ti+i)%7;
+    const el=document.createElement('div'); el.className='day'+(i===0?' today':'');
+    el.innerHTML=`<h3>${DAYS[d]}${i===0?'<small>HOJE</small>':i===1?'<small style="color:var(--mute)">amanhã</small>':''}</h3>`;
+    MEALS.forEach(([m,ml])=>{
+      const r=RBYID[slot(d,m)];
+      const b=document.createElement('button'); b.className='slot'+(r?' filled':'');
+      b.innerHTML=`<span class="lb">${ml}</span>`+(r?`<span class="rn">${r.em} ${esc(r.name)}</span>`:`<span class="rn plus">＋ escolher prato</span>`);
+      b.onclick=()=>chooseRecipe(d,m); el.appendChild(b);
+    });
+    const h=leftoverHint(d);
+    if(h){
+      const hd=document.createElement('div'); hd.className='hint';
+      hd.innerHTML=`<span>💡 Sobra de ${esc(h.what)} do dia anterior? Que tal <b>${esc(h.r.name)}</b>?</span>`;
+      const ok=document.createElement('button'); ok.className='btn small'; ok.textContent='Pôr';
+      ok.onclick=()=>{ setSlot(d,h.m,h.r.id); renderWeek(); toast('Sobra aproveitada ♻️'); };
+      hd.appendChild(ok); el.appendChild(hd);
+    }
+    w.appendChild(el);
+  }
+}
+$('#ppl-minus').onclick=()=>{ if(state.people>1){state.people--;save();renderWeek();} };
+$('#ppl-plus').onclick=()=>{ if(state.people<30){state.people++;save();renderWeek();} };
+$('#clear-plan').onclick=()=>{ if(confirm('Limpar todos os pratos da semana?')){ state.plan={}; save(); renderWeek(); } };
+$('#gen-list').onclick=()=>{
+  const tot={}; let meals=0;
+  Object.keys(state.plan).forEach(d=>MEALS.forEach(([m])=>{
+    const r=RBYID[slot(+d,m)]; if(!r) return; meals++;
+    const f=state.people/r.serves;
+    r.ing.forEach(i=>{ const key=i.k+'|'+i.u; tot[key]=(tot[key]||0)+i.q*f; });
+  }));
+  if(!meals){ toast('Escolha alguns pratos primeiro'); return; }
+  const hs=haveSet(); let skipped=0, n=0;
+  state.list=state.list.filter(x=>x.src!=='cardapio');
+  Object.keys(tot).sort().forEach(key=>{
+    const [k,u]=key.split('|'); const ing=ING[k];
+    if(ing.s==='S') return;
+    if(hs.has(k)){ skipped++; return; }
+    addShop(ing.n, fq(tot[key],u,true), ing.s, 'cardapio'); n++;
+  });
+  save(); renderShop();
+  toast(`${n} itens na lista${skipped?` · ${skipped} que você já tem ficaram de fora`:''}`);
+  go(TABS.indexOf('compras'));
+};
+
+/* ================= COMPRAS ================= */
+function guessSec(name){
+  const t=name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  for(const k in ING){ const n=ING[k].n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); if(ING[k].s!=='S' && (t.includes(n)||n.split(' ')[0].length>3&&t.includes(n.split(' ')[0]))) return ING[k].s; }
+  if(/deterg|sabao|amaciante|agua sanit|esponja|papel hig|desinfet|vassoura|sabonete|shampoo|pasta de dente/.test(t)) return 'O';
+  return 'O';
+}
+function addShop(name,q,sec,src){
+  const ex=state.list.find(x=>!x.done && x.name===name && x.src===src && src!=='manual');
+  if(ex){ ex.q=q; return; }
+  state.list.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,q:q||'',sec:sec||'O',done:false,src:src||'manual'});
+}
+function renderShop(){
+  const box=$('#shop'); box.innerHTML='';
+  const pend=state.list.filter(x=>!x.done).length;
+  $('#b-shop').hidden=!pend; $('#b-shop').textContent=pend;
+  $('#shop-actions').hidden=!state.list.length;
+  if(!state.list.length){ box.innerHTML='<div class="card empty"><div class="big">🛒</div>Lista vazia. Gere pelo cardápio, pelas receitas ou adicione acima.</div>'; return; }
+  SEC_ORDER.forEach(s=>{
+    const items=state.list.filter(x=>x.sec===s); if(!items.length) return;
+    const c=document.createElement('div'); c.className='card';
+    c.innerHTML=`<h3>${SECS[s]==='Outros'?'🧴 Outros':SECS[s]}</h3>`;
+    items.sort((a,b)=>a.done-b.done).forEach(it=>{
+      const r=document.createElement('div'); r.className='item'+(it.done?' done':'');
+      r.innerHTML=`<button class="box" aria-label="Marcar comprado">${it.done?'✓':''}</button><span class="nm">${esc(it.name)}</span><span class="q">${esc(it.q)}</span><button class="x" aria-label="Remover">✕</button>`;
+      r.children[0].onclick=()=>{ it.done=!it.done; save(); renderShop(); };
+      r.children[3].onclick=()=>{ state.list=state.list.filter(x=>x!==it); save(); renderShop(); };
+      c.appendChild(r);
+    });
+    box.appendChild(c);
+  });
+}
+$('#add-item').onclick=()=>{
+  const v=$('#new-item').value.trim(); if(!v) return;
+  addShop(v,'',guessSec(v),'manual'); $('#new-item').value=''; save(); renderShop();
+};
+$('#new-item').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#add-item').click(); });
+$('#clear-done').onclick=()=>{ const n=state.list.filter(x=>x.done).length; if(!n){toast('Nada marcado como comprado');return;} state.list=state.list.filter(x=>!x.done); save(); renderShop(); toast(n+' itens tirados'); };
+$('#share-list').onclick=async()=>{
+  const pend=state.list.filter(x=>!x.done); if(!pend.length){toast('Nada pendente na lista');return;}
+  let t='🛒 *Lista de compras*\n';
+  SEC_ORDER.forEach(s=>{ const it=pend.filter(x=>x.sec===s); if(!it.length) return; t+='\n*'+SECS[s]+'*\n'+it.map(x=>'▫️ '+x.name+(x.q?' — '+x.q:'')).join('\n')+'\n'; });
+  t+='\n_Feito no app Casa em Ordem_';
+  if(navigator.share){ try{ await navigator.share({text:t}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }
+  location.href='https://wa.me/?text='+encodeURIComponent(t);
+};
+
+/* ================= CASA ================= */
+function lastDone(t){ return t.hist.length?t.hist.map(h=>h.d).sort().slice(-1)[0]:null; }
+function status(t){
+  const l=lastDone(t); if(!l) return {cls:'',txt:'Ainda sem registro · toque em ✅ quando fizer',left:8.5};
+  const due=daysBetween(dkey(),l)+t.every;
+  if(due<0) return {cls:'late',txt:`⚠️ Atrasado há ${-due} dia${-due>1?'s':''}`,left:due};
+  if(due===0) return {cls:'soon',txt:'⏰ Vence hoje',left:0};
+  if(due<=7) return {cls:'soon',txt:`⏰ Vence em ${due} dia${due>1?'s':''}`,left:due};
+  return {cls:'',txt:`✔️ Em dia · próxima em ${due} dias`,left:due};
+}
+function everyTxt(n){ const f=INTERVALS.find(x=>x[0]===n); return f?f[1]:`a cada ${n} dias`; }
+function renderTasks(){
+  const yr=new Date().getFullYear(); $('#yr').textContent=yr;
+  let spent=0; state.tasks.forEach(t=>t.hist.forEach(h=>{ if(h.d.startsWith(String(yr))) spent+=h.c||0; }));
+  $('#spent').textContent=money(spent);
+  const box=$('#tasks'); box.innerHTML='';
+  let late=0;
+  state.tasks.map(t=>({t,s:status(t)})).sort((a,b)=>a.s.left-b.s.left).forEach(({t,s})=>{
+    if(s.cls==='late'||s.left===0) late++;
+    const el=document.createElement('div'); el.className='task '+s.cls;
+    const l=lastDone(t);
+    el.innerHTML=`<div class="ic">${esc(t.icon)}</div><div class="t"><div class="n">${esc(t.name)}</div><div class="m">${s.txt}</div><div class="m">${everyTxt(t.every)}${l?' · última: '+fmtD(l):''}</div></div>`;
+    const b=document.createElement('button'); b.className='btn okb small'; b.textContent='✅ Feito';
+    b.onclick=()=>doneSheet(t);
+    el.children[1].onclick=()=>taskSheet(t);
+    el.appendChild(b); box.appendChild(el);
+  });
+  $('#b-casa').hidden=!late; $('#b-casa').textContent=late;
+}
+function doneSheet(t){
+  openSheet(`<div class="top"><h2>${esc(t.icon)} ${esc(t.name)}</h2><button class="btn ghost" data-close>Fechar</button></div>
+    <label class="f" for="dn-d">Quando foi feito?</label><input type="date" id="dn-d" value="${dkey()}" max="${dkey()}">
+    <div class="grid2"><div><label class="f" for="dn-c">Quanto custou? (opcional)</label><input type="number" id="dn-c" placeholder="R$" inputmode="decimal" min="0" step="any"></div>
+    <div><label class="f" for="dn-n">Quem fez / obs.</label><input type="text" id="dn-n" placeholder="Opcional" maxlength="60"></div></div>
+    <button class="btn okb full" style="margin-top:14px" id="dn-ok">✅ Registrar</button>`);
+  $('#dn-ok').onclick=()=>{
+    const d=$('#dn-d').value||dkey(); const c=parseFloat(String($('#dn-c').value).replace(',','.'))||0;
+    t.hist.push({d,c,n:$('#dn-n').value.trim()}); save(); closeSheet(); renderTasks();
+    toast('Registrado! Próxima: '+fmtD(dkey(new Date(parseD(lastDone(t)).getTime()+t.every*86400000))));
+  };
+}
+function taskSheet(t,isNew){
+  const opts=INTERVALS.map(([n,l])=>`<option value="${n}" ${n===t.every?'selected':''}>${l}</option>`).join('')+(INTERVALS.some(x=>x[0]===t.every)?'':`<option value="${t.every}" selected>a cada ${t.every} dias</option>`);
+  let icon=t.icon;
+  const hist=t.hist.slice().sort((a,b)=>b.d.localeCompare(a.d));
+  openSheet(`<div class="top"><h2>${isNew?'Nova tarefa':'Editar tarefa'}</h2><button class="btn ghost" data-close>Fechar</button></div>
+    <div class="chips" id="tk-icons" style="margin:6px 0"></div>
+    <label class="f" for="tk-n">Nome</label><input type="text" id="tk-n" value="${esc(t.name)}" maxlength="50" placeholder="Ex.: Limpar o ralo do banheiro">
+    <label class="f" for="tk-e">Repetir</label><select id="tk-e">${opts}</select>
+    <button class="btn full" style="margin-top:14px" id="tk-save">💾 Salvar</button>
+    ${isNew?'':`<h3 style="margin-top:18px">Histórico</h3>${hist.length?hist.map((h,i)=>`<div class="hist"><span>${fmtD(h.d)}${h.n?' · '+esc(h.n):''}</span><span>${h.c?money(h.c):''} <button class="btn danger small" data-h="${esc(h.d)}|${i}" aria-label="Apagar registro">✕</button></span></div>`).join(''):'<p class="mute small">Ainda sem registros.</p>'}
+    <button class="btn danger full" style="margin-top:14px" id="tk-del">🗑️ Apagar tarefa</button>`}`);
+  const drawIcons=()=>{ $('#tk-icons').innerHTML=TASK_ICONS.map(e=>`<button class="chip${e===icon?' on':''}" data-i="${e}" style="font-size:20px;padding:6px 10px">${e}</button>`).join('');
+    $('#tk-icons').querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{icon=b.dataset.i;drawIcons();}); };
+  drawIcons();
+  $('#tk-save').onclick=()=>{
+    const n=$('#tk-n').value.trim(); if(!n){toast('Escreva o nome');return;}
+    t.name=n; t.every=parseInt($('#tk-e').value,10)||30; t.icon=icon;
+    if(isNew) state.tasks.push(t);
+    save(); closeSheet(); renderTasks(); toast(isNew?'Tarefa criada ✅':'Tarefa salva ✅');
+  };
+  if(!isNew){
+    $('#tk-del').onclick=()=>{ if(confirm('Apagar "'+t.name+'" e o histórico?')){ state.tasks=state.tasks.filter(x=>x!==t); save(); closeSheet(); renderTasks(); } };
+    $('#sheet-body').querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{
+      const i=parseInt(b.dataset.h.split('|')[1],10); const h=hist[i];
+      if(confirm('Apagar o registro de '+fmtD(h.d)+'?')){ t.hist=t.hist.filter(x=>x!==h); save(); renderTasks(); taskSheet(t); }
+    });
+  }
+}
+$('#add-task').onclick=()=>taskSheet({id:'t'+Date.now().toString(36),icon:'🛠️',name:'',every:30,hist:[]},true);
+
+function waLink(p){ let d=String(p).replace(/\D/g,''); if(d.length<=11) d='55'+d; return 'https://wa.me/'+d; }
+function renderContacts(){
+  const box=$('#contacts'); box.innerHTML='';
+  if(!state.contacts.length){ box.innerHTML='<p class="mute small" style="margin-bottom:0">Guarde aqui eletricista, encanador, diarista, gás…</p>'; return; }
+  state.contacts.slice().sort((a,b)=>a.s.localeCompare(b.s)).forEach(c=>{
+    const el=document.createElement('div'); el.className='contact';
+    el.innerHTML=`<div class="t"><b>${esc(c.n)}</b><div class="mute small">${esc(c.s)}${c.p?' · '+esc(c.p):''}</div></div>`+
+      (c.p?`<a href="tel:${esc(c.p.replace(/[^\d+]/g,''))}" aria-label="Ligar">📞</a><a href="${waLink(c.p)}" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>`:'');
+    const ed=document.createElement('button'); ed.className='btn ghost small'; ed.textContent='✏️'; ed.setAttribute('aria-label','Editar');
+    ed.onclick=()=>contactSheet(c); el.appendChild(ed); box.appendChild(el);
+  });
+}
+function contactSheet(c){
+  const isNew=!c; c=c||{id:'c'+Date.now().toString(36),n:'',s:'',p:''};
+  openSheet(`<div class="top"><h2>${isNew?'Novo contato':'Editar contato'}</h2><button class="btn ghost" data-close>Fechar</button></div>
+    <label class="f" for="ct-s">Serviço</label><input type="text" id="ct-s" list="servs" value="${esc(c.s)}" placeholder="Ex.: Eletricista" maxlength="30">
+    <datalist id="servs"><option value="Eletricista"><option value="Encanador"><option value="Diarista"><option value="Pedreiro"><option value="Pintor"><option value="Gás"><option value="Água mineral"><option value="Técnico de ar-condicionado"><option value="Dedetizadora"><option value="Chaveiro"><option value="Jardineiro"></datalist>
+    <label class="f" for="ct-n">Nome</label><input type="text" id="ct-n" value="${esc(c.n)}" placeholder="Ex.: Seu João" maxlength="40">
+    <label class="f" for="ct-p">Telefone / WhatsApp</label><input type="tel" id="ct-p" value="${esc(c.p)}" placeholder="(16) 99999-9999" maxlength="20">
+    <button class="btn full" style="margin-top:14px" id="ct-save">💾 Salvar</button>
+    ${isNew?'':'<button class="btn danger full" style="margin-top:6px" id="ct-del">🗑️ Apagar contato</button>'}`);
+  $('#ct-save').onclick=()=>{
+    const n=$('#ct-n').value.trim(), s=$('#ct-s').value.trim(), p=$('#ct-p').value.trim();
+    if(!n&&!s){toast('Escreva o nome ou o serviço');return;}
+    Object.assign(c,{n:n||s,s:s||'Serviço',p}); if(isNew) state.contacts.push(c);
+    save(); closeSheet(); renderContacts();
+  };
+  if(!isNew) $('#ct-del').onclick=()=>{ if(confirm('Apagar '+c.n+'?')){ state.contacts=state.contacts.filter(x=>x!==c); save(); closeSheet(); renderContacts(); } };
+}
+$('#add-contact').onclick=()=>contactSheet(null);
+$('#reset').onclick=()=>{ if(confirm('Apagar ingredientes, cardápio, lista, tarefas e contatos deste celular? Não dá para desfazer.')){ state=blank(); save(); renderAll(); toast('Dados apagados'); } };
+
+/* ================= ABAS ================= */
+const TABS=['geladeira','cardapio','compras','casa']; let cur=0;
+function go(i){
+  if(i<0||i>=TABS.length) return; cur=i;
+  TABS.forEach((t,j)=>$('#p-'+t).hidden=j!==i);
+  document.querySelectorAll('nav button').forEach((b,j)=>b.classList.toggle('on',j===i));
+  if(TABS[i]==='cardapio') renderWeek();
+  if(TABS[i]==='casa') renderTasks();
+  try{ sessionStorage.setItem('casa-tab',i); }catch(e){}
+}
+document.querySelectorAll('nav button').forEach((b,i)=>b.onclick=()=>go(i));
+let sx=0,sy=0,swOk=false;
+$('#main').addEventListener('touchstart',e=>{ swOk=!e.target.closest('input,textarea,select,.chips.scroll'); sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+$('#main').addEventListener('touchend',e=>{ if(!swOk) return; const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)>28 && Math.abs(dx)>Math.abs(dy)*1.3) go(cur+(dx<0?1:-1)); },{passive:true});
+
+/* ================= INSTALAÇÃO ================= */
+let deferred=null;
+const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+if(!standalone()) $('#install-btn').hidden=false;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;if(!standalone())$('#install-btn').hidden=false;});
+window.addEventListener('appinstalled',()=>{$('#install-btn').hidden=true;toast('App instalado! 🎉');});
+$('#install-btn').onclick=async()=>{
+  if(deferred){ deferred.prompt(); try{await deferred.userChoice;}catch(e){} deferred=null; return; }
+  openSheet(`<div class="top"><h2>Instalar no celular</h2><button class="btn ghost" data-close>Fechar</button></div>
+    <p>1. No Chrome, toque no menu <b>⋮</b> (três pontinhos, lá em cima).</p><p>2. Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</p>
+    <p>No iPhone (Safari): toque em <b>Compartilhar</b> e depois em <b>Adicionar à Tela de Início</b>.</p>
+    <button class="btn full" data-close>Entendi</button>`);
+};
+if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+
+/* ================= INÍCIO ================= */
+function header(){ const s=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'}); $('#hdr-sub').textContent=s.charAt(0).toUpperCase()+s.slice(1); }
+function renderAll(){ header(); renderCats(); renderFilters(); renderRecs(); renderWeek(); renderShop(); renderTasks(); renderContacts(); }
+renderAll();
+let saved=0; try{ saved=parseInt(sessionStorage.getItem('casa-tab')||'0',10)||0; }catch(e){}
+go(saved);
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden){ header(); renderTasks(); renderWeek(); } });
+})();
+</script>
+</body>
+</html>
