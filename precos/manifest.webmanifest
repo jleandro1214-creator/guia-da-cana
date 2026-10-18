@@ -1,0 +1,2 @@
+{"name":"Preço na Mão","short_name":"Preço na Mão","description":"Histórico de preços dos seus mercados pelo cupom fiscal e código de barras.","start_url":"./","scope":"./","display":"standalone","background_color":"#faf6f0","theme_color":"#b45309","lang":"pt-BR",
+"icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},{"src":"icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}

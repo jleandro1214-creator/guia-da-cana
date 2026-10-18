@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preço na Mão</title>
+<meta name="theme-color" content="#b45309">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#231a10;--mut:#6b5e50;--pri:#b45309;--pri2:#fdf0e1;--line:#ece2d4;--grn:#2e7d32;--grnbg:#e8f5e9;--red:#c62828;--redbg:#fdecec}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--pri);color:#fff;padding:14px 16px 0;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:22px}header p{margin:2px 0 10px;font-size:14px;opacity:.9}
+#instalar{float:right;background:#fff;color:var(--pri);border:0;border-radius:20px;padding:7px 12px;font-weight:700;font-size:14px}
+nav{display:flex;overflow-x:auto}
+nav button{flex:1;background:none;border:0;color:#fde3c4;font-size:15px;font-weight:600;padding:10px 6px 12px;border-bottom:4px solid transparent;white-space:nowrap}
+nav button.on{color:#fff;border-color:#fff}
+main{padding:14px 14px 90px;max-width:640px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+h2{font-size:20px;margin:0 0 8px}h3{font-size:18px;margin:14px 0 6px}
+.mut{color:var(--mut);font-size:15px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:14px;padding:16px;font-size:18px;font-weight:700;background:var(--pri);color:#fff;margin:8px 0;cursor:pointer;text-decoration:none}
+.btn.sec{background:var(--pri2);color:var(--pri)}
+.btn.peq{padding:9px 12px;font-size:15px;width:auto;display:inline-flex;margin:3px}
+input[type=file]{display:none}
+input,select,textarea{width:100%;font-size:17px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-family:inherit}
+textarea{min-height:120px}
+label.l{display:block;font-weight:600;margin:10px 0 4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:8px 12px;font-size:15px}
+.chips button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.stat{background:var(--pri2);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-size:20px}.stat span{font-size:13px;color:var(--mut)}
+.stat.min{background:var(--grnbg)}.stat.min b{color:var(--grn)}.stat.max{background:var(--redbg)}.stat.max b{color:var(--red)}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.item:last-child{border-bottom:0}.item .n{font-weight:600}.item .p{font-weight:800;font-size:18px;white-space:nowrap;text-align:right}
+table{width:100%;border-collapse:collapse;font-size:15px}td,th{border-bottom:1px solid var(--line);padding:8px 5px;text-align:left;vertical-align:top}th{background:var(--pri2)}
+td.r,th.r{text-align:right}
+.barato{color:var(--grn);font-weight:800}.caro{color:var(--red)}
+.passos{counter-reset:p;padding:0;list-style:none}.passos li{counter-increment:p;padding:8px 0 8px 40px;position:relative}
+.passos li:before{content:counter(p);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--pri);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.rev{display:grid;grid-template-columns:28px 1fr 96px;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.rev input[type=checkbox]{width:22px;height:22px}.rev small{color:var(--mut)}
+#scan{position:fixed;inset:0;background:#000;z-index:50;display:flex;flex-direction:column}
+#scan video{flex:1;width:100%;object-fit:cover}
+#scan .mira{position:absolute;left:10%;right:10%;top:30%;height:30%;border:4px solid #fff;border-radius:16px;box-shadow:0 0 0 2000px #0006}
+#scan .rod{padding:14px;background:#111;color:#fff;text-align:center}
+.aviso{background:#fff7e0;border-radius:12px;padding:12px;font-size:15px}
+.ok{background:var(--grnbg);color:var(--grn);border-radius:12px;padding:12px;font-weight:700}
+svg text{font:12px system-ui;fill:var(--mut)}
+.leg{display:flex;flex-wrap:wrap;gap:10px;font-size:14px;margin-top:4px}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222;color:#fff;padding:12px 18px;border-radius:24px;z-index:60;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <button id="instalar" hidden>📲 Instalar app</button>
+  <h1>🛒 Preço na Mão</h1>
+  <p>Histórico de preços dos seus mercados</p>
+  <nav id="abas">
+    <button data-aba="inicio" class="on">🏠 Início</button>
+    <button data-aba="produtos">📦 Produtos</button>
+    <button data-aba="comparar">⚖️ Comparar</button>
+    <button data-aba="config">⚙️ Dados</button>
+  </nav>
+</header>
+<main>
+
+<!-- ============ INÍCIO ============ -->
+<section id="inicio">
+  <div class="card">
+    <button class="btn" id="bQR">🧾 Ler QR Code do cupom</button>
+    <button class="btn" id="bEAN">🏷️ Ler código de barras</button>
+    <label class="btn sec" for="fotoCupom">📷 Foto do cupom em papel</label>
+    <input id="fotoCupom" type="file" accept="image/*" capture="environment">
+    <button class="btn sec" id="bManual">✍️ Lançar preço à mão</button>
+  </div>
+  <div class="card" id="resumoMes"></div>
+  <div class="card"><h2>Últimas compras</h2><div id="ultimas"></div></div>
+</section>
+
+<!-- ============ CUPOM (QR) ============ -->
+<section id="cupom" hidden>
+  <div class="card">
+    <h2>🧾 Cupom fiscal</h2>
+    <div id="cupInfo" class="mut"></div>
+    <ol class="passos">
+      <li>Toque em <b>Abrir o cupom</b>. Vai abrir o site da Fazenda de SP com a lista da compra.</li>
+      <li>No site, <b>toque e segure</b> em qualquer texto, escolha <b>Selecionar tudo</b> e depois <b>Copiar</b>.</li>
+      <li>Volte aqui e toque em <b>Colar o cupom</b>.</li>
+    </ol>
+    <a class="btn" id="abrirSefaz" target="_blank" rel="noopener">🌐 Abrir o cupom</a>
+    <button class="btn" id="colar">📋 Colar o cupom</button>
+    <details><summary class="mut">Não colou? Cole aqui à mão</summary>
+      <textarea id="txtCupom" placeholder="Toque e segure aqui → Colar"></textarea>
+      <button class="btn sec" id="lerTxt">Ler o texto colado</button>
+    </details>
+    <div id="cupProg" class="mut"></div>
+  </div>
+</section>
+
+<!-- ============ REVISÃO ============ -->
+<section id="revisao" hidden>
+  <div class="card">
+    <h2>✅ Confira a compra</h2>
+    <label class="l" for="revMercado">Mercado</label>
+    <select id="revMercado"></select>
+    <input id="revMercadoNovo" placeholder="Nome do mercado" hidden style="margin-top:6px">
+    <label class="l" for="revData">Data da compra</label>
+    <input id="revData" type="date">
+    <p class="mut" style="margin:10px 0 0">Desmarque o que não quer guardar. Pode corrigir nome e preço.</p>
+    <div id="revLista"></div>
+    <p id="revTotal" style="font-weight:700"></p>
+    <button class="btn" id="revSalvar">💾 Guardar no histórico</button>
+    <button class="btn sec" id="revCancelar">Cancelar</button>
+  </div>
+</section>
+
+<!-- ============ MANUAL ============ -->
+<section id="manual" hidden>
+  <div class="card">
+    <h2>✍️ Lançar preço</h2>
+    <label class="l" for="mCodigo">Código de barras (opcional)</label>
+    <div style="display:flex;gap:6px"><input id="mCodigo" inputmode="numeric" placeholder="789…"><button class="btn peq" id="mScan" style="margin:0">📷</button></div>
+    <label class="l" for="mNome">Produto</label>
+    <input id="mNome" list="listaNomes" placeholder="Ex.: Arroz Tio João 5 kg">
+    <datalist id="listaNomes"></datalist>
+    <label class="l" for="mMercado">Mercado</label>
+    <select id="mMercado"></select>
+    <input id="mMercadoNovo" placeholder="Nome do mercado" hidden style="margin-top:6px">
+    <label class="l" for="mPreco">Preço (R$)</label>
+    <input id="mPreco" inputmode="decimal" placeholder="0,00">
+    <label class="l" for="mData">Data</label>
+    <input id="mData" type="date">
+    <button class="btn" id="mSalvar">💾 Guardar</button>
+    <button class="btn sec" id="mCancelar">Voltar</button>
+  </div>
+</section>
+
+<!-- ============ PRODUTOS ============ -->
+<section id="produtos" hidden>
+  <div class="card">
+    <input id="buscaProd" placeholder="🔎 Procurar produto…">
+    <div class="chips" id="ordem"><button data-o="nome" class="on">A–Z</button><button data-o="recente">Recentes</button><button data-o="subiu">Mais subiu</button></div>
+  </div>
+  <div class="card"><div id="listaProd"></div></div>
+</section>
+
+<!-- ============ DETALHE ============ -->
+<section id="detalhe" hidden>
+  <div class="card">
+    <button class="btn peq sec" id="dVoltar">← Voltar</button>
+    <h2 id="dNome" style="margin-top:8px"></h2>
+    <div class="mut" id="dCod"></div>
+    <div class="chips" id="dPeriodo"></div>
+    <div id="dDeAte" hidden style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><label class="l" for="dDe">De (mês/ano)</label><input id="dDe" type="month"></div>
+      <div><label class="l" for="dAte">Até (mês/ano)</label><input id="dAte" type="month"></div>
+    </div>
+    <div class="stats" id="dStats"></div>
+    <div id="dGraf"></div>
+    <h3>Por mercado</h3><div id="dMerc"></div>
+    <h3>Todos os registros</h3><div id="dReg"></div>
+    <button class="btn sec" id="dAdd">➕ Lançar preço deste produto</button>
+    <details style="margin-top:8px"><summary class="mut">Editar produto</summary>
+      <label class="l" for="dRen">Nome</label><input id="dRen"><button class="btn peq" id="dRenOk">Salvar nome</button>
+      <label class="l" for="dJuntar">É o mesmo produto que…</label><select id="dJuntar"></select><button class="btn peq" id="dJuntarOk">Juntar</button>
+      <button class="btn peq sec" id="dVincular">📷 Vincular código de barras</button>
+    </details>
+  </div>
+</section>
+
+<!-- ============ COMPARAR ============ -->
+<section id="comparar" hidden>
+  <div class="card">
+    <h2>⚖️ Comparar mercados</h2>
+    <div class="chips" id="cPeriodo"></div>
+    <div id="cDeAte" hidden style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><label class="l" for="cDe">De (mês/ano)</label><input id="cDe" type="month"></div>
+      <div><label class="l" for="cAte">Até (mês/ano)</label><input id="cAte" type="month"></div>
+    </div>
+    <div id="cResumo"></div>
+  </div>
+  <div class="card"><h2>Mesmo produto, preço diferente</h2><div id="cTabela"></div></div>
+  <div class="card"><h2>Gasto por mês</h2><div id="cGasto"></div></div>
+</section>
+
+<!-- ============ DADOS ============ -->
+<section id="config" hidden>
+  <div class="card">
+    <h2>🏪 Seus mercados</h2>
+    <p class="mut">Toque no nome para trocar o apelido.</p>
+    <div id="listaMerc"></div>
+  </div>
+  <div class="card">
+    <h2>💾 Cópia de segurança</h2>
+    <p class="mut">Os dados ficam só no seu celular. Faça uma cópia de vez em quando e guarde no WhatsApp ou Drive.</p>
+    <button class="btn" id="exportar">📤 Salvar cópia</button>
+    <label class="btn sec" for="importar">📥 Restaurar cópia</label>
+    <input id="importar" type="file" accept=".json,application/json">
+    <button class="btn sec" id="planilha">📊 Exportar planilha (CSV)</button>
+  </div>
+  <p class="mut" id="contagem"></p>
+</section>
+</main>
+
+<div id="scan" hidden>
+  <video id="video" playsinline muted></video>
+  <div class="mira"></div>
+  <div class="rod"><div id="scanMsg">Aponte para o código</div>
+    <label class="btn sec" for="fotoCodigo" style="margin-top:10px">📷 Tirar foto em vez disso</label>
+    <input id="fotoCodigo" type="file" accept="image/*" capture="environment">
+    <button class="btn" id="scanFechar">Fechar</button></div>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const R=v=>v==null||isNaN(v)?"—":"R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const brNum=s=>{if(s==null)return NaN;s=String(s).trim().replace(/\s/g,"");if(/,\d+$/.test(s))s=s.replace(/\./g,"").replace(",",".");return parseFloat(s)};
+const hoje=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const dataBR=iso=>iso?iso.slice(8,10)+"/"+iso.slice(5,7)+"/"+iso.slice(0,4):"";
+const MESES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function norm(s){return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase().replace(/[^A-Z0-9]+/g," ").trim()}
+function gtinOk(c){c=String(c||"");if(!/^\d{8}$|^\d{12,14}$/.test(c))return false;const d=c.split("").map(Number),ck=d.pop();let s=0;d.reverse().forEach((x,i)=>s+=x*(i%2?1:3));return (10-s%10)%10===ck}
+
+/* ================= BANCO ================= */
+const DB={prod:{},merc:{},reg:[],cupons:[]};
+function carregar(){try{const x=JSON.parse(localStorage.getItem("pnm_db")||"null");if(x)Object.assign(DB,x)}catch(e){}}
+function gravar(){try{localStorage.setItem("pnm_db",JSON.stringify(DB))}catch(e){alert("Memória cheia. Faça uma cópia de segurança.")}}
+carregar();
+function chaveProd(codigo,nome){return gtinOk(codigo)?"G"+String(codigo).replace(/^0+(?=\d{8})/,""):"N"+norm(nome)}
+function garantirProd(codigo,nome){
+  const k=chaveProd(codigo,nome);
+  if(!DB.prod[k]){
+    // nome igual já cadastrado com código? reaproveita
+    if(k[0]==="N"){const ex=Object.keys(DB.prod).find(x=>norm(DB.prod[x].nome)===norm(nome));if(ex)return ex}
+    DB.prod[k]={nome:String(nome||"Produto "+codigo).trim(),ean:gtinOk(codigo)?String(codigo):"",criado:Date.now()};
+  }
+  return resolver(k);
+}
+function resolver(k){let n=0;while(DB.prod[k]&&DB.prod[k].junto&&n++<20)k=DB.prod[k].junto;return k}
+function apelido(n){n=String(n||"").replace(/\b(SUPERMERCADOS?|HIPERMERCADOS?|MERCADOS?|COMERCIO|COM[EÉ]RCIO|DE ALIMENTOS|ALIMENTOS|DISTRIBUIDORA|LTDA\.?|S\/?A\.?|S\.A\.?|EIRELI|ME|EPP|CIA\.?)\b/gi," ").replace(/[.\-]+$/,"").replace(/\s+/g," ").trim();if(n.length<2)return "Mercado";return n.toLowerCase().replace(/(^|\s)\S/g,c=>c.toUpperCase())}
+function garantirMerc(id,nome){if(!DB.merc[id])DB.merc[id]={nome:apelido(nome)};return id}
+function nomeMerc(id){return DB.merc[id]?DB.merc[id].nome:"?"}
+function regsDe(k){return DB.reg.filter(r=>resolver(r.p)===k)}
+
+/* ================= ABAS ================= */
+const ABAS=["inicio","produtos","comparar","config"],TELAS=["inicio","cupom","revisao","manual","produtos","detalhe","comparar","config"];
+let tela="inicio";
+function ir(t){tela=t;TELAS.forEach(x=>$("#"+x).hidden=x!==t);const aba=ABAS.includes(t)?t:({cupom:"inicio",revisao:"inicio",manual:"inicio",detalhe:"produtos"})[t];$$("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.aba===aba));
+  if(t==="inicio")telaInicio();if(t==="produtos")telaProdutos();if(t==="comparar")telaComparar();if(t==="config")telaConfig();scrollTo(0,0)}
+$$("#abas button").forEach(b=>b.onclick=()=>ir(b.dataset.aba));
+let tx=0,ty=0;
+document.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",e=>{if(!ABAS.includes(tela)||e.target.closest("input,textarea,select,table,svg,.chips"))return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.5){const i=ABAS.indexOf(tela)+(dx<0?1:-1);if(i>=0&&i<ABAS.length)ir(ABAS[i])}},{passive:true});
+
+/* ================= PERÍODO ================= */
+const PER=[["7","1 semana"],["30","1 mês"],["90","3 meses"],["180","6 meses"],["365","1 ano"],["tudo","Tudo"],["mes","Escolher mês/ano"]];
+function montarPeriodo(cont,boxDeAte,de,ate,estado,cb){
+  $(cont).innerHTML=PER.map(([v,t])=>`<button data-v="${v}" class="${estado.v===v?"on":""}">${t}</button>`).join("");
+  $(boxDeAte).hidden=estado.v!=="mes";
+  $$(cont+" button").forEach(b=>b.onclick=()=>{estado.v=b.dataset.v;$$(cont+" button").forEach(x=>x.classList.toggle("on",x===b));$(boxDeAte).hidden=estado.v!=="mes";if(estado.v==="mes"&&!$(de).value){const d=hoje().slice(0,7);$(de).value=d;$(ate).value=d}cb()});
+  $(de).onchange=$(ate).onchange=cb;
+}
+function filtroPeriodo(estado,de,ate){
+  if(estado.v==="tudo")return()=>true;
+  if(estado.v==="mes"){const a=$(de).value||"0000-00",b=$(ate).value||"9999-99";const[x,y]=a<=b?[a,b]:[b,a];return r=>r.d.slice(0,7)>=x&&r.d.slice(0,7)<=y}
+  const lim=new Date(Date.now()-(+estado.v)*864e5).toISOString().slice(0,10);return r=>r.d>=lim;
+}
+
+/* ================= INÍCIO ================= */
+function telaInicio(){
+  const mes=hoje().slice(0,7),ant=(()=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);return d.toISOString().slice(0,7)})();
+  const soma=m=>DB.reg.filter(r=>r.d.slice(0,7)===m).reduce((s,r)=>s+r.v*(r.q||1),0);
+  const a=soma(mes),b=soma(ant);
+  const nm=MESES[+mes.slice(5,7)-1];
+  $("#resumoMes").innerHTML=DB.reg.length?`<h2>Gastos de ${nm}</h2><div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><b>${R(a)}</b><span>este mês</span></div><div class="stat"><b>${R(b)}</b><span>mês passado</span></div></div><p class="mut">${Object.keys(DB.prod).filter(k=>!DB.prod[k].junto).length} produtos · ${Object.keys(DB.merc).length} mercados · ${DB.reg.length} preços guardados</p>`
+    :`<h2>Como começar</h2><p>Depois de cada compra, toque em <b>🧾 Ler QR Code do cupom</b>. O app guarda o preço de cada item, o mercado e a data. Com o tempo você vê o menor, o maior preço e qual mercado está mais barato.</p>`;
+  const cs=DB.cupons.slice(-6).reverse();
+  $("#ultimas").innerHTML=cs.length?cs.map(c=>`<div class="item" data-cup="${esc(c.id)}"><div><div class="n">${esc(nomeMerc(c.m))}</div><div class="mut">${dataBR(c.d)} · ${c.n} itens</div></div><div class="p">${R(c.t)}</div></div>`).join(""):'<p class="mut">Nenhuma compra guardada ainda.</p>';
+}
+
+/* ================= SCANNER ================= */
+let scanCb=null,stream=null,loop=null,detector=null;
+async function abrirScanner(formatos,msg,cb){
+  scanCb=cb;$("#scanMsg").textContent=msg;$("#scan").hidden=false;
+  try{
+    if("BarcodeDetector" in window){const sup=await BarcodeDetector.getSupportedFormats();detector=new BarcodeDetector({formats:formatos.filter(f=>sup.includes(f))})}
+    if(!detector){$("#scanMsg").textContent="Seu celular não lê código ao vivo. Use a foto ou digite.";return}
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment",width:{ideal:1280}}});
+    const v=$("#video");v.srcObject=stream;await v.play();
+    loop=setInterval(async()=>{try{const r=await detector.detect(v);if(r.length){fecharScanner();navigator.vibrate&&navigator.vibrate(80);scanCb(r[0].rawValue,r[0].format)}}catch(e){}},250);
+  }catch(e){$("#scanMsg").textContent="Não consegui abrir a câmera ao vivo. Use o botão de foto."}
+}
+function fecharScanner(){clearInterval(loop);loop=null;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}$("#scan").hidden=true}
+$("#scanFechar").onclick=fecharScanner;
+$("#fotoCodigo").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+  try{const bmp=await createImageBitmap(f);const d=detector||("BarcodeDetector" in window?new BarcodeDetector():null);if(!d)throw 0;const r=await d.detect(bmp);
+    if(r.length){fecharScanner();scanCb(r[0].rawValue,r[0].format)}else $("#scanMsg").textContent="Não achei o código na foto. Tente mais perto e com luz."}
+  catch(_){$("#scanMsg").textContent="Não consegui ler pela foto."}};
+
+/* ================= CUPOM QR ================= */
+let cupomAtual=null;
+function infoChave(ch){ // chave de acesso NFC-e (44 dígitos)
+  if(!/^\d{44}$/.test(ch))return null;
+  return{uf:ch.slice(0,2),ano:"20"+ch.slice(2,4),mes:ch.slice(4,6),cnpj:ch.slice(6,20),modelo:ch.slice(20,22),numero:+ch.slice(25,34)};
+}
+function fmtCnpj(c){return c.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,"$1.$2.$3/$4-$5")}
+$("#bQR").onclick=()=>abrirScanner(["qr_code"],"Aponte para o QR Code no fim do cupom",txt=>receberQR(txt));
+function receberQR(txt){
+  let url=txt.trim(),chave=null;
+  const m=url.match(/[?&]p=(\d{44})/)||url.match(/(\d{44})/);if(m)chave=m[1];
+  const ic=chave?infoChave(chave):null;
+  if(!/^https?:\/\//i.test(url)){toast("Esse QR não parece de cupom fiscal");return}
+  if(chave&&DB.cupons.some(c=>c.id===chave)){if(!confirm("Esse cupom já foi guardado. Abrir de novo mesmo assim?"))return}
+  cupomAtual={url,chave,info:ic};
+  $("#abrirSefaz").href=url;
+  $("#cupInfo").innerHTML=ic?`Cupom nº ${ic.numero} · ${ic.mes}/${ic.ano}<br>CNPJ do mercado: ${fmtCnpj(ic.cnpj)}${DB.merc[ic.cnpj]?" — <b>"+esc(nomeMerc(ic.cnpj))+"</b>":""}${ic.uf!=="35"?"<br>⚠️ Cupom de fora de SP: o site pode ser diferente, mas o colar funciona igual.":""}`:"QR Code lido.";
+  $("#txtCupom").value="";$("#cupProg").textContent="";$("#txtCupom").closest("details").open=false;
+  ir("cupom");
+}
+$("#colar").onclick=async()=>{
+  try{const t=await navigator.clipboard.readText();if(!t||t.length<30)throw 0;processarTextoCupom(t)}
+  catch(e){$("#txtCupom").closest("details").open=true;$("#txtCupom").focus();toast("Toque e segure na caixa e escolha Colar")}
+};
+$("#lerTxt").onclick=()=>processarTextoCupom($("#txtCupom").value);
+
+/* Lê o texto copiado da consulta pública da NFC-e (SEFAZ-SP) */
+function lerCupomSefaz(txt){
+  const T=txt.replace(/ /g," ").replace(/\r/g,"");
+  const itens=[];
+  const blocos=T.split(/Vl\.?\s*Total\s*:?\s*(?:R\$)?\s*[\d.]*,\d{2}/i);
+  for(const b of blocos){
+    const m=b.match(/([\s\S]*?)\(\s*C[óo]d(?:igo)?\.?\s*:?\s*([0-9A-Za-z.\-]+)\s*\)\s*Qtde\.?\s*:?\s*([\d.,]+)\s*UN\s*:?\s*([A-Za-z]{1,4})\s*Vl\.?\s*Unit\.?\s*:?\s*(?:R\$)?\s*([\d.]*,\d+|\d+(?:\.\d+)?)/i);
+    if(!m)continue;
+    let nome=m[1].split("\n").map(s=>s.trim()).filter(Boolean).pop()||"";
+    nome=nome.replace(/^\d+\s*[-–.]\s*/,"").trim();
+    const v=brNum(m[5]),q=brNum(m[3]);
+    if(nome&&!isNaN(v))itens.push({nome,cod:m[2].replace(/[^\dA-Za-z]/g,""),q:isNaN(q)?1:q,un:m[4].toUpperCase(),v});
+  }
+  const cnpj=(T.match(/CNPJ\s*:?\s*([\d.\/\-]{14,18})/i)||[])[1];
+  const em=T.match(/Emiss[ãa]o\s*:?\s*(\d{2})\/(\d{2})\/(\d{4})/i)||T.match(/(\d{2})\/(\d{2})\/(\d{4})\s+\d{2}:\d{2}/);
+  // nome do mercado: linha logo antes do CNPJ
+  let loja="";const linhas=T.split("\n").map(s=>s.trim()).filter(Boolean);
+  const iC=linhas.findIndex(l=>/CNPJ/i.test(l));
+  if(iC>0){for(let i=iC-1;i>=0;i--){const l=linhas[i].replace(/CNPJ.*/i,"").trim();if(l.length>2&&!/consulta|nfc-?e|documento|auxiliar|nota fiscal|secretaria|fazenda|^voltar/i.test(l)){loja=l;break}}}
+  else if(iC===0)loja=linhas[0].replace(/CNPJ.*/i,"").trim();
+  const total=(T.match(/Valor\s+a\s+pagar\s*R?\$?\s*:?\s*([\d.]*,\d{2})/i)||[])[1];
+  return{itens,cnpj:cnpj?cnpj.replace(/\D/g,""):null,data:em?`${em[3]}-${em[2]}-${em[1]}`:null,loja,total:total?brNum(total):null};
+}
+function processarTextoCupom(txt){
+  const r=lerCupomSefaz(txt);
+  if(!r.itens.length){$("#cupProg").innerHTML='<div class="aviso">Não encontrei os produtos no texto. Confira se copiou a página inteira do cupom (Selecionar tudo → Copiar).</div>';$("#txtCupom").closest("details").open=true;return}
+  const ic=cupomAtual&&cupomAtual.info;
+  const cnpj=r.cnpj||(ic&&ic.cnpj)||null;
+  abrirRevisao({id:cupomAtual&&cupomAtual.chave||null,cnpj,loja:r.loja,data:r.data||(ic?`${ic.ano}-${ic.mes}-01`:hoje()),itens:r.itens,origem:"qr"});
+}
+
+/* ================= FOTO DO CUPOM (OCR) ================= */
+let worker=null;
+function carregarTesseract(){return new Promise((ok,er)=>{if(window.Tesseract)return ok();const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";s.onload=ok;s.onerror=er;document.head.appendChild(s)})}
+function prepImg(file){return new Promise((ok,er)=>{const im=new Image();im.onload=()=>{const mx=2000,k=Math.min(1,mx/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=im.width*k|0;c.height=im.height*k|0;const g=c.getContext("2d");g.drawImage(im,0,0,c.width,c.height);const d=g.getImageData(0,0,c.width,c.height),p=d.data;for(let i=0;i<p.length;i+=4){let y=.299*p[i]+.587*p[i+1]+.114*p[i+2];y=(y-140)*1.8+140;y=y<0?0:y>255?255:y;p[i]=p[i+1]=p[i+2]=y}g.putImageData(d,0,0);ok(c)};im.onerror=er;im.src=URL.createObjectURL(file)})}
+function lerCupomPapel(txt){
+  const itens=[];const L=txt.split("\n");
+  for(let l of L){
+    l=l.replace(/\s+/g," ").trim();
+    // 001 7891234567890 ARROZ TIPO 1 5KG 1 UN X 25,99 25,99
+    let m=l.match(/^\d{1,3}\s+(\d{6,14})\s+(.+?)\s+([\d.,]+)\s*(UN|KG|PC|LT|L|CX|G|ML|PCT|FD|DZ)?\s*[xX*]\s*([\d.]*,\d{2})/i);
+    if(m){itens.push({cod:m[1],nome:m[2].trim(),q:brNum(m[3])||1,un:(m[4]||"UN").toUpperCase(),v:brNum(m[5])});continue}
+    m=l.match(/^\d{1,3}\s+(\d{6,14})\s+(.{3,}?)\s+([\d.]*,\d{2})$/);
+    if(m)itens.push({cod:m[1],nome:m[2].trim(),q:1,un:"UN",v:brNum(m[3])});
+  }
+  const cnpj=(txt.match(/CNPJ\s*:?\s*([\d.\/\-]{14,18})/i)||[])[1];
+  const em=txt.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  const loja=(txt.split("\n").map(s=>s.trim()).find(s=>s.length>3&&/[A-Za-z]{3}/.test(s))||"");
+  return{itens,cnpj:cnpj?cnpj.replace(/\D/g,""):null,data:em?`${em[3]}-${em[2]}-${em[1]}`:null,loja};
+}
+$("#fotoCupom").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+  toast("Lendo o cupom… pode levar uns segundos");
+  try{await carregarTesseract();if(!worker)worker=await Tesseract.createWorker("por");const c=await prepImg(f);const r=await worker.recognize(c);
+    const x=lerCupomPapel(r.data.text||"");
+    if(!x.itens.length){alert("Não consegui achar os itens na foto. Dica: o QR Code do cupom é bem mais certeiro. Se for usar foto, deixe o cupom reto, perto e com boa luz.");return}
+    abrirRevisao({id:null,cnpj:x.cnpj,loja:x.loja,data:x.data||hoje(),itens:x.itens,origem:"foto"});
+  }catch(err){alert(navigator.onLine?"Não consegui ler a foto.":"Para ler foto do cupom, abra com internet pelo menos uma vez.")}};
+
+/* ================= REVISÃO ================= */
+let revisao=null;
+function opcoesMerc(sel,atual,extra){
+  const ms=Object.entries(DB.merc);
+  $(sel).innerHTML=(extra?`<option value="__cnpj">${esc(extra)}</option>`:"")+ms.map(([id,m])=>`<option value="${esc(id)}" ${id===atual?"selected":""}>${esc(m.nome)}</option>`).join("")+`<option value="__novo">➕ Outro mercado…</option>`;
+  if(!ms.length&&!extra)$(sel).value="__novo";
+}
+function abrirRevisao(c){
+  revisao=c;
+  const conhecido=c.cnpj&&DB.merc[c.cnpj];
+  opcoesMerc("#revMercado",conhecido?c.cnpj:null,(!conhecido&&c.cnpj)?`${apelido(c.loja)} (novo)`:null);
+  $("#revMercadoNovo").hidden=$("#revMercado").value!=="__novo";$("#revMercadoNovo").value=c.loja||"";
+  $("#revData").value=c.data||hoje();
+  $("#revLista").innerHTML=c.itens.map((it,i)=>`<div class="rev"><input type="checkbox" checked data-i="${i}"><div><input value="${esc(it.nome)}" data-nome="${i}" style="padding:6px"><small>${it.q!==1?esc(String(it.q).replace(".",","))+" "+esc(it.un)+" · ":""}${gtinOk(it.cod)?"cód. "+esc(it.cod):"cód. loja "+esc(it.cod||"—")}</small></div><input value="${it.v.toFixed(2).replace(".",",")}" data-v="${i}" inputmode="decimal" style="padding:6px;text-align:right"></div>`).join("");
+  const tot=()=>{let s=0;c.itens.forEach((it,i)=>{if($(`[data-i="${i}"]`).checked)s+=brNum($(`[data-v="${i}"]`).value)*(it.q||1)});$("#revTotal").textContent=`${c.itens.length} itens · Total ${R(s)}`};
+  $("#revLista").oninput=tot;$("#revLista").onchange=tot;tot();
+  ir("revisao");
+}
+$("#revMercado").onchange=()=>$("#revMercadoNovo").hidden=$("#revMercado").value!=="__novo";
+$("#revCancelar").onclick=()=>ir("inicio");
+$("#revSalvar").onclick=()=>{
+  const c=revisao;let mid=$("#revMercado").value;
+  if(mid==="__cnpj"){mid=garantirMerc(c.cnpj,c.loja||"Mercado")}
+  else if(mid==="__novo"){const n=$("#revMercadoNovo").value.trim();if(!n){alert("Escreva o nome do mercado");return}mid=c.cnpj&&!DB.merc[c.cnpj]?c.cnpj:"M"+Date.now();garantirMerc(mid,n);DB.merc[mid].nome=n}
+  const d=$("#revData").value||hoje();const cid=c.id||("C"+Date.now());
+  DB.reg=DB.reg.filter(r=>r.c!==cid);DB.cupons=DB.cupons.filter(x=>x.id!==cid);
+  let n=0,t=0;
+  c.itens.forEach((it,i)=>{if(!$(`[data-i="${i}"]`).checked)return;const v=brNum($(`[data-v="${i}"]`).value);if(isNaN(v))return;
+    const nome=$(`[data-nome="${i}"]`).value.trim()||it.nome;
+    const k=garantirProd(it.cod,nome);
+    DB.reg.push({p:k,m:mid,d,v,q:it.q||1,un:it.un||"UN",c:cid});n++;t+=v*(it.q||1)});
+  DB.cupons.push({id:cid,m:mid,d,n,t,o:c.origem});
+  gravar();toast(`✅ ${n} ${n===1?"preço guardado":"preços guardados"}`);ir("inicio");
+};
+
+/* ================= CÓDIGO DE BARRAS ================= */
+$("#bEAN").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e","code_128","qr_code"],"Aponte para o código de barras do produto",(cod,fmt)=>{
+  if(fmt==="qr_code"||/^https?:/i.test(cod)){receberQR(cod);return}
+  const k="G"+String(cod).replace(/^0+(?=\d{8})/,"");
+  const kk=resolver(k);
+  if(DB.prod[kk]){abrirDetalhe(kk)}else{abrirManual({codigo:cod});toast("Produto novo: lance o preço")}
+});
+async function nomePorCodigo(cod){ // sugestão de nome pela base aberta Open Food Facts
+  try{const r=await fetch(`https://world.openfoodfacts.org/api/v2/product/${cod}.json?fields=product_name,brands,quantity`);const j=await r.json();if(j.status===1){const p=j.product;return [p.product_name,p.brands&&p.brands.split(",")[0],p.quantity].filter(Boolean).join(" ")}}catch(e){}return null}
+
+/* ================= MANUAL ================= */
+function abrirManual(o={}){
+  $("#mCodigo").value=o.codigo||"";$("#mNome").value=o.nome||"";$("#mPreco").value="";$("#mData").value=hoje();
+  $("#listaNomes").innerHTML=Object.values(DB.prod).filter(p=>!p.junto).map(p=>`<option value="${esc(p.nome)}">`).join("");
+  const ult=DB.cupons.length?DB.cupons[DB.cupons.length-1].m:null;
+  opcoesMerc("#mMercado",ult);$("#mMercadoNovo").hidden=$("#mMercado").value!=="__novo";
+  ir("manual");
+  if(o.codigo&&!o.nome&&navigator.onLine){nomePorCodigo(o.codigo).then(n=>{if(n&&!$("#mNome").value)$("#mNome").value=n})}
+  setTimeout(()=>($("#mNome").value?$("#mPreco"):$("#mNome")).focus(),200);
+}
+$("#bManual").onclick=()=>abrirManual();
+$("#mMercado").onchange=()=>$("#mMercadoNovo").hidden=$("#mMercado").value!=="__novo";
+$("#mScan").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e","code_128"],"Aponte para o código de barras",cod=>{ir("manual");$("#mCodigo").value=cod;const k=resolver("G"+cod.replace(/^0+(?=\d{8})/,""));if(DB.prod[k])$("#mNome").value=DB.prod[k].nome;else if(navigator.onLine)nomePorCodigo(cod).then(n=>{if(n&&!$("#mNome").value)$("#mNome").value=n})});
+$("#mCancelar").onclick=()=>ir(voltarPara||"inicio");
+let voltarPara=null;
+$("#mSalvar").onclick=()=>{
+  const nome=$("#mNome").value.trim(),v=brNum($("#mPreco").value),cod=$("#mCodigo").value.trim();
+  if(!nome){alert("Escreva o nome do produto");return}if(isNaN(v)||v<=0){alert("Preço inválido");return}
+  let mid=$("#mMercado").value;if(mid==="__novo"){const n=$("#mMercadoNovo").value.trim();if(!n){alert("Escreva o nome do mercado");return}mid="M"+Date.now();garantirMerc(mid,n)}
+  // se o nome escolhido já existe, usa ele
+  let k=gtinOk(cod)?garantirProd(cod,nome):(Object.keys(DB.prod).find(x=>!DB.prod[x].junto&&norm(DB.prod[x].nome)===norm(nome))||garantirProd("",nome));
+  k=resolver(k);
+  DB.reg.push({p:k,m:mid,d:$("#mData").value||hoje(),v,q:1,un:"UN",c:"manual"});gravar();toast("✅ Preço guardado");abrirDetalhe(k);
+};
+
+/* ================= PRODUTOS ================= */
+let ordem="nome";
+$$("#ordem button").forEach(b=>b.onclick=()=>{ordem=b.dataset.o;$$("#ordem button").forEach(x=>x.classList.toggle("on",x===b));telaProdutos()});
+$("#buscaProd").oninput=()=>telaProdutos();
+function resumoProd(k){const rs=regsDe(k).sort((a,b)=>a.d<b.d?-1:1);if(!rs.length)return null;const vs=rs.map(r=>r.v);return{rs,ult:rs[rs.length-1],min:Math.min(...vs),max:Math.max(...vs),prim:rs[0]}}
+function telaProdutos(){
+  const q=norm($("#buscaProd").value);
+  let ps=Object.keys(DB.prod).filter(k=>!DB.prod[k].junto).map(k=>({k,p:DB.prod[k],r:resumoProd(k)})).filter(x=>x.r&&(!q||norm(x.p.nome+" "+x.p.ean).includes(q)));
+  if(ordem==="nome")ps.sort((a,b)=>a.p.nome.localeCompare(b.p.nome,"pt"));
+  if(ordem==="recente")ps.sort((a,b)=>a.r.ult.d<b.r.ult.d?1:-1);
+  if(ordem==="subiu")ps.sort((a,b)=>(b.r.ult.v/b.r.prim.v)-(a.r.ult.v/a.r.prim.v));
+  $("#listaProd").innerHTML=ps.length?ps.map(({k,p,r})=>{const vr=r.prim.v?((r.ult.v/r.prim.v-1)*100):0;
+    return `<div class="item" data-k="${esc(k)}"><div><div class="n">${esc(p.nome)}</div><div class="mut">${esc(nomeMerc(r.ult.m))} · ${dataBR(r.ult.d)}${r.rs.length>1?` · mín ${R(r.min)}`:""}</div></div><div class="p">${R(r.ult.v)}${r.rs.length>1&&Math.abs(vr)>=1?`<div class="${vr>0?"caro":"barato"}" style="font-size:14px">${vr>0?"▲":"▼"} ${Math.abs(vr).toFixed(0)}%</div>`:""}</div></div>`}).join(""):'<p class="mut">Nenhum produto ainda. Leia o QR Code de um cupom para começar.</p>';
+  $$("#listaProd [data-k]").forEach(e=>e.onclick=()=>abrirDetalhe(e.dataset.k));
+}
+
+/* ================= DETALHE ================= */
+let atual=null;const perD={v:"tudo"};
+const CORES=["#b45309","#1d4ed8","#15803d","#7c3aed","#be123c","#0e7490"];
+function corMerc(id){const ids=Object.keys(DB.merc);return CORES[Math.max(0,ids.indexOf(id))%CORES.length]}
+function abrirDetalhe(k){atual=resolver(k);voltarPara="detalhe";ir("detalhe");montarPeriodo("#dPeriodo","#dDeAte","#dDe","#dAte",perD,desenharDetalhe);desenharDetalhe()}
+$("#dVoltar").onclick=()=>{voltarPara=null;ir("produtos")};
+function grafico(rs){
+  if(rs.length<2)return"";
+  const W=360,H=170,P=36;const ts=rs.map(r=>+new Date(r.d)),vs=rs.map(r=>r.v);
+  let t0=Math.min(...ts),t1=Math.max(...ts);if(t1===t0)t1=t0+864e5;let v0=Math.min(...vs),v1=Math.max(...vs);const pad=(v1-v0)*.15||v0*.1||1;v0-=pad;v1+=pad;
+  const X=t=>P+(t-t0)/(t1-t0)*(W-P-10),Y=v=>H-22-(v-v0)/(v1-v0)*(H-36);
+  const por={};rs.forEach(r=>(por[r.m]=por[r.m]||[]).push(r));
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Gráfico de preços">`;
+  [v0+pad,(v0+v1)/2,v1-pad].forEach(v=>{s+=`<line x1="${P}" x2="${W-10}" y1="${Y(v)}" y2="${Y(v)}" stroke="#ece2d4"/><text x="2" y="${Y(v)+4}">${v.toFixed(2).replace(".",",")}</text>`});
+  s+=`<text x="${P}" y="${H-4}">${dataBR(rs[0].d).slice(0,5)}</text><text x="${W-10}" y="${H-4}" text-anchor="end">${dataBR(rs[rs.length-1].d).slice(0,5)}</text>`;
+  for(const m in por){const c=corMerc(m),pts=por[m].map(r=>`${X(+new Date(r.d)).toFixed(1)},${Y(r.v).toFixed(1)}`);
+    if(pts.length>1)s+=`<polyline fill="none" stroke="${c}" stroke-width="3" stroke-linejoin="round" points="${pts.join(" ")}"/>`;
+    por[m].forEach(r=>s+=`<circle cx="${X(+new Date(r.d))}" cy="${Y(r.v)}" r="4.5" fill="${c}"/>`)}
+  s+="</svg><div class='leg'>"+Object.keys(por).map(m=>`<span><i style="background:${corMerc(m)}"></i>${esc(nomeMerc(m))}</span>`).join("")+"</div>";
+  return s;
+}
+function desenharDetalhe(){
+  const p=DB.prod[atual];if(!p)return ir("produtos");
+  $("#dNome").textContent=p.nome;$("#dCod").textContent=p.ean?"Código de barras: "+p.ean:"Sem código de barras vinculado";
+  const f=filtroPeriodo(perD,"#dDe","#dAte");
+  const rs=regsDe(atual).filter(f).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:0);
+  if(!rs.length){$("#dStats").innerHTML="";$("#dGraf").innerHTML='<p class="mut">Nenhum preço nesse período.</p>';$("#dMerc").innerHTML="";$("#dReg").innerHTML="";}
+  else{
+    const vs=rs.map(r=>r.v),mn=Math.min(...vs),mx=Math.max(...vs),md=vs.reduce((a,b)=>a+b,0)/vs.length;
+    const rmn=rs.find(r=>r.v===mn),rmx=rs.find(r=>r.v===mx);
+    $("#dStats").innerHTML=`<div class="stat min"><b>${R(mn)}</b><span>menor<br>${esc(nomeMerc(rmn.m))} ${dataBR(rmn.d).slice(0,5)}</span></div><div class="stat"><b>${R(md)}</b><span>média<br>${rs.length} registro(s)</span></div><div class="stat max"><b>${R(mx)}</b><span>maior<br>${esc(nomeMerc(rmx.m))} ${dataBR(rmx.d).slice(0,5)}</span></div>`;
+    $("#dGraf").innerHTML=grafico(rs);
+    const por={};rs.forEach(r=>(por[r.m]=por[r.m]||[]).push(r));
+    const linhas=Object.entries(por).map(([m,l])=>({m,ult:l[l.length-1],med:l.reduce((a,b)=>a+b.v,0)/l.length,n:l.length}));
+    const menorUlt=Math.min(...linhas.map(x=>x.ult.v));
+    $("#dMerc").innerHTML=`<table><tr><th>Mercado</th><th class="r">Último</th><th class="r">Média</th></tr>${linhas.map(x=>`<tr><td>${esc(nomeMerc(x.m))}<div class="mut">${dataBR(x.ult.d)}</div></td><td class="r ${linhas.length>1&&x.ult.v===menorUlt?"barato":""}">${R(x.ult.v)}${linhas.length>1&&x.ult.v===menorUlt?" ✓":""}</td><td class="r">${R(x.med)}</td></tr>`).join("")}</table>`;
+    $("#dReg").innerHTML=`<table>${rs.slice().reverse().map(r=>`<tr><td>${dataBR(r.d)}</td><td>${esc(nomeMerc(r.m))}</td><td class="r">${R(r.v)}${r.un&&r.un!=="UN"?"/"+esc(r.un.toLowerCase()):""}</td><td class="r"><button class="btn peq sec" data-del="${DB.reg.indexOf(r)}" style="margin:0;padding:4px 8px">🗑️</button></td></tr>`).join("")}</table>`;
+    $$("#dReg [data-del]").forEach(b=>b.onclick=()=>{if(confirm("Apagar este preço?")){DB.reg.splice(+b.dataset.del,1);gravar();desenharDetalhe()}});
+  }
+  $("#dRen").value=p.nome;
+  $("#dJuntar").innerHTML='<option value="">— escolher —</option>'+Object.keys(DB.prod).filter(k=>k!==atual&&!DB.prod[k].junto).sort((a,b)=>DB.prod[a].nome.localeCompare(DB.prod[b].nome,"pt")).map(k=>`<option value="${esc(k)}">${esc(DB.prod[k].nome)}</option>`).join("");
+}
+$("#dAdd").onclick=()=>{const p=DB.prod[atual];abrirManual({codigo:p.ean,nome:p.nome})};
+$("#dRenOk").onclick=()=>{const n=$("#dRen").value.trim();if(n){DB.prod[atual].nome=n;gravar();desenharDetalhe();toast("Nome salvo")}};
+$("#dJuntarOk").onclick=()=>{const o=$("#dJuntar").value;if(!o)return;if(!confirm(`Juntar "${DB.prod[o].nome}" com este produto? Os preços dos dois vão ficar juntos.`))return;
+  DB.prod[o].junto=atual;if(!DB.prod[atual].ean&&DB.prod[o].ean)DB.prod[atual].ean=DB.prod[o].ean;gravar();desenharDetalhe();toast("Produtos juntados")};
+$("#dVincular").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e"],"Aponte para o código de barras deste produto",cod=>{
+  ir("detalhe");const k=resolver("G"+cod.replace(/^0+(?=\d{8})/,""));
+  if(DB.prod[k]&&k!==atual){DB.prod[k].junto=atual}else if(!DB.prod[k]){DB.prod[k]={nome:DB.prod[atual].nome,ean:cod,junto:atual}}
+  DB.prod[atual].ean=cod;gravar();desenharDetalhe();toast("Código vinculado")});
+
+/* ================= COMPARAR ================= */
+const perC={v:"30"};
+function telaComparar(){montarPeriodo("#cPeriodo","#cDeAte","#cDe","#cAte",perC,desenharComparar);desenharComparar()}
+function desenharComparar(){
+  const f=filtroPeriodo(perC,"#cDe","#cAte");const rs=DB.reg.filter(f);
+  const mercs=[...new Set(rs.map(r=>r.m))];
+  const porProd={};rs.forEach(r=>{const k=resolver(r.p);((porProd[k]=porProd[k]||{})[r.m]=porProd[k][r.m]||[]).push(r)});
+  const comuns=Object.entries(porProd).filter(([k,o])=>Object.keys(o).length>=2);
+  const vitorias={};mercs.forEach(m=>vitorias[m]=0);let economia=0;
+  const linhas=comuns.map(([k,o])=>{const med={};for(const m in o)med[m]=o[m].reduce((a,b)=>a+b.v,0)/o[m].length;const vals=Object.values(med),mn=Math.min(...vals),mx=Math.max(...vals);for(const m in med)if(med[m]===mn)vitorias[m]++;economia+=mx-mn;return{k,med,mn,mx}}).sort((a,b)=>(b.mx-b.mn)-(a.mx-a.mn));
+  if(mercs.length<2){$("#cResumo").innerHTML='<p class="mut">Para comparar, guarde compras de pelo menos 2 mercados nesse período.</p>'}
+  else if(!linhas.length){$("#cResumo").innerHTML='<p class="mut">Ainda não há o mesmo produto comprado em mercados diferentes nesse período. Dica: produtos com código de barras se juntam sozinhos; os outros você pode juntar na tela do produto.</p>'}
+  else{const ord=Object.entries(vitorias).sort((a,b)=>b[1]-a[1]),melhor=ord[0],emp=ord.filter(x=>x[1]===melhor[1]);
+    $("#cResumo").innerHTML=(emp.length>1?`<div class="ok">🤝 Empate: ${emp.map(x=>esc(nomeMerc(x[0]))).join(" e ")} ganharam em ${melhor[1]} produto(s) cada, de ${linhas.length}.</div>`:`<div class="ok">🏆 ${esc(nomeMerc(melhor[0]))} foi o mais barato em ${melhor[1]} de ${linhas.length} produtos.</div>`)+`<p class="mut">Comprando cada item no mais barato, você economizaria cerca de <b>${R(economia)}</b> nesses ${linhas.length} produtos (1 unidade de cada).</p>`}
+  $("#cTabela").innerHTML=linhas.length?`<div style="overflow-x:auto"><table><tr><th>Produto</th>${mercs.map(m=>`<th class="r">${esc(nomeMerc(m))}</th>`).join("")}</tr>${linhas.map(l=>`<tr data-k="${esc(l.k)}"><td>${esc(DB.prod[l.k].nome)}</td>${mercs.map(m=>`<td class="r ${l.med[m]===l.mn?"barato":l.med[m]===l.mx?"caro":""}">${l.med[m]!=null?R(l.med[m]):"—"}</td>`).join("")}</tr>`).join("")}</table></div><p class="mut">Média do período. Verde = mais barato, vermelho = mais caro. Toque no produto para ver o histórico.</p>`:'<p class="mut">—</p>';
+  $$("#cTabela tr[data-k]").forEach(t=>t.onclick=()=>abrirDetalhe(t.dataset.k));
+  // gasto por mês (últimos 6) por mercado
+  const meses=[];const d=new Date();d.setDate(1);for(let i=5;i>=0;i--){const x=new Date(d.getFullYear(),d.getMonth()-i,1);meses.push(x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0"))}
+  const allM=Object.keys(DB.merc);const g={};DB.reg.forEach(r=>{const m=r.d.slice(0,7);if(!meses.includes(m))return;g[m]=g[m]||{};g[m][r.m]=(g[m][r.m]||0)+r.v*(r.q||1)});
+  const tot=m=>Object.values(g[m]||{}).reduce((a,b)=>a+b,0);const mxT=Math.max(1,...meses.map(tot));
+  $("#cGasto").innerHTML=DB.reg.length?meses.map(m=>{const t=tot(m);return `<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:15px"><b>${MESES[+m.slice(5)-1]}/${m.slice(2,4)}</b><span>${R(t)}</span></div><div style="display:flex;height:16px;border-radius:6px;overflow:hidden;background:#f3ece2;width:100%">${allM.map(id=>{const v=(g[m]||{})[id]||0;return v?`<div style="width:${v/mxT*100}%;background:${corMerc(id)}" title="${esc(nomeMerc(id))}"></div>`:""}).join("")}</div></div>`}).join("")+"<div class='leg'>"+allM.map(id=>`<span><i style="background:${corMerc(id)}"></i>${esc(nomeMerc(id))}</span>`).join("")+"</div>":'<p class="mut">—</p>';
+}
+
+/* ================= DADOS ================= */
+function telaConfig(){
+  const ms=Object.entries(DB.merc);
+  $("#listaMerc").innerHTML=ms.length?ms.map(([id,m])=>{const n=DB.cupons.filter(c=>c.m===id).length;return `<div class="item" data-m="${esc(id)}"><div><div class="n"><i style="display:inline-block;width:12px;height:12px;border-radius:3px;background:${corMerc(id)}"></i> ${esc(m.nome)}</div><div class="mut">${/^\d{14}$/.test(id)?"CNPJ "+fmtCnpj(id)+" · ":""}${n} compra(s)</div></div><div>✏️</div></div>`}).join(""):'<p class="mut">Nenhum mercado ainda.</p>';
+  $$("#listaMerc [data-m]").forEach(e=>e.onclick=()=>{const id=e.dataset.m;const n=prompt("Nome do mercado:",DB.merc[id].nome);if(n&&n.trim()){DB.merc[id].nome=n.trim();gravar();telaConfig()}});
+  $("#contagem").textContent=`${DB.reg.length} preços · ${DB.cupons.length} compras guardadas`;
+}
+function baixar(nome,conteudo,tipo){const b=new Blob([conteudo],{type:tipo});const f=new File([b],nome,{type:tipo});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:nome}).catch(()=>{});return}
+  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=nome;a.click()}
+$("#exportar").onclick=()=>baixar(`preco-na-mao-${hoje()}.json`,JSON.stringify(DB),"application/json");
+$("#planilha").onclick=()=>{const L=[["Data","Mercado","Produto","Código","Preço unitário","Quantidade","Unidade"].join(";")];DB.reg.slice().sort((a,b)=>a.d<b.d?-1:1).forEach(r=>{const p=DB.prod[resolver(r.p)]||{};L.push([dataBR(r.d),nomeMerc(r.m),p.nome,p.ean||"",String(r.v).replace(".",","),String(r.q||1).replace(".",","),r.un||"UN"].map(x=>`"${String(x??"").replace(/"/g,'""')}"`).join(";"))});baixar(`precos-${hoje()}.csv`,"﻿"+L.join("\n"),"text/csv")};
+$("#importar").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const x=JSON.parse(await f.text());if(!x.reg||!x.prod)throw 0;if(!confirm("Isso vai trocar os dados atuais pela cópia. Continuar?"))return;DB.prod=x.prod;DB.merc=x.merc||{};DB.reg=x.reg;DB.cupons=x.cupons||[];gravar();toast("Cópia restaurada");ir("inicio")}catch(_){alert("Arquivo inválido")}};
+
+/* ================= INSTALAR / SW ================= */
+let pedido=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;if(!standalone)$("#instalar").hidden=false});
+if(!standalone)setTimeout(()=>$("#instalar").hidden=false,2500);
+$("#instalar").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userChoice;pedido=null;$("#instalar").hidden=true}else alert('Para instalar: toque nos 3 pontinhos ⋮ do Chrome e escolha "Instalar app" ou "Adicionar à tela inicial".')};
+window.addEventListener("appinstalled",()=>$("#instalar").hidden=true);
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+document.addEventListener("click",e=>{const c=e.target.closest("[data-cup]");if(c){const rs=DB.reg.filter(x=>x.c===c.dataset.cup);if(rs.length)alert(rs.map(r=>`${(DB.prod[resolver(r.p)]||{}).nome} — ${R(r.v)}${r.q&&r.q!==1?" x "+String(r.q).replace(".",","):""}`).join("\n"))}});
+telaInicio();
+window.PNM={lerCupomSefaz,lerCupomPapel,infoChave,DB,receberQR,abrirRevisao,gtinOk};
+</script>
+</body>
+</html>
