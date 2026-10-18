@@ -60,6 +60,12 @@ details.man summary::after{content:"＋";color:var(--pri)}details.man[open] summ
 details.man summary::-webkit-details-marker{display:none}
 details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
 .dica{background:var(--pri2);border-radius:10px;padding:10px;margin:8px 0;font-size:15px}
+.barras{margin:8px 0}.bar{margin:8px 0}.bar .t{display:flex;justify-content:space-between;font-size:15px;gap:8px}
+.bar .t b{white-space:nowrap}.bar .f{height:22px;background:#f3ece2;border-radius:8px;overflow:hidden;margin-top:3px}
+.bar .f i{display:block;height:100%;border-radius:8px}
+.lojas{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lojas .btn{margin:0;padding:14px 8px;font-size:16px}
+.lojas .btn.top{grid-column:1/-1;background:#232f3e}
+#buscaInfo .livro{display:flex;gap:12px;align-items:center}#buscaInfo img{width:64px;border-radius:6px}
 </style>
 </head>
 <body>
@@ -82,6 +88,7 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
   <div class="card">
     <button class="btn" id="bQR">🧾 Ler QR Code do cupom</button>
     <button class="btn" id="bEAN">🏷️ Ler código de barras</button>
+    <button class="btn" id="bWeb">🔎 Pesquisar preço na internet</button>
     <label class="btn sec" for="fotoCupom">📷 Foto do cupom em papel</label>
     <input id="fotoCupom" type="file" accept="image/*" capture="environment">
     <button class="btn sec" id="bManual">✍️ Lançar preço à mão</button>
@@ -149,6 +156,30 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
   </div>
 </section>
 
+<!-- ============ BUSCA NA INTERNET ============ -->
+<section id="busca" hidden>
+  <div class="card">
+    <h2>🔎 Pesquisar preço na internet</h2>
+    <p class="mut">Livros, eletrônicos, qualquer produto. Leia o código de barras e escolha onde pesquisar.</p>
+    <label class="l" for="wCodigo">Código de barras (ou ISBN do livro)</label>
+    <div style="display:flex;gap:6px"><input id="wCodigo" inputmode="numeric" placeholder="Ex.: 9788535914849"><button class="btn peq" id="wScan" style="margin:0">📷</button></div>
+    <div id="buscaInfo" style="margin-top:10px"></div>
+    <div class="chips" id="wModo"><span class="mut" style="align-self:center">Buscar por:</span><button data-m="cod" class="on">Código</button><button data-m="nome">Nome</button></div>
+    <input id="wNome" placeholder="Nome do produto" hidden>
+    <div class="lojas" id="wLojas"></div>
+    <p class="mut">Zoom e Buscapé mostram o <b>histórico de preço</b> na página do produto. Se a busca pelo código não achar nada, toque em <b>Nome</b>.</p>
+  </div>
+  <div class="card" id="wHist" hidden></div>
+  <div class="card">
+    <h2>💾 Guardar o preço que achei</h2>
+    <label class="l" for="wLoja">Loja</label><select id="wLoja"></select>
+    <input id="wLojaNova" placeholder="Nome da loja" hidden style="margin-top:6px">
+    <label class="l" for="wPreco">Preço (R$)</label><input id="wPreco" inputmode="decimal" placeholder="0,00">
+    <label class="l" for="wData">Data</label><input id="wData" type="date">
+    <button class="btn" id="wSalvar">💾 Guardar no histórico</button>
+  </div>
+</section>
+
 <!-- ============ PRODUTOS ============ -->
 <section id="produtos" hidden>
   <div class="card">
@@ -170,8 +201,10 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
       <div><label class="l" for="dAte">Até (mês/ano)</label><input id="dAte" type="month"></div>
     </div>
     <div class="stats" id="dStats"></div>
-    <div id="dGraf"></div>
+    <h3>📈 Preço ao longo do tempo</h3><div id="dGraf"></div>
+    <h3>📊 Último preço em cada loja</h3><div id="dBarras"></div>
     <h3>Por mercado</h3><div id="dMerc"></div>
+    <div id="dWeb"></div>
     <h3>Todos os registros</h3><div id="dReg"></div>
     <button class="btn sec" id="dAdd">➕ Lançar preço deste produto</button>
     <details style="margin-top:8px"><summary class="mut">Editar produto</summary>
@@ -192,9 +225,10 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
       <div><label class="l" for="cAte">Até (mês/ano)</label><input id="cAte" type="month"></div>
     </div>
     <div id="cResumo"></div>
+    <div id="cVit"></div>
   </div>
   <div class="card"><h2>Mesmo produto, preço diferente</h2><div id="cTabela"></div></div>
-  <div class="card"><h2>Gasto por mês</h2><div id="cGasto"></div></div>
+  <div class="card"><h2>Gasto por mês</h2><p class="mut">Só as compras lidas pelo cupom.</p><div id="cGasto"></div></div>
 </section>
 
 <!-- ============ DADOS ============ -->
@@ -250,8 +284,19 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
   <details class="man"><summary>5. Consultar preço no mercado (código de barras)</summary><div class="c"><ol>
     <li>Toque em <b>🏷️ Ler código de barras</b> e aponte para o código do produto na prateleira.</li>
     <li>Se você já comprou esse produto, aparece o <b>histórico</b> dele na hora: menor preço, maior preço e em qual mercado.</li>
+    <li>Se for um <b>livro</b>, abre direto a pesquisa na internet.</li>
     <li>Se for um produto novo, abre a tela para <b>lançar o preço</b> que você está vendo na etiqueta.</li></ol>
     <div class="dica">💡 Assim você anota o preço de outro mercado sem precisar comprar lá.</div></div></details>
+
+  <details class="man"><summary>📚 Pesquisar preço na internet (livros, eletrônicos)</summary><div class="c"><ol>
+    <li>Na aba <b>🏠 Início</b>, toque em <b>🔎 Pesquisar preço na internet</b>.</li>
+    <li>Toque em <b>📷</b> e leia o código de barras. No livro, ele fica atrás (é o ISBN, começa com 978).</li>
+    <li>O app mostra o nome do produto (e a capa, se for livro).</li>
+    <li>Toque na loja: <b>Amazon</b>, <b>Zoom</b>, <b>Buscapé</b>, <b>Google Shopping</b> ou <b>Mercado Livre</b>. Abre a busca já pronta.</li>
+    <li>Viu um bom preço? Volte ao app, escreva o valor em <b>Guardar o preço que achei</b> e toque em <b>Guardar</b>. A loja já vem marcada.</li></ol>
+    <div class="dica">💡 Zoom e Buscapé mostram o <b>gráfico de histórico</b> do preço na página do produto.</div>
+    <div class="dica">💡 Se a busca pelo código não achar nada, toque em <b>Buscar por: Nome</b>.</div>
+    <div class="dica">💡 Guardando os preços de tempos em tempos, o app monta o seu próprio gráfico e mostra o melhor momento de comprar.</div></div></details>
 
   <details class="man"><summary>6. Lançar preço à mão</summary><div class="c"><ol>
     <li>Toque em <b>✍️ Lançar preço à mão</b>.</li>
@@ -263,7 +308,7 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
     <li>Vá na aba <b>📦 Produtos</b>. Use a busca 🔎 ou organize por <b>A–Z</b>, <b>Recentes</b> ou <b>Mais subiu</b>.</li>
     <li>Toque no produto. Você vê:<ul>
       <li>🟢 <b>menor preço</b>, onde e quando;</li><li><b>média</b> do período;</li><li>🔴 <b>maior preço</b>, onde e quando;</li>
-      <li>o <b>gráfico</b>, com uma cor para cada mercado;</li><li>o último preço em cada mercado (✓ verde = mais barato).</li></ul></li>
+      <li>o <b>gráfico de linha</b>, com uma cor para cada mercado e as linhas de menor, média e maior;</li><li>as <b>barras</b> com o último preço em cada loja (🏆 = mais barato);</li><li>o último preço em cada mercado (✓ verde = mais barato).</li></ul></li>
     <li>Escolha o período: <b>1 semana, 1 mês, 3 meses, 6 meses, 1 ano</b> ou <b>Tudo</b>.</li>
     <li>Para um período exato, toque em <b>Escolher mês/ano</b> e preencha <b>De</b> e <b>Até</b>.</li></ol>
     <div class="dica">💡 Para apagar um preço errado, toque na 🗑️ ao lado dele.</div></div></details>
@@ -343,9 +388,9 @@ function nomeMerc(id){return DB.merc[id]?DB.merc[id].nome:"?"}
 function regsDe(k){return DB.reg.filter(r=>resolver(r.p)===k)}
 
 /* ================= ABAS ================= */
-const ABAS=["inicio","produtos","comparar","config","ajuda"],TELAS=["inicio","cupom","revisao","manual","produtos","detalhe","comparar","config","ajuda"];
+const ABAS=["inicio","produtos","comparar","config","ajuda"],TELAS=["inicio","cupom","revisao","manual","busca","produtos","detalhe","comparar","config","ajuda"];
 let tela="inicio";
-function ir(t){tela=t;TELAS.forEach(x=>$("#"+x).hidden=x!==t);const aba=ABAS.includes(t)?t:({cupom:"inicio",revisao:"inicio",manual:"inicio",detalhe:"produtos"})[t];$$("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.aba===aba));
+function ir(t){tela=t;TELAS.forEach(x=>$("#"+x).hidden=x!==t);const aba=ABAS.includes(t)?t:({cupom:"inicio",revisao:"inicio",manual:"inicio",busca:"inicio",detalhe:"produtos"})[t];$$("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.aba===aba));
   if(t==="inicio")telaInicio();if(t==="produtos")telaProdutos();if(t==="comparar")telaComparar();if(t==="config")telaConfig();scrollTo(0,0)}
 $$("#abas button").forEach(b=>b.onclick=()=>ir(b.dataset.aba));
 let tx=0,ty=0;
@@ -369,7 +414,7 @@ function filtroPeriodo(estado,de,ate){
 /* ================= INÍCIO ================= */
 function telaInicio(){
   const mes=hoje().slice(0,7),ant=(()=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);return d.toISOString().slice(0,7)})();
-  const soma=m=>DB.reg.filter(r=>r.d.slice(0,7)===m).reduce((s,r)=>s+r.v*(r.q||1),0);
+  const soma=m=>DB.reg.filter(r=>r.d.slice(0,7)===m&&r.c!=="web"&&r.c!=="manual").reduce((s,r)=>s+r.v*(r.q||1),0);
   const a=soma(mes),b=soma(ant);
   const nm=MESES[+mes.slice(5,7)-1];
   $("#resumoMes").innerHTML=DB.reg.length?`<h2>Gastos de ${nm}</h2><div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><b>${R(a)}</b><span>este mês</span></div><div class="stat"><b>${R(b)}</b><span>mês passado</span></div></div><p class="mut">${Object.keys(DB.prod).filter(k=>!DB.prod[k].junto).length} produtos · ${Object.keys(DB.merc).length} mercados · ${DB.reg.length} preços guardados</p>`
@@ -521,10 +566,75 @@ $("#bEAN").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e","code_128"
   if(fmt==="qr_code"||/^https?:/i.test(cod)){receberQR(cod);return}
   const k="G"+String(cod).replace(/^0+(?=\d{8})/,"");
   const kk=resolver(k);
-  if(DB.prod[kk]){abrirDetalhe(kk)}else{abrirManual({codigo:cod});toast("Produto novo: lance o preço")}
+  if(DB.prod[kk]){abrirDetalhe(kk)}else if(/^97[89]/.test(cod)){abrirBusca(cod)}else if(confirm("Produto novo.\n\nOK = pesquisar o preço na internet\nCancelar = lançar o preço da etiqueta")){abrirBusca(cod)}else{abrirManual({codigo:cod})}
 });
 async function nomePorCodigo(cod){ // sugestão de nome pela base aberta Open Food Facts
   try{const r=await fetch(`https://world.openfoodfacts.org/api/v2/product/${cod}.json?fields=product_name,brands,quantity`);const j=await r.json();if(j.status===1){const p=j.product;return [p.product_name,p.brands&&p.brands.split(",")[0],p.quantity].filter(Boolean).join(" ")}}catch(e){}return null}
+
+/* ================= BUSCA NA INTERNET ================= */
+const LOJAS=[
+ ["amazon","🛒 Amazon",c=>`https://www.amazon.com.br/s?k=${c}`],
+ ["zoom","📉 Zoom",c=>`https://www.zoom.com.br/search?q=${c}`],
+ ["buscape","📉 Buscapé",c=>`https://www.buscape.com.br/search?q=${c}`],
+ ["google","🔍 Google Shopping",c=>`https://www.google.com/search?tbm=shop&q=${c}`],
+ ["ml","🤝 Mercado Livre",c=>`https://lista.mercadolivre.com.br/${c}`]
+];
+const LOJA_NOME={amazon:"Amazon",zoom:"Zoom",buscape:"Buscapé",google:"Google Shopping",ml:"Mercado Livre"};
+let wModo="cod",wInfo={nome:"",autor:""};
+function isbnOk(c){return /^97[89]\d{10}$/.test(c)&&gtinOk(c)}
+function abrirBusca(cod){
+  $("#wCodigo").value=cod||"";$("#wPreco").value="";$("#wData").value=hoje();wInfo={nome:"",autor:""};$("#wNome").value="";
+  wModo="cod";$$("#wModo button").forEach(b=>b.classList.toggle("on",b.dataset.m==="cod"));$("#wNome").hidden=true;
+  const sel=$("#wLoja");const ms=Object.entries(DB.merc);
+  sel.innerHTML=Object.entries(LOJA_NOME).map(([k,n])=>`<option value="W-${k}">${n}</option>`).join("")+ms.filter(([id])=>!id.startsWith("W-")).map(([id,m])=>`<option value="${esc(id)}">${esc(m.nome)}</option>`).join("")+'<option value="__novo">➕ Outra loja…</option>';
+  $("#wLojaNova").hidden=true;
+  ir("busca");atualizarBusca(true);
+}
+async function atualizarBusca(buscarNome){
+  const cod=$("#wCodigo").value.replace(/\D/g,"");
+  const termo=wModo==="nome"?encodeURIComponent(($("#wNome").value||wInfo.nome||cod).trim()):cod;
+  const livro=isbnOk(cod);
+  $("#wLojas").innerHTML=cod||wModo==="nome"?LOJAS.map(([k,t,u],i)=>`<a class="btn ${i===0?"top":""}" target="_blank" rel="noopener" href="${u(termo)}" data-loja="${k}">${i===0&&livro?"📚 Amazon (livro)":t}</a>`).join(""):'<p class="mut" style="grid-column:1/-1">Digite ou leia um código para pesquisar.</p>';
+  $$("#wLojas [data-loja]").forEach(a=>a.addEventListener("click",()=>{$("#wLoja").value="W-"+a.dataset.loja}));
+  // histórico guardado deste código
+  const k=cod?resolver("G"+cod.replace(/^0+(?=\d{8})/,"")):null;
+  if(k&&DB.prod[k]){const rs=regsDe(k).sort((a,b)=>a.d<b.d?-1:1);const vs=rs.map(r=>r.v);
+    const por={};rs.forEach(r=>por[r.m]=r);
+    $("#wHist").hidden=false;$("#wHist").innerHTML=`<h2>📊 O que você já guardou</h2><div class="stats"><div class="stat min"><b>${R(Math.min(...vs))}</b><span>menor</span></div><div class="stat"><b>${rs.length}</b><span>registro(s)</span></div><div class="stat max"><b>${R(Math.max(...vs))}</b><span>maior</span></div></div>${grafico(rs)}${barras(Object.values(por).sort((a,b)=>a.v-b.v).map(r=>({t:esc(nomeMerc(r.m)),v:r.v,txt:R(r.v)})))}<button class="btn sec" onclick="abrirDetalhe('${k}')">Ver histórico completo</button>`;
+    if(!wInfo.nome){wInfo.nome=DB.prod[k].nome}}
+  else{$("#wHist").hidden=true}
+  if(buscarNome&&cod&&navigator.onLine&&!wInfo.achou){
+    $("#buscaInfo").innerHTML='<p class="mut">Procurando o nome do produto…</p>';
+    const info=livro?await livroPorIsbn(cod):null;
+    if(info){wInfo={...info,achou:1};}else{const n=await nomePorCodigo(cod);if(n)wInfo={nome:n,achou:1}}
+  }
+  $("#buscaInfo").innerHTML=wInfo.nome?(wInfo.capa?`<div class="livro"><img src="${esc(wInfo.capa)}" alt=""><div><b>${esc(wInfo.nome)}</b><div class="mut">${esc(wInfo.autor||"")}</div></div></div>`:`<b>${esc(wInfo.nome)}</b>`):(cod?'<p class="mut">Nome não encontrado — tudo bem, a busca pelo código funciona igual.</p>':"");
+  if(wInfo.nome&&!$("#wNome").value)$("#wNome").value=wInfo.nome;
+}
+async function livroPorIsbn(isbn){
+  try{const r=await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);const j=await r.json();const v=j.items&&j.items[0]&&j.items[0].volumeInfo;
+    if(v)return{nome:v.title+(v.subtitle?": "+v.subtitle:""),autor:(v.authors||[]).join(", "),capa:v.imageLinks&&(v.imageLinks.thumbnail||"").replace("http:","https:")}}catch(e){}
+  try{const r=await fetch(`https://openlibrary.org/isbn/${isbn}.json`);if(r.ok){const j=await r.json();if(j.title)return{nome:j.title,autor:""}}}catch(e){}
+  return null;
+}
+$("#bWeb").onclick=()=>abrirBusca("");
+$("#wScan").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e","code_128"],"Aponte para o código de barras (no livro, fica atrás)",cod=>abrirBusca(cod));
+let wT=null;$("#wCodigo").oninput=()=>{wInfo={nome:"",autor:""};clearTimeout(wT);wT=setTimeout(()=>atualizarBusca(true),700)};
+$("#wNome").oninput=()=>atualizarBusca(false);
+$$("#wModo button").forEach(b=>b.onclick=()=>{wModo=b.dataset.m;$$("#wModo button").forEach(x=>x.classList.toggle("on",x===b));$("#wNome").hidden=wModo!=="nome";atualizarBusca(false)});
+$("#wLoja").onchange=()=>$("#wLojaNova").hidden=$("#wLoja").value!=="__novo";
+$("#wSalvar").onclick=()=>{
+  const cod=$("#wCodigo").value.replace(/\D/g,""),v=brNum($("#wPreco").value);
+  if(!cod&&!$("#wNome").value.trim()){alert("Leia o código ou escreva o nome");return}
+  if(isNaN(v)||v<=0){alert("Escreva o preço que você achou");return}
+  let mid=$("#wLoja").value;
+  if(mid==="__novo"){const n=$("#wLojaNova").value.trim();if(!n){alert("Escreva o nome da loja");return}mid="W-"+norm(n).toLowerCase().replace(/ /g,"-");if(!DB.merc[mid])DB.merc[mid]={nome:n}}
+  else if(mid.startsWith("W-")&&!DB.merc[mid])DB.merc[mid]={nome:LOJA_NOME[mid.slice(2)]};
+  const nome=($("#wNome").value||wInfo.nome||"Produto "+cod).trim();
+  const k=resolver(garantirProd(cod,nome));
+  DB.reg.push({p:k,m:mid,d:$("#wData").value||hoje(),v,q:1,un:"UN",c:"web"});gravar();
+  toast("✅ Preço guardado");$("#wPreco").value="";atualizarBusca(false);
+};
 
 /* ================= MANUAL ================= */
 function abrirManual(o={}){
@@ -574,26 +684,38 @@ function corMerc(id){const ids=Object.keys(DB.merc);return CORES[Math.max(0,ids.
 function abrirDetalhe(k){atual=resolver(k);voltarPara="detalhe";ir("detalhe");montarPeriodo("#dPeriodo","#dDeAte","#dDe","#dAte",perD,desenharDetalhe);desenharDetalhe()}
 $("#dVoltar").onclick=()=>{voltarPara=null;ir("produtos")};
 function grafico(rs){
-  if(rs.length<2)return"";
-  const W=360,H=170,P=36;const ts=rs.map(r=>+new Date(r.d)),vs=rs.map(r=>r.v);
-  let t0=Math.min(...ts),t1=Math.max(...ts);if(t1===t0)t1=t0+864e5;let v0=Math.min(...vs),v1=Math.max(...vs);const pad=(v1-v0)*.15||v0*.1||1;v0-=pad;v1+=pad;
-  const X=t=>P+(t-t0)/(t1-t0)*(W-P-10),Y=v=>H-22-(v-v0)/(v1-v0)*(H-36);
+  if(rs.length<2)return'<p class="mut">O gráfico aparece quando houver 2 preços ou mais.</p>';
+  const W=360,H=210,P=44,T=24;const ts=rs.map(r=>+new Date(r.d+"T12:00")),vs=rs.map(r=>r.v);
+  let t0=Math.min(...ts),t1=Math.max(...ts);if(t1===t0){t0-=864e5;t1+=864e5}
+  const mn=Math.min(...vs),mx=Math.max(...vs),md=vs.reduce((a,b)=>a+b,0)/vs.length;
+  let v0=mn,v1=mx;const pad=(v1-v0)*.18||v0*.1||1;v0-=pad;v1+=pad;
+  const X=t=>P+(t-t0)/(t1-t0)*(W-P-16),Y=v=>H-24-(v-v0)/(v1-v0)*(H-24-T);
   const por={};rs.forEach(r=>(por[r.m]=por[r.m]||[]).push(r));
+  const n=v=>v.toFixed(2).replace(".",",");
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Gráfico de preços">`;
-  [v0+pad,(v0+v1)/2,v1-pad].forEach(v=>{s+=`<line x1="${P}" x2="${W-10}" y1="${Y(v)}" y2="${Y(v)}" stroke="#ece2d4"/><text x="2" y="${Y(v)+4}">${v.toFixed(2).replace(".",",")}</text>`});
-  s+=`<text x="${P}" y="${H-4}">${dataBR(rs[0].d).slice(0,5)}</text><text x="${W-10}" y="${H-4}" text-anchor="end">${dataBR(rs[rs.length-1].d).slice(0,5)}</text>`;
-  for(const m in por){const c=corMerc(m),pts=por[m].map(r=>`${X(+new Date(r.d)).toFixed(1)},${Y(r.v).toFixed(1)}`);
-    if(pts.length>1)s+=`<polyline fill="none" stroke="${c}" stroke-width="3" stroke-linejoin="round" points="${pts.join(" ")}"/>`;
-    por[m].forEach(r=>s+=`<circle cx="${X(+new Date(r.d))}" cy="${Y(r.v)}" r="4.5" fill="${c}"/>`)}
+  s+=`<rect x="${P}" y="${Y(mx)}" width="${W-P-16}" height="${Math.max(1,Y(mn)-Y(mx))}" fill="#fdf0e1" opacity=".7"/>`;
+  [[mx,"#c62828","maior"],[md,"#6b5e50","média"],[mn,"#2e7d32","menor"]].forEach(([v,c,t],i)=>{if(i===1&&(Math.abs(Y(v)-Y(mx))<14||Math.abs(Y(v)-Y(mn))<14))return;s+=`<line x1="${P}" x2="${W-16}" y1="${Y(v)}" y2="${Y(v)}" stroke="${c}" stroke-dasharray="${i===1?"5 4":"2 3"}" opacity=".6"/><text x="${P-4}" y="${Y(v)+4}" text-anchor="end" style="fill:${c};font-weight:700">${n(v)}</text>`});
+  s+=`<text x="${P}" y="${H-6}">${dataBR(rs[0].d).slice(0,5)}</text><text x="${W-16}" y="${H-6}" text-anchor="end">${dataBR(rs[rs.length-1].d).slice(0,5)}</text>`;
+  for(const m in por){const c=corMerc(m),pts=por[m].map(r=>`${X(+new Date(r.d+"T12:00")).toFixed(1)},${Y(r.v).toFixed(1)}`);
+    if(pts.length>1)s+=`<polyline fill="none" stroke="${c}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" points="${pts.join(" ")}"/>`;
+    por[m].forEach(r=>{const x=X(+new Date(r.d+"T12:00")),y=Y(r.v);s+=`<circle cx="${x}" cy="${y}" r="6" fill="#fff" stroke="${c}" stroke-width="3"><title>${esc(nomeMerc(r.m))} ${dataBR(r.d)}: R$ ${n(r.v)}</title></circle>`;
+      if(r.v===mn||r.v===mx){const tx=Math.min(W-40,Math.max(P+20,x));s+=`<text x="${tx}" y="${r.v===mx?y-11:y+19}" text-anchor="middle" style="font-weight:800;fill:${r.v===mn?"#2e7d32":"#c62828"}">R$ ${n(r.v)}</text>`}})}
   s+="</svg><div class='leg'>"+Object.keys(por).map(m=>`<span><i style="background:${corMerc(m)}"></i>${esc(nomeMerc(m))}</span>`).join("")+"</div>";
   return s;
+}
+/* barras horizontais: itens = [{t, v, txt, cor}] */
+function barras(itens,menorVerde=true){
+  if(!itens.length)return"";const mx=Math.max(...itens.map(x=>x.v)),mn=Math.min(...itens.map(x=>x.v));
+  return '<div class="barras">'+itens.map(x=>{const cor=x.cor||(itens.length>1&&menorVerde?(x.v===mn?"#2e7d32":x.v===mx?"#c62828":"#b45309"):"#b45309");
+    return `<div class="bar"><div class="t"><span>${x.t}</span><b style="color:${cor}">${x.txt}</b></div><div class="f"><i style="width:${Math.max(4,x.v/mx*100)}%;background:${cor}"></i></div></div>`}).join("")+'</div>';
 }
 function desenharDetalhe(){
   const p=DB.prod[atual];if(!p)return ir("produtos");
   $("#dNome").textContent=p.nome;$("#dCod").textContent=p.ean?"Código de barras: "+p.ean:"Sem código de barras vinculado";
   const f=filtroPeriodo(perD,"#dDe","#dAte");
   const rs=regsDe(atual).filter(f).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:0);
-  if(!rs.length){$("#dStats").innerHTML="";$("#dGraf").innerHTML='<p class="mut">Nenhum preço nesse período.</p>';$("#dMerc").innerHTML="";$("#dReg").innerHTML="";}
+  $("#dWeb").innerHTML=p.ean?`<button class="btn sec" onclick="abrirBusca('${p.ean}')">🔎 Pesquisar este produto na internet</button>`:"";
+  if(!rs.length){$("#dStats").innerHTML="";$("#dBarras").innerHTML="";$("#dGraf").innerHTML='<p class="mut">Nenhum preço nesse período.</p>';$("#dMerc").innerHTML="";$("#dReg").innerHTML="";}
   else{
     const vs=rs.map(r=>r.v),mn=Math.min(...vs),mx=Math.max(...vs),md=vs.reduce((a,b)=>a+b,0)/vs.length;
     const rmn=rs.find(r=>r.v===mn),rmx=rs.find(r=>r.v===mx);
@@ -602,6 +724,7 @@ function desenharDetalhe(){
     const por={};rs.forEach(r=>(por[r.m]=por[r.m]||[]).push(r));
     const linhas=Object.entries(por).map(([m,l])=>({m,ult:l[l.length-1],med:l.reduce((a,b)=>a+b.v,0)/l.length,n:l.length}));
     const menorUlt=Math.min(...linhas.map(x=>x.ult.v));
+    $("#dBarras").innerHTML=barras(linhas.slice().sort((a,b)=>a.ult.v-b.ult.v).map(x=>({t:`${x.ult.v===menorUlt&&linhas.length>1?"🏆 ":""}${esc(nomeMerc(x.m))} <span class="mut">${dataBR(x.ult.d).slice(0,5)}</span>`,v:x.ult.v,txt:R(x.ult.v)})));
     $("#dMerc").innerHTML=`<table><tr><th>Mercado</th><th class="r">Último</th><th class="r">Média</th></tr>${linhas.map(x=>`<tr><td>${esc(nomeMerc(x.m))}<div class="mut">${dataBR(x.ult.d)}</div></td><td class="r ${linhas.length>1&&x.ult.v===menorUlt?"barato":""}">${R(x.ult.v)}${linhas.length>1&&x.ult.v===menorUlt?" ✓":""}</td><td class="r">${R(x.med)}</td></tr>`).join("")}</table>`;
     $("#dReg").innerHTML=`<table>${rs.slice().reverse().map(r=>`<tr><td>${dataBR(r.d)}</td><td>${esc(nomeMerc(r.m))}</td><td class="r">${R(r.v)}${r.un&&r.un!=="UN"?"/"+esc(r.un.toLowerCase()):""}</td><td class="r"><button class="btn peq sec" data-del="${DB.reg.indexOf(r)}" style="margin:0;padding:4px 8px">🗑️</button></td></tr>`).join("")}</table>`;
     $$("#dReg [data-del]").forEach(b=>b.onclick=()=>{if(confirm("Apagar este preço?")){DB.reg.splice(+b.dataset.del,1);gravar();desenharDetalhe()}});
@@ -632,11 +755,12 @@ function desenharComparar(){
   else if(!linhas.length){$("#cResumo").innerHTML='<p class="mut">Ainda não há o mesmo produto comprado em mercados diferentes nesse período. Dica: produtos com código de barras se juntam sozinhos; os outros você pode juntar na tela do produto.</p>'}
   else{const ord=Object.entries(vitorias).sort((a,b)=>b[1]-a[1]),melhor=ord[0],emp=ord.filter(x=>x[1]===melhor[1]);
     $("#cResumo").innerHTML=(emp.length>1?`<div class="ok">🤝 Empate: ${emp.map(x=>esc(nomeMerc(x[0]))).join(" e ")} ganharam em ${melhor[1]} produto(s) cada, de ${linhas.length}.</div>`:`<div class="ok">🏆 ${esc(nomeMerc(melhor[0]))} foi o mais barato em ${melhor[1]} de ${linhas.length} produtos.</div>`)+`<p class="mut">Comprando cada item no mais barato, você economizaria cerca de <b>${R(economia)}</b> nesses ${linhas.length} produtos (1 unidade de cada).</p>`}
+  $("#cVit").innerHTML=linhas.length&&mercs.length>1?"<h3>📊 Quantas vezes cada um foi o mais barato</h3>"+barras(Object.entries(vitorias).sort((a,b)=>b[1]-a[1]).map(([m,v])=>({t:esc(nomeMerc(m)),v:Math.max(v,0.0001),txt:v+" produto(s)",cor:corMerc(m)})),false):"";
   $("#cTabela").innerHTML=linhas.length?`<div style="overflow-x:auto"><table><tr><th>Produto</th>${mercs.map(m=>`<th class="r">${esc(nomeMerc(m))}</th>`).join("")}</tr>${linhas.map(l=>`<tr data-k="${esc(l.k)}"><td>${esc(DB.prod[l.k].nome)}</td>${mercs.map(m=>`<td class="r ${l.med[m]===l.mn?"barato":l.med[m]===l.mx?"caro":""}">${l.med[m]!=null?R(l.med[m]):"—"}</td>`).join("")}</tr>`).join("")}</table></div><p class="mut">Média do período. Verde = mais barato, vermelho = mais caro. Toque no produto para ver o histórico.</p>`:'<p class="mut">—</p>';
   $$("#cTabela tr[data-k]").forEach(t=>t.onclick=()=>abrirDetalhe(t.dataset.k));
   // gasto por mês (últimos 6) por mercado
   const meses=[];const d=new Date();d.setDate(1);for(let i=5;i>=0;i--){const x=new Date(d.getFullYear(),d.getMonth()-i,1);meses.push(x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0"))}
-  const allM=Object.keys(DB.merc);const g={};DB.reg.forEach(r=>{const m=r.d.slice(0,7);if(!meses.includes(m))return;g[m]=g[m]||{};g[m][r.m]=(g[m][r.m]||0)+r.v*(r.q||1)});
+  const allM=Object.keys(DB.merc);const g={};DB.reg.forEach(r=>{const m=r.d.slice(0,7);if(!meses.includes(m)||r.c==="web"||r.c==="manual")return;g[m]=g[m]||{};g[m][r.m]=(g[m][r.m]||0)+r.v*(r.q||1)});
   const tot=m=>Object.values(g[m]||{}).reduce((a,b)=>a+b,0);const mxT=Math.max(1,...meses.map(tot));
   $("#cGasto").innerHTML=DB.reg.length?meses.map(m=>{const t=tot(m);return `<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:15px"><b>${MESES[+m.slice(5)-1]}/${m.slice(2,4)}</b><span>${R(t)}</span></div><div style="display:flex;height:16px;border-radius:6px;overflow:hidden;background:#f3ece2;width:100%">${allM.map(id=>{const v=(g[m]||{})[id]||0;return v?`<div style="width:${v/mxT*100}%;background:${corMerc(id)}" title="${esc(nomeMerc(id))}"></div>`:""}).join("")}</div></div>`}).join("")+"<div class='leg'>"+allM.map(id=>`<span><i style="background:${corMerc(id)}"></i>${esc(nomeMerc(id))}</span>`).join("")+"</div>":'<p class="mut">—</p>';
 }
