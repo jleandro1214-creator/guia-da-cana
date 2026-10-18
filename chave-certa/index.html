@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chave Certa</title>
+<meta name="theme-color" content="#1E3A5F">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--azul:#1E3A5F;--azul2:#2C5282;--ambar:#F2A541;--verde:#2F9E58;--verm:#D64545;--fundo:#F3F5F8;--card:#fff;--txt:#1B2430;--sub:#5B6676;--borda:#DDE3EA}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--fundo);color:var(--txt);font:17px/1.45 system-ui,-apple-system,Roboto,sans-serif}
+body.noscroll{overflow:hidden}
+header{background:var(--azul);color:#fff;padding:14px 16px 0;position:sticky;top:0;z-index:5}
+.top{display:flex;align-items:center;gap:10px}
+.top h1{font-size:22px;margin:0;flex:1}
+.top h1 span{color:var(--ambar)}
+#install-btn{background:var(--ambar);color:#1B2430;border:0;border-radius:20px;padding:8px 14px;font-weight:700;font-size:15px}
+nav{display:flex;margin-top:10px}
+nav button{flex:1;background:none;border:0;color:#C9D6E6;font-size:16px;padding:10px 4px 12px;border-bottom:3px solid transparent;font-weight:600}
+nav button.on{color:#fff;border-color:var(--ambar)}
+main{padding:16px;max-width:640px;margin:0 auto}
+section.tab{display:none}section.tab.on{display:block}
+.card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:16px;margin-bottom:14px}
+.card h2{font-size:19px;margin:0 0 8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:14px;padding:16px;font-size:19px;font-weight:700;background:var(--azul);color:#fff;margin-top:10px;cursor:pointer}
+.btn.amb{background:var(--ambar);color:#1B2430}
+.btn.sec{background:#E6ECF3;color:var(--azul)}
+.btn.small{padding:12px;font-size:17px}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:2px solid var(--borda);background:#fff;border-radius:22px;padding:9px 14px;font-size:16px;font-weight:600;color:var(--sub)}
+.chip.on{border-color:var(--azul);background:var(--azul);color:#fff}
+ol.passos{padding-left:22px;margin:6px 0}ol.passos li{margin:6px 0}
+.dica{background:#FFF6E6;border-left:4px solid var(--ambar);padding:10px 12px;border-radius:8px;font-size:16px;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:17px}
+th,td{padding:9px 6px;border-bottom:1px solid var(--borda);text-align:left}
+th{color:var(--sub);font-size:15px}
+label.f{display:block;font-weight:600;margin:12px 0 4px}
+input[type=number],select{width:100%;font-size:19px;padding:12px;border:2px solid var(--borda);border-radius:12px;background:#fff}
+.sw{display:flex;align-items:center;gap:12px;margin-top:12px;font-weight:600}
+.sw input{width:26px;height:26px}
+.hist{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--borda);padding:10px 0}
+.hist img{width:64px;height:64px;border-radius:10px;object-fit:cover;background:#ddd}
+.hist b{font-size:20px}
+.muted{color:var(--sub);font-size:15px}
+#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#1B2430;color:#fff;padding:12px 18px;border-radius:24px;font-size:16px;z-index:99;max-width:90vw;text-align:center}
+/* câmera */
+.full{position:fixed;inset:0;background:#000;z-index:50;display:flex;flex-direction:column}
+#video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.camtop{position:absolute;top:0;left:0;right:0;padding:12px;display:flex;gap:10px;align-items:center;z-index:3;padding-top:max(12px,env(safe-area-inset-top))}
+.ibtn{background:rgba(0,0,0,.55);color:#fff;border:0;border-radius:24px;padding:10px 14px;font-size:17px;font-weight:700}
+#tip{position:absolute;left:12px;right:12px;bottom:150px;text-align:center;z-index:3}
+#tip span{display:inline-block;background:rgba(0,0,0,.72);color:#fff;font-size:21px;font-weight:800;padding:12px 18px;border-radius:16px}
+#tip span.ok{background:var(--verde)}
+#level{position:absolute;right:14px;top:70px;width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,.8);background:rgba(0,0,0,.35);z-index:3}
+#level i{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--ambar);left:24px;top:24px;transition:transform .12s}
+#level:after{content:"";position:absolute;left:21px;top:21px;width:18px;height:18px;border-radius:50%;border:2px solid #fff}
+.cambot{position:absolute;bottom:0;left:0;right:0;padding:18px 16px max(22px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:28px;z-index:3}
+#shot{width:78px;height:78px;border-radius:50%;border:6px solid #fff;background:rgba(255,255,255,.3)}
+#shot.ok{background:var(--verde)}
+/* editor */
+#ed{background:#111}
+.edtop{display:flex;align-items:center;gap:10px;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));color:#fff;background:#1B2430}
+.edtop b{flex:1;font-size:18px}
+#edwrap{flex:1;position:relative;overflow:hidden;touch-action:none}
+#edc{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+#loupe{position:absolute;top:10px;left:10px;width:140px;height:140px;border-radius:50%;border:3px solid var(--ambar);background:#000;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.edbot{background:#fff;padding:14px 16px max(16px,env(safe-area-inset-bottom));border-radius:18px 18px 0 0;max-height:62vh;overflow:auto}
+.edbot p{margin:0 0 6px}
+.res-big{font-size:40px;font-weight:900;color:var(--azul);line-height:1.1}
+.res-big small{font-size:18px;color:var(--sub);font-weight:600;display:block}
+.conf{display:inline-block;padding:4px 10px;border-radius:12px;font-weight:700;font-size:15px;margin-top:6px}
+.conf.alta{background:#DDF4E5;color:#1D6B3A}.conf.media{background:#FFF0D6;color:#8A5A00}.conf.baixa{background:#FBE0E0;color:#9B2C2C}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><h1>🔧 Chave <span>Certa</span></h1><button id="install-btn" hidden>📲 Instalar app</button></div>
+  <nav id="nav"><button class="on" data-t="0">Medir</button><button data-t="1">Tabela</button><button data-t="2">Histórico</button><button data-t="3">Ajustes</button></nav>
+</header>
+<main id="main">
+<section class="tab on" id="t0">
+  <div class="card">
+    <h2>O que vai medir?</h2>
+    <div class="chips" id="tipos"></div>
+    <button class="btn amb" id="abrir">📷 Abrir câmera</button>
+    <label class="btn sec small" for="foto">🖼️ Usar uma foto</label>
+    <input type="file" id="foto" accept="image/*" capture="environment" hidden>
+  </div>
+  <div class="card">
+    <h2>Como fazer</h2>
+    <ol class="passos">
+      <li>Coloque o <b>crachá deitado</b> sobre uma mesa ou superfície lisa.</li>
+      <li>Coloque a <b>porca (ou o parafuso) abaixo do crachá</b>, sem encostar nele.</li>
+      <li>Segure o celular <b>reto, por cima</b>, e siga os avisos na tela: aproxime, afaste, centralize.</li>
+      <li>Quando ficar verde, o app tira a foto sozinho. Confira os cantos do crachá e toque no meio da peça.</li>
+    </ol>
+    <div class="dica">💡 Fica mais preciso em superfície de cor lisa e diferente da peça (folha branca, mesa escura) e com boa luz, sem sombra forte.</div>
+  </div>
+</section>
+<section class="tab" id="t1">
+  <div class="card">
+    <h2>Parafuso métrico → chave</h2>
+    <table><thead><tr><th>Rosca</th><th>Chave (mm)</th></tr></thead><tbody id="tab-m"></tbody></table>
+    <p class="muted">Algumas peças seguem a norma ISO nova, com chave 1 mm menor (ex.: M8 com chave 12).</p>
+  </div>
+  <div class="card">
+    <h2>Parafuso em polegada → chave</h2>
+    <table><thead><tr><th>Rosca</th><th>Chave</th></tr></thead><tbody id="tab-p"></tbody></table>
+  </div>
+  <div class="card">
+    <h2>Chaves parecidas (mm × pol.)</h2>
+    <table><thead><tr><th>Polegada</th><th>Em mm</th><th>Métrica mais perto</th></tr></thead><tbody id="tab-x"></tbody></table>
+    <p class="muted">Quando a diferença é menor que 0,3 mm, as duas costumam servir, mas a certa sempre encaixa sem folga.</p>
+  </div>
+</section>
+<section class="tab" id="t2">
+  <div class="card"><h2>Medidas salvas</h2><div id="hist-list"></div></div>
+</section>
+<section class="tab" id="t3">
+  <div class="card">
+    <h2>Seu crachá</h2>
+    <p class="muted">Meça o crachá com uma régua, de ponta a ponta, em milímetros. Quanto mais exata essa medida, mais exato o app.</p>
+    <div class="row">
+      <div><label class="f" for="bw">Comprimento (mm)</label><input type="number" id="bw" step="0.1" inputmode="decimal"></div>
+      <div><label class="f" for="bh">Altura (mm)</label><input type="number" id="bh" step="0.1" inputmode="decimal"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Câmera</h2>
+    <label class="sw"><input type="checkbox" id="auto"> Tirar a foto sozinho quando ficar verde</label>
+  </div>
+  <div class="card">
+    <h2>Ajuste fino</h2>
+    <p id="fator-txt"></p>
+    <p class="muted">Quando uma medida sair errada, informe a medida real na tela do resultado. O app aprende e corrige as próximas.</p>
+    <button class="btn sec small" id="fator-zera">Zerar ajuste fino</button>
+  </div>
+  <div class="card"><button class="btn sec small" id="hist-zera">🗑️ Apagar histórico</button></div>
+</section>
+</main>
+
+<!-- Câmera -->
+<div class="full" id="cam" hidden>
+  <video id="video" playsinline muted autoplay></video>
+  <svg id="guide"></svg>
+  <div class="camtop"><button class="ibtn" id="cam-x">✕ Fechar</button><span style="flex:1"></span><button class="ibtn" id="torch" hidden>🔦 Luz</button></div>
+  <div id="level"><i></i></div>
+  <div id="tip"><span>Abrindo a câmera…</span></div>
+  <div class="cambot"><button id="shot" aria-label="Tirar foto"></button></div>
+</div>
+
+<!-- Editor -->
+<div class="full" id="ed" hidden>
+  <div class="edtop"><button class="ibtn" id="ed-x">← Voltar</button><b id="ed-title">Cantos do crachá</b></div>
+  <div id="edwrap"><canvas id="edc"></canvas><canvas id="loupe" width="280" height="280" hidden></canvas></div>
+  <div class="edbot" id="edbot"></div>
+</div>
+
+<div id="install-help" class="full" hidden style="background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:20px">
+  <div class="card" style="max-width:420px"><h2>Instalar o app</h2><p>No Chrome, toque nos <b>três pontinhos ⋮</b> lá em cima e depois em <b>“Instalar app”</b> ou <b>“Adicionar à tela inicial”</b>.</p><button class="btn" id="ih-close">Entendi</button></div>
+</div>
+<div id="toast" hidden></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const fmt=(n,d=1)=>n.toFixed(d).replace('.',',');
+const LS={get(k,d){try{const v=localStorage.getItem('chavecerta-'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('chavecerta-'+k,JSON.stringify(v))}catch(e){}}};
+let cfg=Object.assign({bw:85,bh:59,auto:true,fator:1,nf:0,tipo:'porca'},LS.get('cfg',{}));
+const saveCfg=()=>LS.set('cfg',cfg);
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2600)}
+
+/* ---------- Tabelas de medidas ---------- */
+const METRIC=[5.5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26,27,30,32,34,36,41,46,50,55,60];
+const POL=[[1/4,'1/4"'],[5/16,'5/16"'],[11/32,'11/32"'],[3/8,'3/8"'],[7/16,'7/16"'],[1/2,'1/2"'],[9/16,'9/16"'],[5/8,'5/8"'],[11/16,'11/16"'],[3/4,'3/4"'],[13/16,'13/16"'],[7/8,'7/8"'],[15/16,'15/16"'],[1,'1"'],[1.0625,'1.1/16"'],[1.125,'1.1/8"'],[1.25,'1.1/4"'],[1.3125,'1.5/16"'],[1.5,'1.1/2"']].map(([v,l])=>[v*25.4,l]);
+const ROSCA_M=[[3,'5,5'],[4,'7'],[5,'8'],[6,'10'],[8,'13 (ou 12)'],[10,'17 (ou 16)'],[12,'19 (ou 18)'],[14,'22 (ou 21)'],[16,'24'],[18,'27'],[20,'30'],[22,'32'],[24,'36'],[27,'41'],[30,'46'],[36,'55']];
+const ROSCA_P=[[1/4,'1/4"','7/16"'],[5/16,'5/16"','1/2"'],[3/8,'3/8"','9/16"'],[7/16,'7/16"','5/8"'],[1/2,'1/2"','3/4"'],[5/8,'5/8"','15/16"'],[3/4,'3/4"','1.1/8"'],[7/8,'7/8"','1.5/16"'],[1,'1"','1.1/2"']].map(([v,a,b])=>[v*25.4,a,b]);
+const CHAVE_ROSCA={5.5:'M3',7:'M4',8:'M5',10:'M6',12:'M8 (ISO)',13:'M8',16:'M10 (ISO)',17:'M10',18:'M12 (ISO)',19:'M12',21:'M14 (ISO)',22:'M14',24:'M16',27:'M18',30:'M20',32:'M22',36:'M24',41:'M27',46:'M30',55:'M36'};
+const TIPOS={porca:{n:'🔩 Porca',h:0.52,g:'PORCA AQUI'},cabeca:{n:'⬡ Cabeça de parafuso',h:0.41,g:'CABEÇA AQUI'},rosca:{n:'📏 Rosca (parafuso deitado)',h:0.5,g:'PARAFUSO DEITADO'}};
+const near=(list,v)=>{let b=null;for(const it of list){const x=Array.isArray(it)?it[0]:it;if(!b||Math.abs(x-v)<Math.abs(b.v-v))b={v:x,it};}return b};
+$('#tab-m').innerHTML=ROSCA_M.map(r=>`<tr><td><b>M${r[0]}</b></td><td>${r[1]}</td></tr>`).join('');
+$('#tab-p').innerHTML=ROSCA_P.map(r=>`<tr><td><b>${r[1]}</b></td><td>${r[2]}</td></tr>`).join('');
+$('#tab-x').innerHTML=POL.slice(0,16).map(([mm,l])=>{const m=near(METRIC,mm).v;return `<tr><td><b>${l}</b></td><td>${fmt(mm)}</td><td>${fmt(m,m%1?1:0)} mm</td></tr>`}).join('');
+
+/* ---------- Abas ---------- */
+let tab=0;
+function goTab(i){tab=Math.max(0,Math.min(3,i));document.querySelectorAll('#nav button').forEach((b,k)=>b.classList.toggle('on',k===tab));document.querySelectorAll('section.tab').forEach((s,k)=>s.classList.toggle('on',k===tab));if(tab===2)renderHist();if(tab===3)renderCfg();try{sessionStorage.setItem('chavecerta-tab',tab)}catch(e){}window.scrollTo(0,0)}
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>goTab(+b.dataset.t));
+let tx=0,ty=0;
+$('#main').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('#main').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.3)goTab(tab+(dx<0?1:-1))},{passive:true});
+
+function renderTipos(){$('#tipos').innerHTML=Object.entries(TIPOS).map(([k,t])=>`<button class="chip ${cfg.tipo===k?'on':''}" data-k="${k}">${t.n}</button>`).join('');
+ document.querySelectorAll('#tipos .chip').forEach(b=>b.onclick=()=>{cfg.tipo=b.dataset.k;saveCfg();renderTipos()})}
+renderTipos();
+
+/* ---------- Ajustes ---------- */
+function renderCfg(){$('#bw').value=cfg.bw;$('#bh').value=cfg.bh;$('#auto').checked=cfg.auto;
+ $('#fator-txt').innerHTML=cfg.nf?`Correção atual: <b>${cfg.fator>1?'+':''}${fmt((cfg.fator-1)*100)}%</b> (aprendida em ${cfg.nf} medida${cfg.nf>1?'s':''}).`:'Nenhuma correção aprendida ainda.'}
+$('#bw').onchange=()=>{const v=parseFloat($('#bw').value);if(v>20&&v<300){cfg.bw=v;saveCfg();toast('Medida do crachá salva')}};
+$('#bh').onchange=()=>{const v=parseFloat($('#bh').value);if(v>20&&v<300){cfg.bh=v;saveCfg();toast('Medida do crachá salva')}};
+$('#auto').onchange=()=>{cfg.auto=$('#auto').checked;saveCfg()};
+$('#fator-zera').onclick=()=>{cfg.fator=1;cfg.nf=0;saveCfg();renderCfg();toast('Ajuste fino zerado')};
+$('#hist-zera').onclick=()=>{if(confirm('Apagar todas as medidas salvas?')){LS.set('hist',[]);toast('Histórico apagado')}};
+
+/* ---------- Histórico ---------- */
+function renderHist(){const h=LS.get('hist',[]);$('#hist-list').innerHTML=h.length?h.map(x=>`<div class="hist"><img src="${x.img||''}" alt=""><div><b>${x.chave}</b><div>${x.det}</div><div class="muted">${x.data}</div></div></div>`).join(''):'<p class="muted">Nenhuma medida salva ainda.</p>'}
+
+/* ---------- Câmera ---------- */
+const video=$('#video');let stream=null,track=null,loopOn=false,G=null,lastBox=null,goodSince=0,lvl={ok:true,has:false,b:0,g:0},torchOn=false;
+const acan=document.createElement('canvas');const actx=acan.getContext('2d',{willReadFrequently:true});
+$('#abrir').onclick=openCam;
+async function openCam(){
+ $('#cam').hidden=false;document.body.classList.add('noscroll');setTip('Abrindo a câmera…');
+ try{
+  stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:3840},height:{ideal:2160}}});
+ }catch(e){closeCam();toast('Não consegui abrir a câmera. Use "Usar uma foto".');return}
+ video.srcObject=stream;try{await video.play()}catch(e){}
+ track=stream.getVideoTracks()[0];
+ try{const c=track.getCapabilities?track.getCapabilities():{};if(c.focusMode&&c.focusMode.includes('continuous'))await track.applyConstraints({advanced:[{focusMode:'continuous'}]});$('#torch').hidden=!c.torch}catch(e){}
+ lastBox=null;goodSince=0;layoutGuide();startLevel();loopOn=true;loop();
+}
+function closeCam(){loopOn=false;if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;track=null;torchOn=false;$('#cam').hidden=true;document.body.classList.remove('noscroll');stopLevel()}
+$('#cam-x').onclick=closeCam;
+$('#torch').onclick=async()=>{try{torchOn=!torchOn;await track.applyConstraints({advanced:[{torch:torchOn}]})}catch(e){toast('Luz não disponível')}};
+$('#shot').onclick=()=>capture();
+window.addEventListener('resize',()=>{if(!$('#cam').hidden)layoutGuide();if(!$('#ed').hidden)edResize()});
+function setTip(t,ok){$('#tip').innerHTML=`<span class="${ok?'ok':''}">${t}</span>`}
+function layoutGuide(){
+ const W=$('#cam').clientWidth,H=$('#cam').clientHeight;
+ const R=Math.min(W*0.13,H*0.08);let gw=W*0.66,gh=gw*cfg.bh/cfg.bw;
+ let gy=H/2-R-H*0.06-gh;if(gy<80){const k=(H/2-R-H*0.06-80)/gh;gw*=k;gh*=k;gy=80}
+ G={x:(W-gw)/2,y:gy,w:gw,h:gh,nx:W/2,ny:H/2,R,W,H};drawGuide(false);
+}
+function drawGuide(ok){if(!G)return;const c=ok?'#3DDC84':'#F2A541';
+ $('#guide').setAttribute('viewBox',`0 0 ${G.W} ${G.H}`);
+ $('#guide').innerHTML=`<rect x="${G.x}" y="${G.y}" width="${G.w}" height="${G.h}" rx="10" fill="none" stroke="${c}" stroke-width="4" stroke-dasharray="14 8"/>
+ <text x="${G.W/2}" y="${G.y+G.h/2+7}" text-anchor="middle" fill="${c}" font-size="20" font-weight="800" opacity=".85">CRACHÁ</text>
+ <circle cx="${G.nx}" cy="${G.ny}" r="${G.R}" fill="none" stroke="${c}" stroke-width="3" stroke-dasharray="8 6"/>
+ <text x="${G.nx}" y="${G.ny+G.R+24}" text-anchor="middle" fill="${c}" font-size="16" font-weight="800">${TIPOS[cfg.tipo].g}</text>`}
+function mapInfo(){const vw=video.videoWidth,vh=video.videoHeight,W=G.W,H=G.H;const s=Math.max(W/vw,H/vh);return{s,ox:(W-vw*s)/2,oy:(H-vh*s)/2,vw,vh}}
+let lastT=0;
+function loop(){if(!loopOn)return;requestAnimationFrame(loop);const now=performance.now();if(now-lastT<160)return;lastT=now;if(!video.videoWidth)return;
+ const r=analyze();let msg,ok=false;
+ if(!r){msg='Encaixe o crachá deitado dentro da moldura';lastBox=null}
+ else{lastBox=r.box;
+  if(r.aspect)msg='Deite o crachá na horizontal, como na moldura';
+  else if(lvl.has&&!lvl.ok)msg='Deixe o celular reto, paralelo à mesa';
+  else if(r.ratio<0.88)msg='⬇ Aproxime o celular';
+  else if(r.ratio>1.12)msg='⬆ Afaste o celular';
+  else if(r.off>0.1)msg='Centralize o crachá na moldura';
+  else{ok=true;msg='Perfeito! Segure firme…'}}
+ drawGuide(ok);$('#shot').classList.toggle('ok',ok);
+ if(ok){if(!goodSince)goodSince=now;if(cfg.auto&&now-goodSince>900){setTip('📸 Foto!',true);try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}capture();return}}else goodSince=0;
+ setTip(msg,ok);
+}
+function analyze(){
+ const m=mapInfo();const g={x:(G.x-m.ox)/m.s,y:(G.y-m.oy)/m.s,w:G.w/m.s,h:G.h/m.s};
+ const ex=0.6,rx=g.x-g.w*ex,ry=g.y-g.h*ex,rw=g.w*(1+2*ex),rh=g.h*(1+2*ex);
+ const cw=220,ch=Math.max(20,Math.round(cw*rh/rw));acan.width=cw;acan.height=ch;
+ actx.fillStyle='#000';actx.fillRect(0,0,cw,ch);
+ try{actx.drawImage(video,rx,ry,rw,rh,0,0,cw,ch)}catch(e){return null}
+ const d=actx.getImageData(0,0,cw,ch).data,gr=new Float32Array(cw*ch);
+ for(let i=0;i<cw*ch;i++)gr[i]=d[i*4]*0.3+d[i*4+1]*0.59+d[i*4+2]*0.11;
+ const sx=cw/rw,gw=g.w*sx,gh=g.h*sx,cx=cw/2,cy=ch/2;
+ const col=new Float32Array(cw),row=new Float32Array(ch);
+ const y0=Math.max(1,Math.round(cy-gh*0.3)),y1=Math.min(ch-2,Math.round(cy+gh*0.3));
+ for(let y=y0;y<=y1;y++)for(let x=1;x<cw-1;x++)col[x]+=Math.abs(gr[y*cw+x+1]-gr[y*cw+x-1]);
+ const x0=Math.max(1,Math.round(cx-gw*0.3)),x1=Math.min(cw-2,Math.round(cx+gw*0.3));
+ for(let x=x0;x<=x1;x++)for(let y=1;y<ch-1;y++)row[y]+=Math.abs(gr[(y+1)*cw+x]-gr[(y-1)*cw+x]);
+ const pk=(p,a,b)=>{a=Math.max(2,Math.round(a));b=Math.min(p.length-3,Math.round(b));let bi=-1,bv=0;for(let i=a;i<=b;i++){const v=p[i-1]+2*p[i]+p[i+1];if(v>bv){bv=v;bi=i}}return{i:bi,v:bv}};
+ const med=p=>{const s=Array.from(p).filter(v=>v>0).sort((a,b)=>a-b);return s[s.length>>1]||1};
+ const mc=med(col)*4,mr=med(row)*4;
+ const L=pk(col,0,cx-gw*0.2),R=pk(col,cx+gw*0.2,cw),T=pk(row,0,cy-gh*0.2),B=pk(row,cy+gh*0.2,ch);
+ if(L.v<mc*1.8||R.v<mc*1.8||T.v<mr*1.8||B.v<mr*1.8)return null;
+ const bw=R.i-L.i,bh=B.i-T.i;if(bw<10||bh<10)return null;
+ const asp=(bw/bh)/(cfg.bw/cfg.bh);
+ const ratio=bw/gw,off=Math.hypot((L.i+R.i)/2-cx,(T.i+B.i)/2-cy)/gw;
+ const tv=v=>({x:rx+v.x/sx,y:ry+v.y/sx});
+ const box=[tv({x:L.i,y:T.i}),tv({x:R.i,y:T.i}),tv({x:R.i,y:B.i}),tv({x:L.i,y:B.i})];
+ return{ratio,off,aspect:asp<0.75||asp>1.33,box};
+}
+function onOri(e){if(e.beta==null)return;lvl.has=true;lvl.b=e.beta;lvl.g=e.gamma;lvl.ok=Math.abs(e.beta)<6&&Math.abs(e.gamma)<6;
+ const k=2.2;$('#level i').style.transform=`translate(${Math.max(-26,Math.min(26,e.gamma*k))}px,${Math.max(-26,Math.min(26,e.beta*k))}px)`;$('#level i').style.background=lvl.ok?'#3DDC84':'#F2A541'}
+function startLevel(){lvl={ok:true,has:false};window.addEventListener('deviceorientation',onOri)}
+function stopLevel(){window.removeEventListener('deviceorientation',onOri)}
+function capture(){
+ const vw=video.videoWidth,vh=video.videoHeight;if(!vw){toast('Câmera ainda não está pronta');return}
+ const c=document.createElement('canvas');c.width=vw;c.height=vh;c.getContext('2d').drawImage(video,0,0);
+ const m=mapInfo();const tv=(x,y)=>({x:(x-m.ox)/m.s,y:(y-m.oy)/m.s});
+ const quad=lastBox?lastBox.map(p=>({...p})):[tv(G.x,G.y),tv(G.x+G.w,G.y),tv(G.x+G.w,G.y+G.h),tv(G.x,G.y+G.h)];
+ closeCam();openEditor(c,quad,true);
+}
+$('#foto').onchange=e=>{const f=e.target.files[0];if(!f)return;const img=new Image();img.onload=()=>{
+ const s=Math.min(1,3200/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(img.src);
+ const w=c.width,h=c.height,bw=w*0.6,bh=bw*cfg.bh/cfg.bw,x=(w-bw)/2,y=h*0.42-bh;
+ openEditor(c,[{x,y},{x:x+bw,y},{x:x+bw,y:y+bh},{x,y:y+bh}],true)};img.src=URL.createObjectURL(f);e.target.value=''};
+
+/* ---------- Geometria ---------- */
+function solve(A,b){const n=b.length;for(let i=0;i<n;i++){let p=i;for(let r=i+1;r<n;r++)if(Math.abs(A[r][i])>Math.abs(A[p][i]))p=r;[A[i],A[p]]=[A[p],A[i]];[b[i],b[p]]=[b[p],b[i]];for(let r=i+1;r<n;r++){const f=A[r][i]/A[i][i];for(let c=i;c<n;c++)A[r][c]-=f*A[i][c];b[r]-=f*b[i]}}const x=new Array(n);for(let i=n-1;i>=0;i--){let s=b[i];for(let c=i+1;c<n;c++)s-=A[i][c]*x[c];x[i]=s/A[i][i]}return x}
+function homog(src,dst){const A=[],b=[];for(let i=0;i<4;i++){const{x,y}=src[i],{x:u,y:v}=dst[i];A.push([x,y,1,0,0,0,-u*x,-u*y]);b.push(u);A.push([0,0,0,x,y,1,-v*x,-v*y]);b.push(v)}const h=solve(A,b);return[[h[0],h[1],h[2]],[h[3],h[4],h[5]],[h[6],h[7],1]]}
+function inv3(m){const[a,b,c]=m[0],[d,e,f]=m[1],[g,h,i]=m[2];const A=e*i-f*h,B=-(d*i-f*g),C=d*h-e*g,D=-(b*i-c*h),E=a*i-c*g,F=-(a*h-b*g),Gg=b*f-c*e,Hh=-(a*f-c*d),I=a*e-b*d;const det=a*A+b*B+c*C;return[[A/det,D/det,Gg/det],[B/det,E/det,Hh/det],[C/det,F/det,I/det]]}
+const apply=(H,x,y)=>{const w=H[2][0]*x+H[2][1]*y+H[2][2];return{x:(H[0][0]*x+H[0][1]*y+H[0][2])/w,y:(H[1][0]*x+H[1][1]*y+H[1][2])/w}};
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+
+/* ---------- Editor ---------- */
+let E=null;
+function openEditor(canvas,quad,refine){
+ const iw=canvas.width,ih=canvas.height,d=canvas.getContext('2d',{willReadFrequently:true}).getImageData(0,0,iw,ih).data,gray=new Float32Array(iw*ih);
+ for(let i=0;i<iw*ih;i++)gray[i]=d[i*4]*0.3+d[i*4+1]*0.59+d[i*4+2]*0.11;
+ E={img:canvas,iw,ih,gray,quad,state:'cantos',fit:null,man:null,res:null,drag:null};
+ $('#ed').hidden=false;document.body.classList.add('noscroll');edResize();
+ if(refine){const q=refineQuad(E.quad);if(q)E.quad=q}
+ setState('cantos');
+}
+$('#ed-x').onclick=()=>{if(E&&E.state!=='cantos'){setState('cantos');return}closeEd()};
+function closeEd(){$('#ed').hidden=true;document.body.classList.remove('noscroll');E=null}
+function I(x,y){const{iw,ih,gray}=E;if(x<0||y<0||x>iw-2||y>ih-2)return 0;const x0=x|0,y0=y|0,fx=x-x0,fy=y-y0,k=y0*iw+x0;return gray[k]*(1-fx)*(1-fy)+gray[k+1]*fx*(1-fy)+gray[k+iw]*(1-fx)*fy+gray[k+iw+1]*fx*fy}
+function edResize(){const c=$('#edc'),r=c.getBoundingClientRect(),dpr=window.devicePixelRatio||1;c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);E.dpr=dpr;E.cw=r.width;E.ch=r.height;E.ds=Math.min(r.width/E.iw,r.height/E.ih);E.ox=(r.width-E.iw*E.ds)/2;E.oy=(r.height-E.ih*E.ds)/2;draw()}
+const toS=p=>({x:E.ox+p.x*E.ds,y:E.oy+p.y*E.ds}),toI=p=>({x:(p.x-E.ox)/E.ds,y:(p.y-E.oy)/E.ds});
+function refineQuad(q){
+ const lines=[];
+ for(let i=0;i<4;i++){const a=q[i],b=q[(i+1)%4],L=dist(a,b),nx=-(b.y-a.y)/L,ny=(b.x-a.x)/L,S=Math.max(6,L*0.06),pts=[];
+  for(let k=1;k<40;k++){const t=0.08+0.84*k/40,px=a.x+(b.x-a.x)*t,py=a.y+(b.y-a.y)*t;let best=0,bo=0;
+   for(let o=-S;o<=S;o+=0.5){const g=Math.abs(I(px+nx*(o+1.5),py+ny*(o+1.5))-I(px+nx*(o-1.5),py+ny*(o-1.5)));if(g>best){best=g;bo=o}}
+   if(best>10)pts.push({x:px+nx*bo,y:py+ny*bo})}
+  if(pts.length<12)return null;
+  let ln=fitLine(pts);const ds=pts.map(p=>Math.abs(ln.a*p.x+ln.b*p.y-ln.c)),md=ds.slice().sort((x,y)=>x-y)[ds.length>>1];
+  const keep=pts.filter((p,j)=>ds[j]<=Math.max(1.5,md*2.5));if(keep.length<10)return null;lines.push(fitLine(keep))}
+ const out=[];for(let i=0;i<4;i++){const p=inter(lines[(i+3)%4],lines[i]);if(!p||dist(p,q[i])>Math.max(30,dist(q[0],q[1])*0.12))return null;out.push(p)}
+ return out}
+function fitLine(p){let mx=0,my=0;p.forEach(q=>{mx+=q.x;my+=q.y});mx/=p.length;my/=p.length;let sxx=0,syy=0,sxy=0;p.forEach(q=>{const dx=q.x-mx,dy=q.y-my;sxx+=dx*dx;syy+=dy*dy;sxy+=dx*dy});const th=0.5*Math.atan2(2*sxy,sxx-syy),dx=Math.cos(th),dy=Math.sin(th);const a=-dy,b=dx;return{a,b,c:a*mx+b*my}}
+function inter(l1,l2){const det=l1.a*l2.b-l2.a*l1.b;if(Math.abs(det)<1e-9)return null;return{x:(l1.c*l2.b-l2.c*l1.b)/det,y:(l1.a*l2.c-l2.a*l1.c)/det}}
+function buildH(){const q=E.quad,horiz=dist(q[0],q[1])+dist(q[3],q[2])>=dist(q[1],q[2])+dist(q[0],q[3]);
+ const W=horiz?cfg.bw:cfg.bh,H=horiz?cfg.bh:cfg.bw;E.BW=W;E.BH=H;E.H=homog([{x:0,y:0},{x:W,y:0},{x:W,y:H},{x:0,y:H}],q);E.Hi=inv3(E.H);E.Z=estZ()}
+function estZ(){const H=E.H,cx=E.iw/2,cy=E.ih/2;const col=j=>[H[0][j]-cx*H[2][j],H[1][j]-cy*H[2][j],H[2][j]];const h1=col(0),h2=col(1),h3=col(2);
+ const fg=0.755*Math.max(E.iw,E.ih);let f=fg;const den=h1[2]*h2[2];if(Math.abs(den)>1e-14){const f2=-(h1[0]*h2[0]+h1[1]*h2[1])/den;if(f2>0){const ff=Math.sqrt(f2);if(ff>fg*0.6&&ff<fg*1.6)f=ff}}
+ const lam=1/Math.hypot(h1[0]/f,h1[1]/f,h1[2]);return Math.abs(lam*h3[2])}
+
+/* raios a partir do centro (em mm) para achar o contorno da peça */
+function castRays(c,N){const step=0.05,out=new Array(N).fill(NaN),{BW,BH,H}=E;
+ for(let i=0;i<N;i++){const th=i*2*Math.PI/N,ux=Math.cos(th),uy=Math.sin(th);let lim=40;
+  for(let r=1;r<40;r+=0.5){const x=c.x+ux*r,y=c.y+uy*r;if(x>-3&&x<BW+3&&y>-3&&y<BH+3){lim=r-1;break}}
+  const n=Math.floor((lim-0.8)/step);if(n<30)continue;const v=new Float32Array(n);
+  for(let k=0;k<n;k++){const r=0.8+k*step,p=apply(H,c.x+ux*r,c.y+uy*r);v[k]=I(p.x,p.y)}
+  const sm=new Float32Array(n);for(let k=2;k<n-2;k++)sm[k]=(v[k-2]+v[k-1]+v[k]+v[k+1]+v[k+2])/5;
+  const g=new Float32Array(n);let mx=0;for(let k=5;k<n-5;k++){g[k]=Math.abs(sm[k+3]-sm[k-3]);if(g[k]>mx)mx=g[k]}
+  if(mx<6)continue;let pick=-1;for(let k=n-6;k>=5;k--)if(g[k]>=0.4*mx&&g[k]>=g[k-1]&&g[k]>=g[k+1]){pick=k;break}
+  if(pick<0)continue;const a=g[pick-1],b=g[pick],cc=g[pick+1],den=a-2*b+cc,off=Math.abs(den)>1e-6?0.5*(a-cc)/den:0;
+  out[i]=0.8+(pick+Math.max(-1,Math.min(1,off)))*step}
+ return out}
+const median=a=>{const s=a.slice().sort((x,y)=>x-y);return s[s.length>>1]};
+function hexFit(c0){const N=120;let c={...c0},r;
+ for(let it=0;it<5;it++){r=castRays(c,N);const mx=[],my=[];for(let i=0;i<N/2;i++){const a=r[i],b=r[i+N/2];if(isNaN(a)||isNaN(b))continue;const th=i*2*Math.PI/N;mx.push(c.x+Math.cos(th)*(a-b)/2);my.push(c.y+Math.sin(th)*(a-b)/2)}
+  if(mx.length<15)return null;const nc={x:median(mx),y:median(my)};const mv=dist(nc,c);c=nc;if(mv<0.03)break}
+ r=castRays(c,N);const th=[],rr=[];r.forEach((v,i)=>{if(!isNaN(v)){th.push(i*360/N);rr.push(v)}});if(rr.length<40)return null;
+ let best=null;for(let phi=0;phi<60;phi+=0.5){const a=rr.map((v,j)=>{const d=((((th[j]-phi)%60)+60)%60-30)*Math.PI/180;return v*Math.cos(d)});const m=median(a),dev=median(a.map(x=>Math.abs(x-m)));if(!best||dev<best.dev)best={phi,dev,a,m}}
+ const tol=Math.max(0.15,best.m*0.04),inl=best.a.filter(x=>Math.abs(x-best.m)<tol);if(inl.length<30)return null;
+ const am=inl.reduce((s,x)=>s+x,0)/inl.length,sd=Math.sqrt(inl.reduce((s,x)=>s+(x-am)**2,0)/inl.length);
+ const rm=median(rr),cdev=median(rr.map(x=>Math.abs(x-rm)));
+ return{c,a:am,phi:best.phi,sd,inl:inl.length/N,hexy:best.dev<cdev*0.7}}
+
+function setState(s){E.state=s;if(s==='cantos'){E.fit=null;E.man=null;E.res=null}
+ const bot=$('#edbot');
+ if(s==='cantos'){$('#ed-title').textContent='1. Cantos do crachá';
+  bot.innerHTML=`<p>Arraste as 4 bolinhas até os <b>cantos do crachá</b>. Use a lupa para acertar bem.</p><div class="row"><button class="btn sec small" id="b-auto">✨ Ajustar sozinho</button><button class="btn small" id="b-ok">Cantos OK →</button></div>`;
+  $('#b-auto').onclick=()=>{const q=refineQuad(E.quad);if(q){E.quad=q;draw();toast('Cantos ajustados')}else toast('Não achei as bordas. Ajuste com o dedo.')};
+  $('#b-ok').onclick=()=>{buildH();setState(cfg.tipo==='rosca'?'manual':'toque')}}
+ else if(s==='toque'){$('#ed-title').textContent='2. Toque na peça';
+  bot.innerHTML=`<p><b>Toque bem no meio da ${cfg.tipo==='porca'?'porca':'cabeça do parafuso'}.</b> O app encontra o contorno sozinho.</p><button class="btn sec small" id="b-man">📏 Prefiro medir com 2 pontos</button>`;
+  $('#b-man').onclick=()=>setState('manual')}
+ else if(s==='manual'){$('#ed-title').textContent=cfg.tipo==='rosca'?'2. Largura da rosca':'2. Entre as faces';
+  if(!E.man){const c=E.fit?E.fit.c:{x:E.BW/2,y:E.BH+25};const a=E.fit?E.fit.a:6;E.man=[{x:c.x-a,y:c.y},{x:c.x+a,y:c.y}].map(p=>apply(E.H,p.x,p.y))}
+  bot.innerHTML=`<p>${cfg.tipo==='rosca'?'Arraste as 2 bolinhas para as <b>duas bordas da rosca</b>, atravessando o parafuso.':'Arraste as 2 bolinhas para <b>duas faces retas opostas</b> da peça.'}</p><div id="man-res"></div>`;manResult()}
+ draw()}
+function tapAt(pI){const m=apply(E.Hi,pI.x,pI.y);if(m.x>-2&&m.x<E.BW+2&&m.y>-2&&m.y<E.BH+2){toast('Esse ponto é no crachá. Toque na peça.');return}
+ const f=hexFit(m);if(!f){toast('Não achei o contorno. Tente tocar de novo ou meça com 2 pontos.');return}
+ E.fit=f;E.state='resultado';const raw=2*f.a;showResult(raw,{sd:f.sd/f.a,hexy:f.hexy,inl:f.inl});draw()}
+function correct(raw){const h=TIPOS[cfg.tipo].h;return raw/(1+h*raw/E.Z)}
+function manResult(){const a=apply(E.Hi,E.man[0].x,E.man[0].y),b=apply(E.Hi,E.man[1].x,E.man[1].y);const raw=dist(a,b);showResult(raw,null,true)}
+function showResult(raw,q,manual){
+ const base=correct(raw),v=base*cfg.fator;E.res={raw,base,v};
+ const bot=manual?$('#man-res'):$('#edbot');
+ if(!manual)$('#ed-title').textContent='Resultado';
+ let html;
+ if(cfg.tipo==='rosca'){const m=near(ROSCA_M,v),p=near(ROSCA_P,v);const usaP=Math.abs(p.v-v)<Math.abs(m.v-v);
+  const conf=confTxt(Math.min(Math.abs(m.v-v),Math.abs(p.v-v))<(v<10?0.35:0.6)?'alta':'media');
+  html=`<div class="res-big">${usaP?p.it[1]:'M'+m.v} <small>rosca medida: ${fmt(v)} mm</small></div>
+  <p style="font-size:20px;margin-top:8px">🔧 Chave: <b>${usaP?p.it[2]:m.it[1]+' mm'}</b></p>${conf}
+  ${!usaP&&Math.abs(p.v-v)<0.6?`<p class="muted">Se for parafuso em polegada: ${p.it[1]}, chave ${p.it[2]}.</p>`:''}`;
+  E.res.chave=usaP?p.it[2]:m.it[1]+' mm';E.res.det=`Rosca ${usaP?p.it[1]:'M'+m.v} · ${fmt(v)} mm`}
+ else{const m=near(METRIC,v),p=near(POL,v),dm=Math.abs(m.v-v),dp=Math.abs(p.v-v);
+  let nivel=dm<0.3?'alta':dm<0.55?'media':'baixa';if(q){if(!q.hexy||q.sd>0.05||q.inl<0.5)nivel=nivel==='alta'?'media':'baixa'}
+  if(dp<dm-0.1&&nivel!=='baixa')nivel='media';
+  const sizes=METRIC.slice().sort((x,y)=>Math.abs(x-v)-Math.abs(y-v));const seg=sizes[1];
+  const mtxt=m.v%1?fmt(m.v):m.v;
+  html=`<div class="res-big">Chave ${dp<dm-0.15?p.it[1]:mtxt+' mm'} <small>medido entre as faces: ${fmt(v)} mm</small></div>
+  ${dp<dm-0.15?`<p>Métrica mais perto: <b>${mtxt} mm</b></p>`:(dp<0.45?`<p>Também pode servir: <b>${p.it[1]}</b> (${fmt(p.v)} mm)</p>`:'')}
+  ${nivel!=='alta'?`<p>Se não encaixar, tente a <b>${seg%1?fmt(seg):seg} mm</b>.</p>`:''}
+  ${confTxt(nivel)}${CHAVE_ROSCA[m.v]?`<p class="muted">Rosca provável: ${CHAVE_ROSCA[m.v]}</p>`:''}
+  ${q&&!q.hexy?'<p class="muted">⚠️ O contorno parece redondo. Confira se tocou numa peça sextavada.</p>':''}`;
+  E.res.chave=dp<dm-0.15?p.it[1]:mtxt+' mm';E.res.det=`${TIPOS[cfg.tipo].n.replace(/^\S+ /,'')} · ${fmt(v)} mm`}
+ html+=`<p class="muted">Distância estimada: ${fmt(E.Z/10,0)} cm</p>
+ <div class="row"><button class="btn small" id="b-salva">💾 Salvar</button><button class="btn amb small" id="b-nova">📷 Nova</button></div>
+ ${manual?'':'<button class="btn sec small" id="b-man2">📏 Medir com 2 pontos</button>'}
+ <details style="margin-top:12px"><summary style="font-weight:700;font-size:17px">Errou? Ensine o app</summary>
+ <p class="muted">Escolha a medida real da chave que encaixou. O app corrige as próximas medidas.</p>
+ <select id="real"><option value="">Medida real…</option>${METRIC.map(x=>`<option value="${x}">${fmt(x,x%1?1:0)} mm</option>`).join('')}${POL.map(([mm,l])=>`<option value="${mm}">${l}</option>`).join('')}</select></details>`;
+ bot.innerHTML=(manual?'':'')+html;
+ $('#b-salva').onclick=salvar;$('#b-nova').onclick=()=>{closeEd();openCam()};
+ if(!manual)$('#b-man2').onclick=()=>setState('manual');
+ $('#real').onchange=e=>{const real=parseFloat(e.target.value);if(!real)return;const f=real/E.res.base;if(f<0.8||f>1.25){toast('Diferença grande demais. Refaça a foto com mais cuidado.');return}
+  cfg.fator=(cfg.fator*cfg.nf+f)/(cfg.nf+1);cfg.nf=Math.min(cfg.nf+1,10);saveCfg();toast('Aprendido! As próximas medidas serão corrigidas.')}}
+function confTxt(n){const t={alta:'Confiança alta ●●●',media:'Confiança média ●●○',baixa:'Confiança baixa ●○○ — refaça a foto'}[n];return`<span class="conf ${n}">${t}</span>`}
+function salvar(){let c;if(E.fit)c=E.fit.c;else{const a=apply(E.Hi,E.man[0].x,E.man[0].y),b=apply(E.Hi,E.man[1].x,E.man[1].y);c={x:(a.x+b.x)/2,y:(a.y+b.y)/2}}
+ const p=apply(E.H,c.x,c.y),q=apply(E.H,c.x+E.res.v*1.4,c.y),half=dist(p,q);const t=document.createElement('canvas');t.width=t.height=128;
+ t.getContext('2d').drawImage(E.img,p.x-half,p.y-half,half*2,half*2,0,0,128,128);let img='';try{img=t.toDataURL('image/jpeg',0.7)}catch(e){}
+ const h=LS.get('hist',[]);h.unshift({chave:E.res.chave,det:E.res.det,data:new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}),img});LS.set('hist',h.slice(0,50));toast('Medida salva no histórico')}
+
+function handles(){if(E.state==='cantos')return E.quad;if(E.state==='manual')return E.man;return[]}
+function draw(){if(!E)return;const c=$('#edc'),x=c.getContext('2d');x.setTransform(E.dpr,0,0,E.dpr,0,0);x.clearRect(0,0,E.cw,E.ch);
+ x.drawImage(E.img,E.ox,E.oy,E.iw*E.ds,E.ih*E.ds);
+ const q=E.quad.map(toS);x.lineWidth=2.5;x.strokeStyle='#F2A541';x.beginPath();q.forEach((p,i)=>i?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y));x.closePath();x.stroke();
+ if(E.fit&&E.state==='resultado'){const f=E.fit,R=f.a/Math.cos(Math.PI/6);x.strokeStyle='#3DDC84';x.lineWidth=3;x.beginPath();for(let k=0;k<=6;k++){const an=(f.phi+30+60*k)*Math.PI/180,p=toS(apply(E.H,f.c.x+R*Math.cos(an),f.c.y+R*Math.sin(an)));k?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y)}x.stroke()}
+ if(E.state==='manual'&&E.man){const[a,b]=E.man.map(toS);x.strokeStyle='#3DDC84';x.lineWidth=2.5;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}
+ handles().forEach((p,i)=>{const s=toS(p);x.fillStyle='rgba(242,165,65,.35)';x.strokeStyle=E.state==='manual'?'#3DDC84':'#F2A541';x.lineWidth=2.5;x.beginPath();x.arc(s.x,s.y,14,0,7);x.fill();x.stroke();x.beginPath();x.moveTo(s.x-6,s.y);x.lineTo(s.x+6,s.y);x.moveTo(s.x,s.y-6);x.lineTo(s.x,s.y+6);x.stroke()})}
+function loupe(pI,sP){const L=$('#loupe');L.hidden=false;L.style.left=(sP.x<180&&sP.y<180)?'auto':'10px';L.style.right=(sP.x<180&&sP.y<180)?'10px':'auto';
+ const x=L.getContext('2d'),z=4*E.ds*2,sw=280/z;x.fillStyle='#000';x.fillRect(0,0,280,280);x.imageSmoothingEnabled=false;
+ x.drawImage(E.img,pI.x-sw/2,pI.y-sw/2,sw,sw,0,0,280,280);x.strokeStyle='#F2A541';x.lineWidth=2;x.beginPath();x.moveTo(140,100);x.lineTo(140,180);x.moveTo(100,140);x.lineTo(180,140);x.stroke()}
+const edc=$('#edc');
+edc.addEventListener('pointerdown',e=>{if(!E)return;const r=edc.getBoundingClientRect(),p={x:e.clientX-r.left,y:e.clientY-r.top};
+ let bi=-1,bd=48;handles().forEach((h,i)=>{const d=dist(toS(h),p);if(d<bd){bd=d;bi=i}});
+ if(bi>=0){const arr=handles();E.drag={i:bi,start:p,orig:{...arr[bi]}};edc.setPointerCapture(e.pointerId);loupe(arr[bi],toS(arr[bi]));e.preventDefault();return}
+ if(E.state==='toque'||E.state==='resultado')E.tap={p,t:Date.now()}});
+edc.addEventListener('pointermove',e=>{if(!E||!E.drag)return;const r=edc.getBoundingClientRect(),p={x:e.clientX-r.left,y:e.clientY-r.top},k=0.5/E.ds;const arr=handles(),d=E.drag;
+ arr[d.i]={x:d.orig.x+(p.x-d.start.x)*k,y:d.orig.y+(p.y-d.start.y)*k};draw();loupe(arr[d.i],toS(arr[d.i]));if(E.state==='manual')manResult()});
+const endDrag=e=>{if(!E)return;if(E.drag){E.drag=null;$('#loupe').hidden=true;if(E.state==='manual')manResult();return}
+ if(E.tap){const r=edc.getBoundingClientRect(),p={x:e.clientX-r.left,y:e.clientY-r.top};if(dist(p,E.tap.p)<15)tapAt(toI(p));E.tap=null}};
+edc.addEventListener('pointerup',endDrag);edc.addEventListener('pointercancel',()=>{if(E){E.drag=null;E.tap=null;$('#loupe').hidden=true}});
+
+/* ---------- Instalação ---------- */
+let deferred=null;const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;if(!standalone())$('#install-btn').hidden=false});
+window.addEventListener('appinstalled',()=>{$('#install-btn').hidden=true;toast('App instalado! 🎉')});
+if(!standalone())$('#install-btn').hidden=false;
+$('#install-btn').onclick=async()=>{if(deferred){deferred.prompt();try{await deferred.userChoice}catch(e){}deferred=null}else $('#install-help').hidden=false};
+$('#ih-close').onclick=()=>{$('#install-help').hidden=true};
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+let st=0;try{st=parseInt(sessionStorage.getItem('chavecerta-tab')||'0',10)||0}catch(e){}goTab(st);
+window.__ct={openEditor,refineQuad,tapAt,get E(){return E},setState,buildH};
+</script>
+</body>
+</html>
