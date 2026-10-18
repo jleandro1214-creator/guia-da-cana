@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rótulo Claro</title>
+<meta name="theme-color" content="#0f766e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--bg:#f4f7f5;--card:#fff;--ink:#14231f;--mut:#5b6b66;--pri:#0f766e;--pri2:#e6f4f1;--red:#c62828;--redbg:#fdecec;--yel:#a86b00;--yelbg:#fff6dc;--grn:#2e7d32;--grnbg:#e8f5e9;--line:#dfe7e4}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--pri);color:#fff;padding:14px 16px 0;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:22px;display:flex;align-items:center;gap:8px}
+header p{margin:2px 0 10px;font-size:14px;opacity:.9}
+#instalar{float:right;background:#fff;color:var(--pri);border:0;border-radius:20px;padding:7px 12px;font-weight:700;font-size:14px}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{flex:1;background:none;border:0;color:#d4efe9;font-size:15px;font-weight:600;padding:10px 6px 12px;border-bottom:4px solid transparent;white-space:nowrap}
+nav button.on{color:#fff;border-color:#fff}
+main{padding:14px 14px 90px;max-width:640px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+h2{font-size:20px;margin:0 0 8px}h3{font-size:18px;margin:14px 0 6px}
+.mut{color:var(--mut);font-size:15px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:14px;padding:16px;font-size:18px;font-weight:700;background:var(--pri);color:#fff;margin:8px 0;cursor:pointer}
+.btn.sec{background:var(--pri2);color:var(--pri)}
+.btn.peq{padding:10px;font-size:15px;width:auto;display:inline-flex}
+input[type=file]{display:none}
+.prev{width:100%;border-radius:12px;margin-top:8px;max-height:260px;object-fit:contain;background:#eee}
+.barra{height:10px;background:var(--pri2);border-radius:6px;overflow:hidden;margin:10px 0 4px}.barra i{display:block;height:100%;width:0;background:var(--pri);transition:width .3s}
+.grade{display:grid;grid-template-columns:1fr 110px;gap:8px 10px;align-items:center}
+.grade label{font-weight:600}
+.grade input,select,textarea,.busca{width:100%;font-size:17px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+textarea{min-height:110px;font-family:inherit}
+.seg{display:flex;background:var(--pri2);border-radius:12px;padding:4px;gap:4px;margin:8px 0}
+.seg button{flex:1;border:0;background:none;padding:10px 4px;border-radius:9px;font-size:15px;font-weight:600;color:var(--pri)}
+.seg button.on{background:#fff;box-shadow:0 1px 3px #0002}
+.lupas{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.lupa{background:#111;color:#fff;border-radius:10px;padding:8px 12px;font-weight:800;font-size:16px;display:flex;align-items:center;gap:6px}
+.nut{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:12px;margin:6px 0;font-weight:600}
+.nut b{font-size:19px}.nut small{display:block;font-weight:500;font-size:14px;opacity:.85}
+.alto{background:var(--redbg);color:var(--red)}.medio{background:var(--yelbg);color:var(--yel)}.baixo{background:var(--grnbg);color:var(--grn)}.neutro{background:#f1f4f3;color:var(--ink)}
+.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:20px;padding:2px 9px;margin:2px 4px 2px 0}
+.ing{border-left:5px solid var(--line);padding:8px 10px;margin:8px 0;background:#fafcfb;border-radius:0 10px 10px 0}
+.ing.r{border-color:var(--red)}.ing.a{border-color:#e0a100}.ing.o{border-color:var(--grn)}
+.ing strong{font-size:17px}.ing .tr{font-weight:700;color:var(--pri)}
+.aviso{background:var(--yelbg);border-radius:12px;padding:12px;font-size:15px}
+.perfil{background:#fff3f3;border:2px solid #f3b4b4;border-radius:14px;padding:12px;margin:10px 0}
+.perfil.h{background:#eef4ff;border-color:#b6c9f3}
+table{width:100%;border-collapse:collapse;font-size:15px}td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}th{background:var(--pri2)}
+.hist{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.ok{color:var(--grn);font-weight:700}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:8px 12px;font-size:15px;margin:3px}
+.chips button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+</style>
+</head>
+<body>
+<header>
+  <button id="instalar" hidden>📲 Instalar app</button>
+  <h1>🔎 Rótulo Claro</h1>
+  <p>Fotografe o rótulo e entenda o que está comendo</p>
+  <nav id="abas">
+    <button data-aba="ler" class="on">📷 Ler</button>
+    <button data-aba="saude">🩺 Diabetes e Pressão</button>
+    <button data-aba="dic">📖 Ingredientes</button>
+    <button data-aba="hist">🕘 Salvos</button>
+  </nav>
+</header>
+<main>
+<!-- ===== LER ===== -->
+<section id="ler">
+  <div class="card">
+    <h2>Quem vai comer?</h2>
+    <div class="chips" id="chipsPerfil">
+      <button data-p="geral" class="on">Todos</button>
+      <button data-p="diabetes">Diabético</button>
+      <button data-p="pressao">Hipertenso</button>
+      <button data-p="ambos">Os dois</button>
+    </div>
+    <p class="mut" style="margin:6px 0 0">Com um perfil escolhido, o app mostra os alertas certos para ele.</p>
+  </div>
+
+  <div class="card">
+    <h2>1. Tabela nutricional</h2>
+    <label class="btn" for="fotoTabela">📷 Fotografar a tabela</label>
+    <input id="fotoTabela" type="file" accept="image/*" capture="environment">
+    <img id="prevTabela" class="prev" hidden alt="">
+    <div id="progTabela" hidden><div class="barra"><i></i></div><div class="mut" id="msgTabela">Lendo…</div></div>
+  </div>
+
+  <div class="card">
+    <h2>2. Lista de ingredientes</h2>
+    <label class="btn" for="fotoIng">📷 Fotografar os ingredientes</label>
+    <input id="fotoIng" type="file" accept="image/*" capture="environment">
+    <img id="prevIng" class="prev" hidden alt="">
+    <div id="progIng" hidden><div class="barra"><i></i></div><div class="mut" id="msgIng">Lendo…</div></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Confira os números</h2>
+    <p class="mut">O app preenche sozinho. Se algo saiu errado, é só corrigir.</p>
+    <input class="busca" id="nomeProd" placeholder="Nome do produto (opcional)" style="margin-bottom:10px">
+    <div class="seg" id="segTipo"><button data-t="solido" class="on">🍪 Sólido (g)</button><button data-t="liquido">🥤 Líquido (ml)</button></div>
+    <div class="seg" id="segBase"><button data-b="100" class="on">Valores por 100</button><button data-b="porcao">Valores por porção</button></div>
+    <div class="grade">
+      <label for="n_porcao">Porção (g ou ml)</label><input id="n_porcao" inputmode="decimal">
+      <label for="n_kcal">Calorias (kcal)</label><input id="n_kcal" inputmode="decimal">
+      <label for="n_carb">Carboidratos (g)</label><input id="n_carb" inputmode="decimal">
+      <label for="n_acuc">Açúcares totais (g)</label><input id="n_acuc" inputmode="decimal">
+      <label for="n_acad">Açúcares adicionados (g)</label><input id="n_acad" inputmode="decimal">
+      <label for="n_prot">Proteínas (g)</label><input id="n_prot" inputmode="decimal">
+      <label for="n_gord">Gorduras totais (g)</label><input id="n_gord" inputmode="decimal">
+      <label for="n_sat">Gorduras saturadas (g)</label><input id="n_sat" inputmode="decimal">
+      <label for="n_trans">Gorduras trans (g)</label><input id="n_trans" inputmode="decimal">
+      <label for="n_fib">Fibras (g)</label><input id="n_fib" inputmode="decimal">
+      <label for="n_sod">Sódio (mg)</label><input id="n_sod" inputmode="decimal">
+    </div>
+    <h3>Ingredientes</h3>
+    <textarea id="txtIng" placeholder="Os ingredientes lidos aparecem aqui. Você também pode digitar."></textarea>
+    <button class="btn" id="analisar">✅ Ver resultado</button>
+    <button class="btn sec" id="limpar">🧹 Novo produto</button>
+  </div>
+
+  <div id="resultado" hidden>
+    <div class="card">
+      <h2 id="resTitulo">Resultado</h2>
+      <div class="lupas" id="resLupas"></div>
+      <div id="resPerfil"></div>
+      <div id="resNut"></div>
+      <p class="mut" id="resBaseInfo"></p>
+    </div>
+    <div class="card">
+      <h2>Ingredientes traduzidos</h2>
+      <div id="resIng"></div>
+    </div>
+    <button class="btn" id="salvar">💾 Salvar este produto</button>
+    <button class="btn sec" id="compartilhar">📤 Enviar pelo WhatsApp</button>
+    <p class="aviso">ℹ️ Informação educativa. Não substitui a orientação do seu médico ou nutricionista.</p>
+  </div>
+  <p class="mut" id="statusOff"></p>
+</section>
+
+<!-- ===== SAÚDE ===== -->
+<section id="saude" hidden>
+  <div class="card perfil">
+    <h2>🩸 Para diabéticos</h2>
+    <p>O que mais pesa é o <b>carboidrato</b> — todo ele vira açúcar no sangue, não só o "açúcar" escrito no rótulo.</p>
+    <table>
+      <tr><th>Item (por porção)</th><th>Situação</th></tr>
+      <tr><td>Açúcares adicionados</td><td>🟢 até 2 g<br>🟡 2 a 6 g<br>🔴 acima de 6 g</td></tr>
+      <tr><td>Carboidratos</td><td>🟢 até 15 g<br>🟡 15 a 30 g<br>🔴 acima de 30 g</td></tr>
+      <tr><td>Fibras</td><td>👍 3 g ou mais ajudam a segurar o açúcar</td></tr>
+      <tr><td>Gordura saturada / trans</td><td>Evitar: o diabético tem mais risco no coração</td></tr>
+    </table>
+    <h3>Açúcar com outro nome</h3>
+    <p class="mut">Se aparecer nos primeiros ingredientes, é açúcar de verdade:</p>
+    <p>maltodextrina · xarope de glicose · xarope de milho · dextrose · glicose · frutose · sacarose · açúcar invertido · mel · melado · açúcar mascavo · açúcar demerara · extrato de malte · maltose · amido modificado · farinha de trigo branca</p>
+    <h3>Adoçantes</h3>
+    <p class="mut">Sucralose, estévia, aspartame, acessulfame e eritritol quase não sobem o açúcar no sangue. Mas o produto "diet" ou "zero" pode ter muito carboidrato e gordura — confira a tabela.</p>
+  </div>
+
+  <div class="card perfil h">
+    <h2>❤️ Para hipertensos</h2>
+    <p>O vilão é o <b>sódio</b>. O limite do dia é de <b>2.000 mg de sódio</b> (cerca de 1 colher de chá rasa de sal, 5 g).</p>
+    <table>
+      <tr><th>Sódio por porção</th><th>Situação</th></tr>
+      <tr><td>até 140 mg</td><td>🟢 Pouco sódio</td></tr>
+      <tr><td>140 a 400 mg</td><td>🟡 Com moderação</td></tr>
+      <tr><td>acima de 400 mg</td><td>🔴 Muito — 1/5 do dia ou mais</td></tr>
+    </table>
+    <h3>Sódio escondido</h3>
+    <p class="mut">Todo ingrediente "de sódio" soma no total:</p>
+    <p>sal · cloreto de sódio · glutamato monossódico · bicarbonato de sódio · benzoato de sódio · nitrito e nitrato de sódio · fosfato de sódio · tripolifosfato de sódio · citrato de sódio · eritorbato de sódio · caldo/tempero pronto · molho de soja (shoyu)</p>
+    <h3>Os campeões de sódio</h3>
+    <p>Embutidos (salsicha, presunto, mortadela), temperos prontos, macarrão instantâneo, salgadinhos, enlatados, molhos prontos, queijos amarelos e pães industrializados.</p>
+  </div>
+
+  <div class="card">
+    <h2>📏 Lupa preta da ANVISA</h2>
+    <p class="mut">A lupa "ALTO EM" aparece na frente da embalagem quando o produto passa destes limites:</p>
+    <table>
+      <tr><th>Nutriente</th><th>Sólidos (100 g)</th><th>Líquidos (100 ml)</th></tr>
+      <tr><td>Açúcar adicionado</td><td>15 g ou mais</td><td>7,5 g ou mais</td></tr>
+      <tr><td>Gordura saturada</td><td>6 g ou mais</td><td>3 g ou mais</td></tr>
+      <tr><td>Sódio</td><td>600 mg ou mais</td><td>300 mg ou mais</td></tr>
+    </table>
+  </div>
+  <p class="aviso">ℹ️ São referências gerais. Cada pessoa tem uma meta própria — siga o que o seu médico ou nutricionista passou.</p>
+</section>
+
+<!-- ===== DICIONÁRIO ===== -->
+<section id="dic" hidden>
+  <div class="card">
+    <h2>📖 Tradutor de ingredientes</h2>
+    <input class="busca" id="buscaDic" placeholder="Digite um nome difícil… ex.: maltodextrina">
+    <div class="chips" id="filtroDic" style="margin-top:8px">
+      <button data-f="" class="on">Todos</button><button data-f="acucar">Açúcar</button><button data-f="sodio">Sódio</button><button data-f="gordura">Gordura</button><button data-f="aditivo">Aditivos</button>
+    </div>
+  </div>
+  <div id="listaDic"></div>
+</section>
+
+<!-- ===== SALVOS ===== -->
+<section id="hist" hidden>
+  <div class="card"><h2>🕘 Produtos salvos</h2><div id="listaHist"></div></div>
+</section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
+<script>
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- DICIONÁRIO DE INGREDIENTES ----------
+ nivel: r = atenção, a = moderação, o = tranquilo
+ cat: acucar, sodio, gordura, aditivo, natural */
+const DIC=[
+ ["Maltodextrina",["maltodextrina"],"Açúcar em pó feito de milho","Sobe a glicose até mais rápido que o açúcar comum.","r","acucar"],
+ ["Xarope de glicose",["xarope de glicose","glicose de milho","xarope de glucose"],"Açúcar líquido de milho","Puro açúcar. Comum em balas, biscoitos e sorvetes.","r","acucar"],
+ ["Xarope de milho / frutose",["xarope de milho","xarope de frutose","xarope de alta frutose","hfcs"],"Açúcar líquido","Açúcar concentrado; em excesso pesa no fígado.","r","acucar"],
+ ["Dextrose",["dextrose"],"Açúcar (glicose pura)","Entra direto no sangue.","r","acucar"],
+ ["Glicose",["glicose","glucose"],"Açúcar","É o próprio açúcar do sangue.","r","acucar"],
+ ["Frutose",["frutose"],"Açúcar das frutas, isolado","Adicionado ao produto conta como açúcar.","r","acucar"],
+ ["Sacarose",["sacarose","açúcar","acucar","açucar"],"Açúcar comum","O açúcar do açucareiro.","r","acucar"],
+ ["Açúcar invertido",["açúcar invertido","acucar invertido","xarope de açúcar invertido"],"Açúcar em calda","Mistura de glicose e frutose; é açúcar.","r","acucar"],
+ ["Mel / melado",["mel","melado","melaço"],"Açúcar natural","Natural, mas sobe a glicose igual açúcar.","a","acucar"],
+ ["Extrato de malte",["extrato de malte","malte","maltose"],"Açúcar de cereal","Dá cor e doçura; é açúcar.","a","acucar"],
+ ["Lactose",["lactose","soro de leite","leite em pó"],"Açúcar do leite","Conta como carboidrato.","a","acucar"],
+ ["Amido modificado",["amido modificado","amido de milho modificado","fécula modificada"],"Amido tratado para engrossar","Vira glicose no corpo. Diabético deve contar.","a","acucar"],
+ ["Farinha de trigo enriquecida",["farinha de trigo enriquecida","farinha de trigo"],"Farinha branca","Pouca fibra; vira açúcar rápido.","a","acucar"],
+ ["Sucralose",["sucralose","ins 955","955"],"Adoçante","Não tem calorias, não sobe a glicose.","o","aditivo"],
+ ["Aspartame",["aspartame","ins 951","951"],"Adoçante","Sem açúcar. Quem tem fenilcetonúria não pode.","a","aditivo"],
+ ["Acessulfame de potássio",["acessulfame","ins 950","950"],"Adoçante","Sem calorias.","o","aditivo"],
+ ["Ciclamato de sódio",["ciclamato","ins 952","952"],"Adoçante","Tem um pouco de sódio.","a","aditivo"],
+ ["Sacarina",["sacarina","ins 954","954"],"Adoçante","Sem calorias.","o","aditivo"],
+ ["Estévia",["estévia","stevia","glicosídeos de esteviol","ins 960"],"Adoçante de planta","Sem calorias, não sobe a glicose.","o","aditivo"],
+ ["Eritritol / xilitol",["eritritol","xilitol","maltitol","sorbitol"],"Adoçante tipo álcool de açúcar","Pouco efeito na glicose; muito pode soltar o intestino. Maltitol sobe um pouco mais.","a","aditivo"],
+ ["Sal",["sal","cloreto de sódio","sal refinado","sal iodado"],"Sal de cozinha","Principal fonte de sódio.","r","sodio"],
+ ["Glutamato monossódico",["glutamato monossódico","glutamato monossodico","realçador de sabor","ins 621","621"],"Realçador de sabor (tipo Ajinomoto)","Deixa mais gostoso e soma sódio.","r","sodio"],
+ ["Inosinato / guanilato",["inosinato","guanilato","ins 627","ins 631","ins 635"],"Realçadores de sabor","Usados junto com o glutamato; têm sódio.","a","sodio"],
+ ["Bicarbonato de sódio",["bicarbonato de sódio","bicarbonato de sodio","ins 500"],"Fermento químico","Faz crescer a massa; tem sódio.","a","sodio"],
+ ["Benzoato de sódio",["benzoato de sódio","benzoato de sodio","ins 211","211"],"Conservante","Evita mofo; soma sódio.","a","sodio"],
+ ["Nitrito / nitrato de sódio",["nitrito de sódio","nitrito de sodio","nitrato de sódio","nitrato de sodio","ins 250","ins 251"],"Conservante de carnes","Dá cor rosada a embutidos. Consumo frequente faz mal; tem sódio.","r","sodio"],
+ ["Fosfatos de sódio",["fosfato de sódio","tripolifosfato","pirofosfato","polifosfato","ins 450","ins 451","ins 452","ins 339"],"Estabilizante","Segura água em carnes e queijos; tem sódio.","a","sodio"],
+ ["Citrato de sódio",["citrato de sódio","citrato de sodio","ins 331"],"Regulador de acidez","Tem sódio.","a","sodio"],
+ ["Eritorbato de sódio",["eritorbato","ins 316"],"Antioxidante de embutidos","Tem sódio.","a","sodio"],
+ ["Molho de soja",["molho de soja","shoyu"],"Shoyu","Muito sódio.","r","sodio"],
+ ["Gordura vegetal hidrogenada",["gordura vegetal hidrogenada","gordura hidrogenada","parcialmente hidrogenad"],"Gordura trans","A pior gordura para o coração.","r","gordura"],
+ ["Gordura vegetal / interesterificada",["gordura vegetal","gordura interesterificada","interesterificad"],"Gordura industrial","Rica em gordura saturada.","a","gordura"],
+ ["Óleo / gordura de palma",["palma","palmiste","dendê"],"Gordura de palmeira","Muita gordura saturada.","a","gordura"],
+ ["Gordura de coco",["gordura de coco","óleo de coco"],"Gordura saturada","Use com moderação.","a","gordura"],
+ ["Óleo vegetal",["óleo de soja","óleo de girassol","óleo de canola","óleo de milho","óleo vegetal"],"Óleo comum","Gordura boa em pouca quantidade.","o","gordura"],
+ ["Lecitina de soja",["lecitina","ins 322"],"Emulsificante","Mistura água e gordura. Seguro.","o","aditivo"],
+ ["Mono e diglicerídeos",["mono e diglicerídeos","monoglicerídeos","ins 471"],"Emulsificante","Deixa a massa macia.","o","aditivo"],
+ ["Polisorbato",["polisorbato","ins 433"],"Emulsificante","Comum em sorvete.","a","aditivo"],
+ ["Goma xantana / guar",["goma xantana","goma guar","ins 415","ins 412"],"Espessante","Engrossa; parecido com fibra. Seguro.","o","aditivo"],
+ ["Carragena",["carragena","carragenana","ins 407"],"Espessante de alga","Deixa cremoso. Pessoas sensíveis podem ter incômodo no intestino.","a","aditivo"],
+ ["Carboximetilcelulose",["carboximetilcelulose","ins 466"],"Espessante","Engrossa.","a","aditivo"],
+ ["Pectina",["pectina","ins 440"],"Espessante de fruta","Fibra natural. Seguro.","o","aditivo"],
+ ["Ácido cítrico",["ácido cítrico","acido citrico","acidulante","ins 330"],"Acidulante (do limão)","Dá azedinho. Seguro.","o","aditivo"],
+ ["Ácido fosfórico",["ácido fosfórico","acido fosforico","ins 338"],"Acidulante de refrigerante","Em excesso não é bom para ossos e dentes.","a","aditivo"],
+ ["Ácido ascórbico",["ácido ascórbico","acido ascorbico","ins 300"],"Vitamina C","Seguro.","o","natural"],
+ ["Sorbato de potássio",["sorbato","ins 202"],"Conservante","Evita mofo. Seguro em pouca quantidade.","o","aditivo"],
+ ["Propionato de cálcio",["propionato","ins 282"],"Conservante de pão","Evita mofo.","o","aditivo"],
+ ["BHT / BHA / TBHQ",["bht","bha","tbhq","ins 320","ins 321","ins 319"],"Antioxidante sintético","Evita a gordura ranço. Prefira evitar no dia a dia.","a","aditivo"],
+ ["Tartrazina",["tartrazina","ins 102","amarelo tartrazina"],"Corante amarelo","Pode dar alergia em pessoas sensíveis.","r","aditivo"],
+ ["Amarelo crepúsculo",["amarelo crepúsculo","amarelo crepusculo","ins 110"],"Corante laranja","Pode causar alergia; evitar em crianças.","r","aditivo"],
+ ["Vermelho 40",["vermelho 40","vermelho allura","ins 129"],"Corante vermelho","Ligado a agitação em crianças sensíveis.","r","aditivo"],
+ ["Azul brilhante",["azul brilhante","ins 133","azul indigotina","ins 132"],"Corante azul","Corante artificial.","a","aditivo"],
+ ["Bordeaux / ponceau",["bordeaux","ponceau","ins 123","ins 124"],"Corante vermelho","Corante artificial; evitar em crianças.","r","aditivo"],
+ ["Caramelo IV",["caramelo iv","corante caramelo","ins 150d","ins 150c","150d"],"Corante marrom","Usado em refrigerante de cola.","a","aditivo"],
+ ["Urucum / cúrcuma / páprica",["urucum","cúrcuma","curcuma","páprica","beterraba","carmim","ins 160b","ins 100"],"Corante natural","De origem natural.","o","natural"],
+ ["Aroma artificial / idêntico ao natural",["aromatizante","aroma artificial","aroma idêntico","aroma sintético","aroma natural"],"Aroma","Imita o sabor. Muitas vezes o sabor do pacote não vem da fruta.","a","aditivo"],
+ ["Proteína de soja",["proteína de soja","proteina de soja","proteína texturizada"],"Proteína vegetal","Aumenta proteína; comum em embutidos.","o","natural"],
+ ["Proteína do soro do leite (whey)",["proteína do soro","whey","concentrado proteico"],"Proteína do leite","Proteína de boa qualidade.","o","natural"],
+ ["Fibra / inulina / polidextrose",["inulina","polidextrose","fibra solúvel","fruto-oligossacarídeo","fos"],"Fibra","Ajuda o intestino e segura o açúcar.","o","natural"],
+ ["Farinha integral / aveia",["integral","aveia","farelo"],"Grão integral","Mais fibra.","o","natural"],
+ ["Fermento biológico",["fermento biológico","levedura"],"Fermento de pão","Natural.","o","natural"],
+ ["Pirofosfato ácido de sódio",["pirofosfato ácido de sódio","ins 450i"],"Fermento químico","Tem sódio.","a","sodio"],
+ ["Cafeína",["cafeína","cafeina","guaraná"],"Estimulante","Hipertenso deve ter cuidado em excesso.","a","aditivo"]
+];
+const NIVEL={r:["🔴 Atenção","alto"],a:["🟡 Moderação","medio"],o:["🟢 Tranquilo","baixo"]};
+const CAT={acucar:"🍬 Açúcar",sodio:"🧂 Sódio",gordura:"🧈 Gordura",aditivo:"🧪 Aditivo",natural:"🌿 Natural"};
+
+/* ---------- ESTADO ---------- */
+let perfil=LS.get("rc_perfil","geral"), tipo="solido", base="100";
+function marcarChip(cont,attr,val){$$(cont+" button").forEach(b=>b.classList.toggle("on",b.dataset[attr]===val))}
+marcarChip("#chipsPerfil","p",perfil);
+
+/* ---------- ABAS ---------- */
+const ABAS=["ler","saude","dic","hist"];let abaAtual="ler";
+function irAba(a){abaAtual=a;ABAS.forEach(x=>$("#"+x).hidden=x!==a);$$("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.aba===a));if(a==="hist")mostrarHist();if(a==="dic")mostrarDic();scrollTo(0,0)}
+$$("#abas button").forEach(b=>b.onclick=()=>irAba(b.dataset.aba));
+let tx=0,ty=0;
+document.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",e=>{if(e.target.closest("input,textarea,table"))return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.5){const i=ABAS.indexOf(abaAtual)+(dx<0?1:-1);if(i>=0&&i<ABAS.length)irAba(ABAS[i])}},{passive:true});
+
+$$("#chipsPerfil button").forEach(b=>b.onclick=()=>{perfil=b.dataset.p;LS.set("rc_perfil",perfil);marcarChip("#chipsPerfil","p",perfil);if(!$("#resultado").hidden)analisar()});
+$$("#segTipo button").forEach(b=>b.onclick=()=>{tipo=b.dataset.t;marcarChip("#segTipo","t",tipo);if(!$("#resultado").hidden)analisar()});
+$$("#segBase button").forEach(b=>b.onclick=()=>{base=b.dataset.b;marcarChip("#segBase","b",base);if(!$("#resultado").hidden)analisar()});
+
+/* ---------- OCR ---------- */
+let worker=null;
+async function getWorker(prog){
+  if(!window.Tesseract) throw new Error("semleitor");
+  if(!worker){worker=await Tesseract.createWorker("por",1,{logger:m=>prog&&prog(m)});}
+  return worker;
+}
+function prepararImagem(file){
+  return new Promise((ok,erro)=>{const img=new Image();img.onload=()=>{
+    const max=1800,esc=Math.min(1,max/Math.max(img.width,img.height));
+    const c=document.createElement("canvas");c.width=Math.round(img.width*esc);c.height=Math.round(img.height*esc);
+    const g=c.getContext("2d");g.drawImage(img,0,0,c.width,c.height);
+    const d=g.getImageData(0,0,c.width,c.height),p=d.data;
+    for(let i=0;i<p.length;i+=4){let y=.299*p[i]+.587*p[i+1]+.114*p[i+2];y=(y-128)*1.5+128;y=y<0?0:y>255?255:y;p[i]=p[i+1]=p[i+2]=y}
+    g.putImageData(d,0,0);ok(c)};img.onerror=erro;img.src=URL.createObjectURL(file)});
+}
+async function lerFoto(file,ids){
+  const prev=$(ids.prev),box=$(ids.prog),bar=box.querySelector("i"),msg=$(ids.msg);
+  prev.src=URL.createObjectURL(file);prev.hidden=false;box.hidden=false;bar.style.width="5%";msg.textContent="Preparando o leitor…";
+  try{
+    const w=await getWorker(m=>{if(m.status==="recognizing text"){bar.style.width=Math.round(20+m.progress*80)+"%";msg.textContent="Lendo o texto… "+Math.round(m.progress*100)+"%"}else{msg.textContent="Preparando o leitor…";bar.style.width="15%"}});
+    const canvas=await prepararImagem(file);
+    const r=await w.recognize(canvas);
+    bar.style.width="100%";msg.textContent="✅ Pronto! Confira os números abaixo.";
+    LS.set("rc_pronto",true);
+    return r.data.text||"";
+  }catch(e){
+    console.warn(e);bar.style.width="0";
+    msg.textContent=navigator.onLine?"Não consegui ler. Tente uma foto mais perto, reta e com boa luz — ou digite os números abaixo.":"Sem internet e o leitor ainda não foi preparado. Abra o app uma vez com internet. Por enquanto, digite os números abaixo.";
+    return "";
+  }
+}
+
+/* ---------- LEITURA DA TABELA ---------- */
+function num(s){if(s==null)return null;s=String(s).replace(/[oO](?=[\d,\.])|(?<=[\d,\.])[oO]/g,"0").replace(/\s/g,"");const m=s.match(/\d+(?:[.,]\d+)?/);if(!m)return null;let v=m[0];if(/^\d{1,3}\.\d{3}$/.test(v))v=v.replace(".","");return parseFloat(v.replace(",","."))}
+function numerosDaLinha(l){l=l.replace(/(\d)\s*[oO]\b/g,"$10");const ns=[];const re=/(\d+(?:[.,]\d+)?)/g;let m;while((m=re.exec(l)))ns.push(parseFloat((/^\d{1,3}\.\d{3}$/.test(m[1])?m[1].replace(".",""):m[1]).replace(",",".")));return ns}
+function lerTabela(txt){
+  const T=txt.replace(/\r/g,"");const low=T.toLowerCase();
+  const out={};
+  const mp=low.match(/por[çc][aã]o[^\d\n]{0,25}(\d+(?:[.,]\d+)?)\s*(g|ml)/);
+  if(mp){out.porcao=num(mp[1]);out.tipo=mp[2]==="ml"?"liquido":"solido"}
+  else if(/100\s*ml/.test(low))out.tipo="liquido";
+  out.base=/100\s*(g|ml)/.test(low)?"100":"porcao";
+  const linhas=T.split("\n");
+  const regras=[
+    ["kcal",/valor\s*energ|energia|calorias|kcal/i],
+    ["carb",/carboidrat/i],
+    ["acad",/a[çc][uú]car(es)?\s*adicionad/i],
+    ["acuc",/a[çc][uú]car(es)?\s*(totais|total)?(?!\s*adicion)/i],
+    ["prot",/prote[ií]n/i],
+    ["sat",/saturad/i],
+    ["trans",/\btrans\b/i],
+    ["gord",/gordura|lip[ií]d/i],
+    ["fib",/fibra/i],
+    ["sod",/s[óo]dio/i]
+  ];
+  for(const l of linhas){
+    for(const [k,re] of regras){
+      if(out[k]!=null||!re.test(l))continue;
+      if(k==="gord"&&/saturad|trans/i.test(l))continue;
+      if(k==="acuc"&&/adicionad/i.test(l))continue;
+      if(k==="carb"&&/a[çc][uú]car/i.test(l)&&!/carboidrat/i.test(l))continue;
+      let resto=l.replace(re,"").replace(/\(?\b(mg|g|kcal|kj|ml)\b\)?/gi," ");
+      let ns=numerosDaLinha(resto);
+      if(k==="kcal"){const mk=l.match(/(\d+(?:[.,]\d+)?)\s*kcal/i);if(mk)ns=[num(mk[1])];}
+      if(ns.length){out[k]=ns[0];}
+      break;
+    }
+  }
+  return out;
+}
+function lerIngredientes(txt){
+  const m=txt.match(/ingredientes?\s*[:\-]?\s*([\s\S]*)/i);
+  let t=(m?m[1]:txt);
+  t=t.split(/\n\s*(al[ée]rgic|cont[ée]m gl|n[ãa]o cont[ée]m gl|informa[çc][ãa]o nutri|conservar|validade|fabricado|lote)/i)[0];
+  return t.replace(/\s*\n\s*/g," ").replace(/\s{2,}/g," ").trim();
+}
+
+const CAMPOS=["porcao","kcal","carb","acuc","acad","prot","gord","sat","trans","fib","sod"];
+function preencher(o){
+  CAMPOS.forEach(k=>{if(o[k]!=null)$("#n_"+k).value=String(o[k]).replace(".",",")});
+  if(o.tipo){tipo=o.tipo;marcarChip("#segTipo","t",tipo)}
+  if(o.base){base=o.base;marcarChip("#segBase","b",base)}
+}
+let textoTabela="";
+$("#fotoTabela").onchange=async e=>{const f=e.target.files[0];if(!f)return;const t=await lerFoto(f,{prev:"#prevTabela",prog:"#progTabela",msg:"#msgTabela"});textoTabela=t;if(t){preencher(lerTabela(t));if(/ingredientes?/i.test(t)&&!$("#txtIng").value)$("#txtIng").value=lerIngredientes(t)}e.target.value=""};
+$("#fotoIng").onchange=async e=>{const f=e.target.files[0];if(!f)return;const t=await lerFoto(f,{prev:"#prevIng",prog:"#progIng",msg:"#msgIng"});if(t)$("#txtIng").value=lerIngredientes(t);e.target.value=""};
+
+/* ---------- ANÁLISE ---------- */
+function v(k){const x=num($("#n_"+k).value);return x==null||isNaN(x)?null:x}
+function fmt(x,d=1){return x==null?"—":(Math.round(x*Math.pow(10,d))/Math.pow(10,d)).toLocaleString("pt-BR")}
+function achar(texto){
+  const t=" "+texto.toLowerCase().normalize("NFC")+" ";const achados=[];const usados=new Set();
+  DIC.forEach((d,i)=>{let pos=-1,fim=-1;for(const n of d[1]){const re=new RegExp("(^|[^a-zà-ú0-9])"+n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+(n.length<5||/^\d/.test(n)?"(?![a-zà-ú0-9])":""),"gi");let m;while((m=re.exec(t))){const p=m.index+m[1].length,f=m.index+m[0].length;const dentro=DIC.some(o=>o!==d&&o[1].some(n2=>n2.length>n.length&&n2.includes(n)&&t.slice(Math.max(0,p-n2.length),f+n2.length).includes(n2)));if(!dentro&&(pos<0||p<pos)){pos=p;fim=f}}}if(pos>=0){achados.push({d,pos});}});
+  // evita duplicar "açúcar" quando já achou "açúcar invertido"
+  const temInv=achados.some(a=>a.d[0]==="Açúcar invertido");
+  return achados.filter(a=>!(temInv&&a.d[0]==="Sacarose"&&!/(^|[^a-z])a[çc][uú]car(?! invertido)/i.test(t.replace(/a[çc][uú]car invertido/gi,"")))).sort((a,b)=>a.pos-b.pos);
+}
+function analisar(){
+  const P=v("porcao"),liq=tipo==="liquido",un=liq?"ml":"g";
+  const valores={};CAMPOS.slice(1).forEach(k=>valores[k]=v(k));
+  const por100={},porPor={};
+  for(const k in valores){const x=valores[k];if(x==null){por100[k]=porPor[k]=null;continue}
+    if(base==="100"){por100[k]=x;porPor[k]=P?x*P/100:null}else{porPor[k]=x;por100[k]=P?x*100/P:null}}
+  const nome=$("#nomeProd").value.trim();
+  $("#resTitulo").textContent=nome?"Resultado: "+nome:"Resultado";
+  // Lupas ANVISA
+  const lim={acad:liq?7.5:15,sat:liq?3:6,sod:liq?300:600};
+  const lupas=[];
+  if(por100.acad!=null&&por100.acad>=lim.acad)lupas.push("AÇÚCAR ADICIONADO");
+  if(por100.sat!=null&&por100.sat>=lim.sat)lupas.push("GORDURA SATURADA");
+  if(por100.sod!=null&&por100.sod>=lim.sod)lupas.push("SÓDIO");
+  const txtAll=(textoTabela+" ").toLowerCase();
+  $("#resLupas").innerHTML=lupas.length?lupas.map(l=>`<span class="lupa">🔍 ALTO EM ${l}</span>`).join(""):(Object.values(valores).some(x=>x!=null)?'<span class="tag baixo" style="font-size:15px;padding:6px 12px">✅ Não passa dos limites da lupa da ANVISA</span>':"");
+  // Semáforo por 100
+  const sem=(x,b,a)=>x==null?"neutro":x<=b?"baixo":x>=a?"alto":"medio";
+  const s=liq?{acuc:[2.5,11.25],acad:[2.5,7.5],sat:[.75,3],gord:[1.5,8.75],sod:[60,300]}:{acuc:[5,22.5],acad:[5,15],sat:[1.5,6],gord:[3,17.5],sod:[120,600]};
+  const linhas=[
+    ["kcal","🔥 Calorias","kcal",null],
+    ["carb","🍞 Carboidratos","g",null],
+    ["acuc","🍬 Açúcares totais","g",s.acuc],
+    ["acad","🍭 Açúcares adicionados","g",s.acad],
+    ["prot","💪 Proteínas","g",null],
+    ["gord","🧈 Gorduras totais","g",s.gord],
+    ["sat","🥓 Gorduras saturadas","g",s.sat],
+    ["trans","⛔ Gorduras trans","g",[0,0.1]],
+    ["fib","🌾 Fibras","g",null],
+    ["sod","🧂 Sódio","mg",s.sod]
+  ];
+  const palavra={alto:"ALTO",medio:"Médio",baixo:"Baixo",neutro:""};
+  $("#resNut").innerHTML=linhas.filter(l=>valores[l[0]]!=null).map(([k,n,u,lim])=>{
+    let c=lim?sem(por100[k],lim[0],lim[1]):"neutro";
+    if(k==="trans"&&por100[k]!=null)c=por100[k]>0.1?"alto":"baixo";
+    if(k==="fib"&&por100[k]!=null)c=por100[k]>=3?"baixo":"neutro";
+    if(k==="prot"&&por100[k]!=null)c=por100[k]>=10?"baixo":"neutro";
+    const extra=(k==="fib"&&c==="baixo")?" 👍":(k==="prot"&&c==="baixo")?" 👍":"";
+    const d=u==="mg"||u==="kcal"?0:1;
+    const linha2=[por100[k]!=null?`${fmt(por100[k],d)} ${u} em 100 ${un}`:null,porPor[k]!=null?`${fmt(porPor[k],d)} ${u} na porção`:null].filter(Boolean).join(" · ");
+    return `<div class="nut ${c}"><span>${n}${extra}<small>${linha2}</small></span><b>${lim&&palavra[c]?palavra[c]:""}</b></div>`}).join("")||'<p class="mut">Nenhum número preenchido.</p>';
+  $("#resBaseInfo").textContent=P?`Porção: ${fmt(P,0)} ${un}.`:"Dica: preencha a porção para ver quanto tem no que você vai comer.";
+  // Perfil
+  let ph="";
+  const ings=achar($("#txtIng").value);
+  if(perfil==="diabetes"||perfil==="ambos"){
+    const cp=porPor.carb,ap=porPor.acad!=null?porPor.acad:porPor.acuc;
+    const nc=cp==null?"neutro":cp<=15?"baixo":cp>30?"alto":"medio";
+    const na=ap==null?"neutro":ap<=2?"baixo":ap>6?"alto":"medio";
+    const acEsc=ings.filter(a=>a.d[5]==="acucar"&&a.d[4]!=="o");
+    const prim=acEsc.filter(a=>ings.indexOf(a)<3);
+    let ver=(nc==="alto"||na==="alto"||prim.length)?["alto","🔴 Evite ou coma pouco"]:(nc==="medio"||na==="medio")?["medio","🟡 Com moderação"]:(nc==="baixo"&&na!=="alto")?["baixo","🟢 Boa escolha"]:["neutro","Preencha a porção e os carboidratos"];
+    ph+=`<div class="perfil"><b>🩸 Para o diabético:</b><div class="nut ${ver[0]}" style="margin-top:8px">${ver[1]}</div>
+      ${cp!=null?`<div>Carboidratos na porção: <b>${fmt(cp)} g</b></div>`:""}
+      ${ap!=null?`<div>Açúcar na porção: <b>${fmt(ap)} g</b></div>`:""}
+      ${porPor.fib!=null?`<div>Fibras na porção: <b>${fmt(porPor.fib)} g</b>${porPor.fib>=3?" 👍":""}</div>`:""}
+      ${acEsc.length?`<div style="margin-top:6px">Açúcar com outro nome: <b>${acEsc.map(a=>a.d[0]).join(", ")}</b>${prim.length?" — aparece entre os primeiros ingredientes, ou seja, tem bastante.":""}</div>`:""}</div>`;
+  }
+  if(perfil==="pressao"||perfil==="ambos"){
+    const sp=porPor.sod;const pct=sp!=null?sp/2000*100:null;
+    const ns=sp==null?(por100.sod==null?"neutro":sem(por100.sod,120,600)):sp<=140?"baixo":sp>400?"alto":"medio";
+    const txt={alto:"🔴 Muito sódio — evite",medio:"🟡 Com moderação",baixo:"🟢 Pouco sódio",neutro:"Preencha o sódio e a porção"}[ns];
+    const sEsc=ings.filter(a=>a.d[5]==="sodio");
+    ph+=`<div class="perfil h"><b>❤️ Para o hipertenso:</b><div class="nut ${ns}" style="margin-top:8px">${txt}</div>
+      ${sp!=null?`<div>Sódio na porção: <b>${fmt(sp,0)} mg</b> = <b>${fmt(pct,0)}%</b> do limite do dia (2.000 mg)</div>`:""}
+      ${sEsc.length?`<div style="margin-top:6px">Sódio escondido: <b>${sEsc.map(a=>a.d[0]).join(", ")}</b></div>`:""}
+      ${ings.some(a=>/Cafeína/.test(a.d[0]))?"<div>☕ Tem cafeína: atenção em excesso.</div>":""}</div>`;
+  }
+  $("#resPerfil").innerHTML=ph;
+  // Ingredientes
+  const tIng=$("#txtIng").value.trim();
+  if(!tIng){$("#resIng").innerHTML='<p class="mut">Fotografe ou digite os ingredientes para ver a tradução.</p>'}
+  else{
+    const ordem={r:0,a:1,o:2};
+    const cont=ings.reduce((m,a)=>(m[a.d[4]]=(m[a.d[4]]||0)+1,m),{});
+    $("#resIng").innerHTML=`<p class="mut">Os ingredientes vêm do que tem <b>mais</b> para o que tem <b>menos</b>. Encontrei ${ings.length} nome(s) explicado(s): ${cont.r||0} de atenção, ${cont.a||0} de moderação.</p>`+
+      ings.slice().sort((a,b)=>ordem[a.d[4]]-ordem[b.d[4]]||a.pos-b.pos).map(a=>cartaoIng(a.d,ings.indexOf(a)<3)).join("")+
+      `<details style="margin-top:10px"><summary class="mut">Ver lista original</summary><p style="font-size:15px">${tIng.replace(/</g,"&lt;")}</p></details>`;
+  }
+  $("#resultado").hidden=false;
+  $("#resultado").scrollIntoView({behavior:"smooth"});
+  ultimo={nome:nome||"Produto sem nome",data:new Date().toLocaleDateString("pt-BR"),perfil,tipo,base,valores:Object.fromEntries(CAMPOS.map(k=>[k,$("#n_"+k).value])),ing:tIng,lupas,resumo:resumoTexto(nome,lupas,porPor,por100,ings)};
+}
+function cartaoIng(d,topo){
+  const [n,c]=NIVEL[d[4]];
+  return `<div class="ing ${d[4]}"><strong>${d[0]}</strong> ${topo?'<span class="tag alto">entre os 1ºs</span>':""}<br><span class="tr">= ${d[2]}</span><br><span style="font-size:15px">${d[3]}</span><br><span class="tag ${c}">${n}</span><span class="tag neutro">${CAT[d[5]]}</span></div>`;
+}
+function resumoTexto(nome,lupas,pp,p1,ings){
+  const r=[`🔎 Rótulo Claro — ${nome||"Produto"}`];
+  if(lupas.length)r.push("⚠️ ALTO EM: "+lupas.join(", "));
+  const L=[["kcal","Calorias","kcal"],["carb","Carboidratos","g"],["acuc","Açúcares","g"],["prot","Proteínas","g"],["sod","Sódio","mg"]];
+  L.forEach(([k,n,u])=>{const x=pp[k]!=null?pp[k]:p1[k];if(x!=null)r.push(`${n}: ${fmt(x,u==="g"?1:0)} ${u}${pp[k]!=null?" (porção)":" (100 g)"}`)});
+  const at=ings.filter(a=>a.d[4]==="r").map(a=>`${a.d[0]} (${a.d[2]})`);
+  if(at.length)r.push("🔴 Atenção nos ingredientes: "+at.join("; "));
+  return r.join("\n");
+}
+let ultimo=null;
+$("#analisar").onclick=analisar;
+$("#limpar").onclick=()=>{CAMPOS.forEach(k=>$("#n_"+k).value="");$("#txtIng").value="";$("#nomeProd").value="";textoTabela="";["#prevTabela","#prevIng","#progTabela","#progIng","#resultado"].forEach(s=>$(s).hidden=true);ultimo=null;scrollTo(0,0)};
+$("#salvar").onclick=()=>{if(!ultimo)return;const h=LS.get("rc_hist",[]);h.unshift(ultimo);LS.set("rc_hist",h.slice(0,60));$("#salvar").textContent="✅ Salvo!";setTimeout(()=>$("#salvar").textContent="💾 Salvar este produto",1800)};
+$("#compartilhar").onclick=async()=>{if(!ultimo)return;const t=ultimo.resumo;if(navigator.share){try{await navigator.share({text:t});return}catch(e){if(e.name==="AbortError")return}}location.href="https://wa.me/?text="+encodeURIComponent(t)};
+
+/* ---------- SALVOS ---------- */
+function mostrarHist(){
+  const h=LS.get("rc_hist",[]);
+  $("#listaHist").innerHTML=h.length?h.map((p,i)=>`<div class="hist"><div><b>${p.nome.replace(/</g,"&lt;")}</b><div class="mut">${p.data}${p.lupas&&p.lupas.length?" · 🔍 "+p.lupas.length+" lupa(s)":""}</div></div><div><button class="btn peq sec" data-abrir="${i}">Abrir</button> <button class="btn peq sec" data-apagar="${i}">🗑️</button></div></div>`).join(""):'<p class="mut">Nenhum produto salvo ainda.</p>';
+  $$("[data-abrir]").forEach(b=>b.onclick=()=>{const p=h[+b.dataset.abrir];CAMPOS.forEach(k=>$("#n_"+k).value=p.valores[k]||"");$("#txtIng").value=p.ing||"";$("#nomeProd").value=p.nome==="Produto sem nome"?"":p.nome;tipo=p.tipo;base=p.base;marcarChip("#segTipo","t",tipo);marcarChip("#segBase","b",base);irAba("ler");analisar()});
+  $$("[data-apagar]").forEach(b=>b.onclick=()=>{if(confirm("Apagar este produto?")){h.splice(+b.dataset.apagar,1);LS.set("rc_hist",h);mostrarHist()}});
+}
+
+/* ---------- DICIONÁRIO ---------- */
+let filtro="";
+function semAcento(s){return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
+function mostrarDic(){
+  const q=semAcento($("#buscaDic").value.trim());
+  const lista=DIC.filter(d=>(!filtro||d[5]===filtro)&&(!q||semAcento(d[0]+" "+d[1].join(" ")+" "+d[2]).includes(q))).sort((a,b)=>a[0].localeCompare(b[0],"pt"));
+  $("#listaDic").innerHTML=lista.length?lista.map(d=>`<div class="card" style="padding:4px 14px">${cartaoIng(d,false)}</div>`).join(""):'<div class="card mut">Não encontrei esse nome. Tente escrever de outro jeito.</div>';
+}
+$("#buscaDic").oninput=mostrarDic;
+$$("#filtroDic button").forEach(b=>b.onclick=()=>{filtro=b.dataset.f;marcarChip("#filtroDic","f",filtro);mostrarDic()});
+
+/* ---------- INSTALAR / OFFLINE ---------- */
+let pedido=null;
+const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;if(!standalone)$("#instalar").hidden=false});
+if(!standalone)setTimeout(()=>{$("#instalar").hidden=false},2500);
+$("#instalar").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userChoice;pedido=null;$("#instalar").hidden=true}else alert("Para instalar: toque nos 3 pontinhos ⋮ do Chrome e escolha \"Instalar app\" ou \"Adicionar à tela inicial\".")};
+window.addEventListener("appinstalled",()=>$("#instalar").hidden=true);
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+// Prepara o leitor para funcionar sem internet (baixa uma vez)
+window.addEventListener("load",()=>{
+  const st=$("#statusOff");
+  if(LS.get("rc_pronto",false)){st.textContent="✓ Leitor pronto para usar sem internet";return}
+  if(!navigator.onLine||!window.Tesseract)return;
+  st.textContent="⏳ Preparando o leitor para funcionar sem internet…";
+  setTimeout(async()=>{try{await getWorker();LS.set("rc_pronto",true);st.textContent="✓ Leitor pronto para usar sem internet"}catch(e){st.textContent=""}},800);
+});
+window.RC={lerTabela,lerIngredientes,achar};
+</script>
+</body>
+</html>
