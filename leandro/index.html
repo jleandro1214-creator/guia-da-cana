@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Leandro cria apps</title>
+<meta name="description" content="Apps simples para o campo e para o dia a dia. Da roça à rotina.">
+<meta name="theme-color" content="#17402A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Vitrine de apps: cabeçalho com o logo, dois grupos (Campo e Dia a dia), um cartão por app */
+:root{
+  --bg:#17402A; --bg2:#12331F; --card:#1C4A31; --line:#2B5C40;
+  --lime:#C8F169; --cream:#F4EFE3; --muted:#B5CBB9;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--cream);font:17px/1.5 var(--f-body);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 40px}
+header{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.logo{width:96px;height:96px}
+h1{font:800 32px/1.1 var(--f-display);margin:6px 0 0;letter-spacing:-.01em}
+.handle{color:var(--lime);font-weight:600;font-size:15px}
+.tag{font:600 22px/1.2 var(--f-display);margin:8px 0 0}
+.tag span{color:var(--lime)}
+.sub{color:var(--muted);margin:0;max-width:34ch}
+.inst{margin-top:6px}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;font:700 16px var(--f-body)}
+.btn.primary{background:var(--lime);color:#14301F}
+.btn.ghost{border:2px solid var(--line);color:var(--cream)}
+.btn:focus-visible{outline:3px solid var(--cream);outline-offset:2px}
+h2{font:700 15px var(--f-body);text-transform:uppercase;letter-spacing:.12em;color:var(--lime);margin:32px 0 12px;display:flex;align-items:center;gap:10px}
+h2::after{content:"";flex:1;height:2px;background:var(--line)}
+.list{display:flex;flex-direction:column;gap:12px}
+.app{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start;background:var(--card);border-radius:20px;padding:14px}
+.app img{width:64px;height:64px;border-radius:16px;display:block}
+.app .t{min-width:0}
+.app b{display:block;font:700 19px/1.2 var(--f-display)}
+.app small{display:block;color:var(--muted);font-size:15px;margin-top:3px}
+.badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--bg2);color:var(--lime);margin-top:6px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.acts .btn{min-height:44px;padding:0 16px;font-size:15px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+footer{margin-top:36px;text-align:center;color:var(--muted);font-size:14px}
+footer b{color:var(--cream)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--cream);color:#14301F;padding:10px 16px;border-radius:12px;font-weight:600;max-width:calc(100% - 32px)}
+.sheet{margin-top:10px;background:var(--bg2);border-radius:14px;padding:12px 14px;color:var(--muted);font-size:15px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 260 260" role="img" aria-label="Logo: ícone de app com um broto">
+      <rect width="260" height="260" rx="64" fill="#12331F"></rect>
+      <rect x="27" y="27" width="206" height="206" rx="54" fill="none" stroke="#C8F169" stroke-width="12"></rect>
+      <path d="M130 186 V128" stroke="#C8F169" stroke-width="11" stroke-linecap="round"></path>
+      <path d="M130 144 C 98 144 80 120 82 90 C 112 90 130 110 130 144 Z" fill="#C8F169"></path>
+      <path d="M130 124 C 132 90 154 68 184 70 C 186 102 162 124 130 124 Z" fill="#C8F169"></path>
+      <path d="M90 188 H170" stroke="#C8F169" stroke-width="11" stroke-linecap="round"></path>
+    </svg>
+    <h1>Leandro, criador de apps</h1>
+    <div class="handle">@leandro.cria.apps</div>
+    <p class="tag">Da roça <span>à rotina</span></p>
+    <p class="sub">Técnico agrícola que transforma problemas em apps simples. Todos funcionam no celular, até sem internet.</p>
+    <div class="inst" id="inst" hidden><button class="btn primary" type="button" id="b-inst">Instalar esta página</button></div>
+  </header>
+
+  <main id="lista"></main>
+
+  <section class="sheet" aria-label="Como instalar">
+    <b style="color:var(--cream)">Como instalar um app:</b> toque em <b style="color:var(--cream)">Abrir</b>, depois, no Chrome, toque no menu ⋮ e em <b style="color:var(--cream)">Instalar app</b>. Abra uma vez com internet antes de usar sem sinal.
+  </section>
+
+  <footer>Feito por <b>Leandro</b> · siga <b>@leandro.cria.apps</b></footer>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const BASE="https://jleandro1214-creator.github.io/guia-da-cana/";
+const GRUPOS=[
+ {t:"Campo",apps:[
+  {p:"epi-demo/",n:"EPI em Dia",d:"Controle de entrega e estoque de EPIs para gestores.",b:"Demonstração",c:"#C8F169"},
+  {p:"nutri-cana/",n:"Nutri Cana",d:"Simulador de macro e micronutrientes na cana e no solo.",b:"Simulador de nutrientes",c:"#C8F169"}
+ ]},
+ {t:"Dia a dia",apps:[
+  {p:"role-dividido/",n:"Rolê Dividido",d:"Divide as contas do rolê, acerto no PIX, roteiro e mala.",c:"#F4892E"},
+  {p:"dia-leve/",n:"Dia Leve",d:"Hábitos, pausas de respiração e diário do humor.",c:"#CDB6F5"},
+  {p:"casa-em-ordem/",n:"Casa em Ordem",d:"Receitas com o que tem, cardápio, compras e manutenção da casa.",c:"#F6E7D3"}
+ ]}
+];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let h="";
+for(const g of GRUPOS){
+  h+=`<h2>${esc(g.t)}</h2><div class="list">`;
+  for(const a of g.apps){
+    h+=`<article class="app"><img src="../${a.p}icon-192.png" alt="" width="64" height="64"><div class="t">
+      <b><span class="dot" style="background:${a.c}" aria-hidden="true"></span> ${esc(a.n)}</b>
+      <small>${esc(a.d)}</small>${a.b?`<span class="badge">${esc(a.b)}</span>`:""}
+      <div class="acts"><a class="btn primary" href="../${a.p}">Abrir</a>
+      <button class="btn ghost" type="button" data-u="${BASE+a.p}" data-n="${esc(a.n)}">Compartilhar</button></div></div></article>`;
+  }
+  h+=`</div>`;
+}
+$("#lista").innerHTML=h;
+function toast(m){const e=$("#toast");e.textContent=m;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2600)}
+$("#lista").addEventListener("click",async e=>{
+  const b=e.target.closest("button[data-u]"); if(!b) return;
+  const txt=`${b.dataset.n}: abra no Chrome e toque em "Instalar app".`;
+  if(navigator.share){ try{ await navigator.share({title:b.dataset.n,text:txt,url:b.dataset.u}); }catch(err){} return; }
+  try{ await navigator.clipboard.writeText(b.dataset.u); toast("Link copiado"); }
+  catch(err){ location.href="https://wa.me/?text="+encodeURIComponent(txt+" "+b.dataset.u); }
+});
+let def=null; const sa=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();def=e;if(!sa())$("#inst").hidden=false});
+$("#b-inst").addEventListener("click",async()=>{ if(!def) return; def.prompt(); try{await def.userChoice}catch(e){} def=null; $("#inst").hidden=true; });
+addEventListener("appinstalled",()=>$("#inst").hidden=true);
+if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
