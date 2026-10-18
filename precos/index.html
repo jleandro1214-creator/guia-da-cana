@@ -15,8 +15,8 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 system-u
 header{background:var(--pri);color:#fff;padding:14px 16px 0;position:sticky;top:0;z-index:5}
 header h1{margin:0;font-size:22px}header p{margin:2px 0 10px;font-size:14px;opacity:.9}
 #instalar{float:right;background:#fff;color:var(--pri);border:0;border-radius:20px;padding:7px 12px;font-weight:700;font-size:14px}
-nav{display:flex;overflow-x:auto}
-nav button{flex:1;background:none;border:0;color:#fde3c4;font-size:15px;font-weight:600;padding:10px 6px 12px;border-bottom:4px solid transparent;white-space:nowrap}
+nav{display:flex;overflow-x:auto;margin:0 -12px}
+nav button{flex:1 0 auto;background:none;border:0;color:#fde3c4;font-size:13.5px;font-weight:600;padding:10px 2px 12px;border-bottom:4px solid transparent;white-space:nowrap}
 nav button.on{color:#fff;border-color:#fff}
 main{padding:14px 14px 90px;max-width:640px;margin:0 auto}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
@@ -54,6 +54,12 @@ td.r,th.r{text-align:right}
 svg text{font:12px system-ui;fill:var(--mut)}
 .leg{display:flex;flex-wrap:wrap;gap:10px;font-size:14px;margin-top:4px}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222;color:#fff;padding:12px 18px;border-radius:24px;z-index:60;font-weight:600}
+details.man{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+details.man summary{padding:14px;font-weight:700;font-size:18px;list-style:none;cursor:pointer;display:flex;justify-content:space-between}
+details.man summary::after{content:"＋";color:var(--pri)}details.man[open] summary::after{content:"－"}
+details.man summary::-webkit-details-marker{display:none}
+details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
+.dica{background:var(--pri2);border-radius:10px;padding:10px;margin:8px 0;font-size:15px}
 </style>
 </head>
 <body>
@@ -62,10 +68,11 @@ svg text{font:12px system-ui;fill:var(--mut)}
   <h1>🛒 Preço na Mão</h1>
   <p>Histórico de preços dos seus mercados</p>
   <nav id="abas">
-    <button data-aba="inicio" class="on">🏠 Início</button>
-    <button data-aba="produtos">📦 Produtos</button>
-    <button data-aba="comparar">⚖️ Comparar</button>
-    <button data-aba="config">⚙️ Dados</button>
+    <button data-aba="inicio" class="on">🏠Início</button>
+    <button data-aba="produtos">📦Produtos</button>
+    <button data-aba="comparar">⚖️Comparar</button>
+    <button data-aba="config">⚙️Dados</button>
+    <button data-aba="ajuda">❓Ajuda</button>
   </nav>
 </header>
 <main>
@@ -78,6 +85,7 @@ svg text{font:12px system-ui;fill:var(--mut)}
     <label class="btn sec" for="fotoCupom">📷 Foto do cupom em papel</label>
     <input id="fotoCupom" type="file" accept="image/*" capture="environment">
     <button class="btn sec" id="bManual">✍️ Lançar preço à mão</button>
+    <button class="btn sec" id="bAjuda">❓ Como usar o app</button>
   </div>
   <div class="card" id="resumoMes"></div>
   <div class="card"><h2>Últimas compras</h2><div id="ultimas"></div></div>
@@ -206,6 +214,89 @@ svg text{font:12px system-ui;fill:var(--mut)}
   </div>
   <p class="mut" id="contagem"></p>
 </section>
+<!-- ============ AJUDA ============ -->
+<section id="ajuda" hidden>
+  <div class="card"><h2>❓ Manual do Preço na Mão</h2><p class="mut">Toque em cada assunto para abrir.</p></div>
+
+  <details class="man" open><summary>1. Para que serve o app</summary><div class="c">
+    <p>Ele guarda o preço de tudo que você compra, em cada mercado e em cada data. Com o tempo, ele mostra:</p>
+    <ul><li>o <b>menor</b> e o <b>maior</b> preço de cada produto;</li><li>a <b>média</b> num período que você escolhe;</li><li>qual dos seus mercados está <b>mais barato</b>;</li><li>quanto você <b>gastou por mês</b>.</li></ul>
+    <div class="dica">💡 Quanto mais compras você guardar, melhor fica o comparativo.</div></div></details>
+
+  <details class="man"><summary>2. Instalar no celular</summary><div class="c"><ol>
+    <li>Abra o link no <b>Chrome</b>, com internet.</li>
+    <li>Toque em <b>📲 Instalar app</b>, lá em cima. Se não aparecer, toque nos 3 pontinhos ⋮ e escolha <b>Instalar app</b>.</li>
+    <li>O ícone aparece na tela do celular. Depois disso funciona até sem internet (só abrir o cupom no site da Fazenda precisa de sinal).</li></ol></div></details>
+
+  <details class="man"><summary>3. Guardar uma compra pelo QR Code ⭐</summary><div class="c">
+    <p>É o jeito mais rápido e certeiro. Faça depois de cada compra:</p><ol>
+    <li>Na aba <b>🏠 Início</b>, toque em <b>🧾 Ler QR Code do cupom</b>.</li>
+    <li>Aponte a câmera para o <b>QR Code</b> que fica no fim do cupom. O celular vibra quando lê.</li>
+    <li>Toque em <b>🌐 Abrir o cupom</b>. Abre o site da Fazenda de SP com a lista da compra.</li>
+    <li>No site, <b>toque e segure</b> em qualquer palavra. Escolha <b>Selecionar tudo</b> e depois <b>Copiar</b>.</li>
+    <li>Volte para o app e toque em <b>📋 Colar o cupom</b>. Se o celular perguntar, toque em <b>Permitir</b>.</li>
+    <li>Confira a lista: o mercado, a data e os preços já vêm preenchidos. Desmarque o que não quiser guardar.</li>
+    <li>Toque em <b>💾 Guardar no histórico</b>. Pronto!</li></ol>
+    <div class="dica">💡 Se o botão Colar não funcionar, abra "Não colou? Cole aqui à mão", toque e segure na caixa e escolha <b>Colar</b>. Depois toque em <b>Ler o texto colado</b>.</div>
+    <div class="dica">💡 Se aparecer "Esse cupom já foi guardado", é porque você já leu ele antes. Assim não duplica.</div></div></details>
+
+  <details class="man"><summary>4. Foto do cupom em papel</summary><div class="c">
+    <p>Use quando o QR Code estiver apagado ou rasgado.</p><ol>
+    <li>Toque em <b>📷 Foto do cupom em papel</b>.</li>
+    <li>Fotografe o cupom <b>reto, de perto e com boa luz</b>, sem sombra.</li>
+    <li>Espere a leitura e <b>confira bem</b> os nomes e preços antes de guardar — a foto erra mais que o QR Code.</li></ol>
+    <div class="dica">💡 Na primeira vez precisa de internet para baixar o leitor de fotos.</div></div></details>
+
+  <details class="man"><summary>5. Consultar preço no mercado (código de barras)</summary><div class="c"><ol>
+    <li>Toque em <b>🏷️ Ler código de barras</b> e aponte para o código do produto na prateleira.</li>
+    <li>Se você já comprou esse produto, aparece o <b>histórico</b> dele na hora: menor preço, maior preço e em qual mercado.</li>
+    <li>Se for um produto novo, abre a tela para <b>lançar o preço</b> que você está vendo na etiqueta.</li></ol>
+    <div class="dica">💡 Assim você anota o preço de outro mercado sem precisar comprar lá.</div></div></details>
+
+  <details class="man"><summary>6. Lançar preço à mão</summary><div class="c"><ol>
+    <li>Toque em <b>✍️ Lançar preço à mão</b>.</li>
+    <li>Se quiser, toque em <b>📷</b> para ler o código de barras. Com internet, o app tenta achar o nome sozinho.</li>
+    <li>Escreva o produto, escolha o mercado (ou <b>➕ Outro mercado</b>), o preço e a data.</li>
+    <li>Toque em <b>💾 Guardar</b>.</li></ol></div></details>
+
+  <details class="man"><summary>7. Ver o histórico de um produto</summary><div class="c"><ol>
+    <li>Vá na aba <b>📦 Produtos</b>. Use a busca 🔎 ou organize por <b>A–Z</b>, <b>Recentes</b> ou <b>Mais subiu</b>.</li>
+    <li>Toque no produto. Você vê:<ul>
+      <li>🟢 <b>menor preço</b>, onde e quando;</li><li><b>média</b> do período;</li><li>🔴 <b>maior preço</b>, onde e quando;</li>
+      <li>o <b>gráfico</b>, com uma cor para cada mercado;</li><li>o último preço em cada mercado (✓ verde = mais barato).</li></ul></li>
+    <li>Escolha o período: <b>1 semana, 1 mês, 3 meses, 6 meses, 1 ano</b> ou <b>Tudo</b>.</li>
+    <li>Para um período exato, toque em <b>Escolher mês/ano</b> e preencha <b>De</b> e <b>Até</b>.</li></ol>
+    <div class="dica">💡 Para apagar um preço errado, toque na 🗑️ ao lado dele.</div></div></details>
+
+  <details class="man"><summary>8. Comparar os mercados</summary><div class="c"><ol>
+    <li>Vá na aba <b>⚖️ Comparar</b> e escolha o período.</li>
+    <li>O quadro verde mostra qual mercado foi <b>mais barato</b> e quanto daria para economizar.</li>
+    <li>A tabela mostra cada produto em cada mercado: <span class="barato">verde = mais barato</span>, <span class="caro">vermelho = mais caro</span>.</li>
+    <li>Em <b>Gasto por mês</b>, cada cor da barra é um mercado.</li></ol>
+    <div class="dica">💡 Só entram na comparação os produtos que você tem em pelo menos 2 mercados.</div></div></details>
+
+  <details class="man"><summary>9. Juntar produtos com nomes diferentes</summary><div class="c">
+    <p>Cada mercado escreve o nome de um jeito ("ARROZ TIO JOAO 5KG" e "ARROZ T.JOAO 5KG"). Os que têm <b>código de barras</b> se juntam sozinhos. Os que não têm (pão, frutas, carne de balcão) você junta assim:</p><ol>
+    <li>Abra o produto em <b>📦 Produtos</b>.</li>
+    <li>Toque em <b>Editar produto</b>.</li>
+    <li>Em <b>"É o mesmo produto que…"</b>, escolha o outro nome e toque em <b>Juntar</b>.</li></ol>
+    <p>Ali você também pode <b>trocar o nome</b> ou <b>📷 vincular um código de barras</b>.</p></div></details>
+
+  <details class="man"><summary>10. Trocar o nome do mercado</summary><div class="c"><ol>
+    <li>Vá na aba <b>⚙️ Dados</b>.</li><li>Toque no mercado e escreva o nome que preferir (ex.: "Savegnago do Centro").</li></ol></div></details>
+
+  <details class="man"><summary>11. Cópia de segurança (importante!)</summary><div class="c">
+    <p>Os dados ficam <b>só no seu celular</b>. Se trocar de celular ou limpar o Chrome, perde tudo. Por isso:</p><ol>
+    <li>Na aba <b>⚙️ Dados</b>, toque em <b>📤 Salvar cópia</b> e mande para você mesmo no WhatsApp ou salve no Drive.</li>
+    <li>Para recuperar, toque em <b>📥 Restaurar cópia</b> e escolha esse arquivo.</li></ol>
+    <div class="dica">💡 Faça uma cópia uma vez por mês. O botão <b>📊 Exportar planilha</b> gera um arquivo para abrir no Excel.</div></div></details>
+
+  <details class="man"><summary>12. Problemas comuns</summary><div class="c"><ul>
+    <li><b>A câmera não abre:</b> toque no cadeado ao lado do endereço e permita a câmera. Ou use <b>📷 Tirar foto em vez disso</b>.</li>
+    <li><b>Não acha os produtos depois de colar:</b> no site da Fazenda, use <b>Selecionar tudo</b> antes de copiar, para pegar a página inteira.</li>
+    <li><b>O site da Fazenda não abre:</b> precisa de internet. Guarde o cupom de papel e faça mais tarde.</li>
+    <li><b>Preço por quilo:</b> itens de balança guardam o preço do kg, não o total pago.</li></ul></div></details>
+</section>
 </main>
 
 <div id="scan" hidden>
@@ -252,7 +343,7 @@ function nomeMerc(id){return DB.merc[id]?DB.merc[id].nome:"?"}
 function regsDe(k){return DB.reg.filter(r=>resolver(r.p)===k)}
 
 /* ================= ABAS ================= */
-const ABAS=["inicio","produtos","comparar","config"],TELAS=["inicio","cupom","revisao","manual","produtos","detalhe","comparar","config"];
+const ABAS=["inicio","produtos","comparar","config","ajuda"],TELAS=["inicio","cupom","revisao","manual","produtos","detalhe","comparar","config","ajuda"];
 let tela="inicio";
 function ir(t){tela=t;TELAS.forEach(x=>$("#"+x).hidden=x!==t);const aba=ABAS.includes(t)?t:({cupom:"inicio",revisao:"inicio",manual:"inicio",detalhe:"produtos"})[t];$$("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.aba===aba));
   if(t==="inicio")telaInicio();if(t==="produtos")telaProdutos();if(t==="comparar")telaComparar();if(t==="config")telaConfig();scrollTo(0,0)}
@@ -572,6 +663,9 @@ $("#instalar").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userCho
 window.addEventListener("appinstalled",()=>$("#instalar").hidden=true);
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 document.addEventListener("click",e=>{const c=e.target.closest("[data-cup]");if(c){const rs=DB.reg.filter(x=>x.c===c.dataset.cup);if(rs.length)alert(rs.map(r=>`${(DB.prod[resolver(r.p)]||{}).nome} — ${R(r.v)}${r.q&&r.q!==1?" x "+String(r.q).replace(".",","):""}`).join("\n"))}});
+$("#bAjuda").onclick=()=>ir("ajuda");
+$$("#cupom .passos").forEach(o=>o.insertAdjacentHTML("afterend",'<p class="mut">Dúvida? Veja o passo a passo na aba <a href="#" onclick="ir(\'ajuda\');return false">❓ Ajuda</a>.</p>'));
+try{if(!localStorage.getItem("pnm_viu_ajuda")){localStorage.setItem("pnm_viu_ajuda","1");if(!DB.reg.length)ir("ajuda")}}catch(e){}
 telaInicio();
 window.PNM={lerCupomSefaz,lerCupomPapel,infoChave,DB,receberQR,abrirRevisao,gtinOk};
 </script>
