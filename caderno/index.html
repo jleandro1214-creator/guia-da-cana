@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Caderno do Claude</title>
+<meta name="theme-color" content="#155e63">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+[hidden]{display:none!important}
+:root{--bg:#f2f5f3;--card:#fff;--ink:#17262a;--mut:#5d6d70;--pri:#155e63;--pri2:#e2f0ef;--line:#d9e3e1;--ok:#2e7d32;--okbg:#e8f5e9;--warn:#9a5b00;--warnbg:#fdf1dc;--acc:#e0a526}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--pri);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 16px 0;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:22px;line-height:1.2}
+header p{margin:2px 0 8px;opacity:.85;font-size:14px}
+#instalar{float:right;background:#fff;color:var(--pri);border:0;border-radius:20px;padding:7px 12px;font-weight:700;font-size:14px}
+nav{display:flex;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 8px}
+nav button{flex:none;background:none;border:0;color:#fff;opacity:.75;font:600 15px system-ui,sans-serif;padding:10px 9px 12px;border-bottom:3px solid transparent}
+nav button.on{opacity:1;border-color:var(--acc)}
+main{max-width:720px;margin:0 auto;padding:14px 14px calc(40px + env(safe-area-inset-bottom))}
+.card{background:var(--card);border-radius:16px;padding:16px;margin:0 0 12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+h2{font-size:20px;margin:0 0 8px}h3{font-size:18px;margin:0}
+.mut{color:var(--mut)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:14px;padding:14px;font:700 17px system-ui,sans-serif;background:var(--pri);color:#fff;margin:8px 0;cursor:pointer;text-decoration:none}
+.btn.sec{background:var(--pri2);color:var(--pri)}
+.btn.peq{width:auto;padding:9px 14px;font-size:15px;margin:0}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+input,textarea,select{width:100%;font:inherit;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+label.l{display:block;font-weight:700;margin:12px 0 4px}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0 10px}
+.chips button{flex:none;font:600 14px system-ui,sans-serif;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--mut)}
+.chips button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.item{display:flex;gap:12px;align-items:flex-start;background:var(--card);border-radius:14px;padding:14px;margin:0 0 8px;box-shadow:0 1px 2px rgba(0,0,0,.05);cursor:pointer;width:100%;border:0;text-align:left;font:inherit;color:inherit}
+.item .ic{font-size:26px;line-height:1.1;flex:none}
+.item .tx{flex:1;min-width:0}.item b{display:block}.item small{color:var(--mut);font-size:15px;display:block}
+.tag{display:inline-block;font:700 11px system-ui;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:var(--warnbg);color:var(--warn);margin-left:4px;vertical-align:2px}
+.tag.ok{background:var(--okbg);color:var(--ok)}
+details.lic{background:var(--card);border-radius:14px;margin:0 0 8px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+details.lic summary{list-style:none;padding:14px 16px;font-weight:700;cursor:pointer;display:flex;gap:10px;align-items:center}
+details.lic summary::-webkit-details-marker{display:none}
+details.lic summary::after{content:"▾";margin-left:auto;color:var(--mut)}
+details.lic[open] summary::after{content:"▴"}
+details.lic .c{padding:0 16px 14px}
+details.lic li{margin:6px 0}
+.dica{background:var(--pri2);border-radius:12px;padding:10px 12px;margin:10px 0;font-size:16px}
+.ruim,.bom{border-radius:12px;padding:10px 12px;margin:6px 0;font-size:16px}
+.ruim{background:#fdecec}.ruim::before{content:"❌ Fraco: ";font-weight:700;color:#c62828}
+.bom{background:var(--okbg)}.bom::before{content:"✅ Forte: ";font-weight:700;color:var(--ok)}
+.prompt{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:12px;font:15px/1.55 ui-monospace,Menlo,monospace;margin:8px 0}
+.prompt mark{background:#fff3c4;color:inherit;border-radius:4px;padding:0 2px}
+.receita{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;margin:8px 0}.receita b{color:var(--pri)}
+#folha{position:fixed;inset:0;background:rgba(10,20,22,.5);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+#folha .in{background:var(--bg);width:100%;max-width:720px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#17262a;color:#fff;padding:12px 18px;border-radius:12px;z-index:30;font-size:16px;max-width:90vw;text-align:center}
+.vazio{text-align:center;color:var(--mut);padding:20px}
+.secao{font:800 13px system-ui;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:18px 4px 8px}
+</style>
+</head>
+<body>
+<header>
+  <button id="instalar" hidden>📲 Instalar app</button>
+  <h1>📒 Caderno do Claude</h1>
+  <p>Como pedir, comandos prontos, ferramentas e suas anotações</p>
+  <nav id="abas">
+    <button data-aba="inicio" class="on">🏠 Início</button>
+    <button data-aba="pedir">🎓 Como pedir</button>
+    <button data-aba="cmds">💬 Comandos</button>
+    <button data-aba="ferr">🧰 Ferramentas</button>
+    <button data-aba="notas">📝 Anotações</button>
+  </nav>
+</header>
+<main>
+
+<!-- ============ INÍCIO ============ -->
+<section id="inicio">
+  <div class="card">
+    <input id="busca" type="search" placeholder="🔎 Buscar em tudo (ex.: Instagram, solo, app…)" aria-label="Buscar em tudo">
+  </div>
+  <div id="resBusca" hidden></div>
+  <div id="iniCorpo">
+    <div class="card">
+      <h2>🧩 Monte seu pedido</h2>
+      <p class="mut" style="margin-top:0">Preencha o que souber. O app junta tudo num pedido bem feito, pronto para colar na conversa.</p>
+      <label class="l" for="mQue">O que você quer? *</label>
+      <textarea id="mQue" placeholder="Ex.: um post para o Instagram sobre adubação da cana"></textarea>
+      <label class="l" for="mPara">Para quem ou para quê?</label>
+      <input id="mPara" placeholder="Ex.: produtores rurais que estão começando">
+      <label class="l" for="mCtx">O que eu já sei ou já tenho</label>
+      <textarea id="mCtx" placeholder="Ex.: tenho uma análise de solo, uso o perfil @leandro.cria.apps…" style="min-height:70px"></textarea>
+      <label class="l" for="mFmt">Como quer receber</label>
+      <select id="mFmt">
+        <option value="">Deixa o Claude escolher</option>
+        <option>uma resposta curta e direta</option>
+        <option>um passo a passo numerado</option>
+        <option>uma tabela comparando as opções</option>
+        <option>um app de celular instalável</option>
+        <option>um documento para guardar e compartilhar</option>
+        <option>uma apresentação em slides</option>
+        <option>uma planilha</option>
+        <option>um carrossel de Instagram</option>
+        <option>um roteiro de Reels</option>
+        <option>uma mensagem pronta para WhatsApp</option>
+      </select>
+      <label class="l" for="mTam">Tamanho</label>
+      <select id="mTam">
+        <option value="">Normal</option>
+        <option value="curto">Curto (até 5 linhas)</option>
+        <option value="completo">Completo e detalhado</option>
+      </select>
+      <label class="l" for="mTom">Jeito de falar</label>
+      <select id="mTom">
+        <option value="">Normal</option>
+        <option value="simples">Simples, sem termos difíceis</option>
+        <option value="tecnico">Técnico, de agrônomo</option>
+        <option value="formal">Formal, para empresa</option>
+      </select>
+      <label class="l" style="display:flex;gap:10px;align-items:center;font-weight:400"><input type="checkbox" id="mPerg" style="width:22px;height:22px"> Me faça perguntas antes de começar</label>
+      <label class="l" style="display:flex;gap:10px;align-items:center;font-weight:400;margin-top:4px"><input type="checkbox" id="mCert" style="width:22px;height:22px"> Diga o que é certeza e o que é palpite</label>
+      <div id="mSaida" hidden>
+        <p class="l">Seu pedido:</p>
+        <div class="prompt" id="mTexto"></div>
+        <button class="btn" id="mCopiar">📋 Copiar pedido</button>
+        <button class="btn sec" id="mGuardar">📝 Guardar nas anotações</button>
+        <button class="btn sec" id="mLimpar">🧹 Começar outro</button>
+      </div>
+    </div>
+    <div class="card" id="dicaDia"></div>
+    <div class="card">
+      <h2>⚡ Atalhos</h2>
+      <button class="btn sec" data-ir="pedir">🎓 Aprender a pedir (5 minutos)</button>
+      <button class="btn sec" data-ir="cmds">💬 Ver os 82 comandos prontos</button>
+      <button class="btn sec" data-ir="ferr">🧰 O que o Claude consegue fazer</button>
+      <button class="btn sec" data-ir="notas">📝 Minhas anotações</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMO PEDIR ============ -->
+<section id="pedir" hidden>
+  <div class="card"><h2>🎓 Como pedir para o Claude</h2><p class="mut" style="margin:0">Toque em cada assunto. Em 5 minutos você lê tudo.</p></div>
+  <div id="licoes"></div>
+</section>
+
+<!-- ============ COMANDOS ============ -->
+<section id="cmds" hidden>
+  <div class="card">
+    <input id="cBusca" type="search" placeholder="🔎 Buscar comando" aria-label="Buscar comando">
+  </div>
+  <div class="chips" id="cCats"></div>
+  <div id="cLista"></div>
+</section>
+
+<!-- ============ FERRAMENTAS ============ -->
+<section id="ferr" hidden>
+  <div class="card"><h2>🧰 O que o Claude consegue fazer</h2>
+    <p class="mut" style="margin:0">Tudo aqui é grátis para você. Não precisa decorar: peça do seu jeito e o Claude escolhe a ferramenta. Esta lista serve para você saber <b>o que dá para pedir</b>.</p></div>
+  <div id="fLista"></div>
+</section>
+
+<!-- ============ ANOTAÇÕES ============ -->
+<section id="notas" hidden>
+  <div class="card">
+    <h2>📝 Minhas anotações</h2>
+    <p class="mut" style="margin-top:0">Guarde ideias de app, pedidos que deram certo, dicas e comandos seus. Fica salvo neste celular.</p>
+    <button class="btn" id="nNova">➕ Nova anotação</button>
+    <input id="nBusca" type="search" placeholder="🔎 Buscar nas anotações" aria-label="Buscar nas anotações" style="margin-top:6px">
+  </div>
+  <div class="chips" id="nCats"></div>
+  <div id="nLista"></div>
+  <div class="card">
+    <h2>💾 Cópia de segurança</h2>
+    <p class="mut" style="margin-top:0">As anotações ficam só neste celular. Faça uma cópia de vez em quando.</p>
+    <button class="btn sec" id="nExportar">📤 Salvar cópia (arquivo)</button>
+    <label class="btn sec" for="nImportar">📥 Restaurar cópia</label>
+    <input id="nImportar" type="file" accept=".json,application/json" style="display:none">
+  </div>
+</section>
+</main>
+
+<div id="folha" hidden><div class="in" id="folhaIn"></div></div>
+<div id="toast" hidden></div>
+
+<script>
+const CMDS=[{"c":"Pensar e decidir","i":"🎬","n":"Explica fácil","w":"Quando algo é difícil de entender: contrato, imposto, bula, lei, termo técnico.","p":"Explique [assunto ou texto] como se eu tivesse 5 anos: palavras simples, um exemplo do dia a dia e nenhum termo técnico sem explicação.","e":"ELI5","v":1},{"c":"Pensar e decidir","i":"🎬","n":"Pré-mortem","w":"Antes de começar um plano, para achar os furos que você ainda não viu.","p":"Imagine que se passaram 6 meses e [meu plano] deu errado. Liste as 5 causas mais prováveis do fracasso, da mais para a menos provável, e o que eu posso fazer hoje para evitar cada uma.","e":"Pre-mortem","v":1},{"c":"Pensar e decidir","i":"🎬","n":"Lado contrário forte","w":"Quando você tem certeza de algo e quer testar se o raciocínio aguenta.","p":"Minha opinião é: [opinião]. Monte a versão mais forte possível do argumento contrário, como faria a pessoa mais inteligente que discorda de mim. Depois mostre onde o meu raciocínio é mais fraco.","e":"Steelman","v":1},{"c":"Pensar e decidir","i":"🎬","n":"Avaliador exigente","w":"Antes de uma decisão importante: apresentar um projeto, investir, lançar um app.","p":"Aja como um avaliador muito exigente. Ataque [meu plano ou decisão] por todos os lados: dinheiro, tempo, cliente, concorrência e execução. Não seja gentil. No fim, diga as 3 correções mais importantes.","e":"Red team","v":1},{"c":"Pensar e decidir","i":"🎬","n":"Primeiros princípios","w":"Problemas complicados em que todo mundo repete a mesma receita.","p":"Analise [problema] por primeiros princípios. Ignore conselhos óbvios e o que todo mundo costuma fazer. Separe o que é fato comprovado do que é suposição e reconstrua a solução só a partir dos fatos.","e":"First principles","v":1},{"c":"Pensar e decidir","i":"🧠","n":"5 Porquês","w":"Quando um problema volta sempre e você quer achar a causa de verdade.","p":"Problema: [descreva]. Pergunte “por quê?” 5 vezes seguidas até chegar na causa raiz, mostrando cada etapa. No fim, sugira uma ação para a causa raiz.","e":"5 Whys","v":0},{"c":"Pensar e decidir","i":"🧠","n":"Inversão","w":"Para enxergar o caminho certo pelo avesso.","p":"Em vez de me dizer como ter sucesso em [objetivo], liste tudo o que garantiria o fracasso. Depois transforme essa lista em regras do que eu devo evitar.","e":"Inversion","v":0},{"c":"Pensar e decidir","i":"🧠","n":"Efeito dominó","w":"Decisões que parecem boas agora mas podem cobrar depois.","p":"Se eu fizer [decisão], quais são as consequências imediatas, em 6 meses e em 2 anos? Inclua os efeitos indiretos que pouca gente percebe.","e":"Second-order thinking","v":0},{"c":"Pensar e decidir","i":"🧠","n":"Caminhos A, B e C","w":"Quando você está travado entre opções.","p":"Me dê 3 caminhos diferentes para [situação], com prós, contras, custo e tempo de cada um, numa tabela. No fim, diga qual você escolheria e por quê.","e":"Options","v":0},{"c":"Pensar e decidir","i":"🧠","n":"Regra 80/20","w":"Quando tem coisa demais para fazer e pouco tempo.","p":"Sobre [projeto ou tarefa]: quais são os 20% de ações que trazem 80% do resultado? Coloque em ordem de prioridade e diga o que posso cortar.","e":"Pareto","v":0},{"c":"Aprender","i":"📚","n":"Analogia do campo","w":"Para entender qualquer assunto comparando com o que você já conhece.","p":"Explique [assunto] usando comparações com lavoura, solo, irrigação ou criação de animais. Use uma analogia principal e mostre onde ela deixa de valer.","e":"Analogy","v":0},{"c":"Aprender","i":"📚","n":"Corrija minha explicação","w":"Para ter certeza de que aprendeu de verdade.","p":"Vou explicar [assunto] com minhas palavras. Corrija o que estiver errado, aponte o que faltou e me dê uma nota de 0 a 10.\n\nMinha explicação: [texto]","e":"Feynman","v":0},{"c":"Aprender","i":"📚","n":"Me teste","w":"Para revisar antes de prova, curso ou conversa com cliente.","p":"Faça 5 perguntas de múltipla escolha sobre [assunto], uma por vez. Só mostre a resposta certa e a explicação depois que eu responder.","e":"Quiz","v":0},{"c":"Aprender","i":"📚","n":"Trilha de estudo","w":"Quando o assunto é grande e você não sabe por onde começar.","p":"Monte uma trilha para aprender [tema]: o básico, o intermediário e o avançado, na ordem certa, com o que estudar em cada etapa e quanto tempo leva.","e":"Roadmap","v":0},{"c":"Aprender","i":"📚","n":"Fala de produtor","w":"Para transformar laudo, análise de solo ou texto técnico em algo que o produtor entende.","p":"Reescreva [texto técnico ou laudo] numa linguagem que um produtor rural entenda, sem termos difíceis. Termine com o que ele precisa fazer na prática, em passos.","e":"Plain language","v":0},{"c":"Criar apps","i":"📱","n":"Entrevista antes","w":"No começo de todo app novo, para o resultado sair do jeito que você imagina.","p":"Quero criar um app de [ideia]. Antes de começar, me faça até 7 perguntas para entender o que eu preciso. Só comece a construir depois que eu responder.","e":"Ask first","v":0},{"c":"Criar apps","i":"📱","n":"Versão mínima","w":"Para tirar a ideia do papel rápido, sem querer fazer tudo de uma vez.","p":"Qual é a versão mais simples de [app] que já resolve o problema principal? Liste só as funções essenciais e deixe o resto separado para a versão 2.","e":"MVP","v":0},{"c":"Criar apps","i":"📱","n":"Usuário apressado","w":"Para achar onde o app confunde quem usa.","p":"Teste [app] como um usuário com pressa, que não lê instruções e usa o celular com uma mão só. Onde ele trava, se confunde ou desiste? Sugira como corrigir cada ponto.","e":"User test","v":0},{"c":"Criar apps","i":"📱","n":"Caça-erros","w":"Antes de mandar o link do app para alguém.","p":"Revise [app] procurando erros, botões que não funcionam, textos confusos e problemas no celular. Liste do mais grave ao menos grave e corrija.","e":"Bug review","v":0},{"c":"Criar apps","i":"📱","n":"Nome e slogan","w":"Na hora de batizar um app ou um perfil.","p":"Sugira 10 nomes curtos e fáceis de lembrar para um app de [ideia], cada um com um slogan de até 6 palavras. Marque os 3 melhores.","e":"Naming","v":0},{"c":"Instagram","i":"📸","n":"Gancho de 3 segundos","w":"Para a pessoa parar de rolar o feed no seu Reels.","p":"Escreva 10 frases de abertura para um Reels sobre [tema] que façam a pessoa parar de rolar o feed nos 3 primeiros segundos. Público: [quem].","e":"Hook","v":0},{"c":"Instagram","i":"📸","n":"Roteiro de Reels","w":"Para gravar sem enrolar.","p":"Escreva um roteiro de Reels de 45 segundos sobre [tema], dividido em trechos com: o que falar, o texto na tela e a imagem sugerida.","e":"Script","v":0},{"c":"Instagram","i":"📸","n":"Carrossel","w":"Para ensinar algo passo a passo num post salvável.","p":"Transforme [assunto] num carrossel de 7 slides: capa chamativa, 5 slides com uma ideia cada e um slide final com chamada para ação. Texto curto em cada slide.","e":"Carousel","v":0},{"c":"Instagram","i":"📸","n":"Legenda pronta","w":"Na hora de publicar.","p":"Escreva uma legenda para um post sobre [tema]: primeira linha forte, até 5 linhas de conteúdo, uma pergunta para gerar comentários e 10 hashtags do nicho.","e":"Caption","v":0},{"c":"Instagram","i":"📸","n":"Um assunto, 10 posts","w":"Para nunca ficar sem ideia de conteúdo.","p":"A partir de [assunto ou texto], crie 10 ideias de post diferentes: dica rápida, erro comum, mito x verdade, antes e depois, pergunta ao público e outras. Uma linha para cada.","e":"Repurpose","v":0},{"c":"Respostas melhores","i":"✨","n":"Direto ao ponto","w":"Quando a resposta veio longa demais.","p":"Responda em no máximo 5 linhas. Primeiro a resposta, depois o porquê.","e":"TL;DR","v":0},{"c":"Respostas melhores","i":"✨","n":"Passo a passo","w":"Para tarefas que você nunca fez.","p":"Me explique como fazer [tarefa] em passos numerados, como se eu nunca tivesse feito. Avise onde é mais fácil errar.","e":"Step by step","v":0},{"c":"Respostas melhores","i":"✨","n":"Grau de certeza","w":"Para assuntos sérios: dose, lei, dinheiro, saúde.","p":"Para cada afirmação da resposta, diga se é certeza, se é provável ou se é palpite. Indique o que eu devo conferir numa fonte oficial.","e":"Confidence","v":0},{"c":"Respostas melhores","i":"✨","n":"Autocrítica","w":"Logo depois de uma resposta, para deixá-la melhor.","p":"Agora critique sua própria resposta: o que pode estar errado, o que faltou e o que ficou confuso. Depois me dê a versão melhorada.","e":"Self-critique","v":0},{"c":"Respostas melhores","i":"✨","n":"Combo completo","w":"Para decisões grandes: junta os comandos do vídeo.","p":"Sobre [plano ou decisão], faça em sequência: 1) explique fácil o que está em jogo; 2) faça um pré-mortem; 3) ataque como avaliador exigente; 4) reconstrua por primeiros princípios; 5) dê sua recomendação final em 3 linhas.","e":"Stack","v":0},{"c":"Trabalho","i":"📧","n":"E-mail profissional","w":"Escreve um e-mail claro e educado","p":"Escreva um e-mail profissional para [para quem] sobre [assunto]. O que preciso dizer: [pontos principais]. Tom: [tom (ex.: cordial, firme, formal)]. Seja direto, com no máximo 3 parágrafos e um assunto curto no começo."},{"c":"Trabalho","i":"🗒️","n":"Ata de reunião","w":"Organiza anotações soltas em uma ata","p":"Transforme estas anotações de reunião em uma ata organizada, com: participantes, assuntos discutidos, decisões tomadas e tarefas (quem faz o quê e até quando).\n\nAnotações:\n[cole suas anotações]"},{"c":"Trabalho","i":"📊","n":"Relatório semanal","w":"Resumo do que foi feito na semana","p":"Monte um relatório semanal curto para meu gestor, com: o que foi feito, resultados em números, problemas encontrados e próximos passos. Minha área: [sua área]. O que aconteceu na semana: [o que você fez]."},{"c":"Trabalho","i":"🦺","n":"DDS – Diálogo de Segurança","w":"Roteiro de 5 minutos para a equipe","p":"Crie um roteiro de DDS (Diálogo Diário de Segurança) de 5 minutos sobre [tema (ex.: uso de EPI, calor, trânsito interno)] para uma equipe de [tipo de equipe]. Use linguagem simples, um exemplo real do dia a dia, 3 perguntas para a equipe responder e uma frase final de impacto."},{"c":"Trabalho","i":"🧭","n":"Plano de ação 5W2H","w":"Transforma um problema em plano","p":"Monte um plano de ação no formato 5W2H (O quê, Por quê, Onde, Quando, Quem, Como, Quanto custa) para resolver este problema: [descreva o problema]. Apresente em tabela e sugira 3 ações prioritárias."},{"c":"Trabalho","i":"🗣️","n":"Conversa difícil com a equipe","w":"Como dar um feedback sem brigar","p":"Preciso conversar com [quem (ex.: um operador da equipe)] sobre [situação]. Me ajude a preparar a conversa: como começar, o que dizer, o que evitar e como fechar com um combinado claro. Quero ser firme, mas respeitoso."},{"c":"Trabalho","i":"📄","n":"Currículo","w":"Monta ou melhora seu currículo","p":"Monte um currículo profissional e objetivo para a vaga de [cargo desejado]. Meus dados e experiência: [cole aqui sua experiência, cursos e formação]. Destaque resultados com números e deixe em até 1 página."},{"c":"Trabalho","i":"🤝","n":"Preparar entrevista","w":"Perguntas prováveis e boas respostas","p":"Vou fazer uma entrevista para [cargo] na empresa [empresa ou ramo]. Liste as 10 perguntas mais prováveis e me ajude a montar boas respostas com base na minha experiência: [sua experiência]."},{"c":"Trabalho","i":"📢","n":"Comunicado para a equipe","w":"Aviso curto para grupo de WhatsApp","p":"Escreva um comunicado curto para o grupo de WhatsApp da equipe avisando sobre [o aviso]. Use linguagem simples, emojis com moderação e deixe claro o que cada um precisa fazer e até quando."},{"c":"Agro","i":"🌾","n":"Diagnóstico de praga ou doença","w":"Descreva os sintomas e receba hipóteses","p":"Sou da área de [cultura (ex.: cana-de-açúcar)]. Na lavoura estou vendo: [descreva os sintomas, onde aparecem e há quanto tempo]. Quais são as causas mais prováveis? Para cada uma, diga como confirmar no campo e quais medidas de manejo costumam ser usadas. Indique quando devo chamar um agrônomo."},{"c":"Agro","i":"💧","n":"Vinhaça: explicar para a equipe","w":"Explicação simples sobre aplicação","p":"Explique de forma simples, para operadores de campo, [assunto (ex.: por que controlar a dose de vinhaça)]. Use exemplos práticos, linguagem do dia a dia e termine com 5 cuidados importantes."},{"c":"Agro","i":"🚜","n":"Checklist de máquina","w":"Inspeção antes de iniciar o turno","p":"Crie um checklist de inspeção antes do turno para [máquina ou equipamento]. Separe em: itens de segurança, mecânica, hidráulica, elétrica e limpeza. Formato de lista para marcar OK / Não OK."},{"c":"Agro","i":"🧮","n":"Fazer uma conta de campo","w":"Explica e confere cálculos","p":"Me ajude a calcular [o que precisa calcular (ex.: volume de vinhaça por hectare)]. Dados que tenho: [seus números]. Mostre a conta passo a passo e confira se o resultado faz sentido."},{"c":"Agro","i":"🌦️","n":"Planejar operação pelo clima","w":"O que fazer com chuva, seca ou vento","p":"Estou planejando [operação (ex.: aplicação, plantio, colheita)] para os próximos dias. A previsão é: [previsão do tempo]. Quais os riscos e o que você recomenda ajustar no planejamento?"},{"c":"Agro","i":"📋","n":"Procedimento operacional (POP)","w":"Passo a passo padrão de uma tarefa","p":"Escreva um Procedimento Operacional Padrão para [tarefa]. Inclua: objetivo, EPIs necessários, materiais, passo a passo numerado, riscos e o que fazer em caso de problema. Linguagem simples para quem está no campo."},{"c":"Agro","i":"📈","n":"Analisar produtividade","w":"Entender números da safra","p":"Tenho estes dados de produtividade: [cole os números (talhão, área, produção, TCH etc.)]. Analise, aponte os melhores e piores resultados, possíveis causas e o que vale investigar."},{"c":"Agro","i":"🎓","n":"Treinamento rápido","w":"Mini aula para novos funcionários","p":"Monte um treinamento de 15 minutos para novos funcionários sobre [tema]. Inclua: objetivo, 3 a 5 pontos principais, um exemplo prático e um teste rápido com 5 perguntas e respostas."},{"c":"Estudos","i":"🧠","n":"Explicar como se eu tivesse 12 anos","w":"Entender qualquer assunto difícil","p":"Explique [assunto] como se eu tivesse 12 anos. Use comparações do dia a dia, exemplos e termine com um resumo de 3 frases."},{"c":"Estudos","i":"📝","n":"Resumo de texto","w":"Cola o texto e recebe os pontos principais","p":"Resuma o texto abaixo em tópicos com as ideias principais, depois um resumo em 5 linhas e 3 perguntas para eu testar se entendi.\n\nTexto:\n[cole o texto]"},{"c":"Estudos","i":"❓","n":"Simulado","w":"Perguntas para treinar para prova","p":"Crie um simulado com [quantidade] questões de múltipla escolha sobre [matéria ou tema], nível [fácil, médio ou difícil]. Mostre o gabarito comentado só no final."},{"c":"Estudos","i":"🗓️","n":"Plano de estudos","w":"Cronograma que cabe na sua rotina","p":"Monte um plano de estudos para [objetivo (ex.: concurso, curso técnico)]. Tenho [horas por dia] por dia, nos dias [dias da semana], até [data da prova ou meta]. Divida por semanas e inclua revisões."},{"c":"Estudos","i":"🗺️","n":"Mapa mental","w":"Organiza o assunto em tópicos","p":"Faça um mapa mental em texto (tópicos e subtópicos) sobre [assunto], do geral para o específico, com palavras-chave curtas."},{"c":"Estudos","i":"👨‍🏫","n":"Professor particular","w":"Aprende fazendo perguntas","p":"Seja meu professor de [matéria]. Me ensine [tema] aos poucos: explique um ponto, me faça uma pergunta, espere minha resposta e só então avance. Corrija meus erros com paciência."},{"c":"Estudos","i":"🌎","n":"Treinar outro idioma","w":"Conversa para praticar","p":"Vamos conversar em [idioma]. Meu nível é [iniciante, intermediário ou avançado]. Fale sobre [tema da conversa], corrija meus erros no fim de cada resposta e explique em português."},{"c":"Escrita","i":"✨","n":"Melhorar um texto","w":"Corrige e deixa mais claro","p":"Revise o texto abaixo: corrija português, deixe mais claro e fluido, sem mudar o sentido. Depois liste o que você mudou.\n\nTexto:\n[cole o texto]"},{"c":"Escrita","i":"📣","n":"Post para redes sociais","w":"Legenda com chamada e hashtags","p":"Crie 3 opções de legenda para um post no [rede (Instagram, Facebook, LinkedIn)] sobre [assunto]. Público: [para quem]. Comece com uma frase que prenda a atenção, termine com uma chamada para ação e sugira 5 hashtags."},{"c":"Escrita","i":"🎉","n":"Mensagem de aniversário","w":"Texto carinhoso e personalizado","p":"Escreva uma mensagem de aniversário para [pessoa e relação (ex.: meu pai)]. Algumas coisas sobre ela: [lembranças, jeito, gostos]. Tom: [emocionante, divertido ou simples]. Tamanho: curta, para WhatsApp."},{"c":"Escrita","i":"🙏","n":"Pedido de desculpas","w":"Reconhecer o erro do jeito certo","p":"Me ajude a escrever um pedido de desculpas para [pessoa] por [o que aconteceu]. Quero ser sincero, sem me justificar demais, e propor como resolver."},{"c":"Escrita","i":"🎤","n":"Discurso curto","w":"Para homenagem, festa ou evento","p":"Escreva um discurso de [duração (ex.: 2 minutos)] para [ocasião]. Pontos que quero falar: [pontos]. Linguagem natural, fácil de falar em voz alta."},{"c":"Escrita","i":"📜","n":"Ofício ou requerimento","w":"Documento formal para órgão ou empresa","p":"Redija um [ofício, requerimento ou carta formal] para [destinatário] solicitando [o pedido]. Meus dados: [nome e informações necessárias]. Use o formato padrão com data, assunto e fechamento."},{"c":"Escrita","i":"📖","n":"História para crianças","w":"Historinha para contar antes de dormir","p":"Crie uma história infantil de 5 minutos para uma criança de [idade] anos chamada [nome], que gosta de [o que a criança gosta]. Com uma pequena lição sobre [valor (ex.: amizade, coragem)]."},{"c":"Dinheiro","i":"📒","n":"Organizar orçamento do mês","w":"Para onde vai o dinheiro","p":"Me ajude a organizar meu orçamento mensal. Renda: [renda do mês]. Gastos fixos: [aluguel, contas, parcelas]. Gastos variáveis: [mercado, lazer etc.]. Monte uma tabela, mostre quanto sobra e sugira onde dá para economizar."},{"c":"Dinheiro","i":"🎯","n":"Meta de economia","w":"Quanto guardar por mês","p":"Quero juntar [valor] para [objetivo] até [prazo]. Quanto preciso guardar por mês? Sugira um plano realista e dicas para não desistir."},{"c":"Dinheiro","i":"⚖️","n":"Comparar compras","w":"À vista, parcelado ou financiado","p":"Quero comprar [produto]. Opções: [ex.: R$ 3.000 à vista ou 12x de R$ 290]. Compare as opções, calcule os juros embutidos e me diga os prós e contras de cada uma. Lembre que a decisão final é minha."},{"c":"Dinheiro","i":"🛒","n":"Lista de mercado econômica","w":"Compra do mês gastando menos","p":"Monte uma lista de compras do mês para [número de pessoas] pessoas com orçamento de [valor]. Priorize itens básicos, sugira trocas mais baratas e cardápio simples para aproveitar tudo."},{"c":"Dinheiro","i":"💡","n":"Renda extra","w":"Ideias de acordo com suas habilidades","p":"Sei fazer [suas habilidades] e tenho [horas livres] livres por semana. Sugira 5 ideias de renda extra realistas, quanto custa para começar e o primeiro passo de cada uma."},{"c":"Casa e Família","i":"🍲","n":"Receita com o que tem em casa","w":"Diga os ingredientes e receba ideias","p":"Tenho em casa: [ingredientes]. Sugira 3 receitas simples que dá para fazer com isso, com modo de preparo passo a passo e tempo de preparo."},{"c":"Casa e Família","i":"📆","n":"Cardápio da semana","w":"Almoço e janta planejados","p":"Monte um cardápio semanal de almoço e janta para [número de pessoas] pessoas, prático, gostoso e econômico. Preferências ou restrições: [preferências]. Inclua a lista de compras no final."},{"c":"Casa e Família","i":"🧹","n":"Rotina de limpeza","w":"Divide tarefas pela semana","p":"Crie uma rotina de limpeza semanal para uma casa com [cômodos], dividindo as tarefas entre [quem mora na casa]. Cada dia com no máximo 30 minutos."},{"c":"Casa e Família","i":"🎈","n":"Festa ou passeio","w":"Planejamento com lista e custos","p":"Me ajude a planejar [tipo de evento (ex.: aniversário de 5 anos)] para [número de convidados] pessoas, com orçamento de [valor]. Faça uma lista de tarefas, compras e uma ordem do que fazer em cada semana."},{"c":"Casa e Família","i":"🧒","n":"Brincadeiras com as crianças","w":"Atividades sem tela","p":"Sugira 10 brincadeiras sem tela para crianças de [idade] anos, usando coisas que tenho em casa. Para [dentro de casa ou ao ar livre]."},{"c":"Casa e Família","i":"🔧","n":"Conserto em casa","w":"Passo a passo de reparo simples","p":"Em casa, [descreva o problema (ex.: torneira pingando)]. Me explique o que pode ser, quais ferramentas preciso e o passo a passo para consertar com segurança. Avise quando for melhor chamar um profissional."},{"c":"Criatividade","i":"🖼️","n":"Prompt para gerar imagem","w":"Descrição detalhada para IA de imagem","p":"Crie um prompt detalhado em inglês para uma IA geradora de imagens, mostrando [o que quer na imagem], no estilo [estilo (ex.: foto realista, aquarela, desenho animado)]. Inclua iluminação, enquadramento, cores e clima."},{"c":"Criatividade","i":"💭","n":"Chuva de ideias","w":"20 ideias sobre qualquer coisa","p":"Me dê 20 ideias criativas para [o que precisa (ex.: nome de loja, presente, tema de festa)]. Varie entre ideias simples, ousadas e engraçadas."},{"c":"Criatividade","i":"🎵","n":"Letra de música original","w":"Música sobre um tema que você escolher","p":"Escreva uma letra de música original no estilo [gênero (ex.: sertanejo, gospel, rap)] sobre [tema]. Com 2 estrofes e refrão fácil de cantar."},{"c":"Criatividade","i":"🎬","n":"Roteiro de vídeo curto","w":"Reels, TikTok ou Shorts","p":"Crie um roteiro de vídeo de [duração (ex.: 30 segundos)] sobre [assunto] para [rede]. Divida em cenas: o que aparece, o que eu falo e o texto na tela. Os primeiros 3 segundos precisam prender a atenção."},{"c":"Criatividade","i":"🏷️","n":"Nome e slogan","w":"Para negócio ou projeto","p":"Sugira 10 nomes e 5 slogans para [negócio ou projeto], que vende [produto ou serviço] para [público]. Explique rapidamente a ideia de cada nome."},{"c":"Tecnologia","i":"📲","n":"Criar um app","w":"Peça para a IA montar um app","p":"Quero um app de celular que [o que o app faz]. Quem vai usar: [quem]. Telas e funções que preciso: [lista de funções]. Ele precisa funcionar sem internet e ser instalável no celular. Faça tudo e me entregue o link."},{"c":"Tecnologia","i":"📑","n":"Fórmula de planilha","w":"Excel ou Google Planilhas","p":"No [Excel ou Google Planilhas], tenho [descreva as colunas]. Quero [o que quer calcular]. Me dê a fórmula pronta e explique como colar."},{"c":"Tecnologia","i":"🛠️","n":"Resolver problema no celular","w":"Passo a passo para Android","p":"Meu celular [modelo] está com este problema: [descreva]. Me dê um passo a passo simples, do mais fácil ao mais difícil, para tentar resolver."},{"c":"Tecnologia","i":"🎯","n":"Melhorar um prompt","w":"Deixa qualquer pedido mais preciso","p":"Melhore este prompt para que a IA entenda exatamente o que eu quero. Pergunte o que faltar e depois me entregue a versão final.\n\nMeu prompt:\n[cole o prompt]"},{"c":"Tecnologia","i":"🔒","n":"Isso é golpe?","w":"Confere mensagens suspeitas","p":"Recebi esta mensagem: [cole a mensagem]. Ela tem sinais de golpe? Explique os sinais, o que eu devo fazer e o que não devo fazer."}];
+const ORDEM_CAT=["Pensar e decidir","Respostas melhores","Aprender","Criar apps","Instagram","Agro","Trabalho","Estudos","Escrita","Dinheiro","Casa e Família","Criatividade","Tecnologia"];
+CMDS.forEach((c,i)=>c.id="c"+i);
+
+const LICOES=[
+{i:"🧾",t:"A receita do bom pedido",h:`<p>Um bom pedido tem 4 partes. Não precisa ter todas, mas quanto mais tiver, melhor fica a resposta.</p>
+<div class="receita"><b>1. O quê</b><span>o que você quer receber</span><b>2. Para quem</b><span>quem vai usar ou ler</span><b>3. Contexto</b><span>o que você já sabe, já tem ou já tentou</span><b>4. Formato</b><span>app, tabela, passo a passo, post, tamanho</span></div>
+<div class="ruim">“Faz um post de adubação.”</div>
+<div class="bom">“Faz um carrossel de 7 slides para o Instagram sobre adubação de cana-soca, para produtor pequeno, com linguagem simples. Eu sou técnico agrícola e uso vinhaça na fazenda.”</div>
+<div class="dica">💡 Use o <b>🧩 Monte seu pedido</b> na tela inicial. Ele faz isso por você.</div>`},
+{i:"📏",t:"Quanto pedir de cada vez",h:`<ul><li><b>Uma entrega por pedido</b> funciona melhor: um app, um post, um documento.</li>
+<li><b>Coisa grande?</b> Peça por etapas: primeiro o plano, depois cada parte. Exemplo: “Primeiro me mostra as telas do app. Depois a gente constrói.”</li>
+<li><b>Várias coisas pequenas</b> podem ir juntas numa lista numerada: “Faça 1) …, 2) …, 3) …”.</li>
+<li><b>Mudança</b>: peça só o que muda. “No Preço na Mão, troca a cor do botão.” Não precisa explicar o app de novo.</li></ul>
+<div class="dica">💡 Se a resposta veio grande demais, diga “resuma em 5 linhas”. Se veio curta, diga “detalhe mais a parte X”.</div>`},
+{i:"🗣️",t:"Voz ou texto: quando usar cada um",h:`<ul><li><b>Voz</b>: bom para ter ideias, tirar dúvidas e conversar sobre um plano.</li>
+<li><b>Texto</b>: use para <b>construir</b>: criar ou atualizar app, fazer documento, slides, planilha, ler vídeo ou arquivo.</li>
+<li>Combinou algo na voz? No texto, diga só: “faça o que combinamos na voz sobre…”. O Claude lembra.</li></ul>`},
+{i:"📎",t:"Mande o material junto",h:`<p>Quanto mais material, menos o Claude precisa adivinhar.</p><ul>
+<li><b>Foto</b>: de etiqueta, tela, planta, análise de solo, cupom.</li>
+<li><b>Vídeo</b>: o Claude vê o vídeo quadro a quadro e entende o que mostra.</li>
+<li><b>PDF, planilha, documento</b>: anexe e peça o que quer dele.</li>
+<li><b>Link</b>: funciona para a maioria dos sites. <b>Instagram e TikTok bloqueiam</b>: baixe o vídeo e anexe.</li></ul>`},
+{i:"🔧",t:"Corrigir sem recomeçar",h:`<ul><li>Diga o que <b>está errado</b> e o que <b>quer no lugar</b>: “O botão de salvar não funciona quando não tem internet. Quero que salve mesmo assim.”</li>
+<li>Mande <b>print da tela</b> quando algo aparecer errado. Ajuda muito.</li>
+<li>Gostou de uma parte? Diga: “mantém tudo, muda só o título”.</li>
+<li>Não gostou de nada? “Faça de novo com outra ideia, bem diferente.”</li></ul>`},
+{i:"✨",t:"Frases que deixam a resposta melhor",h:`<ul><li>“<b>Antes de começar, me faça perguntas.</b>”</li><li>“<b>Me dê 3 opções</b> e diga qual você escolheria.”</li>
+<li>“<b>Explique como se eu tivesse 5 anos.</b>”</li><li>“<b>Critique sua resposta</b> e me dê a versão melhor.”</li>
+<li>“<b>Diga o que é certeza e o que é palpite.</b>”</li><li>“<b>Seja direto</b>: primeiro a resposta, depois o porquê.”</li></ul>
+<div class="dica">💡 Esses e outros estão prontos na aba <b>💬 Comandos</b>.</div>`},
+{i:"🤖",t:"O que o Claude decide sozinho",h:`<p>Você não precisa dizer qual ferramenta usar. Com um pedido normal, o Claude escolhe sozinho:</p><ul>
+<li>se precisa <b>pesquisar na internet</b>;</li><li>se vira <b>app, documento, slides ou planilha</b>;</li><li>se usa o <b>Canva</b>, o <b>Gmail</b> ou a <b>Agenda</b>;</li><li>se o app vai para a sua central <b>Meus Apps</b>.</li></ul>
+<p>Só diga quando quiser algo diferente: “quero em PDF”, “não precisa de app, só me explica”.</p>`},
+{i:"⚠️",t:"Erros comuns",h:`<ul><li><b>Pedido vago</b>: “me ajuda com a fazenda”. Diga o que quer resolver.</li>
+<li><b>Tudo de uma vez</b>: 5 apps num pedido só. Faça um por vez.</li>
+<li><b>Não conferir</b>: dose de produto, lei, dinheiro e saúde, sempre confira numa fonte oficial ou com quem é responsável.</li>
+<li><b>Recomeçar do zero</b> por causa de um detalhe. Peça só a correção.</li></ul>`},
+{i:"🔍",t:"Exemplos: antes e depois",h:`<div class="ruim">“Me fala de nematoide.”</div><div class="bom">“Quais nematoides mais atacam a cana em SP, como reconhecer no campo e o que fazer? Responda em tabela, linguagem de técnico agrícola.”</div>
+<div class="ruim">“Faz um app de estoque.”</div><div class="bom">“Quero um app de celular para controlar estoque de EPI da minha equipe: entrada, saída por funcionário e alerta quando acabar. Antes, me faça até 5 perguntas.”</div>
+<div class="ruim">“Melhora esse texto.”</div><div class="bom">“Deixa esse texto mais curto e simples, para mandar no grupo de WhatsApp da equipe. Mantém as datas. Texto: …”</div>`},
+{i:"💸",t:"Combinado: só o que é grátis",h:`<p>Tudo que a gente usa é grátis: os apps ficam no GitHub Pages, as artes no Canva e no Figma (planos grátis) e a pesquisa é feita pelo próprio Claude.</p>
+<div class="dica">💡 A geração de imagens com IA no Canva e no Figma grátis tem limite de usos por mês.</div>`}
+];
+
+const FERR=[
+{i:"🔎",t:"Pesquisa na internet",s:"ok",d:"Notícias, preços, leis, estudos. O Claude busca e mostra as fontes.",p:"Pesquisa as novidades sobre [assunto] desta semana e me resume em 5 pontos, com as fontes."},
+{i:"🎬",t:"Ler vídeos, fotos e arquivos",s:"ok",d:"Vídeo baixado, foto, PDF, planilha, documento. Instagram não abre por link: baixe e anexe.",p:"Analise esse vídeo e me diga o que ele ensina e como posso usar isso."},
+{i:"📱",t:"Criar app de celular",s:"ok",d:"App instalável, que funciona sem internet, com link para compartilhar. Vai para a central Meus Apps.",p:"Quero um app de celular para [ideia]. Antes de começar, me faça até 5 perguntas."},
+{i:"🔄",t:"Atualizar um app seu",s:"ok",d:"Diga o nome do app e o que mudar. O link continua o mesmo.",p:"No app [nome], [o que mudar]."},
+{i:"📄",t:"Documentos",s:"ok",d:"Relatório, plano, manual, procedimento. Dá para baixar em Word ou PDF.",p:"Faça um documento com [assunto] para eu guardar e compartilhar com a equipe."},
+{i:"📊",t:"Slides",s:"ok",d:"Apresentação para reunião ou treinamento. Baixa em PowerPoint ou PDF.",p:"Faça uma apresentação de 8 slides sobre [tema] para [público]."},
+{i:"🧮",t:"Planilhas",s:"ok",d:"Controle, orçamento, cálculos. Também lê as suas planilhas.",p:"Monte uma planilha para controlar [o quê], com totais por mês."},
+{i:"🎨",t:"Canva",s:"ok",d:"Posts, carrosséis, capas e logos. Conectado. Imagens com IA têm limite mensal no grátis.",p:"Faça no Canva um carrossel de 5 slides sobre [tema] para o @leandro.cria.apps."},
+{i:"✏️",t:"Figma",s:"ok",d:"Desenho das telas de um app antes de construir e artes mais elaboradas.",p:"Desenhe no Figma as telas do app [nome] para eu ver antes de construir."},
+{i:"📧",t:"Gmail",s:"ok",d:"Resumir e-mails, achar mensagens e escrever respostas. Conectado.",p:"Resuma os e-mails importantes que chegaram esta semana."},
+{i:"📅",t:"Google Agenda",s:"ok",d:"Ver compromissos, marcar eventos e lembretes. Conectado.",p:"Marque na minha agenda [compromisso] no dia [data] às [hora]."},
+{i:"⏰",t:"Tarefas agendadas",s:"ok",d:"O Claude faz algo sozinho num horário fixo, por exemplo uma pesquisa toda segunda.",p:"Toda segunda às 7h, pesquise as novidades do agro e me mande 3 ideias de post."},
+{i:"🌐",t:"Navegador",s:"ok",d:"O Claude abre sites, testa os seus apps como usuário e preenche formulários.",p:"Teste o app [nome] como um usuário com pressa e me diga onde ele trava."},
+{i:"🧠",t:"Memória",s:"ok",d:"O Claude lembra dos seus apps, projetos e preferências entre conversas.",p:"Lembre que [informação]."},
+{i:"🎵",t:"Spotify",s:"ok",d:"Recomendação de músicas e podcasts. Conectado.",p:"Me indique podcasts sobre agronomia em português."},
+{i:"🎙️",t:"Conversa por voz",s:"ok",d:"Bom para ideias e dúvidas. Para construir, volte ao texto.",p:"(Fale normalmente, como numa ligação.)"},
+{i:"🚫",t:"Pagos que não usamos",s:"no",d:"Blotato (postar sozinho nas redes), Higgsfield (vídeo com IA), Perplexity e Firecrawl. O Claude já cobre a pesquisa, e postar você mesmo ajuda a aprender.",p:""}
+];
+
+const DICAS=["Antes de um pedido grande, diga: “me faça perguntas antes de começar”.","Mande print da tela quando algo der errado no app.","Peça “3 opções” quando não souber o que quer.","Para mudar um app, diga só o nome dele e o que mudar.","Instagram não abre por link: baixe o vídeo e anexe.","Peça “resuma em 5 linhas” quando a resposta vier longa.","Na voz você tem ideias; no texto o Claude constrói.","Guarde aqui os pedidos que deram certo para usar de novo.","Dose, lei e dinheiro: peça o grau de certeza e confira na fonte."];
+
+/* ============ util ============ */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s??"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let tT;function toast(t){const e=$("#toast");e.textContent=t;e.hidden=false;clearTimeout(tT);tT=setTimeout(()=>e.hidden=true,2200)}
+async function copiar(t){try{await navigator.clipboard.writeText(t);toast("📋 Copiado! Agora cole na conversa com o Claude.")}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("📋 Copiado!")}catch(_){toast("Não consegui copiar. Toque e segure no texto.")}a.remove()}}
+const marcar=t=>esc(t).replace(/\[[^\]]+\]/g,m=>"<mark>"+m+"</mark>");
+
+let favs=load("cc_favs",[]),notas=load("cc_notas",[]),cat=load("cc_cat","Todos"),nCat="Todas";
+
+/* traz os prompts guardados na Prompteca (mesmo site) */
+if(!load("cc_importou",false)){
+  const meus=load("pr_meus",[]);
+  meus.forEach(m=>{const x=(m.p||"").replace(/\[\[/g,"[").replace(/\]\]/g,"]");if(x&&!notas.some(n=>n.x===x))notas.push({id:"n"+Date.now()+Math.random().toString(36).slice(2,6),tipo:"Comando",t:m.n||"Prompt da Prompteca",x,d:Date.now()})});
+  save("cc_notas",notas);save("cc_importou",true);
+}
+
+/* ============ abas ============ */
+const ABAS=["inicio","pedir","cmds","ferr","notas"];let aba="inicio";
+function ir(a){aba=a;ABAS.forEach(x=>$("#"+x).hidden=x!==a);$$("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.aba===a));
+  const b=$(`#abas [data-aba="${a}"]`);b&&b.scrollIntoView({inline:"center",block:"nearest"});window.scrollTo(0,0);
+  if(a==="cmds")desenharCmds();if(a==="notas")desenharNotas()}
+$$("#abas button").forEach(b=>b.onclick=()=>ir(b.dataset.aba));
+$$("[data-ir]").forEach(b=>b.onclick=()=>ir(b.dataset.ir));
+let x0=null,y0=null;
+document.addEventListener("touchstart",e=>{if(!$("#folha").hidden||e.target.closest("input,textarea,select,.chips,nav,.prompt"))return;x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+  if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.5){const i=ABAS.indexOf(aba)+(dx<0?1:-1);if(i>=0&&i<ABAS.length)ir(ABAS[i])}},{passive:true});
+
+/* ============ lições e ferramentas ============ */
+$("#licoes").innerHTML=LICOES.map((l,i)=>`<details class="lic" id="L${i}" ${i===0?"open":""}><summary><span style="font-size:24px">${l.i}</span>${esc(l.t)}</summary><div class="c">${l.h}</div></details>`).join("");
+$("#fLista").innerHTML=FERR.map((f,i)=>`<div class="card" id="F${i}"><h3>${f.i} ${esc(f.t)} ${f.s==="ok"?'<span class="tag ok">grátis</span>':'<span class="tag">pago</span>'}</h3><p class="mut" style="margin:6px 0 0">${esc(f.d)}</p>${f.p?`<p class="l" style="margin-top:10px">Peça assim:</p><div class="prompt">${marcar(f.p)}</div><button class="btn sec" data-fcop="${i}">📋 Copiar</button>`:""}</div>`).join("");
+$$("[data-fcop]").forEach(b=>b.onclick=()=>copiar(FERR[+b.dataset.fcop].p));
+$("#dicaDia").innerHTML=`<h2>💡 Dica do dia</h2><p style="margin:0">${esc(DICAS[Math.floor(Date.now()/864e5)%DICAS.length])}</p>`;
+
+/* ============ comandos ============ */
+function cats(){const c=["Todos","⭐ Favoritos",...ORDEM_CAT.filter(x=>CMDS.some(y=>y.c===x))];if(notas.some(n=>n.tipo==="Comando"))c.push("📝 Meus");return c}
+function itemCmd(c){return `<button class="item" data-cmd="${c.id}"><span class="ic">${c.i||"💬"}</span><span class="tx"><b>${esc(c.n)}${c.v?' <span class="tag">do vídeo</span>':""}${favs.includes(c.id)?" ⭐":""}</b><small>${esc(c.w)}</small></span></button>`}
+function itemNotaCmd(n){return `<button class="item" data-nota="${n.id}"><span class="ic">📝</span><span class="tx"><b>${esc(n.t)}</b><small>${esc(n.x.slice(0,90))}</small></span></button>`}
+function desenharCmds(){
+  if(!cats().includes(cat))cat="Todos";
+  $("#cCats").innerHTML=cats().map(c=>`<button class="${c===cat?"on":""}">${esc(c)}</button>`).join("");
+  $$("#cCats button").forEach(b=>b.onclick=()=>{cat=b.textContent;save("cc_cat",cat);desenharCmds()});
+  const q=norm($("#cBusca").value);
+  const ok=c=>!q||norm(c.n+" "+c.w+" "+c.p+" "+c.c+" "+(c.e||"")).includes(q);
+  let h="";
+  if(cat==="📝 Meus"){const ns=notas.filter(n=>n.tipo==="Comando"&&(!q||norm(n.t+" "+n.x).includes(q)));h=ns.map(itemNotaCmd).join("")}
+  else if(cat==="⭐ Favoritos"){const l=CMDS.filter(c=>favs.includes(c.id)&&ok(c));h=l.length?l.map(itemCmd).join(""):'<p class="vazio">Toque num comando e depois em ⭐ para guardar aqui os que você mais usa.</p>'}
+  else if(cat==="Todos"){ORDEM_CAT.forEach(k=>{const l=CMDS.filter(c=>c.c===k&&ok(c));if(l.length)h+=`<div class="secao">${esc(k)}</div>`+l.map(itemCmd).join("")})}
+  else{h=CMDS.filter(c=>c.c===cat&&ok(c)).map(itemCmd).join("")}
+  $("#cLista").innerHTML=h||'<p class="vazio">Nenhum comando com essa palavra.</p>';
+  ligarItens("#cLista");
+}
+$("#cBusca").oninput=desenharCmds;
+function ligarItens(sel){$$(sel+" [data-cmd]").forEach(b=>b.onclick=()=>abrirCmd(b.dataset.cmd));$$(sel+" [data-nota]").forEach(b=>b.onclick=()=>abrirNota(b.dataset.nota))}
+
+/* folha de um comando: campos para preencher */
+function campos(p){return [...new Set((p.match(/\[[^\]]+\]/g)||[]))]}
+function abrirCmd(id){
+  const c=CMDS.find(x=>x.id===id);if(!c)return;const cs=campos(c.p);
+  $("#folhaIn").innerHTML=`<h2>${c.i||"💬"} ${esc(c.n)}</h2><p class="mut" style="margin-top:0">${esc(c.w)}</p>
+   ${cs.length?`<p class="l" style="margin-bottom:0">Preencha (pode deixar em branco):</p>${cs.map((f,i)=>`<label class="l" for="fc${i}">${esc(f.slice(1,-1))}</label><input id="fc${i}" data-f="${esc(f)}">`).join("")}`:""}
+   <p class="l">Como vai ficar:</p><div class="prompt" id="fPrev"></div>
+   <button class="btn" id="fCop">📋 Copiar pedido</button>
+   <div class="row"><button class="btn sec" id="fFav" style="flex:1">${favs.includes(id)?"★ Tirar dos favoritos":"⭐ Favoritar"}</button><button class="btn sec" id="fFechar" style="flex:1">Fechar</button></div>`;
+  const montar=()=>{let t=c.p;$$("#folhaIn [data-f]").forEach(i=>{if(i.value.trim())t=t.split(i.dataset.f).join(i.value.trim())});return t};
+  const prev=()=>$("#fPrev").innerHTML=marcar(montar());prev();
+  $$("#folhaIn [data-f]").forEach(i=>i.oninput=prev);
+  $("#fCop").onclick=()=>copiar(montar());
+  $("#fFav").onclick=()=>{favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];save("cc_favs",favs);fechar();desenharCmds();toast(favs.includes(id)?"⭐ Guardado nos favoritos":"Tirado dos favoritos")};
+  $("#fFechar").onclick=fechar;abrirFolha();
+}
+function abrirFolha(){$("#folha").hidden=false;document.body.style.overflow="hidden"}
+function fechar(){$("#folha").hidden=true;document.body.style.overflow=""}
+$("#folha").onclick=e=>{if(e.target.id==="folha")fechar()};
+
+/* ============ montador de pedido ============ */
+function montarPedido(){
+  const q=$("#mQue").value.trim();if(!q){$("#mSaida").hidden=true;return""}
+  const L=[];L.push("Quero "+q.replace(/^quero\s+/i,"").replace(/\.$/,"")+".");
+  const para=$("#mPara").value.trim();if(para)L.push("É para "+para.replace(/\.$/,"")+".");
+  const ctx=$("#mCtx").value.trim();if(ctx)L.push("Contexto: "+ctx.replace(/\.$/,"")+".");
+  const f=$("#mFmt").value;if(f)L.push("Quero receber como "+f+".");
+  const t=$("#mTam").value;if(t==="curto")L.push("Seja curto: no máximo 5 linhas.");if(t==="completo")L.push("Pode ser completo e detalhado.");
+  const tom=$("#mTom").value;if(tom==="simples")L.push("Use linguagem simples, sem termos difíceis.");if(tom==="tecnico")L.push("Pode usar linguagem técnica de agronomia.");if(tom==="formal")L.push("Use um tom formal, de empresa.");
+  if($("#mCert").checked)L.push("Diga o que é certeza e o que é palpite.");
+  if($("#mPerg").checked)L.push("Antes de começar, me faça até 5 perguntas sobre o que faltar.");
+  const txt=L.join("\n");$("#mTexto").textContent=txt;$("#mSaida").hidden=false;return txt;
+}
+["#mQue","#mPara","#mCtx"].forEach(s=>$(s).addEventListener("input",montarPedido));
+["#mFmt","#mTam","#mTom","#mPerg","#mCert"].forEach(s=>$(s).addEventListener("change",montarPedido));
+$("#mCopiar").onclick=()=>copiar(montarPedido());
+$("#mGuardar").onclick=()=>{const t=montarPedido();if(!t)return;notas.unshift({id:"n"+Date.now(),tipo:"Comando",t:$("#mQue").value.trim().slice(0,60),x:t,d:Date.now()});save("cc_notas",notas);toast("📝 Guardado em Anotações › Comando")};
+$("#mLimpar").onclick=()=>{["#mQue","#mPara","#mCtx"].forEach(s=>$(s).value="");["#mFmt","#mTam","#mTom"].forEach(s=>$(s).value="");$("#mPerg").checked=$("#mCert").checked=false;montarPedido();$("#mQue").focus()};
+
+/* ============ anotações ============ */
+const TIPOS=["Ideia de app","Comando","Dica","Pedido que deu certo","Outro"];
+const TIC={"Ideia de app":"💡","Comando":"💬","Dica":"📌","Pedido que deu certo":"✅","Outro":"🗒️"};
+function desenharNotas(){
+  $("#nCats").innerHTML=["Todas",...TIPOS].map(t=>`<button class="${t===nCat?"on":""}">${t==="Todas"?"Todas":TIC[t]+" "+t}</button>`).join("");
+  $$("#nCats button").forEach((b,i)=>b.onclick=()=>{nCat=i?TIPOS[i-1]:"Todas";desenharNotas()});
+  const q=norm($("#nBusca").value);
+  const l=notas.filter(n=>(nCat==="Todas"||n.tipo===nCat)&&(!q||norm(n.t+" "+n.x+" "+n.tipo).includes(q)));
+  $("#nLista").innerHTML=l.length?l.map(n=>`<button class="item" data-nota="${n.id}"><span class="ic">${TIC[n.tipo]||"🗒️"}</span><span class="tx"><b>${esc(n.t||"Sem título")}</b><small>${esc((n.x||"").slice(0,110))}</small><small style="font-size:13px">${esc(n.tipo)} · ${new Date(n.d).toLocaleDateString("pt-BR")}</small></span></button>`).join(""):`<p class="vazio">${notas.length?"Nada encontrado.":"Nenhuma anotação ainda. Toque em ➕ Nova anotação."}</p>`;
+  ligarItens("#nLista");
+}
+$("#nBusca").oninput=desenharNotas;
+function abrirNota(id){
+  const n=id?notas.find(x=>x.id===id):{id:"",tipo:nCat!=="Todas"?nCat:"Ideia de app",t:"",x:""};if(!n)return;
+  $("#folhaIn").innerHTML=`<h2>${id?"✏️ Anotação":"➕ Nova anotação"}</h2>
+   <label class="l" for="eTipo">Tipo</label><select id="eTipo">${TIPOS.map(t=>`<option ${t===n.tipo?"selected":""}>${t}</option>`).join("")}</select>
+   <label class="l" for="eT">Título</label><input id="eT" value="${esc(n.t)}" placeholder="Ex.: App de ordenha">
+   <label class="l" for="eX">Texto</label><textarea id="eX" style="min-height:160px" placeholder="Escreva aqui. Para comandos, use [colchetes] nos campos que mudam.">${esc(n.x)}</textarea>
+   <button class="btn" id="eSalvar">💾 Salvar</button>
+   ${id?'<button class="btn sec" id="eCop">📋 Copiar texto</button>':""}
+   <div class="row"><button class="btn sec" id="eFechar" style="flex:1">Fechar</button>${id?'<button class="btn sec" id="eApagar" style="flex:1;color:#c62828">🗑️ Apagar</button>':""}</div>`;
+  $("#eSalvar").onclick=()=>{const t=$("#eT").value.trim(),x=$("#eX").value.trim();if(!t&&!x){toast("Escreva algo antes de salvar");return}
+    if(id){Object.assign(n,{tipo:$("#eTipo").value,t,x})}else{notas.unshift({id:"n"+Date.now(),tipo:$("#eTipo").value,t:t||x.slice(0,50),x,d:Date.now()})}
+    save("cc_notas",notas);fechar();desenharNotas();toast("💾 Salvo")};
+  if(id)$("#eCop").onclick=()=>copiar(n.x);
+  $("#eFechar").onclick=fechar;
+  if(id){let conf=false;$("#eApagar").onclick=e=>{if(!conf){conf=true;e.target.textContent="Toque de novo para apagar";return}notas=notas.filter(x=>x.id!==id);save("cc_notas",notas);fechar();desenharNotas();toast("🗑️ Apagada")}}
+  abrirFolha();
+}
+$("#nNova").onclick=()=>abrirNota("");
+$("#nExportar").onclick=async()=>{
+  const dados=JSON.stringify({app:"caderno-do-claude",v:1,data:new Date().toISOString(),notas,favs},null,1);
+  const nome="caderno-claude-"+new Date().toISOString().slice(0,10)+".json";
+  const f=new File([dados],nome,{type:"application/json"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Cópia do Caderno do Claude"});return}catch(e){if(e.name==="AbortError")return}}
+  const a=document.createElement("a");a.href=URL.createObjectURL(f);a.download=nome;a.click();toast("📤 Cópia salva em Downloads");
+};
+$("#nImportar").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+  try{const j=JSON.parse(await f.text());const ns=j.notas||[];let n=0;ns.forEach(x=>{if(x&&x.id&&!notas.some(y=>y.id===x.id)){notas.push(x);n++}});
+    (j.favs||[]).forEach(x=>{if(!favs.includes(x))favs.push(x)});save("cc_notas",notas);save("cc_favs",favs);desenharNotas();toast(`📥 ${n} anotação(ões) restaurada(s)`)}
+  catch(_){toast("Esse arquivo não é uma cópia do Caderno")}};
+
+/* ============ busca geral ============ */
+$("#busca").oninput=()=>{
+  const q=norm($("#busca").value.trim());$("#resBusca").hidden=!q;$("#iniCorpo").hidden=!!q;if(!q)return;
+  const cs=CMDS.filter(c=>norm(c.n+" "+c.w+" "+c.p+" "+c.c).includes(q)).slice(0,25);
+  const ls=LICOES.map((l,i)=>({...l,i2:i})).filter(l=>norm(l.t+" "+l.h.replace(/<[^>]+>/g," ")).includes(q));
+  const fs=FERR.map((f,i)=>({...f,i2:i})).filter(f=>norm(f.t+" "+f.d+" "+f.p).includes(q));
+  const ns=notas.filter(n=>norm(n.t+" "+n.x).includes(q));
+  let h="";
+  if(ls.length)h+=`<div class="secao">🎓 Como pedir</div>`+ls.map(l=>`<button class="item" data-lic="${l.i2}"><span class="ic">${l.i}</span><span class="tx"><b>${esc(l.t)}</b></span></button>`).join("");
+  if(fs.length)h+=`<div class="secao">🧰 Ferramentas</div>`+fs.map(f=>`<button class="item" data-fer="${f.i2}"><span class="ic">${f.i}</span><span class="tx"><b>${esc(f.t)}</b><small>${esc(f.d)}</small></span></button>`).join("");
+  if(cs.length)h+=`<div class="secao">💬 Comandos</div>`+cs.map(itemCmd).join("");
+  if(ns.length)h+=`<div class="secao">📝 Anotações</div>`+ns.map(n=>`<button class="item" data-nota="${n.id}"><span class="ic">${TIC[n.tipo]||"🗒️"}</span><span class="tx"><b>${esc(n.t)}</b><small>${esc(n.x.slice(0,90))}</small></span></button>`).join("");
+  $("#resBusca").innerHTML=h||'<p class="vazio">Nada encontrado. Tente outra palavra.</p>';
+  ligarItens("#resBusca");
+  $$("#resBusca [data-lic]").forEach(b=>b.onclick=()=>{ir("pedir");const d=$("#L"+b.dataset.lic);d.open=true;d.scrollIntoView({block:"start"})});
+  $$("#resBusca [data-fer]").forEach(b=>b.onclick=()=>{ir("ferr");$("#F"+b.dataset.fer).scrollIntoView({block:"start"})});
+};
+
+/* ============ instalar + off-line ============ */
+let promptInst=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptInst=e;if(!standalone)$("#instalar").hidden=false});
+if(!standalone)$("#instalar").hidden=false;
+$("#instalar").onclick=async()=>{if(promptInst){promptInst.prompt();const r=await promptInst.userChoice;if(r.outcome==="accepted")$("#instalar").hidden=true;promptInst=null}
+  else{$("#folhaIn").innerHTML=`<h2>📲 Instalar no celular</h2><ol><li>Toque nos <b>3 pontinhos ⋮</b> do Chrome, lá em cima.</li><li>Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li><li>Confirme. O ícone aparece junto dos outros apps.</li></ol><button class="btn" onclick="fechar()">Entendi</button>`;abrirFolha()}};
+addEventListener("appinstalled",()=>$("#instalar").hidden=true);
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
