@@ -65,6 +65,11 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
 .bar .f i{display:block;height:100%;border-radius:8px}
 .lojas{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lojas .btn{margin:0;padding:14px 8px;font-size:16px}
 .lojas .btn.top{grid-column:1/-1;background:#232f3e}
+.mlit{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.mlit:first-of-type{border-top:0}
+.mlit img{width:56px;height:56px;object-fit:contain;border-radius:8px;background:#fff;flex:none}
+.mlit .tx{flex:1;min-width:0}.mlit .tx a{color:var(--ink);text-decoration:none;font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mlit .pr{font-weight:800;font-size:18px;color:var(--grn)}.mlit .btn{width:auto;margin:0;padding:8px 10px;font-size:14px}
+.lojas .btn:last-child:nth-child(odd){grid-column:1/-1}.lojas .btn.ml{background:#2d3277;color:#fff159}
 #buscaInfo .livro{display:flex;gap:12px;align-items:center}#buscaInfo img{width:64px;border-radius:6px}
 </style>
 </head>
@@ -88,7 +93,7 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
   <div class="card">
     <button class="btn" id="bQR">🧾 Ler QR Code do cupom</button>
     <button class="btn" id="bEAN">🏷️ Ler código de barras</button>
-    <button class="btn" id="bWeb">🔎 Pesquisar preço na internet</button>
+    <button class="btn" id="bWeb">🛍️ Comparar preço nas lojas</button>
     <label class="btn sec" for="fotoCupom">📷 Foto do cupom em papel</label>
     <input id="fotoCupom" type="file" accept="image/*" capture="environment">
     <button class="btn sec" id="bManual">✍️ Lançar preço à mão</button>
@@ -159,15 +164,27 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
 <!-- ============ BUSCA NA INTERNET ============ -->
 <section id="busca" hidden>
   <div class="card">
-    <h2>🔎 Pesquisar preço na internet</h2>
-    <p class="mut">Livros, eletrônicos, qualquer produto. Leia o código de barras e escolha onde pesquisar.</p>
-    <label class="l" for="wCodigo">Código de barras (ou ISBN do livro)</label>
-    <div style="display:flex;gap:6px"><input id="wCodigo" inputmode="numeric" placeholder="Ex.: 9788535914849"><button class="btn peq" id="wScan" style="margin:0">📷</button></div>
+    <h2>🛍️ Comparar preço nas lojas</h2>
+    <p class="mut">Pesquise qualquer produto em várias lojas de uma vez: pelo nome, pela foto ou pelo código de barras / QR Code.</p>
+    <div class="chips" id="wModo"><button data-m="nome">✍️ Nome</button><button data-m="cod">🏷️ Código</button><button data-m="foto">📷 Foto</button></div>
+    <div id="wBoxNome"><label class="l" for="wNome">Nome do produto</label><input id="wNome" placeholder="Ex.: Air fryer Mondial 4 litros" enterkeyhint="search"></div>
+    <div id="wBoxCod" hidden><label class="l" for="wCodigo">Código de barras, ISBN ou QR Code</label>
+      <div style="display:flex;gap:6px"><input id="wCodigo" inputmode="numeric" placeholder="Ex.: 7891000100103"><button class="btn peq" id="wScan" style="margin:0">📷</button></div></div>
+    <div id="wBoxFoto" hidden>
+      <p class="mut" style="margin-bottom:0">Tire uma foto do produto. O <b>Google Lens</b> abre e mostra o que é, onde vende e quanto custa.</p>
+      <form id="lensForm" action="https://lens.google.com/v3/upload" method="post" enctype="multipart/form-data" target="_blank">
+        <label class="btn" for="wFoto">📷 Foto do produto no Google Lens</label>
+        <input id="wFoto" name="encoded_image" type="file" accept="image/*" capture="environment" style="display:none">
+      </form>
+      <div class="dica">💡 Quando o Lens mostrar o nome do produto, volte aqui, toque em <b>✍️ Nome</b> e escreva o nome para comparar nas lojas.</div>
+    </div>
     <div id="buscaInfo" style="margin-top:10px"></div>
-    <div class="chips" id="wModo"><span class="mut" style="align-self:center">Buscar por:</span><button data-m="cod" class="on">Código</button><button data-m="nome">Nome</button></div>
-    <input id="wNome" placeholder="Nome do produto" hidden>
+  </div>
+  <div class="card" id="wML" hidden></div>
+  <div class="card" id="wLojasCard" hidden>
+    <h2>🔗 Abrir a busca pronta na loja</h2>
     <div class="lojas" id="wLojas"></div>
-    <p class="mut">Zoom e Buscapé mostram o <b>histórico de preço</b> na página do produto. Se a busca pelo código não achar nada, toque em <b>Nome</b>.</p>
+    <p class="mut">Zoom e Buscapé comparam várias lojas juntas e mostram o <b>histórico de preço</b>.</p>
   </div>
   <div class="card" id="wHist" hidden></div>
   <div class="card">
@@ -288,14 +305,18 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
     <li>Se for um produto novo, abre a tela para <b>lançar o preço</b> que você está vendo na etiqueta.</li></ol>
     <div class="dica">💡 Assim você anota o preço de outro mercado sem precisar comprar lá.</div></div></details>
 
-  <details class="man"><summary>📚 Pesquisar preço na internet (livros, eletrônicos)</summary><div class="c"><ol>
-    <li>Na aba <b>🏠 Início</b>, toque em <b>🔎 Pesquisar preço na internet</b>.</li>
-    <li>Toque em <b>📷</b> e leia o código de barras. No livro, ele fica atrás (é o ISBN, começa com 978).</li>
-    <li>O app mostra o nome do produto (e a capa, se for livro).</li>
-    <li>Toque na loja: <b>Amazon</b>, <b>Zoom</b>, <b>Buscapé</b>, <b>Google Shopping</b> ou <b>Mercado Livre</b>. Abre a busca já pronta.</li>
-    <li>Viu um bom preço? Volte ao app, escreva o valor em <b>Guardar o preço que achei</b> e toque em <b>Guardar</b>. A loja já vem marcada.</li></ol>
+  <details class="man"><summary>🛍️ Comparar preço nas lojas (Amazon, Shopee, Shein…)</summary><div class="c">
+    <p>Na aba <b>🏠 Início</b>, toque em <b>🛍️ Comparar preço nas lojas</b>. Escolha como buscar:</p>
+    <ul><li><b>✍️ Nome</b>: escreva o produto, por exemplo “air fryer Mondial 4 litros”.</li>
+    <li><b>🏷️ Código</b>: toque em 📷 e leia o <b>código de barras</b> ou o <b>QR Code</b> de um produto que você já tem. No livro, o código fica atrás (ISBN, começa com 978).</li>
+    <li><b>📷 Foto</b>: tire a foto do produto e o <b>Google Lens</b> abre mostrando o que é e onde vende.</li></ul>
+    <p>Depois disso:</p><ol>
+    <li>Em <b>Preços no Mercado Livre</b>, o app já mostra os anúncios com preço, o menor e o maior.</li>
+    <li>Em <b>Abrir a busca pronta na loja</b>, toque em Amazon, Shopee, Shein, Magalu, Americanas, Casas Bahia, KaBuM!, AliExpress, Carrefour, Zoom, Buscapé ou Google Shopping. A busca já abre feita.</li>
+    <li>Achou um bom preço? Volte ao app, escreva o valor em <b>Guardar o preço que achei</b> e toque em <b>Guardar</b>. No Mercado Livre, o botão <b>Guardar</b> do anúncio já preenche o valor.</li></ol>
+    <div class="dica">💡 As outras lojas não deixam o app puxar os preços sozinho. Por isso elas abrem a busca pronta, e você confere lá.</div>
+    <div class="dica">💡 Se a busca pelo código não achar nada na loja, toque em <b>✍️ Nome</b>. A maioria das lojas encontra melhor pelo nome.</div>
     <div class="dica">💡 Zoom e Buscapé mostram o <b>gráfico de histórico</b> do preço na página do produto.</div>
-    <div class="dica">💡 Se a busca pelo código não achar nada, toque em <b>Buscar por: Nome</b>.</div>
     <div class="dica">💡 Guardando os preços de tempos em tempos, o app monta o seu próprio gráfico e mostra o melhor momento de comprar.</div></div></details>
 
   <details class="man"><summary>6. Lançar preço à mão</summary><div class="c"><ol>
@@ -571,31 +592,44 @@ $("#bEAN").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e","code_128"
 async function nomePorCodigo(cod){ // sugestão de nome pela base aberta Open Food Facts
   try{const r=await fetch(`https://world.openfoodfacts.org/api/v2/product/${cod}.json?fields=product_name,brands,quantity`);const j=await r.json();if(j.status===1){const p=j.product;return [p.product_name,p.brands&&p.brands.split(",")[0],p.quantity].filter(Boolean).join(" ")}}catch(e){}return null}
 
-/* ================= BUSCA NA INTERNET ================= */
+/* ================= BUSCA NAS LOJAS ================= */
 const LOJAS=[
  ["amazon","🛒 Amazon",c=>`https://www.amazon.com.br/s?k=${c}`],
+ ["ml","🤝 Mercado Livre",c=>`https://lista.mercadolivre.com.br/${c}`],
+ ["shopee","🧡 Shopee",c=>`https://shopee.com.br/search?keyword=${c}`],
+ ["shein","👗 Shein",c=>`https://br.shein.com/pdsearch/${c}/`],
+ ["magalu","💙 Magalu",c=>`https://www.magazineluiza.com.br/busca/${c}/`],
+ ["americanas","❤️ Americanas",c=>`https://www.americanas.com.br/busca/${c}`],
+ ["casasbahia","🏠 Casas Bahia",c=>`https://www.casasbahia.com.br/${c}/b`],
+ ["kabum","💻 KaBuM!",c=>`https://www.kabum.com.br/busca/${c}`],
+ ["aliexpress","📦 AliExpress",c=>`https://pt.aliexpress.com/w/wholesale-${c}.html`],
+ ["carrefour","🛒 Carrefour",c=>`https://www.carrefour.com.br/busca/${c}`],
  ["zoom","📉 Zoom",c=>`https://www.zoom.com.br/search?q=${c}`],
  ["buscape","📉 Buscapé",c=>`https://www.buscape.com.br/search?q=${c}`],
- ["google","🔍 Google Shopping",c=>`https://www.google.com/search?tbm=shop&q=${c}`],
- ["ml","🤝 Mercado Livre",c=>`https://lista.mercadolivre.com.br/${c}`]
+ ["google","🔍 Google Shopping",c=>`https://www.google.com/search?tbm=shop&q=${c}`]
 ];
-const LOJA_NOME={amazon:"Amazon",zoom:"Zoom",buscape:"Buscapé",google:"Google Shopping",ml:"Mercado Livre"};
-let wModo="cod",wInfo={nome:"",autor:""};
+const LOJA_NOME=Object.fromEntries(LOJAS.map(([k,t])=>[k,t.replace(/^\S+\s/,"")]));
+let wModo="nome",wInfo={nome:"",autor:""};
 function isbnOk(c){return /^97[89]\d{10}$/.test(c)&&gtinOk(c)}
-function abrirBusca(cod){
+function setModo(m){wModo=m;$$("#wModo button").forEach(b=>b.classList.toggle("on",b.dataset.m===m));
+  $("#wBoxNome").hidden=m!=="nome";$("#wBoxCod").hidden=m!=="cod";$("#wBoxFoto").hidden=m!=="foto"}
+function abrirBusca(cod,modo){
   $("#wCodigo").value=cod||"";$("#wPreco").value="";$("#wData").value=hoje();wInfo={nome:"",autor:""};$("#wNome").value="";
-  wModo="cod";$$("#wModo button").forEach(b=>b.classList.toggle("on",b.dataset.m==="cod"));$("#wNome").hidden=true;
+  $("#buscaInfo").innerHTML="";setModo(modo||(cod?"cod":"nome"));
   const sel=$("#wLoja");const ms=Object.entries(DB.merc);
   sel.innerHTML=Object.entries(LOJA_NOME).map(([k,n])=>`<option value="W-${k}">${n}</option>`).join("")+ms.filter(([id])=>!id.startsWith("W-")).map(([id,m])=>`<option value="${esc(id)}">${esc(m.nome)}</option>`).join("")+'<option value="__novo">➕ Outra loja…</option>';
   $("#wLojaNova").hidden=true;
   ir("busca");atualizarBusca(true);
 }
+function termoBusca(){const cod=$("#wCodigo").value.replace(/\D/g,"");return(($("#wNome").value||wInfo.nome||"").trim()||cod)}
 async function atualizarBusca(buscarNome){
   const cod=$("#wCodigo").value.replace(/\D/g,"");
-  const termo=wModo==="nome"?encodeURIComponent(($("#wNome").value||wInfo.nome||cod).trim()):cod;
   const livro=isbnOk(cod);
-  $("#wLojas").innerHTML=cod||wModo==="nome"?LOJAS.map(([k,t,u],i)=>`<a class="btn ${i===0?"top":""}" target="_blank" rel="noopener" href="${u(termo)}" data-loja="${k}">${i===0&&livro?"📚 Amazon (livro)":t}</a>`).join(""):'<p class="mut" style="grid-column:1/-1">Digite ou leia um código para pesquisar.</p>';
-  $$("#wLojas [data-loja]").forEach(a=>a.addEventListener("click",()=>{$("#wLoja").value="W-"+a.dataset.loja}));
+  if(buscarNome&&cod&&navigator.onLine&&!wInfo.achou){
+    $("#buscaInfo").innerHTML='<p class="mut">Procurando o nome do produto…</p>';
+    const info=livro?await livroPorIsbn(cod):null;
+    if(info){wInfo={...info,achou:1};}else{const n=await nomePorCodigo(cod);if(n)wInfo={nome:n,achou:1}}
+  }
   // histórico guardado deste código
   const k=cod?resolver("G"+cod.replace(/^0+(?=\d{8})/,"")):null;
   if(k&&DB.prod[k]){const rs=regsDe(k).sort((a,b)=>a.d<b.d?-1:1);const vs=rs.map(r=>r.v);
@@ -603,13 +637,50 @@ async function atualizarBusca(buscarNome){
     $("#wHist").hidden=false;$("#wHist").innerHTML=`<h2>📊 O que você já guardou</h2><div class="stats"><div class="stat min"><b>${R(Math.min(...vs))}</b><span>menor</span></div><div class="stat"><b>${rs.length}</b><span>registro(s)</span></div><div class="stat max"><b>${R(Math.max(...vs))}</b><span>maior</span></div></div>${grafico(rs)}${barras(Object.values(por).sort((a,b)=>a.v-b.v).map(r=>({t:esc(nomeMerc(r.m)),v:r.v,txt:R(r.v)})))}<button class="btn sec" onclick="abrirDetalhe('${k}')">Ver histórico completo</button>`;
     if(!wInfo.nome){wInfo.nome=DB.prod[k].nome}}
   else{$("#wHist").hidden=true}
-  if(buscarNome&&cod&&navigator.onLine&&!wInfo.achou){
-    $("#buscaInfo").innerHTML='<p class="mut">Procurando o nome do produto…</p>';
-    const info=livro?await livroPorIsbn(cod):null;
-    if(info){wInfo={...info,achou:1};}else{const n=await nomePorCodigo(cod);if(n)wInfo={nome:n,achou:1}}
-  }
-  $("#buscaInfo").innerHTML=wInfo.nome?(wInfo.capa?`<div class="livro"><img src="${esc(wInfo.capa)}" alt=""><div><b>${esc(wInfo.nome)}</b><div class="mut">${esc(wInfo.autor||"")}</div></div></div>`:`<b>${esc(wInfo.nome)}</b>`):(cod?'<p class="mut">Nome não encontrado — tudo bem, a busca pelo código funciona igual.</p>':"");
+  if(wModo==="cod")$("#buscaInfo").innerHTML=wInfo.nome?(wInfo.capa?`<div class="livro"><img src="${esc(wInfo.capa)}" alt=""><div><b>${esc(wInfo.nome)}</b><div class="mut">${esc(wInfo.autor||"")}</div></div></div>`:`<b>${esc(wInfo.nome)}</b>`):(cod?'<p class="mut">Nome não encontrado. Tudo bem: a busca usa o código. Se as lojas não acharem, toque em ✍️ Nome e escreva o nome.</p>':"");
   if(wInfo.nome&&!$("#wNome").value)$("#wNome").value=wInfo.nome;
+  const t=termoBusca();
+  $("#wLojasCard").hidden=!t;
+  if(t){const q=encodeURIComponent(t);
+    $("#wLojas").innerHTML=LOJAS.map(([k,tt,u],i)=>`<a class="btn ${i===0&&livro?"top":""} ${k==="ml"?"ml":""}" target="_blank" rel="noopener" href="${u(q)}" data-loja="${k}">${i===0&&livro?"📚 Amazon (livro)":tt}</a>`).join("");
+    $$("#wLojas [data-loja]").forEach(a=>a.addEventListener("click",()=>{$("#wLoja").value="W-"+a.dataset.loja}));}
+  buscarML(t);
+}
+/* Preços do Mercado Livre direto no app (API pública) */
+let mlUlt="",mlT=null;
+function buscarML(t){
+  clearTimeout(mlT);
+  if(!t){$("#wML").hidden=true;mlUlt="";return}
+  if(t===mlUlt)return;
+  mlT=setTimeout(async()=>{mlUlt=t;const box=$("#wML");box.hidden=false;
+    if(!navigator.onLine){box.innerHTML='<h2>🤝 Preços no Mercado Livre</h2><p class="mut">Sem internet agora.</p>';return}
+    box.innerHTML='<h2>🤝 Preços no Mercado Livre</h2><p class="mut">Buscando preços…</p>';
+    try{
+      const r=await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(t)}&limit=8`);
+      if(!r.ok)throw r.status;const j=await r.json();if(t!==mlUlt)return;
+      const its=(j.results||[]).filter(x=>x.price>0);
+      if(!its.length){box.innerHTML=`<h2>🤝 Preços no Mercado Livre</h2><p class="mut">Nada encontrado com “${esc(t)}”. Tente um nome mais simples.</p>`;return}
+      const vs=its.map(x=>x.price),mn=Math.min(...vs),mx=Math.max(...vs);
+      box.innerHTML=`<h2>🤝 Preços no Mercado Livre</h2>
+        <div class="stats"><div class="stat min"><b>${R(mn)}</b><span>menor</span></div><div class="stat"><b>${its.length}</b><span>anúncios</span></div><div class="stat max"><b>${R(mx)}</b><span>maior</span></div></div>
+        ${its.map((x,i)=>`<div class="mlit"><img src="${esc((x.thumbnail||"").replace("http:","https:"))}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><div class="tx"><a href="${esc(x.permalink)}" target="_blank" rel="noopener">${esc(x.title)}</a><div class="pr">${R(x.price)}${x.shipping&&x.shipping.free_shipping?' <span class="mut" style="font-size:13px;font-weight:400">· frete grátis</span>':""}</div></div><button class="btn sec" data-mlp="${x.price}">Guardar</button></div>`).join("")}
+        <p class="mut">Confira o produto antes de comprar: anúncios parecidos podem ter tamanho ou modelo diferente.</p>`;
+      $$("#wML [data-mlp]").forEach(b=>b.onclick=()=>{$("#wLoja").value="W-ml";$("#wLojaNova").hidden=true;$("#wPreco").value=(+b.dataset.mlp).toFixed(2).replace(".",",");$("#wPreco").scrollIntoView({behavior:"smooth",block:"center"});toast("Preço copiado. Confira e toque em Guardar.")});
+    }catch(e){if(t!==mlUlt)return;box.innerHTML=`<h2>🤝 Preços no Mercado Livre</h2><p class="mut">Os preços não carregaram dentro do app agora. Toque em <b>Mercado Livre</b> abaixo para ver na loja.</p>`}
+  },600);
+}
+/* Leitura de código de barras ou QR Code na busca */
+function lerCodigoBusca(raw){
+  const t=String(raw||"").trim();
+  if(/^\d{8,14}$/.test(t)){abrirBusca(t.replace(/^0(?=\d{13}$)/,""));return}
+  if(/^https?:\/\//i.test(t)){
+    if(/\d{44}/.test(t)){if(confirm("Esse QR Code é de cupom fiscal.\n\nOK = guardar a compra")){receberQR(t)}return}
+    const g=t.match(/\/01\/(\d{14})/)||t.match(/(?:gtin|ean|barcode|codigo)[=\/:](\d{8,14})/i);
+    if(g){abrirBusca(g[1].replace(/^0(?=\d{13}$)/,""));return}
+    abrirBusca("","nome");
+    $("#buscaInfo").innerHTML=`<div class="dica">🔗 Esse QR Code leva a um site: <a href="${esc(t)}" target="_blank" rel="noopener">abrir o link</a>. Se for a página do produto, copie o nome dele e escreva no campo acima.</div>`;
+    return}
+  abrirBusca("","nome");$("#wNome").value=t.slice(0,90);atualizarBusca(false);
 }
 async function livroPorIsbn(isbn){
   try{const r=await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);const j=await r.json();const v=j.items&&j.items[0]&&j.items[0].volumeInfo;
@@ -618,10 +689,12 @@ async function livroPorIsbn(isbn){
   return null;
 }
 $("#bWeb").onclick=()=>abrirBusca("");
-$("#wScan").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e","code_128"],"Aponte para o código de barras (no livro, fica atrás)",cod=>abrirBusca(cod));
-let wT=null;$("#wCodigo").oninput=()=>{wInfo={nome:"",autor:""};clearTimeout(wT);wT=setTimeout(()=>atualizarBusca(true),700)};
-$("#wNome").oninput=()=>atualizarBusca(false);
-$$("#wModo button").forEach(b=>b.onclick=()=>{wModo=b.dataset.m;$$("#wModo button").forEach(x=>x.classList.toggle("on",x===b));$("#wNome").hidden=wModo!=="nome";atualizarBusca(false)});
+$("#wScan").onclick=()=>abrirScanner(["ean_13","ean_8","upc_a","upc_e","code_128","qr_code"],"Aponte para o código de barras ou o QR Code do produto",cod=>lerCodigoBusca(cod));
+let wT=null;$("#wCodigo").oninput=()=>{wInfo={nome:"",autor:""};$("#wNome").value="";clearTimeout(wT);wT=setTimeout(()=>atualizarBusca(true),700)};
+$("#wNome").oninput=()=>{clearTimeout(wT);wT=setTimeout(()=>atualizarBusca(false),500)};
+$("#wNome").onkeydown=e=>{if(e.key==="Enter"){clearTimeout(wT);atualizarBusca(false);e.target.blur()}};
+$$("#wModo button").forEach(b=>b.onclick=()=>{setModo(b.dataset.m);if(b.dataset.m==="cod")atualizarBusca(false)});
+$("#wFoto").onchange=e=>{if(!e.target.files[0])return;try{$("#lensForm").submit();toast("Abrindo o Google Lens…")}catch(_){toast("Não consegui abrir o Lens")}setTimeout(()=>e.target.value="",3000)};
 $("#wLoja").onchange=()=>$("#wLojaNova").hidden=$("#wLoja").value!=="__novo";
 $("#wSalvar").onclick=()=>{
   const cod=$("#wCodigo").value.replace(/\D/g,""),v=brNum($("#wPreco").value);
@@ -709,12 +782,13 @@ function barras(itens,menorVerde=true){
   return '<div class="barras">'+itens.map(x=>{const cor=x.cor||(itens.length>1&&menorVerde?(x.v===mn?"#2e7d32":x.v===mx?"#c62828":"#b45309"):"#b45309");
     return `<div class="bar"><div class="t"><span>${x.t}</span><b style="color:${cor}">${x.txt}</b></div><div class="f"><i style="width:${Math.max(4,x.v/mx*100)}%;background:${cor}"></i></div></div>`}).join("")+'</div>';
 }
+function buscarDoProduto(){const p=DB.prod[atual];if(!p)return;if(p.ean){abrirBusca(p.ean)}else{abrirBusca("","nome");$("#wNome").value=p.nome;atualizarBusca(false)}}
 function desenharDetalhe(){
   const p=DB.prod[atual];if(!p)return ir("produtos");
   $("#dNome").textContent=p.nome;$("#dCod").textContent=p.ean?"Código de barras: "+p.ean:"Sem código de barras vinculado";
   const f=filtroPeriodo(perD,"#dDe","#dAte");
   const rs=regsDe(atual).filter(f).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:0);
-  $("#dWeb").innerHTML=p.ean?`<button class="btn sec" onclick="abrirBusca('${p.ean}')">🔎 Pesquisar este produto na internet</button>`:"";
+  $("#dWeb").innerHTML=`<button class="btn sec" onclick="buscarDoProduto()">🛍️ Comparar este produto nas lojas</button>`;
   if(!rs.length){$("#dStats").innerHTML="";$("#dBarras").innerHTML="";$("#dGraf").innerHTML='<p class="mut">Nenhum preço nesse período.</p>';$("#dMerc").innerHTML="";$("#dReg").innerHTML="";}
   else{
     const vs=rs.map(r=>r.v),mn=Math.min(...vs),mx=Math.max(...vs),md=vs.reduce((a,b)=>a+b,0)/vs.length;

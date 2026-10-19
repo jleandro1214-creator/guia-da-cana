@@ -1,4 +1,4 @@
-const CACHE="preco-na-mao-v3";
+const CACHE="preco-na-mao-v4";
 const LOCAIS=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon-maskable-512.png","./apple-touch-icon.png"];
 const CDN=[];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(async c=>{await c.addAll(LOCAIS);for(const u of CDN){try{await c.add(new Request(u,{mode:"cors"}))}catch(_){}}}).then(()=>self.skipWaiting()))});
