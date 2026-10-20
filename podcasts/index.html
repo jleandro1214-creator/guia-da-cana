@@ -398,11 +398,11 @@ function favRIdx(src,i){const x=LISTS[src]&&LISTS[src][i];if(x)toggleFavR(x)}
 function stRow(x,i,src){const on=isFavR(x.id);return`<div class="epw"><button class="pod" onclick="playList('${src}',${i})">${x.img?`<img src="${esc(x.img)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=&quot;ph rad&quot;>📻</span>'">`:'<span class="ph rad">📻</span>'}<span class="t"><b>${esc(x.n)}</b><small>${esc(x.pod)}</small></span>${nowIc(x)}</button><button class="hb${on?" on":""}" aria-pressed="${on}" aria-label="${on?"Tirar das favoritas":"Favoritar rádio"}" onclick="favRIdx('${src}',${i})">${IC.heart}</button></div>`}
 function trRow(x,i,src,del){return`<div class="epw"><button class="pod" onclick="playList('${src}',${i})"><span class="num">${i+1}</span><span class="t"><b>${esc(x.n)}</b><small>${esc([x.pod,x.ms?fmtT(x.ms/1000):""].filter(Boolean).join(" · "))}</small></span>${nowIc(x)}</button>${del?`<button class="del" aria-label="Tirar do app" onclick="delMinha('${x.id}')">🗑️</button>`:""}</div>`}
 function micBtn(){return`<button class="micb${Voz.on?" on":""}" onclick="Voz.toggle()"><span class="dot"></span><span class="lb">${Voz.on?"Ouvindo…":"Comando de voz"}</span></button>`}
-const VOZTXT=`<div class="voz">🎤 Com o comando de voz ligado, diga: <b>“pausar”</b>, <b>“continuar”</b>, <b>“avançar”</b>, <b>“voltar”</b>, <b>“aumentar”</b> ou <b>“abaixar”</b>. Deixe o app aberto e a tela ligada.</div>`;
+const VOZTXT=()=>`<div class="voz">🎤 Com o comando de voz ligado, diga: <b>“pausar”</b>, <b>“continuar”</b>, <b>“avançar”</b>, <b>“voltar”</b>, <b>“aumentar”</b> ou <b>“abaixar”</b>. Deixe o app aberto e a tela ligada.<div style="margin-top:10px;font-weight:600;color:var(--ink)">Sensibilidade do microfone</div><div class="seg sens" style="margin-top:6px;background:#fff">${Object.entries(SENS).map(([k,v])=>`<button data-k="${k}" class="${LS.get("vozSens","med")===k?"on":""}" onclick="setSens('${k}')">${v[1]}</button>`).join("")}</div><div style="margin-top:6px;font-size:14px">Quanto maior, mais baixa a música fica enquanto o microfone escuta. Assim você fala em tom normal.</div></div>`;
 function music(m){m=m||LS.get("mtab","radio");LS.set("mtab",m);
  M.innerHTML=`<div class="topbar"><span class="logo">ONDAS</span>${micBtn()}</div><h1>Música<i>.</i></h1>
  <div class="seg">${[["radio","📻 Rádios"],["livre","🎵 Livres"],["minhas","📱 Minhas"]].map(([k,l])=>`<button class="${k===m?"on":""}" onclick="go({v:'music',m:'${k}'},true)">${l}</button>`).join("")}</div>
- ${VOZTXT}<div id="mbody"></div>`;
+ ${VOZTXT()}<div id="mbody"></div>`;
  const B=$("#mbody");
  if(m==="radio"){const fr=LS.get("favRadios",[]);LISTS.favR=fr;
   B.innerHTML=`<form class="search" style="margin-top:16px" onsubmit="event.preventDefault();const q=this.q.value.trim();if(q)go({v:'rgen',g:-1,q})">${IC.search}<input name="q" placeholder="Buscar rádio pelo nome ou cidade" enterkeyhint="search" aria-label="Buscar rádio"></form>
@@ -467,25 +467,37 @@ async function delMinha(id){const r=(MINHAS||[]).find(x=>x.id===id);if(!r||!conf
 
 /* ---------- comando de voz ---------- */
 let baseVol=1;
+const SENS={norm:[1,"Normal"],med:[.55,"Média"],alta:[.3,"Alta"]};
+let ducking=false;
+function applyVol(){const f=Voz.on?(SENS[LS.get("vozSens","med")]||SENS.med)[0]:1;au.volume=Math.max(.04,Math.min(1,baseVol*f*(ducking?.3:1)))}
+function setSens(k){LS.set("vozSens",k);applyVol();document.querySelectorAll(".sens button").forEach(b=>b.classList.toggle("on",b.dataset.k===k));toast("🎤 Sensibilidade "+SENS[k][1]);setTimeout(()=>toast(""),1500)}
 const Voz=(()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,on=false,last=0,rt=null,wake=null,dk=null;
- const C=[["pause",["pausar","pausa","parar","para","pare","stop","silencio"]],["next",["avancar","avanca","proxima","proximo","pular","pula","passa"]],["prev",["voltar","volta","anterior"]],["play",["continuar","continua","tocar","toca","play","solta"]],["up",["aumentar","aumenta","alto"]],["down",["abaixar","abaixa","baixo","diminuir","diminui"]]];
+ const C=[
+  ["pause",["pausar","pausa","pause","pausa","pousar","posar","pouso","parar","para","pare","paro","stop","chega","silencio","espera"]],
+  ["next",["avancar","avanca","avance","avançar","proxima","proximo","pular","pula","pule","troca","trocar","outra","next"]],
+  ["prev",["voltar","volta","volte","anterior","retornar"]],
+  ["play",["continuar","continua","continue","tocar","toca","toque","play","solta","segue","seguir","musica"]],
+  ["up",["aumentar","aumenta","aumente","alto","mais"]],
+  ["down",["abaixar","abaixa","abaixe","baixo","diminuir","diminui","diminua","menos"]]];
  const LB={pause:"⏸ Pausado",play:"▶ Tocando",next:"⏭ Avançando",prev:"⏮ Voltando",up:"🔊 Mais alto",down:"🔉 Mais baixo"};
  function act(c){
   if(c==="pause"){if(cur)doPause()}else if(c==="play"){if(cur)doPlay()}else if(c==="next")next();else if(c==="prev")prev();
-  else if(c==="up"){baseVol=Math.min(1,baseVol+.2);au.volume=baseVol}else if(c==="down"){baseVol=Math.max(.1,baseVol-.2);au.volume=baseVol}
+  else if(c==="up"){baseVol=Math.min(1,baseVol+.2)}else if(c==="down"){baseVol=Math.max(.1,baseVol-.2)}
   toast("🎤 "+LB[c]);setTimeout(()=>toast(""),1500)}
- function heard(txt){const w=nrm(txt).replace(/[^a-z\s]/g," ").split(/\s+/).filter(Boolean);
-  for(const [c,k] of C)if(w.some(x=>k.includes(x))){if(Date.now()-last<1500)return;last=Date.now();clearTimeout(dk);au.volume=baseVol;act(c);return}}
- function duck(){if(au.paused)return;au.volume=Math.max(.05,baseVol*.3);clearTimeout(dk);dk=setTimeout(()=>{au.volume=baseVol},2600)}
- function run(){if(!on)return;try{rec=new SR();rec.lang="pt-BR";rec.continuous=true;rec.interimResults=true;
-  rec.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)heard(e.results[i][0].transcript)};
-  rec.onspeechstart=duck;
-  rec.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed"){on=false;ui2();toast("Permita o microfone para usar o comando de voz.");setTimeout(()=>toast(""),3500)}else if(e.error==="network"){toast("O comando de voz precisa de internet.");setTimeout(()=>toast(""),3000)}};
-  rec.onend=()=>{clearTimeout(rt);if(on)rt=setTimeout(run,300)};rec.start()}catch{clearTimeout(rt);if(on)rt=setTimeout(run,800)}}
+ function find(txt){const w=nrm(txt).replace(/[^a-z\s]/g," ").split(/\s+/).filter(Boolean);
+  for(const [c,k] of C){if(w.some(x=>k.includes(x)||(x.length>=5&&k.some(y=>y.length>=5&&(x.startsWith(y.slice(0,5))||y.startsWith(x.slice(0,5)))))))return c}return null}
+ function heard(res){
+  for(let a=0;a<res.length;a++){const c=find(res[a].transcript);if(c){if(Date.now()-last<1500)return;last=Date.now();clearTimeout(dk);ducking=false;act(c);applyVol();return}}}
+ function duck(){if(au.paused)return;ducking=true;applyVol();clearTimeout(dk);dk=setTimeout(()=>{ducking=false;applyVol()},3200)}
+ function run(){if(!on)return;try{rec=new SR();rec.lang="pt-BR";rec.continuous=true;rec.interimResults=true;rec.maxAlternatives=5;
+  rec.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)heard(e.results[i])};
+  rec.onspeechstart=duck;rec.onsoundstart=()=>{if(LS.get("vozSens","med")==="alta")duck()};
+  rec.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed"){on=false;ui2();applyVol();toast("Permita o microfone para usar o comando de voz.");setTimeout(()=>toast(""),3500)}else if(e.error==="network"){toast("O comando de voz precisa de internet.");setTimeout(()=>toast(""),3000)}};
+  rec.onend=()=>{clearTimeout(rt);if(on)rt=setTimeout(run,200)};rec.start()}catch{clearTimeout(rt);if(on)rt=setTimeout(run,800)}}
  async function lock(){try{if(on&&"wakeLock"in navigator)wake=await navigator.wakeLock.request("screen")}catch{}}
- function ui2(){document.querySelectorAll(".micb").forEach(b=>{b.classList.toggle("on",on);const l=b.querySelector(".lb");if(l&&!b.closest("#mini"))l.textContent=on?"Ouvindo…":"Comando de voz"})}
- function start(){if(!SR){alert("Este navegador não tem comando de voz. Use o Chrome.");return}on=true;ui2();run();lock();toast("🎤 Pode falar: pausar, continuar ou avançar");setTimeout(()=>toast(""),2500)}
- function stop(){on=false;clearTimeout(rt);try{rec&&rec.abort()}catch{}rec=null;try{wake&&wake.release()}catch{}wake=null;au.volume=baseVol;ui2()}
+ function ui2(){document.querySelectorAll(".micb").forEach(b=>{b.classList.toggle("on",on);const l=b.querySelector(".lb");if(l)l.textContent=on?"Ouvindo…":"Comando de voz"})}
+ function start(){if(!SR){alert("Este navegador não tem comando de voz. Use o Chrome.");return}on=true;ui2();applyVol();run();lock();toast("🎤 Pode falar: pausar, continuar ou avançar");setTimeout(()=>toast(""),2500)}
+ function stop(){on=false;clearTimeout(rt);try{rec&&rec.abort()}catch{}rec=null;try{wake&&wake.release()}catch{}wake=null;ducking=false;applyVol();ui2()}
  addEventListener("visibilitychange",()=>{if(!document.hidden&&on){lock();try{rec&&rec.abort()}catch{}}});
  return{toggle(){on?stop():start()},get on(){return on},ui2}})();
 
