@@ -171,6 +171,20 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
 .sheet p{color:var(--mut);margin:0 0 16px}
 .sheet .row{display:flex;gap:10px}
 .toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;background:#fff;color:#111;font-weight:700;padding:12px 18px;border-radius:14px;max-width:90vw;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+#studio{position:fixed;inset:0;z-index:35;background:var(--bg);overflow-y:auto;padding:calc(12px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom))}
+.rec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.rec.ok{border-color:var(--ini)}
+.rh{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between}
+.rx{margin:8px 0 12px;padding:10px 12px;background:var(--bg2);border-radius:12px;font-size:18px;line-height:1.5}
+.rx small{display:block;color:var(--mut);font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.rb{display:flex;gap:10px;align-items:center}
+.rb .btn{min-height:50px;font-size:17px}
+.btn.recording{background:#ff3b3b;color:#fff;border:0;animation:pulse 1.2s infinite}
+.nm{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px}
+.nm.ok{border-color:var(--ini)}
+.nm .tx{flex:1;font-weight:700}
+.nm .tx small{display:block;color:var(--mut);font-weight:500;font-size:14px}
+.nm .play{width:44px;height:44px}
 #install-btn{margin:4px 0 16px;width:100%}
 </style>
 </head>
@@ -216,6 +230,12 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
   <section class="tab" id="t3">
     <h2 class="sec-title">Ajustes</h2>
     <div class="card">
+      <h3>🎤 Minha voz</h3>
+      <p class="note" style="margin:-4px 0 6px">Grave as frases do treinador com a sua voz, ou de alguém da família. Fica 100% humano e funciona sem internet. Cada frase tem exemplos para você falar.</p>
+      <div class="opt"><div class="tx"><b>Usar minha voz no treino</b><small id="mv-count">Nenhuma frase gravada</small></div><button class="sw" id="sw-my" aria-label="Usar minha voz"></button></div>
+      <button class="btn go big" style="--lv:var(--acc);width:100%;margin-top:8px" id="open-studio">🎙️ Abrir estúdio de gravação</button>
+    </div>
+    <div class="card">
       <h3>🎵 Música de fundo</h3>
       <p class="note" style="margin:-4px 0 6px">Trilhas próprias do app: sem direitos autorais e funcionam sem internet. Toque ▶ para ouvir.</p>
       <div id="tracks"></div>
@@ -223,7 +243,7 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
     </div>
     <div class="card">
       <h3>🎙️ Tom do treinador</h3>
-      <p class="note" style="margin:-4px 0 6px">Escolha o jeito que o treinador fala. Toque ▶ para ouvir.</p>
+      <p class="note" style="margin:-4px 0 6px">Jeito que a voz do celular fala. É usado nas frases que você ainda não gravou. Toque ▶ para ouvir.</p>
       <div id="tons"></div>
     </div>
     <div class="card">
@@ -263,6 +283,28 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
   <button data-t="2"><i>🏅</i>Conquistas</button>
   <button data-t="3"><i>⚙️</i>Ajustes</button>
 </nav>
+
+<!-- ESTÚDIO -->
+<div id="studio" hidden>
+  <div class="ptop">
+    <button class="x" id="st-close" aria-label="Fechar">✕</button>
+    <div class="lv">Estúdio da minha voz<small id="st-count"></small></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>📋 Como gravar</h3>
+    <ol class="note" style="padding-left:20px;margin:0">
+      <li>Vá para um lugar <b>silencioso</b> e segure o celular perto da boca.</li>
+      <li>Toque em <b>🎤 Gravar</b>, fale a frase com <b>energia</b> e toque em <b>⏹ Parar</b>.</li>
+      <li>Toque em <b>▶</b> para ouvir. Não gostou? Toque em <b>Regravar</b>.</li>
+    </ol>
+    <p class="note" style="margin:10px 0 0">Pode falar um dos exemplos ou uma frase sua, do seu jeito. Cada gravação tem até 10 segundos.</p>
+  </div>
+  <h2 class="sec-title">Frases do treinador</h2>
+  <div id="st-list"></div>
+  <h2 class="sec-title">Nomes dos exercícios <span class="note">(opcional)</span></h2>
+  <p class="note" style="margin:-6px 0 12px">Grave só o nome. O app fala o nome logo depois do “Vai!” e do descanso.</p>
+  <div id="st-names"></div>
+</div>
 
 <!-- PLAYER -->
 <div id="player" hidden>
@@ -377,7 +419,7 @@ const MEDALS=[
 ];
 
 /* ---------------- Estado ---------------- */
-const DEF={hist:[],medals:{},set:{music:'rock',vol:60,voice:true,beep:true,mic:false,goal:3,tom:'firme',vname:''},lv:{},offEx:{}};
+const DEF={hist:[],medals:{},set:{music:'rock',vol:60,voice:true,beep:true,mic:false,goal:3,tom:'firme',vname:'',myvoice:false},lv:{},offEx:{}};
 let S;
 try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem(KEY)||'{}'));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
 S.set=Object.assign({},DEF.set,S.set||{});S.lv=S.lv||{};S.offEx=S.offEx||{};S.medals=S.medals||{};S.hist=S.hist||[];
@@ -455,6 +497,7 @@ const Audio_=(()=>{
   play(id){if(!init())return;if(id==='none'||!P[id]){this.stop();return;}if(cur===id&&timer)return;cur=id;step=0;nextT=ctx.currentTime+.08;clearInterval(timer);timer=setInterval(sched,40);sched();level();},
   stop(){clearInterval(timer);timer=null;cur=null;if(mus)level();},
   get playing(){return cur},
+  get ctx(){return ctx},get out(){return fx},
   duck(on){duck=on?.28:1;level();},
   vol(){level();},
   beep(f=880,d=.12,v=.5){if(!init())return;const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(fx);o.start(t);o.stop(t+d+.05);}
@@ -493,6 +536,82 @@ const Voice=(()=>{
  };
 })();
 
+/* ---------------- Minha voz (gravações) ---------------- */
+const CLIPS=[
+ {k:'prep',t:'Começo do treino',ex:['Prepare-se! Vamos começar!','Atenção, o treino vai começar!']},
+ {k:'vai',t:'Hora do exercício',ex:['Vai! Vai! Vai!','Agora é com você, vai!']},
+ {k:'meio',t:'Metade do exercício',ex:['Metade! Segura firme!','Já foi metade, aguenta aí!']},
+ {k:'desc',t:'Começo do descanso',ex:['Descanso! Respira fundo.','Boa! Agora recupera o fôlego.']},
+ {k:'m1',t:'Motivação 1 · fim do descanso',st:'🏋️ Treinador de academia',ex:['Bora, sem moleza! Mais um bloco!','Foco e força, você consegue!']},
+ {k:'m2',t:'Motivação 2 · fim do descanso',st:'⚽ Locutor de futebol',ex:['É agora, minha gente! Mais um bloco no placar!','Olha ele aí, partindo pra cima!']},
+ {k:'m3',t:'Motivação 3 · fim do descanso',st:'🎬 Narrador de cinema',ex:['Nesta hora, só os fortes seguem em frente...','Ele achou que era o fim. Mas era só o começo.']},
+ {k:'m4',t:'Motivação 4 · fim do descanso',ex:['O cansaço passa, o resultado fica!','Disciplina hoje, orgulho amanhã!']},
+ {k:'m5',t:'Motivação 5 · fim do descanso',ex:['Você é mais forte do que imagina!','Bora que o suor é o seu combustível!']},
+ {k:'rod',t:'Fim da rodada',ex:['Rodada concluída! Descansa um pouco.','Uma rodada a menos, campeão!']},
+ {k:'pausa',t:'Treino pausado',ex:['Pausa! Pode respirar.','Tudo bem, recupera aí.']},
+ {k:'volta',t:'Voltando ao treino',ex:['Voltando! Bora!','De volta ao jogo!']},
+ {k:'fim',t:'Fim do treino',ex:['Treino concluído! Você mandou muito bem!','Missão cumprida, campeão! Até amanhã!']}
+];
+const MOTIV=['m1','m2','m3','m4','m5'];
+const slug=t=>norm(t).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const nk=ex=>'n_'+slug(ex[2]);
+const NAMES=(()=>{const seen=new Set(),out=[];Object.values(LEVELS).forEach(L=>L.ex.forEach(e=>{const k=nk(e);if(!seen.has(k)){seen.add(k);out.push([k,e[2],e[1]]);}}));return out;})();
+const idb=(()=>{let dbp=null;
+ const open=()=>dbp||(dbp=new Promise((res,rej)=>{const r=indexedDB.open('boratreinar-voz',1);r.onupgradeneeded=()=>r.result.createObjectStore('clips');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));
+ const tx=async(mode,fn)=>{const db=await open();return new Promise((res,rej)=>{const t=db.transaction('clips',mode);fn(t.objectStore('clips'));t.oncomplete=()=>res();t.onerror=()=>rej(t.error);});};
+ return{put:(k,v)=>tx('readwrite',st=>st.put(v,k)),del:k=>tx('readwrite',st=>st.delete(k)),
+  async all(){const db=await open();return new Promise((res,rej)=>{const out=[],c=db.transaction('clips').objectStore('clips').openCursor();c.onsuccess=()=>{const cur=c.result;if(cur){out.push([cur.key,cur.value]);cur.continue();}else res(out);};c.onerror=()=>rej(c.error);});}};
+})();
+const Coach=(()=>{
+ const blobs=new Map(),bufs=new Map();let srcs=[],busyUntil=0,duckT=null;
+ function trim(buf,ctx){
+  const d=buf.getChannelData(0),n=d.length,th=.025,pad=Math.floor(buf.sampleRate*.06);let a=0,b=n-1;
+  while(a<n&&Math.abs(d[a])<th)a++;while(b>a&&Math.abs(d[b])<th)b--;
+  a=Math.max(0,a-pad);b=Math.min(n-1,b+pad*3);if(b-a<buf.sampleRate*.2)return buf;
+  const out=ctx.createBuffer(buf.numberOfChannels,b-a,buf.sampleRate);
+  for(let c=0;c<buf.numberOfChannels;c++)out.copyToChannel(buf.getChannelData(c).subarray(a,b),c);return out;
+ }
+ async function dec(k){
+  if(bufs.has(k))return bufs.get(k);const bl=blobs.get(k);const ctx=Audio_.init();if(!bl||!ctx)return null;
+  try{const ab=await bl.arrayBuffer();const buf=await new Promise((res,rej)=>ctx.decodeAudioData(ab,res,rej));const t=trim(buf,ctx);bufs.set(k,t);return t;}catch(e){return null;}
+ }
+ function stop(){srcs.forEach(x=>{try{x.stop();}catch(e){}});srcs=[];busyUntil=0;}
+ async function play(keys,interrupt){
+  keys=keys.filter(k=>blobs.has(k));if(!keys.length)return;
+  if(interrupt){stop();Voice.stop();}
+  const list=[];for(const k of keys){const b=await dec(k);if(b)list.push(b);}
+  const ctx=Audio_.ctx;if(!list.length||!ctx)return;
+  let t=Math.max(ctx.currentTime+.03,srcs.length?ctx.currentTime+(busyUntil-Date.now())/1000:0);
+  list.forEach(b=>{const src=ctx.createBufferSource(),g=ctx.createGain();g.gain.value=1.6;src.buffer=b;src.connect(g);g.connect(Audio_.out);src.start(t);srcs.push(src);src.onended=()=>{srcs=srcs.filter(x=>x!==src);};t+=b.duration+.12;});
+  const ms=(t-ctx.currentTime)*1000;busyUntil=Date.now()+ms;
+  Audio_.duck(true);clearTimeout(duckT);duckT=setTimeout(()=>{if(!Voice.busy)Audio_.duck(false);},ms+150);
+ }
+ const mine=()=>S.set.myvoice&&blobs.size>0;
+ return{
+  async load(){try{(await idb.all()).forEach(([k,v])=>blobs.set(k,v));}catch(e){}},
+  has:k=>blobs.has(k),
+  get count(){return CLIPS.filter(c=>blobs.has(c.k)).length},
+  get names(){return NAMES.filter(n=>blobs.has(n[0])).length},
+  async put(k,b){blobs.set(k,b);bufs.delete(k);try{await idb.put(k,b);}catch(e){toast('Não deu para salvar a gravação.');}},
+  async del(k){blobs.delete(k);bufs.delete(k);try{await idb.del(k);}catch(e){}},
+  preload(){[...blobs.keys()].forEach(k=>dec(k));},
+  preview(k){Audio_.init();play([k],true);},
+  say(keys,tts,interrupt=false){
+   if(!S.set.voice)return;
+   if(mine()&&blobs.has(keys[0]))play(keys,interrupt);
+   else Voice.say(tts,interrupt);
+  },
+  motiv(tts){
+   if(!S.set.voice)return;
+   const got=MOTIV.filter(k=>blobs.has(k));
+   if(mine()&&got.length)play([got[Math.floor(Math.random()*got.length)]],false);
+   else Voice.say(tts);
+  },
+  stop(){stop();Voice.stop();},
+  get busy(){return Voice.busy||Date.now()<busyUntil}
+ };
+})();
+
 /* ---------------- Comando de voz (microfone) ---------------- */
 const Mic=(()=>{
  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -508,7 +627,7 @@ const Mic=(()=>{
  function handle(txt,final){
   const words=norm(txt).replace(/[^a-z\s]/g,' ').split(/\s+/).filter(Boolean);
   if(!words.length)return;
-  if(Voice.busy)return; // ignora a própria voz do app
+  if(Coach.busy)return; // ignora a própria voz do app
   for(const [cmd,keys] of CMDS){
    if(words.some(w=>keys.includes(w))){
     if(Date.now()-last<1600)return;last=Date.now();
@@ -561,12 +680,12 @@ const Player=(()=>{
   $('#player').hidden=false;$('#pl-run').hidden=false;$('#pl-done').hidden=true;
   document.body.style.overflow='hidden';
   if(!histPushed){history.pushState({p:1},'');histPushed=true;}
-  render();Audio_.init();
+  render();Audio_.init();Coach.preload();
   if(S.set.mic&&!Mic.on)Mic.start();
   Mic.ui();musicLabel();
  }
  function close(){
-  clearInterval(tick);tick=null;state='idle';Audio_.stop();Voice.stop();Mic.stop();relWake();
+  clearInterval(tick);tick=null;state='idle';Audio_.stop();Coach.stop();Mic.stop();relWake();
   $('#player').hidden=true;document.body.style.overflow='';
   if(histPushed){histPushed=false;history.back();}
   renderAll();
@@ -580,20 +699,20 @@ const Player=(()=>{
   if(S.set.music!=='none')Audio_.play(S.set.music);
   getWake();
   if(!tick)tick=setInterval(loop,200);
-  if(idx===0&&!said['p0']){said['p0']=1;Voice.say('Prepare-se! O primeiro é: '+seq[0].ex[2]+'.',true);}
+  if(idx===0&&!said['p0']){said['p0']=1;Coach.say(['prep',nk(seq[0].ex)],'Prepare-se! O primeiro é: '+seq[0].ex[2]+'.',true);}
   render();
  }
- function pause(){if(state!=='run')return;remain=remainNow();state='pause';Voice.stop();Voice.say('Treino pausado.',true);Audio_.duck(true);render();}
- function resume(){if(state!=='pause')return;Audio_.duck(false);state='run';endAt=Date.now()+remain*1000;lastTs=Date.now();Voice.say('Voltando!',true);render();}
+ function pause(){if(state!=='run')return;remain=remainNow();state='pause';Coach.say(['pausa'],'Treino pausado.',true);Audio_.duck(true);render();}
+ function resume(){if(state!=='pause')return;Audio_.duck(false);state='run';endAt=Date.now()+remain*1000;lastTs=Date.now();Coach.say(['volta'],'Voltando!',true);render();}
  function enter(i){
   idx=i;const p=seq[i];remain=p.d;endAt=Date.now()+p.d*1000;said={};
-  if(p.k==='work'){Audio_.beep(1320,.35,.6);Voice.say('Vai! '+p.ex[2]+'!',true);}
+  if(p.k==='work'){Audio_.beep(1320,.35,.6);Coach.say(['vai',nk(p.ex)],'Vai! '+p.ex[2]+'!',true);}
   else if(p.k==='rest'){
    Audio_.beep(660,.25,.45);
    const fr=FRASES[Math.floor(Math.random()*FRASES.length)];
-   if(p.round)Voice.say('Rodada concluída! Descanse um pouco. Na rodada '+p.r+' o primeiro é: '+p.ex[2]+'.',true);
-   else if(p.d>=10)Voice.say('Descanso. Depois vem: '+p.ex[2]+'.',true);
-   else Voice.say('Respira. Agora vem: '+p.ex[2]+'. '+fr,true);
+   if(p.round)Coach.say(['rod',nk(p.ex)],'Rodada concluída! Descanse um pouco. Na rodada '+p.r+' o primeiro é: '+p.ex[2]+'.',true);
+   else if(p.d>=10)Coach.say(['desc',nk(p.ex)],'Descanso. Depois vem: '+p.ex[2]+'.',true);
+   else Coach.say(['desc',nk(p.ex)],'Respira. Agora vem: '+p.ex[2]+'. '+fr,true);
    p.fr=fr;
   }
   render();
@@ -604,13 +723,13 @@ const Player=(()=>{
   const now=Date.now(),p=seq[idx];
   if(p.k==='work')activeSecs+=(now-lastTs)/1000;lastTs=now;
   const r=remainNow(),rc=Math.ceil(r);
-  if(p.k==='work'&&p.d>=30&&!said.h&&r<=p.d/2){said.h=1;Voice.say(MEIO[Math.floor(Math.random()*MEIO.length)]);}
-  if(p.k==='rest'&&p.d>=10&&!said.m&&r<=6.2){said.m=1;Voice.say(p.fr);}
+  if(p.k==='work'&&p.d>=30&&!said.h&&r<=p.d/2){said.h=1;Coach.say(['meio'],MEIO[Math.floor(Math.random()*MEIO.length)]);}
+  if(p.k==='rest'&&p.d>=10&&!said.m&&r<=6.2){said.m=1;Coach.motiv(p.fr);}
   if(rc<=3&&rc>=1&&!said['b'+rc]){said['b'+rc]=1;if(S.set.beep)Audio_.beep(880,.12,.5);}
   if(r<=0){if(p.k==='work')workDone++;next();return;}
   renderTime();
  }
- function skip(){if(state==='idle')return;const p=seq[idx];if(p.k==='work'&&p.d-remainNow()>=p.d/2)workDone++;Voice.stop();next();}
+ function skip(){if(state==='idle')return;const p=seq[idx];if(p.k==='work'&&p.d-remainNow()>=p.d/2)workDone++;Coach.stop();next();}
  function back(){
   if(state==='idle'||idx===0)return;let i=idx;if(seq[i].k!=='work'||seq[i].d-remainNow()<3){i--;while(i>0&&seq[i].k!=='work')i--;}
   if(i<1)i=1;if(i>=seq.length)return;enter(i);
@@ -624,8 +743,8 @@ const Player=(()=>{
    S.hist.unshift(rec);news=checkMedals(rec);save();
   }
   Audio_.stop();
-  if(complete){Voice.say('Treino concluído! Você mandou muito bem! Até o próximo treino.',true);Audio_.beep(1320,.2,.5);setTimeout(()=>Audio_.beep(1760,.4,.5),220);}
-  else Voice.stop();
+  if(complete){Coach.say(['fim'],'Treino concluído! Você mandou muito bem! Até o próximo treino.',true);Audio_.beep(1320,.2,.5);setTimeout(()=>Audio_.beep(1760,.4,.5),220);}
+  else Coach.stop();
   showDone(rec,news,complete);
  }
  function showDone(rec,news,complete){
@@ -690,7 +809,7 @@ const Player=(()=>{
   if(!histPushed)return;histPushed=false;
   if($('#player').hidden)return;
   if(state==='run'||state==='pause'){history.pushState({p:1},'');histPushed=true;askExit();}
-  else{histPushed=false;clearInterval(tick);tick=null;state='idle';Audio_.stop();Voice.stop();Mic.stop();relWake();$('#player').hidden=true;document.body.style.overflow='';renderAll();}
+  else{histPushed=false;clearInterval(tick);tick=null;state='idle';Audio_.stop();Coach.stop();Mic.stop();relWake();$('#player').hidden=true;document.body.style.overflow='';renderAll();}
  });
  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&(state==='run'||state==='pause'))getWake();});
  return{open,command,get state(){return state}};
@@ -787,8 +906,52 @@ $('#voices').addEventListener('click',e=>{
  S.set.vname=v.name;save();renderVoices();
  if(e.target.closest('[data-vt]'))Voice.say((TONS.find(x=>x.id===S.set.tom)||TONS[0]).ex,true,true);
 });
+/* ---------------- Estúdio de gravação ---------------- */
+let mr=null,recK=null,recStart=0,recTimer=null,stPushed=false;
+function renderStudio(){
+ const c=Coach.count;$('#st-count').textContent=c+' de '+CLIPS.length+' frases gravadas';
+ $('#st-list').innerHTML=CLIPS.map(x=>{const has=Coach.has(x.k),on=recK===x.k;
+  return '<div class="rec'+(has?' ok':'')+'"><div class="rh"><b>'+(has?'✅ ':'')+x.t+'</b>'+(x.st?'<span class="chip" style="font-size:13px;padding:3px 10px">'+x.st+'</span>':'')+'</div>'+
+  '<div class="rx"><small>Exemplos para falar</small>'+x.ex.map(e=>'“'+e+'”').join('<br>')+'</div>'+
+  '<div class="rb"><button class="btn'+(on?' recording':'')+'" data-rec="'+x.k+'">'+(on?'⏹ Parar <span class="rec-s">0s</span>':(has?'🎤 Regravar':'🎤 Gravar'))+'</button>'+(has&&!on?'<button class="play" data-pk="'+x.k+'" aria-label="Ouvir">▶</button><button class="play" data-dk="'+x.k+'" aria-label="Apagar">🗑️</button>':'')+'</div></div>';}).join('');
+ $('#st-names').innerHTML=NAMES.map(([k,n,em])=>{const has=Coach.has(k),on=recK===k;
+  return '<div class="nm'+(has?' ok':'')+'"><span style="font-size:24px">'+em+'</span><div class="tx">'+(has?'✅ ':'')+n+'<small>Diga só: “'+n+'”</small></div>'+(has&&!on?'<button class="play" data-pk="'+k+'" aria-label="Ouvir">▶</button><button class="play" data-dk="'+k+'" aria-label="Apagar">🗑️</button>':'')+'<button class="play'+(on?' on':'')+'" data-rec="'+k+'" aria-label="Gravar">'+(on?'⏹':'🎤')+'</button></div>';}).join('');
+}
+function updMy(){const c=Coach.count,n=Coach.names;$('#mv-count').textContent=(c||n)?c+' frases e '+n+' nomes gravados':'Nenhuma frase gravada';$('#sw-my').classList.toggle('on',!!S.set.myvoice);}
+async function startRec(k){
+ if(mr){stopRec();return;}
+ if(!navigator.mediaDevices||!window.MediaRecorder){toast('Este navegador não grava áudio. Use o Chrome.');return;}
+ let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});}catch(e){toast('Permita o microfone para gravar.');return;}
+ Coach.stop();if(preview){Audio_.stop();preview=null;}
+ const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(m=>MediaRecorder.isTypeSupported(m));
+ const chunks=[];mr=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);recK=k;
+ mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data);};
+ mr.onstop=async()=>{
+  stream.getTracks().forEach(t=>t.stop());clearInterval(recTimer);
+  const key=recK,type=(mr&&mr.mimeType)||mime||'audio/webm',long=Date.now()-recStart;mr=null;recK=null;
+  const blob=new Blob(chunks,{type});
+  if(blob.size>1200&&long>600){await Coach.put(key,blob);if(!S.set.myvoice){S.set.myvoice=true;save();}toast('✅ Gravado! Ouça como ficou.');setTimeout(()=>Coach.preview(key),150);}
+  else toast('Gravação muito curta. Tente de novo.');
+  renderStudio();updMy();
+ };
+ recStart=Date.now();mr.start();renderStudio();
+ recTimer=setInterval(()=>{const s=(Date.now()-recStart)/1000;$$('.rec-s').forEach(e=>e.textContent=Math.floor(s)+'s');if(s>=10)stopRec();},200);
+}
+function stopRec(){try{if(mr&&mr.state!=='inactive')mr.stop();}catch(e){}}
+function openStudio(){Audio_.init();$('#studio').hidden=false;document.body.style.overflow='hidden';if(!stPushed){history.pushState({s:1},'');stPushed=true;}renderStudio();$('#studio').scrollTop=0;}
+function closeStudio(fromPop){stopRec();$('#studio').hidden=true;document.body.style.overflow='';if(stPushed&&!fromPop){stPushed=false;history.back();}stPushed=false;updMy();}
+$('#open-studio').onclick=openStudio;
+$('#st-close').onclick=()=>closeStudio(false);
+window.addEventListener('popstate',()=>{if(!$('#studio').hidden)closeStudio(true);});
+$('#studio').addEventListener('click',e=>{
+ const r=e.target.closest('[data-rec]'),pk=e.target.closest('[data-pk]'),dk=e.target.closest('[data-dk]');
+ if(r){if(mr&&recK!==r.dataset.rec){stopRec();return;}startRec(r.dataset.rec);}
+ else if(pk)Coach.preview(pk.dataset.pk);
+ else if(dk)sheet('<h3>Apagar esta gravação?</h3><p>Você pode gravar de novo quando quiser.</p><div class="row"><button class="btn" id="sh-no">Cancelar</button><button class="btn go" style="--lv:var(--adv)" id="sh-yes">Apagar</button></div>',{async yes(){await Coach.del(dk.dataset.dk);renderStudio();updMy();}});
+});
+$('#sw-my').onclick=()=>{S.set.myvoice=!S.set.myvoice;save();updMy();if(S.set.myvoice&&!Coach.count)toast('Abra o estúdio e grave as frases 🎙️');};
 let preview=null;
-function renderSettings(){renderTons();renderVoices();
+function renderSettings(){renderTons();renderVoices();updMy();
  $('#tracks').innerHTML=TRACKS.map(t=>'<div class="opt" data-tr="'+t.id+'"><span class="radio'+(S.set.music===t.id?' on':'')+'"></span><div class="tx"><b>'+t.nome+'</b><small>'+t.desc+'</small></div>'+(t.id!=='none'?'<button class="play'+(preview===t.id?' on':'')+'" data-pv="'+t.id+'" aria-label="Ouvir">'+(preview===t.id?'⏸':'▶')+'</button>':'')+'</div>').join('');
  $('#vol').value=S.set.vol;
  $('#sw-voice').classList.toggle('on',S.set.voice);$('#sw-beep').classList.toggle('on',S.set.beep);$('#sw-mic').classList.toggle('on',S.set.mic);
@@ -833,10 +996,11 @@ if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.ser
 
 function renderAll(){header();renderFolders();if(tabI===1)renderHist();if(tabI===2)renderMedals();if(tabI===3)renderSettings();}
 renderAll();
+Coach.load().then(()=>{if(tabI===3)updMy();});
 let saved=0;try{saved=parseInt(sessionStorage.getItem('boratreinar-tab')||'0',10)||0;}catch(e){}
 go(saved);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Player.state!=='run')header();});
-window.__BT={Player,S,LEVELS};
+window.__BT={Player,S,LEVELS,Coach};
 })();
 </script>
 </body>
