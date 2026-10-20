@@ -20,6 +20,7 @@ async function candidatos(f, antigo) {
   try {
     if (f.yt) { const h = await txt("https://www.youtube.com/" + f.yt); const m = h.match(/"(?:externalId|channelId)":"(UC[\w-]{22})"/); if (m) out.push(m[1]); }
     for (const q of [f.nome + " podcast", f.nome]) {
+      if (out.length >= 3) break;
       const h = await txt("https://www.youtube.com/results?sp=EgIQAg%253D%253D&search_query=" + encodeURIComponent(q));
       for (const m of h.matchAll(/"channelRenderer":\{"channelId":"(UC[\w-]{22})"/g)) if (!out.includes(m[1])) out.push(m[1]);
     }
@@ -30,16 +31,21 @@ const STOP = new Set("a o e de da do das dos em no na nos nas com para pra por u
 const toks = s => norm(s).split(" ").filter(w => w.length > 2 && !STOP.has(w));
 function simil(a, b) { const A = new Set(toks(a)), B = new Set(toks(b)); if (!A.size || !B.size) return 0; let i = 0; A.forEach(w => { if (B.has(w)) i++ }); return 2 * i / (A.size + B.size); }
 // quantos vídeos do canal batem com episódios reais do podcast
-const confere = (vids, eps) => vids.filter(v => eps.some(t => simil(v.t, t) >= 0.5)).length;
-async function doYouTube(ch) {
-  const out = [];
+const confere = (vids, eps) => vids.filter(v => eps.some(t => simil(v.t, t) >= 0.45)).length;
+async function rssYouTube(ch) {
+  const out = []; let nome = "";
   try {
     const x = await txt("https://www.youtube.com/feeds/videos.xml?channel_id=" + ch);
+    nome = dec((x.match(/<title>([\s\S]*?)<\/title>/) || [])[1]);
     for (const e of x.split("<entry>").slice(1)) {
       const id = (e.match(/<yt:videoId>([\w-]{11})</) || [])[1], t = dec((e.match(/<title>([\s\S]*?)<\/title>/) || [])[1]), d = (e.match(/<published>([^<]+)/) || [])[1] || "";
       if (id) out.push({ s: "yt", id, t, d: d.slice(0, 10) });
     }
   } catch (e) { console.log("  feed do YouTube falhou:", e.message); }
+  return { nome, out };
+}
+async function abasYouTube(ch) {
+  const out = [];
   for (const aba of ["videos", "streams"]) {
     try {
       const h = await txt("https://www.youtube.com/channel/" + ch + "/" + aba);
@@ -80,17 +86,19 @@ for (const f of fontes) {
   const fd = await doFeed(f, antigo);
   let ch = null, yt = [];
   for (const c of await candidatos(f, antigo)) {
-    const vs = await doYouTube(c);
-    const ok = antigo && antigo.canal === c ? 1 : (fd.titulos.length ? confere(vs, fd.titulos) : (f.yt ? 1 : 0));
-    console.log("  testando canal", c, "→ bate com", ok, "episódio(s)");
-    if (ok > 0) { ch = c; yt = vs; break; }
+    const r = await rssYouTube(c); await sleep(700);
+    const nomeOk = simil(r.nome, f.nome) >= 0.8 || norm(r.nome).replace(/ /g, "").includes(norm(f.nome).replace(/ /g, ""));
+    const bate = fd.titulos.length ? confere(r.out, fd.titulos) : 0;
+    const ok = (antigo && antigo.canal === c) || (f.yt && !fd.titulos.length) || bate > 0 || (nomeOk && r.out.length > 0);
+    console.log("  canal", c, "«" + r.nome + "» bate:", bate, "nome:", nomeOk, ok ? "✓" : "✗");
+    if (ok) { ch = c; yt = [...r.out, ...(await abasYouTube(c))]; break; }
   }
   const visto = new Set(), v = [];
   for (const x of [...fd.out, ...yt, ...(((antigo && antigo.v) || []).filter(x => x.s !== "yt" || (ch && antigo.canal === ch)))]) { if (!x.id || !x.t || visto.has(x.id)) continue; visto.add(x.id); v.push(x); }
   v.sort((a, b) => (b.d || "").localeCompare(a.d || ""));
   pods[k] = { nome: f.nome, canal: ch, itunes: fd.itunes || null, feed: fd.feed || null, v: v.slice(0, 600) };
   console.log("  canal:", ch, "| vídeos:", v.length, "(", fd.out.length, "fora do YouTube )");
-  await sleep(800);
+  await sleep(2500);
 }
 const total = Object.values(pods).reduce((s, p) => s + p.v.length, 0);
 fs.writeFileSync(ARQ, JSON.stringify({ atualizado: new Date().toISOString(), total, pods }));
