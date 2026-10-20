@@ -616,6 +616,17 @@ addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;showIns
 async function instalar(){if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;showInst()}
  else alert("No Chrome, toque no menu ⋮ e depois em “Instalar app” (ou “Adicionar à tela inicial”).")}
 addEventListener("appinstalled",()=>{const b=$("#inst");if(b)b.hidden=true});
+/* ---------- canais favoritos do Leandro (entram uma vez) ---------- */
+const FAV_SEED=[["Três Irmãos Podcast","tres irmaos"],["Flow Podcast","flow"],["Inteligência Ltda","inteligencia ltda"],["Ticaracaticast","ticaracati"],["Os Três Elementos","tres elementos"],["História FM","historia fm"],["Além da Ciência","alem da ciencia"],["Bunker X","bunker x"]];
+const sNrm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim();
+async function seedFavs(){const done=LS.get("favSeed1",[]);const falta=FAV_SEED.filter(x=>!done.includes(x[1]));if(!falta.length||!navigator.onLine)return;
+ const achados=await Promise.all(falta.map(async([termo,chave])=>{try{const d=await jsonp("https://itunes.apple.com/search?media=podcast&entity=podcast&country=BR&limit=15&term="+encodeURIComponent(termo));
+  const r=(d.results||[]).find(r=>r.collectionId&&sNrm(r.collectionName).includes(chave));return r?{chave,p:mapPod(r)}:null}catch{return null}}));
+ let fs=LS.get("favs",[]);const novos=[];
+ for(const x of FAV_SEED){const a=achados.find(y=>y&&y.chave===x[1]);if(a){done.push(a.chave);if(!fs.some(f=>f.id===a.p.id))novos.push(a.p)}}
+ if(novos.length){LS.set("favs",[...novos,...fs]);if(tab==="lib"||view.v==="lib")render()}
+ LS.set("favSeed1",done)}
+seedFavs();addEventListener("online",seedFavs);
 if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 try{navigator.storage?.persist?.()}catch{}
 
