@@ -89,7 +89,7 @@ for (const f of fontes) {
     const r = await rssYouTube(c); await sleep(700);
     const nomeOk = simil(r.nome, f.nome) >= 0.8 || norm(r.nome).replace(/ /g, "").includes(norm(f.nome).replace(/ /g, ""));
     const bate = fd.titulos.length ? confere(r.out, fd.titulos) : 0;
-    const ok = (antigo && antigo.canal === c) || (f.yt && !fd.titulos.length) || bate > 0 || (nomeOk && r.out.length > 0);
+    const ok = (antigo && antigo.canal === c) || bate > 0 || (!fd.titulos.length && (f.yt || (nomeOk && r.out.length > 0)));
     console.log("  canal", c, "«" + r.nome + "» bate:", bate, "nome:", nomeOk, ok ? "✓" : "✗");
     if (ok) { ch = c; yt = [...r.out, ...(await abasYouTube(c))]; break; }
   }
