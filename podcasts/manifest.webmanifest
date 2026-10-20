@@ -1,7 +1,7 @@
 {
-  "name": "Ondas - Podcasts por tema",
+  "name": "Ondas - Podcasts e Música",
   "short_name": "Ondas",
-  "description": "Busque e ouça podcasts organizados em pastas por tema.",
+  "description": "Podcasts por tema, rádios, música livre e suas músicas, com comando de voz.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
