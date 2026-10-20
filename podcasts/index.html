@@ -93,6 +93,13 @@ nav button.on{color:var(--ink);font-weight:600}
 .ctrls{display:flex;justify-content:center;align-items:center;gap:26px;margin-top:18px}
 .ctrls .sm{width:58px;height:58px;border-radius:29px;border:none;background:#1F2937;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:600}
 .ctrls .big{width:78px;height:78px;border-radius:39px;border:none;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center}
+#vwrap{position:relative;width:100%;max-width:520px;margin:20px auto 18px;border-radius:18px;overflow:hidden;background:#000}
+#vwrap video{width:100%;display:block;aspect-ratio:16/9;background:#000}
+.vrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 16px}
+.vbtn{height:44px;padding:0 16px;border-radius:22px;border:2px solid #4B5563;background:none;color:#fff;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px}
+.vbtn.on{background:#fff;color:var(--ink);border-color:#fff}
+.vnote{font-size:14px;color:#9CA3AF;text-align:center;margin:0 0 14px}
+.vtag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;background:#FDE68A;color:#78350F;margin-left:6px;vertical-align:middle}
 .speed{margin:22px auto 0;height:44px;padding:0 20px;border-radius:22px;border:2px solid #374151;background:none;color:#fff;font-weight:600;display:block}
 .desc{margin-top:22px;font-size:15px;line-height:1.5;color:#D1D5DB;white-space:pre-line}
 .hint{font-size:15px;color:var(--mut);margin:10px 0 0}
@@ -138,6 +145,9 @@ nav button.on{color:var(--ink);font-weight:600}
 <section id="sheet" hidden aria-label="Player">
   <button class="close" id="sh-close"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>Fechar</button>
   <img class="art" id="sh-img" alt="">
+  <div id="vwrap" hidden></div>
+  <div class="vrow" id="vrow"><button class="vbtn" id="sh-pip" hidden>🗗 Janelinha flutuante</button><button class="vbtn" id="sh-yt" hidden>▶ Procurar vídeo no YouTube</button><button class="vbtn" id="sh-vmode"></button></div>
+  <p class="vnote" id="vnote" hidden></p>
   <h3 id="sh-t"></h3>
   <p class="pn" id="sh-p"></p>
   <div class="row" style="flex-wrap:wrap;margin-bottom:18px"><button class="fav" id="sh-fav" style="margin:0"></button><button class="fav" id="sh-share" style="margin:0;border-color:#4B5563;color:#fff">Compartilhar</button><button class="micb" onclick="Voz.toggle()"><span class="dot"></span>Comando de voz</button></div>
@@ -152,7 +162,7 @@ nav button.on{color:var(--ink);font-weight:600}
   <div class="desc" id="sh-desc"></div>
 </section>
 
-<audio id="au" preload="none"></audio>
+<video id="au" preload="none" playsinline webkit-playsinline disableremoteplayback></video>
 <input type="file" id="mfile" accept="audio/*" multiple hidden>
 
 <script>
@@ -195,7 +205,7 @@ function searchPods(terms){return cached("s:"+terms.join("|"),async()=>{
 function getEps(id){return cached("e:"+id,async()=>{
  const d=await jsonp("https://itunes.apple.com/lookup?media=podcast&entity=podcastEpisode&limit=60&country=BR&id="+id);
  const rs=d.results||[];const p=rs.find(r=>r.wrapperType==="track"&&r.kind==="podcast")||rs[0];
- const eps=rs.filter(r=>r.wrapperType==="podcastEpisode"&&r.episodeUrl).map(r=>({id:r.trackId,n:r.trackName,u:r.episodeUrl,d:r.releaseDate,ms:r.trackTimeMillis||0,img:(r.artworkUrl600||r.artworkUrl160||"").replace("http:","https:"),desc:r.description||r.shortDescription||""}));
+ const eps=rs.filter(r=>r.wrapperType==="podcastEpisode"&&r.episodeUrl).map(r=>({id:r.trackId,n:r.trackName,u:r.episodeUrl,d:r.releaseDate,ms:r.trackTimeMillis||0,v:r.episodeContentType==="video"||/^(mp4|m4v|mov|webm)$/i.test(r.episodeFileExtension||"")?1:0,img:(r.artworkUrl600||r.artworkUrl160||"").replace("http:","https:"),desc:r.description||r.shortDescription||""}));
  return{pod:p?mapPod(p):null,eps}})}
 
 /* ---------- navegação ---------- */
@@ -259,7 +269,7 @@ function fmtT(s){s=Math.max(0,Math.floor(s||0));const h=Math.floor(s/3600),m=Mat
 function fmtDur(ms){if(!ms)return"";const m=Math.round(ms/60000);return m>=60?Math.floor(m/60)+" h "+(m%60)+" min":m+" min"}
 const favEps=()=>LS.get("favEps",[]);
 const isFavEp=id=>favEps().some(x=>x.id===id);
-const epData=e=>({id:e.id,n:e.n,u:e.u,ms:e.ms,img:e.img,pod:e.pod,podImg:e.podImg,podId:e.podId,desc:(e.desc||"").slice(0,600)});
+const epData=e=>({id:e.id,n:e.n,u:e.u,v:e.v||0,ms:e.ms,img:e.img,pod:e.pod,podImg:e.podImg,podId:e.podId,desc:(e.desc||"").slice(0,600)});
 function toggleFavEp(e){let f=favEps();if(f.some(x=>x.id===e.id))f=f.filter(x=>x.id!==e.id);else f.unshift(epData(e));LS.set("favEps",f);
  document.querySelectorAll('.hb[data-id="'+e.id+'"]').forEach(b=>{const on=isFavEp(e.id);b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);b.setAttribute("aria-label",on?"Tirar dos favoritos":"Favoritar episódio")});
  if(cur&&cur.id===e.id)ui();if(view.v==="lib")lib()}
@@ -267,7 +277,7 @@ function heartBtn(e,call){const on=isFavEp(e.id);return`<button class="hb${on?" 
 function favIdx(i){toggleFavEp(curList[i])}
 function favFrom(src,i){const e=LS.get(src,[])[i];if(e)toggleFavEp(e)}
 function epRow(e,i){const now=cur&&cur.id===e.id;const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
- return`<div class="epw"><button class="ep${now?" now":""}" onclick="playIdx(${i})"><span class="t"><b>${esc(e.n)}</b><small>${[fmtDate(e.d),fmtDur(e.ms)].filter(Boolean).join(" · ")}</small>${e.desc?`<p>${esc(e.desc)}</p>`:""}${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl">${now&&!au.paused?IC.pause:IC.play}</span></button>${heartBtn(e,"favIdx("+i+")")}</div>`}
+ return`<div class="epw"><button class="ep${now?" now":""}" onclick="playIdx(${i})"><span class="t"><b>${esc(e.n)}${isVid(e)?'<span class="vtag">🎬 Vídeo</span>':""}</b><small>${[fmtDate(e.d),fmtDur(e.ms)].filter(Boolean).join(" · ")}</small>${e.desc?`<p>${esc(e.desc)}</p>`:""}${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl">${now&&!au.paused?IC.pause:IC.play}</span></button>${heartBtn(e,"favIdx("+i+")")}</div>`}
 function epRowHist(e,i,src){src=src||"hist";const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
  return`<div class="epw"><button class="pod" onclick="playFrom('${src}',${i})">${e.img||e.podImg?`<img src="${esc(e.img||e.podImg)}" alt="" loading="lazy">`:'<span class="ph"></span>'}<span class="t"><b>${esc(e.n)}</b><small>${esc(e.pod)}</small>${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl" style="width:44px;height:44px;border-radius:22px;background:var(--soft);display:flex;align-items:center;justify-content:center">${IC.play}</span></button>${heartBtn(e,"favFrom('"+src+"',"+i+")")}</div>`}
 function playIdx(i){const e=curList[i];if(cur&&cur.id===e.id){toggle();return}play(e)}
@@ -288,6 +298,33 @@ function lib(){const favs=LS.get("favs",[]),hist=LS.get("hist",[]),fe=favEps();
  M.innerHTML=`<h1>Biblioteca</h1>${fr.length?`<h2>Rádios favoritas</h2>${fr.map((x,i)=>stRow(x,i,"favR")).join("")}`:""}<h2>Canais favoritos</h2>${favs.length?favs.map(podRow).join(""):'<p class="hint">Toque em “Favoritar canal” na página de um podcast para ele aparecer aqui.</p>'}
  <h2>Episódios favoritos</h2>${fe.length?fe.map((e,i)=>epRowHist(e,i,"favEps")).join(""):'<p class="hint">Toque no coração ao lado de um episódio para guardar ele aqui.</p>'}
  <h2>Ouvidos recentemente</h2>${hist.length?hist.map((e,i)=>epRowHist(e,i,"hist")).join(""):'<p class="hint">Os episódios que você ouvir aparecem aqui, e voltam de onde você parou.</p>'}`}
+
+/* ---------- vídeo (só no Wi-Fi) + janelinha flutuante ---------- */
+const isVid=e=>!!e&&!e.kind&&(!!e.v||/\.(mp4|m4v|mov|webm)(\?|#|$)/i.test(e.u||""));
+const VMODES=[["wifi","Vídeo: só no Wi-Fi"],["sempre","Vídeo: sempre"],["nunca","Vídeo: nunca (só áudio)"]];
+let vmode=LS.get("vmode","wifi");
+function onWifi(){const c=navigator.connection;if(!c||!c.type)return true;return c.type!=="cellular"&&c.type!=="bluetooth"&&c.type!=="wimax"}
+function videoOn(){return vmode==="sempre"||(vmode==="wifi"&&onWifi())}
+function showVideo(){return isVid(cur)&&videoOn()}
+function vui(){const sv=showVideo(),w=$("#vwrap"),k=cur&&cur.kind;
+ if(sv&&au.parentNode!==w){w.appendChild(au)}else if(!sv&&au.parentNode===w){document.body.appendChild(au)}
+ w.hidden=!sv;au.style.display=sv?"block":"none";$("#sh-img").hidden=sv;
+ const pipOk=!!document.pictureInPictureEnabled&&!au.disablePictureInPicture;
+ $("#sh-pip").hidden=!(sv&&pipOk);$("#sh-pip").textContent=document.pictureInPictureElement?"⤢ Voltar para o app":"🗗 Janelinha flutuante";
+ $("#sh-yt").hidden=!cur||!!k||isVid(cur);
+ $("#sh-vmode").hidden=!cur||!!k;$("#sh-vmode").textContent=VMODES.find(m=>m[0]===vmode)[1];
+ const n=$("#vnote");let t="";
+ if(cur&&!k&&isVid(cur)&&!sv)t=vmode==="nunca"?"Este episódio tem vídeo. Está só no áudio.":"Este episódio tem vídeo. Ele aparece quando você estiver no Wi-Fi.";
+ n.textContent=t;n.hidden=!t}
+$("#sh-vmode").onclick=()=>{const i=VMODES.findIndex(m=>m[0]===vmode);vmode=VMODES[(i+1)%VMODES.length][0];LS.set("vmode",vmode);
+ if(!showVideo()&&document.pictureInPictureElement)document.exitPictureInPicture().catch(()=>{});vui()};
+async function pip(){try{if(document.pictureInPictureElement){await document.exitPictureInPicture();return}
+ if(!showVideo())return;if(au.paused)await doPlay();await au.requestPictureInPicture()}catch(e){toast("Não deu para abrir a janelinha neste celular.");setTimeout(()=>toast(""),3000)}}
+$("#sh-pip").onclick=pip;
+au.addEventListener("enterpictureinpicture",vui);au.addEventListener("leavepictureinpicture",vui);
+$("#sh-yt").onclick=()=>{if(!cur)return;window.open("https://www.youtube.com/results?search_query="+encodeURIComponent(cur.pod+" "+cur.n),"_blank")};
+if(navigator.connection&&navigator.connection.addEventListener)navigator.connection.addEventListener("change",()=>{if(!showVideo()&&document.pictureInPictureElement)document.exitPictureInPicture().catch(()=>{});vui()});
+if("mediaSession"in navigator){try{navigator.mediaSession.setActionHandler("enterpictureinpicture",()=>{if(showVideo())au.requestPictureInPicture().catch(()=>{})})}catch{}}
 
 /* ---------- player ---------- */
 let cur=null;const SPEEDS=[1,1.25,1.5,2,0.75];let sp=LS.get("speed",1);
@@ -320,7 +357,7 @@ function ui(){const m=$("#mini");if(!cur){m.hidden=true;return}m.hidden=false;
  $("#sh-back").innerHTML=q?'<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>':'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4h4"/></svg>15';
  $("#sh-fwd").innerHTML=q?'<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>':'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 12a8 8 0 1 1-3-6.2"/><path d="M20 4v4h-4"/></svg>30';
  $("#sh-back").setAttribute("aria-label",q?"Anterior":"Voltar 15 segundos");$("#sh-fwd").setAttribute("aria-label",q?"Próxima":"Avançar 30 segundos");
- $("#sh-speed").textContent="Velocidade "+String(sp).replace(".",",")+"x"}
+ $("#sh-speed").textContent="Velocidade "+String(sp).replace(".",",")+"x";vui()}
 function msState(){if("mediaSession"in navigator){try{navigator.mediaSession.playbackState=au.paused?"paused":"playing"}catch{}}}
 au.addEventListener("play",()=>{if(cur)addHist(cur);ui();refreshEps();msState()});
 au.addEventListener("pause",()=>{ui();refreshEps();savePos();msState();
