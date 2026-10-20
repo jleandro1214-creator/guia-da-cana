@@ -92,6 +92,7 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
 <section id="inicio">
   <div class="card">
     <button class="btn" id="bQR">🧾 Ler QR Code do cupom</button>
+    <button class="btn" id="bColarFaz">📋 Colar compra da Fazenda</button>
     <button class="btn" id="bEAN">🏷️ Ler código de barras</button>
     <button class="btn" id="bWeb">🛍️ Comparar preço nas lojas</button>
     <label class="btn sec" for="fotoCupom">📷 Foto do cupom em papel</label>
@@ -286,6 +287,7 @@ details.man .c{padding:0 14px 14px}details.man li{margin:6px 0}
     <li>Toque em <b>🌐 Abrir o cupom</b>. Abre o site da Fazenda de SP com a lista da compra.</li>
     <li>No site, <b>toque e segure</b> em qualquer palavra. Escolha <b>Selecionar tudo</b> e depois <b>Copiar</b>.</li>
     <li>Volte para o app e toque em <b>📋 Colar o cupom</b>. Se o celular perguntar, toque em <b>Permitir</b>.</li>
+    <li>Já copiou a compra antes, sem ler o QR? Na aba <b>🏠 Início</b>, toque em <b>📋 Colar compra da Fazenda</b>.</li>
     <li>Confira a lista: o mercado, a data e os preços já vêm preenchidos. Desmarque o que não quiser guardar.</li>
     <li>Toque em <b>💾 Guardar no histórico</b>. Pronto!</li></ol>
     <div class="dica">💡 Se o botão Colar não funcionar, abra "Não colou? Cole aqui à mão", toque e segure na caixa e escolha <b>Colar</b>. Depois toque em <b>Ler o texto colado</b>.</div>
@@ -478,7 +480,7 @@ function receberQR(txt){
   if(!/^https?:\/\//i.test(url)){toast("Esse QR não parece de cupom fiscal");return}
   if(chave&&DB.cupons.some(c=>c.id===chave)){if(!confirm("Esse cupom já foi guardado. Abrir de novo mesmo assim?"))return}
   cupomAtual={url,chave,info:ic};
-  $("#abrirSefaz").href=url;
+  $("#abrirSefaz").href=url;$("#abrirSefaz").hidden=false;
   $("#cupInfo").innerHTML=ic?`Cupom nº ${ic.numero} · ${ic.mes}/${ic.ano}<br>CNPJ do mercado: ${fmtCnpj(ic.cnpj)}${DB.merc[ic.cnpj]?" — <b>"+esc(nomeMerc(ic.cnpj))+"</b>":""}${ic.uf!=="35"?"<br>⚠️ Cupom de fora de SP: o site pode ser diferente, mas o colar funciona igual.":""}`:"QR Code lido.";
   $("#txtCupom").value="";$("#cupProg").textContent="";$("#txtCupom").closest("details").open=false;
   ir("cupom");
@@ -486,6 +488,14 @@ function receberQR(txt){
 $("#colar").onclick=async()=>{
   try{const t=await navigator.clipboard.readText();if(!t||t.length<30)throw 0;processarTextoCupom(t)}
   catch(e){$("#txtCupom").closest("details").open=true;$("#txtCupom").focus();toast("Toque e segure na caixa e escolha Colar")}
+};
+$("#bColarFaz").onclick=async()=>{
+  cupomAtual=null;
+  $("#abrirSefaz").hidden=true;
+  $("#cupInfo").innerHTML="Copiou a compra no site da Fazenda? Toque em <b>Colar o cupom</b>. Se não colar sozinho, toque e segure na caixa abaixo e escolha <b>Colar</b>.";
+  $("#txtCupom").value="";$("#cupProg").textContent="";$("#txtCupom").closest("details").open=true;
+  ir("cupom");
+  try{const t=await navigator.clipboard.readText();if(t&&t.length>=30){$("#txtCupom").value=t;processarTextoCupom(t)}}catch(e){}
 };
 $("#lerTxt").onclick=()=>processarTextoCupom($("#txtCupom").value);
 
@@ -515,9 +525,12 @@ function lerCupomSefaz(txt){
 function processarTextoCupom(txt){
   const r=lerCupomSefaz(txt);
   if(!r.itens.length){$("#cupProg").innerHTML='<div class="aviso">Não encontrei os produtos no texto. Confira se copiou a página inteira do cupom (Selecionar tudo → Copiar).</div>';$("#txtCupom").closest("details").open=true;return}
-  const ic=cupomAtual&&cupomAtual.info;
+  let chaveTxt=null;{const mc=txt.replace(/[\s.]/g,"").match(/\d{44}/);if(mc)chaveTxt=mc[0]}
+  const chaveF=cupomAtual&&cupomAtual.chave||chaveTxt;
+  if(!(cupomAtual&&cupomAtual.chave)&&chaveF&&DB.cupons.some(c=>c.id===chaveF)&&!confirm("Esse cupom já foi guardado. Guardar de novo mesmo assim?"))return;
+  const ic=cupomAtual&&cupomAtual.info||(chaveF?infoChave(chaveF):null);
   const cnpj=r.cnpj||(ic&&ic.cnpj)||null;
-  abrirRevisao({id:cupomAtual&&cupomAtual.chave||null,cnpj,loja:r.loja,data:r.data||(ic?`${ic.ano}-${ic.mes}-01`:hoje()),itens:r.itens,origem:"qr"});
+  abrirRevisao({id:chaveF||null,cnpj,loja:r.loja,data:r.data||(ic?`${ic.ano}-${ic.mes}-01`:hoje()),itens:r.itens,origem:"qr"});
 }
 
 /* ================= FOTO DO CUPOM (OCR) ================= */
