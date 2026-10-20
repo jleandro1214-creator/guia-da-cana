@@ -14,15 +14,23 @@ const dec = s => (s || "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replac
 async function txt(u) { const r = await fetch(u, { headers: UA, redirect: "follow", signal: AbortSignal.timeout(20000) }); if (!r.ok) throw new Error(r.status + " " + u); return r.text(); }
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-async function canal(f, antigo) {
-  if (antigo && antigo.canal) return antigo.canal;
+async function candidatos(f, antigo) {
+  if (antigo && antigo.canal) return [antigo.canal];
+  const out = [];
   try {
-    if (f.yt) { const h = await txt("https://www.youtube.com/" + f.yt); const m = h.match(/"(?:externalId|channelId)":"(UC[\w-]{22})"/); if (m) return m[1]; }
-    const h = await txt("https://www.youtube.com/results?sp=EgIQAg%253D%253D&search_query=" + encodeURIComponent(f.nome));
-    const m = h.match(/"channelRenderer":\{"channelId":"(UC[\w-]{22})"/) || h.match(/"channelId":"(UC[\w-]{22})"/);
-    return m ? m[1] : null;
-  } catch (e) { console.log("  canal falhou:", e.message); return null; }
+    if (f.yt) { const h = await txt("https://www.youtube.com/" + f.yt); const m = h.match(/"(?:externalId|channelId)":"(UC[\w-]{22})"/); if (m) out.push(m[1]); }
+    for (const q of [f.nome + " podcast", f.nome]) {
+      const h = await txt("https://www.youtube.com/results?sp=EgIQAg%253D%253D&search_query=" + encodeURIComponent(q));
+      for (const m of h.matchAll(/"channelRenderer":\{"channelId":"(UC[\w-]{22})"/g)) if (!out.includes(m[1])) out.push(m[1]);
+    }
+  } catch (e) { console.log("  busca de canal falhou:", e.message); }
+  return out.slice(0, 4);
 }
+const STOP = new Set("a o e de da do das dos em no na nos nas com para pra por um uma os as ep episodio podcast que ao the".split(" "));
+const toks = s => norm(s).split(" ").filter(w => w.length > 2 && !STOP.has(w));
+function simil(a, b) { const A = new Set(toks(a)), B = new Set(toks(b)); if (!A.size || !B.size) return 0; let i = 0; A.forEach(w => { if (B.has(w)) i++ }); return 2 * i / (A.size + B.size); }
+// quantos vídeos do canal batem com episódios reais do podcast
+const confere = (vids, eps) => vids.filter(v => eps.some(t => simil(v.t, t) >= 0.5)).length;
 async function doYouTube(ch) {
   const out = [];
   try {
@@ -44,7 +52,7 @@ async function doYouTube(ch) {
   return out;
 }
 async function doFeed(f, antigo) {
-  const out = []; let itunes = antigo && antigo.itunes, feed = antigo && antigo.feed;
+  const out = [], titulos = []; let itunes = antigo && antigo.itunes, feed = antigo && antigo.feed;
   try {
     if (!feed) {
       const j = JSON.parse(await txt("https://itunes.apple.com/search?media=podcast&country=BR&limit=5&term=" + encodeURIComponent(f.nome)));
@@ -55,6 +63,7 @@ async function doFeed(f, antigo) {
       const x = await txt(feed);
       for (const it of x.split(/<item[\s>]/).slice(1)) {
         const enc = it.match(/<enclosure[^>]*>/i); if (!enc) continue;
+        if (titulos.length < 200) titulos.push(dec((it.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]));
         const url = (enc[0].match(/url="([^"]+)"/i) || [])[1], tp = (enc[0].match(/type="([^"]+)"/i) || [])[1] || "";
         if (!url || !(/^video\//i.test(tp) || /\.(mp4|m4v|mov|webm)(\?|$)/i.test(url))) continue;
         const t = dec((it.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]), d = (it.match(/<pubDate>([^<]+)/i) || [])[1];
@@ -62,17 +71,22 @@ async function doFeed(f, antigo) {
       }
     }
   } catch (e) { console.log("  feed do podcast falhou:", e.message); }
-  return { out, itunes, feed };
+  return { out, itunes, feed, titulos };
 }
 const pods = {};
 for (const f of fontes) {
   const k = norm(f.nome), antigo = velho.pods[k];
   console.log("•", f.nome);
-  const ch = await canal(f, antigo);
-  const yt = ch ? await doYouTube(ch) : [];
   const fd = await doFeed(f, antigo);
+  let ch = null, yt = [];
+  for (const c of await candidatos(f, antigo)) {
+    const vs = await doYouTube(c);
+    const ok = antigo && antigo.canal === c ? 1 : (fd.titulos.length ? confere(vs, fd.titulos) : (f.yt ? 1 : 0));
+    console.log("  testando canal", c, "→ bate com", ok, "episódio(s)");
+    if (ok > 0) { ch = c; yt = vs; break; }
+  }
   const visto = new Set(), v = [];
-  for (const x of [...fd.out, ...yt, ...((antigo && antigo.v) || [])]) { if (!x.id || !x.t || visto.has(x.id)) continue; visto.add(x.id); v.push(x); }
+  for (const x of [...fd.out, ...yt, ...(((antigo && antigo.v) || []).filter(x => x.s !== "yt" || (ch && antigo.canal === ch)))]) { if (!x.id || !x.t || visto.has(x.id)) continue; visto.add(x.id); v.push(x); }
   v.sort((a, b) => (b.d || "").localeCompare(a.d || ""));
   pods[k] = { nome: f.nome, canal: ch, itunes: fd.itunes || null, feed: fd.feed || null, v: v.slice(0, 600) };
   console.log("  canal:", ch, "| vídeos:", v.length, "(", fd.out.length, "fora do YouTube )");
