@@ -93,6 +93,7 @@ nav button.on{color:var(--ink);font-weight:600}
 .ctrls{display:flex;justify-content:center;align-items:center;gap:26px;margin-top:18px}
 .ctrls .sm{width:58px;height:58px;border-radius:29px;border:none;background:#1F2937;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:600}
 .ctrls .big{width:78px;height:78px;border-radius:39px;border:none;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center}
+#vrow,#vnote{display:none!important}
 #vwrap{position:relative;width:100%;max-width:520px;margin:20px auto 18px;border-radius:18px;overflow:hidden;background:#000}
 #vwrap video,#vwrap iframe{width:100%;display:block;aspect-ratio:16/9;background:#000;border:0}
 .vrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 16px}
@@ -277,7 +278,7 @@ function heartBtn(e,call){const on=isFavEp(e.id);return`<button class="hb${on?" 
 function favIdx(i){toggleFavEp(curList[i])}
 function favFrom(src,i){const e=LS.get(src,[])[i];if(e)toggleFavEp(e)}
 function epRow(e,i){const now=cur&&cur.id===e.id;const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
- return`<div class="epw"><button class="ep${now?" now":""}" onclick="playIdx(${i})"><span class="t"><b>${esc(e.n)}${isVid(e)?'<span class="vtag">🎬 Vídeo</span>':""}</b><small>${[fmtDate(e.d),fmtDur(e.ms)].filter(Boolean).join(" · ")}</small>${e.desc?`<p>${esc(e.desc)}</p>`:""}${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl">${now&&!au.paused?IC.pause:IC.play}</span></button>${heartBtn(e,"favIdx("+i+")")}</div>`}
+ return`<div class="epw"><button class="ep${now?" now":""}" onclick="playIdx(${i})"><span class="t"><b>${esc(e.n)}</b><small>${[fmtDate(e.d),fmtDur(e.ms)].filter(Boolean).join(" · ")}</small>${e.desc?`<p>${esc(e.desc)}</p>`:""}${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl">${now&&!au.paused?IC.pause:IC.play}</span></button>${heartBtn(e,"favIdx("+i+")")}</div>`}
 function epRowHist(e,i,src){src=src||"hist";const pos=LS.get("pos:"+e.id,0);const pct=e.ms&&pos?Math.min(100,pos*1000/e.ms*100):0;
  return`<div class="epw"><button class="pod" onclick="playFrom('${src}',${i})">${e.img||e.podImg?`<img src="${esc(e.img||e.podImg)}" alt="" loading="lazy">`:'<span class="ph"></span>'}<span class="t"><b>${esc(e.n)}</b><small>${esc(e.pod)}</small>${pct?`<span class="bar"><span style="width:${pct}%"></span></span>`:""}</span><span class="pl" style="width:44px;height:44px;border-radius:22px;background:var(--soft);display:flex;align-items:center;justify-content:center">${IC.play}</span></button>${heartBtn(e,"favFrom('"+src+"',"+i+")")}</div>`}
 function playIdx(i){const e=curList[i];if(cur&&cur.id===e.id){toggle();return}play(e)}
@@ -304,7 +305,7 @@ const isVid=e=>!!e&&!e.kind&&(!!e.v||/\.(mp4|m4v|mov|webm)(\?|#|$)/i.test(e.u||"
 const VMODES=[["wifi","Vídeo: só no Wi-Fi"],["sempre","Vídeo: sempre"],["nunca","Vídeo: nunca (só áudio)"]];
 let vmode=LS.get("vmode","wifi");
 function onWifi(){const c=navigator.connection;if(!c||!c.type)return true;return c.type!=="cellular"&&c.type!=="bluetooth"&&c.type!=="wimax"}
-function videoOn(){return vmode==="sempre"||(vmode==="wifi"&&onWifi())}
+function videoOn(){return false} /* vídeo desligado: o Ondas fica só no áudio */
 
 /* acervo de vídeos: YouTube + vídeos próprios dos podcasts (atualizado sozinho no GitHub) */
 let ACERVO=null,acervoP=null;
@@ -373,9 +374,9 @@ function vui(){const sv=showVideo(),w=$("#vwrap"),k=cur&&cur.kind,fr=!!vframe&&v
  const pode=!!cur&&!k&&!isVid(cur)&&videoOn()&&!!vfound&&!vstream&&!fr;
  $("#sh-yt").hidden=!pode;$("#sh-yt").textContent="🎬 Assistir o vídeo aqui";
  $("#sh-aud").hidden=!(vstream||fr);
- $("#sh-vmode").hidden=!cur||!!k;$("#sh-vmode").textContent=VMODES.find(m=>m[0]===vmode)[1];
+ $("#sh-vmode").hidden=true;$("#sh-vmode").textContent=VMODES.find(m=>m[0]===vmode)[1];
  const n=$("#vnote");let t="";
- if(cur&&!k){if(isVid(cur)&&!sv)t=vmode==="nunca"?"Este episódio tem vídeo. Está só no áudio.":"Este episódio tem vídeo. Ele aparece quando você estiver no Wi-Fi.";
+ if(false){if(isVid(cur)&&!sv)t=vmode==="nunca"?"Este episódio tem vídeo. Está só no áudio.":"Este episódio tem vídeo. Ele aparece quando você estiver no Wi-Fi.";
   else if(fr)t="Janelinha com este vídeo: toque em tela cheia ⛶ e depois no botão de início do celular.";
   else if(vbusy)t="Procurando o vídeo deste episódio…";
   else if(!isVid(cur)&&videoOn()&&!vfound&&!vstream&&cur.id in achados)t="Não achei vídeo deste episódio. Ele toca só em áudio.";}
