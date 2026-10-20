@@ -185,6 +185,21 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
 .nm .tx{flex:1;font-weight:700}
 .nm .tx small{display:block;color:var(--mut);font-weight:500;font-size:14px}
 .nm .play{width:44px;height:44px}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ph{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4;background:var(--card);border:1px solid var(--line);padding:0}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph span{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 7px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-size:13px;font-weight:700;text-align:left;color:#fff}
+.ph span i{font-style:normal;display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--lv);margin-right:5px}
+.gtop{display:flex;gap:10px;margin-bottom:14px}
+#viewer{position:fixed;inset:0;z-index:40;background:#000;display:flex;flex-direction:column;padding:calc(10px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom))}
+#viewer .vimg{flex:1;min-height:0;display:flex;gap:6px;align-items:center;justify-content:center}
+#viewer .vimg figure{margin:0;flex:1;min-width:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+#viewer img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;min-height:0}
+#viewer figcaption{font-weight:800;font-size:15px}
+#viewer .vbar{display:flex;gap:10px;margin-top:12px}
+#viewer .vinfo{color:#ccc;text-align:center;margin-top:10px;font-size:15px}
+.dphoto{width:100%;max-height:260px;object-fit:cover;border-radius:16px;margin-bottom:12px}
+label.btn{cursor:pointer}
 #install-btn{margin:4px 0 16px;width:100%}
 </style>
 </head>
@@ -217,6 +232,17 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
     </div>
     <h2 class="sec-title">Treinos feitos</h2>
     <div class="hist" id="hist"></div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="tab" id="tg">
+    <h2 class="sec-title">Galeria de treinos</h2>
+    <p class="note" style="margin:-6px 0 12px" id="gal-count">Registre cada treino com uma foto e acompanhe sua evolução.</p>
+    <div class="gtop">
+      <label class="btn go" style="--lv:var(--acc)" for="foto-in">📸 Adicionar foto</label>
+      <button class="btn" id="cmp-btn" hidden>↔️ Antes e depois</button>
+    </div>
+    <div class="gal" id="gal"></div>
   </section>
 
   <!-- CONQUISTAS -->
@@ -280,8 +306,9 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
 <nav class="nav" id="nav">
   <button class="on" data-t="0"><i>🏋️</i>Treinos</button>
   <button data-t="1"><i>📊</i>Histórico</button>
-  <button data-t="2"><i>🏅</i>Conquistas</button>
-  <button data-t="3"><i>⚙️</i>Ajustes</button>
+  <button data-t="2"><i>📸</i>Galeria</button>
+  <button data-t="3"><i>🏅</i>Conquistas</button>
+  <button data-t="4"><i>⚙️</i>Ajustes</button>
 </nav>
 
 <!-- ESTÚDIO -->
@@ -339,6 +366,13 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
   <div id="pl-done" class="done" hidden></div>
 </div>
 
+<input type="file" id="foto-in" accept="image/*" capture="user" hidden>
+<div id="viewer" hidden>
+  <div class="ptop"><button class="x" id="vw-close" aria-label="Fechar" style="background:#222">✕</button><div class="lv" id="vw-title" style="color:#fff"></div></div>
+  <div class="vimg" id="vw-img"></div>
+  <div class="vinfo" id="vw-info"></div>
+  <div class="vbar" id="vw-bar"><button class="btn" id="vw-share">📤 Compartilhar</button><button class="btn" id="vw-del">🗑️ Apagar</button></div>
+</div>
 <div class="sheet" id="sheet" hidden><div id="sheet-in"></div></div>
 <div class="toast" id="toast" hidden></div>
 
@@ -415,7 +449,8 @@ const MEDALS=[
  ['int','⚡','Subiu de nível','Completou um treino intermediário'],
  ['adv','🚀','Modo fera','Completou um treino avançado'],
  ['early','🌅','Madrugador','Treinou antes das 7 da manhã'],
- ['night','🌙','Treino noturno','Treinou depois das 21 horas']
+ ['night','🌙','Treino noturno','Treinou depois das 21 horas'],
+ ['foto','📸','Foto do treino','Registrou um treino com foto']
 ];
 
 /* ---------------- Estado ---------------- */
@@ -557,10 +592,10 @@ const slug=t=>norm(t).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const nk=ex=>'n_'+slug(ex[2]);
 const NAMES=(()=>{const seen=new Set(),out=[];Object.values(LEVELS).forEach(L=>L.ex.forEach(e=>{const k=nk(e);if(!seen.has(k)){seen.add(k);out.push([k,e[2],e[1]]);}}));return out;})();
 const idb=(()=>{let dbp=null;
- const open=()=>dbp||(dbp=new Promise((res,rej)=>{const r=indexedDB.open('boratreinar-voz',1);r.onupgradeneeded=()=>r.result.createObjectStore('clips');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));
- const tx=async(mode,fn)=>{const db=await open();return new Promise((res,rej)=>{const t=db.transaction('clips',mode);fn(t.objectStore('clips'));t.oncomplete=()=>res();t.onerror=()=>rej(t.error);});};
- return{put:(k,v)=>tx('readwrite',st=>st.put(v,k)),del:k=>tx('readwrite',st=>st.delete(k)),
-  async all(){const db=await open();return new Promise((res,rej)=>{const out=[],c=db.transaction('clips').objectStore('clips').openCursor();c.onsuccess=()=>{const cur=c.result;if(cur){out.push([cur.key,cur.value]);cur.continue();}else res(out);};c.onerror=()=>rej(c.error);});}};
+ const open=()=>dbp||(dbp=new Promise((res,rej)=>{const r=indexedDB.open('boratreinar-voz',2);r.onupgradeneeded=()=>{const db=r.result;if(!db.objectStoreNames.contains('clips'))db.createObjectStore('clips');if(!db.objectStoreNames.contains('fotos'))db.createObjectStore('fotos');};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));
+ const tx=async(mode,fn,store='clips')=>{const db=await open();return new Promise((res,rej)=>{const t=db.transaction(store,mode);fn(t.objectStore(store));t.oncomplete=()=>res();t.onerror=()=>rej(t.error);});};
+ return{put:(k,v,store)=>tx('readwrite',st=>st.put(v,k),store),del:(k,store)=>tx('readwrite',st=>st.delete(k),store),
+  async all(store='clips'){const db=await open();return new Promise((res,rej)=>{const out=[],c=db.transaction(store).objectStore(store).openCursor();c.onsuccess=()=>{const cur=c.result;if(cur){out.push([cur.key,cur.value]);cur.continue();}else res(out);};c.onerror=()=>rej(c.error);});}};
 })();
 const Coach=(()=>{
  const blobs=new Map(),bufs=new Map();let srcs=[],busyUntil=0,duckT=null;
@@ -753,7 +788,9 @@ const Player=(()=>{
   d.innerHTML=(complete?'<div class="trophy">🏆</div><h2>Treino concluído!</h2><p>'+FRASES[Math.floor(Math.random()*FRASES.length)]+'</p>':'<div class="trophy">👏</div><h2>Bom esforço!</h2><p>'+(rec?'Treino parcial salvo no histórico.':'Nada foi salvo dessa vez. Bora tentar de novo?')+'</p>')+
    (rec?'<div class="dstats"><div><b>'+fmt(rec.dur)+'</b><span>em ação</span></div><div><b>'+rec.ex+'</b><span>blocos</span></div><div><b>'+streak()+'🔥</b><span>dias seguidos</span></div></div>':'')+
    news.map(m=>'<div class="newm">'+m[1]+' Nova conquista: '+m[2]+'</div>').join('')+
+   (rec?'<div id="dn-photo"></div><label class="btn big" for="foto-in" id="dn-cam" style="width:100%;margin-bottom:10px;border-color:var(--acc2)">📸 Registrar meu treino</label>':'')+
    '<button class="btn go big" style="--lv:'+L.cor+';width:100%;margin-bottom:10px" id="dn-ok">Fechar</button>';
+  Fotos.target=rec?rec.id:null;
   $('#dn-ok').onclick=close;
  }
  function render(){
@@ -834,7 +871,7 @@ function totalMin(){return S.hist.reduce((a,h)=>a+h.dur,0)/60;}
 function checkMedals(rec){
  const got=[],h=new Date(rec.date).getHours(),st=streak(),done=S.hist.filter(x=>x.ok).length;
  const test={first:done>=1,s3:st>=3,s7:st>=7,t10:S.hist.length>=10,t30:S.hist.length>=30,m60:totalMin()>=60,m300:totalMin()>=300,goal:weekDays()>=S.set.goal,
-  int:S.hist.some(x=>x.ok&&x.lv==='int'),adv:S.hist.some(x=>x.ok&&x.lv==='adv'),early:h<7,night:h>=21};
+  int:S.hist.some(x=>x.ok&&x.lv==='int'),adv:S.hist.some(x=>x.ok&&x.lv==='adv'),early:h<7,night:h>=21,foto:false};
  MEDALS.forEach(m=>{if(test[m[0]]&&!S.medals[m[0]]){S.medals[m[0]]=rec.date;got.push(m);}});
  return got;
 }
@@ -879,7 +916,7 @@ function renderHist(){
  for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dkey(d);days.push({l:i?wd[d.getDay()]:'hoje',m:S.hist.filter(h=>dkey(h.date)===k).reduce((a,h)=>a+h.dur,0)/60});}
  const mx=Math.max(10,...days.map(d=>d.m));
  $('#bars').innerHTML=days.map(d=>'<div><em>'+(d.m?Math.round(d.m):'')+'</em><i class="'+(d.m?'':'z')+'" style="height:'+(d.m?Math.max(6,d.m/mx*100):3)+'%"></i><small>'+d.l+'</small></div>').join('');
- $('#hist').innerHTML=S.hist.length?S.hist.slice(0,60).map(h=>{const d=new Date(h.date),L=LEVELS[h.lv];return '<div class="hi" style="--lv:'+L.cor+'"><div class="dot"></div><div class="tx"><b>'+L.nome+(h.ok?' ✅':' · parcial')+'</b><small>'+d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'})+' às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+fmt(h.dur)+' em ação · '+h.ex+' blocos</small></div><button data-del="'+h.id+'" aria-label="Apagar">🗑️</button></div>';}).join(''):'<div class="empty">Nenhum treino ainda.<br>Seu primeiro treino aparece aqui. Bora? 💪</div>';
+ $('#hist').innerHTML=S.hist.length?S.hist.slice(0,60).map(h=>{const d=new Date(h.date),L=LEVELS[h.lv];return '<div class="hi" style="--lv:'+L.cor+'"><div class="dot"></div><div class="tx"><b>'+L.nome+(h.ok?' ✅':' · parcial')+(Fotos.byRec(h.id)?' 📸':'')+'</b><small>'+d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'})+' às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+fmt(h.dur)+' em ação · '+h.ex+' blocos</small></div><button data-del="'+h.id+'" aria-label="Apagar">🗑️</button></div>';}).join(''):'<div class="empty">Nenhum treino ainda.<br>Seu primeiro treino aparece aqui. Bora? 💪</div>';
 }
 $('#hist').addEventListener('click',e=>{const b=e.target.closest('[data-del]');if(!b)return;sheet('<h3>Apagar este treino?</h3><p>Ele sai do histórico.</p><div class="row"><button class="btn" id="sh-no">Cancelar</button><button class="btn go" style="--lv:var(--adv)" id="sh-yes">Apagar</button></div>',{yes(){S.hist=S.hist.filter(h=>String(h.id)!==b.dataset.del);save();renderAll();}});});
 
@@ -969,19 +1006,94 @@ $('#sw-mic').onclick=()=>{S.set.mic=!S.set.mic;save();renderSettings();};
 $$('[data-g]').forEach(b=>b.onclick=()=>{S.set.goal=Math.min(7,Math.max(1,S.set.goal+(+b.dataset.g)));save();renderSettings();header();});
 $('#clear-btn').onclick=()=>sheet('<h3>Apagar tudo?</h3><p>Histórico e conquistas serão apagados. Seus ajustes continuam.</p><div class="row"><button class="btn" id="sh-no">Cancelar</button><button class="btn go" style="--lv:var(--adv)" id="sh-yes">Apagar</button></div>',{yes(){S.hist=[];S.medals={};save();renderAll();toast('Histórico apagado');}});
 
+/* ---------------- Galeria de fotos ---------------- */
+const Fotos=(()=>{
+ let list=[],urls=new Map(),viewing=null,vPushed=false;
+ const url=(f,k)=>{const id=f.id+k;if(!urls.has(id))urls.set(id,URL.createObjectURL(f[k]));return urls.get(id);};
+ async function load(){try{list=(await idb.all('fotos')).map(x=>x[1]).sort((a,b)=>b.id-a.id);}catch(e){list=[];}}
+ async function process(file,meta){
+  let img;
+  try{img=await createImageBitmap(file,{imageOrientation:'from-image'});}catch(e){img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=URL.createObjectURL(file);});}
+  const W=img.width,H=img.height,sc=Math.min(1,1080/Math.max(W,H)),w=Math.round(W*sc),h=Math.round(H*sc);
+  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.drawImage(img,0,0,w,h);
+  const t=document.createElement('canvas'),ts=360/Math.max(w,h);t.width=Math.round(w*ts);t.height=Math.round(h*ts);t.getContext('2d').drawImage(c,0,0,t.width,t.height);
+  // selo do treino
+  const bh=Math.round(h*.17),g=x.createLinearGradient(0,h-bh*1.4,0,h);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.78)');x.fillStyle=g;x.fillRect(0,h-bh*1.4,w,bh*1.4);
+  const fs=Math.round(w*.052);x.fillStyle='#fff';x.font='900 '+fs+'px system-ui,sans-serif';x.textBaseline='bottom';
+  x.fillText('💪 Bora Treinar',fs*.6,h-fs*1.55);
+  x.font='700 '+Math.round(fs*.72)+'px system-ui,sans-serif';x.fillStyle='#ffd27a';
+  x.fillText(meta.linha,fs*.6,h-fs*.55);
+  const full=await new Promise(r=>c.toBlob(r,'image/webp',.82))||await new Promise(r=>c.toBlob(r,'image/jpeg',.85));
+  const thumb=await new Promise(r=>t.toBlob(r,'image/webp',.75))||await new Promise(r=>t.toBlob(r,'image/jpeg',.8));
+  return{full,thumb};
+ }
+ function metaFor(recId){
+  const r=S.hist.find(h=>h.id===recId);const d=r?new Date(r.date):new Date();
+  const dt=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  return{rec:r||null,date:d.toISOString(),linha:r?LEVELS[r.lv].nome+' · '+Math.max(1,Math.round(r.dur/60))+' min · '+dt:dt};
+ }
+ async function add(file){
+  const recId=Fotos.target||((S.hist[0]&&dkey(S.hist[0].date)===dkey(new Date()))?S.hist[0].id:null);
+  const m=metaFor(recId);toast('Salvando foto…',1500);
+  try{
+   const {full,thumb}=await process(file,m);
+   const f={id:Date.now(),date:m.date,rec:recId,lv:m.rec?m.rec.lv:null,dur:m.rec?m.rec.dur:0,full,thumb};
+   await idb.put(f.id,f,'fotos');list.unshift(f);
+   if(!S.medals.foto){S.medals.foto=new Date().toISOString();save();toast('📸 Nova conquista: Foto do treino!');}else toast('📸 Treino registrado!');
+   const dp=$('#dn-photo');if(dp&&!$('#pl-done').hidden){dp.innerHTML='<img class="dphoto" src="'+url(f,'full')+'" alt="">';const cam=$('#dn-cam');if(cam)cam.textContent='📸 Trocar a foto';}
+   render();if(tabI===1)renderHist();
+  }catch(e){toast('Não deu para salvar a foto. Tente de novo.');}
+ }
+ function render(){
+  const el=$('#gal');if(!el)return;
+  $('#gal-count').textContent=list.length?list.length+(list.length>1?' fotos':' foto')+' · toque para ver':'Registre cada treino com uma foto e acompanhe sua evolução.';
+  $('#cmp-btn').hidden=list.length<2;
+  el.innerHTML=list.length?list.map(f=>{const d=new Date(f.date),L=f.lv?LEVELS[f.lv]:null;return '<button class="ph" data-ph="'+f.id+'" style="--lv:'+(L?L.cor:'var(--mut)')+'"><img src="'+url(f,'thumb')+'" alt="" loading="lazy"><span>'+(L?'<i></i>':'')+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+(L?' · '+L.nome:'')+'</span></button>';}).join(''):'<div class="empty" style="grid-column:1/-1">Nenhuma foto ainda.<br>No fim do treino, toque em <b>📸 Registrar meu treino</b>.</div>';
+ }
+ function open(html,title,info,single){
+  $('#vw-img').innerHTML=html;$('#vw-title').textContent=title;$('#vw-info').textContent=info;$('#vw-bar').hidden=!single;
+  $('#viewer').hidden=false;document.body.style.overflow='hidden';if(!vPushed){history.pushState({v:1},'');vPushed=true;}
+ }
+ function close(fromPop){$('#viewer').hidden=true;viewing=null;document.body.style.overflow='';if(vPushed&&!fromPop)history.back();vPushed=false;}
+ function show(id){
+  const f=list.find(x=>x.id===id);if(!f)return;viewing=f;const d=new Date(f.date),L=f.lv?LEVELS[f.lv]:null;
+  open('<img src="'+url(f,'full')+'" alt="">',d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'}),(L?L.nome+' · '+fmt(f.dur)+' em ação · ':'')+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),true);
+ }
+ function compare(){
+  if(list.length<2)return;const a=list[list.length-1],b=list[0];const lab=f=>new Date(f.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'});
+  const days=Math.round((new Date(b.date)-new Date(a.date))/864e5);
+  open('<figure><figcaption>Antes · '+lab(a)+'</figcaption><img src="'+url(a,'full')+'" alt=""></figure><figure><figcaption>Agora · '+lab(b)+'</figcaption><img src="'+url(b,'full')+'" alt=""></figure>','Antes e depois',days>0?days+' dias de evolução. Continue assim! 💪':'Sua evolução começa agora! 💪',false);
+ }
+ $('#foto-in').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(f)add(f);});
+ $('#gal').addEventListener('click',e=>{const b=e.target.closest('[data-ph]');if(b)show(+b.dataset.ph);});
+ $('#cmp-btn').onclick=compare;
+ $('#vw-close').onclick=()=>close(false);
+ window.addEventListener('popstate',()=>{if(!$('#viewer').hidden)close(true);});
+ $('#vw-share').onclick=async()=>{
+  if(!viewing)return;const file=new File([viewing.full],'bora-treinar-'+dkey(viewing.date)+'.'+(viewing.full.type.includes('webp')?'webp':'jpg'),{type:viewing.full.type});
+  const text='Treino feito! 💪 #BoraTreinar';
+  try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+  location.href='https://wa.me/?text='+encodeURIComponent(text);
+ };
+ $('#vw-del').onclick=()=>{const f=viewing;if(!f)return;sheet('<h3>Apagar esta foto?</h3><p>Ela sai da galeria. O treino continua no histórico.</p><div class="row"><button class="btn" id="sh-no">Cancelar</button><button class="btn go" style="--lv:var(--adv)" id="sh-yes">Apagar</button></div>',{async yes(){try{await idb.del(f.id,'fotos');}catch(e){}list=list.filter(x=>x.id!==f.id);close(false);render();if(tabI===1)renderHist();}});};
+ return{load,render,target:null,byRec:id=>list.some(f=>f.rec===id),get list(){return list}};
+})();
+
+document.querySelector('.gtop label').addEventListener('click',()=>{Fotos.target=null;});
 /* ---------------- Abas e arrasto ---------------- */
 let tabI=0;
+const TABN=['treinos','hist','galeria','medals','ajustes'];
 function go(i){
  tabI=i;$$('.tab').forEach((t,j)=>t.classList.toggle('on',j===i));$$('#nav button').forEach((b,j)=>b.classList.toggle('on',j===i));
- if(i!==3&&preview){Audio_.stop();preview=null;}
- if(i===1)renderHist();if(i===2)renderMedals();if(i===3)renderSettings();
+ if(i!==4&&preview){Audio_.stop();preview=null;}
+ if(i===1)renderHist();if(i===2)Fotos.render();if(i===3)renderMedals();if(i===4)renderSettings();
  try{sessionStorage.setItem('boratreinar-tab',i);}catch(e){}
  window.scrollTo({top:0});
 }
 $$('#nav button').forEach(b=>b.onclick=()=>go(+b.dataset.t));
 let sx=0,sy=0,sw=false;
 document.querySelector('main').addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;sw=!e.target.closest('input,.stp');},{passive:true});
-document.querySelector('main').addEventListener('touchend',e=>{if(!sw)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.4){if(dx<0&&tabI<3)go(tabI+1);else if(dx>0&&tabI>0)go(tabI-1);}},{passive:true});
+document.querySelector('main').addEventListener('touchend',e=>{if(!sw)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.4){if(dx<0&&tabI<4)go(tabI+1);else if(dx>0&&tabI>0)go(tabI-1);}},{passive:true});
 
 /* ---------------- Instalar ---------------- */
 let deferred=null;const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone;
@@ -994,13 +1106,14 @@ $('#install-btn').onclick=async()=>{
 };
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 
-function renderAll(){header();renderFolders();if(tabI===1)renderHist();if(tabI===2)renderMedals();if(tabI===3)renderSettings();}
+function renderAll(){header();renderFolders();if(tabI===1)renderHist();if(tabI===2)Fotos.render();if(tabI===3)renderMedals();if(tabI===4)renderSettings();}
 renderAll();
-Coach.load().then(()=>{if(tabI===3)updMy();});
+Coach.load().then(()=>{if(tabI===4)updMy();});
+Fotos.load().then(()=>{if(tabI===2)Fotos.render();if(tabI===1)renderHist();});
 let saved=0;try{saved=parseInt(sessionStorage.getItem('boratreinar-tab')||'0',10)||0;}catch(e){}
 go(saved);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Player.state!=='run')header();});
-window.__BT={Player,S,LEVELS,Coach};
+window.__BT={Player,S,LEVELS,Coach,Fotos};
 })();
 </script>
 </body>
