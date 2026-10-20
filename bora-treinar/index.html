@@ -222,6 +222,23 @@ input[type=range]{width:100%;accent-color:var(--acc);height:34px}
       <div style="margin-top:10px"><b>Volume da música</b><input type="range" id="vol" min="0" max="100" step="5"></div>
     </div>
     <div class="card">
+      <h3>🎙️ Tom do treinador</h3>
+      <p class="note" style="margin:-4px 0 6px">Escolha o jeito que o treinador fala. Toque ▶ para ouvir.</p>
+      <div id="tons"></div>
+    </div>
+    <div class="card">
+      <h3>🧔 Voz do celular</h3>
+      <p class="note" style="margin:-4px 0 6px">Vozes em português que este celular tem.</p>
+      <div id="voices"></div>
+      <details style="margin-top:10px"><summary style="font-weight:700;cursor:pointer">Como deixar a voz mais humana e masculina</summary>
+      <ol class="note" style="padding-left:20px;margin:8px 0 0">
+       <li>Abra as <b>Configurações</b> do celular e procure por <b>“Saída de texto para voz”</b> (ou “conversão de texto em voz”).</li>
+       <li>Em <b>Mecanismo preferido</b>, escolha <b>Serviços de voz do Google</b>.</li>
+       <li>Toque na engrenagem ⚙️ → <b>Instalar dados de voz</b> → <b>Português (Brasil)</b>.</li>
+       <li>Escolha uma das <b>vozes masculinas</b> e toque nela para ouvir. Pronto, o app passa a usar essa voz.</li>
+      </ol></details>
+    </div>
+    <div class="card">
       <h3>🗣️ Voz e sons</h3>
       <div class="opt"><div class="tx"><b>Voz motivacional</b><small>Fala o exercício, a metade e frases para animar</small></div><button class="sw" id="sw-voice" aria-label="Voz"></button></div>
       <div class="opt"><div class="tx"><b>Bipes de contagem</b><small>3, 2, 1 no fim de cada bloco</small></div><button class="sw" id="sw-beep" aria-label="Bipes"></button></div>
@@ -360,7 +377,7 @@ const MEDALS=[
 ];
 
 /* ---------------- Estado ---------------- */
-const DEF={hist:[],medals:{},set:{music:'rock',vol:60,voice:true,beep:true,mic:false,goal:3},lv:{},offEx:{}};
+const DEF={hist:[],medals:{},set:{music:'rock',vol:60,voice:true,beep:true,mic:false,goal:3,tom:'firme',vname:''},lv:{},offEx:{}};
 let S;
 try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem(KEY)||'{}'));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
 S.set=Object.assign({},DEF.set,S.set||{});S.lv=S.lv||{};S.offEx=S.offEx||{};S.medals=S.medals||{};S.hist=S.hist||[];
@@ -445,20 +462,30 @@ const Audio_=(()=>{
 })();
 
 /* ---------------- Voz (fala) ---------------- */
+const TONS=[
+ {id:'firme',nome:'Treinador firme',desc:'Voz grave e decidida',pitch:.78,rate:1.0,ex:'Bora! Sem moleza, mais um bloco!'},
+ {id:'animado',nome:'Parceiro animado',desc:'Rápido e cheio de energia',pitch:1.0,rate:1.16,ex:'Vamos lá! Você consegue, mais um bloco!'},
+ {id:'locutor',nome:'Locutor de rádio',desc:'Grave e marcante',pitch:.68,rate:1.06,ex:'Atenção, campeão! Mais um bloco vem aí!'},
+ {id:'calmo',nome:'Calmo e tranquilo',desc:'Devagar, bom para iniciante',pitch:.88,rate:.9,ex:'Respira fundo. Mais um bloco, no seu ritmo.'},
+ {id:'grave',nome:'Voz bem grave',desc:'A mais grossa de todas',pitch:.55,rate:.96,ex:'Força! O treino de hoje vale ouro!'}
+];
 const Voice=(()=>{
- let voice=null,speakingUntil=0;
- const pick=()=>{const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];const br=vs.filter(v=>/pt[-_]BR/i.test(v.lang));voice=br.find(v=>/google/i.test(v.name))||br[0]||vs.find(v=>/^pt/i.test(v.lang))||null;};
- if(window.speechSynthesis){pick();speechSynthesis.onvoiceschanged=pick;}
+ let speakingUntil=0;
+ const all=()=>{const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];return vs.filter(v=>/^pt/i.test(v.lang)).sort((a,b)=>(/BR/i.test(b.lang)-/BR/i.test(a.lang))||(/google|natural|neural|online/i.test(b.name)-/google|natural|neural|online/i.test(a.name)));};
+ const cur=()=>{const vs=all();return vs.find(v=>v.name===S.set.vname)||vs.find(v=>/male|masc|daniel|antonio|ant[oô]nio|felipe|ricardo|thiago|fabio|f[aá]bio|donato|julio|humberto|valerio/i.test(v.name)&&!/female|femin/i.test(v.name))||vs[0]||null;};
+ if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>{if(typeof renderVoices==='function')renderVoices();};
  return{
-  say(text,interrupt=false){
-   if(!S.set.voice||!window.speechSynthesis)return;
+  all,cur,
+  say(text,interrupt=false,force=false){
+   if((!S.set.voice&&!force)||!window.speechSynthesis)return;
    try{
     if(interrupt)speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(text);u.lang='pt-BR';if(voice)u.voice=voice;u.rate=1.05;u.pitch=1.05;
-    speakingUntil=Date.now()+text.length*85+1500;Audio_.duck(true);
+    const t=TONS.find(x=>x.id===S.set.tom)||TONS[0],v=cur();
+    const u=new SpeechSynthesisUtterance(text);u.lang=v?v.lang:'pt-BR';if(v)u.voice=v;u.rate=t.rate;u.pitch=t.pitch;
+    speakingUntil=Date.now()+text.length*95/t.rate+1500;Audio_.duck(true);
     u.onend=u.onerror=()=>{speakingUntil=Date.now()+600;setTimeout(()=>{if(!speechSynthesis.speaking)Audio_.duck(false);},250);};
     speechSynthesis.speak(u);
-    clearTimeout(this._t);this._t=setTimeout(()=>Audio_.duck(false),text.length*85+2500);
+    clearTimeout(this._t);this._t=setTimeout(()=>Audio_.duck(false),text.length*95/t.rate+2500);
    }catch(e){}
   },
   get busy(){return Date.now()<speakingUntil||(window.speechSynthesis&&speechSynthesis.speaking)},
@@ -743,8 +770,25 @@ function renderMedals(){
  $('#medals').innerHTML=MEDALS.map(m=>{const g=S.medals[m[0]];return '<div class="md '+(g?'got':'lock')+'"><div class="ic">'+m[1]+'</div><b>'+m[2]+'</b><small>'+(g?'Conquistada em '+new Date(g).toLocaleDateString('pt-BR'):m[3])+'</small></div>';}).join('');
 }
 
+function renderTons(){
+ $('#tons').innerHTML=TONS.map(t=>'<div class="opt" data-tom="'+t.id+'"><span class="radio'+(S.set.tom===t.id?' on':'')+'"></span><div class="tx"><b>'+t.nome+'</b><small>'+t.desc+'</small></div><button class="play" data-tt="'+t.id+'" aria-label="Ouvir">▶</button></div>').join('');
+}
+function renderVoices(){
+ const el=$('#voices');if(!el)return;const vs=Voice.all(),c=Voice.cur();
+ el.innerHTML=vs.length?vs.map((v,i)=>'<div class="opt" data-vn="'+i+'"><span class="radio'+(c&&c.name===v.name?' on':'')+'"></span><div class="tx"><b>'+v.name.replace(/^(Google|Microsoft)\s*/,'')+'</b><small>'+v.lang+(v.localService?' · funciona sem internet':' · precisa de internet')+'</small></div><button class="play" data-vt="'+i+'" aria-label="Ouvir">▶</button></div>').join(''):'<p class="note">Nenhuma voz em português encontrada. Siga o passo a passo abaixo para instalar.</p>';
+}
+$('#tons').addEventListener('click',e=>{
+ const tt=e.target.closest('[data-tt]');const o=e.target.closest('[data-tom]');if(!o)return;
+ S.set.tom=o.dataset.tom;save();renderTons();
+ if(tt)Voice.say(TONS.find(x=>x.id===S.set.tom).ex,true,true);
+});
+$('#voices').addEventListener('click',e=>{
+ const o=e.target.closest('[data-vn]');if(!o)return;const v=Voice.all()[+o.dataset.vn];if(!v)return;
+ S.set.vname=v.name;save();renderVoices();
+ if(e.target.closest('[data-vt]'))Voice.say((TONS.find(x=>x.id===S.set.tom)||TONS[0]).ex,true,true);
+});
 let preview=null;
-function renderSettings(){
+function renderSettings(){renderTons();renderVoices();
  $('#tracks').innerHTML=TRACKS.map(t=>'<div class="opt" data-tr="'+t.id+'"><span class="radio'+(S.set.music===t.id?' on':'')+'"></span><div class="tx"><b>'+t.nome+'</b><small>'+t.desc+'</small></div>'+(t.id!=='none'?'<button class="play'+(preview===t.id?' on':'')+'" data-pv="'+t.id+'" aria-label="Ouvir">'+(preview===t.id?'⏸':'▶')+'</button>':'')+'</div>').join('');
  $('#vol').value=S.set.vol;
  $('#sw-voice').classList.toggle('on',S.set.voice);$('#sw-beep').classList.toggle('on',S.set.beep);$('#sw-mic').classList.toggle('on',S.set.mic);
