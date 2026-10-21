@@ -162,6 +162,25 @@ footer strong{color:var(--amarelo)}
 .livros span{color:var(--muted);font-size:.95rem}
 .livros em{font-style:normal;color:var(--marrom);font-weight:700}
 @media (max-width:760px){.estante-grid{grid-template-columns:1fr}.lombada{width:44px;font-size:.85rem}}
+
+/* Meus contos */
+.conto{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:28px;align-items:center;background:var(--surface);border:1px solid var(--linha);border-radius:18px;padding:22px}
+.conto-capa{display:block;width:100%;height:auto;border-radius:8px;box-shadow:0 10px 26px rgba(30,20,10,.22)}
+.conto-info{display:grid;gap:12px;min-width:0;justify-items:start}
+.conto-info h3{font-size:1.6rem;color:var(--marrom)}
+.conto-info p{color:var(--muted);max-width:60ch}
+.conto-meta{font-size:.85rem;font-weight:700;letter-spacing:.04em}
+.conto-texto{margin-top:18px;border:1px solid var(--linha);border-radius:18px;background:var(--surface);overflow:hidden}
+.conto-texto summary{cursor:pointer;padding:16px 22px;font-weight:800;color:var(--verde);list-style:none}
+.conto-texto summary::-webkit-details-marker{display:none}
+.conto-texto summary::after{content:" +";color:var(--amarelo-esc)}
+.conto-texto[open] summary::after{content:" −"}
+.conto-corpo{padding:4px 22px 30px;max-width:64ch;margin:0 auto;font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;line-height:1.8}
+.conto-corpo h3{text-align:center;color:var(--marrom);font-size:1.5rem;margin:12px 0 22px}
+.conto-corpo p{margin:0 0 1em;text-indent:1.4em}
+.conto-corpo p.fala{text-indent:0;font-style:italic;color:var(--marrom)}
+.conto-corpo .conto-fim{text-indent:0;text-align:center;font-style:italic;color:var(--amarelo-esc);margin-top:1.6em}
+@media (max-width:760px){.conto{grid-template-columns:1fr;justify-items:start}.conto-capa{max-width:200px}}
 </style>
 
 </head>
@@ -179,6 +198,7 @@ footer strong{color:var(--amarelo)}
         <li><a href="#apps">Apps</a></li>
         <li><a href="#campo">Como nasce</a></li>
         <li><a href="#estante">Livros</a></li>
+        <li><a href="#contos">Contos</a></li>
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -347,6 +367,31 @@ footer strong{color:var(--amarelo)}
     </div>
   </section>
 
+
+  <section id="contos" style="border-top:1px solid var(--linha)">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Nas horas vagas</p>
+        <h2>Meus contos</h2>
+        <p>Além de ler, gosto de escrever pequenas histórias. Este é o meu primeiro conto publicado.</p>
+      </div>
+      <article class="conto">
+        <img class="conto-capa" src="conto/conto-capa.jpg" alt="Capa do conto O Cômodo Mais Feliz da Casa: um senhor de terno caminha por um corredor azul até uma cozinha iluminada" width="480" height="744" loading="lazy">
+        <div class="conto-info">
+          <span class="tag casa">Conto</span>
+          <h3>O Cômodo Mais Feliz da Casa</h3>
+          <p>Todas as manhãs, o velho Emanuel veste o mesmo terno e os mesmos sapatos marrons, e caminha até a cozinha mais fria e desarrumada da casa. É ali que Sônia o espera junto ao fogão. Entre panelas esquecidas e uma brisa de inverno, ele encontra o calor que o resto da casa perdeu.</p>
+          <p class="conto-meta">Leitura de 3 minutos</p>
+          <div class="ctas" style="margin-top:4px">
+            <a class="btn" style="background:var(--verde);color:var(--on-verde)" href="conto/">Ler o conto</a>
+            <a class="btn btn-linha" href="https://www.wattpad.com/story/416043151" target="_blank" rel="noopener">Ler no Wattpad</a>
+          </div>
+        </div>
+      </article>
+      <details c
+>
+  </section>
+
   <section id="contato" style="background:var(--verde-claro)">
     <div class="wrap sobre">
       <div class="sec-head" style="margin:0">
@@ -370,6 +415,5 @@ footer strong{color:var(--amarelo)}
     <span>Feito no Brasil 🇧🇷</span>
   </div>
 </footer>
-
 </body>
 </html>
