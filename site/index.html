@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="José Leandro, técnico agrícola e gestor da vinhaça localizada. Apps simples e grátis para o campo e o dia a dia.">
+<meta name="theme-color" content="#134a24">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leandro Cria Apps do Campo">
+<meta property="og:description" content="Apps simples e grátis que nascem no campo, para o agro e para o dia a dia.">
+<meta property="og:image" content="https://jleandro1214-creator.github.io/guia-da-cana/site/capa.jpg">
+<meta property="og:url" content="https://jleandro1214-creator.github.io/guia-da-cana/site/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../leandro/icon-192.png">
+<link rel="apple-touch-icon" href="../leandro/apple-touch-icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Leandro Cria Apps do Campo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Nunito+Sans:wght@400;600;800&display=swap">
+<style>
+/* Layout: faixas horizontais como camadas do solo — céu verde, sol amarelo, terra marrom embaixo */
+:root{
+  --bg:#f6f3e8; --surface:#fffdf6; --fg:#1f2a1c; --muted:#5d6656;
+  --verde:#1f6b34; --verde-esc:#134a24; --verde-claro:#dcebd3;
+  --amarelo:#f2c230; --amarelo-esc:#b98a00;
+  --marrom:#6b4423; --marrom-claro:#ead9c4; --terra:#3e2714;
+  --on-verde:#fbf8ec; --linha:#d9d2bf;
+  --f-display:"Zilla Slab",Georgia,serif;
+  --f-body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a12; --surface:#1c2419; --fg:#eef0e4; --muted:#a8b19c;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f;
+  --amarelo:#f2c230; --amarelo-esc:#f2c230;
+  --marrom:#c4925f; --marrom-claro:#33261a; --terra:#24170c;
+  --on-verde:#f4f1e3; --linha:#2f3a2b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a12; --surface:#1c2419; --fg:#eef0e4; --muted:#a8b19c;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f;
+  --amarelo:#f2c230; --amarelo-esc:#f2c230;
+  --marrom:#c4925f; --marrom-claro:#33261a; --terra:#24170c;
+  --on-verde:#f4f1e3; --linha:#2f3a2b; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.12;margin:0}
+h2{font-size:clamp(1.7rem,4vw,2.3rem);color:var(--marrom)}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px;border-radius:6px}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amarelo-esc)}
+section{padding-block:56px}
+.sec-head{display:grid;gap:8px;margin-bottom:28px;max-width:62ch}
+.sec-head p{color:var(--muted)}
+
+/* Topo */
+.hero{background:var(--verde-esc);color:var(--on-verde);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:46px;
+  background:repeating-linear-gradient(90deg,var(--verde) 0 3px,transparent 3px 22px);opacity:.55;
+  -webkit-mask:linear-gradient(transparent,#000);mask:linear-gradient(transparent,#000)}
+.hero .wrap{padding-block:28px 84px;display:grid;gap:40px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.marca{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:1.15rem}
+.selo{width:38px;height:38px;border-radius:50%;background:var(--amarelo);display:grid;place-items:center}
+.nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0;flex-wrap:wrap;font-weight:600;font-size:.95rem}
+.nav a{text-decoration:none;opacity:.85}.nav a:hover{opacity:1;text-decoration:underline}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,6.5vw,4.2rem)}
+.hero h1 em{font-style:normal;color:var(--amarelo)}
+.hero .lead{font-size:1.12rem;max-width:52ch;margin-top:18px;opacity:.92}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:800;text-decoration:none;border:2px solid transparent;cursor:pointer;font:inherit;font-weight:800}
+.btn-sol{background:var(--amarelo);color:#2a1d07}
+.btn-sol:hover{filter:brightness(1.05)}
+.btn-linha{border-color:currentColor;color:inherit;background:transparent}
+.ficha{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:22px;display:grid;gap:14px}
+.ficha h3{font-size:1.05rem;color:var(--amarelo)}
+.ficha dl{margin:0;display:grid;gap:10px}
+.ficha div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(255,255,255,.18);padding-bottom:8px}
+.ficha dt{opacity:.75}.ficha dd{margin:0;font-weight:800;text-align:right}
+
+/* Apps */
+.apps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.app{background:var(--surface);border:1px solid var(--linha);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.app .icone{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--verde-claro);color:var(--verde)}
+.app.terra .icone{background:var(--marrom-claro);color:var(--marrom)}
+.app h3{font-size:1.3rem}
+.app p{color:var(--muted);font-size:.96rem;flex:1}
+.tag{align-self:flex-start;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--verde-claro);color:var(--verde)}
+.tag.casa{background:var(--marrom-claro);color:var(--marrom)}
+.app .btn{justify-content:center;background:var(--verde);color:var(--on-verde);margin-top:6px}
+
+/* Do campo: camadas do solo */
+.campo{background:var(--marrom-claro)}
+.camadas{display:grid;gap:0;border-radius:18px;overflow:hidden;border:1px solid var(--linha)}
+.camada{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:22px;align-items:start}
+.camada:nth-child(1){background:var(--verde-claro)}
+.camada:nth-child(2){background:var(--surface)}
+.camada:nth-child(3){background:var(--bg)}
+.camada .prof{font-family:var(--f-display);font-weight:700;color:var(--marrom);font-size:1.05rem}
+.camada .prof small{display:block;font-family:var(--f-body);font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em}
+.camada h3{font-size:1.25rem;margin-bottom:6px}
+.camada p{color:var(--muted);max-width:64ch}
+.unid{font-variant-numeric:tabular-nums;font-weight:800;color:var(--verde)}
+
+/* Em breve */
+.ideias{display:flex;flex-wrap:wrap;gap:10px}
+.ideia{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:2px dashed var(--amarelo-esc);font-weight:700;background:var(--surface)}
+.ideia::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amarelo)}
+
+/* Sobre e contato */
+.sobre{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.sobre p+p{margin-top:12px}
+.redes{display:grid;gap:12px}
+.rede{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--linha);text-decoration:none;font-weight:700}
+.rede span{color:var(--muted);font-weight:600;font-size:.92rem}
+.rede:hover{border-color:var(--verde)}
+
+footer{background:var(--terra);color:#efe3d2}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.92rem}
+footer strong{color:var(--amarelo)}
+
+@media (max-width:760px){
+  .hero-grid,.sobre{grid-template-columns:1fr}
+  .camada{grid-template-columns:1fr;gap:8px}
+  section{padding-block:44px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .app{transition:transform .2s,box-shadow .2s}
+  .app:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(31,107,52,.14)}
+}
+
+.hero::after{display:none}
+.hero .wrap{padding-block:28px 24px}
+.foto-hero{line-height:0}
+.foto-hero img{display:block;width:100%;max-width:100%;height:auto;max-height:620px;object-fit:cover;object-position:center 40%}
+.paisagem{line-height:0}
+.paisagem svg{display:block;width:100%;height:clamp(140px,22vw,230px)}
+.paisagem .sol{fill:var(--amarelo)}
+.paisagem .sol-halo{fill:var(--amarelo);opacity:.18}
+.paisagem .morro{fill:var(--verde)}
+.paisagem .c1{stroke:#7cc46a;stroke-width:3;fill:none;stroke-linecap:round}
+.paisagem .c2{stroke:#4f9f4a;stroke-width:3;fill:none;stroke-linecap:round}
+.paisagem .tanque{fill:#8a5a2f}.paisagem .cabine{fill:var(--amarelo)}.paisagem .vidro{fill:#cfe7f2}
+.paisagem .roda{fill:#1b140c}
+.paisagem .solo1{fill:#8a5a2f}.paisagem .solo2{fill:#6b4423}.paisagem .solo3{fill:#4a2e16}
+
+/* Na estante */
+.estante-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:32px;align-items:end}
+.prateleira{display:flex;align-items:flex-end;gap:6px;padding:0 14px;border-bottom:14px solid var(--marrom);border-radius:0 0 6px 6px;min-height:240px;overflow:hidden}
+.lombada{writing-mode:vertical-rl;transform:rotate(180deg);color:#fbf6ea;font-family:var(--f-display);font-weight:700;font-size:.95rem;padding:14px 8px;border-radius:4px 4px 0 0;width:52px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:inset -4px 0 0 rgba(0,0,0,.15)}
+.lombada small{font-family:var(--f-body);font-weight:600;font-size:.68rem;opacity:.85;letter-spacing:.04em}
+.l1{background:#7a2e22;height:220px}.l2{background:#1f6b34;height:190px}.l3{background:#2f4f6b;height:230px}
+.l4{background:#b98a00;height:205px;color:#2a1d07}.l5{background:#4a2e16;height:215px}
+.foto-estante{margin:0;line-height:0;border-radius:16px;overflow:hidden;border:6px solid var(--marrom)}
+.foto-estante img{display:block;width:100%;height:auto}
+.livros{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.livros li{display:grid;gap:2px;padding-bottom:12px;border-bottom:1px dashed var(--linha)}
+.livros strong{font-family:var(--f-display);font-size:1.15rem}
+.livros span{color:var(--muted);font-size:.95rem}
+.livros em{font-style:normal;color:var(--marrom);font-weight:700}
+@media (max-width:760px){.estante-grid{grid-template-columns:1fr}.lombada{width:44px;font-size:.85rem}}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="Menu">
+      <div class="marca">
+        <span class="selo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21V10" stroke="#1f6b34" stroke-width="2.4" stroke-linecap="round"/><path d="M12 12C12 7 8 4 4 4c0 5 3 8 8 8Z" fill="#1f6b34"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6Z" fill="#6b4423"/></svg>
+        </span>
+        Leandro Cria Apps
+      </div>
+      <ul>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#campo">Como nasce</a></li>
+        <li><a href="#estante">Livros</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Agro · Tecnologia · Brasil</p>
+        <h1>Do campo para o celular: <em>apps que nascem da lida</em> no agro.</h1>
+        <p class="lead">Sou José Leandro, técnico agrícola e gestor da vinhaça localizada, que irriga e nutre a cana ao mesmo tempo. Crio aplicativos simples, que abrem num link e funcionam no celular, para resolver problemas reais do campo e de casa.</p>
+        <div class="ctas">
+          <a class="btn btn-sol" href="#apps">Ver meus apps</a>
+          <a class="btn btn-linha" href="#campo">Como nasce um app</a>
+        </div>
+      </div>
+      <aside class="ficha" aria-label="Ficha rápida">
+        <h3>Ficha de campo</h3>
+        <dl>
+          <div><dt>Formação</dt><dd>Técnico agrícola</dd></div>
+          <div><dt>Área</dt><dd>Vinhaça localizada</dd></div>
+          <div><dt>Cultura</dt><dd>Cana-de-açúcar</dd></div>
+          <div><dt>Apps no ar</dt><dd>5</dd></div>
+          <div><dt>Na fila</dt><dd>6 ideias</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+  <div class="foto-hero"><img src="capa.jpg" width="1376" height="768" alt="Caricatura de José Leandro num canavial, ao lado de um caminhão-tanque de vinhaça, segurando um tablet."></div>
+</header>
+
+<main>
+  <section id="apps">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">No ar</p>
+        <h2>Meus apps</h2>
+        <p>Cada app abre num link, sem cadastro, e pode ser instalado na tela inicial do celular. O EPI EM DIA abre na página Meus Apps, em versão de demonstração com dados fictícios.</p>
+      </div>
+      <div class="apps">
+        <article class="app">
+          <div class="icone" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <span class="tag">Campo</span>
+          <h3>EPI EM DIA</h3>
+          <p>Controle de entrega e estoque de EPIs da equipe, feito para os gestores acompanharem tudo pelo celular.</p>
+          <a class="btn" href="https://jleandro1214-creator.github.io/guia-da-cana/apps/" target="_blank" rel="noopener">Abrir app</a>
+        </article>
+        <article class="app">
+          <div class="icone" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21v-8"/><path d="M12 13c0-4-3-7-8-7 0 4 3 7 8 7Z"/><path d="M12 13c0-3 2-6 7-6 0 3-2 6-7 6Z"/><path d="M5 21h14"/></svg></div>
+          <span class="tag">Campo</span>
+          <h3>Simulador de Nutrientes</h3>
+          <p>Mostra como macro e micronutrientes agem na planta e no solo: N, P, K, Ca, Mg, S e os micros.</p>
+          <a class="btn" href="https://jleandro1214-creator.github.io/guia-da-cana/nutri-cana/" target="_blank" rel="noopener">Abrir app</a>
+        </article>
+        <article class="app terra">
+          <div class="icone" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1 1.3-1.8 3-1.8s3 .8 3 1.8-1.3 1.7-3 2-3 1-3 2 1.3 1.8 3 1.8 3-.8 3-1.8"/></svg></div>
+          <span class="tag casa">Dia a dia</span>
+          <h3>Rolê Dividido</h3>
+          <p>Racha a conta do churrasco, do bar ou da viagem e mostra quem deve quanto para quem.</p>
+          <a class="btn" href="https://jleandro1214-creator.github.io/guia-da-cana/role-dividido/" target="_blank" rel="noopener">Abrir app</a>
+        </article>
+        <article class="app terra">
+          <div class="icone" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div>
+          <span class="tag casa">Dia a dia</span>
+          <h3>Dia Leve</h3>
+          <p>Hábitos diários, pausas de respiração e um diário curto para cuidar da cabeça depois do turno.</p>
+          <a class="btn" href="https://jleandro1214-creator.github.io/guia-da-cana/dia-leve/" target="_blank" rel="noopener">Abrir app</a>
+        </article>
+        <article class="app terra">
+          <div class="icone" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div>
+          <span class="tag casa">Dia a dia</span>
+          <h3>Casa em Ordem</h3>
+          <p>Receitas com o que tem na geladeira, cardápio da semana e lembretes de manutenção da casa.</p>
+          <a class="btn" href="https://jleandro1214-creator.github.io/guia-da-cana/casa-em-ordem/" target="_blank" rel="noopener">Abrir app</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="campo" class="campo">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Perfil do solo</p>
+        <h2>Como nasce um app</h2>
+        <p>Todo app aqui cresce como a cana: começa pequeno, cria raiz e chega na colheita.</p>
+      </div>
+      <div class="camadas">
+        <div class="camada">
+          <div class="prof">0–20 cm<small>A semente</small></div>
+          <div>
+            <h3>A ideia</h3>
+            <p>Tudo começa com um problema do dia a dia, no campo ou em casa: o controle de EPIs da equipe, a conta do churrasco, o cardápio da semana.</p>
+          </div>
+        </div>
+        <div class="camada">
+          <div class="prof">20–40 cm<small>A raiz</small></div>
+          <div>
+            <h3>O desenvolvimento</h3>
+            <p>A ideia vira um app simples e gratuito, sem cadastro, pensado para quem não tem tempo a perder.</p>
+          </div>
+        </div>
+        <div class="camada">
+          <div class="prof">40–60 cm<small>A colheita</small></div>
+          <div>
+            <h3>O app pronto</h3>
+            <p>Um link para abrir e instalar no celular, pronto para chegar em quem precisa.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="breve">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Sementes plantadas</p>
+        <h2>Em breve</h2>
+        <p>Ideias que já estão no viveiro e vão virar app.</p>
+      </div>
+      <div class="ideias">
+        <span class="ideia">Bora Treinar</span>
+        <span class="ideia">Medidor de Chave</span>
+        <span class="ideia">Leitor de Rótulos</span>
+        <span class="ideia">Histórico de Preços</span>
+        <span class="ideia">Música por voz</span>
+        <span class="ideia">Busca de Podcasts</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre" style="border-top:1px solid var(--linha)">
+    <div class="wrap sobre">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Quem planta</p>
+        <h2>Sobre mim</h2>
+      </div>
+      <div>
+        <p>Sou técnico agrícola e gestor da vinhaça localizada na cana-de-açúcar: a gente irriga e, ao mesmo tempo, nutre a planta.</p>
+        <p>Comecei a criar apps para resolver o que eu via no campo e em casa. A regra é simples: tem que ser fácil, gratuito e abrir no celular de qualquer pessoa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="estante">
+    <div class="wrap estante-grid">
+      <div style="display:grid;gap:20px;min-width:0">
+        <div class="sec-head" style="margin:0">
+          <p class="eyebrow">Hora da pausa</p>
+          <h2>Na estante</h2>
+          <p>Fora do campo e dos apps, passo boas horas lendo. Estes são alguns dos livros da minha estante.</p>
+        </div>
+        <figure class="foto-estante"><img src="estante.jpg" width="1200" height="670" alt="Estante de madeira com os livros indicados, uma lupa, um pequeno globo e uma miniatura de torre."></figure>
+      </div>
+      <div style="display:grid;gap:18px;min-width:0">
+        <ul class="livros">
+          <li><strong>Crime e Castigo</strong><span><em>Dostoiévski.</em> Um estudante comete um crime e passa o livro inteiro lutando com a própria consciência.</span></li>
+          <li><strong>O Alienista</strong><span><em>Machado de Assis.</em> Um médico resolve decidir quem é louco numa cidade inteira. Curto e muito divertido.</span></li>
+          <li><strong>A Mão Esquerda da Escuridão</strong><span><em>Ursula K. Le Guin.</em> Um enviado chega a um planeta gelado onde as pessoas não têm gênero fixo.</span></li>
+          <li><strong>Queda de Gigantes</strong><span><em>Ken Follett.</em> Cinco famílias de países diferentes atravessando a Primeira Guerra Mundial.</span></li>
+          <li><strong>Fundação</strong><span><em>Isaac Asimov.</em> Um plano para encurtar a era de trevas depois da queda de um império galáctico.</span></li>
+                  <li><strong>O Nome da Rosa</strong><span><em>Umberto Eco.</em> Um monge investiga mortes misteriosas num mosteiro medieval cheio de segredos e livros proibidos.</span></li>
+          <li><strong>Dom Quixote</strong><span><em>Miguel de Cervantes.</em> Um fidalgo lê tantos romances de cavalaria que sai pelo mundo como cavaleiro, ao lado do fiel Sancho Pança.</span></li>
+          <li><strong>Guerra e Paz</strong><span><em>Liev Tolstói.</em> Famílias da nobreza russa vivendo amores, perdas e a invasão de Napoleão.</span></li>
+        </ul>
+        <a class="btn btn-sol" style="justify-self:start" href="https://www.instagram.com/j.leandro.lucas/" target="_blank" rel="noopener">Minhas leituras no Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" style="background:var(--verde-claro)">
+    <div class="wrap sobre">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Porteira aberta</p>
+        <h2>Contato</h2>
+        <p>Quer um app, um link ou trocar uma ideia sobre o agro? Me chama.</p>
+      </div>
+      <div class="redes">
+        <a class="rede" href="https://www.instagram.com/leandro.cria.apps/" target="_blank" rel="noopener">Instagram dos apps <span>@leandro.cria.apps</span></a>
+        <a class="rede" href="#campo">Instagram do agro <span>em breve</span></a>
+        <a class="rede" href="https://www.instagram.com/j.leandro.lucas/" target="_blank" rel="noopener">Instagram pessoal <span>@j.leandro.lucas</span></a>
+        <a class="rede" href="https://wa.me/5516997590191" target="_blank" rel="noopener">WhatsApp <span>(16) 99759-0191</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><strong>Leandro Cria Apps</strong> · tecnologia que nasce no campo</span>
+    <span>Feito no Brasil 🇧🇷</span>
+  </div>
+</footer>
+
+</body>
+</html>
