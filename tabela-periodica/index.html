@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tabela Periódica do Campo</title>
+<meta name="description" content="Tabela periódica para produtores rurais e gestores agrícolas: nutrientes cruciais por cultura, funções, sintomas e fontes.">
+<meta name="theme-color" content="#134a24">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: faixa verde no topo, cartão da cultura, resumo dos cruciais, tabela 18 colunas rolando de lado, ficha que sobe de baixo */
+:root{
+  --bg:#f4f1e6; --surface:#fffdf6; --fg:#1f2a1c; --muted:#5d6656; --linha:#d9d2bf;
+  --verde:#1f6b34; --verde-esc:#134a24; --verde-claro:#dcebd3; --on-verde:#fbf8ec;
+  --amarelo:#f2c230; --amarelo-claro:#fbefc4; --on-amarelo:#3e2714;
+  --marrom:#6b4423; --marrom-claro:#ead9c4; --on-marrom:#fbf3e8;
+  --alerta:#b23a26; --alerta-claro:#f6dcd5;
+  --apagado:#ebe6d6; --on-apagado:#8b8a7b;
+  --font-disp:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --font-corpo:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --cel:52px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121810; --surface:#1b2318; --fg:#eef0e4; --muted:#a8b19c; --linha:#2f3a2b;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f; --on-verde:#f4f1e3;
+  --amarelo:#f2c230; --amarelo-claro:#3a3215; --on-amarelo:#2a1a0b;
+  --marrom:#c4925f; --marrom-claro:#33261a; --on-marrom:#1d130a;
+  --alerta:#e2735d; --alerta-claro:#3b1f19;
+  --apagado:#1f261c; --on-apagado:#6f7866; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121810; --surface:#1b2318; --fg:#eef0e4; --muted:#a8b19c; --linha:#2f3a2b;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f; --on-verde:#f4f1e3;
+  --amarelo:#f2c230; --amarelo-claro:#3a3215; --on-amarelo:#2a1a0b;
+  --marrom:#c4925f; --marrom-claro:#33261a; --on-marrom:#1d130a;
+  --alerta:#e2735d; --alerta-claro:#3b1f19;
+  --apagado:#1f261c; --on-apagado:#6f7866; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-corpo);font-size:17px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--verde-esc)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+.miolo{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1100px;margin:0 auto}
+
+/* Topo */
+.topo{background:var(--verde-esc);color:var(--on-verde)}
+.topo .miolo{display:flex;align-items:center;gap:12px;padding-block:14px}
+.marca{width:44px;height:44px;flex:none;border-radius:10px;background:var(--amarelo);color:var(--on-amarelo);display:grid;place-items:center;font-family:var(--font-disp);font-weight:700;font-size:22px;position:relative;line-height:1}
+.marca small{position:absolute;top:3px;left:5px;font-size:10px;font-weight:600}
+.topo h1{margin:0;font-family:var(--font-disp);font-weight:700;font-size:24px;line-height:1.05;letter-spacing:.2px;text-wrap:balance}
+.topo p{margin:2px 0 0;font-size:14px;opacity:.85}
+.topo .tit{flex:1;min-width:0}
+.btn-inst{flex:none;border:0;border-radius:999px;background:var(--amarelo);color:var(--on-amarelo);font-weight:700;padding:10px 14px;font-size:15px}
+
+/* Cultura */
+.bloco{padding-block:16px 4px}
+.rotulo{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.btn-cultura{width:100%;display:flex;align-items:center;gap:12px;background:var(--surface);border:2px solid var(--verde);border-radius:14px;padding:12px 14px;text-align:left}
+.btn-cultura .nome{flex:1;font-family:var(--font-disp);font-size:28px;font-weight:700;line-height:1.1;color:var(--verde)}
+.btn-cultura .trocar{font-size:15px;font-weight:600;color:var(--marrom);white-space:nowrap}
+.atalhos{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+.atalhos::-webkit-scrollbar{display:none}
+.chip-cult{flex:none;border:1.5px solid var(--linha);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:600;font-size:15px}
+.chip-cult[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:var(--on-verde)}
+
+/* Resumo */
+.resumo{background:var(--surface);border:1px solid var(--linha);border-radius:14px;padding:14px;display:grid;gap:12px}
+.resumo h2{margin:0;font-family:var(--font-disp);font-size:22px;line-height:1.15;text-wrap:balance}
+.linha-res{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:start}
+.linha-res .tag{font-size:14px;font-weight:700;padding-top:6px}
+.fichas-mini{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.mini{border:0;border-radius:8px;min-width:46px;padding:6px 8px;font-family:var(--font-disp);font-weight:700;font-size:20px;line-height:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.mini small{font-family:var(--font-corpo);font-size:11px;font-weight:600;opacity:.85}
+.mini.macro{background:var(--verde);color:var(--on-verde)}
+.mini.micro{background:var(--amarelo);color:var(--on-amarelo)}
+.mini.benef{background:var(--marrom);color:var(--on-marrom)}
+.mini.at{background:var(--alerta-claro);color:var(--alerta);outline:2px solid var(--alerta);outline-offset:-2px}
+.nota{margin:0;font-size:16px;color:var(--fg);border-top:1px dashed var(--linha);padding-top:10px}
+.nota b{color:var(--verde)}
+
+/* Ferramentas */
+.ferr{display:grid;gap:10px}
+.busca{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--linha);border-radius:12px;padding:0 12px}
+.busca input{flex:1;min-width:0;border:0;background:transparent;padding:12px 0;font-size:17px;outline:none}
+.busca svg{flex:none;color:var(--muted)}
+.filtros{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.filtros::-webkit-scrollbar{display:none}
+.filtro{flex:none;border:1.5px solid var(--linha);background:var(--surface);border-radius:10px;padding:8px 12px;font-weight:600;font-size:15px}
+.filtro[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.zoom{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px;color:var(--muted)}
+.zoom .bt{display:flex;gap:6px}
+.zoom button{border:1.5px solid var(--linha);background:var(--surface);border-radius:10px;width:44px;height:38px;font-weight:700;font-size:18px}
+
+/* Tabela */
+.tab-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px;padding-bottom:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.grade{display:grid;grid-template-columns:repeat(18,var(--cel));grid-template-rows:repeat(7,var(--cel)) 14px repeat(2,var(--cel));gap:3px;width:max-content;margin:0 auto}
+.cel{position:relative;border:0;border-radius:6px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--apagado);color:var(--on-apagado);font-family:var(--font-disp);line-height:1;transition:transform .12s, opacity .2s}
+.cel .z{position:absolute;top:3px;left:4px;font-family:var(--font-corpo);font-size:calc(var(--cel)*.18);font-weight:600}
+.cel .s{font-size:calc(var(--cel)*.42);font-weight:700}
+.cel .n{font-family:var(--font-corpo);font-size:calc(var(--cel)*.15);max-width:94%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.cel .estrela{position:absolute;top:2px;right:4px;font-size:calc(var(--cel)*.2)}
+.cel:active{transform:scale(.94)}
+/* essenciais sem prioridade */
+.cel.r-macro,.cel.r-micro,.cel.r-benef,.cel.r-estr{color:var(--fg)}
+.cel.r-macro{background:var(--verde-claro)}
+.cel.r-micro{background:var(--amarelo-claro)}
+.cel.r-benef{background:var(--marrom-claro)}
+.cel.r-estr{background:var(--verde-claro);opacity:.9}
+.cel.r-tox{background:var(--alerta-claro);color:var(--alerta)}
+/* cruciais na cultura */
+.cel.crit.r-macro{background:var(--verde);color:var(--on-verde)}
+.cel.crit.r-micro{background:var(--amarelo);color:var(--on-amarelo)}
+.cel.crit.r-benef{background:var(--marrom);color:var(--on-marrom)}
+.cel.at{box-shadow:inset 0 0 0 3px var(--alerta)}
+.cel.marcador{background:transparent;color:var(--muted);border:1.5px dashed var(--linha);font-family:var(--font-corpo);font-size:calc(var(--cel)*.2)}
+.cel.apaga{opacity:.18}
+.cel.achou{box-shadow:0 0 0 3px var(--fg);z-index:1;opacity:1}
+.grupo-num{font-size:11px;color:var(--muted);text-align:center;align-self:end}
+
+/* Legenda */
+.legenda{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:14px;color:var(--muted);padding-block:6px 14px}
+.legenda span{display:inline-flex;align-items:center;gap:6px}
+.legenda i{width:18px;height:18px;border-radius:4px;display:inline-block}
+.dica{font-size:14px;color:var(--muted);margin:0}
+.rodape{font-size:13px;color:var(--muted);padding-block:18px 30px;border-top:1px solid var(--linha);margin-top:10px}
+
+/* Folhas que sobem (ficha e lista) */
+.fundo{position:fixed;inset:0;background:rgba(10,15,8,.55);z-index:20}
+.folha{position:fixed;left:0;right:0;bottom:0;z-index:21;max-height:92vh;max-height:92dvh;background:var(--bg);border-radius:18px 18px 0 0;display:flex;flex-direction:column;box-shadow:0 -8px 30px rgba(0,0,0,.25);animation:sobe .22s ease-out}
+@keyframes sobe{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.folha{animation:none}.cel{transition:none}}
+@media (min-width:760px){.folha{left:50%;transform:translateX(-50%);width:720px;bottom:20px;border-radius:18px}@keyframes sobe{from{opacity:.4}to{opacity:1}}}
+.folha-cab{padding:12px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--linha);display:flex;align-items:center;gap:12px}
+.folha-corpo{overflow-y:auto;padding:14px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));-webkit-overflow-scrolling:touch}
+.fechar{flex:none;border:0;background:var(--surface);border-radius:999px;width:44px;height:44px;font-size:22px;line-height:1}
+
+.el-cab{display:flex;gap:14px;align-items:center;flex:1;min-width:0}
+.el-bloco{flex:none;width:72px;height:72px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-disp);position:relative;line-height:1}
+.el-bloco .s{font-size:36px;font-weight:700}
+.el-bloco .z{position:absolute;top:5px;left:7px;font-size:13px;font-family:var(--font-corpo);font-weight:600}
+.el-tit{min-width:0}
+.el-tit h2{margin:0;font-family:var(--font-disp);font-size:28px;line-height:1.05}
+.el-tit p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.selo{display:inline-block;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700;margin-top:4px}
+
+.na-cultura{border-radius:12px;padding:12px 14px;font-size:16px;margin-bottom:14px;background:var(--surface);border:1px solid var(--linha)}
+.na-cultura b{display:block;font-family:var(--font-disp);font-size:19px;margin-bottom:2px}
+.na-cultura.sim{background:var(--verde-claro);border-color:var(--verde)}
+.na-cultura.alerta{background:var(--alerta-claro);border-color:var(--alerta)}
+
+.modo{display:flex;background:var(--surface);border:1.5px solid var(--linha);border-radius:12px;padding:3px;gap:3px;margin-bottom:14px;position:sticky;top:-14px;z-index:2}
+.modo button{flex:1;border:0;background:transparent;border-radius:9px;padding:9px 6px;font-weight:700;font-size:15px}
+.modo button[aria-pressed="true"]{background:var(--verde);color:var(--on-verde)}
+
+.sec{margin:0 0 18px}
+.sec h3{margin:0 0 8px;font-family:var(--font-disp);font-size:21px;color:var(--verde);display:flex;align-items:center;gap:8px}
+.sec h3 .cont{font-family:var(--font-corpo);font-size:13px;color:var(--muted);font-weight:600}
+.func{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.func li{background:var(--surface);border:1px solid var(--linha);border-radius:12px;padding:12px 14px}
+.tec{margin:0}
+.simp{margin:0;font-size:17px}
+.func li .tec + .simp{margin-top:8px;padding-top:8px;border-top:1px dashed var(--linha)}
+.etq{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:2px}
+.etq.t{color:var(--marrom)}
+.etq.s{color:var(--verde)}
+.caixa{background:var(--surface);border:1px solid var(--linha);border-radius:12px;padding:12px 14px}
+.caixa .tec + .simp{margin-top:8px;padding-top:8px;border-top:1px dashed var(--linha)}
+.fontes{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.fontes li{background:var(--marrom-claro);color:var(--fg);border-radius:8px;padding:6px 10px;font-size:15px}
+.teor{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.teor strong{font-family:var(--font-disp);font-size:30px;color:var(--verde);font-variant-numeric:tabular-nums;line-height:1.1}
+.teor span{font-size:14px;color:var(--muted)}
+.info{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:15px}
+.info dt{color:var(--muted);font-weight:600}
+.info dd{margin:0}
+.acoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;font-size:16px;background:var(--verde);color:var(--on-verde)}
+.btn.sec2{background:var(--surface);color:var(--fg);border:1.5px solid var(--linha)}
+.aviso{font-size:13px;color:var(--muted);margin:6px 0 0}
+
+/* Lista de culturas */
+.grupo-cult h4{margin:16px 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lista-cult{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.lista-cult button{border:1.5px solid var(--linha);background:var(--surface);border-radius:12px;padding:12px;text-align:left;font-weight:600;font-size:16px;min-height:52px}
+.lista-cult button[aria-pressed="true"]{background:var(--verde);color:var(--on-verde);border-color:var(--verde)}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;z-index:40;max-width:90vw}
+@media (max-width:420px){.topo h1{font-size:21px}.topo p{font-size:13px}.btn-inst{padding:8px 11px;font-size:14px}.linha-res{grid-template-columns:1fr}.linha-res .tag{padding-top:0}}
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="miolo">
+    <div class="marca" aria-hidden="true"><small>7</small>N</div>
+    <div class="tit">
+      <h1>Tabela Periódica do Campo</h1>
+      <p>Nutrientes que importam em cada cultura</p>
+    </div>
+    <button class="btn-inst" id="btnInstalar" hidden>📲 Instalar app</button>
+  </div>
+</header>
+
+<main>
+  <section class="bloco miolo">
+    <p class="rotulo">Cultura</p>
+    <button class="btn-cultura" id="btnCultura" aria-haspopup="dialog">
+      <span class="nome" id="nomeCultura">Cana-de-açúcar</span>
+      <span class="trocar">Trocar ▾</span>
+    </button>
+    <div class="atalhos" id="atalhos" aria-label="Culturas mais usadas"></div>
+  </section>
+
+  <section class="bloco miolo">
+    <div class="resumo" id="resumo" aria-live="polite"></div>
+  </section>
+
+  <section class="bloco miolo ferr">
+    <label class="busca" for="campoBusca">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="campoBusca" type="search" placeholder="Buscar: zinco, Zn, 30…" autocomplete="off" enterkeyhint="search">
+    </label>
+    <div class="filtros" id="filtros" role="group" aria-label="Filtrar elementos">
+      <button class="filtro" data-f="todos" aria-pressed="true">Todos</button>
+      <button class="filtro" data-f="cult">Cruciais da cultura</button>
+      <button class="filtro" data-f="macro">Macro</button>
+      <button class="filtro" data-f="micro">Micro</button>
+      <button class="filtro" data-f="benef">Benéficos</button>
+      <button class="filtro" data-f="tox">Contaminantes</button>
+    </div>
+    <div class="zoom">
+      <span>Arraste a tabela para o lado. Toque num elemento para ver a ficha.</span>
+      <span class="bt"><button id="zMenos" aria-label="Diminuir tabela">A−</button><button id="zMais" aria-label="Aumentar tabela">A+</button></span>
+    </div>
+  </section>
+
+  <div class="tab-wrap" id="tabWrap"><div class="grade" id="grade" role="grid" aria-label="Tabela periódica"></div></div>
+
+  <section class="miolo">
+    <div class="legenda" id="legenda">
+      <span><i style="background:var(--verde)"></i>Macro crucial</span>
+      <span><i style="background:var(--amarelo)"></i>Micro crucial</span>
+      <span><i style="background:var(--marrom)"></i>Benéfico crucial</span>
+      <span><i style="background:var(--verde-claro)"></i>Essencial</span>
+      <span><i style="background:var(--alerta-claro);box-shadow:inset 0 0 0 2px var(--alerta)"></i>Atenção / tóxico</span>
+      <span><i style="background:var(--apagado)"></i>Sem função agrícola</span>
+    </div>
+    <p class="rodape">Referências: Boletim 100 (IAC), Embrapa, Malavolta e Marschner. As faixas foliares são de referência; a recomendação de adubação deve seguir a análise de solo e de folha e o técnico responsável.</p>
+  </section>
+</main>
+
+<!-- Ficha do elemento -->
+<div class="fundo" id="fundo" hidden></div>
+<section class="folha" id="ficha" role="dialog" aria-modal="true" aria-labelledby="fichaTit" hidden>
+  <div class="folha-cab">
+    <div class="el-cab" id="fichaCab"></div>
+    <button class="fechar" data-fechar aria-label="Fechar">✕</button>
+  </div>
+  <div class="folha-corpo" id="fichaCorpo"></div>
+</section>
+
+<!-- Lista de culturas -->
+<section class="folha" id="listaCult" role="dialog" aria-modal="true" aria-labelledby="listaTit" hidden>
+  <div class="folha-cab">
+    <div class="el-tit" style="flex:1"><h2 id="listaTit">Escolha a cultura</h2><p>A tabela muda e destaca os elementos cruciais.</p></div>
+    <button class="fechar" data-fechar aria-label="Fechar">✕</button>
+  </div>
+  <div class="folha-corpo">
+    <label class="busca" for="buscaCult">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="buscaCult" type="search" placeholder="Buscar cultura" autocomplete="off">
+    </label>
+    <div id="gruposCult"></div>
+  </div>
+</section>
+
+<section class="folha" id="instrucoes" role="dialog" aria-modal="true" aria-labelledby="instTit" hidden>
+  <div class="folha-cab">
+    <div class="el-tit" style="flex:1"><h2 id="instTit">Instalar no celular</h2></div>
+    <button class="fechar" data-fechar aria-label="Fechar">✕</button>
+  </div>
+  <div class="folha-corpo">
+    <div class="caixa"><p class="simp">1. No Chrome, toque nos três pontinhos ⋮ no canto de cima.</p><p class="simp">2. Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</p><p class="simp">3. Abra uma vez com internet. Depois funciona sem sinal.</p></div>
+  </div>
+</section>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="dados.js"></script>
+<script>
+(function(){
+const $ = s => document.querySelector(s);
+const guardar = (k,v)=>{try{localStorage.setItem("tpc-"+k,v)}catch(e){}};
+const ler = (k,d)=>{try{return localStorage.getItem("tpc-"+k) ?? d}catch(e){return d}};
+
+const ELS = SIMB.map((s,i)=>{const z=i+1;return {z,s,n:NOMES[i],m:MASSAS[i],cat:categoria(s,z),pos:posicao(z),papel:PAPEL[s]||"outro"}});
+const porSimb = Object.fromEntries(ELS.map(e=>[e.s,e]));
+const porCult = Object.fromEntries(CULTURAS.map(c=>[c.id,c]));
+const ATALHOS = ["cana","soja","milho","cafe","feijao","citros","algodao","arroz","eucalipto","pastagem","tomate","banana"];
+
+let cult = porCult[ler("cultura","cana")] || porCult.cana;
+let modo = ler("modo","duas");
+let filtro = "todos";
+let cel = +ler("cel","52"); if(!(cel>=36&&cel<=72)) cel=52;
+let atual = null;
+
+function statusNaCultura(s, c){
+  if (c.macro.includes(s)) return {k:"crit",t:"macro"};
+  if (c.micro.includes(s)) return {k:"crit",t:"micro"};
+  if (c.benef.includes(s)) return {k:"crit",t:"benef"};
+  if (c.at.includes(s)) return {k:"at"};
+  return null;
+}
+
+/* Tabela */
+const grade = $("#grade");
+function montarTabela(){
+  document.documentElement.style.setProperty("--cel", cel+"px");
+  let h = "";
+  for (const e of ELS){
+    const {r,c} = e.pos;
+    h += `<button class="cel r-${e.papel}" data-s="${e.s}" style="grid-row:${r};grid-column:${c}" aria-label="${e.n}, ${e.z}"><span class="z">${e.z}</span><span class="s">${e.s}</span><span class="n">${e.n}</span></button>`;
+  }
+  h += `<div class="cel marcador" style="grid-row:6;grid-column:3">57–71</div><div class="cel marcador" style="grid-row:7;grid-column:3">89–103</div>`;
+  grade.innerHTML = h;
+}
+function pintar(){
+  const q = norm($("#campoBusca").value.trim());
+  grade.querySelectorAll(".cel[data-s]").forEach(b=>{
+    const e = porSimb[b.dataset.s];
+    const st = statusNaCultura(e.s, cult);
+    b.classList.toggle("crit", !!st && st.k==="crit");
+    b.classList.toggle("at", !!st && st.k==="at");
+    let est = b.querySelector(".estrela");
+    if (st && st.k==="crit"){ if(!est){est=document.createElement("span");est.className="estrela";est.textContent="★";b.appendChild(est)} }
+    else if (est) est.remove();
+    let mostra = true;
+    if (filtro==="cult") mostra = !!st;
+    else if (filtro==="macro") mostra = e.papel==="macro";
+    else if (filtro==="micro") mostra = e.papel==="micro";
+    else if (filtro==="benef") mostra = e.papel==="benef";
+    else if (filtro==="tox") mostra = e.papel==="tox";
+    const achou = q && casa(e,q);
+    b.classList.toggle("achou", !!achou);
+    b.classList.toggle("apaga", q ? !achou : !mostra);
+  });
+}
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+function casa(e,q){ return norm(e.s)===q || norm(e.n).startsWith(q) || String(e.z)===q || (q.length>2 && norm(e.n).includes(q)); }
+
+/* Cultura e resumo */
+function nomeEl(s){return porSimb[s].n}
+function miniBtns(lista, cls){
+  return lista.map(s=>`<button class="mini ${cls}" data-s="${s}" aria-label="${nomeEl(s)}">${s}<small>${nomeEl(s)}</small></button>`).join("");
+}
+function montarResumo(){
+  const c = cult;
+  let h = `<h2>Cruciais em ${c.n.toLowerCase().startsWith("cana")?"cana-de-açúcar":c.n}</h2>`;
+  h += `<div class="linha-res"><span class="tag" style="color:var(--verde)">Macro</span><div class="fichas-mini">${miniBtns(c.macro,"macro")}</div></div>`;
+  h += `<div class="linha-res"><span class="tag" style="color:var(--marrom)">Micro</span><div class="fichas-mini">${miniBtns(c.micro,"micro")}</div></div>`;
+  if (c.benef.length) h += `<div class="linha-res"><span class="tag" style="color:var(--marrom)">Benéficos</span><div class="fichas-mini">${miniBtns(c.benef,"benef")}</div></div>`;
+  if (c.at.length) h += `<div class="linha-res"><span class="tag" style="color:var(--alerta)">Atenção</span><div class="fichas-mini">${miniBtns(c.at,"at")}</div></div>`;
+  h += `<p class="nota"><b>Dica de campo:</b> ${c.nota}</p>`;
+  $("#resumo").innerHTML = h;
+  $("#nomeCultura").textContent = c.n;
+  montarAtalhos();
+}
+function montarAtalhos(){
+  const ids = ATALHOS.includes(cult.id) ? ATALHOS : [cult.id, ...ATALHOS];
+  $("#atalhos").innerHTML = ids.map(id=>`<button class="chip-cult" data-c="${id}" aria-pressed="${id===cult.id}">${porCult[id].n.split(" (")[0]}</button>`).join("");
+}
+function trocarCultura(id){
+  cult = porCult[id] || cult; guardar("cultura", cult.id);
+  montarResumo(); pintar();
+  if (atual && !$("#ficha").hidden) abrirFicha(atual, true);
+}
+function montarListaCult(){
+  const q = norm($("#buscaCult").value.trim());
+  let h = "";
+  GRUPOS.forEach((g,gi)=>{
+    const cs = CULTURAS.filter(c=>c.g===gi && (!q || norm(c.n).includes(q)));
+    if (!cs.length) return;
+    h += `<div class="grupo-cult"><h4>${g}</h4><div class="lista-cult">${cs.map(c=>`<button data-c="${c.id}" aria-pressed="${c.id===cult.id}">${c.n}</button>`).join("")}</div></div>`;
+  });
+  $("#gruposCult").innerHTML = h || `<p class="dica" style="margin-top:14px">Nenhuma cultura com esse nome.</p>`;
+}
+
+/* Ficha */
+function corBloco(e, st){
+  if (st && st.k==="crit") return {macro:["var(--verde)","var(--on-verde)"],micro:["var(--amarelo)","var(--on-amarelo)"],benef:["var(--marrom)","var(--on-marrom)"]}[e.papel];
+  return {macro:["var(--verde-claro)","var(--fg)"],micro:["var(--amarelo-claro)","var(--fg)"],benef:["var(--marrom-claro)","var(--fg)"],estr:["var(--verde-claro)","var(--fg)"],tox:["var(--alerta-claro)","var(--alerta)"],outro:["var(--apagado)","var(--muted)"]}[e.papel];
+}
+function par(t, s){
+  const T = `<p class="tec"><span class="etq t">Técnica</span>${t}</p>`;
+  const S = `<p class="simp"><span class="etq s">Simples</span>${s}</p>`;
+  return modo==="tec" ? T : modo==="simp" ? S : T+S;
+}
+function textoCultura(e, st){
+  const nc = cult.n;
+  if (st && st.k==="crit"){
+    const tipo = {macro:"macronutriente",micro:"micronutriente",benef:"elemento benéfico"}[st.t];
+    return `<div class="na-cultura sim"><b>★ Crucial em ${nc}</b>É ${tipo} prioritário nesta cultura. ${cult.nota}</div>`;
+  }
+  if (st && st.k==="at"){
+    const txt = e.papel==="tox" ? "Pode limitar a produção quando o solo está ácido ou contaminado." : "Nesta cultura, o risco maior é o excesso ou a toxidez.";
+    return `<div class="na-cultura alerta"><b>⚠ Atenção em ${nc}</b>${txt}</div>`;
+  }
+  if (["macro","micro"].includes(e.papel)) return `<div class="na-cultura"><b>Essencial em ${nc}</b>Toda planta precisa dele, mas não está entre os que mais limitam esta cultura.</div>`;
+  if (e.papel==="estr") return `<div class="na-cultura"><b>Essencial para todas as culturas</b>Vem do ar e da água, não entra na adubação.</div>`;
+  if (e.papel==="benef") return `<div class="na-cultura"><b>Benéfico</b>Não é essencial, mas pode ajudar algumas culturas. Não está entre os destaques de ${nc}.</div>`;
+  return "";
+}
+function abrirFicha(s, manter){
+  const e = porSimb[s]; if(!e) return;
+  atual = s;
+  const st = statusNaCultura(s, cult);
+  const [bg,fg] = corBloco(e, st);
+  const sub = SUBTIPO[s] ? ` ${SUBTIPO[s]}` : "";
+  $("#fichaCab").innerHTML = `<div class="el-bloco" style="background:${bg};color:${fg}"><span class="z">${e.z}</span><span class="s">${e.s}</span></div>
+    <div class="el-tit"><h2 id="fichaTit">${e.n}</h2><p>${CATEG[e.cat]} · massa ${e.m}</p><span class="selo" style="background:${bg};color:${fg}">${PAPEL_NOME[e.papel]}${sub}</span></div>`;
+  const F = FICHA[s];
+  let h = textoCultura(e, st);
+  h += `<div class="modo" role="group" aria-label="Forma de explicar">
+    <button data-m="duas" aria-pressed="${modo==="duas"}">As duas</button>
+    <button data-m="tec" aria-pressed="${modo==="tec"}">Técnica</button>
+    <button data-m="simp" aria-pressed="${modo==="simp"}">Simples</button></div>`;
+  if (F){
+    h += `<div class="sec"><h3>Funções na planta <span class="cont">${F.f.length}</span></h3><ul class="func">${F.f.map(f=>`<li>${par(f[0],f[1])}</li>`).join("")}</ul></div>`;
+    h += `<div class="sec"><h3>Como a planta absorve</h3><div class="caixa"><dl class="info"><dt>Forma</dt><dd>${F.forma}</dd><dt>Na planta</dt><dd>${F.mob}</dd></dl></div></div>`;
+    if (F.defT) h += `<div class="sec"><h3>Quando falta</h3><div class="caixa">${par(F.defT,F.defS)}</div></div>`;
+    if (F.excT) h += `<div class="sec"><h3>Quando sobra</h3><div class="caixa">${par(F.excT,F.excS)}</div></div>`;
+    h += `<div class="sec"><h3>Fontes e fertilizantes</h3><ul class="fontes">${F.fontes.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+    if (F.folha) h += `<div class="sec"><h3>Teor na folha</h3>${teorFolha(s,F)}</div>`;
+    h += `<div class="sec"><h3>Solo e pH</h3><div class="caixa"><p class="simp">${F.solo}</p></div></div>`;
+  } else {
+    const nt = NOTA[s] || NOTA_CAT[e.cat] || NOTA_CAT.def;
+    h += `<div class="sec"><h3>Papel no solo e no ambiente</h3><div class="caixa">${par(nt[0],nt[1])}</div></div>`;
+    if (e.papel!=="tox") h += `<div class="sec"><div class="na-cultura"><b>Sem função agrícola conhecida</b>Não é nutriente de planta e não entra na recomendação de adubação.</div></div>`;
+    else h += `<div class="sec"><div class="na-cultura alerta"><b>Não é nutriente</b>O cuidado é evitar que se acumule no solo, na água e nos alimentos.</div></div>`;
+  }
+  h += `<div class="acoes"><button class="btn" id="btnComp">Compartilhar no WhatsApp</button></div>`;
+  $("#fichaCorpo").innerHTML = h;
+  if (!manter) { $("#fichaCorpo").scrollTop = 0; mostrar("#ficha"); }
+}
+function teorFolha(s,F){
+  const ref = FOLHA[cult.id];
+  if (ref){
+    const item = ref.v.split("|").find(x=>x.split(" ")[0]===s);
+    if (item){
+      const un = ["N","P","K","Ca","Mg","S"].includes(s) ? "g/kg" : "mg/kg";
+      return `<div class="caixa"><div class="teor"><strong>${item.split(" ")[1]} ${un}</strong><span>faixa adequada em ${cult.n}</span></div><p class="aviso">Folha amostrada: ${ref.p}.</p></div>`;
+    }
+  }
+  return `<div class="caixa"><div class="teor"><strong>${F.folha}</strong><span>faixa geral nas plantas</span></div><p class="aviso">Sem faixa específica para ${cult.n} no app. Confira com o laboratório e a recomendação regional.</p></div>`;
+}
+function textoCompartilhar(){
+  const e = porSimb[atual], F = FICHA[atual], st = statusNaCultura(atual, cult);
+  let t = `*${e.n} (${e.s})* – ${PAPEL_NOME[e.papel]}\n`;
+  if (st && st.k==="crit") t += `★ Crucial em ${cult.n}\n`;
+  if (F){
+    t += `\n*Funções:*\n` + F.f.map(f=>"• "+(modo==="tec"?f[0]:f[1])).join("\n");
+    if (F.defS) t += `\n\n*Quando falta:* ${modo==="tec"?F.defT:F.defS}`;
+    if (F.excS) t += `\n\n*Quando sobra:* ${modo==="tec"?F.excT:F.excS}`;
+    t += `\n\n*Fontes:* ${F.fontes.join("; ")}`;
+  } else { const nt = NOTA[atual] || NOTA_CAT[e.cat] || NOTA_CAT.def; t += `\n${modo==="tec"?nt[0]:nt[1]}`; }
+  t += `\n\nTabela Periódica do Campo`;
+  return t;
+}
+async function compartilhar(){
+  const t = textoCompartilhar();
+  if (navigator.share){ try { await navigator.share({text:t}); return; } catch(err){ if (err && err.name==="AbortError") return; } }
+  const a = document.createElement("a"); a.href = "https://wa.me/?text="+encodeURIComponent(t); a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* Folhas: abrir, fechar e botão voltar do Android */
+let aberta = null;
+function mostrar(sel){
+  if (aberta && aberta!==sel) $(aberta).hidden = true;
+  const ja = !!aberta;
+  aberta = sel; $(sel).hidden = false; $("#fundo").hidden = false;
+  document.body.style.overflow = "hidden";
+  if (!ja) { try{history.pushState({folha:1},"")}catch(e){} }
+  setTimeout(()=>{ const f=$(sel).querySelector("[data-fechar]"); f && f.focus({preventScroll:true}) },30);
+}
+function esconder(){ if(!aberta) return; $(aberta).hidden = true; $("#fundo").hidden = true; document.body.style.overflow = ""; aberta = null; }
+function fechar(){ if(!aberta) return; if (history.state && history.state.folha) history.back(); else esconder(); }
+window.addEventListener("popstate", esconder);
+document.addEventListener("keydown", ev=>{ if (ev.key==="Escape") fechar(); });
+$("#fundo").addEventListener("click", fechar);
+document.querySelectorAll("[data-fechar]").forEach(b=>b.addEventListener("click", fechar));
+
+/* Eventos */
+grade.addEventListener("click", ev=>{ const b = ev.target.closest(".cel[data-s]"); if (b) abrirFicha(b.dataset.s); });
+$("#resumo").addEventListener("click", ev=>{ const b = ev.target.closest("[data-s]"); if (b) abrirFicha(b.dataset.s); });
+$("#atalhos").addEventListener("click", ev=>{ const b = ev.target.closest("[data-c]"); if (b){ trocarCultura(b.dataset.c); aviso("Cultura: "+cult.n); } });
+$("#btnCultura").addEventListener("click", ()=>{ $("#buscaCult").value=""; montarListaCult(); mostrar("#listaCult"); });
+$("#buscaCult").addEventListener("input", montarListaCult);
+$("#gruposCult").addEventListener("click", ev=>{ const b = ev.target.closest("[data-c]"); if (b){ trocarCultura(b.dataset.c); fechar(); aviso("Cultura: "+cult.n); } });
+$("#fichaCorpo").addEventListener("click", ev=>{
+  const m = ev.target.closest("[data-m]");
+  if (m){ modo = m.dataset.m; guardar("modo", modo); const y=$("#fichaCorpo").scrollTop; abrirFicha(atual, true); $("#fichaCorpo").scrollTop=y; return; }
+  if (ev.target.closest("#btnComp")) compartilhar();
+});
+$("#filtros").addEventListener("click", ev=>{
+  const b = ev.target.closest("[data-f]"); if(!b) return;
+  filtro = b.dataset.f;
+  document.querySelectorAll(".filtro").forEach(x=>x.setAttribute("aria-pressed", x===b));
+  pintar();
+});
+const campo = $("#campoBusca");
+campo.addEventListener("input", ()=>{
+  pintar();
+  const q = norm(campo.value.trim()); if(!q) return;
+  const e = ELS.find(e=>casa(e,q));
+  if (e){ const b = grade.querySelector(`[data-s="${e.s}"]`); b && b.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }
+});
+campo.addEventListener("keydown", ev=>{
+  if (ev.key!=="Enter") return;
+  const q = norm(campo.value.trim()); const e = q && ELS.find(e=>casa(e,q));
+  if (e){ campo.blur(); abrirFicha(e.s); }
+});
+function zoom(d){ cel = Math.max(36, Math.min(72, cel+d)); guardar("cel", cel); document.documentElement.style.setProperty("--cel", cel+"px"); }
+$("#zMenos").addEventListener("click", ()=>zoom(-8));
+$("#zMais").addEventListener("click", ()=>zoom(8));
+
+let tm; function aviso(t){ const el=$("#toast"); el.textContent=t; el.hidden=false; clearTimeout(tm); tm=setTimeout(()=>el.hidden=true,1600); }
+
+/* Instalar */
+let pedido = null;
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+const bi = $("#btnInstalar");
+if (!standalone) bi.hidden = false;
+window.addEventListener("beforeinstallprompt", ev=>{ ev.preventDefault(); pedido = ev; bi.hidden = false; });
+bi.addEventListener("click", async ()=>{
+  if (pedido){ pedido.prompt(); try{ await pedido.userChoice }catch(e){} pedido = null; }
+  else mostrar("#instrucoes");
+});
+window.addEventListener("appinstalled", ()=>{ bi.hidden = true; aviso("App instalado!"); });
+if ("serviceWorker" in navigator) window.addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+/* Início */
+montarTabela(); montarResumo(); pintar();
+})();
+</script>
+</body>
+</html>
