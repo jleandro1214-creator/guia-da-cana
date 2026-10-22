@@ -423,12 +423,12 @@ algodao:"Cotton_boll_nearly_ready_for_harvest.jpg", cafe:"Coffee_cherries_of_var
 cacau:"Cacao-pod-k4636-14.jpg", mandioca:"Cassava_Plant.jpg", fumo:"Patch_of_Tobacco_(Nicotiana_tabacum_)_in_a_field_in_Intercourse,_Pennsylvania..jpg",
 seringueira:"Tapped_rubber_tree.jpg", dende:"Oil_Palm_Fruit_Bunch.jpg", coco:"Coconut_palms,_Goa.jpg",
 citros:"Orange_tree_in_Azureva_Roquebrune_fruits.jpg", banana:"Banana_bunch_growing_in_a_banana_tree_plantation_on_Tenerife,_Spain_(48225283136).jpg",
-uva:"Pinot_gris_grape_clusters.jpg", manga:"Mango_tree.jpg", mamao:"Carica_papaya_005.JPG", abacaxi:"Pineapple.plantation.jpg",
-maca:"Tree_with_red_apples_in_Barkedal_4.jpg", melancia:"Karpuz_tarlası_-_Watermelon_field_01.jpg", maracuja:"Passionfruit_and_cross_section.jpg",
-acai:"Açaí.jpg", tomate:"Tomato_Plants_89.jpg", batata:"Färskpotatis.jpg", cebola:"Onion_field.JPG", alho:"Garlic_bulbs_and_cloves.jpg",
+uva:"Pinot_gris_grape_clusters.jpg", manga:"Green_mangoes_in_tree.jpg", mamao:"Carica_papaya_005.JPG", abacaxi:"Pineapple.plantation.jpg",
+maca:"Tree_with_red_apples_in_Barkedal_4.jpg", melancia:"Watermelons.jpg", maracuja:"Passionfruit_and_cross_section.jpg",
+acai:"Owoce_Acai.jpg", tomate:"Tomato_Plants_89.jpg", batata:"Färskpotatis.jpg", cebola:"Onion_field.JPG", alho:"Garlic_bulbs_and_cloves.jpg",
 alface:"Caoba_Farms_Antigua_Guatemala_-_lettuce_field.jpg", cenoura:"Bunches_of_carrots.jpg",
 brassicas:"A_field_of_cabbages_-_geograph.org.uk_-_4749475.jpg", pimentao:"Green-Yellow-Red-Pepper-2009.jpg",
 eucalipto:"Eucalyptus_grandis_in_Brazil.jpg", pinus:"Pinus_taeda_plantation.jpg", pastagem:"Gado_de_corte_no_pasto.JPG"
 };
-function fotoUrl(id){ const f = FOTOS[id]; return f ? "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(f) + "?width=480" : ""; }
+function fotoUrl(id){ return FOTOS[id] ? "fotos/" + id + ".webp" : ""; }
 function fotoPagina(id){ const f = FOTOS[id]; return f ? "https://commons.wikimedia.org/wiki/File:" + encodeURIComponent(f) : ""; }
