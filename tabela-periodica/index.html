@@ -383,7 +383,7 @@ function montarResumo(){
   $("#fotoCred").innerHTML = FOTOS[c.id] ? `Foto: <a href="${fotoPagina(c.id)}" target="_blank" rel="noopener">Wikimedia Commons</a>` : "";
   montarAtalhos();
 }
-function fundoFoto(id){ const u = fotoUrl(id); return u ? `url("${u}")` : "none"; }
+function fundoFoto(id){ const u = fotoUrl(id); return u ? `url('${u}')` : "none"; }
 function montarAtalhos(){
   const ids = ATALHOS.includes(cult.id) ? ATALHOS : [cult.id, ...ATALHOS];
   $("#atalhos").innerHTML = ids.map(id=>`<button class="chip-cult" data-c="${id}" aria-pressed="${id===cult.id}" style="background-image:${fundoFoto(id)}"><span>${porCult[id].n.split(" (")[0]}</span></button>`).join("");
