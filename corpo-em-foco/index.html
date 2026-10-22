@@ -377,7 +377,7 @@ function trocarAba(a){
   if(a==='quiz') telaQuizInicio(); else telaLista();
 }
 
-var IMG = ["antebraco", "baco", "bexiga", "biceps", "cerebro", "clavicula", "coracao", "deltoide", "estomago", "femur", "figado", "intestinos", "maospes", "pancreas", "peitoral", "pele", "pelve", "pulmoes", "rins", "tibia", "umero"];
+var IMG = ["abdominais", "antebraco", "baco", "bexiga", "biceps", "cerebro", "clavicula", "coluna", "coracao", "costas", "costelas", "cranio", "deltoide", "estomago", "femur", "figado", "gluteos", "intestinos", "maospes", "pancreas", "panturrilha", "peitoral", "pele", "pelve", "posteriores", "pulmoes", "quadriceps", "rins", "tibia", "triceps", "umero"];
 function temImg(id){return IMG.indexOf(id)>-1}
 function miniatura(id){return temImg(id) ? '<img src="img/'+id+'.jpg" alt="" loading="lazy">' : ART.thumb(id)}
 function figuraGrande(x){return temImg(x.id) ? '<img src="img/'+x.id+'.jpg" alt="Ilustração: '+esc(x.nome)+'">' : ART.full(x.id)}
