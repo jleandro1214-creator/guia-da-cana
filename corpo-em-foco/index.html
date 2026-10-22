@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2f5d34">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Corpo em Foco</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{
+  --verde:#2f5d34; --verde-2:#4f8a3c; --verde-claro:#e4efd9;
+  --amarelo:#f2c230; --amarelo-claro:#fbefc2;
+  --marrom:#6b4423; --marrom-claro:#efe4d6;
+  --fundo:#fbf7ec; --texto:#2b2418; --suave:#6e6454; --linha:#e3d9c4; --branco:#fffdf7;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--fundo);color:var(--texto);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.5}
+body{min-height:100vh;padding-bottom:84px}
+button{font:inherit;color:inherit}
+img{max-width:100%}
+
+/* Cabeçalho */
+.topo{background:var(--verde);color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:20}
+.topo-linha{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.marca{display:flex;align-items:center;gap:10px;min-width:0}
+.marca img{width:38px;height:38px;border-radius:10px;flex:none}
+.marca h1{font-size:21px;line-height:1.1;margin:0;letter-spacing:.2px}
+.marca p{margin:0;font-size:13px;color:#d9e8cf}
+.btn-instalar{background:var(--amarelo);color:#3a2a0b;border:0;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px;flex:none}
+.busca{margin-top:12px;position:relative}
+.busca input{width:100%;border:0;border-radius:12px;padding:12px 14px;font:inherit;font-size:17px;background:#fff;color:var(--texto)}
+.busca input:focus{outline:3px solid var(--amarelo)}
+
+main{padding:16px 16px 8px;max-width:760px;margin:0 auto}
+.intro{background:var(--amarelo-claro);border:1px solid #ecd98a;border-radius:14px;padding:12px 14px;margin:0 0 14px;font-size:16px;color:#4a3a12}
+.grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(min-width:560px){.grade{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.cartao{background:var(--branco);border:1px solid var(--linha);border-radius:16px;padding:14px 12px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:128px;cursor:pointer}
+.cartao:active{transform:scale(.98)}
+.selo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;background:var(--verde-2)}
+.cartao.m .selo{background:var(--marrom)}
+.cartao.o .selo{background:#b8891a;color:#fff}
+.cartao h3{margin:2px 0 0;font-size:18px;line-height:1.2}
+.cartao small{color:var(--suave);font-size:14px;line-height:1.3}
+.vazio{text-align:center;color:var(--suave);padding:30px 10px}
+
+/* Detalhe */
+.detalhe{position:fixed;inset:0;background:var(--fundo);z-index:40;overflow-y:auto;padding-bottom:40px}
+.det-topo{position:sticky;top:0;background:var(--verde);color:#fff;display:flex;align-items:center;gap:10px;padding:12px 16px;z-index:2}
+.voltar{background:rgba(255,255,255,.16);border:0;color:#fff;border-radius:10px;padding:9px 14px;font-weight:700;font-size:16px}
+.det-topo span{font-size:14px;color:#d9e8cf}
+.det-corpo{max-width:760px;margin:0 auto;padding:16px}
+.det-corpo h2{font-size:28px;line-height:1.15;margin:6px 0 4px}
+.etiqueta{display:inline-block;background:var(--verde-claro);color:var(--verde);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:700}
+.figura{margin:14px 0;background:#fff;border:1px solid var(--linha);border-radius:16px;overflow:hidden}
+.figura .moldura{min-height:200px;display:grid;place-items:center;background:#fff;padding:8px}
+.figura img{display:block;max-height:420px;width:auto;margin:0 auto;object-fit:contain}
+.figura .falha{padding:22px 16px;text-align:center;color:var(--suave);font-size:15px}
+.figura .falha button{margin-top:10px;background:var(--verde);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-weight:700}
+.figura figcaption{border-top:1px solid var(--linha);padding:10px 12px;font-size:13.5px;color:var(--suave);line-height:1.4}
+.figura figcaption a{color:var(--marrom);font-weight:700}
+.bloco{background:var(--branco);border:1px solid var(--linha);border-radius:14px;padding:12px 14px;margin:12px 0}
+.bloco h4{margin:0 0 4px;font-size:15px;text-transform:uppercase;letter-spacing:.6px;color:var(--marrom)}
+.bloco p{margin:0}
+.bloco ul{margin:4px 0 0;padding-left:20px}
+.bloco li{margin:3px 0}
+.curio{background:var(--amarelo-claro);border-color:#ecd98a}
+.curio h4{color:#7a5a05}
+
+/* Navegação inferior */
+nav.abas{position:fixed;left:0;right:0;bottom:0;background:var(--branco);border-top:1px solid var(--linha);display:grid;grid-template-columns:repeat(4,1fr);z-index:30;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+nav.abas button{background:none;border:0;border-radius:12px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:13.5px;font-weight:700;color:var(--suave)}
+nav.abas button svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.abas button[aria-selected="true"]{background:var(--verde-claro);color:var(--verde)}
+
+/* Quiz */
+.quiz-caixa{background:var(--branco);border:1px solid var(--linha);border-radius:18px;padding:18px 16px}
+.quiz-caixa h2{margin:0 0 6px;font-size:26px;line-height:1.15}
+.placar{display:flex;gap:10px;margin:12px 0}
+.placar div{flex:1;background:var(--verde-claro);border-radius:12px;padding:8px 10px;text-align:center;font-size:13.5px;color:var(--verde);font-weight:700}
+.placar b{display:block;font-size:22px;color:var(--verde)}
+.btn{display:block;width:100%;background:var(--verde);color:#fff;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:18px;margin-top:12px}
+.btn.amarelo{background:var(--amarelo);color:#3a2a0b}
+.btn.sec{background:var(--marrom-claro);color:var(--marrom)}
+.progresso{height:8px;border-radius:99px;background:var(--marrom-claro);overflow:hidden;margin:6px 0 14px}
+.progresso i{display:block;height:100%;background:var(--amarelo);width:0;transition:width .25s}
+.pergunta{font-size:21px;line-height:1.3;font-weight:700;margin:4px 0 14px}
+.opcao{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--linha);border-radius:14px;padding:13px 14px;margin:9px 0;font-size:17.5px;cursor:pointer}
+.opcao.certa{border-color:var(--verde-2);background:var(--verde-claro)}
+.opcao.errada{border-color:#a4452c;background:#f6dfd7}
+.opcao[disabled]{cursor:default}
+.retorno{border-radius:14px;padding:12px 14px;margin-top:12px;font-size:16.5px}
+.retorno.ok{background:var(--verde-claro);color:#1f4325}
+.retorno.no{background:#f6dfd7;color:#6b2a18}
+.nota-final{font-size:56px;font-weight:800;color:var(--verde);line-height:1;margin:8px 0}
+.rodape{max-width:760px;margin:18px auto 0;padding:0 16px;font-size:13px;color:var(--suave)}
+.rodape a{color:var(--marrom)}
+.instala-dica{background:var(--branco);border:1px dashed var(--marrom);border-radius:12px;padding:10px 12px;margin:0 0 14px;font-size:15px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-linha">
+    <div class="marca">
+      <img src="icon-192.png" alt="">
+      <div><h1>Corpo em Foco</h1><p>Conheça o seu corpo</p></div>
+    </div>
+    <button class="btn-instalar" id="btnInstalar" hidden>Instalar app</button>
+  </div>
+  <div class="busca" id="buscaBox">
+    <input id="busca" type="search" placeholder="Buscar pelo nome..." autocomplete="off" aria-label="Buscar pelo nome">
+  </div>
+</header>
+
+<main id="tela"></main>
+<div class="rodape" id="rodape"></div>
+
+<section class="detalhe" id="detalhe" hidden>
+  <div class="det-topo"><button class="voltar" id="voltar">&larr; Voltar</button><span id="detCat"></span></div>
+  <div class="det-corpo" id="detCorpo"></div>
+</section>
+
+<nav class="abas" id="abas" role="tablist" aria-label="Seções">
+  <button role="tab" data-aba="orgaos" aria-selected="true">
+    <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Órgãos
+  </button>
+  <button role="tab" data-aba="musculos" aria-selected="false">
+    <svg viewBox="0 0 24 24"><path d="M6 14c0-4 2-7 6-7s6 3 6 7-2 5-4 5H10c-2 0-4-1-4-5z"/><path d="M9 12c1 1 2 1 3 0s2-1 3 0"/></svg>Músculos
+  </button>
+  <button role="tab" data-aba="ossos" aria-selected="false">
+    <svg viewBox="0 0 24 24"><path d="M7 7a2 2 0 1 1 3-2l7 7a2 2 0 1 1 2 3 2 2 0 1 1-3 2l-7-7a2 2 0 1 1-2-3z" transform="rotate(0)"/></svg>Ossos
+  </button>
+  <button role="tab" data-aba="quiz" aria-selected="false">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8"/><path d="M12 17h.01"/></svg>Quiz
+  </button>
+</nav>
+
+<script>
+/* ===== Créditos das imagens (Wikimedia Commons) ===== */
+var CRED = {
+  gray:  'Ilustração de Henry Gray, Gray’s Anatomy (1918). Domínio público.',
+  ruiz:  'Ilustração de Mariana Ruiz Villarreal (LadyofHats). Domínio público.',
+  wap:   'Ilustração de Eric Pierce (Wapcaplet). Licença CC BY-SA 3.0.',
+  nci:   'Ilustração do National Cancer Institute (EUA). Domínio público.',
+  hagg:  'Montagem de Mikael Häggström sobre ilustração de Gray’s Anatomy (1918). Domínio público.'
+};
+
+/* ===== Conteúdo ===== */
+var ORGAOS = [
+ {id:'cerebro', nome:'Cérebro', sis:'Sistema nervoso', img:'Gray728.png', cred:'gray',
+  oque:'É o órgão que comanda o corpo todo. Fica protegido dentro do crânio e pesa em média 1,3 kg.',
+  imp:'Pensar, lembrar, sentir, falar, mover os músculos e controlar o que você nem percebe, como o batimento do coração e a respiração.',
+  car:['Tem bilhões de células nervosas (neurônios) conversando por sinais elétricos.','Tem três partes principais: cérebro, cerebelo e tronco cerebral.','Usa cerca de um quinto de toda a energia do corpo.'],
+  cur:'O cérebro não sente dor. A dor de cabeça vem dos tecidos que ficam ao redor dele.'},
+ {id:'coracao', nome:'Coração', sis:'Sistema circulatório', img:'Diagram_of_the_human_heart_(cropped).svg', cred:'wap',
+  oque:'Um músculo do tamanho de um punho fechado, que fica no meio do peito, um pouco inclinado para a esquerda.',
+  imp:'Bombeia o sangue para o corpo todo. O sangue leva oxigênio e alimento para cada parte e traz de volta o que precisa ser limpo.',
+  car:['Tem quatro cavidades: dois átrios (em cima) e dois ventrículos (embaixo).','Tem válvulas que deixam o sangue passar só para um lado.','Bate cerca de 100 mil vezes por dia.'],
+  cur:'O coração começa a bater nas primeiras semanas de gravidez e não para mais, nem quando você dorme.'},
+ {id:'pulmoes', nome:'Pulmões', sis:'Sistema respiratório', img:'Lungs_diagram_detailed.svg', cred:'ruiz',
+  oque:'São dois órgãos esponjosos dentro do peito, protegidos pelas costelas. Um de cada lado do coração.',
+  imp:'Pegam o oxigênio do ar que você respira e passam para o sangue. Também tiram do corpo o gás carbônico.',
+  car:['O pulmão direito é maior, com três partes (lobos). O esquerdo tem duas, para dar espaço ao coração.','Dentro deles há milhões de saquinhos minúsculos, os alvéolos, onde acontece a troca do ar.','São puxados pelo diafragma, um músculo embaixo deles.'],
+  cur:'Se esticássemos toda a superfície dos alvéolos, ela cobriria dezenas de metros quadrados.'},
+ {id:'figado', nome:'Fígado', sis:'Sistema digestório', img:'Digestive_system_diagram_en.svg', cred:'ruiz',
+  oque:'É o maior órgão interno do corpo, com cerca de 1,5 kg. Fica no lado direito da barriga, logo abaixo das costelas.',
+  imp:'Limpa o sangue, produz a bile que ajuda a digerir gordura e guarda energia para quando o corpo precisar.',
+  car:['Recebe sangue direto do intestino para filtrar o que foi comido.','Trabalha em mais de 500 funções, todos os dias.','Tem cor marrom-avermelhada e é macio.'],
+  cur:'O fígado consegue se regenerar: pode voltar a crescer depois de perder uma parte.'},
+ {id:'estomago', nome:'Estômago', sis:'Sistema digestório', img:'Digestive_system_diagram_en.svg', cred:'ruiz',
+  oque:'Uma bolsa de músculo em forma de J, entre o esôfago e o intestino, no lado esquerdo da barriga.',
+  imp:'Mistura e amassa a comida com um suco ácido (suco gástrico), transformando tudo numa papa que segue para o intestino.',
+  car:['Tem paredes musculares que se mexem para misturar o alimento.','O ácido do estômago também ajuda a eliminar germes da comida.','Uma camada de muco protege a parede do próprio ácido.'],
+  cur:'O revestimento do estômago se renova a cada poucos dias.'},
+ {id:'intestinos', nome:'Intestinos', sis:'Sistema digestório', img:'Digestive_system_diagram_en.svg', cred:'ruiz',
+  oque:'Um tubo longo e dobrado dentro da barriga. Tem duas partes: o intestino delgado e o intestino grosso.',
+  imp:'No delgado, os nutrientes passam do alimento para o sangue. No grosso, o corpo recupera a água e forma as fezes.',
+  car:['O delgado mede em torno de 6 metros. O grosso, cerca de 1,5 metro.','Por dentro tem pequenas dobras que aumentam a área de absorção.','Abriga bilhões de bactérias boas (a microbiota).'],
+  cur:'Muita gente chama o intestino de “segundo cérebro”, porque ele tem uma rede enorme de nervos próprios.'},
+ {id:'rins', nome:'Rins', sis:'Sistema urinário', img:'Illu_kidney_structure.jpg', cred:'nci',
+  oque:'São dois órgãos em forma de feijão, do tamanho de um punho. Ficam atrás da barriga, um de cada lado da coluna.',
+  imp:'Filtram o sangue, tiram o que sobra e produzem a urina. Também controlam a água, o sal e ajudam a manter a pressão do sangue.',
+  car:['Cada rim tem cerca de um milhão de filtros minúsculos (néfrons).','Recebem muito sangue o tempo todo.','A urina sai de cada rim por um tubo fino até a bexiga.'],
+  cur:'Uma pessoa pode viver bem com apenas um rim saudável.'},
+ {id:'pancreas', nome:'Pâncreas', sis:'Sistema digestório e hormonal', img:'Digestive_system_diagram_en.svg', cred:'ruiz',
+  oque:'Uma glândula comprida, escondida atrás do estômago.',
+  imp:'Produz sucos que ajudam a digerir a comida e hormônios, como a insulina, que controlam o açúcar no sangue.',
+  car:['Tem formato parecido com um peixe achatado.','Faz duas funções: digestiva e hormonal.','A insulina ajuda o açúcar a entrar nas células.'],
+  cur:'Quando o corpo não produz ou não usa bem a insulina, aparece o diabetes.'},
+ {id:'baco', nome:'Baço', sis:'Sistema linfático e imunológico', img:'Illu_lymphatic_system.jpg', cred:'nci',
+  oque:'Um órgão roxo-escuro, do tamanho de um punho, na parte de cima da barriga, do lado esquerdo.',
+  imp:'Filtra o sangue, destrói células velhas e ajuda o corpo a se defender de germes.',
+  car:['Guarda uma reserva de sangue para emergências.','Faz parte da defesa do corpo.','É macio e pode se machucar com pancadas fortes.'],
+  cur:'É possível viver sem o baço, mas a pessoa precisa cuidar mais das infecções.'},
+ {id:'bexiga', nome:'Bexiga', sis:'Sistema urinário', img:'Illu_bladder.jpg', cred:'nci',
+  oque:'Uma bolsa de músculo, na parte de baixo da barriga, que guarda a urina.',
+  imp:'Armazena a urina que vem dos rins até a hora de ir ao banheiro.',
+  car:['Suas paredes esticam como um balão quando enche.','Um adulto guarda confortavelmente cerca de meio litro.','Um músculo na saída segura a urina até você decidir soltar.'],
+  cur:'O cérebro recebe o aviso de que a bexiga está enchendo muito antes de ela estar cheia.'},
+ {id:'pele', nome:'Pele', sis:'Sistema tegumentar', img:'Illu_skin01.jpg', cred:'nci',
+  oque:'É o maior órgão do corpo. Cobre tudo por fora e, num adulto, tem cerca de 2 metros quadrados.',
+  imp:'Protege contra germes, sol e pancadas. Controla a temperatura pelo suor, sente toque, calor e frio, e produz vitamina D com o sol.',
+  car:['Tem três camadas: epiderme (de fora), derme (do meio) e hipoderme (de baixo).','Tem pelos, glândulas de suor e terminações nervosas.','A cor vem da melanina.'],
+  cur:'A camada de fora da pele se renova mais ou menos a cada mês.'}
+];
+
+var MUSCULOS = [
+ {id:'peitoral', nome:'Peitoral', sis:'Peito', img:'Muscles_anterior_labeled.png', cred:'hagg',
+  oque:'Grupo de músculos grandes na frente do peito, conhecido como peitoral maior e menor.',
+  imp:'Empurrar, abraçar e levar o braço para a frente. Você usa quando empurra uma porta ou faz flexão.',
+  car:['Tem forma de leque, ligando o osso do peito ao braço.','Ajuda também na respiração forte.','Trabalha junto com os ombros e os tríceps.'],
+  cur:'O peitoral é um dos grupos mais usados em exercícios como a flexão de braço.'},
+ {id:'deltoide', nome:'Deltoide (ombro)', sis:'Ombro', img:'Muscles_anterior_labeled.png', cred:'hagg',
+  oque:'O músculo arredondado que cobre o ombro. O nome vem da letra grega delta, por causa do formato de triângulo.',
+  imp:'Levantar o braço para a frente, para o lado e para trás.',
+  car:['Tem três partes: frontal, lateral e posterior.','Dá ao ombro o seu contorno redondo.','Se machuca com facilidade quando se carrega peso sem preparo.'],
+  cur:'Por ter três partes, o deltoide consegue mexer o braço em quase todas as direções.'},
+ {id:'biceps', nome:'Bíceps', sis:'Braço (parte da frente)', img:'Muscles_anterior_labeled.png', cred:'hagg',
+  oque:'O músculo da frente do braço, entre o ombro e o cotovelo.',
+  imp:'Dobrar o cotovelo e girar o antebraço. Você usa quando levanta uma sacola ou puxa algo para perto.',
+  car:['“Bíceps” quer dizer “duas cabeças”: ele nasce de dois pontos no ombro.','Fica preso ao osso do antebraço por um tendão forte.','Trabalha em dupla com o tríceps.'],
+  cur:'Ao dobrar o braço, o bíceps encurta e “estufa”, por isso aparece a famosa bola do braço.'},
+ {id:'triceps', nome:'Tríceps', sis:'Braço (parte de trás)', img:'Muscles_posterior_labeled.png', cred:'hagg',
+  oque:'O músculo da parte de trás do braço. Ocupa a maior parte do volume do braço.',
+  imp:'Esticar o cotovelo. Você usa para empurrar, para se levantar de uma cadeira com apoio das mãos e para arremessar.',
+  car:['“Tríceps” quer dizer “três cabeças”.','É mais volumoso que o bíceps.','Trabalha em dupla com o bíceps: um dobra, o outro estica.'],
+  cur:'Quando você se apoia nas mãos para levantar do sofá, o tríceps está trabalhando.'},
+ {id:'abdominais', nome:'Abdominais', sis:'Barriga', img:'Muscles_anterior_labeled.png', cred:'hagg',
+  oque:'Grupo de músculos da barriga: o reto abdominal (na frente) e os oblíquos (nas laterais).',
+  imp:'Segurar o tronco firme, manter a postura, proteger os órgãos e ajudar a dobrar o corpo para a frente e para os lados.',
+  car:['O reto abdominal tem faixas que formam o famoso “tanquinho”.','Os oblíquos ajudam a girar o corpo.','Trabalham junto com os músculos das costas.'],
+  cur:'O tanquinho existe em todo mundo. Só aparece quando a camada de gordura por cima fica fina.'},
+ {id:'costas', nome:'Costas (trapézio e dorsal)', sis:'Costas', img:'Muscles_posterior_labeled.png', cred:'hagg',
+  oque:'Grupo grande de músculos que cobre as costas, do pescoço até a cintura. O trapézio fica em cima e o latíssimo do dorso, dos lados.',
+  imp:'Puxar, remar, levantar peso, manter o corpo ereto e movimentar os ombros e o pescoço.',
+  car:['O trapézio tem forma de losango.','O latíssimo do dorso é um dos músculos mais largos do corpo.','Pesos mal carregados cansam muito esta região.'],
+  cur:'Boa parte das dores nas costas vem de postura errada e músculos fracos.'},
+ {id:'gluteos', nome:'Glúteos', sis:'Bumbum', img:'Muscles_posterior_labeled.png', cred:'hagg',
+  oque:'Os músculos do bumbum. O glúteo máximo é o maior músculo do corpo.',
+  imp:'Ficar em pé, andar, correr, subir escada e levantar do chão. Também sustentam a bacia.',
+  car:['São três: glúteo máximo, médio e mínimo.','O máximo é muito forte e grosso.','Ficar muito tempo sentado deixa os glúteos “preguiçosos”.'],
+  cur:'O glúteo máximo é o maior músculo do corpo humano.'},
+ {id:'quadriceps', nome:'Quadríceps', sis:'Coxa (parte da frente)', img:'Muscles_anterior_labeled.png', cred:'hagg',
+  oque:'O músculo da frente da coxa, formado por quatro partes (por isso “quadri”).',
+  imp:'Esticar o joelho. Você usa para andar, correr, pular, agachar e subir escada.',
+  car:['É um dos maiores e mais fortes grupos musculares do corpo.','Fica preso ao joelho por um tendão forte, que envolve a patela.','Trabalha em dupla com os músculos de trás da coxa.'],
+  cur:'Cada vez que você levanta de uma cadeira, o quadríceps entra em ação.'},
+ {id:'posteriores', nome:'Posteriores da coxa', sis:'Coxa (parte de trás)', img:'Muscles_posterior_labeled.png', cred:'hagg',
+  oque:'Três músculos na parte de trás da coxa, também chamados de isquiotibiais.',
+  imp:'Dobrar o joelho e ajudar a esticar o quadril. São importantes para correr e frear o movimento da perna.',
+  car:['Vão do osso do quadril até logo abaixo do joelho.','Se machucam com facilidade em corrida e futebol, quando não há aquecimento.','Precisam de alongamento.'],
+  cur:'Eles dão “freio” ao movimento da perna quando você corre.'},
+ {id:'panturrilha', nome:'Panturrilha', sis:'Perna (parte de trás)', img:'Muscles_posterior_labeled.png', cred:'hagg',
+  oque:'Os músculos da parte de trás da perna, abaixo do joelho. Os principais são o gastrocnêmio e o sóleo.',
+  imp:'Levantar o calcanhar, ficar na ponta dos pés, andar, correr e saltar.',
+  car:['São presos ao calcanhar pelo tendão de Aquiles, o mais forte do corpo.','Ajudam a empurrar o sangue das pernas de volta para o coração.','Trabalham o dia todo, só de você ficar em pé.'],
+  cur:'A panturrilha é chamada de “segundo coração” porque, ao se contrair, ajuda o sangue a subir.'}
+];
+
+var OSSOS = [
+ {id:'cranio', nome:'Crânio', sis:'Cabeça', img:'Gray190.png', cred:'gray',
+  oque:'O conjunto de ossos da cabeça. Tem 22 ossos: 8 formam a caixa que guarda o cérebro e 14 formam a face.',
+  imp:'Proteger o cérebro, os olhos e os ouvidos e dar forma ao rosto.',
+  car:['Os ossos do crânio se encaixam como um quebra-cabeça, por linhas chamadas suturas.','A mandíbula é o único osso da cabeça que se mexe.','Tem buracos para olhos, nariz, boca e nervos.'],
+  cur:'Em bebês os ossos do crânio ainda não se fecharam; por isso existe a “moleira”.'},
+ {id:'coluna', nome:'Coluna vertebral', sis:'Costas', img:'Human_skeleton_back_en.svg', cred:'ruiz',
+  oque:'Uma fileira de ossos empilhados, chamados vértebras, que vai do pescoço até o bumbum.',
+  imp:'Sustentar o corpo, permitir que você se dobre e proteger a medula espinhal, que leva os sinais do cérebro para o corpo.',
+  car:['Tem cinco regiões: pescoço, costas altas, lombar, sacro e cóccix.','Entre as vértebras há discos que amortecem os impactos.','Tem curvas naturais que ajudam a segurar o peso.'],
+  cur:'Bebês nascem com cerca de 33 vértebras. No adulto, algumas se juntam e ficam 26 ossos.'},
+ {id:'costelas', nome:'Costelas e esterno', sis:'Peito', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'As costelas formam uma gaiola ao redor do peito. Na frente, um osso achatado, o esterno, as une.',
+  imp:'Proteger o coração e os pulmões e ajudar na respiração, pois se movem quando você puxa o ar.',
+  car:['São 12 pares de costelas.','Os sete pares de cima se ligam ao esterno por cartilagem.','Os dois últimos pares são curtos e ficam “soltos”.'],
+  cur:'As costelas se mexem um pouco a cada respiração.'},
+ {id:'clavicula', nome:'Clavícula', sis:'Ombro', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'Osso fino e comprido em forma de S, que liga o osso do peito ao ombro.',
+  imp:'Segurar o ombro no lugar e passar a força do braço para o corpo.',
+  car:['Existe uma de cada lado.','Dá para sentir por cima da pele.','Quebra com facilidade em quedas e pancadas no ombro.'],
+  cur:'É um dos ossos mais quebrados do corpo, principalmente em quedas de bicicleta.'},
+ {id:'umero', nome:'Úmero', sis:'Braço', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'O osso comprido do braço, entre o ombro e o cotovelo.',
+  imp:'Sustentar o braço e servir de apoio para os músculos que mexem o ombro e o cotovelo.',
+  car:['É o maior osso do braço.','Em cima encaixa no ombro como uma bola.','Embaixo forma o cotovelo, junto com os ossos do antebraço.'],
+  cur:'O famoso “nervo do cotovelo”, quando bate e dá choque, passa bem rente a este osso.'},
+ {id:'antebraco', nome:'Rádio e ulna', sis:'Antebraço', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'Os dois ossos do antebraço, entre o cotovelo e o pulso.',
+  imp:'Permitir virar a palma da mão para cima e para baixo e firmar o pulso.',
+  car:['O rádio fica do lado do polegar.','A ulna fica do lado do dedo mínimo.','Cruzam um sobre o outro quando você vira a mão.'],
+  cur:'Girar a maçaneta de uma porta só é possível porque o rádio gira em volta da ulna.'},
+ {id:'pelve', nome:'Pelve (bacia)', sis:'Quadril', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'Uma estrutura em forma de bacia, formada pelos ossos do quadril, sacro e cóccix.',
+  imp:'Sustentar o peso do tronco, ligar a coluna às pernas e proteger órgãos da parte baixa da barriga.',
+  car:['É mais larga nas mulheres, o que ajuda no parto.','Une-se à coxa por uma articulação em forma de bola e encaixe.','Fica no meio do corpo e ajuda no equilíbrio.'],
+  cur:'É na articulação do quadril que o corpo faz alguns de seus movimentos mais amplos.'},
+ {id:'femur', nome:'Fêmur', sis:'Coxa', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'O osso da coxa, que vai do quadril ao joelho.',
+  imp:'Sustentar o peso do corpo e permitir andar, correr e pular.',
+  car:['É o maior, mais comprido e mais forte osso do corpo.','Mede mais ou menos um quarto da altura da pessoa.','Quebrar o fêmur é uma lesão séria.'],
+  cur:'Dá para estimar a altura de uma pessoa pelo tamanho do fêmur.'},
+ {id:'tibia', nome:'Tíbia e fíbula', sis:'Perna', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'Os dois ossos da perna, entre o joelho e o tornozelo.',
+  imp:'A tíbia sustenta o peso do corpo. A fíbula ajuda a firmar o tornozelo e a prender músculos.',
+  car:['A tíbia é a grossa, na frente da perna: a “canela”.','A fíbula é bem fina e fica ao lado.','A canela fica bem perto da pele, por isso dói tanto quando bate.'],
+  cur:'A fíbula carrega pouco peso, mas é importante para o equilíbrio do tornozelo.'},
+ {id:'maospes', nome:'Mãos e pés', sis:'Pontas', img:'Human_skeleton_front_en.svg', cred:'ruiz',
+  oque:'Cada mão tem 27 ossos, e cada pé, 26. Juntos, mãos e pés têm mais da metade dos ossos do corpo.',
+  imp:'As mãos pegam, seguram e sentem. Os pés sustentam o peso e dão equilíbrio e impulso ao caminhar.',
+  car:['A mão tem ossos do pulso, da palma e dos dedos.','O pé tem calcanhar, peito do pé e dedos.','O pé forma arcos que amortecem o peso.'],
+  cur:'O corpo adulto tem 206 ossos, e mais da metade está nas mãos e nos pés.'}
+];
+
+/* ===== Quiz ===== */
+var QUIZ = [
+ {p:'Qual é o maior órgão interno do corpo humano?', o:['Fígado','Coração','Estômago','Rim'], c:0, e:'O fígado pesa cerca de 1,5 kg.'},
+ {p:'Qual é o maior órgão do corpo, contando o que fica por fora?', o:['Pulmão','Pele','Intestino','Fígado'], c:1, e:'A pele cobre o corpo todo e tem cerca de 2 m² num adulto.'},
+ {p:'Quantas cavidades tem o coração?', o:['Duas','Três','Quatro','Seis'], c:2, e:'São dois átrios e dois ventrículos.'},
+ {p:'O que os pulmões levam para o sangue?', o:['Açúcar','Oxigênio','Água','Sal'], c:1, e:'Nos alvéolos o oxigênio do ar passa para o sangue.'},
+ {p:'Qual órgão produz a insulina?', o:['Baço','Fígado','Pâncreas','Rim'], c:2, e:'O pâncreas produz a insulina, que controla o açúcar no sangue.'},
+ {p:'Qual órgão filtra o sangue e produz a urina?', o:['Rins','Bexiga','Estômago','Baço'], c:0, e:'Os rins filtram o sangue e fazem a urina.'},
+ {p:'Onde a maior parte dos nutrientes passa para o sangue?', o:['Estômago','Intestino delgado','Boca','Bexiga'], c:1, e:'É no intestino delgado que os nutrientes são absorvidos.'},
+ {p:'Qual órgão guarda a urina até a hora de ir ao banheiro?', o:['Rim','Pâncreas','Bexiga','Fígado'], c:2, e:'A bexiga é uma bolsa elástica que guarda a urina.'},
+ {p:'O cérebro sente dor?', o:['Sim, muita','Não, ele não tem receptores de dor','Só quando é frio','Só durante o sono'], c:1, e:'O cérebro não sente dor. A dor de cabeça vem dos tecidos ao redor.'},
+ {p:'Qual é o maior músculo do corpo?', o:['Bíceps','Peitoral','Glúteo máximo','Panturrilha'], c:2, e:'O glúteo máximo é o maior músculo do corpo humano.'},
+ {p:'Qual músculo estica o cotovelo?', o:['Bíceps','Tríceps','Deltoide','Peitoral'], c:1, e:'O tríceps estica o cotovelo; o bíceps dobra.'},
+ {p:'O nome “quadríceps” indica quantas partes?', o:['Duas','Três','Quatro','Cinco'], c:2, e:'Quadríceps tem quatro partes, na frente da coxa.'},
+ {p:'Qual músculo é chamado de “segundo coração”?', o:['Panturrilha','Bíceps','Abdominal','Deltoide'], c:0, e:'A panturrilha ajuda o sangue das pernas a subir.'},
+ {p:'Qual músculo cobre o ombro e tem forma de triângulo?', o:['Trapézio','Deltoide','Tríceps','Glúteo'], c:1, e:'O deltoide tem esse nome por lembrar a letra grega delta.'},
+ {p:'Qual músculo forma o chamado “tanquinho”?', o:['Reto abdominal','Quadríceps','Dorsal','Peitoral'], c:0, e:'O reto abdominal tem faixas que formam o tanquinho.'},
+ {p:'Quantos ossos tem um adulto?', o:['106','206','306','406'], c:1, e:'O corpo adulto tem 206 ossos.'},
+ {p:'Qual é o maior osso do corpo?', o:['Úmero','Tíbia','Fêmur','Costela'], c:2, e:'O fêmur é o maior e mais forte osso.'},
+ {p:'Qual osso protege o cérebro?', o:['Crânio','Esterno','Pelve','Clavícula'], c:0, e:'O crânio guarda o cérebro.'},
+ {p:'Qual é o único osso que se mexe na cabeça?', o:['Mandíbula','Testa','Nariz','Occipital'], c:0, e:'A mandíbula é o único osso móvel da cabeça.'},
+ {p:'Quantos pares de costelas temos?', o:['8','10','12','14'], c:2, e:'São 12 pares de costelas.'},
+ {p:'Qual osso fica na “canela”?', o:['Fíbula','Tíbia','Fêmur','Rádio'], c:1, e:'A tíbia é o osso da canela, grosso e sustenta o peso.'},
+ {p:'O que a coluna vertebral protege?', o:['A medula espinhal','O fígado','O coração','O estômago'], c:0, e:'A medula leva os sinais do cérebro para o corpo.'},
+ {p:'Qual osso liga o ombro ao esterno?', o:['Úmero','Clavícula','Rádio','Costela'], c:1, e:'A clavícula é o osso em forma de S sobre o peito.'},
+ {p:'Qual destas partes do corpo tem mais ossos?', o:['Crânio','Mãos e pés','Coluna','Costelas'], c:1, e:'Mãos e pés juntos têm mais da metade dos ossos do corpo.'}
+];
+
+/* ===== Utilidades ===== */
+var $ = function(s){return document.querySelector(s)};
+function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+function imgUrl(n){return 'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(n)+'?width=700'}
+function pageUrl(n){return 'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(n)}
+function guardar(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function ler(k){try{return localStorage.getItem(k)}catch(e){return null}}
+
+var aba = 'orgaos';
+var DADOS = {orgaos:ORGAOS, musculos:MUSCULOS, ossos:OSSOS};
+var TITULOS = {
+  orgaos:'Toque num órgão para ver a foto, como ele é e por que é importante.',
+  musculos:'Toque num grupo muscular para ver o que ele faz no dia a dia.',
+  ossos:'O corpo adulto tem 206 ossos. Toque para conhecer os principais.'
+};
+var CLASSE = {orgaos:'', musculos:'m', ossos:'o'};
+var ROTULO = {orgaos:'Órgão', musculos:'Músculo', ossos:'Osso'};
+
+function trocarAba(a){
+  aba = a;
+  document.querySelectorAll('#abas button').forEach(function(b){b.setAttribute('aria-selected', b.dataset.aba===a ? 'true':'false')});
+  $('#buscaBox').hidden = (a==='quiz');
+  $('#busca').value='';
+  window.scrollTo(0,0);
+  if(a==='quiz') telaQuizInicio(); else telaLista();
+}
+
+function telaLista(){
+  var termo = norm($('#busca').value.trim());
+  var lista = DADOS[aba].filter(function(x){return !termo || norm(x.nome).indexOf(termo)>-1 || norm(x.sis).indexOf(termo)>-1});
+  var h = '<p class="intro">'+esc(TITULOS[aba])+'</p>';
+  if(!lista.length){ h += '<div class="vazio">Nada encontrado com esse nome.</div>'; }
+  else{
+    h += '<div class="grade">';
+    lista.forEach(function(x){
+      h += '<button class="cartao '+CLASSE[aba]+'" data-id="'+x.id+'"><span class="selo">'+esc(x.nome.charAt(0))+'</span><h3>'+esc(x.nome)+'</h3><small>'+esc(x.sis)+'</small></button>';
+    });
+    h += '</div>';
+  }
+  $('#tela').innerHTML = h;
+  rodape(true);
+}
+
+function rodape(mostra){
+  $('#rodape').innerHTML = mostra ? 'Conteúdo educativo, em linguagem simples. Não substitui consulta com profissional de saúde. Imagens do <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, com crédito em cada página.' : '';
+}
+
+function abrirDetalhe(id){
+  var x = DADOS[aba].filter(function(i){return i.id===id})[0];
+  if(!x) return;
+  var h = '<span class="etiqueta">'+ROTULO[aba]+' &middot; '+esc(x.sis)+'</span><h2>'+esc(x.nome)+'</h2>';
+  h += '<figure class="figura"><div class="moldura" id="moldura"></div><figcaption>'+esc(CRED[x.cred])+' <a href="'+pageUrl(x.img)+'" target="_blank" rel="noopener">Ver autor e licença</a></figcaption></figure>';
+  h += '<div class="bloco"><h4>O que é</h4><p>'+esc(x.oque)+'</p></div>';
+  h += '<div class="bloco"><h4>Por que é importante</h4><p>'+esc(x.imp)+'</p></div>';
+  h += '<div class="bloco"><h4>Características</h4><ul>'+x.car.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul></div>';
+  h += '<div class="bloco curio"><h4>Curiosidade</h4><p>'+esc(x.cur)+'</p></div>';
+  $('#detCorpo').innerHTML = h;
+  $('#detCat').textContent = ROTULO[aba];
+  carregarImagem(x);
+  $('#detalhe').hidden = false;
+  $('#detalhe').scrollTop = 0;
+  document.body.style.overflow='hidden';
+  try{history.pushState({d:1},'')}catch(e){}
+}
+
+function carregarImagem(x){
+  var m = $('#moldura');
+  m.innerHTML = '<span style="color:var(--suave);font-size:15px">Carregando imagem...</span>';
+  var im = new Image();
+  im.alt = 'Ilustração: '+x.nome;
+  im.referrerPolicy = 'no-referrer';
+  im.onload = function(){ m.innerHTML=''; m.appendChild(im); };
+  im.onerror = function(){
+    m.innerHTML = '<div class="falha">Não foi possível carregar a imagem agora. Ela aparece quando o celular está com internet.<br><button id="tentar">Tentar de novo</button></div>';
+    $('#tentar').onclick = function(){ carregarImagem(x); };
+  };
+  im.src = imgUrl(x.img);
+}
+
+function fecharDetalhe(voltarHist){
+  $('#detalhe').hidden = true;
+  document.body.style.overflow='';
+}
+
+/* ===== Quiz ===== */
+var Q = {lista:[], i:0, acertos:0, travado:false};
+
+function melhor(){ return parseInt(ler('corpo_melhor')||'0',10) }
+
+function telaQuizInicio(){
+  var m = melhor();
+  var h = '<div class="quiz-caixa"><h2>Quiz do Corpo</h2><p>10 perguntas sobre órgãos, músculos e ossos. Cada resposta traz uma explicação curta.</p>';
+  h += '<div class="placar"><div><b>'+m+' / 10</b>Seu melhor</div><div><b>'+QUIZ.length+'</b>Perguntas no total</div></div>';
+  h += '<button class="btn amarelo" id="jogar">Começar o quiz</button></div>';
+  $('#tela').innerHTML = h;
+  rodape(false);
+  $('#jogar').onclick = quizComecar;
+}
+
+function embaralhar(a){
+  a = a.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}
+  return a;
+}
+
+function quizComecar(){
+  Q.lista = embaralhar(QUIZ).slice(0,10).map(function(q){
+    var idx = embaralhar(q.o.map(function(_,k){return k}));
+    return {p:q.p, o:idx.map(function(k){return q.o[k]}), c:idx.indexOf(q.c), e:q.e};
+  });
+  Q.i=0; Q.acertos=0; Q.travado=false;
+  quizPergunta();
+}
+
+function quizPergunta(){
+  var q = Q.lista[Q.i];
+  var h = '<div class="quiz-caixa"><div style="font-size:14px;color:var(--suave);font-weight:700">Pergunta '+(Q.i+1)+' de '+Q.lista.length+' &middot; Acertos: '+Q.acertos+'</div>';
+  h += '<div class="progresso"><i style="width:'+(Q.i/Q.lista.length*100)+'%"></i></div>';
+  h += '<div class="pergunta">'+esc(q.p)+'</div>';
+  q.o.forEach(function(t,k){ h += '<button class="opcao" data-k="'+k+'">'+esc(t)+'</button>'; });
+  h += '<div id="retorno"></div><div id="proximo"></div></div>';
+  $('#tela').innerHTML = h;
+  window.scrollTo(0,0);
+  Q.travado=false;
+}
+
+function quizResponder(k){
+  if(Q.travado) return;
+  Q.travado=true;
+  var q = Q.lista[Q.i];
+  var ok = (k===q.c);
+  if(ok) Q.acertos++;
+  document.querySelectorAll('.opcao').forEach(function(b){
+    var kk = parseInt(b.dataset.k,10);
+    b.disabled = true;
+    if(kk===q.c) b.classList.add('certa');
+    else if(kk===k) b.classList.add('errada');
+  });
+  $('#retorno').innerHTML = '<div class="retorno '+(ok?'ok':'no')+'"><b>'+(ok?'Acertou!':'Não foi dessa vez.')+'</b> '+esc(q.e)+'</div>';
+  var ultimo = (Q.i===Q.lista.length-1);
+  $('#proximo').innerHTML = '<button class="btn" id="prox">'+(ultimo?'Ver resultado':'Próxima pergunta')+'</button>';
+  $('#prox').onclick = function(){ if(ultimo) quizFim(); else {Q.i++; quizPergunta();} };
+}
+
+function quizFim(){
+  var n = Q.acertos, total = Q.lista.length;
+  var novo = n>melhor();
+  if(novo) guardar('corpo_melhor', String(n));
+  var msg = n>=9 ? 'Excelente! Você conhece bem o corpo humano.' : n>=7 ? 'Muito bom! Falta pouco para gabaritar.' : n>=5 ? 'Bom começo. Veja as fichas e tente de novo.' : 'Vale rever as fichas e jogar outra vez. Você chega lá!';
+  var h = '<div class="quiz-caixa"><h2>Resultado</h2><div class="nota-final">'+n+' / '+total+'</div><p>'+msg+'</p>';
+  if(novo) h += '<div class="retorno ok"><b>Novo recorde!</b> Seu melhor agora é '+n+'.</div>';
+  h += '<button class="btn amarelo" id="denovo">Jogar de novo</button><button class="btn sec" id="fichas">Voltar às fichas</button></div>';
+  $('#tela').innerHTML = h;
+  window.scrollTo(0,0);
+  $('#denovo').onclick = quizComecar;
+  $('#fichas').onclick = function(){ trocarAba('orgaos') };
+}
+
+/* ===== Eventos ===== */
+document.addEventListener('click', function(e){
+  var c = e.target.closest('.cartao');
+  if(c){ abrirDetalhe(c.dataset.id); return; }
+  var o = e.target.closest('.opcao');
+  if(o){ quizResponder(parseInt(o.dataset.k,10)); }
+});
+$('#abas').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  if(!$('#detalhe').hidden) fecharDetalhe();
+  trocarAba(b.dataset.aba);
+});
+$('#voltar').addEventListener('click', function(){
+  if(history.state && history.state.d){ history.back(); } else { fecharDetalhe(); }
+});
+window.addEventListener('popstate', function(){ if(!$('#detalhe').hidden) fecharDetalhe(); });
+$('#busca').addEventListener('input', telaLista);
+
+/* Arrasto lateral entre abas */
+(function(){
+  var ordem = ['orgaos','musculos','ossos','quiz'];
+  var x0=0,y0=0,ativo=false;
+  document.addEventListener('touchstart', function(e){
+    if(!$('#detalhe').hidden || e.touches.length!==1) {ativo=false;return}
+    x0=e.touches[0].clientX; y0=e.touches[0].clientY; ativo=true;
+  },{passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!ativo) return; ativo=false;
+    var t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0;
+    if(Math.abs(dx)<60 || Math.abs(dx)<Math.abs(dy)*2) return;
+    var i = ordem.indexOf(aba) + (dx<0?1:-1);
+    if(i>=0 && i<ordem.length) trocarAba(ordem[i]);
+  },{passive:true});
+})();
+
+/* ===== Instalar como app ===== */
+var promptInstalar=null;
+var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault(); promptInstalar=e;
+  if(!standalone) $('#btnInstalar').hidden=false;
+});
+$('#btnInstalar').addEventListener('click', function(){
+  if(promptInstalar){ promptInstalar.prompt(); promptInstalar.userChoice.finally(function(){promptInstalar=null;$('#btnInstalar').hidden=true}); }
+});
+window.addEventListener('appinstalled', function(){ $('#btnInstalar').hidden=true; });
+if(!standalone){
+  setTimeout(function(){
+    if(!promptInstalar && !$('#dicaInstalar') && aba==='orgaos' && !ler('corpo_dica')){
+      var d=document.createElement('div'); d.className='instala-dica'; d.id='dicaInstalar';
+      d.innerHTML='Para ter o app no celular: toque nos três pontinhos do Chrome e depois em <b>Instalar app</b>. <button id="fechaDica" style="border:0;background:none;color:var(--marrom);font-weight:700">Entendi</button>';
+      var t=$('#tela'); t.insertBefore(d,t.firstChild);
+      $('#fechaDica').onclick=function(){d.remove();guardar('corpo_dica','1')};
+    }
+  },1500);
+}
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}
+
+trocarAba('orgaos');
+</script>
+</body>
+</html>
