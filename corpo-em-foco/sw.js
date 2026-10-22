@@ -1,6 +1,6 @@
-const CACHE = 'corpo-v1';
+const CACHE = 'corpo-v3';
 const IMGS = 'corpo-img-v1';
-const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
+const FILES = ['./', './index.html', './art.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
@@ -34,7 +34,7 @@ self.addEventListener('fetch', e => {
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
-        .then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', copy)); return res; })
+        .then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', './art.js', copy)); return res; })
         .catch(() => caches.match('./index.html').then(r => r || caches.match('./')))
     );
     return;

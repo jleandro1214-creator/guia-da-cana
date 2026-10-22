@@ -41,11 +41,13 @@ main{padding:16px 16px 8px;max-width:760px;margin:0 auto}
 .intro{background:var(--amarelo-claro);border:1px solid #ecd98a;border-radius:14px;padding:12px 14px;margin:0 0 14px;font-size:16px;color:#4a3a12}
 .grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media(min-width:560px){.grade{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.cartao{background:var(--branco);border:1px solid var(--linha);border-radius:16px;padding:14px 12px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:128px;cursor:pointer}
+.cartao{background:var(--branco);border:1px solid var(--linha);border-radius:16px;padding:14px 12px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:170px;cursor:pointer}
 .cartao:active{transform:scale(.98)}
 .selo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;background:var(--verde-2)}
-.cartao.m .selo{background:var(--marrom)}
-.cartao.o .selo{background:#b8891a;color:#fff}
+.thumb{height:104px;border-radius:10px;background:#fff;border:1px solid var(--linha);display:grid;place-items:center;padding:4px;overflow:hidden}
+.thumb svg{width:100%;height:100%;display:block}
+.figura svg{display:block;width:100%;max-width:520px;height:auto;max-height:440px;margin:0 auto}
+.hl2{stroke:#c98d00}
 .cartao h3{margin:2px 0 0;font-size:18px;line-height:1.2}
 .cartao small{color:var(--suave);font-size:14px;line-height:1.3}
 .vazio{text-align:center;color:var(--suave);padding:30px 10px}
@@ -143,6 +145,7 @@ nav.abas button[aria-selected="true"]{background:var(--verde-claro);color:var(--
   </button>
 </nav>
 
+<script src="art.js"></script>
 <script>
 /* ===== Créditos das imagens (Wikimedia Commons) ===== */
 var CRED = {
@@ -358,7 +361,7 @@ function ler(k){try{return localStorage.getItem(k)}catch(e){return null}}
 var aba = 'orgaos';
 var DADOS = {orgaos:ORGAOS, musculos:MUSCULOS, ossos:OSSOS};
 var TITULOS = {
-  orgaos:'Toque num órgão para ver a foto, como ele é e por que é importante.',
+  orgaos:'Toque num órgão para ver a ilustração, como ele é e por que é importante.',
   musculos:'Toque num grupo muscular para ver o que ele faz no dia a dia.',
   ossos:'O corpo adulto tem 206 ossos. Toque para conhecer os principais.'
 };
@@ -382,7 +385,7 @@ function telaLista(){
   else{
     h += '<div class="grade">';
     lista.forEach(function(x){
-      h += '<button class="cartao '+CLASSE[aba]+'" data-id="'+x.id+'"><span class="selo">'+esc(x.nome.charAt(0))+'</span><h3>'+esc(x.nome)+'</h3><small>'+esc(x.sis)+'</small></button>';
+      h += '<button class="cartao '+CLASSE[aba]+'" data-id="'+x.id+'"><span class="thumb">'+ART.thumb(x.id)+'</span><h3>'+esc(x.nome)+'</h3><small>'+esc(x.sis)+'</small></button>';
     });
     h += '</div>';
   }
@@ -391,39 +394,24 @@ function telaLista(){
 }
 
 function rodape(mostra){
-  $('#rodape').innerHTML = mostra ? 'Conteúdo educativo, em linguagem simples. Não substitui consulta com profissional de saúde. Imagens do <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, com crédito em cada página.' : '';
+  $('#rodape').innerHTML = mostra ? 'Conteúdo educativo, em linguagem simples. Não substitui consulta com profissional de saúde. Ilustrações esquemáticas, com nomes em português.' : '';
 }
 
 function abrirDetalhe(id){
   var x = DADOS[aba].filter(function(i){return i.id===id})[0];
   if(!x) return;
   var h = '<span class="etiqueta">'+ROTULO[aba]+' &middot; '+esc(x.sis)+'</span><h2>'+esc(x.nome)+'</h2>';
-  h += '<figure class="figura"><div class="moldura" id="moldura"></div><figcaption>'+esc(CRED[x.cred])+' <a href="'+pageUrl(x.img)+'" target="_blank" rel="noopener">Ver autor e licença</a></figcaption></figure>';
+  h += '<figure class="figura"><div class="moldura">'+ART.full(x.id)+'</div><figcaption>Ilustração esquemática feita para o app, com os nomes em português. <a href="https://commons.wikimedia.org/w/index.php?search='+encodeURIComponent(x.nome)+'&ns6=1" target="_blank" rel="noopener">Ver mais imagens no Wikimedia Commons</a> (as legendas de lá podem estar em outros idiomas).</figcaption></figure>';
   h += '<div class="bloco"><h4>O que é</h4><p>'+esc(x.oque)+'</p></div>';
   h += '<div class="bloco"><h4>Por que é importante</h4><p>'+esc(x.imp)+'</p></div>';
   h += '<div class="bloco"><h4>Características</h4><ul>'+x.car.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul></div>';
   h += '<div class="bloco curio"><h4>Curiosidade</h4><p>'+esc(x.cur)+'</p></div>';
   $('#detCorpo').innerHTML = h;
   $('#detCat').textContent = ROTULO[aba];
-  carregarImagem(x);
   $('#detalhe').hidden = false;
   $('#detalhe').scrollTop = 0;
   document.body.style.overflow='hidden';
   try{history.pushState({d:1},'')}catch(e){}
-}
-
-function carregarImagem(x){
-  var m = $('#moldura');
-  m.innerHTML = '<span style="color:var(--suave);font-size:15px">Carregando imagem...</span>';
-  var im = new Image();
-  im.alt = 'Ilustração: '+x.nome;
-  im.referrerPolicy = 'no-referrer';
-  im.onload = function(){ m.innerHTML=''; m.appendChild(im); };
-  im.onerror = function(){
-    m.innerHTML = '<div class="falha">Não foi possível carregar a imagem agora. Ela aparece quando o celular está com internet.<br><button id="tentar">Tentar de novo</button></div>';
-    $('#tentar').onclick = function(){ carregarImagem(x); };
-  };
-  im.src = imgUrl(x.img);
 }
 
 function fecharDetalhe(voltarHist){
