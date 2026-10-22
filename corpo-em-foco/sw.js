@@ -1,6 +1,6 @@
-const CACHE = 'corpo-v6';
+const CACHE = 'corpo-v7';
 const IMGS = 'corpo-img-v1';
-const FILES = ['./', './index.html', './art.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'].concat(["./img/antebraco.jpg", "./img/baco.jpg", "./img/bexiga.jpg", "./img/cerebro.jpg", "./img/clavicula.jpg", "./img/coracao.jpg", "./img/deltoide.jpg", "./img/estomago.jpg", "./img/femur.jpg", "./img/figado.jpg", "./img/intestinos.jpg", "./img/maospes.jpg", "./img/pancreas.jpg", "./img/peitoral.jpg", "./img/pele.jpg", "./img/pelve.jpg", "./img/pulmoes.jpg", "./img/rins.jpg", "./img/tibia.jpg", "./img/umero.jpg"]);
+const FILES = ['./', './index.html', './art.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'].concat(["./img/antebraco.jpg", "./img/baco.jpg", "./img/bexiga.jpg", "./img/biceps.jpg", "./img/cerebro.jpg", "./img/clavicula.jpg", "./img/coracao.jpg", "./img/deltoide.jpg", "./img/estomago.jpg", "./img/femur.jpg", "./img/figado.jpg", "./img/intestinos.jpg", "./img/maospes.jpg", "./img/pancreas.jpg", "./img/peitoral.jpg", "./img/pele.jpg", "./img/pelve.jpg", "./img/pulmoes.jpg", "./img/rins.jpg", "./img/tibia.jpg", "./img/umero.jpg"]);
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
