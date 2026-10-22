@@ -413,3 +413,22 @@ banana:{p:"3ª folha a partir do ápice, faixa central do limbo",v:"N 27–36|P 
 tomate:{p:"Folha com pecíolo, 4ª a partir do ápice, no florescimento",v:"N 40–60|P 4–8|K 30–50|Ca 14–40|Mg 4–8|S 3–10|B 30–100|Cu 5–15|Fe 100–300|Mn 50–250|Zn 30–100"},
 eucalipto:{p:"Folhas recém-maduras do terço superior da copa",v:"N 13,5–18|P 0,9–1,3|K 9–13|Ca 6–10|Mg 3,5–5|S 1,5–2|B 30–50|Cu 7–10|Fe 150–200|Mn 400–600|Zn 35–50"}
 };
+
+/* Fotos das culturas: arquivos do Wikimedia Commons (licenças livres) */
+const FOTOS = {
+cana:"Canaviais_Sao_Paulo_01_2008_06.jpg", soja:"Plantação_de_soja.jpg", milho:"Corn_field.jpg",
+feijao:"Feijão_Irrigado_Cerrado_Minas_Gerais_-_panoramio.jpg", arroz:"Paddy_field,_Vietnam.jpg", trigo:"Wheat_field.jpg",
+sorgo:"Jowar_field.jpg", amendoim:"Peanut_9417.jpg", girassol:"Sunflower_Field.jpg",
+algodao:"Cotton_boll_nearly_ready_for_harvest.jpg", cafe:"Coffee_cherries_of_varying_ripeness,_on_a_tree_in_Colombia_(by_Brian_Smith).jpg",
+cacau:"Cacao-pod-k4636-14.jpg", mandioca:"Cassava_Plant.jpg", fumo:"Patch_of_Tobacco_(Nicotiana_tabacum_)_in_a_field_in_Intercourse,_Pennsylvania..jpg",
+seringueira:"Tapped_rubber_tree.jpg", dende:"Oil_Palm_Fruit_Bunch.jpg", coco:"Coconut_palms,_Goa.jpg",
+citros:"Orange_tree_in_Azureva_Roquebrune_fruits.jpg", banana:"Banana_bunch_growing_in_a_banana_tree_plantation_on_Tenerife,_Spain_(48225283136).jpg",
+uva:"Pinot_gris_grape_clusters.jpg", manga:"Mango_tree.jpg", mamao:"Carica_papaya_005.JPG", abacaxi:"Pineapple.plantation.jpg",
+maca:"Tree_with_red_apples_in_Barkedal_4.jpg", melancia:"Karpuz_tarlası_-_Watermelon_field_01.jpg", maracuja:"Passionfruit_and_cross_section.jpg",
+acai:"Açaí.jpg", tomate:"Tomato_Plants_89.jpg", batata:"Färskpotatis.jpg", cebola:"Onion_field.JPG", alho:"Garlic_bulbs_and_cloves.jpg",
+alface:"Caoba_Farms_Antigua_Guatemala_-_lettuce_field.jpg", cenoura:"Bunches_of_carrots.jpg",
+brassicas:"A_field_of_cabbages_-_geograph.org.uk_-_4749475.jpg", pimentao:"Green-Yellow-Red-Pepper-2009.jpg",
+eucalipto:"Eucalyptus_grandis_in_Brazil.jpg", pinus:"Pinus_taeda_plantation.jpg", pastagem:"Gado_de_corte_no_pasto.JPG"
+};
+function fotoUrl(id){ const f = FOTOS[id]; return f ? "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(f) + "?width=480" : ""; }
+function fotoPagina(id){ const f = FOTOS[id]; return f ? "https://commons.wikimedia.org/wiki/File:" + encodeURIComponent(f) : ""; }

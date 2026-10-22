@@ -6,6 +6,7 @@
 <title>Tabela Periódica do Campo</title>
 <meta name="description" content="Tabela periódica para produtores rurais e gestores agrícolas: nutrientes cruciais por cultura, funções, sintomas e fontes.">
 <meta name="theme-color" content="#134a24">
+<meta name="color-scheme" content="light dark">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -62,13 +63,19 @@ button{cursor:pointer}
 /* Cultura */
 .bloco{padding-block:16px 4px}
 .rotulo{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
-.btn-cultura{width:100%;display:flex;align-items:center;gap:12px;background:var(--surface);border:2px solid var(--verde);border-radius:14px;padding:12px 14px;text-align:left}
-.btn-cultura .nome{flex:1;font-family:var(--font-disp);font-size:28px;font-weight:700;line-height:1.1;color:var(--verde)}
-.btn-cultura .trocar{font-size:15px;font-weight:600;color:var(--marrom);white-space:nowrap}
+.btn-cultura{position:relative;width:100%;min-height:132px;display:flex;align-items:flex-end;gap:12px;border:0;border-radius:16px;padding:14px 16px;text-align:left;overflow:hidden;background:var(--verde-esc) center/cover no-repeat;color:#fff;isolation:isolate}
+.btn-cultura::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,25,12,.05) 20%,rgba(10,25,12,.78) 100%)}
+.btn-cultura .nome{flex:1;font-family:var(--font-disp);font-size:32px;font-weight:700;line-height:1.05;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.55);text-wrap:balance}
+.btn-cultura .trocar{font-size:15px;font-weight:700;color:#3e2714;background:#f2c230;border-radius:999px;padding:7px 12px;white-space:nowrap}
+.foto-cred{font-size:12px;color:var(--muted);margin:6px 2px 0}
+.foto-cred a{color:inherit}
 .atalhos{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
 .atalhos::-webkit-scrollbar{display:none}
-.chip-cult{flex:none;border:1.5px solid var(--linha);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:600;font-size:15px}
-.chip-cult[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:var(--on-verde)}
+.chip-cult{position:relative;flex:none;width:112px;height:84px;border:3px solid transparent;border-radius:14px;padding:0 8px 7px;display:flex;align-items:flex-end;overflow:hidden;background:var(--verde-esc) center/cover no-repeat;color:#fff;font-weight:700;font-size:15px;line-height:1.15;text-align:left;isolation:isolate}
+.chip-cult::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,25,12,0) 30%,rgba(10,25,12,.82) 100%)}
+.chip-cult span{text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.chip-cult[aria-pressed="true"]{border-color:#f2c230;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.chip-cult[aria-pressed="true"]::after{content:"✓";position:absolute;top:5px;right:6px;width:24px;height:24px;border-radius:50%;background:#f2c230;color:#3e2714;display:grid;place-items:center;font-size:14px}
 
 /* Resumo */
 .resumo{background:var(--surface);border:1px solid var(--linha);border-radius:14px;padding:14px;display:grid;gap:12px}
@@ -188,8 +195,10 @@ button{cursor:pointer}
 /* Lista de culturas */
 .grupo-cult h4{margin:16px 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .lista-cult{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
-.lista-cult button{border:1.5px solid var(--linha);background:var(--surface);border-radius:12px;padding:12px;text-align:left;font-weight:600;font-size:16px;min-height:52px}
-.lista-cult button[aria-pressed="true"]{background:var(--verde);color:var(--on-verde);border-color:var(--verde)}
+.lista-cult button{position:relative;border:3px solid transparent;border-radius:14px;padding:0 10px 9px;text-align:left;font-weight:700;font-size:16px;line-height:1.15;height:104px;display:flex;align-items:flex-end;overflow:hidden;background:var(--verde-esc) center/cover no-repeat;color:#fff;isolation:isolate}
+.lista-cult button::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,25,12,0) 30%,rgba(10,25,12,.82) 100%)}
+.lista-cult button span{text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.lista-cult button[aria-pressed="true"]{border-color:#f2c230}
 
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;z-index:40;max-width:90vw}
 @media (max-width:420px){.topo h1{font-size:21px}.topo p{font-size:13px}.btn-inst{padding:8px 11px;font-size:14px}.linha-res{grid-template-columns:1fr}.linha-res .tag{padding-top:0}}
@@ -214,6 +223,7 @@ button{cursor:pointer}
       <span class="nome" id="nomeCultura">Cana-de-açúcar</span>
       <span class="trocar">Trocar ▾</span>
     </button>
+    <p class="foto-cred" id="fotoCred"></p>
     <div class="atalhos" id="atalhos" aria-label="Culturas mais usadas"></div>
   </section>
 
@@ -251,7 +261,7 @@ button{cursor:pointer}
       <span><i style="background:var(--alerta-claro);box-shadow:inset 0 0 0 2px var(--alerta)"></i>Atenção / tóxico</span>
       <span><i style="background:var(--apagado)"></i>Sem função agrícola</span>
     </div>
-    <p class="rodape">Referências: Boletim 100 (IAC), Embrapa, Malavolta e Marschner. As faixas foliares são de referência; a recomendação de adubação deve seguir a análise de solo e de folha e o técnico responsável.</p>
+    <p class="rodape">Referências: Boletim 100 (IAC), Embrapa, Malavolta e Marschner. As faixas foliares são de referência. Fotos das culturas: Wikimedia Commons, de autores diversos, com licenças livres; a recomendação de adubação deve seguir a análise de solo e de folha e o técnico responsável.</p>
   </section>
 </main>
 
@@ -369,11 +379,14 @@ function montarResumo(){
   h += `<p class="nota"><b>Dica de campo:</b> ${c.nota}</p>`;
   $("#resumo").innerHTML = h;
   $("#nomeCultura").textContent = c.n;
+  $("#btnCultura").style.backgroundImage = fundoFoto(c.id);
+  $("#fotoCred").innerHTML = FOTOS[c.id] ? `Foto: <a href="${fotoPagina(c.id)}" target="_blank" rel="noopener">Wikimedia Commons</a>` : "";
   montarAtalhos();
 }
+function fundoFoto(id){ const u = fotoUrl(id); return u ? `url("${u}")` : "none"; }
 function montarAtalhos(){
   const ids = ATALHOS.includes(cult.id) ? ATALHOS : [cult.id, ...ATALHOS];
-  $("#atalhos").innerHTML = ids.map(id=>`<button class="chip-cult" data-c="${id}" aria-pressed="${id===cult.id}">${porCult[id].n.split(" (")[0]}</button>`).join("");
+  $("#atalhos").innerHTML = ids.map(id=>`<button class="chip-cult" data-c="${id}" aria-pressed="${id===cult.id}" style="background-image:${fundoFoto(id)}"><span>${porCult[id].n.split(" (")[0]}</span></button>`).join("");
 }
 function trocarCultura(id){
   cult = porCult[id] || cult; guardar("cultura", cult.id);
@@ -386,7 +399,7 @@ function montarListaCult(){
   GRUPOS.forEach((g,gi)=>{
     const cs = CULTURAS.filter(c=>c.g===gi && (!q || norm(c.n).includes(q)));
     if (!cs.length) return;
-    h += `<div class="grupo-cult"><h4>${g}</h4><div class="lista-cult">${cs.map(c=>`<button data-c="${c.id}" aria-pressed="${c.id===cult.id}">${c.n}</button>`).join("")}</div></div>`;
+    h += `<div class="grupo-cult"><h4>${g}</h4><div class="lista-cult">${cs.map(c=>`<button data-c="${c.id}" aria-pressed="${c.id===cult.id}" style="background-image:${fundoFoto(c.id)}"><span>${c.n}</span></button>`).join("")}</div></div>`;
   });
   $("#gruposCult").innerHTML = h || `<p class="dica" style="margin-top:14px">Nenhuma cultura com esse nome.</p>`;
 }
@@ -498,7 +511,7 @@ document.querySelectorAll("[data-fechar]").forEach(b=>b.addEventListener("click"
 /* Eventos */
 grade.addEventListener("click", ev=>{ const b = ev.target.closest(".cel[data-s]"); if (b) abrirFicha(b.dataset.s); });
 $("#resumo").addEventListener("click", ev=>{ const b = ev.target.closest("[data-s]"); if (b) abrirFicha(b.dataset.s); });
-$("#atalhos").addEventListener("click", ev=>{ const b = ev.target.closest("[data-c]"); if (b){ trocarCultura(b.dataset.c); aviso("Cultura: "+cult.n); } });
+$("#atalhos").addEventListener("click", ev=>{ const b = ev.target.closest("[data-c]"); if (b){ trocarCultura(b.dataset.c); aviso("Cultura: "+cult.n); const nb=$(`#atalhos [data-c="${cult.id}"]`); nb && nb.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"}); } });
 $("#btnCultura").addEventListener("click", ()=>{ $("#buscaCult").value=""; montarListaCult(); mostrar("#listaCult"); });
 $("#buscaCult").addEventListener("input", montarListaCult);
 $("#gruposCult").addEventListener("click", ev=>{ const b = ev.target.closest("[data-c]"); if (b){ trocarCultura(b.dataset.c); fechar(); aviso("Cultura: "+cult.n); } });
