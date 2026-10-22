@@ -1,4 +1,4 @@
-const CACHE="rotulo-claro-v1";
+const CACHE="rotulo-claro-v1-s1";
 const LOCAIS=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon-maskable-512.png","./apple-touch-icon.png"];
 const CDN=["https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(async c=>{await c.addAll(LOCAIS);for(const u of CDN){try{await c.add(new Request(u,{mode:"cors"}))}catch(_){}}}).then(()=>self.skipWaiting()))});

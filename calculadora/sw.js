@@ -1,5 +1,5 @@
 /* Calculadora da Cana — funciona sem internet */
-const CACHE="calculadora-v5";
+const CACHE="calculadora-v5-s1";
 const FILES=["./","index.html","app.js","calcs.js","referencias.js","fazendas.js","manifest.webmanifest","icone2-192.png","icone2-512.png","icone2-maskable-512.png","icone2-apple.png"];
 self.addEventListener("install",e=>{ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())); });
 self.addEventListener("activate",e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith("calculadora-")&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())); });

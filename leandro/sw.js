@@ -1,4 +1,4 @@
-const CACHE = "leandro-apps-v1";
+const CACHE = "leandro-apps-v1-s1";
 const FILES = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png",
   "../epi-demo/icon-192.png", "../nutri-cana/icon-192.png", "../role-dividido/icon-192.png", "../dia-leve/icon-192.png", "../casa-em-ordem/icon-192.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });

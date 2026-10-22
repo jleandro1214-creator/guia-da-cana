@@ -1,4 +1,4 @@
-const CACHE = "tabela-campo-v4";
+const CACHE = "tabela-campo-v4-s1";
 const FILES = ["./", "index.html", "dados.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png"];
 importScripts("dados.js");
 async function guardarFotos(){

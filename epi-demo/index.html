@@ -160,7 +160,7 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 .demo-acts a,.demo-acts button{all:unset;cursor:pointer;font-weight:600;color:var(--accent);text-decoration:underline;min-height:32px;display:inline-flex;align-items:center}
 .demo-acts a:focus-visible,.demo-acts button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
-</head><body>
+</head><body><style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1d1f22;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style><div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>EPI Demo</b></div><script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,700-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
 
 <div class="gate" id="gate">
   <form class="box" id="f-gate" autocomplete="off">
