@@ -45,7 +45,7 @@ main{padding:16px 16px 8px;max-width:760px;margin:0 auto}
 .cartao:active{transform:scale(.98)}
 .selo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;background:var(--verde-2)}
 .thumb{height:104px;border-radius:10px;background:#fff;border:1px solid var(--linha);display:grid;place-items:center;padding:4px;overflow:hidden}
-.thumb svg{width:100%;height:100%;display:block}
+.thumb svg,.thumb img{width:100%;height:100%;display:block;object-fit:contain}
 .figura svg{display:block;width:100%;max-width:520px;height:auto;max-height:440px;margin:0 auto}
 .hl2{stroke:#c98d00}
 .cartao h3{margin:2px 0 0;font-size:18px;line-height:1.2}
@@ -377,6 +377,11 @@ function trocarAba(a){
   if(a==='quiz') telaQuizInicio(); else telaLista();
 }
 
+var IMG = ["baco", "bexiga", "cerebro", "deltoide", "estomago", "figado", "intestinos", "maospes", "pancreas", "peitoral", "pele", "pulmoes", "rins", "tibia", "umero"];
+function temImg(id){return IMG.indexOf(id)>-1}
+function miniatura(id){return temImg(id) ? '<img src="img/'+id+'.jpg" alt="" loading="lazy">' : ART.thumb(id)}
+function figuraGrande(x){return temImg(x.id) ? '<img src="img/'+x.id+'.jpg" alt="Ilustração: '+esc(x.nome)+'">' : ART.full(x.id)}
+
 function telaLista(){
   var termo = norm($('#busca').value.trim());
   var lista = DADOS[aba].filter(function(x){return !termo || norm(x.nome).indexOf(termo)>-1 || norm(x.sis).indexOf(termo)>-1});
@@ -385,7 +390,7 @@ function telaLista(){
   else{
     h += '<div class="grade">';
     lista.forEach(function(x){
-      h += '<button class="cartao '+CLASSE[aba]+'" data-id="'+x.id+'"><span class="thumb">'+ART.thumb(x.id)+'</span><h3>'+esc(x.nome)+'</h3><small>'+esc(x.sis)+'</small></button>';
+      h += '<button class="cartao '+CLASSE[aba]+'" data-id="'+x.id+'"><span class="thumb">'+miniatura(x.id)+'</span><h3>'+esc(x.nome)+'</h3><small>'+esc(x.sis)+'</small></button>';
     });
     h += '</div>';
   }
@@ -401,7 +406,7 @@ function abrirDetalhe(id){
   var x = DADOS[aba].filter(function(i){return i.id===id})[0];
   if(!x) return;
   var h = '<span class="etiqueta">'+ROTULO[aba]+' &middot; '+esc(x.sis)+'</span><h2>'+esc(x.nome)+'</h2>';
-  h += '<figure class="figura"><div class="moldura">'+ART.full(x.id)+'</div><figcaption>Ilustração esquemática feita para o app, com os nomes em português. <a href="https://commons.wikimedia.org/w/index.php?search='+encodeURIComponent(x.nome)+'&ns6=1" target="_blank" rel="noopener">Ver mais imagens no Wikimedia Commons</a> (as legendas de lá podem estar em outros idiomas).</figcaption></figure>';
+  h += '<figure class="figura"><div class="moldura">'+figuraGrande(x)+'</div><figcaption>Ilustração com os nomes em português. <a href="https://commons.wikimedia.org/w/index.php?search='+encodeURIComponent(x.nome)+'&ns6=1" target="_blank" rel="noopener">Ver mais imagens no Wikimedia Commons</a> (as legendas de lá podem estar em outros idiomas).</figcaption></figure>';
   h += '<div class="bloco"><h4>O que é</h4><p>'+esc(x.oque)+'</p></div>';
   h += '<div class="bloco"><h4>Por que é importante</h4><p>'+esc(x.imp)+'</p></div>';
   h += '<div class="bloco"><h4>Características</h4><ul>'+x.car.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul></div>';

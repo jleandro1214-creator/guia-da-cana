@@ -1,6 +1,6 @@
-const CACHE = 'corpo-v3';
+const CACHE = 'corpo-v4';
 const IMGS = 'corpo-img-v1';
-const FILES = ['./', './index.html', './art.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
+const FILES = ['./', './index.html', './art.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'].concat(["./img/baco.jpg", "./img/bexiga.jpg", "./img/cerebro.jpg", "./img/deltoide.jpg", "./img/estomago.jpg", "./img/figado.jpg", "./img/intestinos.jpg", "./img/maospes.jpg", "./img/pancreas.jpg", "./img/peitoral.jpg", "./img/pele.jpg", "./img/pulmoes.jpg", "./img/rins.jpg", "./img/tibia.jpg", "./img/umero.jpg"]);
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
@@ -34,7 +34,7 @@ self.addEventListener('fetch', e => {
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
-        .then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', './art.js', copy)); return res; })
+        .then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', copy)); return res; })
         .catch(() => caches.match('./index.html').then(r => r || caches.match('./')))
     );
     return;
