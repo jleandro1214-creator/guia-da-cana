@@ -1,0 +1,24 @@
+name: Fotos da Tabela do Campo
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["tabela-periodica/fotos/baixar.py", "tabela-periodica/fotos/pedido.txt"]
+permissions:
+  contents: write
+concurrency: fotos-tabela
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - run: python tabela-periodica/fotos/baixar.py
+      - run: |
+          git config user.name "Fotos Tabela"
+          git config user.email "fotos-tabela@users.noreply.github.com"
+          git add tabela-periodica/fotos
+          git diff --cached --quiet || (git commit -m "Fotos das culturas baixadas" && git pull --rebase -q origin main && git push)
