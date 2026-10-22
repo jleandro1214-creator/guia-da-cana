@@ -1,0 +1,230 @@
+{
+ "cana": {
+  "arquivo": "Canaviais_Sao_Paulo_01_2008_06.jpg",
+  "autor": "Mariordo",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Canaviais_Sao_Paulo_01_2008_06.jpg"
+ },
+ "soja": {
+  "arquivo": "Plantação_de_soja.jpg",
+  "autor": "Coloradogoias",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Planta%C3%A7%C3%A3o_de_soja.jpg"
+ },
+ "milho": {
+  "arquivo": "Corn_field.jpg",
+  "autor": "Hyena",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Corn_field.jpg"
+ },
+ "feijao": {
+  "arquivo": "Feijão_Irrigado_Cerrado_Minas_Gerais_-_panoramio.jpg",
+  "autor": "Tiago Firmino Boaven…",
+  "licenca": "CC BY 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Feij%C3%A3o_Irrigado_Cerrado_Minas_Gerais_-_panoramio.jpg"
+ },
+ "arroz": {
+  "arquivo": "Paddy_field,_Vietnam.jpg",
+  "autor": "Climate and Ecosystems Change Adaptation Research University Network",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Paddy_field,_Vietnam.jpg"
+ },
+ "trigo": {
+  "arquivo": "Wheat_field.jpg",
+  "autor": "",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Wheat_field.jpg"
+ },
+ "sorgo": {
+  "arquivo": "Jowar_field.jpg",
+  "autor": "Sureshpadmanabha",
+  "licenca": "CC BY-SA 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Jowar_field.jpg"
+ },
+ "amendoim": {
+  "arquivo": "Peanut_9417.jpg",
+  "autor": "Pollinator",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Peanut_9417.jpg"
+ },
+ "girassol": {
+  "arquivo": "Sunflower_Field.jpg",
+  "autor": "Ossewa",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Sunflower_Field.jpg"
+ },
+ "algodao": {
+  "arquivo": "Cotton_boll_nearly_ready_for_harvest.jpg",
+  "autor": "Michael Bass-Deschenes(Commons User Mike Bass-Deschênes)",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Cotton_boll_nearly_ready_for_harvest.jpg"
+ },
+ "cafe": {
+  "arquivo": "Coffee_cherries_of_varying_ripeness,_on_a_tree_in_Colombia_(by_Brian_Smith).jpg",
+  "autor": "U. S. Fish and Wildlife Service - Northeast Region",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Coffee_cherries_of_varying_ripeness,_on_a_tree_in_Colombia_(by_Brian_Smith).jpg"
+ },
+ "cacau": {
+  "arquivo": "Cacao-pod-k4636-14.jpg",
+  "autor": "Keith Weller, USDA ARS",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Cacao-pod-k4636-14.jpg"
+ },
+ "mandioca": {
+  "arquivo": "Cassava_Plant.jpg",
+  "autor": "CyberTroopers",
+  "licenca": "CC BY-SA 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Cassava_Plant.jpg"
+ },
+ "fumo": {
+  "arquivo": "Patch_of_Tobacco_(Nicotiana_tabacum_)_in_a_field_in_Intercourse,_Pennsylvania..jpg",
+  "autor": "Photo by and (c)2006 Derek Ramsey (Ram-Man)",
+  "licenca": "CC BY-SA 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Patch_of_Tobacco_(Nicotiana_tabacum_)_in_a_field_in_Intercourse,_Pennsylvania..jpg"
+ },
+ "seringueira": {
+  "arquivo": "Tapped_rubber_tree.jpg",
+  "autor": "Irvin calicut",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Tapped_rubber_tree.jpg"
+ },
+ "dende": {
+  "arquivo": "Oil_Palm_Fruit_Bunch.jpg",
+  "autor": "Officialbernard1",
+  "licenca": "CC BY 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Oil_Palm_Fruit_Bunch.jpg"
+ },
+ "coco": {
+  "arquivo": "Coconut_palms,_Goa.jpg",
+  "autor": "Swami Stream",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Coconut_palms,_Goa.jpg"
+ },
+ "citros": {
+  "arquivo": "Orange_tree_in_Azureva_Roquebrune_fruits.jpg",
+  "autor": "Tangopaso",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Orange_tree_in_Azureva_Roquebrune_fruits.jpg"
+ },
+ "banana": {
+  "arquivo": "Banana_bunch_growing_in_a_banana_tree_plantation_on_Tenerife,_Spain_(48225283136).jpg",
+  "autor": "dronepicr",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Banana_bunch_growing_in_a_banana_tree_plantation_on_Tenerife,_Spain_(48225283136).jpg"
+ },
+ "uva": {
+  "arquivo": "Pinot_gris_grape_clusters.jpg",
+  "autor": "Rick Obst",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Pinot_gris_grape_clusters.jpg"
+ },
+ "manga": {
+  "arquivo": "Mango_tree.jpg",
+  "autor": "",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Mango_tree.jpg"
+ },
+ "mamao": {
+  "arquivo": "Carica_papaya_005.JPG",
+  "autor": "H. Zell",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Carica_papaya_005.JPG"
+ },
+ "abacaxi": {
+  "arquivo": "Pineapple.plantation.jpg",
+  "autor": "Photo by Forest & Kim Starr",
+  "licenca": "CC BY 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Pineapple.plantation.jpg"
+ },
+ "maca": {
+  "arquivo": "Tree_with_red_apples_in_Barkedal_4.jpg",
+  "autor": "W.carter",
+  "licenca": "CC0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Tree_with_red_apples_in_Barkedal_4.jpg"
+ },
+ "melancia": {
+  "arquivo": "Karpuz_tarlası_-_Watermelon_field_01.jpg",
+  "autor": "Zeynel Cebeci",
+  "licenca": "CC BY-SA 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Karpuz_tarlas%C4%B1_-_Watermelon_field_01.jpg"
+ },
+ "maracuja": {
+  "arquivo": "Passionfruit_and_cross_section.jpg",
+  "autor": "fir0002  flagstaffotos [at] gmail.com\n\t\tCanon 20D + Sigma 150mm f/2.8",
+  "licenca": "GFDL 1.2",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Passionfruit_and_cross_section.jpg"
+ },
+ "acai": {
+  "arquivo": "Açaí.jpg",
+  "autor": "Gervásio Baptista/ABr",
+  "licenca": "CC BY 3.0 br",
+  "pagina": "https://commons.wikimedia.org/wiki/File:A%C3%A7a%C3%AD.jpg"
+ },
+ "tomate": {
+  "arquivo": "Tomato_Plants_89.jpg",
+  "autor": "Shadrack D Nantomah",
+  "licenca": "CC BY-SA 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Tomato_Plants_89.jpg"
+ },
+ "batata": {
+  "arquivo": "Färskpotatis.jpg",
+  "autor": "Eib",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:F%C3%A4rskpotatis.jpg"
+ },
+ "cebola": {
+  "arquivo": "Onion_field.JPG",
+  "autor": "",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Onion_field.JPG"
+ },
+ "alho": {
+  "arquivo": "Garlic_bulbs_and_cloves.jpg",
+  "autor": "Ivar Leidus",
+  "licenca": "CC BY-SA 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Garlic_bulbs_and_cloves.jpg"
+ },
+ "alface": {
+  "arquivo": "Caoba_Farms_Antigua_Guatemala_-_lettuce_field.jpg",
+  "autor": "Charlie Marchant",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Caoba_Farms_Antigua_Guatemala_-_lettuce_field.jpg"
+ },
+ "cenoura": {
+  "arquivo": "Bunches_of_carrots.jpg",
+  "autor": "Robert Couse-Baker",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Bunches_of_carrots.jpg"
+ },
+ "brassicas": {
+  "arquivo": "A_field_of_cabbages_-_geograph.org.uk_-_4749475.jpg",
+  "autor": "Philip Halling",
+  "licenca": "CC BY-SA 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:A_field_of_cabbages_-_geograph.org.uk_-_4749475.jpg"
+ },
+ "pimentao": {
+  "arquivo": "Green-Yellow-Red-Pepper-2009.jpg",
+  "autor": "Kham Tran - www.khamtran.com",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Green-Yellow-Red-Pepper-2009.jpg"
+ },
+ "eucalipto": {
+  "arquivo": "Eucalyptus_grandis_in_Brazil.jpg",
+  "autor": "Dt1395271",
+  "licenca": "CC BY-SA 4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Eucalyptus_grandis_in_Brazil.jpg"
+ },
+ "pinus": {
+  "arquivo": "Pinus_taeda_plantation.jpg",
+  "autor": "Soil-Science.info on Flickr (USDA Natural Resources Conservation Service)",
+  "licenca": "CC BY 2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Pinus_taeda_plantation.jpg"
+ },
+ "pastagem": {
+  "arquivo": "Gado_de_corte_no_pasto.JPG",
+  "autor": "Mateus S. Figueiredo",
+  "licenca": "CC BY-SA 3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Gado_de_corte_no_pasto.JPG"
+ }
+}
