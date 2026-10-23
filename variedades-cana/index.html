@@ -109,12 +109,27 @@ dl.kv dd{margin:1px 0 0;font-size:16.5px}
 .aviso{font-size:14px;color:var(--sub);background:#ECEAE0;border-radius:10px;padding:8px 10px;margin:10px 0}
 
 /* fotos e reconhecimento */
-.cardTop{display:flex;gap:10px;align-items:center}
-.cardTxt{flex:1;min-width:0}
-.thumb{flex:0 0 72px;width:72px;height:72px;border-radius:12px;overflow:hidden;background:#EFE6D2;border:1px solid var(--linha);display:flex;align-items:center;justify-content:center;position:relative}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.thumb.vz{flex-direction:column;color:#7A5A2B;font-size:10.5px;font-weight:700;line-height:1.1;text-align:center}
-.thumb.vz svg{width:34px;height:34px}
+.card{padding:0;overflow:hidden}
+.cardFoto{position:relative;aspect-ratio:16/9;background:#EFE6D2;border-bottom:3px solid var(--pri)}
+.cardFoto img{width:100%;height:100%;object-fit:cover;display:block}
+.cardFoto .selo{position:absolute;left:8px;bottom:8px;background:rgba(31,95,74,.92);color:#fff;font-size:12.5px;font-weight:700;border-radius:8px;padding:3px 8px}
+.cardFoto.vz{aspect-ratio:auto;height:54px;display:flex;align-items:center;justify-content:center;gap:8px;color:#7A5A2B;font-size:13.5px;font-weight:700;border-bottom:1px solid var(--linha)}
+.cardFoto.vz svg{width:26px;height:26px}
+.cardCorpo{padding:12px 14px 13px}
+.card .nome{font-size:22px;font-weight:900;color:#123F30;letter-spacing:.2px}
+.card .ob{font-size:14.5px;color:#3E4A43;font-weight:600}
+.card .info{color:#36403A;font-size:14.5px;font-weight:500}
+.card .info b{color:#111;font-weight:800}
+.card .dz{color:#36403A;font-weight:600}
+.heroF{position:relative;width:min(100%,calc(68vh*.75));aspect-ratio:3/4;margin:10px auto 0;border-radius:14px;overflow:hidden;border:1px solid var(--linha);background:#EFE6D2}
+.heroF img{width:100%;height:100%;object-fit:cover;display:block}
+.pino{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:#F2C14E;color:#2b2200;border:3px solid #fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.45);animation:pulsa 2.2s ease-in-out infinite}
+@keyframes pulsa{50%{box-shadow:0 0 0 7px rgba(242,193,78,.35),0 2px 6px rgba(0,0,0,.45)}}
+.heroF .dica{position:absolute;right:8px;top:8px;background:rgba(20,14,6,.6);color:#fff;font-size:12px;border-radius:8px;padding:3px 8px}
+.pontos{list-style:none;margin:0;padding:0}
+.pontos li{display:flex;gap:10px;align-items:flex-start;margin:8px 0;font-size:16px}
+.pontos li i{flex:0 0 26px;height:26px;border-radius:50%;background:#F2C14E;color:#2b2200;font-style:normal;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:14px}
+.pontos li b{color:#123F30}
 .galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
 .galeria button{padding:0;border:1px solid var(--linha);border-radius:12px;overflow:hidden;aspect-ratio:1;background:#EFE6D2;position:relative}
 .galeria img{width:100%;height:100%;object-fit:cover;display:block}
@@ -294,7 +309,25 @@ const FIS={
 };
 
 /* Fotos de referência: coloque arquivos em img/ e liste aqui {src,leg,cred} */
-const REF_FOTOS={};
+/* Fotos de ensaio de campo enviadas pelo usuário (plaqueta conferida em cada foto).
+   p = pinos [x%,y%,ponto] sobre a foto; o = o que se vê na foto (pontos de distinção). */
+const REF={
+ "CTC9006":{p:[[30,62,"Colmo roxo-escuro com cera esbranquiçada e entrenós curtos, bem marcados"],[68,80,"Touceira em leque: colmos abrem a partir da base"]]},
+ "CTC9003":{p:[[30,62,"Colmo verde-claro a amarelado, fino"],[25,84,"Touceira muito cheia (muitos colmos) e aberta em leque"]]},
+ "CTC2994":{p:[[30,62,"Colmo roxo-escuro, quase preto perto da base"],[30,84,"Touceira fechada, colmos eretos e juntos"]],cod:"CT022994 na plaqueta"},
+ "CTC1007":{p:[[30,62,"Colmo roxo-acinzentado com cera, fino, entrenós curtos"],[68,80,"Touceira aberta com muitos colmos finos"]],cod:"CT961007 na plaqueta"},
+ "IACSP01-5503":{p:[[30,58,"Colmo roxo-escuro, longo e reto"],[35,82,"Porte ereto, touceira alta e aberta"]]},
+ "IACSP95-5094":{p:[[30,66,"Colmo arroxeado com cera clara, entrenós curtos"],[30,84,"Touceira densa e ereta, com muita palha seca na base"]]},
+ "RB975242":{p:[[30,62,"Colmo roxo-acinzentado com cera, entrenós curtos"],[68,80,"Touceira ereta, abrindo em leque"],[45,22,"Ponteiro com folhas eretas, verde-vivas"]]},
+ "CV7870":{p:[[27,72,"Colmo de duas cores: roxo-acinzentado embaixo, verde-amarelado no terço de cima"],[68,80,"Porte ereto"]]},
+ "RB966928":{p:[[30,64,"Colmo verde-amarelado com manchas escuras"],[68,80,"Touceira levemente aberta"]]},
+ "RB975033":{p:[[30,62,"Colmo roxo-avermelhado com cera, longo e reto"],[68,80,"Porte ereto, touceira aberta"]]},
+ "RB005014":{p:[[30,62,"Colmo acinzentado-arroxeado, com muita cera (aspecto esbranquiçado)"],[68,80,"Touceira ereta e cheia"]]},
+ "RB985476":{p:[[30,64,"Colmo verde-amarelado claro, com leve tom arroxeado"],[68,80,"Touceira semiaberta, em leque"]]}
+};
+const slug=n=>n.toLowerCase();
+const REF_FOTOS={};Object.keys(REF).forEach(n=>REF_FOTOS[n]=[{src:`img/${slug(n)}.jpg`,card:`img/${slug(n)}-card.jpg`,leg:"Ensaio de campo"+(REF[n].cod?" ("+REF[n].cod+")":"")}]);
+
 
 /* ---------- Fotos do usuário (ficam neste aparelho, IndexedDB) ---------- */
 const FOTOS={}; // nome -> [{id,url,leg,t}]
@@ -312,9 +345,10 @@ function reduz(file,max=1280){return new Promise((ok,er)=>{const img=new Image()
 async function salvaFoto(nome,file,leg){const b=await reduz(file);const d=await abreDB();
  await new Promise((ok,er)=>{const tx=d.transaction("f","readwrite");tx.objectStore("f").add({v:nome,blob:b,leg,t:Date.now()});tx.oncomplete=ok;tx.onerror=()=>er(tx.error)});await carregaFotos()}
 async function apagaFoto(id){const d=await abreDB();await new Promise((ok,er)=>{const tx=d.transaction("f","readwrite");tx.objectStore("f").delete(id);tx.oncomplete=ok;tx.onerror=()=>er(tx.error)});await carregaFotos()}
-function listaFotos(nome){return [...(REF_FOTOS[nome]||[]).map(f=>({ref:1,url:f.src,leg:f.leg||"Foto de referência"+(f.cred?" – "+f.cred:"")})),...(FOTOS[nome]||[]).map(f=>({...f,ref:0}))]}
+function listaFotos(nome){return [...(REF_FOTOS[nome]||[]).map(f=>({ref:1,url:f.src,card:f.card,leg:f.leg||"Foto de referência"+(f.cred?" – "+f.cred:"")})),...(FOTOS[nome]||[]).map(f=>({...f,ref:0}))]}
 const SVG_CANA='<svg viewBox="0 0 40 40" fill="none" stroke-linecap="round"><path d="M20 38V10" stroke="#8A6A2E" stroke-width="4"/><path d="M20 16h0M20 24h0M20 32h0" stroke="#E3B934" stroke-width="5"/><path d="M20 10C14 8 9 5 6 2M20 10c6-2 11-5 14-8M20 14c-5-1-9-2-13-5" stroke="#3E8E41" stroke-width="2.4"/></svg>';
-function thumb(nome){const l=listaFotos(nome);return l.length?`<div class="thumb"><img src="${l[0].url}" alt="${esc(nome)}" loading="lazy"></div>`:`<div class="thumb vz">${SVG_CANA}<span>sem foto</span></div>`}
+function thumb(nome){const l=listaFotos(nome);if(!l.length)return`<div class="cardFoto vz">${SVG_CANA}<span>Sem foto ainda</span></div>`;
+ const f=l[0];return`<div class="cardFoto"><img src="${f.card||f.url}" alt="Touceira de ${esc(nome)}" loading="lazy">${l.length>1?`<span class="selo">📷 ${l.length} fotos</span>`:""}</div>`}
 
 const GRUPOS=[
  {id:"mat",t:"Maturação",op:["Precoce","Média","Tardia"],ok:(v,o)=>v.tmat.includes(o)},
@@ -352,12 +386,12 @@ function ordena(l){
  return c;
 }
 function cartao(v){
- return`<button class="card" data-v="${v.v}"><div class="cardTop"><div class="cardTxt"><div class="l1"><span class="nome">${v.v}</span><span class="ob">${esc(v.ob)}</span></div>
+ return`<button class="card" data-v="${v.v}">${thumb(v.v)}<div class="cardCorpo"><div class="l1"><span class="nome">${v.v}</span><span class="ob">${esc(v.ob)}</span></div>
  <div class="l1" style="margin-top:4px">${v.tmat.map(t=>`<span class="tag t-${t}">${t}</span>`).join(" ")||'<span class="tag" style="background:#999">Maturação ?</span>'}
-  <span class="aten">⚠️ ${v.atencao.length} ${v.atencao.length>1?"pontos":"ponto"} de atenção</span></div></div>${thumb(v.v)}</div>
+  <span class="aten">⚠️ ${v.atencao.length} ${v.atencao.length>1?"pontos":"ponto"} de atenção</span></div>
  ${barra(v)}${rotulo}
  <div class="info"><span>Colheita: <b>${esc(v.col)}</b></span><span>Ambiente: <b>${v.ambL?v.ambL.split("").join(", "):"—"}</b></span><span>Área SP: <b>${pct(v.area)}</b></span><span>Plantio: <b>${pct(v.plant)}</b></span></div>
- <div class="doen">${DOEN.map(([k,,s])=>`<span class="dz"><i class="c-${rea(v.doen[k])[1]}"></i>${s}</span>`).join("")}</div></button>`;
+ <div class="doen">${DOEN.map(([k,,s])=>`<span class="dz"><i class="c-${rea(v.doen[k])[1]}"></i>${s}</span>`).join("")}</div></div></button>`;
 }
 function render(){
  const l=ordena(filtra());
@@ -373,10 +407,16 @@ function render(){
 function alterna(g,o){const s=sel[g];const i=s.indexOf(o);i<0?s.push(o):s.splice(i,1);montaPainel();render()}
 
 /* ---------- Ficha ---------- */
-function reconhece(v){const d=FIS[v.v];
- if(!d)return`<p class="semDado" style="margin:0">Não há descrição física publicada nas fontes consultadas. Tire fotos no campo e compare com outra variedade ao lado.</p>`;
- return(d.pistas?`<div class="pistas"><b>Pista principal:</b> ${esc(d.pistas)}</div>`:"")+`<dl class="kv">${d.t.map(([k,x])=>`<dt>${esc(k)}</dt><dd>${esc(x)}</dd>`).join("")}</dl>
- <p class="fonteTxt" style="margin:8px 0 0">Fonte: ${esc(FIS_FONTE[d.f])}. Outros traços (cor do colmo, gema, folha…) não constam nas fontes.</p>`}
+function heroHtml(v){const r=REF[v.v],l=listaFotos(v.v);if(!l.length)return"";
+ const f=l[0],pins=f.ref&&r?r.p:[];
+ return`<div class="heroF" id="hero"><img src="${f.url}" alt="Touceira de ${esc(v.v)}">${pins.map(([x,y],k)=>`<span class="pino" style="left:${x}%;top:${y}%">${k+1}</span>`).join("")}<span class="dica">toque para ampliar</span></div>`}
+function reconhece(v){const d=FIS[v.v],r=REF[v.v];let h="";
+ if(r)h+=`<p style="margin:0 0 4px;font-weight:700;color:#5A3E10">Na foto (números marcados):</p><ul class="pontos">${r.p.map(([,,t],k)=>`<li><i>${k+1}</i><span>${esc(t)}</span></li>`).join("")}</ul>
+  <p class="fonteTxt" style="margin:4px 0 10px">Observado na foto do ensaio. A cor do colmo muda com idade, sol, cera e despalha: confirme com outros traços.</p>`;
+ if(d)h+=(d.pistas?`<div class="pistas"><b>Pista principal (registro):</b> ${esc(d.pistas)}</div>`:"")+`<dl class="kv">${d.t.map(([k,x])=>`<dt>${esc(k)}</dt><dd>${esc(x)}</dd>`).join("")}</dl>
+ <p class="fonteTxt" style="margin:8px 0 0">Fonte: ${esc(FIS_FONTE[d.f])}.</p>`;
+ if(!h)h=`<p class="semDado" style="margin:0">Ainda sem foto e sem descrição física publicada. Tire fotos no campo e compare com outra variedade ao lado.</p>`;
+ return h}
 function galeriaHtml(nome){const l=listaFotos(nome);
  if(!l.length)return`<p class="semDado" style="margin:0">Ainda sem fotos. Registre colmo, bainha, folha e touceira desta variedade.</p>`;
  return`<div class="galeria">${l.map((f,i)=>`<button data-i="${i}" aria-label="Abrir foto"><img src="${f.url}" alt="" loading="lazy">${f.leg?`<span class="leg">${esc(f.leg)}</span>`:""}</button>`).join("")}</div>`}
@@ -389,11 +429,11 @@ function atualizaFotos(nome){const g=$("#galeria");if(g&&!$("#ficha").hidden)g.i
 function ficha(nome){
  const v=V.find(x=>x.v===nome);if(!v)return;
  const em=cmp.includes(v.v);
- $("#ficha").innerHTML=`<div class="fichaTopo"><button id="fVoltar">← Voltar</button><h2>${v.v}</h2></div><div class="fichaCorpo">
+ $("#ficha").innerHTML=`<div class="fichaTopo"><button id="fVoltar">← Voltar</button><h2>${v.v}</h2></div><div class="fichaCorpo">${heroHtml(v)}
  <p class="fonteTxt" style="margin:8px 2px">${esc(v.ob)} · ${v.tmat.map(t=>`<span class="tag t-${t}">${t}</span>`).join(" ")}</p>
  <div class="bloco atencao"><h3>⚠️ Pontos de atenção</h3><ul style="margin:0;padding-left:20px">${v.atencao.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>
 
- <div class="bloco"><h3>👁️ Como reconhecer no campo</h3>${reconhece(v)}</div>
+ <div class="bloco"><h3>👁️ Pontos para distinguir</h3>${reconhece(v)}</div>
  <div class="bloco"><h3>📷 Fotos</h3><div id="galeria">${galeriaHtml(v.v)}</div>
   <button class="btn sec" id="fFoto">＋ Tirar ou escolher foto</button>
   <p class="fonteTxt" style="margin:8px 0 0">As fotos ficam salvas só neste aparelho.</p></div>
@@ -412,6 +452,7 @@ function ficha(nome){
  $("#fCmp").onclick=()=>{const i=cmp.indexOf(v.v);if(i>=0)cmp.splice(i,1);else{if(cmp.length>=3)cmp.shift();cmp.push(v.v)}salva();atualizaCmp();
   const b=$("#fCmp"),on=cmp.includes(v.v);b.classList.toggle("sec",on);b.textContent=on?"✓ Na comparação (tocar para tirar)":"＋ Comparar"};
  $("#fFoto").onclick=()=>{$("#inFoto").dataset.v=v.v;$("#inFoto").value="";$("#inFoto").click()};
+ const hr=$("#hero");if(hr)hr.onclick=()=>abreVisor(v.v,0);
  $("#galeria").onclick=e=>{const b=e.target.closest("button[data-i]");if(b)abreVisor(v.v,+b.dataset.i)};
 }
 function fechaFicha(){$("#ficha").hidden=true;document.body.style.overflow=""}
