@@ -100,6 +100,22 @@ dl.kv dd{margin:1px 0 0;font-size:16.5px}
 .cmp th{background:#F1F6F2;color:var(--pri);position:sticky;top:0}
 .cmp td:first-child,.cmp th:first-child{position:sticky;left:0;background:#FAFAF6;min-width:96px;font-weight:700;color:var(--sub);font-size:13px}
 .vazio{text-align:center;color:var(--sub);padding:30px 10px}
+.btnMais{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:2px dashed var(--pri2);background:#fff;color:var(--pri);border-radius:14px;padding:16px;font-size:18px;font-weight:800;margin:10px 0}
+.btnMais b{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--pri2);color:#fff;font-size:26px;line-height:1}
+.btnMais:disabled{opacity:.55;border-style:solid}
+.cmp th .tira{display:block;margin-top:4px;border:0;background:#EFE3D6;color:#7A4A21;border-radius:8px;padding:4px 8px;font-size:12.5px;font-weight:700}
+#pick{position:fixed;inset:0;z-index:60;background:var(--fundo);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#pick .fichaTopo{position:sticky;top:0}
+#pick .pbusca{padding:10px 14px 0}
+#pick .pbusca input{width:100%;font-size:17px;padding:11px 12px;border-radius:12px;border:1px solid var(--linha);box-sizing:border-box}
+#pick .plista{padding:4px 14px 30px}
+#pick .pit{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--linha);border-radius:12px;padding:12px;margin:8px 0;font:inherit;color:inherit}
+#pick .pit span.n{flex:1}
+#pick .pit span.n b{display:block;font-size:17px;color:var(--pri)}
+#pick .pit span.n small{color:var(--sub);font-size:13.5px}
+#pick .pit i{font-style:normal;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;background:var(--pri2);color:#fff;flex:none}
+#pick .pit.on{border-color:var(--pri2);background:#EEF5F0}
+#pick .pit.on i{background:#C9A227;color:#3B2A12;font-size:20px}
 .tbl{width:100%;border-collapse:collapse;font-size:15px}
 .tbl th,.tbl td{border-bottom:1px solid #eee;padding:6px 4px;text-align:center}
 .tbl th{color:var(--pri);font-size:13.5px}
@@ -189,7 +205,7 @@ a{color:#1F5FBF}
 </section>
 
 <section id="aba-cmp" hidden>
- <p class="conta" style="margin-top:14px">Toque em <b>＋ Comparar</b> na ficha de até 3 variedades.</p>
+ <p class="conta" style="margin-top:14px">Toque em <b>＋</b> para escolher até 3 variedades e comparar lado a lado.</p>
  <div id="cmp"></div>
 </section>
 
@@ -264,6 +280,7 @@ a{color:#1F5FBF}
 
 <div id="ficha" hidden></div>
 <div id="visor" hidden></div>
+<div id="pick" hidden></div>
 <input type="file" id="inFoto" accept="image/*" hidden>
 
 <script>
@@ -461,14 +478,36 @@ addEventListener("popstate",()=>{if(!$("#ficha").hidden)fechaFicha()});
 /* ---------- Comparar ---------- */
 function atualizaCmp(){
  $("#nCmp").hidden=!cmp.length;$("#nCmp").textContent=cmp.length;
- if(!cmp.length){$("#cmp").innerHTML=`<p class="vazio">Nenhuma variedade escolhida ainda.</p>`;return}
+ const cheio=cmp.length>=3;
+ const bMais=`<button class="btnMais" id="addCmp"${cheio?" disabled":""}><b>＋</b>${cheio?"Máximo de 3 (toque em Tirar para trocar)":`Adicionar variedade (${cmp.length}/3)`}</button>`;
+ if(!cmp.length){$("#cmp").innerHTML=`<p class="vazio" style="padding:14px 10px 0">Nenhuma variedade escolhida ainda.</p>${bMais}`;$("#addCmp").onclick=abrePick;return}
  const vs=cmp.map(n=>V.find(v=>v.v===n));
  const lin=[["Maturação",v=>esc(v.mat)],["Colheita",v=>barra(v)+esc(v.col)],["Ambiente",v=>esc(v.amb)],["Exigência",v=>esc(v.exig)],["Área SP",v=>pct(v.area)],["Plantio SP",v=>pct(v.plant)],["Produtividade",v=>esc(v.prod)],["Florescimento",v=>esc(v.flor)],["Porte / colmo",v=>{const d=FIS[v.v];return d?d.t.slice(0,3).map(([k,x])=>`<b>${esc(k)}:</b> ${esc(x)}`).join("<br>"):'<span class="semDado">Não informado</span>'}],
   ...DOEN.map(([k,n])=>[n,v=>{const r=rea(v.doen[k]);return`<span class="pill c-${r[1]}">${r[0]}</span>`}]),["⚠️ Atenção",v=>v.atencao.map(esc).join("<br>• ").replace(/^/,"• ")]];
- $("#cmp").innerHTML=`<div class="cmp"><table><tr><th></th>${vs.map(v=>`<th>${v.v}</th>`).join("")}</tr>${lin.map(([t,f])=>`<tr><td>${t}</td>${vs.map(v=>`<td>${f(v)}</td>`).join("")}</tr>`).join("")}</table></div>
+ $("#cmp").innerHTML=`${bMais}<div class="cmp"><table><tr><th></th>${vs.map(v=>`<th>${v.v}<button class="tira" data-t="${v.v}">✕ Tirar</button></th>`).join("")}</tr>${lin.map(([t,f])=>`<tr><td>${t}</td>${vs.map(v=>`<td>${f(v)}</td>`).join("")}</tr>`).join("")}</table></div>
  <button class="btn sec" id="limpaCmp">Limpar comparação</button>`;
+ $("#addCmp").onclick=abrePick;
+ $("#cmp").querySelectorAll(".tira").forEach(b=>b.onclick=()=>{cmp=cmp.filter(n=>n!==b.dataset.t);salva();atualizaCmp()});
  $("#limpaCmp").onclick=()=>{cmp=[];salva();atualizaCmp()};
 }
+function abrePick(){
+ const p=$("#pick");
+ p.innerHTML=`<div class="fichaTopo"><button id="pOk">✓ Pronto</button><h2>Escolher variedades</h2></div>
+ <div class="pbusca"><input id="pq" type="search" placeholder="🔎 Buscar variedade…" autocomplete="off"></div>
+ <p class="conta" id="pCont" style="margin:8px 16px 0"></p><div class="plista" id="pLista"></div>`;
+ const lista=()=>{const q=$("#pq").value.trim().toLowerCase();
+  $("#pCont").textContent=`${cmp.length}/3 escolhidas · toque para adicionar ou tirar`;
+  $("#pLista").innerHTML=V.filter(v=>!q||v.v.toLowerCase().includes(q)||String(v.ob).toLowerCase().includes(q)).map(v=>{const on=cmp.includes(v.v);
+   return`<button class="pit${on?" on":""}" data-v="${v.v}"><span class="n"><b>${v.v}</b><small>${esc(v.ob)} · ${esc(v.mat)}</small></span><i>${on?"✓":"＋"}</i></button>`}).join("")||`<p class="vazio">Nenhuma variedade encontrada.</p>`};
+ lista();p.hidden=false;p.scrollTop=0;document.body.style.overflow="hidden";history.pushState({pick:1},"");
+ $("#pq").oninput=lista;
+ $("#pLista").onclick=e=>{const b=e.target.closest(".pit");if(!b)return;const n=b.dataset.v,i=cmp.indexOf(n);
+  if(i>=0)cmp.splice(i,1);else{if(cmp.length>=3){alert("Só dá para comparar 3 por vez. Toque numa já escolhida para tirar.");return}cmp.push(n)}
+  salva();atualizaCmp();lista()};
+ $("#pOk").onclick=()=>history.back();
+}
+function fechaPick(){$("#pick").hidden=true;if($("#ficha").hidden)document.body.style.overflow=""}
+addEventListener("popstate",()=>{if(!$("#pick").hidden)fechaPick()});
 
 /* ---------- Calendário ---------- */
 function calendario(){
@@ -488,7 +527,7 @@ const ABAS=["lista","cal","cmp","guia"];let aba="lista";
 function vai(a){aba=a;ABAS.forEach(x=>{$("#aba-"+x).hidden=x!==a;$(`nav [data-aba=${x}]`).setAttribute("aria-selected",String(x===a))});scrollTo(0,0)}
 $("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)vai(b.dataset.aba)});
 let x0=null,y0=0;
-document.addEventListener("touchstart",e=>{if(!$("#ficha").hidden||e.target.closest("input,select,.chips,.cmp")){x0=null;return}x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchstart",e=>{if(!$("#ficha").hidden||!$("#pick").hidden||e.target.closest("input,select,.chips,.cmp")){x0=null;return}x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
 document.addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
  if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.5){const i=ABAS.indexOf(aba)+(dx<0?1:-1);if(i>=0&&i<ABAS.length)vai(ABAS[i])}},{passive:true});
 function topo(){document.documentElement.style.setProperty("--hh",$("#hdr").offsetHeight+"px")}addEventListener("resize",topo);
