@@ -107,6 +107,27 @@ dl.kv dd{margin:1px 0 0;font-size:16.5px}
 .meta{display:flex;align-items:center;gap:8px;margin:6px 0 4px;font-size:15px}
 .meta input{width:90px;font-size:17px;padding:6px 8px;border-radius:8px;border:1px solid var(--linha)}
 .aviso{font-size:14px;color:var(--sub);background:#ECEAE0;border-radius:10px;padding:8px 10px;margin:10px 0}
+
+/* fotos e reconhecimento */
+.cardTop{display:flex;gap:10px;align-items:center}
+.cardTxt{flex:1;min-width:0}
+.thumb{flex:0 0 72px;width:72px;height:72px;border-radius:12px;overflow:hidden;background:#EFE6D2;border:1px solid var(--linha);display:flex;align-items:center;justify-content:center;position:relative}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb.vz{flex-direction:column;color:#7A5A2B;font-size:10.5px;font-weight:700;line-height:1.1;text-align:center}
+.thumb.vz svg{width:34px;height:34px}
+.galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.galeria button{padding:0;border:1px solid var(--linha);border-radius:12px;overflow:hidden;aspect-ratio:1;background:#EFE6D2;position:relative}
+.galeria img{width:100%;height:100%;object-fit:cover;display:block}
+.galeria .leg{position:absolute;left:0;right:0;bottom:0;background:rgba(40,28,10,.62);color:#fff;font-size:11px;padding:2px 5px;text-align:left;margin:0;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pistas{background:#FFF8DC;border:1px solid #E6CF7A;border-radius:12px;padding:8px 10px;margin:0 0 6px;font-size:15.5px;color:#4B3A0A}
+.pistas b{color:#5A3E10}
+.semDado{color:var(--sub);font-style:italic}
+#visor{position:fixed;inset:0;z-index:80;background:rgba(20,14,6,.94);display:flex;flex-direction:column}
+#visor img{flex:1;min-height:0;width:100%;object-fit:contain}
+#visor .vBar{display:flex;gap:8px;align-items:center;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));color:#fff}
+#visor .vBar span{flex:1;font-size:14px}
+#visor .vBar button{background:rgba(255,255,255,.16);border:0;color:#fff;border-radius:10px;padding:10px 14px;font-size:15px;font-weight:700}
+#visor .vBar .del{background:#8E2B1E}
 a{color:#1F5FBF}
 .fontes li{margin:6px 0;font-size:15px}
 </style>
@@ -158,6 +179,19 @@ a{color:#1F5FBF}
 </section>
 
 <section id="aba-guia" hidden>
+ <div class="bloco"><h3>Como reconhecer uma variedade no campo</h3>
+  <p style="margin:0 0 6px;font-size:15.5px">Um traço sozinho engana. Olhe vários e compare com uma variedade conhecida do lado:</p>
+  <ul style="margin:0;padding-left:20px;font-size:15.5px">
+   <li><b>Porte:</b> touceira ereta, semidecumbente ou que tomba.</li>
+   <li><b>Colmo:</b> cor (verde, amarelado, arroxeado, acinzentado), diâmetro e quantidade de cera.</li>
+   <li><b>Entrenó:</b> formato (cilíndrico, conoidal, em barril) e se faz zigue-zague.</li>
+   <li><b>Gema:</b> formato, tamanho e se é proeminente.</li>
+   <li><b>Bainha:</b> cor, cera e pelos/espinhos (joçal) – e se caem fácil na despalha.</li>
+   <li><b>Aurícula e colar (dewlap):</b> o ponto onde a folha encontra a bainha; é o traço mais estável entre variedades.</li>
+   <li><b>Folha:</b> largura, comprimento e se dobra perto da ponta.</li>
+   <li><b>Perfilhamento:</b> touceira cheia ou rala, na planta e na soca.</li>
+  </ul>
+  <p class="fonteTxt" style="margin:8px 0 0">Para cada variedade, a ficha mostra só o que as fontes publicam. Onde não há descrição pública, aparece "Não informado". Tire fotos no seu talhão e guarde na ficha: ficam salvas neste aparelho.</p></div>
  <div class="bloco"><h3>Como ler as cores</h3>
   <div class="doen" style="flex-direction:column;gap:6px">
    <span class="dz"><i class="c-ok"></i>Resistente ou tolerante</span>
@@ -214,6 +248,8 @@ a{color:#1F5FBF}
 </main>
 
 <div id="ficha" hidden></div>
+<div id="visor" hidden></div>
+<input type="file" id="inFoto" accept="image/*" hidden>
 
 <script>
 "use strict";
@@ -232,6 +268,54 @@ function barra(v){return`<div class="meses">${MESN.map((_,i)=>`<i${v.meses&&i+1>
 const rotulo=`<div class="rotMes">${MES.map(m=>`<span>${m}</span>`).join("")}</div>`;
 
 /* ---------- Filtros ---------- */
+
+/* ---------- Características físicas (só o que as fontes publicam) ---------- */
+const FIS_FONTE={
+ reg:"Registro da cultivar (Crop Breeding and Applied Biotechnology)",
+ ufg:"Boletim de variedades RB (UFG, 2009)",
+ app:"Fontes já usadas nesta ficha (Censo IAC, Canaonline, CTC, CanaVialis)"};
+const FIS={
+ "RB966928":{f:"reg",pistas:"Aurícula pequena em forma de foice, colar (dewlap) verde-arroxeado e touceira levemente aberta.",
+  t:[["Porte","Levemente decumbente, touceira levemente aberta"],["Colmo / entrenós","Diâmetro e comprimento médios, formato conoidal, seção circular, em leve zigue-zague; verde-amarelados, superfície lisa, pouca cera"],["Gema","Redonda, pouco proeminente, tamanho médio, poro de germinação no ápice, cercada por pelos finos"],["Folha","Lâmina verde-clara, medianamente longa e estreita, curvada perto da ponta"],["Aurícula","Pequena, em foice, de um lado só"],["Colar (dewlap)","Verde-arroxeado"],["Bainha","Curta, esverdeada, cera fraca a regular; espinhos dorsais que caem com facilidade"]]},
+ "RB985476":{f:"reg",pistas:"Colmo verde-amarelado, bainha verde com leve tom arroxeado e crescimento inicial lento.",
+  t:[["Porte","Semidecumbente; desenvolvimento inicial lento"],["Colmo","Diâmetro médio, verde-amarelado; pouca ou nenhuma medula"],["Bainha","Verde com leve tonalidade arroxeada e cera leve"],["Perfilhamento","Alto, com perfilhos de boa longevidade"],["Cobertura do solo","Boa cobertura do dossel"]]},
+ "RB975952":{f:"reg",pistas:"Palha que solta fácil (despalha fácil) e porte levemente decumbente.",
+  t:[["Porte","Ligeiramente decumbente (leve tendência a deitar)"],["Palha","Folhas secas fáceis de remover"],["Perfilhamento","Bom na cana-planta e na soca"],["Cobertura do solo","Boa cobertura do dossel"],["Colmo","Teor de fibra médio, baixa chochez (isoporização)"]]},
+ "RB005014":{f:"reg",pistas:"Muita cera: colmo verde-acinzentado e folhas cerosas, em touceira ereta.",
+  t:[["Porte","Ereto"],["Colmo","Diâmetro médio, verde-acinzentado, com muita cera"],["Folha","Lâminas verdes e cerosas"],["Perfilhamento","Alto, na cana-planta e na soca"],["Cobertura do solo","Excelente cobertura do dossel"],["Medula","Pouca ou nenhuma"]]},
+ "RB855156":{f:"ufg",t:[["Porte","Médio; inicialmente ereto e, na fase adulta, decumbente (pode tombar)"],["Colmo","Densidade média"]]},
+ "RB867515":{f:"ufg",t:[["Crescimento","Muito rápido"],["Colmo","Densidade alta"]]},
+ "CV7870":{f:"app",t:[["Porte","Ereto"]]},
+ "IACSP95-5094":{f:"app",t:[["Porte","Ereta, não tomba"],["Palha","Produz muita palha"]]},
+ "RB975242":{f:"app",t:[["Perfilhamento","Excelente na soca"]]},
+ "CTC9003":{f:"app",t:[["Perfilhamento","Alto"]]},
+ "RB975375":{f:"app",t:[["Perfilhamento","Alto"]]},
+ "CV6654":{f:"app",t:[["Perfilhamento","Destaque do obtentor"]]}
+};
+
+/* Fotos de referência: coloque arquivos em img/ e liste aqui {src,leg,cred} */
+const REF_FOTOS={};
+
+/* ---------- Fotos do usuário (ficam neste aparelho, IndexedDB) ---------- */
+const FOTOS={}; // nome -> [{id,url,leg,t}]
+let _db=null;
+function abreDB(){return new Promise((ok,er)=>{if(_db)return ok(_db);let r;try{r=indexedDB.open("variedades-fotos",1)}catch(e){return er(e)}
+ r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains("f")){const st=d.createObjectStore("f",{keyPath:"id",autoIncrement:true});st.createIndex("v","v")}};
+ r.onsuccess=()=>{_db=r.result;ok(_db)};r.onerror=()=>er(r.error)})}
+async function carregaFotos(){try{const d=await abreDB();const todos=await new Promise((ok,er)=>{const q=d.transaction("f").objectStore("f").getAll();q.onsuccess=()=>ok(q.result);q.onerror=()=>er(q.error)});
+ Object.keys(FOTOS).forEach(k=>{FOTOS[k].forEach(f=>URL.revokeObjectURL(f.url));delete FOTOS[k]});
+ todos.sort((a,b)=>a.t-b.t).forEach(r=>{(FOTOS[r.v]=FOTOS[r.v]||[]).push({id:r.id,url:URL.createObjectURL(r.blob),leg:r.leg||"",t:r.t})})}catch(e){}}
+function reduz(file,max=1280){return new Promise((ok,er)=>{const img=new Image(),u=URL.createObjectURL(file);
+ img.onload=()=>{const k=Math.min(1,max/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);
+  c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?ok(b):er(new Error("falha")),"image/jpeg",.82)};
+ img.onerror=()=>{URL.revokeObjectURL(u);er(new Error("imagem inválida"))};img.src=u})}
+async function salvaFoto(nome,file,leg){const b=await reduz(file);const d=await abreDB();
+ await new Promise((ok,er)=>{const tx=d.transaction("f","readwrite");tx.objectStore("f").add({v:nome,blob:b,leg,t:Date.now()});tx.oncomplete=ok;tx.onerror=()=>er(tx.error)});await carregaFotos()}
+async function apagaFoto(id){const d=await abreDB();await new Promise((ok,er)=>{const tx=d.transaction("f","readwrite");tx.objectStore("f").delete(id);tx.oncomplete=ok;tx.onerror=()=>er(tx.error)});await carregaFotos()}
+function listaFotos(nome){return [...(REF_FOTOS[nome]||[]).map(f=>({ref:1,url:f.src,leg:f.leg||"Foto de referência"+(f.cred?" – "+f.cred:"")})),...(FOTOS[nome]||[]).map(f=>({...f,ref:0}))]}
+const SVG_CANA='<svg viewBox="0 0 40 40" fill="none" stroke-linecap="round"><path d="M20 38V10" stroke="#8A6A2E" stroke-width="4"/><path d="M20 16h0M20 24h0M20 32h0" stroke="#E3B934" stroke-width="5"/><path d="M20 10C14 8 9 5 6 2M20 10c6-2 11-5 14-8M20 14c-5-1-9-2-13-5" stroke="#3E8E41" stroke-width="2.4"/></svg>';
+function thumb(nome){const l=listaFotos(nome);return l.length?`<div class="thumb"><img src="${l[0].url}" alt="${esc(nome)}" loading="lazy"></div>`:`<div class="thumb vz">${SVG_CANA}<span>sem foto</span></div>`}
+
 const GRUPOS=[
  {id:"mat",t:"Maturação",op:["Precoce","Média","Tardia"],ok:(v,o)=>v.tmat.includes(o)},
  {id:"amb",t:"Ambiente de produção",op:["A","B","C","D","E"],ok:(v,o)=>v.ambL.includes(o)},
@@ -268,9 +352,9 @@ function ordena(l){
  return c;
 }
 function cartao(v){
- return`<button class="card" data-v="${v.v}"><div class="l1"><span class="nome">${v.v}</span><span class="ob">${esc(v.ob)}</span></div>
+ return`<button class="card" data-v="${v.v}"><div class="cardTop"><div class="cardTxt"><div class="l1"><span class="nome">${v.v}</span><span class="ob">${esc(v.ob)}</span></div>
  <div class="l1" style="margin-top:4px">${v.tmat.map(t=>`<span class="tag t-${t}">${t}</span>`).join(" ")||'<span class="tag" style="background:#999">Maturação ?</span>'}
-  <span class="aten">⚠️ ${v.atencao.length} ${v.atencao.length>1?"pontos":"ponto"} de atenção</span></div>
+  <span class="aten">⚠️ ${v.atencao.length} ${v.atencao.length>1?"pontos":"ponto"} de atenção</span></div></div>${thumb(v.v)}</div>
  ${barra(v)}${rotulo}
  <div class="info"><span>Colheita: <b>${esc(v.col)}</b></span><span>Ambiente: <b>${v.ambL?v.ambL.split("").join(", "):"—"}</b></span><span>Área SP: <b>${pct(v.area)}</b></span><span>Plantio: <b>${pct(v.plant)}</b></span></div>
  <div class="doen">${DOEN.map(([k,,s])=>`<span class="dz"><i class="c-${rea(v.doen[k])[1]}"></i>${s}</span>`).join("")}</div></button>`;
@@ -289,12 +373,30 @@ function render(){
 function alterna(g,o){const s=sel[g];const i=s.indexOf(o);i<0?s.push(o):s.splice(i,1);montaPainel();render()}
 
 /* ---------- Ficha ---------- */
+function reconhece(v){const d=FIS[v.v];
+ if(!d)return`<p class="semDado" style="margin:0">Não há descrição física publicada nas fontes consultadas. Tire fotos no campo e compare com outra variedade ao lado.</p>`;
+ return(d.pistas?`<div class="pistas"><b>Pista principal:</b> ${esc(d.pistas)}</div>`:"")+`<dl class="kv">${d.t.map(([k,x])=>`<dt>${esc(k)}</dt><dd>${esc(x)}</dd>`).join("")}</dl>
+ <p class="fonteTxt" style="margin:8px 0 0">Fonte: ${esc(FIS_FONTE[d.f])}. Outros traços (cor do colmo, gema, folha…) não constam nas fontes.</p>`}
+function galeriaHtml(nome){const l=listaFotos(nome);
+ if(!l.length)return`<p class="semDado" style="margin:0">Ainda sem fotos. Registre colmo, bainha, folha e touceira desta variedade.</p>`;
+ return`<div class="galeria">${l.map((f,i)=>`<button data-i="${i}" aria-label="Abrir foto"><img src="${f.url}" alt="" loading="lazy">${f.leg?`<span class="leg">${esc(f.leg)}</span>`:""}</button>`).join("")}</div>`}
+function abreVisor(nome,i){const l=listaFotos(nome),f=l[i];if(!f)return;const v=$("#visor");
+ v.innerHTML=`<img src="${f.url}" alt=""><div class="vBar"><span>${esc(f.leg||nome)}</span>${f.ref?"":'<button class="del" id="vDel">Apagar</button>'}<button id="vFecha">Fechar</button></div>`;v.hidden=false;
+ $("#vFecha").onclick=()=>{v.hidden=true};
+ const dl=$("#vDel");if(dl)dl.onclick=async()=>{if(!confirm("Apagar esta foto?"))return;try{await apagaFoto(f.id)}catch(e){}v.hidden=true;atualizaFotos(nome)}}
+function atualizaFotos(nome){const g=$("#galeria");if(g&&!$("#ficha").hidden)g.innerHTML=galeriaHtml(nome);render()}
+
 function ficha(nome){
  const v=V.find(x=>x.v===nome);if(!v)return;
  const em=cmp.includes(v.v);
  $("#ficha").innerHTML=`<div class="fichaTopo"><button id="fVoltar">← Voltar</button><h2>${v.v}</h2></div><div class="fichaCorpo">
  <p class="fonteTxt" style="margin:8px 2px">${esc(v.ob)} · ${v.tmat.map(t=>`<span class="tag t-${t}">${t}</span>`).join(" ")}</p>
  <div class="bloco atencao"><h3>⚠️ Pontos de atenção</h3><ul style="margin:0;padding-left:20px">${v.atencao.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>
+
+ <div class="bloco"><h3>👁️ Como reconhecer no campo</h3>${reconhece(v)}</div>
+ <div class="bloco"><h3>📷 Fotos</h3><div id="galeria">${galeriaHtml(v.v)}</div>
+  <button class="btn sec" id="fFoto">＋ Tirar ou escolher foto</button>
+  <p class="fonteTxt" style="margin:8px 0 0">As fotos ficam salvas só neste aparelho.</p></div>
  <div class="bloco"><h3>Colheita e plantio</h3>${barra(v)}${rotulo}
   <dl class="kv"><dt>Maturação</dt><dd>${esc(v.mat)}</dd><dt>Época de colheita</dt><dd>${esc(v.col)}</dd><dt>Plantio sugerido (pelo ciclo)</dt><dd>${esc(v.plantio)}</dd></dl></div>
  <div class="bloco"><h3>Solo e exigência</h3><dl class="kv"><dt>Ambiente de produção / solo</dt><dd>${esc(v.amb)}</dd><dt>Exigência em fertilidade</dt><dd>${esc(v.exig)}</dd></dl></div>
@@ -309,6 +411,8 @@ function ficha(nome){
  $("#fVoltar").onclick=()=>history.back();
  $("#fCmp").onclick=()=>{const i=cmp.indexOf(v.v);if(i>=0)cmp.splice(i,1);else{if(cmp.length>=3)cmp.shift();cmp.push(v.v)}salva();atualizaCmp();
   const b=$("#fCmp"),on=cmp.includes(v.v);b.classList.toggle("sec",on);b.textContent=on?"✓ Na comparação (tocar para tirar)":"＋ Comparar"};
+ $("#fFoto").onclick=()=>{$("#inFoto").dataset.v=v.v;$("#inFoto").value="";$("#inFoto").click()};
+ $("#galeria").onclick=e=>{const b=e.target.closest("button[data-i]");if(b)abreVisor(v.v,+b.dataset.i)};
 }
 function fechaFicha(){$("#ficha").hidden=true;document.body.style.overflow=""}
 addEventListener("popstate",()=>{if(!$("#ficha").hidden)fechaFicha()});
@@ -318,7 +422,7 @@ function atualizaCmp(){
  $("#nCmp").hidden=!cmp.length;$("#nCmp").textContent=cmp.length;
  if(!cmp.length){$("#cmp").innerHTML=`<p class="vazio">Nenhuma variedade escolhida ainda.</p>`;return}
  const vs=cmp.map(n=>V.find(v=>v.v===n));
- const lin=[["Maturação",v=>esc(v.mat)],["Colheita",v=>barra(v)+esc(v.col)],["Ambiente",v=>esc(v.amb)],["Exigência",v=>esc(v.exig)],["Área SP",v=>pct(v.area)],["Plantio SP",v=>pct(v.plant)],["Produtividade",v=>esc(v.prod)],["Florescimento",v=>esc(v.flor)],
+ const lin=[["Maturação",v=>esc(v.mat)],["Colheita",v=>barra(v)+esc(v.col)],["Ambiente",v=>esc(v.amb)],["Exigência",v=>esc(v.exig)],["Área SP",v=>pct(v.area)],["Plantio SP",v=>pct(v.plant)],["Produtividade",v=>esc(v.prod)],["Florescimento",v=>esc(v.flor)],["Porte / colmo",v=>{const d=FIS[v.v];return d?d.t.slice(0,3).map(([k,x])=>`<b>${esc(k)}:</b> ${esc(x)}`).join("<br>"):'<span class="semDado">Não informado</span>'}],
   ...DOEN.map(([k,n])=>[n,v=>{const r=rea(v.doen[k]);return`<span class="pill c-${r[1]}">${r[0]}</span>`}]),["⚠️ Atenção",v=>v.atencao.map(esc).join("<br>• ").replace(/^/,"• ")]];
  $("#cmp").innerHTML=`<div class="cmp"><table><tr><th></th>${vs.map(v=>`<th>${v.v}</th>`).join("")}</tr>${lin.map(([t,f])=>`<tr><td>${t}</td>${vs.map(v=>`<td>${f(v)}</td>`).join("")}</tr>`).join("")}</table></div>
  <button class="btn sec" id="limpaCmp">Limpar comparação</button>`;
@@ -356,6 +460,10 @@ $("#painelFiltros").addEventListener("click",e=>{const b=e.target.closest(".chip
 $("#ativos").addEventListener("click",e=>{const b=e.target.closest("button");if(b)alterna(b.dataset.g,b.dataset.o)});
 document.addEventListener("click",e=>{const c=e.target.closest(".card[data-v],.gl[data-v]");if(c)ficha(c.dataset.v)});
 $("#inMeta").addEventListener("input",extracao);
+$("#inFoto").addEventListener("change",async e=>{const f=e.target.files[0],nome=e.target.dataset.v;if(!f||!nome)return;
+ const leg=(prompt("Legenda da foto (ex.: talhão 12, soca 2) – pode deixar vazio:","")||"").trim().slice(0,40);
+ try{await salvaFoto(nome,f,leg);atualizaFotos(nome)}catch(err){alert("Não consegui salvar a foto neste aparelho.")}});
+addEventListener("popstate",()=>{const v=$("#visor");if(v&&!v.hidden)v.hidden=true});
 $("#fontes").innerHTML=FONTES.map(([t,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("");
 
 /* ---------- Instalar ---------- */
@@ -366,7 +474,7 @@ $("#btnInstalar").onclick=instalar;$("#btnInstalar2").onclick=instalar;addEventL
 if(standalone())$("#btnInstalar2").hidden=true;
 if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 
-topo();montaPainel();render();calendario();extracao();atualizaCmp();
+topo();montaPainel();render();calendario();extracao();atualizaCmp();carregaFotos().then(render);
 </script>
 </body>
 </html>
