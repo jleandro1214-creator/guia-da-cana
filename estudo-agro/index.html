@@ -567,8 +567,9 @@ function viewQuiz(){
  if(Q.resp!==null){h+=`<div class="expl">${esc(p.e)}</div><button class="btn" id="bProx">${Q.i+1<Q.lista.length?"Próxima":"Ver resultado"}</button>`}
  return h;
 }
+function iniciarQuiz(){const d=filt(PERGUNTAS);Q={lista:shuffle(d).slice(0,10).map(p=>Object.assign({},p,{ord:shuffle([0,1,2,3])})),i:0,resp:null,acertos:0,erros:[],fim:false};render();window.scrollTo(0,0)}
 function bindQuiz(){
- const ini=()=>{const d=filt(PERGUNTAS);Q={lista:shuffle(d).slice(0,10).map(p=>Object.assign({},p,{ord:shuffle([0,1,2,3])})),i:0,resp:null,acertos:0,erros:[],fim:false};render();window.scrollTo(0,0)};
+ const ini=iniciarQuiz;
  const a=$("#bIni");if(a)a.onclick=ini;
  const b=$("#bNova");if(b)b.onclick=()=>{Q=null;ini()};
  document.querySelectorAll(".opt").forEach(o=>o.onclick=()=>{
@@ -641,7 +642,13 @@ function render(){
  else if(tab==="estudo"){v.innerHTML=viewEstudo();bindEstudo()}
  else{v.innerHTML=viewCalculo();bindCalculo()}
 }
+/* atalhos do ícone (toque e segura): ?acao=cartao ou ?acao=quiz */
+let acao=null;try{acao=new URLSearchParams(location.search).get("acao")}catch(e){}
+if(acao==="cartao"){DB.tema="todos";DB.nivel=0;tab="cartoes"}
+else if(acao==="quiz"){DB.tema="todos";DB.nivel=0;tab="quiz"}
 render();
+if(acao==="quiz")iniciarQuiz();
+if(acao){try{history.replaceState(null,"",location.pathname)}catch(e){}}
 if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
 })();
 </script>

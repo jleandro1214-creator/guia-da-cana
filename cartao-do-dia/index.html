@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cartão do Dia</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#6b4426">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--verde:#1f5f3a;--verde2:#2f7a4d;--verdeclaro:#e3efe5;--amarelo:#f2b705;--amareloclaro:#fdf1c7;--marrom:#6b4426;--marromclaro:#efe3d6;--creme:#f7f3e8;--card:#fffdf7;--tx:#2a2218;--mut:#6a5f50;--linha:#dcd3c0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;min-height:100%}
+body{background:var(--creme);color:var(--tx);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+header{background:var(--marrom);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 14px 12px}
+.topo{display:flex;align-items:center;gap:10px}
+.topo img{width:38px;height:38px;border-radius:10px}
+.topo h1{margin:0;font-size:22px;flex:1}
+.topo small{display:block;font-size:13px;font-weight:400;opacity:.85}
+select{width:100%;margin-top:10px;font:600 17px system-ui;padding:11px 12px;border-radius:12px;border:0;background:#fff;color:var(--tx)}
+.niveis{display:flex;gap:6px;margin-top:8px}
+.niv{flex:1;border:0;border-radius:10px;padding:9px 2px;font:700 15px system-ui;background:rgba(255,255,255,.18);color:#fff}
+.niv[aria-pressed=true]{background:var(--amarelo);color:#3a2a00}
+main{max-width:640px;margin:0 auto;padding:14px}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px 12px;font:700 17px system-ui;background:var(--verde);color:#fff;min-height:52px;margin-top:10px}
+.btn.am{background:var(--amarelo);color:#3a2a00}.btn.mr{background:var(--marrom)}
+.btn.lin{background:transparent;border:2px solid var(--linha);color:var(--tx)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.tag{display:inline-block;font:700 13px system-ui;padding:3px 10px;border-radius:99px;margin-right:6px}
+.n1{background:var(--verdeclaro);color:var(--verde)}.n2{background:var(--amareloclaro);color:#7a5a00}.n3{background:var(--marromclaro);color:var(--marrom)}
+.tg{background:#eee8d8;color:var(--mut)}
+.face{min-height:300px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px 16px;border-radius:20px;font-size:23px;font-weight:700;cursor:pointer;user-select:none;border:2px solid var(--linha);background:var(--card);margin-top:8px}
+.face.verso{background:var(--verdeclaro);border-color:var(--verde2);font-weight:500;font-size:20px}
+.face small{display:block;margin-top:14px;font-weight:400;font-size:14px;color:var(--mut)}
+.mut{color:var(--mut);font-size:15px}
+.inst{display:flex;gap:10px;align-items:center;border:2px dashed var(--amarelo);background:var(--amareloclaro);border-radius:14px;padding:10px 12px;margin-top:14px}
+.inst span{flex:1;font-size:15px}.inst .btn{width:auto;margin:0;padding:10px 14px;min-height:44px}
+a.link{display:block;text-align:center;margin-top:16px;color:var(--verde2);font-weight:700}
+</style>
+</head>
+<body>
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#6b4426;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Cartão do Dia</b></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,500-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3000)})();</script>
+
+<header>
+ <div class="topo"><img src="icon-192.png" alt=""><h1>Cartão do Dia<small>Um cartão do Estudo Agro por vez</small></h1></div>
+ <select id="selTema" aria-label="Tema"></select>
+ <div class="niveis" id="niveis"></div>
+</header>
+<main id="view"></main>
+
+<script>
+const TEMAS = [
+  {id:"vin", nome:"Vinhaça localizada", emoji:"💧", resumo:"Composição, laudo, dose e calibração"},
+  {id:"leg", nome:"Norma CETESB P4.231", emoji:"📜", resumo:"Dose máxima, restrições e monitoramento"},
+  {id:"nut", nome:"Nutrição e correção", emoji:"🌱", resumo:"Corretivos, nutrientes e sintomas"},
+  {id:"sol", nome:"Solo e preparo", emoji:"🟤", resumo:"Classes de solo, preparo e compactação"},
+  {id:"can", nome:"Cana e o ciclo da usina", emoji:"🌾", resumo:"Do campo à usina e de volta"},
+  {id:"log", nome:"Logística e eficiência", emoji:"🚛", resumo:"Ciclo, frota e capacidade operacional"}
+];
+
+const ESTUDO = {
+vin: [
+ {t:"O que é vinhaça", p:"Efluente líquido gerado na destilação do etanol. Não é um fertilizante de composição fixa: duas amostras de usinas ou períodos diferentes podem ter concentrações distintas.", l:[
+  "Fatores que mudam a composição: matéria-prima e safra, processo industrial, diluição (água incorporada), armazenamento e amostragem.",
+  "Materiais didáticos citam de 10 a 15 litros de vinhaça por litro de etanol (um estudo cita 11 a 13). É referência, não constante: use o dado medido da sua unidade.",
+  "Pode conter potássio, outros nutrientes, sais e matéria orgânica, por isso o uso agrícola exige planejamento e autorização."]},
+ {t:"Aplicação localizada", p:"Dirigir a vinhaça a uma faixa ou região do talhão, normalmente perto da linha da cana, em vez de espalhar sobre toda a superfície.", l:[
+  "A largura da faixa e a distância da touceira dependem do sistema, do estágio da cultura e do projeto agronômico. «Localizada» não define uma medida universal.",
+  "Formas de aplicação: área total, em faixa (localizada), incorporação ou injeção, e rede por tubulação/gotejamento.",
+  "Benefícios são potenciais, não garantias. Localizada não elimina risco de lixiviação, escorrimento, salinização ou contaminação.",
+  "Operador: confira talhão liberado, dose planejada, solo e previsão do tempo; durante a operação, observe alinhamento, vazamentos, entupimentos e escorrimento; registre tudo."]},
+ {t:"Lendo o laudo e calculando", p:"Antes de converter concentração em dose por hectare, confirme unidade, data, representatividade da amostra e forma química.", l:[
+  "kg/m³ equivale numericamente a g/L (1 m³ = 1.000 L). mg/L é mil vezes menor: erro de unidade multiplica ou divide a conta por mil.",
+  "K e K₂O não são a mesma unidade: K₂O = K × 1,205. Confira se laudo e recomendação estão na mesma forma.",
+  "Nutriente aplicado (kg/ha) = concentração (kg/m³) × volume (m³/ha). Ex. didático: 2 kg K₂O/m³ × 40 m³/ha = 80 kg K₂O/ha.",
+  "Essa conta mostra o que foi distribuído, não quanto a cultura precisa: isso vem da análise de solo, da recomendação e das normas.",
+  "pH sozinho não aprova nem reprova uma aplicação. CE indica sais dissolvidos; CE da vinhaça não equivale à CE do extrato do solo. DBO é indicador ambiental, não de dose."]},
+ {t:"Calibração: vazão, velocidade e largura", p:"A dose por hectare depende da combinação vazão–velocidade–largura. Mudar uma sem rever as outras muda a dose.", l:[
+  "Dose (m³/ha) = vazão (L/min) × 0,6 ÷ (velocidade km/h × largura m).",
+  "Exemplo hipotético: 2.000 L/min, 4 km/h, 24 m → 2.000 × 0,6 ÷ (4 × 24) = 12,5 m³/ha.",
+  "Aumentar a velocidade sem aumentar a vazão reduz a dose por hectare.",
+  "Interrompa e comunique a supervisão em caso de risco ambiental, falha de equipamento ou condição fora do procedimento autorizado."]},
+ {t:"O que a pesquisa mostrou (Embrapa, solo arenoso)", p:"Lance e colaboradores (Embrapa Meio Ambiente, Irriga, 2023) testaram vinhaça localizada e em área total em cana, em solo arenoso, Pirassununga (SP).", l:[
+  "Dose: 3 mm (30 m³/ha), com 6 kg K/m³ (180 kg K/ha). Parcelas de 8 linhas, espaçamento de 1,5 m, 5 repetições.",
+  "CE na camada 0–20 cm: testemunha 0,10 dS/m; vinhaça em área total 0,37; vinhaça localizada 1,43 (1 dia) e 1,20 (30 dias).",
+  "Perfilhos: testemunha 139,8; localizada 115,5 (cerca de 17% menos). Massa verde: 4,25 g contra 3,20 g (cerca de 25% menos).",
+  "Água localizada ficou igual à testemunha: o efeito vem do sal e do K da vinhaça, não da água.",
+  "Não houve diferença entre tratamentos a 75–85 cm de profundidade, em período de pouca chuva.",
+  "Limites: um talhão, uma safra, cerca de 4 meses, solo arenoso e cana em brotação. Não estenda direto a outros solos e fases. Os autores recomendam cautela e mais estudos em solos arenosos e regiões chuvosas."]}
+],
+leg: [
+ {t:"A norma em uma frase", p:"A CETESB P4.231 (3ª edição, 2ª versão, fev/2015) define critérios e procedimentos para aplicar vinhaça no solo agrícola em São Paulo.", l:[
+  "Relacionadas: DD 132/2018 (plano de monitoramento das águas subterrâneas da vinhaça) e DD 023/2020 (PAV simplificado, vinhaça concentrada/enriquecida e aplicação dirigida).",
+  "Os valores deste app seguem o texto da P4.231 consultado. Normas mudam: confirme a versão vigente na CETESB antes de decidir."]},
+ {t:"Dose máxima e limite de potássio", p:"O solo pode receber potássio até 5% da CTC. Ao atingir esse limite, a aplicação fica restrita à reposição de 185 kg de K₂O/ha por corte.", l:[
+  "m³ de vinhaça/ha = [(0,05 × CTC − ks) × 3744 + 185] ÷ kvi",
+  "CTC: capacidade de troca de cátions do solo (cmolc/dm³). ks: potássio no solo (cmolc/dm³), de 0 a 0,80 m. kvi: K₂O na vinhaça (kg/m³), média das análises.",
+  "3744 converte para kg de K por hectare em 0,80 m de profundidade; 185 é o K₂O extraído pela cultura por corte.",
+  "Exemplo hipotético: CTC 6, ks 0,20, kvi 2 → [(0,30 − 0,20) × 3744 + 185] ÷ 2 ≈ 280 m³/ha."]},
+ {t:"Onde pode e onde não pode", p:"Restrições do texto da norma:", l:[
+  "APP: proibido aplicar. Distância mínima de 6 m da APP, com sistema de segurança.",
+  "Poços: proibido em área de proteção de poços e a menos de 100 m de poços de abastecimento.",
+  "Núcleos urbanos: no mínimo 1.000 m do perímetro (a CETESB pode ampliar).",
+  "Lençol freático: pelo menos 1,50 m de profundidade do aquífero livre na hora de aplicar.",
+  "Declividade acima de 15%: exige medidas contra erosão.",
+  "Faixas de domínio de ferrovias e rodovias federais e estaduais ficam de fora.",
+  "Tanques impermeabilizados com geomembrana (ou técnica equivalente) e canais mestres impermeabilizados."]},
+ {t:"Monitoramento e documentos", p:"A conformidade depende de coleta, laudos e do PAV.", l:[
+  "Águas subterrâneas: mínimo de 4 poços (1 a montante e 3 a jusante dos tanques; drenos testemunha dispensam). Coleta anual entre setembro e novembro, em laboratório acreditado ISO/IEC 17025.",
+  "Solo: fertilidade anual, antes da safra, de 0 a 0,80 m; qualidade a cada 5 anos, de 0 a 0,20 m.",
+  "Vinhaça: K₂O determinado semanalmente; caracterização com no mínimo duas amostragens na safra anterior.",
+  "PAV (Plano de Aplicação de Vinhaça): anual, entregue à CETESB até 2 de abril, assinado por profissional habilitado pelo CREA com ART específica.",
+  "Planta na escala 1:20.000 ou melhor, datum SIRGAS 2000, com taxas de dosagem em cores a cada 150 m³/ha."]}
+],
+nut: [
+ {t:"A ordem do manejo", p:"Amostrar, corrigir, adubar e monitorar, nessa ordem.", l:[
+  "Amostrar: análise de solo a 0–20 e 20–40 cm antes do plantio e a cada ciclo.",
+  "Corrigir: calcário (e gesso, se o subsolo pedir) 60 a 90 dias antes de plantar, antes da aração e gradagem.",
+  "Adubar: P no sulco, N e K conforme o ciclo, S e micros quando faltarem.",
+  "Monitorar: análise foliar (folha +3) e observação de sintomas; ajustar na soqueira.",
+  "Excesso e falta prejudicam igualmente: o equilíbrio é que dá produtividade."]},
+ {t:"Corretivos e condicionadores", p:"Preparam o ambiente da raiz e vêm primeiro.", l:[
+  "Calcário: neutraliza acidez, eleva pH, elimina Al tóxico, dá Ca e Mg. Meta comum de V% de 60 a 70% e Mg mínimo em torno de 8 mmolc/dm³ (referência do guia; defina pela análise).",
+  "Gesso: não corrige pH. Leva Ca e S ao subsolo (20–40 cm) e reduz Al em profundidade. Indicado com Ca baixo e/ou m% acima de 20–30% no subsolo.",
+  "Fosfatagem corretiva: quando P resina está muito baixo (referência: abaixo de ~15 mg/dm³).",
+  "Silicatos: corrigem acidez e dão Si; úteis em solos arenosos e muito intemperizados.",
+  "Matéria orgânica: vinhaça (K e água), torta de filtro (P, Ca, N e M.O.) e palha. Excesso de vinhaça causa excesso de K, lixiviação e salinização."]},
+ {t:"Macronutrientes: função e sintomas", p:"Extração por tonelada de colmos citada no guia do projeto (orientativa).", l:[
+  "N (~1 a 1,5 kg/t): clorofila e crescimento. Amarelecimento uniforme nas folhas velhas, colmos finos. Excesso atrasa a maturação.",
+  "P (~0,3 a 0,6 kg P₂O₅/t): energia e raízes. Plantas pequenas, folhas velhas verde-escuras ou arroxeadas. Pouco móvel no solo: aplicar no sulco.",
+  "K (~1,5 a 2 kg K₂O/t, o mais extraído): água e açúcar no colmo. Bordas e pontas das folhas velhas alaranjadas e secas.",
+  "Ca: parede celular e ponta da raiz. Folhas novas deformadas, raízes curtas. Calcário e gesso.",
+  "Mg: centro da clorofila. Faixas amarelas entre nervuras nas folhas velhas, pintas marrom-avermelhadas.",
+  "S: proteínas. Amarelo geral, mais forte nas folhas novas (confunde com falta de N). Ureia e MAP não trazem S."]},
+ {t:"Micronutrientes e chave de sintomas", p:"Onde o sintoma aparece indica a mobilidade do nutriente na planta.", l:[
+  "Folhas velhas (móveis): N, P, K, Mg.",
+  "Folhas novas (pouco móveis): S, Ca, B, Cu, Mn, Fe, Zn.",
+  "Zn: faixas amarelo-esbranquiçadas ao lado da nervura central, colmos curtos. Falta em arenoso ou com excesso de P/calcário.",
+  "B: folhas novas enrugadas, «janelas» translúcidas; faixa estreita entre falta e toxidez.",
+  "Mn e Fe: listras amarelas entre nervuras das folhas novas (parecidas); aparecem com excesso de calagem.",
+  "Fe, Mo e Cl: situacionais. O KCl já fornece cloro."]},
+ {t:"Extração, exportação e cuidados", p:"Os números variam com ambiente, variedade e produtividade.", l:[
+  "Estudo com cana irrigada (soca, RB92579, Juazeiro-BA; Salviano et al., 2017): máxima absorção entre 220 e 352 dias após o corte; ordem de acúmulo K > N > Ca > S > P > Mg; a colheita exportou cerca de 60 a 90% do acumulado.",
+  "Ao comparar fontes, confira se o valor é de K ou K₂O, P ou P₂O₅.",
+  "Ureia sobre a palha perde N por volatilização: aplique com umidade, incorpore ou use fonte estabilizada.",
+  "Adubo no sulco sem contato direto com a gema: o sal queima a brotação, mais em solo arenoso.",
+  "Argila fixa mais P (dose maior no sulco). Em arenoso, parcele N e K em 2 a 3 vezes.",
+  "Excesso de P e de calcário pode induzir deficiência de micronutrientes.",
+  "O Boletim 100 do IAC (3ª edição, 2022) é a referência paulista de recomendação de adubação e calagem."]}
+],
+sol: [
+ {t:"Principais solos e aptidão para cana", p:"Conhecer o solo de cada talhão é o primeiro passo para definir preparo, adubação e defensivos.", l:[
+  "Latossolo (argiloso): profundo, bem drenado, ácido, baixa fertilidade natural. Responde muito à correção. Risco: compactação a 20–40 cm.",
+  "Nitossolo (terra roxa): aptidão excelente, retém água e nutrientes. Fixa muito P; em relevo ondulado há erosão.",
+  "Argissolo: camada arenosa sobre horizonte argiloso. Aptidão média. Risco-chave: erosão, a água escorre sobre o horizonte argiloso.",
+  "Neossolo Quartzarênico: mais de 85% de areia. Lixiviação de N, K e B, seca, carência de micros e S. Aptidão restrita.",
+  "Cambissolo e Neossolo Litólico: rasos e pedregosos; estresse hídrico e erosão. Não subsolar fundo.",
+  "Gleissolo e Organossolo: lençol alto e pouco oxigênio. Drenar antes, plantar em camalhão, tráfego só com solo firme."]},
+ {t:"Teste do tato e ambiente de produção", p:"Umedeça um punhado de terra e amasse entre os dedos.", l:[
+  "Arenoso: não forma bola, esfarela, áspero.",
+  "Médio: forma bola firme; a fita quebra cedo (até ~2,5 cm).",
+  "Argiloso: forma fita longa (mais de 5 cm), pegajoso e plástico.",
+  "Ambiente favorável: solos profundos, argilosos ou médios, boa água e fertilidade. Intermediário: textura média ou leve restrição. Restritivo: arenoso, raso ou mal drenado, exige variedade rústica, parcelamento e muita cobertura."]},
+ {t:"Preparo e plantio, passo a passo", p:"Checklist resumido do guia do projeto.", l:[
+  "Reforma: eliminar a soqueira velha; se possível, rotação com leguminosas (amendoim, soja, crotalária).",
+  "Corrigir antes de preparar: calcário e gesso 60 a 90 dias antes do plantio.",
+  "Subsolagem (35–40 cm) só onde há compactação e com solo seco e friável; com solo úmido ela alisa e piora.",
+  "Sulco uniforme, em geral 25–30 cm de fundo, alinhado às curvas de nível.",
+  "Adubo no sulco sem tocar a gema. Distribua de 12 a 18 gemas por metro e cubra com 5 a 10 cm de terra.",
+  "Conferir o stand em 30 a 45 dias e replantar as falhas."]},
+ {t:"Compactação e tráfego controlado", p:"Evidências da Circular Técnica 28 da Embrapa Cerrados (Sá et al., 2015), em soqueiras de cana.", l:[
+  "O conjunto trator-transbordo é apontado como o principal responsável pela compactação.",
+  "Com espaçamento de 1,5 m, bitola de 2,0 m pisoteava cerca de 73% da área; com bitola de 3,0 m, cerca de 46%. Recomenda-se bitolas em múltiplos do espaçamento.",
+  "Quanto maior a umidade do solo, maior a compactação: evite tráfego com solo úmido.",
+  "Escarificação anual da entrelinha (25–30 cm), em quatro socas, não diferiu em produtividade: 354,8 contra 348,4 t/ha de colmos (diferença não significativa). A recomendação foi evitar escarificar e prevenir a compactação.",
+  "Densidade no estudo: 0,9 a 1,1 g/cm³ perto da linha e cerca de 1,3 g/cm³ no centro da entrelinha."]},
+ {t:"Conservação do solo", p:"Proteger o solo é proteger a produtividade futura.", l:[
+  "Plantio em nível, terraços e carreadores bem posicionados; em Argissolos e declives, evite preparo morro abaixo.",
+  "Mantenha a palha e evite solo descoberto.",
+  "Tráfego controlado: concentre as máquinas em linhas fixas.",
+  "Arenoso: preparo mínimo para preservar matéria orgânica e umidade."]}
+],
+can: [
+ {t:"O ciclo campo, usina e campo", p:"A cana sai do campo, vira açúcar e etanol na usina e os resíduos voltam à lavoura como adubo.", l:[
+  "Campo: plantio e cultivo (12 a 18 meses), colheita mecanizada e transporte.",
+  "Usina: recepção e limpeza, moagem, tratamento do caldo; depois açúcar (evaporação, cozimento, centrifugação) ou etanol (fermentação, destilação).",
+  "Subprodutos: bagaço queima na caldeira e gera energia; torta de filtro e vinhaça voltam ao campo.",
+  "Torta de filtro traz P, Ca, N e matéria orgânica. Vinhaça é rica em potássio e aplicada por fertirrigação."]},
+ {t:"Recepção e limpeza", p:"Na recepção se mede quanto a cana vale; na limpeza se retira o que danifica equipamentos.", l:[
+  "Pesagem: balança cheio e vazio; a diferença é o peso líquido.",
+  "Amostragem: sonda retira amostras; o laboratório mede Brix, Pol, fibra e pureza, de onde sai o ATR, base do pagamento ao fornecedor no sistema Consecana.",
+  "Cana picada (colheita mecanizada): limpeza a seco, com ventiladores e mesas de rolos. Cana inteira: lavagem com jatos de água.",
+  "Impurezas (terra, areia, pedras) desgastam moendas e bombas, aumentam as cinzas no açúcar e atrapalham a fermentação.",
+  "Eletroímãs retiram metais antes das moendas."]},
+ {t:"Tipos de etanol", p:"Diferem na quantidade de água.", l:[
+  "Hidratado (EHC): cerca de 95%, sai direto da destilação, vendido puro na bomba para carros flex.",
+  "Anidro (EAC): ≥ ~99,3%, destilação mais desidratação (peneiras moleculares), misturado à gasolina.",
+  "Mistura: desde 1º de agosto de 2026 a gasolina comum leva 32% de anidro (antes 30%), em caráter temporário por 180 dias, prorrogáveis; a premium segue com 25%. A lei do Combustível do Futuro permite chegar a 35%.",
+  "Etanol 2G é feito da celulose do bagaço e da palha; o etanol de milho cresce ao lado do de cana."]},
+ {t:"Fisiologia: açúcar e nutrição", p:"Onde a nutrição encontra o resultado industrial.", l:[
+  "O potássio move e guarda a sacarose no colmo e dá resistência à seca.",
+  "Nitrogênio em excesso atrasa a maturação e reduz o açúcar.",
+  "P e Zn formam raízes e perfilhos; Ca alonga a ponta da raiz; Al tóxico encurta as raízes.",
+  "Soqueira responde mais ao N que a cana-planta."]}
+],
+log: [
+ {t:"O ciclo do caminhão", p:"Tc = tempo de carregamento + ida + descarga (ou aplicação) + volta, mais filas e abastecimentos.", l:[
+  "Viagens por hora de um caminhão = 60 ÷ Tc (em minutos).",
+  "Vazão de transporte de um caminhão (m³/h) = capacidade (m³) × 60 ÷ Tc.",
+  "Fila de caminhões indica gargalo ou excesso de frota; equipamento esperando carga indica falta de caminhão."]},
+ {t:"Quantos caminhões?", p:"Dois caminhos equivalentes (os números do exemplo são hipotéticos).", l:[
+  "Por intervalo de chegada: N = Tc ÷ intervalo entre chegadas. Ex.: Tc 90 min e chegada a cada 12 min → 7,5 → 8 caminhões.",
+  "Por demanda: N = demanda (m³/h) ÷ vazão de um caminhão. Ex.: 120 m³/h com caminhão de 30 m³ e Tc 90 min (20 m³/h) → 6 caminhões.",
+  "Arredonde para cima, mas compare o custo da ociosidade do equipamento de aplicação com o da fila.",
+  "O app Logística Vinhaça, na sua central, calcula caminhões por frente."]},
+ {t:"Capacidade operacional", p:"Quanto o conjunto rende por hora.", l:[
+  "Capacidade de campo (ha/h) = velocidade (km/h) × largura (m) ÷ 10 × eficiência de campo.",
+  "Eficiência de campo = capacidade efetiva ÷ teórica; perde com manobras, abastecimento e paradas.",
+  "Disponibilidade mecânica = (horas totais − horas de manutenção) ÷ horas totais × 100.",
+  "Utilização = parte do tempo disponível em que o equipamento de fato trabalhou."]},
+ {t:"Gargalos e custos", p:"Onde a operação perde dinheiro.", l:[
+  "Procure o gargalo: carga, estrada, descarga ou aplicação. Aumentar caminhões além do ponto ideal só gera fila.",
+  "Custo por m³ = custo horário do conjunto ÷ vazão efetiva (m³/h).",
+  "Custo por ha = custo horário ÷ capacidade (ha/h).",
+  "Registre horários de carga, descarga e paradas: sem dado medido, o dimensionamento é só estimativa."]}
+]
+};
+
+// n = nível: 1 leve, 2 moderado, 3 avançado
+const CARTOES = [
+ {t:"vin",n:1,f:"O que é vinhaça?",v:"Efluente líquido da destilação do etanol. A composição varia com matéria-prima, processo e diluição."},
+ {t:"vin",n:1,f:"O que é aplicação localizada?",v:"Dirigir a vinhaça a faixas ou linhas, perto da linha da cana, em vez de espalhar sobre toda a superfície."},
+ {t:"vin",n:1,f:"A vinhaça tem sempre a mesma composição?",v:"Não. Varia com processo, safra, diluição e armazenamento. Use o laudo do tanque ou lote."},
+ {t:"vin",n:1,f:"Aplicação localizada elimina os riscos ambientais?",v:"Não. Dose, solo, chuva ou equipamento inadequados ainda causam lixiviação, escorrimento e salinização."},
+ {t:"vin",n:2,f:"Como calcular kg de nutriente por hectare?",v:"Concentração (kg/m³) × volume (m³/ha). Ex.: 2 kg K₂O/m³ × 40 m³/ha = 80 kg K₂O/ha."},
+ {t:"vin",n:2,f:"1 kg/m³ equivale a quantos g/L?",v:"1 g/L (1 m³ = 1.000 L). Já 1 mg/L é mil vezes menor."},
+ {t:"vin",n:2,f:"K ou K₂O no laudo?",v:"Não são a mesma unidade: K₂O = K × 1,205. Confira em qual forma estão o laudo e a recomendação."},
+ {t:"vin",n:2,f:"Subir a velocidade sem recalibrar faz o quê?",v:"Reduz a dose por hectare se a vazão não subir na mesma proporção."},
+ {t:"vin",n:2,f:"Para que serve a condutividade elétrica (CE)?",v:"Indica sais dissolvidos; ajuda a acompanhar o risco de salinidade junto com solo, dose e drenagem. CE da vinhaça não é CE do extrato do solo."},
+ {t:"vin",n:3,f:"Fórmula da dose por vazão, velocidade e largura?",v:"Dose (m³/ha) = vazão (L/min) × 0,6 ÷ (velocidade km/h × largura m)."},
+ {t:"vin",n:3,f:"Resultado do estudo da Embrapa em solo arenoso?",v:"Vinhaça localizada (30 m³/ha) elevou a CE de 0–20 cm a 1,43 dS/m (testemunha 0,10) e reduziu perfilhos e massa verde. Área total teve efeito menor."},
+ {t:"vin",n:3,f:"Por que localizada pode pesar mais que área total no mesmo volume?",v:"Concentra sal e K numa faixa estreita, onde estão as raízes em formação: a carga por área de solo atingida é maior."},
+
+ {t:"leg",n:1,f:"Qual norma da CETESB trata de vinhaça no solo agrícola?",v:"A P4.231 (3ª edição, 2ª versão, fev/2015)."},
+ {t:"leg",n:1,f:"Pode aplicar vinhaça em APP?",v:"Não, é proibido (item 5.1.1)."},
+ {t:"leg",n:1,f:"Profundidade mínima do lençol freático na aplicação?",v:"1,50 m do aquífero livre."},
+ {t:"leg",n:1,f:"Até quando entregar o PAV?",v:"Anualmente, até 2 de abril."},
+ {t:"leg",n:2,f:"Qual o limite de K no solo?",v:"5% da CTC. Atingido, só se permite a reposição de 185 kg K₂O/ha por corte."},
+ {t:"leg",n:2,f:"Distância mínima de poços e do perímetro urbano?",v:"Poços de abastecimento: 100 m. Perímetro urbano: 1.000 m (a CETESB pode ampliar)."},
+ {t:"leg",n:2,f:"Quantos poços de monitoramento?",v:"Mínimo de 4: 1 a montante e 3 a jusante dos tanques (drenos testemunha dispensam)."},
+ {t:"leg",n:2,f:"Quando monitorar as águas subterrâneas?",v:"Uma vez por ano, entre setembro e novembro, em laboratório acreditado ISO/IEC 17025."},
+ {t:"leg",n:2,f:"Quem assina o PAV?",v:"Profissional habilitado pelo CREA, com ART específica."},
+ {t:"leg",n:3,f:"Fórmula da dose máxima de vinhaça?",v:"m³/ha = [(0,05 × CTC − ks) × 3744 + 185] ÷ kvi."},
+ {t:"leg",n:3,f:"O que é ks e em que profundidade?",v:"Potássio no solo (cmolc/dm³) de 0 a 0,80 m."},
+ {t:"leg",n:3,f:"Monitoramento de fertilidade versus qualidade do solo?",v:"Fertilidade: anual, antes da safra, 0–0,80 m. Qualidade: a cada 5 anos, 0–0,20 m (metais e outros)."},
+
+ {t:"nut",n:1,f:"Para que serve o calcário?",v:"Corrige a acidez (pH), elimina Al tóxico e fornece Ca e Mg."},
+ {t:"nut",n:1,f:"O gesso corrige o pH?",v:"Não. Leva Ca e S ao subsolo (20–40 cm) e reduz o Al em profundidade."},
+ {t:"nut",n:1,f:"Sintoma de falta de potássio?",v:"Bordas e pontas das folhas velhas amarelo-alaranjadas, depois secas, com aspecto de queima."},
+ {t:"nut",n:1,f:"Nutriente mais extraído pela cana?",v:"Potássio (cerca de 1,5 a 2 kg K₂O por tonelada de colmos, segundo o guia)."},
+ {t:"nut",n:2,f:"Nutrientes móveis (sintoma nas folhas velhas)?",v:"N, P, K e Mg."},
+ {t:"nut",n:2,f:"Nutrientes pouco móveis (sintoma nas folhas novas)?",v:"S, Ca, B, Cu, Mn, Fe e Zn."},
+ {t:"nut",n:2,f:"Falta de S se confunde com falta de quê?",v:"De N (amarelecimento), mas a de S é mais forte nas folhas novas."},
+ {t:"nut",n:2,f:"Sintoma de falta de magnésio?",v:"Faixas amarelas entre as nervuras nas folhas velhas, com pintas marrom-avermelhadas (aspecto de ferrugem)."},
+ {t:"nut",n:2,f:"Por que o adubo no sulco não pode encostar na gema?",v:"O excesso de sal queima a brotação, principalmente em solo arenoso."},
+ {t:"nut",n:3,f:"Meta comum de V% na calagem?",v:"60 a 70% (referência do guia). A dose final vem da análise e da recomendação oficial."},
+ {t:"nut",n:3,f:"Quando aplicar gesso?",v:"Ca baixo e/ou m% acima de 20–30% no subsolo (20–40 cm). A dose vem da análise do subsolo e da argila."},
+ {t:"nut",n:3,f:"Por que a ureia sobre a palha perde N?",v:"Volatilização de amônia. Aplique com umidade, incorpore ou use fonte estabilizada."},
+
+ {t:"sol",n:1,f:"O que é o Neossolo Quartzarênico?",v:"Solo com mais de 85% de areia: retém pouca água, CTC baixíssima, lixivia N, K e B. Aptidão restrita."},
+ {t:"sol",n:1,f:"Característica principal do Latossolo?",v:"Profundo, bem drenado, ácido e de baixa fertilidade natural; risco de compactação a 20–40 cm."},
+ {t:"sol",n:1,f:"Risco-chave do Argissolo?",v:"Erosão: a água escorre sobre o horizonte argiloso e arrasta a terra."},
+ {t:"sol",n:1,f:"Como é o solo argiloso no teste do tato?",v:"Forma fita longa (mais de 5 cm), pegajoso e plástico."},
+ {t:"sol",n:2,f:"Quando subsolar?",v:"Só onde há compactação e com solo seco e friável (35–40 cm). Úmido, alisa e piora."},
+ {t:"sol",n:2,f:"O que é o Nitossolo?",v:"A antiga terra roxa: argiloso, profundo, aptidão excelente; fixa muito P e exige conservação em relevo ondulado."},
+ {t:"sol",n:2,f:"Como lidar com Gleissolo e Organossolo?",v:"São hidromórficos: drenar antes, plantar em camalhão e trafegar só com solo firme."},
+ {t:"sol",n:2,f:"O que é ambiente de produção restritivo?",v:"Arenoso, raso ou mal drenado: exige variedade rústica, parcelamento e muita cobertura do solo."},
+ {t:"sol",n:2,f:"Gemas por metro, cobertura e conferência do stand?",v:"Em geral 12 a 18 gemas por metro, cobertura de 5 a 10 cm de terra, conferir a brotação em 30 a 45 dias."},
+ {t:"sol",n:3,f:"Bitola e pisoteio (Embrapa Cerrados)?",v:"Com espaçamento de 1,5 m, bitola de 2,0 m pisoteia cerca de 73% da área e a de 3,0 m cerca de 46%. Padronize bitolas em múltiplos do espaçamento."},
+ {t:"sol",n:3,f:"Escarificar a entrelinha da soqueira compensa?",v:"No estudo, não houve diferença significativa (354,8 contra 348,4 t/ha em 4 socas). A recomendação foi prevenir: sem tráfego úmido e com bitolas padronizadas."},
+ {t:"sol",n:3,f:"Como a umidade influencia a compactação?",v:"Quanto maior a umidade do solo, maior a compactação causada pelo tráfego de máquinas."},
+
+ {t:"can",n:1,f:"Quanto dura o crescimento da cana-planta?",v:"De 12 a 18 meses, segundo o fluxograma do projeto."},
+ {t:"can",n:1,f:"Para onde vai o bagaço?",v:"Para a caldeira, onde gera energia."},
+ {t:"can",n:1,f:"O que é a torta de filtro?",v:"Subproduto do tratamento do caldo que volta ao campo como adubo (P, Ca, N e matéria orgânica)."},
+ {t:"can",n:1,f:"Qual o papel da vinhaça no ciclo?",v:"Sai da destilação, é rica em potássio e volta à lavoura por fertirrigação."},
+ {t:"can",n:2,f:"O que o laboratório mede na amostra da carga?",v:"Brix, Pol, fibra e pureza, de onde sai o ATR, base do pagamento no Consecana."},
+ {t:"can",n:2,f:"Como se limpa a cana picada?",v:"A seco, com ventiladores e mesas de rolos. Lavar os toletes perderia muito açúcar."},
+ {t:"can",n:2,f:"Como se limpa a cana inteira?",v:"Com jatos de água na mesa, pois o colmo inteiro perde pouco açúcar."},
+ {t:"can",n:2,f:"Diferença entre etanol hidratado e anidro?",v:"Hidratado: ~95%, vendido puro. Anidro: ≥ ~99,3%, misturado à gasolina."},
+ {t:"can",n:2,f:"Qual o papel do potássio no colmo?",v:"Controla a água nas células, transporta e acumula a sacarose e dá resistência à seca."},
+ {t:"can",n:3,f:"Qual a mistura de etanol na gasolina comum?",v:"32% de anidro desde 1º/ago/2026, temporária por 180 dias (prorrogável). Premium: 25%. A lei permite chegar a 35%."},
+ {t:"can",n:3,f:"Por que excesso de N prejudica a cana?",v:"Atrasa a maturação e reduz o açúcar."},
+ {t:"can",n:3,f:"Por que impurezas minerais são um problema na usina?",v:"Desgastam moendas e bombas, aumentam as cinzas no açúcar e atrapalham a fermentação."},
+
+ {t:"log",n:1,f:"O que compõe o ciclo do caminhão?",v:"Carregamento, ida, descarga (ou aplicação) e volta, mais filas e abastecimento."},
+ {t:"log",n:1,f:"O que é ociosidade?",v:"Tempo em que máquina ou equipe fica parada por falta de serviço, como esperar carga."},
+ {t:"log",n:1,f:"O que indica uma fila de caminhões?",v:"Gargalo (carga, descarga, estrada) ou excesso de frota."},
+ {t:"log",n:1,f:"O que é disponibilidade mecânica?",v:"Percentual do tempo em que a máquina está apta a trabalhar: (HT − HM) ÷ HT × 100."},
+ {t:"log",n:2,f:"Como calcular o número de caminhões?",v:"Tc ÷ intervalo entre chegadas, arredondando para cima. Ex.: 90 ÷ 12 = 7,5 → 8."},
+ {t:"log",n:2,f:"Quantas viagens por hora faz um caminhão?",v:"60 ÷ Tc em minutos. Com Tc de 40 min: 1,5 viagem por hora."},
+ {t:"log",n:2,f:"Fórmula da capacidade de campo em ha/h?",v:"Velocidade (km/h) × largura (m) ÷ 10 × eficiência de campo."},
+ {t:"log",n:2,f:"Como calcular o custo por m³?",v:"Custo horário do conjunto ÷ vazão efetiva (m³/h)."},
+ {t:"log",n:3,f:"Por que arredondar o número de caminhões para cima?",v:"Para o equipamento de aplicação não esperar carga. Compare o custo da ociosidade com o da fila."},
+ {t:"log",n:3,f:"O que é eficiência de campo?",v:"Razão entre a capacidade efetiva e a teórica; cai com manobras, abastecimentos e paradas."},
+ {t:"log",n:3,f:"Colocar mais caminhões sempre resolve?",v:"Não. Passado o ponto ideal só gera fila e custo; o gargalo pode estar na carga, na descarga ou na estrada."},
+ {t:"log",n:3,f:"O que é taxa de utilização?",v:"Parte do tempo disponível em que o equipamento de fato trabalhou."}
+];
+
+// o: opções; c: índice da correta; e: explicação
+const PERGUNTAS = [
+ {t:"vin",n:1,q:"O que é vinhaça?",o:["Efluente líquido da destilação do etanol","Fertilizante sólido da usina","Caldo antes da fermentação","Água de lavagem da cana"],c:0,e:"Vinhaça é o efluente líquido gerado na destilação do etanol; sua composição varia com o processo."},
+ {t:"vin",n:1,q:"Aplicação localizada significa:",o:["Espalhar sobre toda a superfície","Dirigir o produto a faixas ou linhas","Aplicar só à noite","Aplicar sempre por pivô central"],c:1,e:"Localizada é o posicionamento do produto em faixas ou linhas, perto da linha da cana."},
+ {t:"vin",n:1,q:"A aplicação localizada elimina os riscos de lixiviação e salinização?",o:["Sim, sempre","Sim, só em solo argiloso","Não: dose e condições inadequadas ainda geram risco","Sim, se a faixa for estreita"],c:2,e:"Benefícios são potenciais. Dose, solo, chuva e equipamento continuam determinando o risco."},
+ {t:"vin",n:1,q:"Por que não usar uma composição média no lugar do laudo?",o:["Porque a média é proibida","Porque a composição varia com processo, safra e diluição","Porque o laudo é sempre igual à média","Porque a vinhaça não tem potássio"],c:1,e:"A concentração real pode diferir muito da média e levar a uma dose de nutriente errada."},
+ {t:"vin",n:2,q:"Laudo com 2 kg de K₂O/m³ e aplicação de 40 m³/ha. Quantos kg de K₂O/ha?",o:["20","40","80","160"],c:2,e:"2 kg/m³ × 40 m³/ha = 80 kg K₂O/ha."},
+ {t:"vin",n:2,q:"Com 1,5 kg de K₂O/m³ e 40 m³/ha, quanto K₂O é aplicado?",o:["60 kg/ha","45 kg/ha","80 kg/ha","30 kg/ha"],c:0,e:"1,5 × 40 = 60 kg K₂O/ha: mudou a concentração, mudou o resultado."},
+ {t:"vin",n:2,q:"2 kg/m³ equivale numericamente a:",o:["2 mg/L","2 g/L","200 g/L","0,2 g/L"],c:1,e:"1 m³ tem 1.000 L, então 2 kg/m³ = 2.000 g ÷ 1.000 L = 2 g/L."},
+ {t:"vin",n:2,q:"Aumentar a velocidade sem recalibrar, mantendo a vazão, faz a dose por hectare:",o:["Aumentar","Diminuir","Ficar igual","Dobrar"],c:1,e:"Cobre-se mais área com o mesmo volume por minuto: a dose por hectare cai."},
+ {t:"vin",n:3,q:"Vazão 2.000 L/min, velocidade 4 km/h, largura 24 m. Qual a dose?",o:["6,25 m³/ha","12,5 m³/ha","25 m³/ha","50 m³/ha"],c:1,e:"Dose = 2.000 × 0,6 ÷ (4 × 24) = 1.200 ÷ 96 = 12,5 m³/ha."},
+ {t:"vin",n:3,q:"100 kg de K equivalem a quantos kg de K₂O?",o:["83 kg","100 kg","120,5 kg","241 kg"],c:2,e:"K₂O = K × 1,205, então 100 kg de K = 120,5 kg de K₂O."},
+ {t:"vin",n:3,q:"No estudo da Embrapa em solo arenoso, qual tratamento mais reduziu os perfilhos?",o:["Testemunha","Água localizada","Vinhaça em área total","Vinhaça localizada"],c:3,e:"Vinhaça localizada: 115,5 perfilhos contra 139,8 da testemunha (cerca de 17% menos)."},
+ {t:"vin",n:3,q:"Por que o resultado da Embrapa não vale direto para qualquer talhão?",o:["Porque o estudo foi sem repetições","Porque foi um talhão, uma safra, solo arenoso e período seco","Porque a vinhaça não tinha potássio","Porque só mediu a profundidade de 2 m"],c:1,e:"Houve 5 repetições, mas em um único talhão, uma safra e cerca de 4 meses com pouca chuva."},
+
+ {t:"leg",n:1,q:"Qual norma da CETESB define critérios para aplicar vinhaça no solo agrícola?",o:["P4.231","NR-31","Resolução CONAMA 357","Código Florestal"],c:0,e:"A P4.231 (3ª edição, 2ª versão, fev/2015) trata da vinhaça no solo agrícola."},
+ {t:"leg",n:1,q:"A aplicação de vinhaça em APP é:",o:["Permitida","Permitida com licença simples","Proibida","Permitida só no inverno"],c:2,e:"O item 5.1.1 da norma proíbe a aplicação em APP."},
+ {t:"leg",n:1,q:"Profundidade mínima do aquífero livre no momento da aplicação:",o:["0,50 m","1,00 m","1,50 m","3,00 m"],c:2,e:"A norma exige no mínimo 1,50 m do aquífero livre."},
+ {t:"leg",n:1,q:"O PAV deve ser entregue à CETESB até:",o:["1º de janeiro","2 de abril","30 de junho","31 de dezembro"],c:1,e:"O PAV é anual, com entrega até 2 de abril."},
+ {t:"leg",n:2,q:"Distância mínima do perímetro urbano:",o:["100 m","500 m","1.000 m","5.000 m"],c:2,e:"No mínimo 1.000 m, podendo a CETESB ampliar com justificativa técnica."},
+ {t:"leg",n:2,q:"O limite de potássio no solo é de:",o:["1% da CTC","5% da CTC","15% da CTC","50% da CTC"],c:1,e:"Máximo de 5% da CTC; ao atingi-lo, só a reposição de 185 kg K₂O/ha por corte."},
+ {t:"leg",n:2,q:"Quantos poços de monitoramento, no mínimo, na norma?",o:["1","2","4 (1 a montante e 3 a jusante)","10"],c:2,e:"Mínimo de 4 poços: 1 a montante e 3 a jusante dos tanques."},
+ {t:"leg",n:2,q:"Em declividade acima de 15%, a norma exige:",o:["Proibição total","Medidas contra erosão","Dobrar a dose","Nada"],c:1,e:"Declividade acima de 15% exige medidas contra erosão (item 5.1.9)."},
+ {t:"leg",n:3,q:"CTC 6, ks 0,20 e kvi 2 kg/m³ (hipotético). Dose máxima pela fórmula?",o:["Cerca de 140 m³/ha","Cerca de 280 m³/ha","Cerca de 560 m³/ha","Cerca de 28 m³/ha"],c:1,e:"[(0,30 − 0,20) × 3744 + 185] ÷ 2 = 559,4 ÷ 2 ≈ 280 m³/ha."},
+ {t:"leg",n:3,q:"Solo já no limite de 5% da CTC e vinhaça com 2,5 kg K₂O/m³. Dose máxima?",o:["37 m³/ha","74 m³/ha","185 m³/ha","462 m³/ha"],c:1,e:"Com ks = 0,05 × CTC o primeiro termo zera: 185 ÷ 2,5 = 74 m³/ha."},
+ {t:"leg",n:3,q:"A coleta de solo para fertilidade, segundo a norma, é:",o:["Anual, antes da safra, de 0 a 0,80 m","A cada 5 anos, de 0 a 0,20 m","Mensal, de 0 a 0,10 m","Só no primeiro ano"],c:0,e:"Fertilidade: anual, antes da safra, 0–0,80 m. A de qualidade é de 5 em 5 anos, 0–0,20 m."},
+ {t:"leg",n:3,q:"A DD 132/2018 da CETESB trata de:",o:["Registro de defensivos","Plano de monitoramento das águas subterrâneas (vinhaça)","Queima da palha","Licença de caminhões"],c:1,e:"Título da DD 132/2018: Plano de Monitoramento das Águas Subterrâneas, vinhaça."},
+
+ {t:"nut",n:1,q:"Qual destes NÃO corrige o pH do solo?",o:["Calcário calcítico","Calcário dolomítico","Gesso agrícola","Silicato de Ca e Mg"],c:2,e:"O gesso não corrige o pH: leva Ca e S ao subsolo e reduz o Al em profundidade."},
+ {t:"nut",n:1,q:"Os macronutrientes secundários são:",o:["N, P, K","Ca, Mg, S","Zn, B, Cu","Fe, Mo, Cl"],c:1,e:"Primários: N, P, K. Secundários: Ca, Mg, S."},
+ {t:"nut",n:1,q:"Bordas e pontas das folhas velhas amarelo-alaranjadas e secas indicam falta de:",o:["Potássio","Boro","Ferro","Cálcio"],c:0,e:"Sintoma típico de K: queima de bordas e pontas nas folhas velhas."},
+ {t:"nut",n:1,q:"A ordem correta do manejo é:",o:["Adubar, corrigir, amostrar, monitorar","Amostrar, corrigir, adubar, monitorar","Monitorar, adubar, amostrar, corrigir","Corrigir, monitorar, amostrar, adubar"],c:1,e:"Primeiro diagnostica (amostrar), prepara a casa (corrigir), nutre (adubar) e acompanha (monitorar)."},
+ {t:"nut",n:2,q:"Quais nutrientes são móveis, com sintoma nas folhas velhas?",o:["N, P, K, Mg","Ca, B, Fe, Zn","S, Cu, Mn, Fe","Mo, Cl, B, Ca"],c:0,e:"N, P, K e Mg são móveis: a planta os retira das folhas velhas para o broto novo."},
+ {t:"nut",n:2,q:"Faixas amarelo-esbranquiçadas ao lado da nervura central e colmos curtos indicam falta de:",o:["Magnésio","Zinco","Fósforo","Enxofre"],c:1,e:"É o quadro clássico de deficiência de zinco."},
+ {t:"nut",n:2,q:"Onde se aplica o fósforo, que é pouco móvel no solo?",o:["Na superfície, sem incorporar","No sulco de plantio, perto das raízes","Só na soqueira","Só na folha"],c:1,e:"Pouco móvel, o P deve ficar próximo às raízes: no sulco de plantio."},
+ {t:"nut",n:2,q:"Excesso de calcário e de P pode induzir:",o:["Excesso de N","Deficiência de micronutrientes (Zn, Mn, Fe)","Mais perfilhos","Maior acidez"],c:1,e:"pH alto e excesso de P reduzem a disponibilidade de micros como Zn, Mn e Fe."},
+ {t:"nut",n:3,q:"No estudo de cana irrigada (Salviano et al., 2017), qual a ordem de acúmulo?",o:["N > K > P > Ca > Mg > S","K > N > Ca > S > P > Mg","Ca > Mg > K > N > S > P","P > N > K > S > Mg > Ca"],c:1,e:"O artigo registra a ordem K > N > Ca > S > P > Mg para a soca irrigada RB92579."},
+ {t:"nut",n:3,q:"Nesse mesmo estudo, a colheita exportou aproximadamente:",o:["5 a 10% do acumulado","20 a 30%","60 a 90%","100%"],c:2,e:"A colheita exportou cerca de 60 a 90% dos nutrientes acumulados."},
+ {t:"nut",n:3,q:"Cana com 100 t/ha de colmos e extração de 1,5 a 2 kg K₂O/t. Extração total de K₂O:",o:["15 a 20 kg/ha","75 a 100 kg/ha","150 a 200 kg/ha","1.500 a 2.000 kg/ha"],c:2,e:"100 t × 1,5 a 2 kg/t = 150 a 200 kg K₂O/ha."},
+ {t:"nut",n:3,q:"Em solo argiloso rico em óxidos, a dose de P no sulco tende a ser:",o:["Menor, pois retém bem","Maior, pois fixa mais fósforo","Igual à do arenoso","Zero"],c:1,e:"Solos argilosos fixam mais fósforo e pedem dose maior de P no sulco."},
+
+ {t:"sol",n:1,q:"Solo com mais de 85% de areia é:",o:["Latossolo","Neossolo Quartzarênico","Nitossolo","Gleissolo"],c:1,e:"O Neossolo Quartzarênico tem mais de 85% de areia."},
+ {t:"sol",n:1,q:"O maior risco do Argissolo é:",o:["Erosão","Encharcamento","Salinização natural","Excesso de matéria orgânica"],c:0,e:"A água escorre sobre o horizonte argiloso e arrasta a terra."},
+ {t:"sol",n:1,q:"No teste do tato, a fita longa (mais de 5 cm), pegajosa, indica solo:",o:["Arenoso","Médio","Argiloso","Orgânico"],c:2,e:"Fita longa, pegajoso e plástico: textura argilosa."},
+ {t:"sol",n:1,q:"A subsolagem deve ser feita:",o:["Sempre, em toda área","Onde há compactação e com solo seco e friável","Com solo encharcado","Só em Neossolo Litólico"],c:1,e:"Com solo úmido a subsolagem alisa e piora a camada compactada."},
+ {t:"sol",n:2,q:"Qual solo é classificado como de aptidão excelente para cana?",o:["Neossolo Quartzarênico","Gleissolo","Nitossolo","Neossolo Litólico"],c:2,e:"O Nitossolo (antiga terra roxa) é argiloso, profundo e de alta retenção."},
+ {t:"sol",n:2,q:"Em Gleissolo, antes de plantar é preciso:",o:["Subsolar fundo","Drenar a área","Aplicar ureia","Plantar na seca"],c:1,e:"Hidromórfico: lençol alto, pouco oxigênio. Drene, plante em camalhão e trafegue só com solo firme."},
+ {t:"sol",n:2,q:"Calcário e gesso devem ser aplicados:",o:["Depois do plantio","60 a 90 dias antes do plantio, antes da aração e gradagem","No dia do plantio","Só na soqueira"],c:1,e:"Assim são incorporados em profundidade antes do plantio."},
+ {t:"sol",n:2,q:"O adubo no sulco de plantio deve:",o:["Encostar na gema","Ficar sem contato direto com a gema","Ser aplicado só na superfície","Ser dispensado"],c:1,e:"O excesso de sal queima a brotação."},
+ {t:"sol",n:3,q:"Com espaçamento de 1,5 m, o pisoteio cai de cerca de 73% para cerca de 46% ao passar a bitola de:",o:["1,5 m para 2,0 m","2,0 m para 3,0 m","3,0 m para 2,0 m","1,0 m para 1,5 m"],c:1,e:"Embrapa Cerrados: bitola de 2,0 m pisoteia ~73% e a de 3,0 m, ~46%."},
+ {t:"sol",n:3,q:"Segundo a Embrapa Cerrados, o principal responsável pela compactação em cana é:",o:["A chuva","O conjunto trator-transbordo","O corte manual","A vinhaça"],c:1,e:"O trator com transbordo foi apontado como principal causa."},
+ {t:"sol",n:3,q:"Em Latossolo, a camada com risco de compactação fica em:",o:["0–5 cm","20–40 cm","1,5–2 m","Só na superfície"],c:1,e:"O guia cita a camada de 20–40 cm."},
+ {t:"sol",n:3,q:"Em Argissolo com declive, o cuidado mais importante é:",o:["Preparo morro abaixo","Plantio em nível, terraços e manter a palha","Deixar o solo descoberto","Subsolagem profunda"],c:1,e:"É o solo mais suscetível à erosão: conservação é prioridade."},
+
+ {t:"can",n:1,q:"Qual etapa da usina gera a vinhaça?",o:["Moagem","Destilação","Evaporação","Cozimento"],c:1,e:"A vinhaça sai da destilação do vinho fermentado."},
+ {t:"can",n:1,q:"O bagaço da cana é usado principalmente para:",o:["Adubo líquido","Gerar energia na caldeira","Produzir açúcar","Fazer vinhaça"],c:1,e:"O bagaço queima na caldeira e gera energia."},
+ {t:"can",n:1,q:"A cana picada (colheita mecanizada) é limpa:",o:["Lavando com muita água","A seco","Não é limpa","Com ácido"],c:1,e:"Lavar toletes picados perderia muito açúcar; usa-se limpeza a seco."},
+ {t:"can",n:1,q:"O etanol vendido puro na bomba é o:",o:["Anidro","Hidratado","Neutro","De segunda geração"],c:1,e:"Hidratado (~95% de álcool); o anidro é misturado à gasolina."},
+ {t:"can",n:2,q:"O ATR é a base de:",o:["Cálculo da vinhaça","Pagamento ao fornecedor (Consecana)","Escolha do caminhão","Dose de calcário"],c:1,e:"Do Brix, Pol, fibra e pureza sai o ATR, base de pagamento."},
+ {t:"can",n:2,q:"O teor do etanol anidro é de, aproximadamente:",o:["≥ 99,3%","80%","95%","50%"],c:0,e:"Anidro: ≥ ~99,3%. Hidratado: ~95%."},
+ {t:"can",n:2,q:"O potássio no colmo da cana:",o:["Atrasa a brotação","Move e acumula a sacarose","Não tem função","Só serve às raízes"],c:1,e:"O K controla a água, transporta e acumula sacarose."},
+ {t:"can",n:2,q:"A torta de filtro traz principalmente:",o:["K e Na","P, Ca, N e matéria orgânica","Só água","Só silício"],c:1,e:"É um adubo orgânico que volta ao campo."},
+ {t:"can",n:3,q:"Desde 1º/ago/2026, a mistura de anidro na gasolina comum é de:",o:["27%","30%","32%","35% fixo"],c:2,e:"32%, em caráter temporário por 180 dias, prorrogáveis. A lei permite chegar a 35%."},
+ {t:"can",n:3,q:"Excesso de nitrogênio na cana:",o:["Acelera a maturação","Atrasa a maturação e reduz o açúcar","Aumenta a pol","Não tem efeito"],c:1,e:"N em excesso atrasa a maturação."},
+ {t:"can",n:3,q:"Por que a cana inteira pode ser lavada, mas a picada não?",o:["Porque a picada é mais limpa","O colmo inteiro perde pouco açúcar na água","Porque a lei proíbe","Porque a picada não tem terra"],c:1,e:"Os toletes cortados perderiam muito açúcar se lavados."},
+ {t:"can",n:3,q:"O etanol de segunda geração (E2G) é feito de:",o:["Caldo da cana","Celulose do bagaço e da palha","Vinhaça","Milho apenas"],c:1,e:"E2G aproveita a celulose do bagaço e da palha."},
+
+ {t:"log",n:1,q:"O ciclo do caminhão é composto por:",o:["Só a ida","Só a descarga","Carregamento, deslocamento, descarga e retorno","Só o abastecimento"],c:2,e:"Soma todos os tempos, mais filas e abastecimentos."},
+ {t:"log",n:1,q:"Fila de caminhões indica:",o:["Frota perfeita","Gargalo ou excesso de frota","Falta de caminhões","Disponibilidade 100%"],c:1,e:"Fila significa espera: gargalo em alguma etapa ou frota acima do necessário."},
+ {t:"log",n:1,q:"A disponibilidade mecânica mede:",o:["O custo do diesel","O percentual do tempo em que a máquina está apta a trabalhar","A velocidade média","O volume transportado"],c:1,e:"(Horas totais − horas de manutenção) ÷ horas totais × 100."},
+ {t:"log",n:1,q:"Ociosidade é:",o:["Parada por falta de serviço","Trabalho acima do normal","Manutenção programada","Abastecimento"],c:0,e:"É o tempo parado por falta de serviço, como esperar carga."},
+ {t:"log",n:2,q:"Tc de 90 min e um caminhão chegando a cada 12 min. Quantos caminhões?",o:["6","7","8","9"],c:2,e:"90 ÷ 12 = 7,5; arredonda-se para cima: 8."},
+ {t:"log",n:2,q:"Com Tc de 40 minutos, quantas viagens por hora faz um caminhão?",o:["0,67","1,5","2","4"],c:1,e:"60 ÷ 40 = 1,5 viagem por hora."},
+ {t:"log",n:2,q:"Velocidade 6 km/h, largura 24 m, eficiência 70%. Capacidade de campo:",o:["Cerca de 6 ha/h","Cerca de 10 ha/h","Cerca de 14 ha/h","Cerca de 100 ha/h"],c:1,e:"6 × 24 ÷ 10 × 0,7 = 14,4 × 0,7 ≈ 10,1 ha/h."},
+ {t:"log",n:2,q:"Custo horário de R$ 600 e vazão de 40 m³/h. Custo por m³:",o:["R$ 1,50","R$ 15","R$ 24","R$ 150"],c:1,e:"600 ÷ 40 = R$ 15 por m³."},
+ {t:"log",n:3,q:"HT de 720 h e 54 h de manutenção. Disponibilidade mecânica:",o:["85%","90%","92,5%","95%"],c:2,e:"(720 − 54) ÷ 720 = 0,925 → 92,5%."},
+ {t:"log",n:3,q:"Demanda de 120 m³/h, caminhão de 30 m³ e Tc de 90 min. Quantos caminhões?",o:["4","6","8","12"],c:1,e:"Cada caminhão faz 30 × 60 ÷ 90 = 20 m³/h; 120 ÷ 20 = 6."},
+ {t:"log",n:3,q:"Mesma demanda de 120 m³/h e caminhão de 30 m³, mas Tc de 120 min. Quantos caminhões?",o:["4","6","8","10"],c:2,e:"Vazão por caminhão = 30 × 60 ÷ 120 = 15 m³/h; 120 ÷ 15 = 8."},
+ {t:"log",n:3,q:"Qual medida pode reduzir o número de caminhões necessários?",o:["Aumentar a fila na descarga","Reduzir o Tc (menos espera e descarga mais rápida)","Diminuir a capacidade do caminhão","Aumentar a distância"],c:1,e:"Quanto menor o Tc, mais viagens por hora cada caminhão faz."}
+];
+
+const FONTES = [
+ {n:"CETESB, Norma P4.231 (3ª ed., 2ª versão, fev/2015)", u:"https://www.cetesb.sp.gov.br/p4-231_vinhaca_-criterios-e-procedimentos-para-aplicacao-no-solo-agricola-3a-ed-2a-versao"},
+ {n:"CETESB, DD 132/2018 (monitoramento das águas subterrâneas, vinhaça)", u:"https://cetesb.sp.gov.br/wp-content/uploads/2018/07/Decisão-de-Diretoria-132-2018-E-C-Plano-de-Monitoramento-das-Águas-Subterraneas-Vinhaça.pdf"},
+ {n:"CETESB, DD 023/2020 (PAV simplificado)", u:"https://cetesb.sp.gov.br/wp-content/uploads/2020/03/DD-023-2020-P-Procedimentos-para-apresentação-de-Plano-de-Aplicação-de-Vinhaça-simplificado.pdf"},
+ {n:"Lance et al. (Embrapa Meio Ambiente), Irriga, 2023: fertirrigação com vinhaça, CE e K no solo", u:"https://www.embrapa.br/en/busca-de-publicacoes/-/publicacao/1183405/fertirrigacao-com-vinhaca-na-cana-de-acucar-avaliacao-do-desenvolvimento-inicial-condutividade-eletrica-e-teor-de-potassio-no-solo"},
+ {n:"Sá et al. (Embrapa Cerrados), Circular Técnica 28, 2015: escarificação em soqueiras", u:"https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1026342/1/cirtec28.pdf"},
+ {n:"Salviano et al., 2017: acúmulo e exportação de macronutrientes pela cana irrigada", u:"https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/1079294/1/Alessandra2017.pdf"},
+ {n:"Zorzenoni et al., 2014: viabilidade da concentração de vinhaça", u:"https://cajapio.ufma.br/index.php/ccaatropica/article/download/1129/2778/14937"},
+ {n:"IAC, Boletim 100 (3ª ed., 2022): notícia de lançamento", u:"https://www.noticiasagricolas.com.br/noticias/agronegocio/326260-iac-lanca-a-esperada-edicao-do-boletim-100-recomendacoes-de-adubacao-e-calagem-para-o-estado-de-sao-paulo.amp.html"},
+ {n:"Mistura de etanol a 32% (Reuters via Notícias Agrícolas)", u:"https://www.noticiasagricolas.com.br/noticias/biocombustivel/425754-brasil-eleva-mistura-de-etanol-na-gasolina-para-32-a-partir-de-sabado.amp.html"}
+];
+
+</script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* progresso compartilhado com o Estudo Agro (mesma chave, mesmo endereço) */
+const KEY="estudoAgroV1",KF="cartaoDiaV1";
+const lerDB=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||"{}");return o&&typeof o==="object"?o:{}}catch(e){return {}}};
+function marca(id,sabe){const o=lerDB();o.conhecidos=o.conhecidos||{};if(sabe)o.conhecidos[id]=1;else delete o.conhecidos[id];try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+let F={tema:"todos",nivel:0};
+try{const r=JSON.parse(localStorage.getItem(KF)||"{}");if(r&&typeof r==="object")F=Object.assign(F,r)}catch(e){}
+const salvaF=()=>{try{localStorage.setItem(KF,JSON.stringify(F))}catch(e){}};
+const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)};
+CARTOES.forEach(c=>c.id=c.t+hash(c.f));
+const NIV=["Todos","Leve","Moderado","Avançado"],TN=Object.fromEntries(TEMAS.map(t=>[t.id,t.nome]));
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const deck=()=>CARTOES.filter(c=>(F.tema==="todos"||c.t===F.tema)&&(!F.nivel||c.n===F.nivel));
+let atual=null,virado=false;
+function sortear(){
+ const d=deck();if(!d.length)return null;
+ const k=lerDB().conhecidos||{};
+ const novos=d.filter(c=>!k[c.id]);
+ let pool=(novos.length&&Math.random()<0.8)?novos:d;
+ if(pool.length>1&&atual)pool=pool.filter(c=>c.id!==atual.id);
+ return rnd(pool);
+}
+let instPrompt=null;
+const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();instPrompt=e;render()});
+addEventListener("appinstalled",()=>{instPrompt=null;render()});
+function topo(){
+ $("#selTema").innerHTML=`<option value="todos">Todos os temas</option>`+TEMAS.map(t=>`<option value="${t.id}">${t.emoji} ${esc(t.nome)}</option>`).join("");
+ $("#selTema").value=F.tema;
+ $("#niveis").innerHTML=NIV.map((n,i)=>`<button class="niv" data-n="${i}" aria-pressed="${F.nivel===i}">${n}</button>`).join("");
+}
+$("#selTema").onchange=e=>{F.tema=e.target.value;salvaF();atual=null;render()};
+$("#niveis").onclick=e=>{const b=e.target.closest(".niv");if(!b)return;F.nivel=+b.dataset.n;salvaF();atual=null;render()};
+function render(){
+ topo();
+ const d=deck(),v=$("#view");
+ if(!d.length){v.innerHTML=`<p>Nenhum cartão neste filtro.</p>`;return}
+ if(!atual||!d.includes(atual)){atual=sortear();virado=false}
+ const k=lerDB().conhecidos||{},sab=d.filter(c=>k[c.id]).length,c=atual;
+ let h=`<div class="mut">${sab} de ${d.length} dominados neste filtro</div>`;
+ h+=`<div style="margin-top:8px"><span class="tag n${c.n}">${NIV[c.n]}</span><span class="tag tg">${esc(TN[c.t])}</span></div>`;
+ h+=`<div class="face ${virado?"verso":""}" id="face">${esc(virado?c.v:c.f)}<small>${virado?"":"Toque para ver a resposta"}</small></div>`;
+ if(virado)h+=`<div class="row"><button class="btn mr" id="bRev">Revisar depois</button><button class="btn" id="bSei">Eu sabia</button></div>`;
+ h+=`<button class="btn lin" id="bOutro">Sortear outro</button>`;
+ if(!standalone())h+=`<div class="inst"><span>Instale para ter este ícone na tela inicial.</span><button class="btn am" id="bInst">📲 Instalar</button></div>`;
+ h+=`<a class="link" href="../estudo-agro/">Abrir o Estudo Agro completo</a>`;
+ v.innerHTML=h;
+ $("#face").onclick=()=>{virado=!virado;render()};
+ const prox=()=>{atual=sortear();virado=false;render();window.scrollTo(0,0)};
+ const s=$("#bSei");if(s)s.onclick=()=>{marca(atual.id,true);prox()};
+ const r=$("#bRev");if(r)r.onclick=()=>{marca(atual.id,false);prox()};
+ $("#bOutro").onclick=prox;
+ const bi=$("#bInst");if(bi)bi.onclick=async()=>{if(instPrompt){instPrompt.prompt();try{await instPrompt.userChoice}catch(e){}instPrompt=null;render()}else alert('No Chrome, toque no menu ⋮ e depois em "Instalar app" ou "Adicionar à tela inicial".')};
+}
+render();
+if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+})();
+</script>
+</body>
+</html>

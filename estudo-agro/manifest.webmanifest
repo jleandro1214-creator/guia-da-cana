@@ -10,6 +10,34 @@
   "orientation": "portrait",
   "background_color": "#1f5f3a",
   "theme_color": "#1f5f3a",
+  "shortcuts": [
+    {
+      "name": "Sortear cartão",
+      "short_name": "Cartão",
+      "description": "Abre direto num cartão sorteado",
+      "url": "./?acao=cartao",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Quiz rápido",
+      "short_name": "Quiz",
+      "description": "Começa um quiz de 10 perguntas",
+      "url": "./?acao=quiz",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
   "icons": [
     {
       "src": "icon-192.png",
