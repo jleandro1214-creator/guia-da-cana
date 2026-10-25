@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Metas Localizada</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1d7a43">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1d7a43;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.3rem;font-weight:800;text-align:center;padding:0 24px}#splash-app small{opacity:.85;font-size:.95rem}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<style>
+:root{--verde:#1d7a43;--verde2:#145c31;--amarelo:#f2c230;--amarelo2:#fff4c9;--marrom:#6b4423;--marrom2:#efe4d6;--creme:#fbf8ec;--txt:#2a2015;--vermelho:#b3261e;--ok:#1d7a43;color-scheme:light}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--creme);color:var(--txt);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:10;background:var(--verde);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px 0}
+.topo{display:flex;align-items:center;gap:10px}
+.topo img{width:38px;height:38px;border-radius:9px}
+.topo h1{font-size:1.15rem;margin:0;flex:1;line-height:1.2}
+.topo h1 small{display:block;font-weight:400;font-size:.8rem;opacity:.9}
+#btnInstalar{background:var(--amarelo);color:var(--marrom);border:0;border-radius:20px;padding:7px 12px;font-weight:700;font-size:.85rem}
+.cenSel{display:flex;gap:8px;align-items:center;margin:8px 0 0}
+.cenSel select{flex:1;font-size:1rem;padding:7px;border-radius:8px;border:0;background:#fff;color:var(--txt);font-weight:700}
+nav{display:flex;overflow-x:auto;gap:4px;margin:10px -14px 0;padding:0 10px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;background:none;border:0;color:#dff3e6;font-size:.95rem;font-weight:700;padding:10px 12px;border-bottom:4px solid transparent}
+nav button.on{color:#fff;border-bottom-color:var(--amarelo)}
+main{padding:14px 14px 90px;max-width:760px;margin:0 auto}
+section{display:none}section.on{display:block}
+.card{background:#fff;border-radius:14px;padding:14px;margin:0 0 14px;box-shadow:0 1px 3px rgba(60,40,20,.12);border-left:6px solid var(--verde)}
+.card.am{border-left-color:var(--amarelo)}.card.mr{border-left-color:var(--marrom)}.card.vm{border-left-color:var(--vermelho)}
+h2{font-size:1.1rem;margin:0 0 8px;color:var(--verde2)}
+h3{font-size:1rem;margin:12px 0 6px;color:var(--marrom)}
+p{margin:6px 0}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--creme);border-radius:12px;padding:10px}
+.kpi b{display:block;font-size:1.35rem;line-height:1.2}
+.kpi span{font-size:.85rem;color:#5c4a36}
+.neg{color:var(--vermelho)}.pos{color:var(--ok)}
+.barra{height:16px;background:var(--marrom2);border-radius:9px;overflow:hidden;margin:8px 0 2px}
+.barra i{display:block;height:100%;background:var(--verde)}
+label.campo{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #eee5d6}
+label.campo span{flex:1}
+label.campo small{display:block;color:#6d5a44;font-size:.82rem}
+input[type=number],input[type=text],select{font-size:1rem;padding:8px;border:2px solid #d9cbb5;border-radius:9px;background:#fff;color:var(--txt);width:110px;text-align:right}
+input[type=text]{text-align:left;width:100%}
+input:focus,select:focus{outline:none;border-color:var(--verde)}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--verde);color:#fff;border:0;border-radius:11px;padding:11px 14px;font-size:1rem;font-weight:700;margin:4px 6px 4px 0}
+.btn.am{background:var(--amarelo);color:var(--marrom)}.btn.mr{background:var(--marrom)}.btn.ln{background:#fff;color:var(--verde2);border:2px solid var(--verde)}.btn.vm{background:#fff;color:var(--vermelho);border:2px solid var(--vermelho)}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:7px 6px;text-align:right;white-space:nowrap;border-bottom:1px solid #eee5d6}
+th{background:var(--verde);color:#fff;position:sticky;top:0}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:inherit}
+tbody tr:nth-child(even){background:#faf6ec}tbody tr:nth-child(odd){background:#fff}
+tfoot td{font-weight:800;background:var(--amarelo2)}
+td input{width:76px;padding:5px;font-size:.9rem}
+.frente{background:var(--creme);border-radius:12px;padding:10px;margin:10px 0;border:2px solid #e6d9c3}
+.frente .cab{display:flex;gap:8px;align-items:center}
+.frente .cab input{flex:1;font-weight:700}
+.dica{background:var(--amarelo2);border-radius:10px;padding:10px;font-size:.92rem;margin:8px 0}
+.lista li{margin:6px 0}
+.seg{display:flex;background:var(--marrom2);border-radius:11px;padding:3px;margin:6px 0}
+.seg button{flex:1;border:0;background:none;padding:9px 4px;border-radius:9px;font-size:.92rem;font-weight:700;color:var(--marrom)}
+.seg button.on{background:var(--verde);color:#fff}
+svg text{font-family:inherit}
+.cmp{display:grid;gap:10px}
+.cmp .card{margin:0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--marrom);color:#fff;padding:10px 16px;border-radius:20px;font-size:.95rem;z-index:50;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head><body>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Metas Localizada</b><small>Simulador de metas da vinhaça</small></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,800-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
+
+<header>
+ <div class="topo"><img src="icon-192.png" alt=""><h1>Metas Localizada<small>Simulador de potencial x meta</small></h1><button id="btnInstalar" hidden>📲 Instalar app</button></div>
+ <div class="cenSel"><select id="selCen" aria-label="Cenário"></select></div>
+ <nav id="abas">
+  <button data-t="resumo" class="on">📊 Resumo</button>
+  <button data-t="frentes">🚜 Frentes</button>
+  <button data-t="equip">⚙️ Equipamento</button>
+  <button data-t="meses">📅 Meses</button>
+  <button data-t="logist">🚚 Logística e custo</button>
+  <button data-t="cenarios">🔀 Cenários</button>
+ </nav>
+</header>
+
+<main>
+<!-- RESUMO -->
+<section id="resumo" class="on">
+ <div class="card" id="rKpis"></div>
+ <div class="card am"><h2>Mês a mês</h2><div id="rGraf"></div></div>
+ <div class="card mr" id="rFalta"></div>
+ <div class="card" id="rFrentes"></div>
+ <button class="btn" id="btnZap">📤 Enviar resumo no WhatsApp</button>
+</section>
+
+<!-- FRENTES -->
+<section id="frentes">
+ <div class="card">
+  <h2>Escala do cenário</h2>
+  <div class="seg" id="segEscala"><button data-e="corrido">Dias corridos (planilha "5x1")</button><button data-e="6x1">6x1</button></div>
+  <p style="font-size:.9rem">Cada frente pode usar outra escala, se precisar.</p>
+  <h3>Ajustes gerais</h3>
+  <label class="campo"><span>Ganho ou perda de rendimento (%)<small>Ex.: 10 = rende 10% a mais; -5 = rende 5% a menos</small></span><input type="number" id="gAjuste" step="1"></label>
+ </div>
+ <div class="card mr"><h2>Frentes</h2><div id="listaFrentes"></div>
+  <button class="btn am" id="addFrente">➕ Adicionar frente</button></div>
+</section>
+
+<!-- EQUIPAMENTO -->
+<section id="equip">
+ <div class="card" id="eqResumo"></div>
+ <div class="card am"><h2>Um equipamento, mês a mês</h2>
+  <label class="campo"><span>Frente</span><select id="eqFrente" style="width:160px"></select></label>
+  <div class="scrollx"><table id="eqTab"></table></div></div>
+</section>
+
+<!-- MESES -->
+<section id="meses">
+ <div class="card">
+  <h2>Clima, jornada e meta por mês</h2>
+  <p style="font-size:.9rem">Esses dados valem para todos os cenários. Mês com eficiência 0% fica parado.</p>
+  <div class="scrollx"><table id="mTab"></table></div>
+  <button class="btn ln" id="btnRestaurar">↩️ Voltar aos números da planilha</button>
+ </div>
+ <div class="card am"><h2>Resultado do cenário por mês</h2><div class="scrollx"><table id="mRes"></table></div></div>
+</section>
+
+<!-- LOGÍSTICA -->
+<section id="logist">
+ <div class="card">
+  <h2>Dose</h2>
+  <label class="campo"><span>Potássio desejado (kg K/ha)</span><input type="number" id="lKg" step="1"></label>
+  <label class="campo"><span>Teor de K da vinhaça (kg/m³)</span><input type="number" id="lTeor" step="0.01"></label>
+  <label class="campo"><span>Dose máxima (m³/ha)<small>0 = sem limite (fornecedor: 20)</small></span><input type="number" id="lMax" step="1"></label>
+  <div class="dica" id="lDose"></div>
+ </div>
+ <div class="card mr">
+  <h2>Caminhões</h2>
+  <label class="campo"><span>Capacidade do caminhão (m³)</span><input type="number" id="lCap" step="1"></label>
+  <label class="campo"><span>Raio médio (km)</span><input type="number" id="lRaio" step="1"></label>
+  <label class="campo"><span>Velocidade média (km/h)</span><input type="number" id="lVel" step="1"></label>
+  <label class="campo"><span>Carga + descarga (min por viagem)</span><input type="number" id="lCarga" step="1"></label>
+  <label class="campo"><span>Horas de trabalho do caminhão por dia</span><input type="number" id="lHoras" step="0.5"></label>
+  <label class="campo"><span>Caminhões disponíveis (total)</span><input type="number" id="lCamDisp" step="1"></label>
+ </div>
+ <div class="card am">
+  <h2>Custo</h2>
+  <label class="campo"><span>Transporte (R$/m³)</span><input type="number" id="lCt" step="0.01"></label>
+  <label class="campo"><span>Mecanização (R$/m³)</span><input type="number" id="lCm" step="0.01"></label>
+ </div>
+ <div class="card" id="lRes"></div>
+</section>
+
+<!-- CENÁRIOS -->
+<section id="cenarios">
+ <div class="card">
+  <h2>Cenário atual</h2>
+  <label class="campo"><span>Nome</span></label>
+  <input type="text" id="cNome">
+  <p></p>
+  <button class="btn" id="cDup">📄 Duplicar para testar</button>
+  <button class="btn am" id="cNovo">➕ Novo da planilha</button>
+  <button class="btn vm" id="cDel">🗑️ Apagar</button>
+ </div>
+ <div class="card am"><h2>Comparar cenários</h2><div id="cCmp" class="cmp"></div></div>
+ <div class="card mr"><h2>Ideias de cenários para testar</h2>
+  <ul class="lista">
+   <li>Mais 1 ou 2 equipamentos numa frente.</li>
+   <li>Rendimento de 16,5 ou 17,5 ha/dia.</li>
+   <li>Escala 6x1 contra dias corridos.</li>
+   <li>Planejar área em março ou esticar até dezembro (aba Meses).</li>
+   <li>Disponibilidade mecânica de 90% (máquina parada pesa).</li>
+  </ul></div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const MESES=["mar/26","abr/26","mai/26","jun/26","jul/26","ago/26","set/26","out/26","nov/26","dez/26","jan/27","fev/27","mar/27"];
+const PLANILHA_MESES=()=>[
+ {ef:50,   d6:13,dc:15,plan:0},
+ {ef:76.6, d6:25,dc:30,plan:5109.72},
+ {ef:83,   d6:25,dc:31,plan:7199.74},
+ {ef:83,   d6:25,dc:30,plan:5911.92},
+ {ef:90.08,d6:25,dc:31,plan:7259.68},
+ {ef:87,   d6:25,dc:31,plan:6265.35},
+ {ef:80.17,d6:25,dc:30,plan:6660.25},
+ {ef:61,   d6:25,dc:31,plan:5467.92},
+ {ef:50,   d6:25,dc:30,plan:3550},
+ {ef:0,    d6:25,dc:31,plan:0},
+ {ef:0,    d6:25,dc:31,plan:0},
+ {ef:0,    d6:23,dc:28,plan:0},
+ {ef:0,    d6:25,dc:31,plan:0}];
+const novoCenario=(nome)=>({nome:nome||"Planilha atual (14 equip.)",escala:"corrido",ajuste:0,
+ frentes:[{n:"Frente 1",eq:4,ha:15.72,disp:100,esc:"cen"},{n:"Frente 2",eq:4,ha:15.72,disp:100,esc:"cen"},{n:"Frente 3",eq:3,ha:15.72,disp:100,esc:"cen"},{n:"Frente 4",eq:3,ha:15.72,disp:100,esc:"cen"}],
+ log:{kg:180,teor:6.97,max:0,cap:64,raio:41,vel:35,carga:45,horas:20,camDisp:0,ct:18.31,cm:11.05}});
+const CHAVE="metas-localizada-v1";
+let S;
+function carregar(){try{const t=localStorage.getItem(CHAVE);if(t){S=JSON.parse(t);if(S&&S.meses&&S.cens&&S.cens.length)return}}catch(e){}
+ S={meses:PLANILHA_MESES(),cens:[novoCenario()],at:0}}
+function salvar(){try{localStorage.setItem(CHAVE,JSON.stringify(S))}catch(e){}}
+carregar();
+const C=()=>S.cens[S.at];
+const $=id=>document.getElementById(id);
+const n=(v,d=0)=>(isFinite(v)?v:0).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const sinal=(v,d=0)=>(v>0?"+":"")+n(v,d);
+const num=v=>{const x=parseFloat(String(v).replace(",","."));return isFinite(x)?x:0};
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1800)}
+
+/* ===== cálculo ===== */
+function calc(c){
+ c=c||C();
+ const M=S.meses, aj=1+num(c.ajuste)/100;
+ const fr=c.frentes.map(f=>{
+  const esc=f.esc==="cen"?c.escala:f.esc;
+  const haEf=num(f.ha)*num(f.disp)/100*aj;
+  const dias=M.map(m=>(esc==="6x1"?m.d6:m.dc)*m.ef/100);
+  const pot=dias.map(d=>d*num(f.eq)*haEf);
+  return {f,esc,haEf,dias,pot,tot:pot.reduce((a,b)=>a+b,0),eq:num(f.eq)};
+ });
+ const potM=M.map((_,i)=>fr.reduce((a,x)=>a+x.pot[i],0));
+ const planM=M.map(m=>num(m.plan));
+ const pot=potM.reduce((a,b)=>a+b,0), plan=planM.reduce((a,b)=>a+b,0);
+ const eqT=fr.reduce((a,x)=>a+x.eq,0);
+ const capDia=fr.reduce((a,x)=>a+x.eq*x.haEf,0);
+ const diasMed=capDia?pot/capDia:0;
+ const haEfMed=eqT?capDia/eqT:0;
+ const vermelho=potM.reduce((a,p,i)=>a+Math.max(0,planM[i]-p),0);
+ const sobra=potM.reduce((a,p,i)=>a+(planM[i]===0?p:0),0);
+ return {fr,potM,planM,pot,plan,dif:pot-plan,eqT,capDia,diasMed,haEfMed,vermelho,sobra,
+  pct:plan?pot/plan*100:0,
+  rendNec:pot?haEfMed*plan/pot:0,
+  eqNec:pot&&eqT?Math.ceil(plan/(pot/eqT)-1e-9):0,
+  diasExtra:capDia?Math.max(0,plan-pot)/capDia:0};
+}
+function logist(c,r){
+ const L=c.log;
+ let dose=num(L.teor)?num(L.kg)/num(L.teor):0; const lim=num(L.max)>0&&dose>num(L.max); if(lim)dose=num(L.max);
+ const volPlan=r.plan*dose, volPot=r.pot*dose;
+ const viagens=num(L.cap)?volPlan/num(L.cap):0;
+ const ciclo=(num(L.vel)?2*num(L.raio)/num(L.vel):0)+num(L.carga)/60;
+ const vpc=ciclo?num(L.horas)/ciclo:0;
+ const camFr=r.fr.map(x=>{const m3=x.eq*x.haEf*dose;const vd=num(L.cap)?m3/num(L.cap):0;return {vd,cam:vpc?vd/vpc:0}});
+ const vdT=camFr.reduce((a,x)=>a+x.vd,0), camT=vpc?vdT/vpc:0;
+ const custo=num(L.ct)+num(L.cm);
+ return {dose,lim,volPlan,volPot,viagens,ciclo,vpc,camFr,vdT,camT,custoHa:dose*custo,custoT:volPlan*custo,custoTr:volPlan*num(L.ct),custoMe:volPlan*num(L.cm)};
+}
+
+/* ===== render ===== */
+function renderSel(){const s=$("selCen");s.innerHTML=S.cens.map((c,i)=>`<option value="${i}">${esc(c.nome)}</option>`).join("");s.value=S.at}
+function esc(t){return String(t).replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]))}
+
+function renderResumo(){
+ const r=calc(),c=C();
+ const cor=r.dif>=0?"pos":"neg";
+ $("rKpis").innerHTML=`<h2>${esc(c.nome)}</h2>
+ <div class="kpis">
+  <div class="kpi"><span>Potencial da safra</span><b>${n(r.pot)} ha</b></div>
+  <div class="kpi"><span>Meta planejada</span><b>${n(r.plan)} ha</b></div>
+  <div class="kpi"><span>Diferença</span><b class="${cor}">${sinal(r.dif)} ha</b></div>
+  <div class="kpi"><span>Meta atingida</span><b class="${cor}">${n(r.pct,1)}%</b></div>
+ </div>
+ <div class="barra"><i style="width:${Math.min(100,r.pct)}%"></i></div>
+ <p style="font-size:.88rem">${r.eqT} equipamentos · ${n(r.capDia,1)} ha por dia de frota · ${n(r.diasMed,1)} dias úteis médios</p>`;
+ $("rGraf").innerHTML=grafico(r);
+ let h;
+ if(r.dif>=0){h=`<h2>✅ A meta fecha</h2><p>Sobram <b>${n(r.dif)} ha</b> de folga (${n(r.pct-100,1)}%).</p>`;
+  if(r.vermelho>0)h+=`<div class="dica">⚠️ Mesmo fechando no total, há <b>${n(r.vermelho)} ha</b> em meses no vermelho. Só fecha se der para adiantar ou atrasar área entre meses.</div>`;}
+ else{const d=-r.dif;
+  h=`<h2>🎯 Para fechar os ${n(d)} ha que faltam</h2><p>Cada opção sozinha resolve:</p><ul class="lista">
+  <li><b>Rendimento:</b> subir de ${n(r.haEfMed,2)} para <b>${n(r.rendNec,2)} ha/dia</b> por equipamento (+${n((r.rendNec/r.haEfMed-1)*100,1)}%).</li>
+  <li><b>Frota:</b> ter <b>${r.eqNec} equipamentos</b> (+${r.eqNec-r.eqT}).</li>
+  <li><b>Dias:</b> mais <b>${n(r.diasExtra,1)} dias</b> de frota inteira trabalhando.</li></ul>`;
+  if(r.sobra>0)h+=`<div class="dica">💡 Há <b>${n(r.sobra)} ha</b> de potencial em meses sem área planejada (ex.: março). Planejar área nesses meses reduz o buraco para <b>${n(Math.max(0,d-r.sobra))} ha</b>.</div>`;
+  h+=`<p style="font-size:.88rem">Soma dos meses no vermelho: ${n(r.vermelho)} ha.</p>`;}
+ $("rFalta").innerHTML=h;
+ $("rFalta").className="card "+(r.dif>=0?"":"vm");
+ $("rFrentes").innerHTML=`<h2>Por frente</h2><div class="scrollx"><table><thead><tr><th>Frente</th><th>Equip.</th><th>ha/dia</th><th>Potencial</th><th>% frota</th></tr></thead><tbody>${
+  r.fr.map(x=>`<tr><td>${esc(x.f.n)}</td><td>${x.eq}</td><td>${n(x.haEf,2)}</td><td>${n(x.tot)}</td><td>${n(r.pot?x.tot/r.pot*100:0,1)}%</td></tr>`).join("")
+ }</tbody><tfoot><tr><td>Total</td><td>${r.eqT}</td><td>${n(r.haEfMed,2)}</td><td>${n(r.pot)}</td><td>100%</td></tr></tfoot></table></div>`;
+}
+function grafico(r){
+ const idx=S.meses.map((m,i)=>i).filter(i=>r.potM[i]>0||r.planM[i]>0);
+ if(!idx.length)return"<p>Sem meses ativos.</p>";
+ const W=340,H=200,pl=8,pb=40,pt=16,max=Math.max(...idx.map(i=>Math.max(r.potM[i],r.planM[i])))*1.1;
+ const bw=(W-pl*2)/idx.length;let s="";
+ idx.forEach((i,k)=>{const x=pl+k*bw;const hp=(r.potM[i]/max)*(H-pb-pt),hm=(r.planM[i]/max)*(H-pb-pt);
+  const w=bw*0.36;
+  s+=`<rect x="${x+bw*0.12}" y="${H-pb-hp}" width="${w}" height="${hp}" rx="3" fill="#1d7a43"/>`;
+  s+=`<rect x="${x+bw*0.12+w}" y="${H-pb-hm}" width="${w}" height="${hm}" rx="3" fill="#f2c230"/>`;
+  const d=r.potM[i]-r.planM[i];
+  s+=`<text x="${x+bw/2}" y="${H-pb+15}" font-size="10" text-anchor="middle" fill="#5c4a36">${MESES[i].slice(0,3)}</text>`;
+  s+=`<text x="${x+bw/2}" y="${H-pb+30}" font-size="9.5" font-weight="700" text-anchor="middle" fill="${d<0?"#b3261e":"#1d7a43"}">${d<0?"":"+"}${Math.round(d/100)/10}k</text>`;});
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Potencial e meta por mês">${s}<line x1="0" x2="${W}" y1="${H-pb}" y2="${H-pb}" stroke="#c9b89c"/></svg>
+ <p style="font-size:.85rem"><span style="color:#1d7a43">■</span> Potencial &nbsp; <span style="color:#c99a00">■</span> Meta &nbsp; número = diferença (mil ha)</p>`;
+}
+
+function renderFrentes(){
+ const c=C(),r=calc();
+ document.querySelectorAll("#segEscala button").forEach(b=>b.classList.toggle("on",b.dataset.e===c.escala));
+ $("gAjuste").value=c.ajuste;
+ $("listaFrentes").innerHTML=c.frentes.map((f,i)=>`<div class="frente" data-i="${i}">
+  <div class="cab"><input type="text" data-k="n" value="${esc(f.n)}" aria-label="Nome da frente"><button class="btn vm" data-del="${i}" style="padding:8px 10px;margin:0" aria-label="Apagar frente">🗑️</button></div>
+  <label class="campo"><span>Equipamentos</span><input type="number" data-k="eq" step="1" min="0" value="${f.eq}"></label>
+  <label class="campo"><span>Rendimento (ha/dia por equipamento)</span><input type="number" data-k="ha" step="0.01" value="${f.ha}"></label>
+  <label class="campo"><span>Disponibilidade mecânica (%)<small>100 = como na planilha</small></span><input type="number" data-k="disp" step="1" value="${f.disp}"></label>
+  <label class="campo"><span>Escala</span><select data-k="esc"><option value="cen">Do cenário</option><option value="corrido">Dias corridos</option><option value="6x1">6x1</option></select></label>
+  <p style="font-size:.92rem">Potencial: <b>${n(r.fr[i].tot)} ha</b> · por equipamento: ${n(r.fr[i].eq?r.fr[i].tot/r.fr[i].eq:0)} ha</p>
+ </div>`).join("");
+ c.frentes.forEach((f,i)=>{document.querySelector(`.frente[data-i="${i}"] select`).value=f.esc});
+}
+
+function renderEquip(){
+ const r=calc(),c=C();
+ const porEq=r.eqT?r.pot/r.eqT:0, necEq=r.eqT?r.plan/r.eqT:0;
+ $("eqResumo").innerHTML=`<h2>Por equipamento (média da frota)</h2><div class="kpis">
+  <div class="kpi"><span>Potencial por equipamento</span><b>${n(porEq)} ha</b></div>
+  <div class="kpi"><span>Meta por equipamento</span><b>${n(necEq)} ha</b></div>
+  <div class="kpi"><span>Rendimento atual</span><b>${n(r.haEfMed,2)} ha/dia</b></div>
+  <div class="kpi"><span>Rendimento p/ meta</span><b class="${r.rendNec>r.haEfMed?"neg":"pos"}">${n(r.rendNec,2)} ha/dia</b></div>
+ </div><p style="font-size:.9rem">Cada 1 ha/dia a mais por equipamento rende cerca de <b>${n(r.diasMed*r.eqT)} ha</b> na safra. Cada equipamento a mais rende cerca de <b>${n(porEq)} ha</b>.</p>`;
+ const s=$("eqFrente"),v=s.value;
+ s.innerHTML=c.frentes.map((f,i)=>`<option value="${i}">${esc(f.n)}</option>`).join("");
+ s.value=v&&c.frentes[v]?v:0;
+ const x=r.fr[num(s.value)]; if(!x){$("eqTab").innerHTML="";return}
+ let rows="",tot=0,td=0;
+ S.meses.forEach((m,i)=>{if(!x.dias[i])return;const ha=x.dias[i]*x.haEf;tot+=ha;td+=x.dias[i];rows+=`<tr><td>${MESES[i]}</td><td>${n(x.dias[i],2)}</td><td>${n(ha,1)}</td><td>${n(x.haEf,2)}</td></tr>`});
+ $("eqTab").innerHTML=`<thead><tr><th>Mês</th><th>Dias úteis</th><th>ha no mês</th><th>ha/dia</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td>Safra</td><td>${n(td,1)}</td><td>${n(tot)}</td><td>${n(x.haEf,2)}</td></tr></tfoot>`;
+}
+
+function renderMeses(){
+ const M=S.meses;
+ $("mTab").innerHTML=`<thead><tr><th>Mês</th><th>Efic. clima %</th><th>Dias 6x1</th><th>Dias corridos</th><th>Meta (ha)</th></tr></thead><tbody>${
+  M.map((m,i)=>`<tr><td>${MESES[i]}</td><td><input type="number" data-m="${i}" data-k="ef" step="0.1" value="${m.ef}"></td><td><input type="number" data-m="${i}" data-k="d6" step="1" value="${m.d6}"></td><td><input type="number" data-m="${i}" data-k="dc" step="1" value="${m.dc}"></td><td><input type="number" data-m="${i}" data-k="plan" step="1" value="${m.plan}" style="width:92px"></td></tr>`).join("")
+ }</tbody>`;
+ renderMesesRes();
+}
+function renderMesesRes(){
+ const r=calc();let rows="";
+ S.meses.forEach((m,i)=>{if(!r.potM[i]&&!r.planM[i])return;const d=r.potM[i]-r.planM[i];
+  rows+=`<tr><td>${MESES[i]}</td><td>${n(r.potM[i])}</td><td>${n(r.planM[i])}</td><td class="${d<0?"neg":"pos"}">${sinal(d)}</td></tr>`});
+ $("mRes").innerHTML=`<thead><tr><th>Mês</th><th>Potencial</th><th>Meta</th><th>Diferença</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td>Total</td><td>${n(r.pot)}</td><td>${n(r.plan)}</td><td class="${r.dif<0?"neg":"pos"}">${sinal(r.dif)}</td></tr></tfoot>`;
+}
+
+function renderLog(){
+ const c=C(),L=c.log;
+ ["kg","teor","max","cap","raio","vel","carga","horas","camDisp","ct","cm"].forEach(k=>{const el=$("l"+k[0].toUpperCase()+k.slice(1));if(el&&document.activeElement!==el)el.value=L[k]});
+ renderLogRes();
+}
+function renderLogRes(){
+ const c=C(),r=calc(),g=logist(c,r);
+ $("lDose").innerHTML=`Dose: <b>${n(g.dose,2)} m³/ha</b>${g.lim?" (limitada pela dose máxima)":""}`;
+ let falta="";
+ if(num(c.log.camDisp)>0){const d=num(c.log.camDisp)-Math.ceil(g.camT);falta=`<div class="dica">${d>=0?"✅ Os caminhões disponíveis dão conta":"⚠️ Faltam <b>"+(-d)+" caminhões</b>"} (precisa de ${Math.ceil(g.camT)}, tem ${num(c.log.camDisp)}).</div>`}
+ $("lRes").innerHTML=`<h2>Resultado (meta de ${n(r.plan)} ha)</h2><div class="kpis">
+  <div class="kpi"><span>Volume de vinhaça</span><b>${n(g.volPlan)} m³</b></div>
+  <div class="kpi"><span>Viagens na safra</span><b>${n(g.viagens)}</b></div>
+  <div class="kpi"><span>Ciclo de cada viagem</span><b>${n(g.ciclo,2)} h</b></div>
+  <div class="kpi"><span>Viagens por caminhão/dia</span><b>${n(g.vpc,1)}</b></div>
+  <div class="kpi"><span>Viagens por dia (frota)</span><b>${n(g.vdT,1)}</b></div>
+  <div class="kpi"><span>Caminhões necessários</span><b>${Math.ceil(g.camT)}</b></div>
+ </div>${falta}
+ <h3>Caminhões por frente</h3><div class="scrollx"><table><thead><tr><th>Frente</th><th>Viagens/dia</th><th>Caminhões</th></tr></thead><tbody>${
+  r.fr.map((x,i)=>`<tr><td>${esc(x.f.n)}</td><td>${n(g.camFr[i].vd,1)}</td><td>${Math.ceil(g.camFr[i].cam)} <small>(${n(g.camFr[i].cam,1)})</small></td></tr>`).join("")
+ }</tbody></table></div>
+ <h3>Custo da operação</h3><div class="kpis">
+  <div class="kpi"><span>Custo por hectare</span><b>R$ ${n(g.custoHa,2)}</b></div>
+  <div class="kpi"><span>Custo total da meta</span><b>R$ ${n(g.custoT)}</b></div>
+  <div class="kpi"><span>Transporte</span><b>R$ ${n(g.custoTr)}</b></div>
+  <div class="kpi"><span>Mecanização</span><b>R$ ${n(g.custoMe)}</b></div>
+ </div>`;
+}
+
+function renderCen(){
+ $("cNome").value=C().nome;
+ $("cDel").hidden=S.cens.length<2;
+ $("cCmp").innerHTML=S.cens.map((c,i)=>{const r=calc(c),g=logist(c,r);return `<div class="card ${r.dif>=0?"":"vm"}" style="${i===S.at?"outline:3px solid var(--amarelo)":""}">
+  <h2>${esc(c.nome)}${i===S.at?" ⭐":""}</h2>
+  <p>${r.eqT} equip. · ${n(r.haEfMed,2)} ha/dia · ${c.escala==="6x1"?"6x1":"dias corridos"}</p>
+  <p>Potencial <b>${n(r.pot)} ha</b> · <span class="${r.dif<0?"neg":"pos"}"><b>${sinal(r.dif)} ha</b> (${n(r.pct,1)}%)</span></p>
+  <p style="font-size:.9rem">Caminhões: ${Math.ceil(g.camT)} · Custo: R$ ${n(g.custoT)}</p>
+  ${i!==S.at?`<button class="btn ln" data-abrir="${i}">Abrir</button>`:""}</div>`}).join("");
+}
+
+function tudo(){renderSel();renderResumo();renderFrentes();renderEquip();renderMeses();renderLog();renderCen()}
+function parcial(){salvar();renderResumo();renderEquip();renderMesesRes();renderLogRes();renderCen();
+ const r=calc();document.querySelectorAll(".frente").forEach(el=>{const i=+el.dataset.i,x=r.fr[i];if(!x)return;el.querySelector("p").innerHTML=`Potencial: <b>${n(x.tot)} ha</b> · por equipamento: ${n(x.eq?x.tot/x.eq:0)} ha`})}
+
+/* ===== eventos ===== */
+$("selCen").onchange=e=>{S.at=+e.target.value;salvar();tudo()};
+document.querySelectorAll("#segEscala button").forEach(b=>b.onclick=()=>{C().escala=b.dataset.e;salvar();tudo()});
+$("gAjuste").oninput=e=>{C().ajuste=num(e.target.value);parcial()};
+$("listaFrentes").addEventListener("input",e=>{const el=e.target,box=el.closest(".frente");if(!box||!el.dataset.k)return;const f=C().frentes[+box.dataset.i];
+ f[el.dataset.k]=el.dataset.k==="n"||el.dataset.k==="esc"?el.value:num(el.value);
+ if(el.dataset.k==="n"){salvar();renderResumo();renderEquip();renderLogRes();return}parcial()});
+$("listaFrentes").addEventListener("change",e=>{if(e.target.dataset.k==="esc"){parcial()}});
+$("listaFrentes").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;const c=C();if(c.frentes.length<2){toast("Precisa ter pelo menos 1 frente");return}
+ if(!confirm("Apagar "+c.frentes[+b.dataset.del].n+"?"))return;c.frentes.splice(+b.dataset.del,1);salvar();tudo()});
+$("addFrente").onclick=()=>{const c=C();c.frentes.push({n:"Frente "+(c.frentes.length+1),eq:1,ha:15.72,disp:100,esc:"cen"});salvar();tudo();toast("Frente adicionada")};
+$("eqFrente").onchange=renderEquip;
+$("mTab").addEventListener("input",e=>{const el=e.target;if(el.dataset.m===undefined)return;S.meses[+el.dataset.m][el.dataset.k]=num(el.value);parcial()});
+$("btnRestaurar").onclick=()=>{if(!confirm("Voltar clima, jornadas e metas aos números da planilha?"))return;S.meses=PLANILHA_MESES();salvar();tudo();toast("Restaurado")};
+["kg","teor","max","cap","raio","vel","carga","horas","camDisp","ct","cm"].forEach(k=>{$("l"+k[0].toUpperCase()+k.slice(1)).oninput=e=>{C().log[k]=num(e.target.value);parcial()}});
+$("cNome").oninput=e=>{C().nome=e.target.value||"Sem nome";salvar();renderSel();renderResumo();renderCen()};
+$("cDup").onclick=()=>{const c=JSON.parse(JSON.stringify(C()));c.nome=C().nome+" (cópia)";S.cens.push(c);S.at=S.cens.length-1;salvar();tudo();toast("Cenário duplicado — mude o que quiser");$("cNome").focus();$("cNome").select()};
+$("cNovo").onclick=()=>{S.cens.push(novoCenario("Novo cenário "+(S.cens.length+1)));S.at=S.cens.length-1;salvar();tudo();toast("Cenário criado")};
+$("cDel").onclick=()=>{if(S.cens.length<2)return;if(!confirm("Apagar o cenário \""+C().nome+"\"?"))return;S.cens.splice(S.at,1);S.at=0;salvar();tudo();toast("Cenário apagado")};
+$("cCmp").addEventListener("click",e=>{const b=e.target.closest("[data-abrir]");if(!b)return;S.at=+b.dataset.abrir;salvar();tudo();irAba("resumo")});
+$("btnZap").onclick=()=>{const c=C(),r=calc(),g=logist(c,r);
+ let t=`*Metas Localizada — ${c.nome}*\n${r.eqT} equipamentos · ${n(r.haEfMed,2)} ha/dia · ${c.escala==="6x1"?"6x1":"dias corridos"}\n\nPotencial: ${n(r.pot)} ha\nMeta: ${n(r.plan)} ha\nDiferença: ${sinal(r.dif)} ha (${n(r.pct,1)}%)\n`;
+ if(r.dif<0)t+=`\nPara fechar:\n• Rendimento ${n(r.rendNec,2)} ha/dia\n• ou ${r.eqNec} equipamentos\n• ou +${n(r.diasExtra,1)} dias de frota\n`;
+ t+=`\nPor frente:\n`+r.fr.map(x=>`• ${x.f.n}: ${x.eq} equip. → ${n(x.tot)} ha`).join("\n");
+ t+=`\n\nLogística: dose ${n(g.dose,2)} m³/ha · ${n(g.viagens)} viagens · ${Math.ceil(g.camT)} caminhões\nCusto: R$ ${n(g.custoT)}`;
+ if(navigator.share){navigator.share({text:t}).catch(()=>{})}else{location.href="https://wa.me/?text="+encodeURIComponent(t)}};
+
+/* ===== abas + arrasto ===== */
+const ORD=[...document.querySelectorAll("#abas button")].map(b=>b.dataset.t);
+function irAba(t){document.querySelectorAll("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));document.querySelectorAll("main section").forEach(s=>s.classList.toggle("on",s.id===t));
+ const b=document.querySelector(`#abas button[data-t="${t}"]`);if(b)b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});window.scrollTo({top:0})}
+document.querySelectorAll("#abas button").forEach(b=>b.onclick=()=>irAba(b.dataset.t));
+let tx=null,ty=0;
+document.querySelector("main").addEventListener("touchstart",e=>{if(e.target.closest(".scrollx,input,select,textarea")){tx=null;return}tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+document.querySelector("main").addEventListener("touchend",e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;tx=null;
+ if(Math.abs(dx)<28||Math.abs(dx)<Math.abs(dy)*1.3)return;const at=ORD.indexOf(document.querySelector("#abas button.on").dataset.t);const nx=at+(dx<0?1:-1);if(nx>=0&&nx<ORD.length)irAba(ORD[nx])},{passive:true});
+
+/* ===== instalar ===== */
+let pedido=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;if(!standalone)$("btnInstalar").hidden=false});
+$("btnInstalar").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userChoice.catch(()=>{});pedido=null;$("btnInstalar").hidden=true}else alert("Toque no menu ⋮ do Chrome e escolha \"Instalar app\".")};
+if(!standalone)setTimeout(()=>{if(!pedido)$("btnInstalar").hidden=false},2500);
+window.addEventListener("appinstalled",()=>{$("btnInstalar").hidden=true});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+tudo();
+</script>
+</body></html>
