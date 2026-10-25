@@ -1,4 +1,4 @@
-const CACHE = "livro-canavial-v2";
+const CACHE = "livro-canavial-v3";
 const FOTOS = "livro-canavial-fotos-v1";
 const FILES = ["./", "index.html", "conteudo.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
