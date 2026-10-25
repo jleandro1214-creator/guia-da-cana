@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Norte do Gestor</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1d7a43">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1d7a43;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.3rem;font-weight:800;text-align:center;padding:0 24px}#splash-app small{opacity:.85;font-size:.95rem}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<style>
+:root{--verde:#1d7a43;--verde2:#145c31;--verde3:#e5f4e4;--amarelo:#f2c230;--amarelo2:#fff4c9;--marrom:#6b4423;--marrom2:#efe4d6;--creme:#fbf8ec;--txt:#2a2015;--vermelho:#b3261e;color-scheme:light}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--creme);color:var(--txt);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:10;background:var(--verde);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px 0}
+.topo{display:flex;align-items:center;gap:10px}
+.topo img{width:38px;height:38px;border-radius:9px}
+.topo h1{font-size:1.15rem;margin:0;flex:1;line-height:1.2}
+.topo h1 small{display:block;font-weight:400;font-size:.82rem;opacity:.92}
+#btnInstalar{background:var(--amarelo);color:var(--marrom);border:0;border-radius:20px;padding:7px 12px;font-weight:700;font-size:.85rem}
+nav{display:flex;overflow-x:auto;gap:2px;margin:8px -14px 0;padding:0 8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;background:none;border:0;color:#dff3e6;font-size:.95rem;font-weight:700;padding:10px 11px;border-bottom:4px solid transparent}
+nav button.on{color:#fff;border-bottom-color:var(--amarelo)}
+main{padding:14px 14px 100px;max-width:760px;margin:0 auto}
+section{display:none}section.on{display:block}
+.card{background:#fff;border-radius:14px;padding:14px;margin:0 0 14px;box-shadow:0 1px 3px rgba(60,40,20,.12);border-left:6px solid var(--verde)}
+.card.am{border-left-color:var(--amarelo)}.card.mr{border-left-color:var(--marrom)}.card.vm{border-left-color:var(--vermelho)}
+h2{font-size:1.1rem;margin:0 0 8px;color:var(--verde2)}
+h3{font-size:1rem;margin:14px 0 4px;color:var(--marrom);text-transform:uppercase;letter-spacing:.03em}
+p{margin:6px 0}
+.ouro{background:var(--marrom);color:#fff;border-radius:14px;padding:12px 14px;margin:0 0 14px;font-size:.95rem}
+.ouro b{color:var(--amarelo)}
+.prog{display:flex;align-items:center;gap:12px}
+.prog .num{font-size:1.8rem;font-weight:800;color:var(--verde2);min-width:72px}
+.barra{flex:1;height:16px;background:var(--marrom2);border-radius:9px;overflow:hidden}
+.barra i{display:block;height:100%;background:var(--verde);transition:width .3s}
+.item{display:flex;gap:12px;align-items:flex-start;padding:11px 2px;border-bottom:1px solid #eee5d6}
+.item:last-child{border-bottom:0}
+.item input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;width:30px;height:30px;border:3px solid var(--verde);border-radius:9px;margin:0;background:#fff;display:grid;place-content:center}
+.item input[type=checkbox]:checked{background:var(--verde)}
+.item input[type=checkbox]:checked::after{content:"✓";color:#fff;font-weight:900;font-size:19px}
+.item .tx{flex:1}
+.item .tx b{display:block;font-weight:700}
+.item .tx small{display:block;color:#6d5a44;font-size:.85rem}
+.item.feito .tx b{color:#8a7a66;text-decoration:line-through}
+.hora{flex:none;background:var(--amarelo2);color:var(--marrom);font-weight:800;font-size:.85rem;border-radius:8px;padding:4px 7px;margin-top:3px}
+.del{flex:none;background:none;border:0;font-size:1.2rem;color:var(--vermelho);padding:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--verde);color:#fff;border:0;border-radius:11px;padding:11px 14px;font-size:1rem;font-weight:700;margin:4px 6px 4px 0;text-decoration:none}
+.btn.am{background:var(--amarelo);color:var(--marrom)}.btn.mr{background:var(--marrom)}.btn.ln{background:#fff;color:var(--verde2);border:2px solid var(--verde)}.btn.vm{background:#fff;color:var(--vermelho);border:2px solid var(--vermelho)}
+.btn.grande{width:100%;justify-content:center;font-size:1.05rem;padding:14px}
+label.campo{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #eee5d6}
+label.campo span{flex:1}
+input[type=number],input[type=text],input[type=time],select,textarea{font:inherit;font-size:1rem;padding:9px;border:2px solid #d9cbb5;border-radius:10px;background:#fff;color:var(--txt)}
+input[type=number]{width:110px;text-align:right}
+input[type=text],textarea,select.larg{width:100%}
+textarea{min-height:84px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--verde)}
+.seg{display:flex;background:var(--marrom2);border-radius:11px;padding:3px;margin:6px 0}
+.seg button{flex:1;border:0;background:none;padding:9px 4px;border-radius:9px;font-size:.92rem;font-weight:700;color:var(--marrom)}
+.seg button.on{background:var(--verde);color:#fff}
+.linha{display:flex;gap:8px;align-items:center;margin:6px 0}
+.linha>*{flex:1}
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.filtros select{flex:1;min-width:130px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--marrom2);border-radius:20px;padding:7px 12px;font-weight:700;font-size:.9rem;color:var(--marrom)}
+.chip input{width:20px;height:20px;accent-color:var(--verde)}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.foto{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(60,40,20,.15);border:0;padding:0;text-align:left;font:inherit;color:inherit}
+.foto img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--marrom2)}
+.foto div{padding:7px 8px;font-size:.85rem}
+.foto div b{display:block;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{display:inline-block;border-radius:6px;padding:1px 7px;font-size:.75rem;font-weight:800;margin-right:4px}
+.tag.mel{background:var(--verde3);color:var(--verde2)}.tag.ate{background:#fbe3e0;color:var(--vermelho)}.tag.ide{background:var(--amarelo2);color:var(--marrom)}.tag.ok{background:var(--verde);color:#fff}
+.nota{border-bottom:1px solid #eee5d6;padding:10px 0;display:flex;gap:10px;align-items:flex-start}
+.nota .tx{flex:1;white-space:pre-wrap}
+.nota small{color:#6d5a44}
+.nota.ok .tx{color:#8a7a66}
+.vazio{color:#7d6a52;text-align:center;padding:18px 6px}
+.hist{display:flex;align-items:flex-end;gap:4px;height:120px;margin:10px 0 2px}
+.hist div{flex:1;background:var(--marrom2);border-radius:5px 5px 0 0;position:relative;min-height:3px}
+.hist div i{position:absolute;left:0;right:0;bottom:0;background:var(--verde);border-radius:5px 5px 0 0}
+.histx{display:flex;gap:4px;font-size:.68rem;color:#6d5a44}.histx span{flex:1;text-align:center}
+.kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.kpi{background:var(--creme);border-radius:12px;padding:10px;text-align:center}
+.kpi b{display:block;font-size:1.5rem;color:var(--verde2)}
+.kpi span{font-size:.8rem;color:#5c4a36}
+#modal{position:fixed;inset:0;z-index:40;background:rgba(30,20,10,.6);display:flex;align-items:flex-end;justify-content:center}
+#modal .caixa{background:var(--creme);width:100%;max-width:760px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 14px calc(18px + env(safe-area-inset-bottom,0px))}
+#modal img{width:100%;border-radius:12px;max-height:55vh;object-fit:contain;background:#000}
+.fechar{float:right;background:none;border:0;font-size:1.6rem;color:var(--marrom);margin:-6px -4px 0 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--marrom);color:#fff;padding:10px 16px;border-radius:20px;font-size:.95rem;z-index:60;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--amarelo);color:var(--marrom);border:0;border-radius:30px;padding:14px 18px;font-weight:800;font-size:1rem;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+</style>
+</head><body>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Norte do Gestor</b><small>Minha rotina na localizada</small></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,800-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
+
+<header>
+ <div class="topo"><img src="icon-192.png" alt=""><h1>Norte do Gestor<small id="subtitulo">Hoje</small></h1><button id="btnInstalar" hidden>📲 Instalar app</button></div>
+ <nav id="abas">
+  <button data-t="hoje" class="on">☀️ Hoje</button>
+  <button data-t="semana">📆 Semana</button>
+  <button data-t="mes">🗓️ Mês</button>
+  <button data-t="galeria">📷 Galeria</button>
+  <button data-t="notas">📝 Anotações</button>
+  <button data-t="progresso">📈 Progresso</button>
+ </nav>
+</header>
+
+<main>
+<!-- HOJE -->
+<section id="hoje" class="on">
+ <div class="ouro">🧭 <b>Regra de ouro:</b> nenhum trator parado mais de 10 minutos sem eu saber o motivo e agir.</div>
+ <div class="card"><div class="prog"><div class="num" id="pDia">0%</div><div style="flex:1"><div class="barra"><i id="bDia" style="width:0"></i></div><small id="tDia"></small></div></div>
+  <div class="seg" id="segTurno" style="margin-top:12px"><button data-v="dia">☀️ Turno dia (7h–17h)</button><button data-v="noite">🌙 Turno noite (17h–3h)</button></div>
+ </div>
+ <div class="card" id="listaDia"></div>
+ <div class="card am">
+  <h2>Registro do turno</h2>
+  <label class="campo"><span>Hectares aplicados</span><input type="number" id="rHa" step="0.1" inputmode="decimal"></label>
+  <label class="campo"><span>Cargas</span><input type="number" id="rCargas" step="1" inputmode="numeric"></label>
+  <p style="margin-top:10px"><b>3 maiores paradas</b></p>
+  <input type="text" id="rP1" placeholder="1ª parada (motivo e tempo)" style="margin:3px 0">
+  <input type="text" id="rP2" placeholder="2ª parada" style="margin:3px 0">
+  <input type="text" id="rP3" placeholder="3ª parada" style="margin:3px 0">
+  <p style="margin-top:10px"><b>O que foi feito / passagem de turno</b></p>
+  <textarea id="rObs" placeholder="Problemas abertos, talhões, tratores em manutenção..."></textarea>
+  <button class="btn" id="btnPassagem">📤 Enviar passagem pelo WhatsApp</button>
+ </div>
+</section>
+
+<!-- SEMANA -->
+<section id="semana">
+ <div class="card"><div class="prog"><div class="num" id="pSem">0%</div><div style="flex:1"><div class="barra"><i id="bSem" style="width:0"></i></div><small id="tSem"></small></div></div></div>
+ <div class="card" id="listaSem"></div>
+</section>
+
+<!-- MÊS -->
+<section id="mes">
+ <div class="card"><div class="prog"><div class="num" id="pMes">0%</div><div style="flex:1"><div class="barra"><i id="bMes" style="width:0"></i></div><small id="tMes"></small></div></div></div>
+ <div class="card" id="listaMes"></div>
+ <a class="btn mr" href="../metas-localizada/">📊 Abrir o Metas Localizada</a>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria">
+ <div class="card am">
+  <h2>Melhorias e pontos de atenção</h2>
+  <div class="linha">
+   <label class="btn" for="fCam" style="justify-content:center">📷 Tirar foto</label>
+   <label class="btn ln" for="fGal" style="justify-content:center">🖼️ Da galeria</label>
+  </div>
+  <input type="file" id="fCam" accept="image/*" capture="environment" hidden>
+  <input type="file" id="fGal" accept="image/*" hidden>
+ </div>
+ <div class="filtros">
+  <select id="gFrente" aria-label="Filtrar por frente"></select>
+  <select id="gTipo" aria-label="Filtrar por tipo"><option value="">Todos os tipos</option><option value="mel">Melhoria</option><option value="ate">Atenção</option></select>
+  <label class="chip"><input type="checkbox" id="gPend"> Só pendentes</label>
+ </div>
+ <div class="grade" id="grade"></div>
+</section>
+
+<!-- NOTAS -->
+<section id="notas">
+ <div class="card am">
+  <h2>Nova anotação</h2>
+  <div class="seg" id="segNota"><button data-v="mel" class="on">Melhoria</button><button data-v="ate">Atenção</button><button data-v="ide">Ideia</button></div>
+  <select id="nFrente" class="larg" style="margin:6px 0"></select>
+  <textarea id="nTexto" placeholder="O que eu vi, o que precisa mudar..."></textarea>
+  <button class="btn" id="btnNota">💾 Salvar anotação</button>
+ </div>
+ <div class="filtros"><label class="chip"><input type="checkbox" id="nPend"> Só pendentes</label></div>
+ <div class="card" id="listaNotas"></div>
+</section>
+
+<!-- PROGRESSO -->
+<section id="progresso">
+ <div class="card"><h2>Como estou cumprindo</h2>
+  <div class="kpis"><div class="kpi"><b id="kDia">0%</b><span>Hoje</span></div><div class="kpi"><b id="kSem">0%</b><span>Semana</span></div><div class="kpi"><b id="kMes">0%</b><span>Mês</span></div></div>
+  <h3>Últimos 14 dias</h3>
+  <div class="hist" id="hist"></div><div class="histx" id="histx"></div>
+  <p id="sequencia" style="font-size:.95rem"></p>
+ </div>
+ <div class="card am" id="pendencias"></div>
+ <div class="card mr">
+  <h2>Ajustes</h2>
+  <p><b>Minhas frentes</b> <small>(uma por linha)</small></p>
+  <textarea id="cfgFrentes"></textarea>
+  <button class="btn" id="btnFrentes">💾 Salvar frentes</button>
+  <h3>Itens da rotina</h3>
+  <button class="btn ln" id="btnRestaurar">↩️ Mostrar de novo os itens padrão que escondi</button>
+  <h3>Cópia de segurança</h3>
+  <p style="font-size:.9rem">As fotos e anotações ficam guardadas só neste celular. Faça uma cópia de vez em quando.</p>
+  <button class="btn am" id="btnExportar">⬇️ Salvar cópia</button>
+  <label class="btn ln" for="fImport">⬆️ Restaurar cópia</label>
+  <input type="file" id="fImport" accept="application/json,.json" hidden>
+ </div>
+</section>
+</main>
+
+<button class="fab" id="fab">➕ Item</button>
+
+<div id="modal" hidden><div class="caixa" id="caixa"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ===== rotina padrão ===== */
+const PADRAO={
+ dia:[
+  {id:"d01",h:"06:40",g:"Início do turno",t:"Ler a passagem do gestor anterior",s:"Paradas, quebras e talhões em andamento"},
+  {id:"d02",h:"06:50",g:"Início do turno",t:"Conferir caminhões por frente com o COA",s:"Quantos em cada frente e a fila na carga"},
+  {id:"d03",h:"07:00",g:"Início do turno",t:"Estar na troca de turno no campo",s:"Troca em até 5 minutos por trator"},
+  {id:"d04",h:"07:10",g:"Início do turno",t:"Conversa de 10 min com os operadores",s:"Meta do dia, talhões, cuidados e segurança"},
+  {id:"d05",h:"07:30",g:"Início do turno",t:"Conferir paradas sem apontamento",s:"Falar com quem não apontou no turno anterior"},
+  {id:"d06",h:"09:00",g:"Durante o turno",t:"Ronda nas frentes",s:"Tratores rodando, caminhões, ponto de carga e cargas por trator"},
+  {id:"d07",h:"11:00",g:"Durante o turno",t:"Ronda nas frentes",s:"Atrás do ritmo de 28 cargas? Descobrir o porquê"},
+  {id:"d08",h:"13:00",g:"Durante o turno",t:"Ronda nas frentes",s:"Tratores rodando, caminhões, ponto de carga e cargas por trator"},
+  {id:"d09",h:"15:00",g:"Durante o turno",t:"Ronda nas frentes",s:"Atrás do ritmo de 28 cargas? Descobrir o porquê"},
+  {id:"d10",h:"",g:"Durante o turno",t:"Cronometrar 1 ciclo em cada frente",s:"Carregamento, deslocamentos e aplicação"},
+  {id:"d11",h:"",g:"Durante o turno",t:"Conferir dose e vazão no GS3",s:"Em cada frente"},
+  {id:"d12",h:"16:00",g:"Fim do turno",t:"Pedir ao COA a posição dos caminhões",s:"O próximo turno começa abastecido"},
+  {id:"d13",h:"16:30",g:"Fim do turno",t:"Registrar o turno",s:"Hectares, cargas e as 3 maiores paradas (aqui embaixo)"},
+  {id:"d14",h:"16:50",g:"Fim do turno",t:"Passagem para o gestor seguinte",s:"Problemas abertos, talhões e tratores em manutenção"}],
+ sem:[
+  {id:"s01",t:"Reunião de 30 min com o COA e a outra dupla",s:"Pareto das paradas, regra de despacho e caminhões"},
+  {id:"s02",t:"Comparar cada frente com a meta de 22 ha/trator/dia",s:"Escolher 1 ação para a frente mais fraca"},
+  {id:"s03",t:"Reconhecer o melhor operador e o melhor motorista",s:"Pelo resultado da semana"},
+  {id:"s04",t:"Conferir preventivas com a manutenção",s:"Bombas centrífugas e aplicadores"}],
+ mes:[
+  {id:"m01",t:"Lançar os números reais no Metas Localizada",s:"Ver se a meta da safra ainda fecha"},
+  {id:"m02",t:"Revisar o plano de ação com o coordenador",s:"O que avançou, o que travou"},
+  {id:"m03",t:"Reciclagem de 30 min com a equipe",s:"Sobre o ponto mais fraco do mês"}]
+};
+const CHAVE="norte-gestor-v1";
+let D;
+function base(){return {turno:"dia",frentes:["Frente 1","Frente 2","Frente 3","Frente 4"],extra:{dia:[],sem:[],mes:[]},ocultos:[],checks:{},registros:{},notas:[]}}
+function carregar(){try{const t=localStorage.getItem(CHAVE);if(t){const x=JSON.parse(t);D=Object.assign(base(),x);D.extra=Object.assign({dia:[],sem:[],mes:[]},x.extra||{});return}}catch(e){}D=base()}
+function salvar(){try{localStorage.setItem(CHAVE,JSON.stringify(D))}catch(e){toast("Não consegui salvar neste celular")}}
+carregar();
+const $=id=>document.getElementById(id);
+const esc=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),2000)}
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+
+/* ===== datas: dia de trabalho (turno da noite vira a meia-noite) ===== */
+const p2=n=>String(n).padStart(2,"0");
+function diaTrabalho(dt){const d=new Date(dt||Date.now());if(D.turno==="noite"&&d.getHours()<6)d.setDate(d.getDate()-1);return d}
+const chaveData=d=>`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+function semanaISO(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const n=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-n);const a=new Date(Date.UTC(t.getUTCFullYear(),0,1));return t.getUTCFullYear()+"-S"+p2(Math.ceil(((t-a)/864e5+1)/7))}
+function chaves(){const d=diaTrabalho();return {dia:"D:"+chaveData(d),sem:"S:"+semanaISO(d),mes:"M:"+d.getFullYear()+"-"+p2(d.getMonth()+1),data:chaveData(d),d}}
+const DIAS=["domingo","segunda","terça","quarta","quinta","sexta","sábado"],MESES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+function horaTurno(h){if(!h)return"";if(D.turno!=="noite")return h.replace(":","h");let[a,b]=h.split(":").map(Number);a=(a+10)%24;return a+"h"+p2(b)}
+
+/* ===== listas ===== */
+function itens(tipo){const pad=PADRAO[tipo].filter(i=>!D.ocultos.includes(i.id)).map(i=>Object.assign({pad:true},i));
+ const ex=D.extra[tipo].map(i=>Object.assign({},i));
+ let l=pad.concat(ex);
+ if(tipo==="dia"){const ord=i=>{if(!i.h)return null;let m=+i.h.slice(0,2)*60+ +i.h.slice(3);if(D.turno==="noite"){m=(m+600)%1440;if(m<360)m+=1440}return m};
+  const grupos=["Início do turno","Durante o turno","Fim do turno","Meus itens"];
+  l.forEach(i=>{if(!i.g)i.g="Meus itens"});
+  l.sort((a,b)=>{const ga=grupos.indexOf(a.g),gb=grupos.indexOf(b.g);if(ga!==gb)return ga-gb;const oa=ord(a),ob=ord(b);if(oa==null&&ob==null)return 0;if(oa==null)return 1;if(ob==null)return -1;return oa-ob})}
+ return l}
+function marcados(tipo){const k=chaves()[tipo];return D.checks[k]||{}}
+function pct(tipo){const l=itens(tipo);if(!l.length)return 0;const m=marcados(tipo);return Math.round(l.filter(i=>m[i.id]).length/l.length*100)}
+let editando=false;
+function renderLista(tipo,el){
+ const l=itens(tipo),m=marcados(tipo);let html="",grupo=null;
+ if(!l.length){el.innerHTML=`<div class="vazio">Nenhum item. Toque em ➕ Item para criar.</div>`;return}
+ l.forEach(i=>{if(tipo==="dia"&&i.g!==grupo){grupo=i.g;html+=`<h3>${esc(grupo)}</h3>`}
+  const ok=!!m[i.id];
+  html+=`<div class="item ${ok?"feito":""}"><input type="checkbox" data-tipo="${tipo}" data-id="${i.id}" ${ok?"checked":""} aria-label="${esc(i.t)}">${i.h?`<span class="hora">${horaTurno(i.h)}</span>`:""}<div class="tx"><b>${esc(i.t)}</b>${i.s?`<small>${esc(i.s)}</small>`:""}</div><button class="del" data-del="${tipo}:${i.id}" aria-label="${i.pad?"Esconder":"Apagar"} item">${i.pad?"🙈":"🗑️"}</button></div>`});
+ html+=`<p style="font-size:.82rem;color:#7d6a52;margin-top:8px">🙈 esconde um item padrão · 🗑️ apaga um item seu</p>`;
+ el.innerHTML=html}
+function renderChecks(){
+ const k=chaves();
+ const d=k.d;$("subtitulo").textContent=`${DIAS[d.getDay()][0].toUpperCase()+DIAS[d.getDay()].slice(1)}, ${d.getDate()} de ${MESES[d.getMonth()]}`+(D.turno==="noite"?" · noite":"");
+ renderLista("dia",$("listaDia"));renderLista("sem",$("listaSem"));renderLista("mes",$("listaMes"));
+ [["dia","Dia","pDia","bDia","tDia"],["sem","Sem","pSem","bSem","tSem"],["mes","Mes","pMes","bMes","tMes"]].forEach(([t,_,p,b,tx])=>{const v=pct(t),l=itens(t),m=marcados(t);$(p).textContent=v+"%";$(b).style.width=v+"%";$(tx).textContent=`${l.filter(i=>m[i.id]).length} de ${l.length} feitos`+(t==="sem"?" nesta semana":t==="mes"?" neste mês":" hoje")});
+ document.querySelectorAll("#segTurno button").forEach(b=>b.classList.toggle("on",b.dataset.v===D.turno));
+ renderRegistro();renderProgresso()}
+document.addEventListener("change",e=>{const c=e.target;if(c.matches(".item input[type=checkbox]")){const k=chaves()[c.dataset.tipo];D.checks[k]=D.checks[k]||{};if(c.checked)D.checks[k][c.dataset.id]=Date.now();else delete D.checks[k][c.dataset.id];salvar();renderChecks();if(c.checked&&pct(c.dataset.tipo)===100)toast("🎉 Tudo feito! Muito bom.")}});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;const[tipo,id]=b.dataset.del.split(":");
+ if(PADRAO[tipo].some(i=>i.id===id)){if(!confirm("Esconder este item da rotina? Dá para mostrar de novo em Progresso › Ajustes."))return;D.ocultos.push(id)}
+ else{if(!confirm("Apagar este item?"))return;D.extra[tipo]=D.extra[tipo].filter(i=>i.id!==id)}
+ salvar();renderChecks()});
+$("segTurno").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;D.turno=b.dataset.v;salvar();renderChecks();toast(D.turno==="noite"?"Horários do turno da noite":"Horários do turno do dia")});
+
+/* ===== registro do turno ===== */
+const RC=["rHa","rCargas","rP1","rP2","rP3","rObs"];
+function renderRegistro(){const r=D.registros[chaves().data]||{};RC.forEach(id=>{const el=$(id);if(document.activeElement!==el)el.value=r[id]??""})}
+RC.forEach(id=>$(id).addEventListener("input",()=>{const k=chaves().data;D.registros[k]=D.registros[k]||{};D.registros[k][id]=$(id).value;salvar()}));
+$("btnPassagem").onclick=()=>{const r=D.registros[chaves().data]||{};const d=chaves().d;
+ let t=`*Passagem de turno — ${p2(d.getDate())}/${p2(d.getMonth()+1)} (${D.turno==="noite"?"noite":"dia"})*\n`;
+ if(r.rHa)t+=`Hectares: ${r.rHa}\n`;if(r.rCargas)t+=`Cargas: ${r.rCargas}\n`;
+ const ps=[r.rP1,r.rP2,r.rP3].filter(Boolean);if(ps.length)t+=`\nMaiores paradas:\n`+ps.map((p,i)=>`${i+1}. ${p}`).join("\n")+"\n";
+ if(r.rObs)t+=`\n${r.rObs}`;
+ if(!r.rHa&&!r.rCargas&&!ps.length&&!r.rObs){toast("Preencha o registro primeiro");return}
+ if(navigator.share)navigator.share({text:t}).catch(()=>{});else location.href="https://wa.me/?text="+encodeURIComponent(t)};
+
+/* ===== adicionar item ===== */
+$("fab").onclick=()=>{const at=document.querySelector("#abas button.on").dataset.t;
+ if(at==="galeria"){$("fCam").click();return}
+ if(at==="notas"){$("nTexto").focus();return}
+ const tipo=at==="semana"?"sem":at==="mes"?"mes":"dia";
+ abrirModal(`<button class="fechar" data-fechar>✕</button><h2>Novo item</h2>
+  <div class="seg" id="mTipo"><button data-v="dia">Diário</button><button data-v="sem">Semanal</button><button data-v="mes">Mensal</button></div>
+  <input type="text" id="mT" placeholder="O que fazer" style="margin:6px 0">
+  <input type="text" id="mS" placeholder="Detalhe (opcional)" style="margin:6px 0">
+  <label class="campo" id="mHL"><span>Horário (opcional)<small style="display:block;color:#6d5a44;font-size:.82rem">Horário do turno do dia</small></span><input type="time" id="mH"></label>
+  <button class="btn grande" id="mSalvar">💾 Adicionar</button>`);
+ let sel=tipo;const pint=()=>{document.querySelectorAll("#mTipo button").forEach(b=>b.classList.toggle("on",b.dataset.v===sel));$("mHL").hidden=sel!=="dia"};pint();
+ $("mTipo").onclick=e=>{const b=e.target.closest("button");if(b){sel=b.dataset.v;pint()}};
+ setTimeout(()=>$("mT").focus(),100);
+ $("mSalvar").onclick=()=>{const t=$("mT").value.trim();if(!t){toast("Escreva o item");return}
+  D.extra[sel].push({id:"x"+uid(),t,s:$("mS").value.trim(),h:sel==="dia"?$("mH").value:"",g:"Meus itens"});salvar();fecharModal();renderChecks();
+  irAba(sel==="sem"?"semana":sel==="mes"?"mes":"hoje");toast("Item adicionado")}};
+
+/* ===== modal ===== */
+function abrirModal(h){$("caixa").innerHTML=h;$("modal").hidden=false;document.body.style.overflow="hidden"}
+function fecharModal(){$("modal").hidden=true;$("caixa").innerHTML="";document.body.style.overflow="";urls.forEach(u=>URL.revokeObjectURL(u));urls=[]}
+$("modal").addEventListener("click",e=>{if(e.target.id==="modal"||e.target.closest("[data-fechar]"))fecharModal()});
+
+/* ===== frentes ===== */
+function opcoesFrente(sel,todas){sel.innerHTML=(todas?`<option value="">Todas as frentes</option>`:"")+D.frentes.map(f=>`<option>${esc(f)}</option>`).join("")+`<option value="Geral">Geral</option>`}
+function renderFrentes(){const g=$("gFrente").value;opcoesFrente($("gFrente"),true);$("gFrente").value=g;opcoesFrente($("nFrente"),false);$("cfgFrentes").value=D.frentes.join("\n")}
+$("btnFrentes").onclick=()=>{const l=$("cfgFrentes").value.split("\n").map(s=>s.trim()).filter(Boolean);if(!l.length){toast("Coloque pelo menos uma frente");return}D.frentes=l;salvar();renderFrentes();toast("Frentes salvas")};
+$("btnRestaurar").onclick=()=>{if(!D.ocultos.length){toast("Nenhum item escondido");return}D.ocultos=[];salvar();renderChecks();toast("Itens padrão de volta")};
+
+/* ===== anotações ===== */
+let tipoNota="mel";
+const NOMES={mel:"Melhoria",ate:"Atenção",ide:"Ideia"};
+$("segNota").onclick=e=>{const b=e.target.closest("button");if(!b)return;tipoNota=b.dataset.v;document.querySelectorAll("#segNota button").forEach(x=>x.classList.toggle("on",x===b))};
+$("btnNota").onclick=()=>{const t=$("nTexto").value.trim();if(!t){toast("Escreva a anotação");return}
+ D.notas.unshift({id:uid(),data:Date.now(),tipo:tipoNota,frente:$("nFrente").value,texto:t,feita:false});salvar();$("nTexto").value="";renderNotas();renderProgresso();toast("Anotação salva")};
+$("nPend").onchange=renderNotas;
+const fmtData=t=>{const d=new Date(t);return `${p2(d.getDate())}/${p2(d.getMonth()+1)}/${d.getFullYear()} ${p2(d.getHours())}:${p2(d.getMinutes())}`};
+function renderNotas(){const l=D.notas.filter(n=>!$("nPend").checked||!n.feita);
+ $("listaNotas").innerHTML=l.length?l.map(n=>`<div class="nota ${n.feita?"ok":""}"><div class="item" style="border:0;padding:0"><input type="checkbox" data-nota="${n.id}" ${n.feita?"checked":""} aria-label="Resolvida"></div><div class="tx"><span class="tag ${n.tipo}">${NOMES[n.tipo]}</span>${n.feita?'<span class="tag ok">Resolvida</span>':""}<small>${esc(n.frente)} · ${fmtData(n.data)}</small><br>${esc(n.texto)}</div><button class="del" data-delnota="${n.id}" aria-label="Apagar">🗑️</button></div>`).join(""):`<div class="vazio">Nenhuma anotação ${$("nPend").checked?"pendente":"ainda"}.</div>`}
+$("listaNotas").addEventListener("change",e=>{const id=e.target.dataset.nota;if(!id)return;const n=D.notas.find(x=>x.id===id);n.feita=e.target.checked;salvar();renderNotas();renderProgresso()});
+$("listaNotas").addEventListener("click",e=>{const b=e.target.closest("[data-delnota]");if(!b)return;if(!confirm("Apagar esta anotação?"))return;D.notas=D.notas.filter(n=>n.id!==b.dataset.delnota);salvar();renderNotas();renderProgresso()});
+
+/* ===== galeria (IndexedDB) ===== */
+let dbp=null;
+function db(){if(dbp)return dbp;dbp=new Promise((ok,er)=>{const r=indexedDB.open("norte-gestor",1);r.onupgradeneeded=()=>r.result.createObjectStore("fotos",{keyPath:"id"});r.onsuccess=()=>ok(r.result);r.onerror=()=>er(r.error)});return dbp}
+async function tx(modo,fn){const d=await db();return new Promise((ok,er)=>{const t=d.transaction("fotos",modo);const st=t.objectStore("fotos");let res;const r=fn(st);if(r)r.onsuccess=()=>res=r.result;t.oncomplete=()=>ok(res);t.onerror=()=>er(t.error)})}
+const todasFotos=()=>tx("readonly",s=>s.getAll());
+const salvarFoto=f=>tx("readwrite",s=>s.put(f));
+const apagarFoto=id=>tx("readwrite",s=>s.delete(id));
+let urls=[],gradeUrls=[];
+async function comprimir(file){const bmp=await new Promise((ok,er)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=er;i.src=URL.createObjectURL(file)});
+ const max=1280,sc=Math.min(1,max/Math.max(bmp.width,bmp.height));const c=document.createElement("canvas");c.width=Math.round(bmp.width*sc);c.height=Math.round(bmp.height*sc);
+ c.getContext("2d").drawImage(bmp,0,0,c.width,c.height);URL.revokeObjectURL(bmp.src);
+ return await new Promise(ok=>c.toBlob(b=>ok(b),"image/jpeg",0.78))}
+async function novaFoto(file){if(!file)return;let blob;try{blob=await comprimir(file)}catch(e){toast("Não consegui abrir a foto");return}
+ const u=URL.createObjectURL(blob);urls.push(u);let tipo="ate";
+ abrirModal(`<button class="fechar" data-fechar>✕</button><h2>Nova foto</h2><img src="${u}" alt="">
+  <div class="seg" id="fTipo"><button data-v="ate" class="on">⚠️ Ponto de atenção</button><button data-v="mel">✅ Melhoria</button></div>
+  <select id="fFrente" class="larg" style="margin:6px 0"></select>
+  <textarea id="fDesc" placeholder="O que é, onde é, o que precisa fazer..."></textarea>
+  <button class="btn grande" id="fSalvar">💾 Salvar na galeria</button>`);
+ opcoesFrente($("fFrente"),false);
+ $("fTipo").onclick=e=>{const b=e.target.closest("button");if(!b)return;tipo=b.dataset.v;document.querySelectorAll("#fTipo button").forEach(x=>x.classList.toggle("on",x===b))};
+ $("fSalvar").onclick=async()=>{try{await salvarFoto({id:uid(),data:Date.now(),frente:$("fFrente").value,desc:$("fDesc").value.trim(),tipo,resolvido:false,img:blob});fecharModal();irAba("galeria");renderGaleria();toast("Foto salva")}catch(e){toast("Não consegui salvar: memória cheia?")}}}
+["fCam","fGal"].forEach(id=>$(id).onchange=e=>{novaFoto(e.target.files[0]);e.target.value=""});
+["gFrente","gTipo","gPend"].forEach(id=>$(id).onchange=renderGaleria);
+async function renderGaleria(){let l=[];try{l=await todasFotos()}catch(e){}
+ gradeUrls.forEach(u=>URL.revokeObjectURL(u));gradeUrls=[];
+ const fr=$("gFrente").value,tp=$("gTipo").value,pe=$("gPend").checked;
+ l=l.filter(f=>(!fr||f.frente===fr)&&(!tp||f.tipo===tp)&&(!pe||!f.resolvido)).sort((a,b)=>b.data-a.data);
+ $("grade").innerHTML=l.length?l.map(f=>{const u=URL.createObjectURL(f.img);gradeUrls.push(u);return `<button class="foto" data-foto="${f.id}"><img src="${u}" alt="" loading="lazy"><div><span class="tag ${f.tipo}">${f.tipo==="mel"?"Melhoria":"Atenção"}</span>${f.resolvido?'<span class="tag ok">Resolvido</span>':""}<b>${esc(f.desc||"Sem descrição")}</b>${esc(f.frente)} · ${fmtData(f.data).slice(0,5)}</div></button>`}).join(""):`<div class="vazio" style="grid-column:1/-1">Nenhuma foto${pe?" pendente":""}. Toque em 📷 Tirar foto.</div>`;
+ renderProgresso()}
+$("grade").addEventListener("click",async e=>{const b=e.target.closest("[data-foto]");if(!b)return;const l=await todasFotos();const f=l.find(x=>x.id===b.dataset.foto);if(!f)return;
+ const u=URL.createObjectURL(f.img);urls.push(u);
+ abrirModal(`<button class="fechar" data-fechar>✕</button><h2>${f.tipo==="mel"?"✅ Melhoria":"⚠️ Ponto de atenção"}</h2><img src="${u}" alt="">
+  <p><small>${esc(f.frente)} · ${fmtData(f.data)}</small></p>
+  <textarea id="dDesc">${esc(f.desc)}</textarea>
+  <label class="chip" style="margin:8px 0"><input type="checkbox" id="dRes" ${f.resolvido?"checked":""}> Resolvido</label><br>
+  <button class="btn" id="dSalvar">💾 Salvar</button><button class="btn am" id="dShare">📤 Enviar</button><button class="btn vm" id="dDel">🗑️ Apagar</button>`);
+ $("dSalvar").onclick=async()=>{f.desc=$("dDesc").value.trim();f.resolvido=$("dRes").checked;await salvarFoto(f);fecharModal();renderGaleria();toast("Salvo")};
+ $("dShare").onclick=async()=>{const txt=`${f.tipo==="mel"?"Melhoria":"Ponto de atenção"} — ${f.frente} (${fmtData(f.data)})\n${f.desc||""}`;
+  const file=new File([f.img],"foto.jpg",{type:"image/jpeg"});
+  if(navigator.canShare&&navigator.canShare({files:[file]}))navigator.share({files:[file],text:txt}).catch(()=>{});else location.href="https://wa.me/?text="+encodeURIComponent(txt)};
+ $("dDel").onclick=async()=>{if(!confirm("Apagar esta foto?"))return;await apagarFoto(f.id);fecharModal();renderGaleria();toast("Foto apagada")}});
+
+/* ===== progresso ===== */
+async function renderProgresso(){
+ $("kDia").textContent=pct("dia")+"%";$("kSem").textContent=pct("sem")+"%";$("kMes").textContent=pct("mes")+"%";
+ const tot=itens("dia").length||1,ids=new Set(itens("dia").map(i=>i.id));let barras="",rot="",seq=0,quebrou=false;
+ const hoje=diaTrabalho();
+ for(let k=13;k>=0;k--){const d=new Date(hoje);d.setDate(d.getDate()-k);const m=D.checks["D:"+chaveData(d)]||{};const v=Math.min(100,Math.round(Object.keys(m).filter(i=>ids.has(i)).length/tot*100));
+  barras+=`<div title="${v}%"><i style="height:${v}%"></i></div>`;rot+=`<span>${d.getDate()}</span>`}
+ for(let k=0;k<60;k++){const d=new Date(hoje);d.setDate(d.getDate()-k);const m=D.checks["D:"+chaveData(d)]||{};const v=Object.keys(m).filter(i=>ids.has(i)).length/tot;if(v>=0.8)seq++;else if(k>0)break}
+ $("hist").innerHTML=barras;$("histx").innerHTML=rot;
+ $("sequencia").innerHTML=seq?`🔥 <b>${seq} ${seq>1?"dias seguidos":"dia"}</b> com 80% ou mais da rotina cumprida.`:"Cumpra 80% da rotina do dia para começar uma sequência.";
+ const np=D.notas.filter(n=>!n.feita).length;let fp=0;try{fp=(await todasFotos()).filter(f=>!f.resolvido).length}catch(e){}
+ $("pendencias").innerHTML=`<h2>Pendências</h2><p>📝 <b>${np}</b> anotaç${np===1?"ão":"ões"} sem resolver</p><p>📷 <b>${fp}</b> foto${fp===1?"":"s"} sem resolver</p>`}
+
+/* ===== backup ===== */
+const blobB64=b=>new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.readAsDataURL(b)});
+$("btnExportar").onclick=async()=>{toast("Preparando a cópia...");const fotos=await todasFotos();const fs=[];for(const f of fotos)fs.push(Object.assign({},f,{img:await blobB64(f.img)}));
+ const blob=new Blob([JSON.stringify({app:"norte-gestor",versao:1,dados:D,fotos:fs})],{type:"application/json"});
+ const nome=`norte-do-gestor-${chaveData(new Date())}.json`;const file=new File([blob],nome,{type:"application/json"});
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Cópia do Norte do Gestor"});return}catch(e){if(e.name==="AbortError")return}}
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=nome;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast("Cópia salva em Downloads")};
+$("fImport").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+ try{const j=JSON.parse(await f.text());if(j.app!=="norte-gestor")throw 0;if(!confirm("Restaurar a cópia? Os dados atuais deste celular serão trocados pelos da cópia."))return;
+  D=Object.assign(base(),j.dados);salvar();const atuais=await todasFotos();for(const x of atuais)await apagarFoto(x.id);
+  for(const x of j.fotos||[]){const b=await (await fetch(x.img)).blob();await salvarFoto(Object.assign({},x,{img:b}))}
+  tudo();toast("Cópia restaurada")}catch(err){toast("Arquivo de cópia inválido")}};
+
+/* ===== abas + arrasto ===== */
+const ORD=[...document.querySelectorAll("#abas button")].map(b=>b.dataset.t);
+function irAba(t){document.querySelectorAll("#abas button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));document.querySelectorAll("main section").forEach(s=>s.classList.toggle("on",s.id===t));
+ const b=document.querySelector(`#abas button[data-t="${t}"]`);if(b)b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});window.scrollTo({top:0});
+ $("fab").textContent=t==="galeria"?"📷 Foto":t==="notas"?"📝 Anotar":"➕ Item";$("fab").hidden=t==="progresso";
+ if(t==="galeria")renderGaleria();if(t==="progresso")renderProgresso()}
+document.querySelectorAll("#abas button").forEach(b=>b.onclick=()=>irAba(b.dataset.t));
+let tx0=null,ty0=0;
+document.querySelector("main").addEventListener("touchstart",e=>{if(e.target.closest("input,select,textarea,.hist")){tx0=null;return}tx0=e.touches[0].clientX;ty0=e.touches[0].clientY},{passive:true});
+document.querySelector("main").addEventListener("touchend",e=>{if(tx0===null)return;const dx=e.changedTouches[0].clientX-tx0,dy=e.changedTouches[0].clientY-ty0;tx0=null;
+ if(Math.abs(dx)<28||Math.abs(dx)<Math.abs(dy)*1.3)return;const at=ORD.indexOf(document.querySelector("#abas button.on").dataset.t);const nx=at+(dx<0?1:-1);if(nx>=0&&nx<ORD.length)irAba(ORD[nx])},{passive:true});
+
+/* ===== instalar ===== */
+let pedido=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;if(!standalone)$("btnInstalar").hidden=false});
+$("btnInstalar").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userChoice.catch(()=>{});pedido=null;$("btnInstalar").hidden=true}else alert("Toque no menu ⋮ do Chrome e escolha \"Instalar app\".")};
+if(!standalone)setTimeout(()=>{if(!pedido)$("btnInstalar").hidden=false},2500);
+window.addEventListener("appinstalled",()=>{$("btnInstalar").hidden=true});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+
+/* virada de dia/semana/mês com o app aberto */
+let ultima=chaves().dia;setInterval(()=>{const k=chaves().dia;if(k!==ultima){ultima=k;renderChecks()}},60000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden){const k=chaves().dia;if(k!==ultima){ultima=k;renderChecks()}}});
+
+function tudo(){renderFrentes();renderChecks();renderNotas();renderGaleria()}
+tudo();
+</script>
+</body></html>

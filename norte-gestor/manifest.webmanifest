@@ -1,0 +1,18 @@
+{
+  "name": "Norte do Gestor",
+  "short_name": "Norte do Gestor",
+  "description": "Rotina diária, semanal e mensal do gestor da vinhaça localizada, com anotações e galeria de fotos.",
+  "lang": "pt-BR",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1d7a43",
+  "theme_color": "#1d7a43",
+  "icons": [
+    {"src": "icon-192.png","sizes": "192x192","type": "image/png"},
+    {"src": "icon-512.png","sizes": "512x512","type": "image/png"},
+    {"src": "icon-maskable-512.png","sizes": "512x512","type": "image/png","purpose": "maskable"}
+  ]
+}
