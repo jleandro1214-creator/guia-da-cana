@@ -239,7 +239,7 @@ const PADRAO={
 };
 const CHAVE="norte-gestor-v1";
 let D;
-function base(){return {turno:"dia",frentes:["Frente 1","Frente 2","Frente 3","Frente 4"],extra:{dia:[],sem:[],mes:[]},ocultos:[],checks:{},registros:{},notas:[]}}
+function base(){return {turno:"dia",frentes:["Frente 1","Frente 2","Frente 3","Frente 4"],extra:{dia:[],sem:[],mes:[]},ocultos:[],edits:{},checks:{},registros:{},notas:[]}}
 function carregar(){try{const t=localStorage.getItem(CHAVE);if(t){const x=JSON.parse(t);D=Object.assign(base(),x);D.extra=Object.assign({dia:[],sem:[],mes:[]},x.extra||{});return}}catch(e){}D=base()}
 function salvar(){try{localStorage.setItem(CHAVE,JSON.stringify(D))}catch(e){toast("Não consegui salvar neste celular")}}
 carregar();
@@ -258,7 +258,7 @@ const DIAS=["domingo","segunda","terça","quarta","quinta","sexta","sábado"],ME
 function horaTurno(h){if(!h)return"";if(D.turno!=="noite")return h.replace(":","h");let[a,b]=h.split(":").map(Number);a=(a+10)%24;return a+"h"+p2(b)}
 
 /* ===== listas ===== */
-function itens(tipo){const pad=PADRAO[tipo].filter(i=>!D.ocultos.includes(i.id)).map(i=>Object.assign({pad:true},i));
+function itens(tipo){const pad=PADRAO[tipo].filter(i=>!D.ocultos.includes(i.id)).map(i=>Object.assign({pad:true},i,(D.edits||{})[i.id]||{}));
  const ex=D.extra[tipo].map(i=>Object.assign({},i));
  let l=pad.concat(ex);
  if(tipo==="dia"){const ord=i=>{if(!i.h)return null;let m=+i.h.slice(0,2)*60+ +i.h.slice(3);if(D.turno==="noite"){m=(m+600)%1440;if(m<360)m+=1440}return m};
@@ -274,8 +274,8 @@ function renderLista(tipo,el){
  if(!l.length){el.innerHTML=`<div class="vazio">Nenhum item. Toque em ➕ Item para criar.</div>`;return}
  l.forEach(i=>{if(tipo==="dia"&&i.g!==grupo){grupo=i.g;html+=`<h3>${esc(grupo)}</h3>`}
   const ok=!!m[i.id];
-  html+=`<div class="item ${ok?"feito":""}"><input type="checkbox" data-tipo="${tipo}" data-id="${i.id}" ${ok?"checked":""} aria-label="${esc(i.t)}">${i.h?`<span class="hora">${horaTurno(i.h)}</span>`:""}<div class="tx"><b>${esc(i.t)}</b>${i.s?`<small>${esc(i.s)}</small>`:""}</div><button class="del" data-del="${tipo}:${i.id}" aria-label="${i.pad?"Esconder":"Apagar"} item">${i.pad?"🙈":"🗑️"}</button></div>`});
- html+=`<p style="font-size:.82rem;color:#7d6a52;margin-top:8px">🙈 esconde um item padrão · 🗑️ apaga um item seu</p>`;
+  html+=`<div class="item ${ok?"feito":""}"><input type="checkbox" data-tipo="${tipo}" data-id="${i.id}" ${ok?"checked":""} aria-label="${esc(i.t)}">${i.h?`<span class="hora">${horaTurno(i.h)}</span>`:""}<div class="tx"><b>${esc(i.t)}</b>${i.s?`<small>${esc(i.s)}</small>`:""}</div><button class="del" data-edit="${tipo}:${i.id}" aria-label="Editar item" style="color:var(--marrom)">✏️</button></div>`});
+ html+=`<p style="font-size:.82rem;color:#7d6a52;margin-top:8px">✏️ edita qualquer compromisso: texto, detalhe, horário, esconder ou apagar</p>`;
  el.innerHTML=html}
 function renderChecks(){
  const k=chaves();
@@ -285,7 +285,7 @@ function renderChecks(){
  document.querySelectorAll("#segTurno button").forEach(b=>b.classList.toggle("on",b.dataset.v===D.turno));
  renderRegistro();renderProgresso()}
 document.addEventListener("change",e=>{const c=e.target;if(c.matches(".item input[type=checkbox]")){const k=chaves()[c.dataset.tipo];D.checks[k]=D.checks[k]||{};if(c.checked)D.checks[k][c.dataset.id]=Date.now();else delete D.checks[k][c.dataset.id];salvar();renderChecks();if(c.checked&&pct(c.dataset.tipo)===100)toast("🎉 Tudo feito! Muito bom.")}});
-document.addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;const[tipo,id]=b.dataset.del.split(":");
+document.addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;const[tipo,id]=b.dataset.del.split(":");if(!$("modal").hidden)fecharModal();
  if(PADRAO[tipo].some(i=>i.id===id)){if(!confirm("Esconder este item da rotina? Dá para mostrar de novo em Progresso › Ajustes."))return;D.ocultos.push(id)}
  else{if(!confirm("Apagar este item?"))return;D.extra[tipo]=D.extra[tipo].filter(i=>i.id!==id)}
  salvar();renderChecks()});
@@ -303,6 +303,24 @@ $("btnPassagem").onclick=()=>{const r=D.registros[chaves().data]||{};const d=cha
  if(!r.rHa&&!r.rCargas&&!ps.length&&!r.rObs){toast("Preencha o registro primeiro");return}
  if(navigator.share)navigator.share({text:t}).catch(()=>{});else location.href="https://wa.me/?text="+encodeURIComponent(t)};
 
+/* ===== editar item ===== */
+function hParaTela(h){if(!h||D.turno!=="noite")return h||"";let m=(+h.slice(0,2)*60+ +h.slice(3)+600)%1440;return p2(Math.floor(m/60))+":"+p2(m%60)}
+function hDaTela(h){if(!h||D.turno!=="noite")return h||"";let m=(+h.slice(0,2)*60+ +h.slice(3)-600+1440)%1440;return p2(Math.floor(m/60))+":"+p2(m%60)}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-edit]");if(!b)return;const[tipo,id]=b.dataset.edit.split(":");
+ const i=itens(tipo).find(x=>x.id===id);if(!i)return;const pad=!!i.pad,ed=pad&&D.edits&&D.edits[id];
+ abrirModal(`<button class="fechar" data-fechar>✕</button><h2>Editar compromisso</h2>
+  <p style="margin:8px 0 2px"><b>O que fazer</b></p><input type="text" id="eT" value="${esc(i.t)}">
+  <p style="margin:10px 0 2px"><b>Detalhe</b></p><input type="text" id="eS" value="${esc(i.s||"")}" placeholder="Opcional">
+  ${tipo==="dia"?`<label class="campo"><span>Horário<small style="display:block;color:#6d5a44;font-size:.82rem">Do turno ${D.turno==="noite"?"da noite":"do dia"}; deixe vazio para sem horário</small></span><input type="time" id="eH" value="${hParaTela(i.h)}"></label>`:""}
+  <button class="btn grande" id="eSalvar" style="margin-top:12px">💾 Salvar</button>
+  ${ed?`<button class="btn ln" id="eOrig">↩️ Voltar ao original</button>`:""}
+  <button class="btn vm" data-del="${tipo}:${id}">${pad?"🙈 Esconder da rotina":"🗑️ Apagar"}</button>`);
+ $("eSalvar").onclick=()=>{const t=$("eT").value.trim();if(!t){toast("Escreva o compromisso");return}
+  const novo={t,s:$("eS").value.trim()};if(tipo==="dia")novo.h=hDaTela($("eH").value);
+  if(pad){D.edits=D.edits||{};D.edits[id]=novo}else{const x=D.extra[tipo].find(x=>x.id===id);Object.assign(x,novo)}
+  salvar();fecharModal();renderChecks();toast("Compromisso atualizado")};
+ if(ed)$("eOrig").onclick=()=>{delete D.edits[id];salvar();fecharModal();renderChecks();toast("Voltou ao original")}});
+
 /* ===== adicionar item ===== */
 $("fab").onclick=()=>{const at=document.querySelector("#abas button.on").dataset.t;
  if(at==="galeria"){$("fCam").click();return}
@@ -312,13 +330,13 @@ $("fab").onclick=()=>{const at=document.querySelector("#abas button.on").dataset
   <div class="seg" id="mTipo"><button data-v="dia">Diário</button><button data-v="sem">Semanal</button><button data-v="mes">Mensal</button></div>
   <input type="text" id="mT" placeholder="O que fazer" style="margin:6px 0">
   <input type="text" id="mS" placeholder="Detalhe (opcional)" style="margin:6px 0">
-  <label class="campo" id="mHL"><span>Horário (opcional)<small style="display:block;color:#6d5a44;font-size:.82rem">Horário do turno do dia</small></span><input type="time" id="mH"></label>
+  <label class="campo" id="mHL"><span>Horário (opcional)<small style="display:block;color:#6d5a44;font-size:.82rem">Do turno ${D.turno==="noite"?"da noite":"do dia"}</small></span><input type="time" id="mH"></label>
   <button class="btn grande" id="mSalvar">💾 Adicionar</button>`);
  let sel=tipo;const pint=()=>{document.querySelectorAll("#mTipo button").forEach(b=>b.classList.toggle("on",b.dataset.v===sel));$("mHL").hidden=sel!=="dia"};pint();
  $("mTipo").onclick=e=>{const b=e.target.closest("button");if(b){sel=b.dataset.v;pint()}};
  setTimeout(()=>$("mT").focus(),100);
  $("mSalvar").onclick=()=>{const t=$("mT").value.trim();if(!t){toast("Escreva o item");return}
-  D.extra[sel].push({id:"x"+uid(),t,s:$("mS").value.trim(),h:sel==="dia"?$("mH").value:"",g:"Meus itens"});salvar();fecharModal();renderChecks();
+  D.extra[sel].push({id:"x"+uid(),t,s:$("mS").value.trim(),h:sel==="dia"?hDaTela($("mH").value):"",g:"Meus itens"});salvar();fecharModal();renderChecks();
   irAba(sel==="sem"?"semana":sel==="mes"?"mes":"hoje");toast("Item adicionado")}};
 
 /* ===== modal ===== */
