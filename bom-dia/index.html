@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bom Dia</title>
+<meta name="theme-color" content="#1f4d2b">
+<meta name="description" content="Seu despertar: previsão do tempo, notícias dos seus assuntos e agenda do dia, com leitura em voz alta.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+/* Layout: uma coluna de cartões, 3 abas com arrasto lateral (Hoje / Para amanhã / Ajustes) */
+:root{
+  --verde:#1f4d2b; --verde2:#3d7a3a; --folha:#7ec24e;
+  --amarelo:#f2c230; --amarelo-suave:#fdf1c4;
+  --marrom:#6b4a2b; --marrom-claro:#a9805a;
+  --bg:#faf6ea; --card:#ffffff; --fg:#2a2118; --sub:#6e5f4e; --linha:#e8dfc9;
+  --chip:#efe7d2; --chip-on:#1f4d2b; --chip-on-fg:#fdf1c4;
+  --sombra:0 2px 10px rgba(80,55,20,.10);
+  --f-titulo:"Georgia","Times New Roman",serif;
+  --f-corpo:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#151c16; --card:#1f2a21; --fg:#f1ead8; --sub:#b8ab92; --linha:#33402f;
+  --chip:#2b382b; --chip-on:#f2c230; --chip-on-fg:#1f2a14; --amarelo-suave:#3a3418;
+  --sombra:0 2px 10px rgba(0,0,0,.35); color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-corpo);font-size:17px;line-height:1.45;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+
+/* Topo */
+header.topo{background:var(--verde);color:#fdf6dd;padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));position:sticky;top:0;z-index:5}
+.topo-linha{display:flex;align-items:center;gap:12px}
+.topo-linha img{width:40px;height:40px;border-radius:10px}
+.topo h1{font-family:var(--f-titulo);font-size:1.35rem;margin:0;font-weight:700}
+.topo small{display:block;opacity:.85;font-size:.85rem}
+nav.abas{display:flex;margin-top:12px}
+nav.abas button{flex:1;background:none;border:0;color:#fdf6dd;opacity:.75;padding:10px 4px 12px;font-weight:600;font-size:1rem;border-bottom:4px solid transparent}
+nav.abas button[aria-selected=true]{opacity:1;border-bottom-color:var(--amarelo)}
+
+main{padding:16px max(16px,env(safe-area-inset-right,0px)) calc(32px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));max-width:640px;margin:0 auto}
+section.aba{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:var(--sombra);min-width:0}
+.card h2{font-family:var(--f-titulo);font-size:1.2rem;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.card h2 .tag{margin-left:auto;font-family:var(--f-corpo);font-size:.8rem;font-weight:600;color:var(--sub)}
+.sub{color:var(--sub);font-size:.92rem}
+
+/* Saudação */
+.saudacao{background:linear-gradient(160deg,var(--amarelo-suave),var(--card) 70%);border:1px solid var(--linha)}
+.saudacao .ola{font-family:var(--f-titulo);font-size:1.6rem;margin:0;text-wrap:balance}
+.saudacao .data{color:var(--sub);margin:2px 0 14px}
+.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:12px 16px;font-weight:700;min-height:48px}
+.btn-pri{background:var(--verde);color:#fdf6dd}
+@media (prefers-color-scheme:dark){.btn-pri{background:var(--amarelo);color:#1f2a14}}
+.btn-sec{background:var(--chip);color:var(--fg)}
+.btn-larga{width:100%;font-size:1.1rem}
+.linha-btns{display:flex;gap:10px;flex-wrap:wrap}
+.linha-btns .btn{flex:1 1 140px}
+
+/* Tempo */
+.tempo-top{display:flex;align-items:center;gap:14px}
+.tempo-ico{font-size:3rem;line-height:1}
+.tempo-graus{font-size:2.6rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.tempo-desc{font-weight:600}
+.tempo-dados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;margin-top:14px}
+.dado{background:var(--chip);border-radius:10px;padding:8px 10px}
+.dado small{display:block;color:var(--sub);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+.dado b{font-variant-numeric:tabular-nums}
+.horas{display:flex;gap:8px;overflow-x:auto;margin-top:14px;padding-bottom:4px;scrollbar-width:thin}
+.hora{flex:0 0 64px;text-align:center;background:var(--chip);border-radius:10px;padding:8px 4px;font-variant-numeric:tabular-nums}
+.hora small{display:block;color:var(--sub);font-size:.8rem}
+.hora .ch{color:#3b7bbf;font-size:.8rem;font-weight:700}
+@media (prefers-color-scheme:dark){.hora .ch{color:#8cc0f0}}
+.aviso-chuva{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--amarelo-suave);font-weight:600}
+
+/* Agenda */
+.ag-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--linha)}
+.ag-item:first-child{border-top:0}
+.ag-h{font-weight:800;font-variant-numeric:tabular-nums;min-width:56px;color:var(--verde2)}
+@media (prefers-color-scheme:dark){.ag-h{color:var(--amarelo)}}
+.ag-t{flex:1;min-width:0;overflow-wrap:anywhere}
+.ag-x{background:none;border:0;font-size:1.3rem;color:var(--sub);padding:0 6px;min-height:36px}
+.vazio{color:var(--sub);font-style:italic}
+
+/* Notícias */
+.not-grupo+.not-grupo{margin-top:16px;padding-top:14px;border-top:2px dashed var(--linha)}
+.not-grupo h3{margin:0 0 8px;font-size:1.05rem;display:flex;gap:8px;align-items:center}
+.not{padding:8px 0}
+.not b{display:block;line-height:1.3}
+.not p{margin:4px 0 2px;color:var(--fg)}
+.not a{color:var(--verde2);font-size:.88rem;font-weight:600}
+@media (prefers-color-scheme:dark){.not a{color:var(--amarelo)}}
+.gnews{display:inline-flex;gap:6px;align-items:center;color:var(--verde2);font-weight:700;text-decoration:none;background:var(--chip);padding:10px 12px;border-radius:10px}
+@media (prefers-color-scheme:dark){.gnews{color:var(--amarelo)}}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid transparent;background:var(--chip);border-radius:999px;padding:9px 14px;font-weight:600;min-height:44px;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed=true]{background:var(--chip-on);color:var(--chip-on-fg)}
+.chip .x{font-weight:800;margin-left:2px;opacity:.8}
+.campo{display:flex;gap:8px;margin-top:12px}
+.campo input{flex:1;min-width:0}
+input[type=text],input[type=time],input[type=search],select{border:2px solid var(--linha);background:var(--bg);border-radius:12px;padding:10px 12px;min-height:48px;width:100%}
+label.rot{display:block;font-weight:700;margin:12px 0 6px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{flex:1 1 auto;min-width:64px;white-space:nowrap;justify-content:center}
+.dica{font-size:.9rem;color:var(--sub);margin:10px 0 0}
+.ag-novo{display:grid;grid-template-columns:110px 1fr;gap:8px;margin-top:10px}
+.ag-novo .btn{grid-column:1/-1}
+input[type=range]{width:100%;accent-color:var(--verde2)}
+
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--marrom);color:#fdf6dd;padding:12px 18px;border-radius:12px;font-weight:600;z-index:20;max-width:90vw;text-align:center}
+.falando{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;gap:10px;align-items:center;background:var(--verde);color:#fdf6dd;border-radius:14px;padding:10px 12px;box-shadow:0 6px 20px rgba(0,0,0,.25);max-width:608px;margin:0 auto}
+.falando span{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.falando button{background:var(--amarelo);color:#1f2a14;border:0;border-radius:10px;padding:8px 14px;font-weight:800;min-height:44px}
+footer{color:var(--sub);font-size:.85rem;text-align:center;margin-top:8px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1f4d2b;color:#fdf6dd;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style><div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Bom Dia</b></div><script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,700-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
+
+<header class="topo">
+  <div class="topo-linha">
+    <img src="icon-192.png" alt="">
+    <div><h1>Bom Dia</h1><small id="topo-sub">Tempo, notícias e agenda</small></div>
+  </div>
+  <nav class="abas" role="tablist">
+    <button role="tab" id="t-hoje" aria-selected="true" data-aba="hoje">☀️ Hoje</button>
+    <button role="tab" id="t-prep" aria-selected="false" data-aba="prep">🌙 Para amanhã</button>
+    <button role="tab" id="t-aj" aria-selected="false" data-aba="aj">⚙️ Ajustes</button>
+  </nav>
+</header>
+
+<main id="main">
+<!-- HOJE -->
+<section class="aba" id="aba-hoje">
+  <div class="card saudacao">
+    <p class="ola" id="ola">Bom dia, Leandro</p>
+    <p class="data" id="data-hoje"></p>
+    <button class="btn btn-pri btn-larga" id="b-ouvir" type="button">🔊 Ouvir meu bom dia</button>
+  </div>
+
+  <div class="card" id="c-tempo">
+    <h2>🌤️ Tempo <span class="tag" id="tempo-local">Serrana</span></h2>
+    <div id="tempo-corpo"><p class="vazio">Carregando a previsão…</p></div>
+  </div>
+
+  <div class="card">
+    <h2>📅 Agenda de hoje</h2>
+    <div id="ag-hoje"></div>
+  </div>
+
+  <div class="card">
+    <h2>📰 Notícias <span class="tag" id="not-quando"></span></h2>
+    <div id="noticias"></div>
+  </div>
+  <footer>Toque em “Para amanhã” à noite para escolher os assuntos e a agenda.</footer>
+</section>
+
+<!-- PARA AMANHÃ -->
+<section class="aba" id="aba-prep" hidden>
+  <div class="card">
+    <h2>⏰ Hora de acordar</h2>
+    <div class="seg" id="turnos"></div>
+    <label class="rot" for="i-hora">Hora do alarme</label>
+    <input type="time" id="i-hora" value="05:30">
+    <div class="linha-btns" style="margin-top:12px">
+      <a class="btn btn-pri" id="b-alarme" href="#">⏰ Criar alarme no relógio</a>
+    </div>
+    <p class="dica">O alarme toca pelo relógio do celular. Se o botão não abrir o relógio, crie o alarme por lá mesmo. Ao desligar, abra o Bom Dia.</p>
+  </div>
+
+  <div class="card">
+    <h2>🗞️ Assuntos das notícias</h2>
+    <p class="sub" style="margin:0 0 10px">Toque para ligar ou desligar.</p>
+    <div class="chips" id="chips-fixos"></div>
+    <label class="rot" for="i-assunto">Outro assunto</label>
+    <div class="campo" style="margin-top:0">
+      <input type="text" id="i-assunto" placeholder="Ex.: preço do etanol" enterkeyhint="done" maxlength="40">
+      <button class="btn btn-pri" id="b-add-assunto" type="button">Adicionar</button>
+    </div>
+    <div class="chips" id="chips-extras" style="margin-top:10px"></div>
+    <label class="rot">Notícias por assunto</label>
+    <div class="seg" id="seg-qtd"></div>
+  </div>
+
+  <div class="card">
+    <h2>📅 Agenda de amanhã</h2>
+    <div id="ag-amanha"></div>
+    <div class="ag-novo">
+      <input type="time" id="i-ag-h" aria-label="Horário">
+      <input type="text" id="i-ag-t" placeholder="Ex.: reunião na frente 2" maxlength="80" aria-label="O que é">
+      <button class="btn btn-sec" id="b-ag-add" type="button">＋ Adicionar à agenda</button>
+    </div>
+  </div>
+
+  <button class="btn btn-pri btn-larga" id="b-pronto" type="button">✅ Pronto, boa noite</button>
+</section>
+
+<!-- AJUSTES -->
+<section class="aba" id="aba-aj" hidden>
+  <div class="card">
+    <h2>📍 Cidade da previsão</h2>
+    <p class="sub" style="margin:0" id="cid-atual"></p>
+    <div class="campo">
+      <input type="search" id="i-cidade" placeholder="Nome da cidade" enterkeyhint="search">
+      <button class="btn btn-sec" id="b-cidade" type="button">Buscar</button>
+    </div>
+    <div id="cid-res" class="chips" style="margin-top:10px"></div>
+    <button class="btn btn-sec btn-larga" id="b-gps" type="button" style="margin-top:12px">📡 Usar minha localização</button>
+  </div>
+
+  <div class="card">
+    <h2>🔊 Voz</h2>
+    <label class="rot" for="i-vel">Velocidade: <span id="vel-txt">1,0</span>×</label>
+    <input type="range" id="i-vel" min="0.7" max="1.4" step="0.1" value="1">
+    <label class="rot" for="i-nome">Seu nome na saudação</label>
+    <input type="text" id="i-nome" value="Leandro" maxlength="30">
+    <button class="btn btn-sec btn-larga" id="b-testar" type="button" style="margin-top:12px">Testar voz</button>
+  </div>
+
+  <div class="card" id="c-inst">
+    <h2>📲 Instalar no celular</h2>
+    <button class="btn btn-pri btn-larga" id="b-instalar" type="button" hidden>📲 Instalar app</button>
+    <p class="dica" id="inst-dica">No Chrome, toque no menu ⋮ e depois em “Instalar app” ou “Adicionar à tela inicial”.</p>
+  </div>
+
+  <div class="card">
+    <h2>ℹ️ Como funciona</h2>
+    <p style="margin:0">Toda noite o Claude busca as notícias dos assuntos fixos e deixa prontas aqui. O tempo vem do Open-Meteo, grátis. Assuntos que você digitar abrem no Google Notícias. A agenda fica só neste celular.</p>
+  </div>
+  <footer><a href="../apps/" style="color:inherit">📱 Meus Apps</a></footer>
+</section>
+</main>
+
+<div class="falando" id="falando" hidden><span id="falando-txt">Lendo…</span><button id="b-parar" type="button">⏹ Parar</button></div>
+<div id="toast" hidden></div>
+
+<script>
+"use strict";
+const FIXOS=[
+  {id:"cana",n:"Cana",e:"🌱",q:"cana-de-açúcar"},
+  {id:"politica",n:"Política",e:"🏛️",q:"política Brasil"},
+  {id:"tecnologia",n:"Tecnologia",e:"💻",q:"tecnologia"},
+  {id:"ciencia",n:"Ciência",e:"🔬",q:"ciência"},
+  {id:"astronomia",n:"Astronomia",e:"🔭",q:"astronomia"},
+  {id:"filosofia",n:"Filosofia",e:"💭",q:"filosofia"},
+  {id:"livros",n:"Livros",e:"📚",q:"livros lançamentos"}
+];
+const TURNOS=[{n:"Turno 7h",h:"05:30"},{n:"Turno 17h",h:"09:00"},{n:"Folga",h:"07:30"}];
+const CHAVE="bomdia-v1";
+const PADRAO={assuntos:["cana","ciencia","tecnologia"],extras:[],qtd:3,hora:"05:30",nome:"Leandro",vel:1,
+  cidade:{nome:"Serrana, SP",lat:-21.2117,lon:-47.5956},agenda:{}};
+let E=carregar();
+function carregar(){try{const s=JSON.parse(localStorage.getItem(CHAVE)||"null");return Object.assign({},PADRAO,s||{})}catch(e){return Object.assign({},PADRAO)}}
+function salvar(){try{localStorage.setItem(CHAVE,JSON.stringify(E))}catch(e){}}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toast(t){const el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+const hoje=()=>iso(new Date());
+const amanha=()=>{const d=new Date();d.setDate(d.getDate()+1);return iso(d)};
+const DIAS=["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
+const MESES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+function dataExtenso(d){return DIAS[d.getDay()]+", "+d.getDate()+" de "+MESES[d.getMonth()]}
+function saud(){const h=new Date().getHours();return h<12?"Bom dia":h<18?"Boa tarde":"Boa noite"}
+
+/* ---------- Abas com arrasto ---------- */
+const ABAS=["hoje","prep","aj"];let abaAtual="hoje";
+function irAba(a){abaAtual=a;ABAS.forEach(x=>{$("aba-"+x).hidden=x!==a;document.querySelector(`[data-aba="${x}"]`).setAttribute("aria-selected",x===a)});window.scrollTo({top:0});
+  if(a==="hoje")render()}
+document.querySelectorAll("nav.abas button").forEach(b=>b.addEventListener("click",()=>irAba(b.dataset.aba)));
+(function(){let x0=null,y0=null,ok=false;const m=$("main");
+  m.addEventListener("touchstart",e=>{if(e.target.closest(".horas,input,select"))return ok=false;const t=e.touches[0];x0=t.clientX;y0=t.clientY;ok=true},{passive:true});
+  m.addEventListener("touchend",e=>{if(!ok||x0===null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;
+    if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.3){const i=ABAS.indexOf(abaAtual)+(dx<0?1:-1);if(i>=0&&i<ABAS.length)irAba(ABAS[i])}},{passive:true})})();
+
+/* ---------- Tempo (Open-Meteo, grátis) ---------- */
+const WC={0:["☀️","Céu limpo"],1:["🌤️","Quase limpo"],2:["⛅","Parcialmente nublado"],3:["☁️","Nublado"],45:["🌫️","Neblina"],48:["🌫️","Neblina com geada"],
+51:["🌦️","Garoa fraca"],53:["🌦️","Garoa"],55:["🌧️","Garoa forte"],56:["🌧️","Garoa gelada"],57:["🌧️","Garoa gelada"],61:["🌦️","Chuva fraca"],63:["🌧️","Chuva"],65:["🌧️","Chuva forte"],
+66:["🌧️","Chuva gelada"],67:["🌧️","Chuva gelada"],71:["🌨️","Neve fraca"],73:["🌨️","Neve"],75:["🌨️","Neve forte"],77:["🌨️","Grãos de neve"],80:["🌦️","Pancadas fracas"],81:["🌧️","Pancadas de chuva"],
+82:["⛈️","Pancadas fortes"],85:["🌨️","Neve"],86:["🌨️","Neve"],95:["⛈️","Trovoadas"],96:["⛈️","Trovoadas com granizo"],99:["⛈️","Trovoadas com granizo"]};
+const wc=c=>WC[c]||["🌡️","Tempo variável"];
+let TEMPO=null;
+async function buscarTempo(){
+  const c=E.cidade;
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,apparent_temperature&hourly=temperature_2m,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset,uv_index_max,wind_speed_10m_max&timezone=America%2FSao_Paulo&forecast_days=2`;
+  try{const r=await fetch(url);if(!r.ok)throw 0;TEMPO=await r.json();TEMPO._quando=Date.now();TEMPO._cid=c.nome;try{localStorage.setItem("bomdia-tempo",JSON.stringify(TEMPO))}catch(e){}}
+  catch(e){try{const s=JSON.parse(localStorage.getItem("bomdia-tempo")||"null");if(s&&s._cid===c.nome){TEMPO=s;TEMPO._offline=true}}catch(_){}}
+  renderTempo();
+}
+function hm(s){return s?s.slice(11,16):"--"}
+function renderTempo(){
+  $("tempo-local").textContent=E.cidade.nome.split(",")[0];
+  const el=$("tempo-corpo");
+  if(!TEMPO){el.innerHTML='<p class="vazio">Sem internet e sem previsão guardada. Abra com sinal para ver o tempo.</p>';return}
+  const d=TEMPO.daily,cu=TEMPO.current,[ic,ds]=wc(cu.weather_code);
+  // dia: hoje (índice 0)
+  const hojeISO=hoje();const di=Math.max(0,d.time.indexOf(hojeISO));
+  const horas=[];const agoraH=new Date().getHours();
+  TEMPO.hourly.time.forEach((t,i)=>{if(t.slice(0,10)===hojeISO&&+t.slice(11,13)>=Math.min(agoraH,20)&&+t.slice(11,13)%2===0)horas.push(i)});
+  const hs=horas.slice(0,9).map(i=>`<div class="hora"><small>${TEMPO.hourly.time[i].slice(11,13)}h</small><div>${wc(TEMPO.hourly.weather_code[i])[0]}</div><b>${Math.round(TEMPO.hourly.temperature_2m[i])}°</b><div class="ch">${TEMPO.hourly.precipitation_probability[i]??0}%</div></div>`).join("");
+  const mm=d.precipitation_sum[di]??0,pp=d.precipitation_probability_max[di]??0;
+  let aviso="";
+  if(pp>=60&&mm>=5)aviso=`🌧️ Boa chance de chuva hoje (${pp}%, cerca de ${fmt(mm)} mm).`;
+  else if(pp>=40)aviso=`☂️ Pode chover hoje (${pp}%).`;
+  else if(d.temperature_2m_max[di]>=33)aviso="🥵 Dia muito quente. Leve água e protetor.";
+  el.innerHTML=`<div class="tempo-top"><div class="tempo-ico">${ic}</div><div><div class="tempo-graus">${Math.round(cu.temperature_2m)}°C</div><div class="tempo-desc">${ds}</div><div class="sub">Sensação ${Math.round(cu.apparent_temperature)}°C</div></div></div>
+  <div class="tempo-dados">
+   <div class="dado"><small>Máx / mín</small><b>${Math.round(d.temperature_2m_max[di])}° / ${Math.round(d.temperature_2m_min[di])}°</b></div>
+   <div class="dado"><small>Chuva</small><b>${pp}% · ${fmt(mm)} mm</b></div>
+   <div class="dado"><small>Vento</small><b>${Math.round(cu.wind_speed_10m)} km/h</b></div>
+   <div class="dado"><small>Umidade</small><b>${cu.relative_humidity_2m}%</b></div>
+   <div class="dado"><small>Sol nasce / põe</small><b>${hm(d.sunrise[di])} / ${hm(d.sunset[di])}</b></div>
+   <div class="dado"><small>Índice UV</small><b>${fmt(d.uv_index_max[di])}</b></div>
+  </div>
+  ${hs?`<div class="horas" aria-label="Previsão por hora">${hs}</div>`:""}
+  ${aviso?`<div class="aviso-chuva">${aviso}</div>`:""}
+  ${TEMPO._offline?`<p class="dica">Sem internet: mostrando a previsão guardada.</p>`:""}`;
+}
+function fmt(n){return String(Math.round((n||0)*10)/10).replace(".",",")}
+
+/* ---------- Notícias (arquivo preparado toda noite) ---------- */
+let NOT=null;
+async function buscarNoticias(){
+  try{const r=await fetch("noticias.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw 0;NOT=await r.json()}
+  catch(e){try{const r=await caches.match("noticias.json");if(r)NOT=await r.json()}catch(_){}}
+  renderNoticias();
+}
+function quandoTxt(isoStr){if(!isoStr)return"";const d=new Date(isoStr);if(isNaN(d))return"";
+  const hj=new Date();hj.setHours(0,0,0,0);const dd=new Date(d);dd.setHours(0,0,0,0);const df=Math.round((hj-dd)/864e5);
+  const h=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  return (df===0?"hoje":df===1?"ontem":d.getDate()+"/"+(d.getMonth()+1))+" às "+h}
+function gLink(q){return "https://news.google.com/search?q="+encodeURIComponent(q+" when:2d")+"&hl=pt-BR&gl=BR&ceid=BR:pt-419"}
+function itensDe(id){const g=NOT&&NOT.assuntos&&NOT.assuntos[id];return Array.isArray(g)?g.slice(0,E.qtd):[]}
+function renderNoticias(){
+  $("not-quando").textContent=NOT&&NOT.gerado?"preparadas "+quandoTxt(NOT.gerado):"";
+  const box=$("noticias");let h="";
+  const ativos=FIXOS.filter(f=>E.assuntos.includes(f.id));
+  if(!ativos.length&&!E.extras.length){box.innerHTML='<p class="vazio">Nenhum assunto escolhido. Escolha em “Para amanhã”.</p>';return}
+  ativos.forEach(f=>{const it=itensDe(f.id);
+    h+=`<div class="not-grupo"><h3>${f.e} ${f.n}</h3>`;
+    if(it.length)h+=it.map(n=>`<div class="not"><b>${esc(n.titulo)}</b>${n.resumo?`<p>${esc(n.resumo)}</p>`:""}${n.link?`<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.fonte||"Abrir notícia")} ↗</a>`:""}</div>`).join("");
+    else h+=`<p class="vazio">Ainda sem resumo preparado.</p><a class="gnews" href="${gLink(f.q)}" target="_blank" rel="noopener">🔎 Ver no Google Notícias</a>`;
+    h+=`</div>`});
+  E.extras.forEach(x=>{const it=itensDe("x:"+x.toLowerCase());
+    h+=`<div class="not-grupo"><h3>🏷️ ${esc(x)}</h3>`;
+    if(it.length)h+=it.map(n=>`<div class="not"><b>${esc(n.titulo)}</b>${n.resumo?`<p>${esc(n.resumo)}</p>`:""}${n.link?`<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.fonte||"Abrir notícia")} ↗</a>`:""}</div>`).join("");
+    h+=`<a class="gnews" href="${gLink(x)}" target="_blank" rel="noopener">🔎 Ver “${esc(x)}” no Google Notícias</a></div>`});
+  box.innerHTML=h;
+}
+
+/* ---------- Agenda ---------- */
+function listaAg(dia){return (E.agenda[dia]||[]).slice().sort((a,b)=>(a.h||"99").localeCompare(b.h||"99"))}
+function renderAg(dia,el,podeApagar){
+  const l=listaAg(dia);
+  if(!l.length){el.innerHTML=`<p class="vazio">${podeApagar?"Nada marcado ainda.":"Nada marcado para hoje."}</p>`;return}
+  el.innerHTML=l.map(a=>`<div class="ag-item"><span class="ag-h">${a.h||"—"}</span><span class="ag-t">${esc(a.t)}</span><button class="ag-x" type="button" aria-label="Apagar" data-dia="${dia}" data-id="${a.id}">✕</button></div>`).join("");
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".ag-x");if(!b)return;
+  const d=b.dataset.dia;E.agenda[d]=(E.agenda[d]||[]).filter(a=>a.id!==b.dataset.id);salvar();render();toast("Apagado da agenda")});
+$("b-ag-add").addEventListener("click",()=>{const t=$("i-ag-t").value.trim();if(!t){toast("Escreva o que é");$("i-ag-t").focus();return}
+  const d=amanha();(E.agenda[d]=E.agenda[d]||[]).push({id:Date.now().toString(36),h:$("i-ag-h").value,t});salvar();
+  $("i-ag-t").value="";$("i-ag-h").value="";render();toast("Adicionado à agenda de amanhã")});
+$("i-ag-t").addEventListener("keydown",e=>{if(e.key==="Enter")$("b-ag-add").click()});
+function limparAgendaVelha(){const lim=new Date();lim.setDate(lim.getDate()-7);const l=iso(lim);Object.keys(E.agenda).forEach(k=>{if(k<l)delete E.agenda[k]})}
+
+/* ---------- Para amanhã: assuntos, hora ---------- */
+function renderPrep(){
+  $("chips-fixos").innerHTML=FIXOS.map(f=>`<button type="button" class="chip" data-fixo="${f.id}" aria-pressed="${E.assuntos.includes(f.id)}">${f.e} ${f.n}</button>`).join("");
+  $("chips-extras").innerHTML=E.extras.map((x,i)=>`<button type="button" class="chip" aria-pressed="true" data-extra="${i}" aria-label="Remover ${esc(x)}">🏷️ ${esc(x)} <span class="x">✕</span></button>`).join("");
+  $("seg-qtd").innerHTML=[2,3,5].map(n=>`<button type="button" class="chip" data-qtd="${n}" aria-pressed="${E.qtd===n}">${n}</button>`).join("");
+  $("turnos").innerHTML=TURNOS.map(t=>`<button type="button" class="chip" data-hora="${t.h}" aria-pressed="${E.hora===t.h}">${t.n} · ${t.h}</button>`).join("");
+  $("i-hora").value=E.hora;atualizaLinkAlarme();
+  renderAg(amanha(),$("ag-amanha"),true);
+}
+document.addEventListener("click",e=>{
+  const f=e.target.closest("[data-fixo]");if(f){const id=f.dataset.fixo;E.assuntos=E.assuntos.includes(id)?E.assuntos.filter(x=>x!==id):[...E.assuntos,id];salvar();renderPrep();return}
+  const x=e.target.closest("[data-extra]");if(x){E.extras.splice(+x.dataset.extra,1);salvar();renderPrep();toast("Assunto removido");return}
+  const q=e.target.closest("[data-qtd]");if(q){E.qtd=+q.dataset.qtd;salvar();renderPrep();return}
+  const h=e.target.closest("[data-hora]");if(h){E.hora=h.dataset.hora;salvar();renderPrep();return}
+});
+$("b-add-assunto").addEventListener("click",()=>{const v=$("i-assunto").value.trim().replace(/\s+/g," ");if(!v){$("i-assunto").focus();return}
+  if(E.extras.some(x=>x.toLowerCase()===v.toLowerCase())){toast("Esse assunto já está na lista");return}
+  if(E.extras.length>=6){toast("Máximo de 6 assuntos digitados");return}
+  E.extras.push(v);$("i-assunto").value="";salvar();renderPrep();toast("Assunto adicionado")});
+$("i-assunto").addEventListener("keydown",e=>{if(e.key==="Enter")$("b-add-assunto").click()});
+$("i-hora").addEventListener("change",()=>{E.hora=$("i-hora").value||E.hora;salvar();renderPrep()});
+function atualizaLinkAlarme(){const [h,m]=(E.hora||"05:30").split(":").map(Number);
+  $("b-alarme").href=`intent:#Intent;action=android.intent.action.SET_ALARM;i.android.intent.extra.alarm.HOUR=${h};i.android.intent.extra.alarm.MINUTES=${m};S.android.intent.extra.alarm.MESSAGE=Bom%20Dia;end`;
+  $("b-alarme").textContent=`⏰ Criar alarme às ${E.hora}`}
+$("b-pronto").addEventListener("click",()=>{salvar();toast("Tudo certo. Boa noite! 🌙");setTimeout(()=>irAba("hoje"),900)});
+
+/* ---------- Ajustes ---------- */
+function renderAj(){$("cid-atual").textContent="Agora: "+E.cidade.nome;$("i-vel").value=E.vel;$("vel-txt").textContent=String(E.vel).replace(".",",");$("i-nome").value=E.nome}
+$("b-cidade").addEventListener("click",async()=>{const q=$("i-cidade").value.trim();if(!q)return;const box=$("cid-res");box.innerHTML='<span class="sub">Buscando…</span>';
+  try{const r=await fetch("https://geocoding-api.open-meteo.com/v1/search?count=5&language=pt&name="+encodeURIComponent(q));const j=await r.json();
+    if(!j.results||!j.results.length){box.innerHTML='<span class="sub">Nenhuma cidade encontrada.</span>';return}
+    box.innerHTML=j.results.map((c,i)=>`<button type="button" class="chip" data-cid='${esc(JSON.stringify({nome:c.name+(c.admin1?", "+c.admin1:""),lat:c.latitude,lon:c.longitude}))}'>📍 ${esc(c.name)}${c.admin1?", "+esc(c.admin1):""}</button>`).join("")}
+  catch(e){box.innerHTML='<span class="sub">Sem internet para buscar a cidade.</span>'}});
+$("i-cidade").addEventListener("keydown",e=>{if(e.key==="Enter")$("b-cidade").click()});
+document.addEventListener("click",e=>{const c=e.target.closest("[data-cid]");if(!c)return;E.cidade=JSON.parse(c.dataset.cid);salvar();$("cid-res").innerHTML="";$("i-cidade").value="";renderAj();buscarTempo();toast("Cidade trocada")});
+$("b-gps").addEventListener("click",()=>{if(!navigator.geolocation){toast("Localização indisponível");return}
+  toast("Pegando sua localização…");
+  navigator.geolocation.getCurrentPosition(p=>{E.cidade={nome:"Minha localização",lat:+p.coords.latitude.toFixed(3),lon:+p.coords.longitude.toFixed(3)};salvar();renderAj();buscarTempo();toast("Localização salva")},
+  ()=>toast("Não deu para pegar a localização"),{timeout:15000,maximumAge:600000})});
+$("i-vel").addEventListener("input",()=>{E.vel=+$("i-vel").value;$("vel-txt").textContent=String(E.vel).replace(".",",");salvar()});
+$("i-nome").addEventListener("change",()=>{E.nome=$("i-nome").value.trim()||"Leandro";salvar();render()});
+$("b-testar").addEventListener("click",()=>falar([`${saud()}, ${E.nome}. Esta é a voz do seu Bom Dia.`]));
+
+/* ---------- Voz ---------- */
+let VOZ=null;
+function pegarVoz(){const vs=speechSynthesis.getVoices();VOZ=vs.find(v=>v.lang==="pt-BR"&&/google/i.test(v.name))||vs.find(v=>v.lang==="pt-BR")||vs.find(v=>/^pt/i.test(v.lang))||null}
+if("speechSynthesis" in window){pegarVoz();speechSynthesis.onvoiceschanged=pegarVoz}
+function falar(frases){
+  if(!("speechSynthesis" in window)){toast("Este celular não tem leitura em voz");return}
+  speechSynthesis.cancel();const fila=frases.filter(Boolean);let i=0;
+  $("falando").hidden=false;
+  const prox=()=>{if(i>=fila.length){$("falando").hidden=true;return}
+    const u=new SpeechSynthesisUtterance(fila[i]);u.lang="pt-BR";if(VOZ)u.voice=VOZ;u.rate=E.vel||1;
+    $("falando-txt").textContent=fila[i];
+    u.onend=()=>{i++;prox()};u.onerror=()=>{$("falando").hidden=true};speechSynthesis.speak(u)};
+  prox();
+}
+$("b-parar").addEventListener("click",()=>{speechSynthesis.cancel();$("falando").hidden=true});
+function numFala(n){return String(Math.round(n))}
+function montarFala(){
+  const f=[];const d=new Date();
+  f.push(`${saud()}, ${E.nome}. Hoje é ${dataExtenso(d)}.`);
+  if(TEMPO){const cu=TEMPO.current,dd=TEMPO.daily,di=Math.max(0,dd.time.indexOf(hoje()));
+    f.push(`Em ${E.cidade.nome.split(",")[0]}, agora faz ${numFala(cu.temperature_2m)} graus, ${wc(cu.weather_code)[1].toLowerCase()}.`);
+    f.push(`A máxima será de ${numFala(dd.temperature_2m_max[di])} e a mínima de ${numFala(dd.temperature_2m_min[di])} graus.`);
+    const pp=dd.precipitation_probability_max[di]??0,mm=dd.precipitation_sum[di]??0;
+    f.push(pp>=30?`Chance de chuva de ${pp} por cento${mm>=1?", com cerca de "+numFala(mm)+" milímetros":""}.`:`Pouca chance de chuva.`);
+    f.push(`Vento de ${numFala(cu.wind_speed_10m)} quilômetros por hora.`)}
+  const ag=listaAg(hoje());
+  if(ag.length){f.push(`Sua agenda tem ${ag.length===1?"um compromisso":ag.length+" compromissos"}.`);ag.forEach(a=>f.push((a.h?`Às ${a.h.replace(":00"," horas").replace(":"," e ")}, `:"")+a.t+"."))}
+  else f.push("Nada marcado na agenda de hoje.");
+  const ativos=FIXOS.filter(x=>E.assuntos.includes(x.id));let algum=false;
+  ativos.forEach(x=>{const it=itensDe(x.id);if(!it.length)return;algum=true;f.push(`Notícias de ${x.n.toLowerCase()}.`);it.forEach(n=>{f.push(n.titulo+".");if(n.resumo)f.push(n.resumo)})});
+  E.extras.forEach(x=>{const it=itensDe("x:"+x.toLowerCase());if(!it.length)return;algum=true;f.push(`Sobre ${x}.`);it.forEach(n=>{f.push(n.titulo+".");if(n.resumo)f.push(n.resumo)})});
+  if(!algum&&ativos.length)f.push("As notícias de hoje ainda não foram preparadas.");
+  f.push("Tenha um ótimo dia!");
+  return f;
+}
+$("b-ouvir").addEventListener("click",()=>falar(montarFala()));
+
+/* ---------- Instalar ---------- */
+let promptInst=null;
+const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptInst=e;if(!standalone()){$("b-instalar").hidden=false;$("inst-dica").hidden=true}});
+$("b-instalar").addEventListener("click",async()=>{if(!promptInst)return;promptInst.prompt();try{await promptInst.userChoice}catch(e){}promptInst=null;$("b-instalar").hidden=true});
+window.addEventListener("appinstalled",()=>{$("c-inst").hidden=true;toast("App instalado")});
+if(standalone())$("c-inst").hidden=true;
+
+/* ---------- Geral ---------- */
+function render(){
+  const d=new Date();
+  $("ola").textContent=`${saud()}, ${E.nome}`;
+  $("data-hoje").textContent=dataExtenso(d).replace(/^./,c=>c.toUpperCase());
+  $("topo-sub").textContent=dataExtenso(d);
+  renderAg(hoje(),$("ag-hoje"),false);renderTempo();renderNoticias();renderPrep();renderAj();
+}
+limparAgendaVelha();salvar();render();buscarTempo();buscarNoticias();
+// À noite, abre direto em "Para amanhã"
+if(new Date().getHours()>=19)irAba("prep");
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){render();buscarTempo();buscarNoticias()}});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
