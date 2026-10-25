@@ -26,7 +26,15 @@ button{font:inherit;color:inherit}
 #versao button[aria-pressed=true]{background:var(--amarelo);color:var(--marrom-esc);opacity:1}
 /* livro */
 #livro{position:fixed;left:0;right:0;top:calc(60px + env(safe-area-inset-top));bottom:calc(64px + env(safe-area-inset-bottom));perspective:1800px;perspective-origin:0% 50%;padding:10px 10px 6px}
-.pag{position:absolute;inset:10px 10px 6px 10px;background:linear-gradient(90deg,#e9dcb8 0,var(--papel) 14px,var(--papel) calc(100% - 6px),var(--papel2));border-radius:4px 14px 14px 4px;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 3px 0 6px rgba(80,50,20,.15);overflow-y:auto;overflow-x:hidden;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;touch-action:pan-y;will-change:transform;overscroll-behavior:contain}
+.pag{position:absolute;inset:10px 10px 6px 10px;background:linear-gradient(90deg,#e9dcb8 0,var(--papel) 14px,var(--papel) calc(100% - 6px),var(--papel2));border-radius:4px 14px 14px 4px;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 3px 0 6px rgba(80,50,20,.15);overflow:hidden;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;touch-action:none;will-change:transform}
+.pag.solta{overflow-y:auto;touch-action:pan-y}
+.col{position:absolute;top:18px;bottom:34px;left:24px;right:18px;column-count:1;column-gap:42px;column-fill:auto}
+.col .miolo{padding:0;max-width:none;margin:0}
+.col figure,.col table,.col .formula,.col li,.col h2{break-inside:avoid}
+.col h2{break-after:avoid}
+.col p{orphans:2;widows:2}
+.npag{position:absolute;left:0;right:0;bottom:9px;text-align:center;font:13px system-ui;color:var(--mut)}
+#livro{touch-action:none}
 .pag .sombra{position:sticky;top:0;height:0;pointer-events:none}
 .pag.anim{transition:transform .38s cubic-bezier(.3,.7,.3,1)}
 .pag .vela{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,.35));opacity:0;pointer-events:none;border-radius:inherit}
@@ -47,15 +55,15 @@ button{font:inherit;color:inherit}
 .selo.t{background:var(--verde);color:#fff}.selo.s{background:var(--amarelo);color:var(--marrom-esc)}
 /* figuras */
 figure{margin:4px 0 16px;background:#fff;border:1px solid var(--linha);border-radius:12px;overflow:hidden}
-figure .ft{position:relative;background:#e8e0c8;min-height:120px;display:grid;place-items:center}
-figure .ft img{display:block;width:100%;max-height:340px;object-fit:cover;cursor:zoom-in}
+figure .ft{position:relative;background:#e8e0c8;height:min(210px,27vh);display:grid;place-items:center;overflow:hidden}
+figure .ft img{display:block;width:100%;height:100%;object-fit:cover;cursor:zoom-in}
 figure .ft .carr{color:var(--mut);font-size:14px;padding:30px 12px;text-align:center}
 figure .ft .outra{position:absolute;right:8px;bottom:8px;border:0;background:rgba(0,0,0,.6);color:#fff;font:700 13px system-ui;padding:8px 10px;border-radius:10px}
 figcaption{padding:8px 12px;font:14px/1.35 system-ui,sans-serif;color:var(--mut)}
 figcaption b{color:var(--tinta)}
 figcaption a{color:var(--verde)}
 .svgfig{padding:8px 6px 2px}
-.svgfig svg{display:block;width:100%;height:auto}
+.svgfig svg{display:block;width:100%;height:auto;max-height:36vh}
 /* capa e aberturas */
 .capa{min-height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:30px 24px;background:radial-gradient(circle at 50% 30%,#fffbe9,var(--papel) 60%,var(--papel2))}
 .capa .logo{width:120px;height:120px;border-radius:28px;box-shadow:0 8px 24px rgba(60,40,10,.3)}
@@ -235,7 +243,7 @@ async function carregaFoto(fig,img,chave){
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function htmlPagina(i){
   const P=PAGS[i];
-  if(P.tipo==="capa")return `<div class="capa"><img class="logo" src="icon-512.png" alt=""><h1>Livro do Canavial</h1><p class="sub">do tipo de solo à melhor produtividade</p><p class="dica">6 temas em sequência, com fotos reais, ilustrações e fontes no fim de cada capítulo.<br><br><b>Arraste a página para o lado</b> para folhear. No topo, troque entre a versão <b>Técnica</b> e a <b>Simples</b> com um toque.</p><div class="seta">⟵ arraste</div><div style="margin-top:14px"><button class="btn" data-ir="${LS.get("pag",0)>1?LS.get("pag",0):2}">${LS.get("pag",0)>2?"Continuar de onde parei":"Começar a ler"}</button>${instPrompt?`<button class="btn cl" data-inst>📲 Instalar app</button>`:""}</div></div>`;
+  if(P.tipo==="capa")return `<div class="capa"><img class="logo" src="icon-512.png" alt=""><h1>Livro do Canavial</h1><p class="sub">do tipo de solo à melhor produtividade</p><p class="dica">6 temas em sequência, com fotos reais, ilustrações e fontes no fim de cada capítulo.<br><br><b>Arraste a página para o lado</b> para folhear. No topo, troque entre a versão <b>Técnica</b> e a <b>Simples</b> com um toque.</p><div class="seta">⟵ arraste</div><div style="margin-top:14px"><button class="btn" data-ir="${LS.get("pag",0)>1?LS.get("pag",0):1}">${LS.get("pag",0)>2?"Continuar de onde parei":"Começar a ler"}</button>${instPrompt?`<button class="btn cl" data-inst>📲 Instalar app</button>`:""}</div></div>`;
   if(P.tipo==="indice")return `<div class="miolo"><div class="cab"><span>Sumário</span><span></span></div><h2>O caminho do livro</h2><div class="texto">${LIVRO.map((T,ti)=>`<p style="margin:.9em 0 .3em"><b style="color:${T.cor}">${T.ic} Tema ${ti+1} — ${T.tema}</b></p><ol style="margin:0">${T.caps.map((C,ci)=>`<li><a href="#" data-ir="${primeiraDoCap(ti,ci)}" style="color:var(--tinta)">${C.titulo}</a></li>`).join("")}</ol>`).join("")}<p style="margin-top:1em"><a href="#" data-ir="${PAGS.length-1}" style="color:var(--verde)">📚 Todas as fontes</a></p></div></div>`;
   if(P.tipo==="tema"){const T=LIVRO[P.ti];return `<div class="abre" style="background:linear-gradient(160deg,${T.cor},#2e1d10)"><div class="ic">${T.ic}</div><div class="num">Tema ${P.ti+1} de ${LIVRO.length}</div><h1>${T.tema}</h1><ol>${T.caps.map((C,ci)=>`<li><button data-ir="${primeiraDoCap(P.ti,ci)}">${C.titulo}</button></li>`).join("")}</ol><p style="opacity:.8;font-size:15px">⟵ arraste para começar</p></div>`}
   if(P.tipo==="fontes"){const T=LIVRO[P.ti],Cp=T.caps[P.ci];return `<div class="miolo"><div class="cab"><span>${T.tema}</span><span>Fontes</span></div><h2>📚 Fontes deste capítulo</h2><p style="color:var(--mut);margin-top:-6px">${Cp.titulo}</p><ol class="fontes">${Cp.fontes.map(f=>`<li>${esc(FONTES[f].t)}<br><a href="${FONTES[f].u}" target="_blank" rel="noopener">${FONTES[f].u}</a></li>`).join("")}</ol><p class="rodape-p">Doses de defensivos e herbicidas: sempre com receituário agronômico e bula.<br>Números são referências da literatura; confira com o agrônomo e as normas da sua usina.</p></div>`}
@@ -248,48 +256,73 @@ function htmlPagina(i){
   return `<div class="miolo"><div class="cab"><span style="color:${T.cor}">${T.ic} ${T.tema}</span><span>Cap. ${P.ci+1}.${P.pi+1}</span></div>`+
    `<span class="selo ${modo}">${modo==="t"?"Versão técnica":"Versão simples"}</span><h2>${Pg.h}</h2>${figs}<div class="texto">${modo==="t"?Pg.t:Pg.s}</div>`+
    (ultima?`<div class="fim-cap"><small style="color:var(--mut)">📚 Fonte(s): ${Cp.fontes.map(f=>FONTES[f].t.split(".")[0]).filter((v,k,a)=>a.indexOf(v)===k).join("; ")} — lista completa na próxima página.</small></div>`:"")+
-   `<div class="rodape-p">— ${i+1} —</div></div>`;
+   `</div>`;
 }
-function montaEl(i,cls){
-  const d=document.createElement("div");d.className="pag "+(cls||"");d.dataset.i=i;
-  d.innerHTML=htmlPagina(i)+`<div class="vela"></div>`;
-  d.querySelectorAll("figure[data-img]").forEach(f=>{const P=PAGS[i];const Pg=LIVRO[P.ti].caps[P.ci].pags[P.pi];carregaFoto(f,Pg.img,P.ti+"-"+P.ci+"-"+P.pi)});
+/* ---------- paginação: cada página lógica vira folhas do tamanho da tela ---------- */
+let FOLHAS=[];
+const solta=t=>t==="capa"||t==="tema";
+function montaConteudo(d,L){
+  if(solta(PAGS[L].tipo)){d.classList.add("solta");d.innerHTML=htmlPagina(L)+`<div class="vela"></div>`;return null}
+  d.innerHTML=`<div class="col">${htmlPagina(L)}</div><div class="npag"></div><div class="vela"></div>`;
+  return d.querySelector(".col");
+}
+function paginar(){
+  const m=document.createElement("div");m.className="pag";m.style.visibility="hidden";livro.appendChild(m);
+  const novas=[];
+  PAGS.forEach((P,L)=>{
+    const col=montaConteudo(m,L);let n=1;
+    if(col){const w=col.clientWidth,g=42;n=Math.max(1,Math.round((col.scrollWidth+g)/(w+g)))}
+    for(let k=0;k<n;k++)novas.push({L,k,n});
+  });
+  m.remove();FOLHAS=novas;
+}
+const folhaDe=(L,k)=>{let i=FOLHAS.findIndex(f=>f.L===L&&f.k===(k||0));if(i<0)i=FOLHAS.findIndex(f=>f.L===L);return Math.max(0,i)};
+function montaEl(s,cls){
+  const F=FOLHAS[s];const d=document.createElement("div");d.className="pag "+(cls||"");d.dataset.i=s;
+  const col=montaConteudo(d,F.L);
+  if(col){col.style.transform=`translateX(calc(-${F.k} * (100% + 42px)))`;d.querySelector(".npag").textContent=`— ${s+1} —`}
+  d.querySelectorAll("figure[data-img]").forEach(f=>{const P=PAGS[F.L];const Pg=LIVRO[P.ti].caps[P.ci].pags[P.pi];carregaFoto(f,Pg.img,P.ti+"-"+P.ci+"-"+P.pi)});
   return d;
 }
 const livro=document.getElementById("livro");
 let elAtual=null;
-function mostra(i,sem){
-  atual=Math.max(0,Math.min(PAGS.length-1,i));
+const salva=()=>LS.set("pag",FOLHAS[atual].L);
+function mostra(i){
+  atual=Math.max(0,Math.min(FOLHAS.length-1,i));
   livro.innerHTML="";elAtual=montaEl(atual,"cur");livro.appendChild(elAtual);
-  LS.set("pag",atual);atualizaBarras();
-  // pré-carrega fotos vizinhas
-  [atual+1,atual-1].forEach(j=>{const P=PAGS[j];if(P&&P.tipo==="pag"){const g=LIVRO[P.ti].caps[P.ci].pags[P.pi].img;if(g)listaFotos(g)}});
+  salva();atualizaBarras();
+  [atual+1,atual-1].forEach(j=>{const F=FOLHAS[j];const P=F&&PAGS[F.L];if(P&&P.tipo==="pag"){const g=LIVRO[P.ti].caps[P.ci].pags[P.pi].img;if(g)listaFotos(g)}});
+}
+function irLogica(L){mostra(folhaDe(L,0))}
+function repaginar(){ // mantém o lugar ao trocar versão, letra ou tamanho da tela
+  const F=FOLHAS[atual]||{L:0,k:0,n:1};const frac=F.k/F.n;
+  paginar();const ini=folhaDe(F.L,0),n=FOLHAS[ini].n;mostra(ini+Math.min(n-1,Math.floor(frac*n+1e-6)));
 }
 function atualizaBarras(){
-  const P=PAGS[atual];
-  document.getElementById("p-barra").style.width=((atual+1)/PAGS.length*100)+"%";
-  document.getElementById("p-txt").textContent=`${atual+1} / ${PAGS.length}`;
+  const P=PAGS[FOLHAS[atual].L];
+  document.getElementById("p-barra").style.width=((atual+1)/FOLHAS.length*100)+"%";
+  document.getElementById("p-txt").textContent=`${atual+1} / ${FOLHAS.length}`;
   let tema="Livro do Canavial",cap="Capa";
   if(P.tipo==="indice")cap="Sumário";
   if(P.tipo==="todas")cap="Todas as fontes";
   if(P.ti!=null){tema=`Tema ${P.ti+1} · ${LIVRO[P.ti].tema}`;cap=P.tipo==="tema"?"Abertura do tema":(LIVRO[P.ti].caps[P.ci].titulo+(P.tipo==="fontes"?" · Fontes":""))}
   document.getElementById("o-tema").textContent=tema;document.getElementById("o-cap").textContent=cap;
-  document.getElementById("b-ant").disabled=atual===0;document.getElementById("b-prox").disabled=atual===PAGS.length-1;
+  document.getElementById("b-ant").disabled=atual===0;document.getElementById("b-prox").disabled=atual===FOLHAS.length-1;
 }
 
 /* ---------- virar página (arrastando) ---------- */
 let gesto=null,animando=false;
 function vira(dir){ // 1 = próxima, -1 = anterior
-  if(animando)return;const alvo=atual+dir;if(alvo<0||alvo>=PAGS.length)return;
+  if(animando)return;const alvo=atual+dir;if(alvo<0||alvo>=FOLHAS.length)return;
   animando=true;
   if(dir>0){
     const baixo=montaEl(alvo,"");livro.insertBefore(baixo,elAtual);
     elAtual.classList.add("anim");requestAnimationFrame(()=>{elAtual.style.transform="rotateY(-180deg)";elAtual.querySelector(".vela").style.opacity=1});
-    setTimeout(()=>{elAtual.remove();elAtual=baixo;elAtual.classList.add("cur");atual=alvo;LS.set("pag",atual);atualizaBarras();animando=false},380);
+    setTimeout(()=>{elAtual.remove();elAtual=baixo;elAtual.classList.add("cur");atual=alvo;salva();atualizaBarras();animando=false},380);
   }else{
     const cima=montaEl(alvo,"");cima.style.transform="rotateY(-180deg)";livro.appendChild(cima);
     requestAnimationFrame(()=>requestAnimationFrame(()=>{cima.classList.add("anim");cima.style.transform="rotateY(0deg)"}));
-    setTimeout(()=>{elAtual.remove();elAtual=cima;cima.classList.remove("anim");elAtual.classList.add("cur");atual=alvo;LS.set("pag",atual);atualizaBarras();animando=false},380);
+    setTimeout(()=>{elAtual.remove();elAtual=cima;cima.classList.remove("anim");elAtual.classList.add("cur");atual=alvo;salva();atualizaBarras();animando=false},380);
   }
 }
 livro.addEventListener("pointerdown",e=>{
@@ -304,7 +337,7 @@ livro.addEventListener("pointermove",e=>{
     gesto.dec=Math.abs(dx)>Math.abs(dy)*1.1?"h":"v";
     if(gesto.dec==="h"){
       const dir=dx<0?1:-1,alvo=atual+dir;
-      if(alvo<0||alvo>=PAGS.length){gesto.dec="x";return}
+      if(alvo<0||alvo>=FOLHAS.length){gesto.dec="x";return}
       gesto.dir=dir;
       try{livro.setPointerCapture(e.pointerId)}catch(_){}
       if(dir>0){gesto.outra=montaEl(alvo,"");livro.insertBefore(gesto.outra,elAtual)}
@@ -330,10 +363,10 @@ function soltar(e){
   const ok=(g.p||0)>.22;animando=true;
   if(g.dir>0){
     elAtual.classList.add("anim");elAtual.style.transform=ok?"rotateY(-180deg)":"rotateY(0deg)";elAtual.querySelector(".vela").style.opacity=ok?1:0;
-    setTimeout(()=>{if(ok){elAtual.remove();elAtual=g.outra;elAtual.classList.add("cur");atual+=1}else{g.outra.remove();elAtual.classList.remove("anim")}LS.set("pag",atual);atualizaBarras();animando=false},380);
+    setTimeout(()=>{if(ok){elAtual.remove();elAtual=g.outra;elAtual.classList.add("cur");atual+=1}else{g.outra.remove();elAtual.classList.remove("anim")}salva();atualizaBarras();animando=false},380);
   }else{
     g.outra.classList.add("anim");g.outra.style.transform=ok?"rotateY(0deg)":"rotateY(-180deg)";
-    setTimeout(()=>{if(ok){elAtual.remove();elAtual=g.outra;elAtual.classList.remove("anim");elAtual.classList.add("cur");atual-=1}else g.outra.remove();LS.set("pag",atual);atualizaBarras();animando=false},380);
+    setTimeout(()=>{if(ok){elAtual.remove();elAtual=g.outra;elAtual.classList.remove("anim");elAtual.classList.add("cur");atual-=1}else g.outra.remove();salva();atualizaBarras();animando=false},380);
   }
 }
 livro.addEventListener("pointerup",soltar);livro.addEventListener("pointercancel",soltar);
@@ -341,7 +374,7 @@ document.getElementById("b-prox").onclick=()=>vira(1);
 document.getElementById("b-ant").onclick=()=>vira(-1);
 addEventListener("keydown",e=>{if(e.key==="ArrowRight")vira(1);if(e.key==="ArrowLeft")vira(-1)});
 livro.addEventListener("click",e=>{
-  const b=e.target.closest("[data-ir]");if(b){e.preventDefault();mostra(+b.dataset.ir);return}
+  const b=e.target.closest("[data-ir]");if(b){e.preventDefault();irLogica(+b.dataset.ir);return}
   if(e.target.closest("[data-inst]"))instalar();
 });
 
@@ -349,7 +382,7 @@ livro.addEventListener("click",e=>{
 function trocaModo(m){
   modo=m;LS.set("modo",m);
   document.querySelectorAll("#versao button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===m));
-  mostra(atual);toast(m==="t"?"Versão técnica":"Versão simples");
+  repaginar();toast(m==="t"?"Versão técnica":"Versão simples");
 }
 document.querySelectorAll("#versao button").forEach(b=>b.onclick=()=>{if(b.dataset.v!==modo)trocaModo(b.dataset.v)});
 document.querySelectorAll("#versao button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===modo));
@@ -361,7 +394,7 @@ function abreGaveta(a){aba=a||aba;veu.hidden=false;requestAnimationFrame(()=>gav
 function fechaGaveta(){gav.classList.remove("on");veu.hidden=true}
 function desenhaGaveta(){
   document.querySelectorAll(".abas button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.a===aba));
-  const P=PAGS[atual];
+  const P=PAGS[FOLHAS[atual].L];
   if(aba==="sum")gc.innerHTML=`<button class="gc" data-ir="0">📖 Capa</button>`+LIVRO.map((T,ti)=>`<div class="gt"><span style="background:${T.cor}">${T.ic}</span>Tema ${ti+1} · ${T.tema}</div>`+T.caps.map((Cp,ci)=>`<button class="gc ${P.ti===ti&&P.ci===ci?"at":""}" data-ir="${primeiraDoCap(ti,ci)}">${ti+1}.${ci+1} ${Cp.titulo}<br><small>${Cp.pags.length} páginas + fontes</small></button>`).join("")).join("")+`<button class="gc" data-ir="${PAGS.length-1}">📚 Todas as fontes</button>`;
   if(aba==="fon")gc.innerHTML=`<p style="color:var(--mut);font-size:14px">Fontes usadas no livro. As fotos vêm do Wikimedia Commons, com autor e licença na legenda de cada uma.</p><ol class="fontes">${Object.values(FONTES).map(f=>`<li>${esc(f.t)}<br><a href="${f.u}" target="_blank" rel="noopener">${f.u}</a></li>`).join("")}</ol>`;
   if(aba==="cfg")gc.innerHTML=`<div class="ajuste"><span>Tamanho da letra</span><span><button id="fs-" type="button">A−</button> <b id="fs-v">${fs}</b> <button id="fs+" type="button">A+</button></span></div>
@@ -375,8 +408,8 @@ document.getElementById("b-fontes").onclick=()=>abreGaveta("fon");
 veu.onclick=fechaGaveta;
 document.querySelectorAll(".abas button").forEach(b=>b.onclick=()=>{aba=b.dataset.a;desenhaGaveta()});
 gc.addEventListener("click",e=>{
-  const ir=e.target.closest("[data-ir]");if(ir){fechaGaveta();mostra(+ir.dataset.ir);return}
-  if(e.target.id==="fs-"||e.target.id==="fs+"){fs=Math.max(15,Math.min(26,fs+(e.target.id==="fs+"?1:-1)));LS.set("fs",fs);document.documentElement.style.setProperty("--fs",fs+"px");document.getElementById("fs-v").textContent=fs;return}
+  const ir=e.target.closest("[data-ir]");if(ir){fechaGaveta();irLogica(+ir.dataset.ir);return}
+  if(e.target.id==="fs-"||e.target.id==="fs+"){fs=Math.max(15,Math.min(26,fs+(e.target.id==="fs+"?1:-1)));LS.set("fs",fs);document.documentElement.style.setProperty("--fs",fs+"px");repaginar();document.getElementById("fs-v").textContent=fs;return}
   const m=e.target.closest("[data-m]");if(m){if(m.dataset.m!==modo)trocaModo(m.dataset.m);desenhaGaveta();return}
   if(e.target.closest("[data-inst]")){instalar();return}
   if(e.target.id==="baixar")baixarFotos(e.target);
@@ -399,12 +432,13 @@ document.getElementById("z-x").onclick=()=>document.getElementById("zoom").hidde
 
 /* ---------- utilidades ---------- */
 let tT;function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(tT);tT=setTimeout(()=>t.hidden=true,1400)}
-addEventListener("beforeinstallprompt",e=>{e.preventDefault();instPrompt=e;if(atual===0)mostra(0)});
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();instPrompt=e;if(atual===0)repaginar()});
 addEventListener("appinstalled",()=>{instPrompt=null;toast("App instalado!")});
-async function instalar(){if(instPrompt){instPrompt.prompt();await instPrompt.userChoice;instPrompt=null;mostra(atual)}else toast("Menu ⋮ do Chrome → Instalar app")}
+async function instalar(){if(instPrompt){instPrompt.prompt();await instPrompt.userChoice;instPrompt=null;repaginar()}else toast("Menu ⋮ do Chrome → Instalar app")}
 if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 
-mostra(0);
+paginar();mostra(0);
+let tR;addEventListener("resize",()=>{clearTimeout(tR);tR=setTimeout(repaginar,250)});
 </script>
 </body>
 </html>
