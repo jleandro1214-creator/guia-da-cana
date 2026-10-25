@@ -1,1 +1,181 @@
-{"gerado": null, "assuntos": {}}
+{
+ "gerado": "2026-10-25T08:54:23-03:00",
+ "assuntos": {
+  "cana": [
+   {
+    "titulo": "Açúcar volta a subir na bolsa de Nova York",
+    "resumo": "O açúcar bruto fechou sexta-feira em leve alta, a primeira em seis pregões, puxado pela recuperação do petróleo. O petróleo mais caro pode levar as usinas a fazer mais etanol e menos açúcar.",
+    "fonte": "Investing.com / Reuters",
+    "link": "https://br.investing.com/news/stock-market-news/acucar-bruto-registra-primeira-alta-na-bolsa-ice-em-6-pregoes-com-forca-do-petroleo-2101617"
+   },
+   {
+    "titulo": "Moagem de cana no Norte-Nordeste fica estável",
+    "resumo": "Até meados de setembro, a região moeu quase 10 milhões de toneladas, cerca de 17% do previsto para a safra. A produção de açúcar subiu um pouco e a de etanol caiu.",
+    "fonte": "Portal do Agronegócio",
+    "link": "https://www.portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/moagem-de-cana-no-norte-nordeste-chega-a-16-7-da-safra-2026-27-com-expectativa-de-maior-producao-de-etanol"
+   }
+  ],
+  "politica": [
+   {
+    "titulo": "Brasil vota no segundo turno entre Lula e Flávio Bolsonaro",
+    "resumo": "Cerca de 158 milhões de eleitores escolhem o presidente e, em cinco estados e no Distrito Federal, também o governador. Vale levar documento oficial com foto, mesmo vencido, ou o e-Título com foto.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/saiba-quais-documentos-sao-aceitos-para-votar-neste-domingo"
+   },
+   {
+    "titulo": "Último debate tem troca de acusações e propostas",
+    "resumo": "No debate da Globo, Lula e Flávio Bolsonaro discutiram dívidas das famílias, saúde pública e programas sociais. Os dois também trocaram ataques pessoais, e Flávio pediu desculpas por um comentário.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/candidatos-trocam-acusacoes-e-defendem-propostas-em-debate-na-globo"
+   },
+   {
+    "titulo": "Datafolha e Quaest apontam empate técnico na véspera",
+    "resumo": "As duas pesquisas mostram Flávio com 51% e Lula com 49% dos votos válidos. A diferença está dentro da margem de erro de dois pontos.",
+    "fonte": "A Notícia do Vale (com g1)",
+    "link": "https://anoticiadovale.com/2026/10/25/datafolha-e-quaest-mostram-flavio-com-51-e-lula-49-dos-votos-validos/"
+   },
+   {
+    "titulo": "Moraes manda bloquear até R$ 6 bilhões de advogado",
+    "resumo": "O ministro do STF determinou o bloqueio de bens de Willer Tomaz, investigado por suspeita de lavagem de dinheiro ligada a apostas online. Flávio Bolsonaro diz que a relação com o advogado é só pessoal.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/moraes-determina-bloqueio-de-ate-r-6-bilhoes-do-advogado-willer-tomaz"
+   },
+   {
+    "titulo": "MPT investiga carta eleitoral de supermercado a funcionários",
+    "resumo": "O Ministério Público do Trabalho no Rio apura uma carta da rede Zona Sul aos empregados pedindo mudança, sem citar candidato. O sindicato da categoria entrou na Justiça alegando assédio eleitoral.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/mpt-apura-carta-de-supermercado-funcionarios-com-teor-eleitoral"
+   }
+  ],
+  "tecnologia": [
+   {
+    "titulo": "Meta adia novos termos para anunciantes após críticas",
+    "resumo": "A Meta empurrou para 20 de novembro regras que permitiriam coletar conteúdo de sites de anunciantes. Especialistas e veículos de imprensa temem o uso desse material para treinar inteligência artificial.",
+    "fonte": "Tecnoblog",
+    "link": "https://tecnoblog.net/noticias/meta-adia-mudanca-nos-termos-apos-reacao-negativa/"
+   },
+   {
+    "titulo": "Falha pode travar a tela inicial do Galaxy S26 Ultra",
+    "resumo": "A Samsung confirmou um defeito de software que pode impedir o acesso à tela inicial do celular. A empresa promete uma correção.",
+    "fonte": "Tecnoblog",
+    "link": "https://tecnoblog.net/noticias/bug-pode-deixar-galaxy-s26-ultra-praticamente-inutilizavel/"
+   },
+   {
+    "titulo": "Quatro aplicativos oficiais ajudam no dia da eleição",
+    "resumo": "O e-Título mostra o local de votação, o Pardal recebe denúncias e o Boletim na Mão lê o resultado de cada urna pelo QR Code. Há ainda um app próprio para mesários.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/24/internet-e-redes-sociais/justica-eleitoral-4-apps-que-ajudam-voce-no-dia-da-votacao/"
+   },
+   {
+    "titulo": "Meta diz ao TSE que canal pró-Lula segue regras do WhatsApp",
+    "resumo": "A empresa não viu violação das regras da plataforma no canal, mas isso não substitui a análise da Justiça Eleitoral. Um ministro do TSE decidiu que só o plenário pode suspendê-lo de novo.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/23/internet-e-redes-sociais/meta-diz-ao-tse-que-canal-exercito-do-lula-nao-viola-regras-do-whatsapp/"
+   }
+  ],
+  "ciencia": [
+   {
+    "titulo": "Estudo indica quando dá para prever o El Niño com antecedência",
+    "resumo": "Cientistas australianos analisaram milhares de previsões e viram que elas acertam mais quando começam em período de La Niña. Em condições neutras, a confiabilidade cai bastante.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/23/ciencia-e-espaco/cientistas-descobrem-como-prever-el-nino-com-ate-um-ano-de-antecedencia/"
+   },
+   {
+    "titulo": "Exame de sangue pode antecipar risco de hipertensão pulmonar",
+    "resumo": "Pesquisa com participação do InCor-USP encontrou dez proteínas no sangue ligadas ao risco futuro da doença. O teste ainda precisa ser validado antes de chegar aos consultórios.",
+    "fonte": "Agência FAPESP",
+    "link": "https://agencia.fapesp.br/exame-de-sangue-podera-antecipar-o-risco-de-hipertensao-pulmonar/59458"
+   },
+   {
+    "titulo": "USP cria sistema com realidade virtual para detectar perda de memória",
+    "resumo": "A ferramenta junta realidade virtual, leitura do olhar e ondas cerebrais para apontar sinais precoces de declínio cognitivo. Ela vai apoiar o neurologista e ainda está em fase de testes.",
+    "fonte": "Agência FAPESP",
+    "link": "https://agencia.fapesp.br/sistema-com-realidade-virtual-e-ia-aprimora-deteccao-de-declinio-cognitivo/59460"
+   },
+   {
+    "titulo": "Supervulcão no Japão volta a acumular magma",
+    "resumo": "Levantamentos sísmicos mostram um grande reservatório de magma se reabastecendo sob a caldeira de Kikai. Os cientistas afirmam que isso não indica uma erupção iminente.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261023003214.htm"
+   },
+   {
+    "titulo": "Ave de 150 milhões de anos com dentes já não voava",
+    "resumo": "Um fóssil achado na China mostra uma ave do tamanho de um corvo, com dentes serrilhados e corpo de andar no chão. É o caso mais antigo conhecido de ave que perdeu o voo.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261023023710.htm"
+   }
+  ],
+  "astronomia": [
+   {
+    "titulo": "Lua Cheia acontece nesta segunda-feira",
+    "resumo": "A Lua fica cheia no dia 26, perto do ponto mais próximo da Terra, mas sem ser tecnicamente uma superlua. Não haverá eclipse visível do Brasil neste mês.",
+    "fonte": "O Povo",
+    "link": "https://www.opovo.com.br/noticias/curiosidades/2026/09/30/fases-da-lua-em-outubro-de-2026-veja-calendario-e-lua-cheia.html"
+   },
+   {
+    "titulo": "NASA mantém meta de voltar à Lua em 2028",
+    "resumo": "A agência detalhou que a Artemis 3, em 2027, vai testar o encaixe com módulos da SpaceX e da Blue Origin em órbita da Terra. O pouso tripulado ficaria para a Artemis 4, em 2028.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/23/ciencia-e-espaco/nasa-provoca-china-e-promete-levar-astronautas-de-volta-a-lua-em-2028/"
+   },
+   {
+    "titulo": "Chuva de meteoros Orionídeas segue ativa até novembro",
+    "resumo": "Formada por restos do cometa Halley, a chuva teve pico na noite de 21 para 22 de outubro. Ela continua ativa até 7 de novembro.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/23/ciencia-e-espaco/foto-impressionante-registra-meteoros-do-cometa-halley-cruzando-ceu-estrelado/"
+   },
+   {
+    "titulo": "Amostras do asteroide Bennu revelam origem mista",
+    "resumo": "Análises de pesquisadores suíços sugerem que Bennu se formou numa região onde se misturavam materiais do interior e do exterior do Sistema Solar.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261023023734.htm"
+   },
+   {
+    "titulo": "Hubble fotografa lente gravitacional para ajudar o telescópio Roman",
+    "resumo": "A imagem mostra uma galáxia distante distorcida pela gravidade de outra mais próxima. Ela vai ajudar a preparar o Roman, que deve encontrar mais de 160 mil estruturas assim.",
+    "fonte": "Mix Vale",
+    "link": "https://mixvale.com.br/2026/10/23/telescopio-espacial-hubble-captura-lente-gravitacional-para-preparar-observacoes-do-novo-observatorio-roman"
+   }
+  ],
+  "filosofia": [
+   {
+    "titulo": "O estoicismo político de Justo Lípsio volta ao debate",
+    "resumo": "Ensaio na The Philosophers' Magazine argumenta que o pensador do século 16 defendia calma interior, mas também ação firme e prudente do governante. Para o autor, o estoicismo não é sinônimo de passividade.",
+    "fonte": "The Philosophers' Magazine",
+    "link": "https://philosophersmag.com/political-stoicism-lessons-from-lipsius/"
+   }
+  ],
+  "livros": [
+   {
+    "titulo": "Pedro Bandeira estreia na ficção adulta com Sherlock e Capitu",
+    "resumo": "Aos 84 anos, o autor lança pela Rocco um romance em que Sherlock Holmes investiga a suposta traição de Capitu, de Dom Casmurro.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/23/pedro-bandeira-estreia-na-ficcao-adulta-com-encontro-entre-sherlock-holmes-e-capitu/"
+   },
+   {
+    "titulo": "Adriano Espínola lança novo livro de poemas em Fortaleza",
+    "resumo": "O poeta cearense apresenta Ave nave do dia, pela 7Letras, na sexta-feira, 30, na Biblioteca Pública Estadual do Ceará. A entrada é gratuita.",
+    "fonte": "OpiniãoCE",
+    "link": "https://opiniaoce.com.br/cultura/2026/10/24/poeta-cearense-adriano-espinola-lanca-novo-livro-em-fortaleza-com-evento-gratuito-na-bece"
+   },
+   {
+    "titulo": "Prêmio Literário Demócrito Rocha abre terceira edição",
+    "resumo": "O prêmio tem categorias de poesia, prosa de ficção e ensaio, com inscrições de 30 de outubro a 18 de novembro. Os vencedores ganham publicação do livro e audiolivro.",
+    "fonte": "O Povo",
+    "link": "https://mais.opovo.com.br/jornal/vidaearte/2026/10/24/fundacao-democrito-rocha-lanca-terceira-edicao-de-premio-literario.html"
+   },
+   {
+    "titulo": "Manoela Sawitzki assume editoras Francisco Alves e Barléu",
+    "resumo": "A escritora passa a coordenar a parte editorial das duas casas, o que marca uma nova fase da tradicional Francisco Alves.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/23/danca-das-cadeiras-manoela-sawitzki-assume-coordenacao-editorial-da-francisco-alves-e-da-barleu/"
+   },
+   {
+    "titulo": "Sempre um Papo fará conversas com autores de todo o país",
+    "resumo": "Para celebrar 40 anos, o projeto prepara 27 conversas virtuais simultâneas com escritores de todas as unidades da federação, previstas para 7 de dezembro.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/23/novo-projeto-sempre-um-papo-br027-conversa-com-autores-das-27-regioes-do-pais/"
+   }
+  ]
+ }
+}
