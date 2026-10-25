@@ -59,6 +59,7 @@ td input{width:76px;padding:5px;font-size:.9rem}
 .frente{background:var(--creme);border-radius:12px;padding:10px;margin:10px 0;border:2px solid #e6d9c3}
 .frente .cab{display:flex;gap:8px;align-items:center}
 .frente .cab input{flex:1;font-weight:700}
+details.ciclo{background:#fff;border-radius:10px;padding:8px 10px;margin:8px 0;border:1px solid #e6d9c3}details.ciclo summary{padding:4px 0;color:var(--marrom)}
 .dica{background:var(--amarelo2);border-radius:10px;padding:10px;font-size:.92rem;margin:8px 0}
 .lista li{margin:6px 0}
 .seg{display:flex;background:var(--marrom2);border-radius:11px;padding:3px;margin:6px 0}
@@ -198,12 +199,14 @@ const PLANILHA_MESES=()=>[
  {ef:0,    d6:25,dc:31,plan:0},
  {ef:0,    d6:23,dc:28,plan:0},
  {ef:0,    d6:25,dc:31,plan:0}];
+const FDEF=()=>({cCar:10,cDc:8,cAp:40,cDv:8,tanque:22.5,horasT:20,modo:"inf"});
+const novaFrente=(nome,eq)=>Object.assign({n:nome,eq:eq,ha:15.72,disp:100,esc:"cen"},FDEF());
 const novoCenario=(nome)=>({nome:nome||"Planilha atual (14 equip.)",escala:"corrido",ajuste:0,
- frentes:[{n:"Frente 1",eq:4,ha:15.72,disp:100,esc:"cen"},{n:"Frente 2",eq:4,ha:15.72,disp:100,esc:"cen"},{n:"Frente 3",eq:3,ha:15.72,disp:100,esc:"cen"},{n:"Frente 4",eq:3,ha:15.72,disp:100,esc:"cen"}],
+ frentes:[novaFrente("Frente 1",4),novaFrente("Frente 2",4),novaFrente("Frente 3",3),novaFrente("Frente 4",3)],
  log:{kg:180,teor:6.97,max:0,cap:64,raio:41,vel:35,carga:45,horas:20,camDisp:23,ciclo:0,ct:18.31,cm:11.05}});
 const CHAVE="metas-localizada-v1";
 let S;
-function carregar(){try{const t=localStorage.getItem(CHAVE);if(t){S=JSON.parse(t);if(S&&S.meses&&S.cens&&S.cens.length){S.cens.forEach(c=>{if(!parseFloat(c.log.camDisp))c.log.camDisp=23;if(c.log.ciclo===undefined)c.log.ciclo=0});return}}}catch(e){}
+function carregar(){try{const t=localStorage.getItem(CHAVE);if(t){S=JSON.parse(t);if(S&&S.meses&&S.cens&&S.cens.length){S.cens.forEach(c=>{if(!parseFloat(c.log.camDisp))c.log.camDisp=23;if(c.log.ciclo===undefined)c.log.ciclo=0;c.frentes.forEach(f=>{const d=FDEF();for(const k in d)if(f[k]===undefined)f[k]=d[k]})});return}}}catch(e){}
  S={meses:PLANILHA_MESES(),cens:[novoCenario()],at:0}}
 function salvar(){try{localStorage.setItem(CHAVE,JSON.stringify(S))}catch(e){}}
 carregar();
@@ -215,15 +218,20 @@ const num=v=>{const x=parseFloat(String(v).replace(",","."));return isFinite(x)?
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1800)}
 
 /* ===== cálculo ===== */
+function doseDe(c){const L=c.log;let d=num(L.teor)?num(L.kg)/num(L.teor):0;if(num(L.max)>0&&d>num(L.max))d=num(L.max);return d}
+function cicloFrente(f,dose){const min=num(f.cCar)+num(f.cDc)+num(f.cAp)+num(f.cDv);const cargas=min?num(f.horasT)*60/min:0;const haCarga=dose?num(f.tanque)/dose:0;return {min,cargas,haCarga,ha:cargas*haCarga}}
 function calc(c){
  c=c||C();
  const M=S.meses, aj=1+num(c.ajuste)/100;
+ const dose=doseDe(c);
  const fr=c.frentes.map(f=>{
   const esc=f.esc==="cen"?c.escala:f.esc;
-  const haEf=num(f.ha)*num(f.disp)/100*aj;
+  const cic=cicloFrente(f,dose);
+  const haBase=f.modo==="ciclo"&&cic.ha>0?cic.ha:num(f.ha);
+  const haEf=haBase*num(f.disp)/100*aj;
   const dias=M.map(m=>(esc==="6x1"?m.d6:m.dc)*m.ef/100);
   const pot=dias.map(d=>d*num(f.eq)*haEf);
-  return {f,esc,haEf,dias,pot,tot:pot.reduce((a,b)=>a+b,0),eq:num(f.eq)};
+  return {f,esc,cic,haBase,haEf,dias,pot,tot:pot.reduce((a,b)=>a+b,0),eq:num(f.eq)};
  });
  const potM=M.map((_,i)=>fr.reduce((a,x)=>a+x.pot[i],0));
  const planM=M.map(m=>num(m.plan));
@@ -316,14 +324,29 @@ function renderFrentes(){
  $("listaFrentes").innerHTML=c.frentes.map((f,i)=>`<div class="frente" data-i="${i}">
   <div class="cab"><input type="text" data-k="n" value="${esc(f.n)}" aria-label="Nome da frente"><button class="btn vm" data-del="${i}" style="padding:8px 10px;margin:0" aria-label="Apagar frente">🗑️</button></div>
   <label class="campo"><span>Equipamentos</span><input type="number" data-k="eq" step="1" min="0" value="${f.eq}"></label>
-  <label class="campo"><span>Rendimento (ha/dia por equipamento)</span><input type="number" data-k="ha" step="0.01" value="${f.ha}"></label>
+  <h3>Rendimento do equipamento</h3>
+  <div class="seg"><button data-modo="inf" class="${f.modo!=="ciclo"?"on":""}">Informado (ha/dia)</button><button data-modo="ciclo" class="${f.modo==="ciclo"?"on":""}">Pelo ciclo</button></div>
+  <label class="campo" ${f.modo==="ciclo"?"hidden":""}><span>Rendimento (ha/dia por equipamento)</span><input type="number" data-k="ha" step="0.01" value="${f.ha}"></label>
+  <details class="ciclo" ${f.modo==="ciclo"?"open":""}><summary><b>⏱️ Ciclo dos tratores</b> <small>(média da frente)</small></summary>
+   <label class="campo"><span>Carregamento (min)</span><input type="number" data-k="cCar" step="0.5" value="${f.cCar}"></label>
+   <label class="campo"><span>Deslocamento carregado (min)</span><input type="number" data-k="cDc" step="0.5" value="${f.cDc}"></label>
+   <label class="campo"><span>Aplicação (min)</span><input type="number" data-k="cAp" step="0.5" value="${f.cAp}"></label>
+   <label class="campo"><span>Deslocamento vazio (min)</span><input type="number" data-k="cDv" step="0.5" value="${f.cDv}"></label>
+   <label class="campo"><span>Capacidade do tanque (m³)</span><input type="number" data-k="tanque" step="0.1" value="${f.tanque}"></label>
+   <label class="campo"><span>Horas trabalhadas por dia</span><input type="number" data-k="horasT" step="0.5" value="${f.horasT}"></label>
+   <p class="cinfo dica"></p>
+  </details>
   <label class="campo"><span>Disponibilidade mecânica (%)<small>100 = como na planilha</small></span><input type="number" data-k="disp" step="1" value="${f.disp}"></label>
   <label class="campo"><span>Escala</span><select data-k="esc"><option value="cen">Do cenário</option><option value="corrido">Dias corridos</option><option value="6x1">6x1</option></select></label>
-  <p style="font-size:.92rem">Potencial: <b>${n(r.fr[i].tot)} ha</b> · por equipamento: ${n(r.fr[i].eq?r.fr[i].tot/r.fr[i].eq:0)} ha</p>
+  <p class="pinfo" style="font-size:.92rem"></p>
  </div>`).join("");
  c.frentes.forEach((f,i)=>{document.querySelector(`.frente[data-i="${i}"] select`).value=f.esc});
+ infoFrentes(r);
 }
 
+function infoFrentes(r){document.querySelectorAll(".frente").forEach(el=>{const i=+el.dataset.i,x=r.fr[i];if(!x)return;
+ el.querySelector(".pinfo").innerHTML=`Rendimento usado: <b>${n(x.haBase,2)} ha/dia</b>${x.f.modo==="ciclo"?" (pelo ciclo)":""} · Potencial: <b>${n(x.tot)} ha</b> · por equipamento: ${n(x.eq?x.tot/x.eq:0)} ha`;
+ const c=x.cic;el.querySelector(".cinfo").innerHTML=c.min?`Ciclo: <b>${n(c.min)} min</b> · ${n(c.cargas,1)} cargas/dia · ${n(c.haCarga,2)} ha por carga<br>➡️ Rende <b>${n(c.ha,2)} ha/dia</b> por equipamento${x.f.modo!=="ciclo"?` (o informado é ${n(num(x.f.ha),2)})`:""}`:"Preencha os tempos do ciclo."})}
 function renderEquip(){
  const r=calc(),c=C();
  const porEq=r.eqT?r.pot/r.eqT:0, necEq=r.eqT?r.plan/r.eqT:0;
@@ -399,7 +422,7 @@ function renderCen(){
 
 function tudo(){renderSel();renderResumo();renderFrentes();renderEquip();renderMeses();renderLog();renderCen()}
 function parcial(){salvar();renderResumo();renderEquip();renderMesesRes();renderLogRes();renderCen();
- const r=calc();document.querySelectorAll(".frente").forEach(el=>{const i=+el.dataset.i,x=r.fr[i];if(!x)return;el.querySelector("p").innerHTML=`Potencial: <b>${n(x.tot)} ha</b> · por equipamento: ${n(x.eq?x.tot/x.eq:0)} ha`})}
+ infoFrentes(calc())}
 
 /* ===== eventos ===== */
 $("selCen").onchange=e=>{S.at=+e.target.value;salvar();tudo()};
@@ -409,9 +432,10 @@ $("listaFrentes").addEventListener("input",e=>{const el=e.target,box=el.closest(
  f[el.dataset.k]=el.dataset.k==="n"||el.dataset.k==="esc"?el.value:num(el.value);
  if(el.dataset.k==="n"){salvar();renderResumo();renderEquip();renderLogRes();return}parcial()});
 $("listaFrentes").addEventListener("change",e=>{if(e.target.dataset.k==="esc"){parcial()}});
-$("listaFrentes").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;const c=C();if(c.frentes.length<2){toast("Precisa ter pelo menos 1 frente");return}
+$("listaFrentes").addEventListener("click",e=>{const m=e.target.closest("[data-modo]");if(m){const f=C().frentes[+m.closest(".frente").dataset.i];f.modo=m.dataset.modo;salvar();tudo();return}
+ const b=e.target.closest("[data-del]");if(!b)return;const c=C();if(c.frentes.length<2){toast("Precisa ter pelo menos 1 frente");return}
  if(!confirm("Apagar "+c.frentes[+b.dataset.del].n+"?"))return;c.frentes.splice(+b.dataset.del,1);salvar();tudo()});
-$("addFrente").onclick=()=>{const c=C();c.frentes.push({n:"Frente "+(c.frentes.length+1),eq:1,ha:15.72,disp:100,esc:"cen"});salvar();tudo();toast("Frente adicionada")};
+$("addFrente").onclick=()=>{const c=C();c.frentes.push(novaFrente("Frente "+(c.frentes.length+1),1));salvar();tudo();toast("Frente adicionada")};
 $("eqFrente").onchange=renderEquip;
 $("mTab").addEventListener("input",e=>{const el=e.target;if(el.dataset.m===undefined)return;S.meses[+el.dataset.m][el.dataset.k]=num(el.value);parcial()});
 $("btnRestaurar").onclick=()=>{if(!confirm("Voltar clima, jornadas e metas aos números da planilha?"))return;S.meses=PLANILHA_MESES();salvar();tudo();toast("Restaurado")};
