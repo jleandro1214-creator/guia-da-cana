@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Livro do Canavial</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2f4a22">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--verde:#2f6b34;--verde-esc:#1f4a24;--amarelo:#e8b923;--amarelo-cl:#f7e3a1;--marrom:#6b4226;--marrom-esc:#3b2616;--papel:#fbf6e6;--papel2:#f3ead0;--tinta:#2a2118;--mut:#6f6250;--linha:#e2d6b5;color-scheme:light}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}[hidden]{display:none!important}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(120% 80% at 50% 0%,#5a3a22,#2e1d10);color:var(--tinta);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;overscroll-behavior:none}
+button{font:inherit;color:inherit}
+/* topo */
+#topo{position:fixed;top:0;left:0;right:0;z-index:20;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;display:flex;align-items:center;gap:8px;background:linear-gradient(#2f4a22,#27401c);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.ib{border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:12px;min-width:44px;height:44px;font-size:20px;display:grid;place-items:center;padding:0 10px}
+#onde{flex:1;min-width:0;line-height:1.15}
+#onde small{display:block;font-size:12px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;letter-spacing:.05em}
+#onde b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* chave versão */
+#versao{display:flex;background:rgba(0,0,0,.25);border-radius:12px;padding:3px;flex:none}
+#versao button{border:0;background:transparent;color:#fff;font-weight:700;font-size:13px;padding:0 10px;height:38px;border-radius:9px;opacity:.75}
+#versao button[aria-pressed=true]{background:var(--amarelo);color:var(--marrom-esc);opacity:1}
+/* livro */
+#livro{position:fixed;left:0;right:0;top:calc(60px + env(safe-area-inset-top));bottom:calc(64px + env(safe-area-inset-bottom));perspective:1800px;perspective-origin:0% 50%;padding:10px 10px 6px}
+.pag{position:absolute;inset:10px 10px 6px 10px;background:linear-gradient(90deg,#e9dcb8 0,var(--papel) 14px,var(--papel) calc(100% - 6px),var(--papel2));border-radius:4px 14px 14px 4px;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 3px 0 6px rgba(80,50,20,.15);overflow-y:auto;overflow-x:hidden;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;touch-action:pan-y;will-change:transform;overscroll-behavior:contain}
+.pag .sombra{position:sticky;top:0;height:0;pointer-events:none}
+.pag.anim{transition:transform .38s cubic-bezier(.3,.7,.3,1)}
+.pag .vela{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,.35));opacity:0;pointer-events:none;border-radius:inherit}
+.miolo{padding:20px 20px 28px 26px;max-width:680px;margin:0 auto}
+.cab{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--linha);padding-bottom:6px;margin-bottom:14px}
+.miolo h2{font:800 23px/1.2 Georgia,"Noto Serif",serif;color:var(--verde-esc);margin:0 0 12px}
+.texto{font:calc(var(--fs,18px)) /1.62 Georgia,"Noto Serif","Times New Roman",serif}
+.texto p{margin:0 0 .8em}
+.texto ul,.texto ol{margin:0 0 .8em;padding-left:1.2em}
+.texto li{margin:.25em 0}
+.texto b{color:#4a2a14}
+.formula{background:#fff7d6;border:1.5px dashed var(--amarelo);border-radius:10px;padding:10px 12px;font:700 16px/1.4 ui-monospace,Menlo,Consolas,monospace;color:var(--marrom-esc);text-align:center}
+.tab{width:100%;border-collapse:collapse;font:15px/1.3 system-ui,sans-serif;margin:6px 0 12px}
+.tab th{background:var(--verde);color:#fff;padding:7px 5px;font-weight:700}
+.tab td{border-bottom:1px solid var(--linha);padding:7px 5px;text-align:center}
+.tab tr:nth-child(odd) td{background:rgba(232,185,35,.08)}
+.selo{display:inline-block;font:700 12px system-ui;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:99px;margin-bottom:8px}
+.selo.t{background:var(--verde);color:#fff}.selo.s{background:var(--amarelo);color:var(--marrom-esc)}
+/* figuras */
+figure{margin:4px 0 16px;background:#fff;border:1px solid var(--linha);border-radius:12px;overflow:hidden}
+figure .ft{position:relative;background:#e8e0c8;min-height:120px;display:grid;place-items:center}
+figure .ft img{display:block;width:100%;max-height:340px;object-fit:cover;cursor:zoom-in}
+figure .ft .carr{color:var(--mut);font-size:14px;padding:30px 12px;text-align:center}
+figure .ft .outra{position:absolute;right:8px;bottom:8px;border:0;background:rgba(0,0,0,.6);color:#fff;font:700 13px system-ui;padding:8px 10px;border-radius:10px}
+figcaption{padding:8px 12px;font:14px/1.35 system-ui,sans-serif;color:var(--mut)}
+figcaption b{color:var(--tinta)}
+figcaption a{color:var(--verde)}
+.svgfig{padding:8px 6px 2px}
+.svgfig svg{display:block;width:100%;height:auto}
+/* capa e aberturas */
+.capa{min-height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:30px 24px;background:radial-gradient(circle at 50% 30%,#fffbe9,var(--papel) 60%,var(--papel2))}
+.capa .logo{width:120px;height:120px;border-radius:28px;box-shadow:0 8px 24px rgba(60,40,10,.3)}
+.capa h1{font:900 34px/1.1 Georgia,serif;color:var(--verde-esc);margin:18px 0 6px}
+.capa .sub{font:italic 18px Georgia,serif;color:var(--marrom);margin:0 0 18px}
+.capa .dica{font-size:15px;color:var(--mut);max-width:330px}
+.capa .seta{font-size:28px;color:var(--amarelo);margin-top:14px;animation:pul 1.6s infinite}
+@keyframes pul{50%{transform:translateX(-8px)}}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;font-size:16px;background:var(--verde);color:#fff;margin:6px}
+.btn.cl{background:var(--amarelo);color:var(--marrom-esc)}
+.abre{min-height:100%;display:flex;flex-direction:column;justify-content:center;padding:28px 24px;color:#fff}
+.abre .num{font:800 14px system-ui;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.abre h1{font:900 34px/1.1 Georgia,serif;margin:8px 0 6px}
+.abre .ic{font-size:64px}
+.abre ol{padding-left:1.2em;font-size:17px;line-height:1.7}
+.abre ol li button{border:0;background:none;color:#fff;text-decoration:underline;text-underline-offset:3px;padding:2px 0;text-align:left;font-size:17px}
+.fontes li{margin:.55em 0;font:15px/1.45 system-ui,sans-serif}
+.fontes a{color:var(--verde);word-break:break-word}
+.fim-cap{margin-top:8px;border-top:2px solid var(--amarelo);padding-top:12px}
+.rodape-p{margin-top:18px;text-align:center;color:var(--mut);font:13px system-ui}
+/* barra de baixo */
+#base{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center;background:linear-gradient(#3b2616,#2e1d10);color:#fff}
+#prog{flex:1;min-width:0}
+#prog .barra{height:6px;background:rgba(255,255,255,.15);border-radius:9px;overflow:hidden}
+#prog .barra i{display:block;height:100%;background:var(--amarelo);width:0;transition:width .3s}
+#prog small{display:block;text-align:center;font-size:13px;opacity:.85;margin-top:4px}
+/* gaveta */
+#veu{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:30}
+#gaveta{position:fixed;top:0;bottom:0;left:0;width:min(88vw,420px);z-index:31;background:var(--papel);box-shadow:4px 0 20px rgba(0,0,0,.4);display:flex;flex-direction:column;transform:translateX(-102%);transition:transform .28s}
+#gaveta.on{transform:none}
+#gaveta header{padding:calc(14px + env(safe-area-inset-top)) 16px 10px;background:var(--verde-esc);color:#fff}
+#gaveta header h3{margin:0;font:800 20px Georgia,serif}
+.abas{display:flex;gap:6px;margin-top:10px}
+.abas button{flex:1;border:0;border-radius:10px;padding:9px;font-weight:700;background:rgba(255,255,255,.14);color:#fff}
+.abas button[aria-pressed=true]{background:var(--amarelo);color:var(--marrom-esc)}
+#gcorpo{flex:1;overflow:auto;padding:10px 12px 30px}
+.gt{margin:12px 0 4px;font:800 15px system-ui;display:flex;align-items:center;gap:8px}
+.gt span{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;color:#fff;font-size:16px}
+.gc{display:block;width:100%;text-align:left;border:0;background:#fff;border:1px solid var(--linha);border-radius:10px;padding:11px 12px;margin:5px 0;font-size:16px}
+.gc.at{border-color:var(--verde);background:#eef6e9;font-weight:700}
+.gc small{color:var(--mut);font-size:13px}
+.ajuste{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0;padding:12px;border:1px solid var(--linha);border-radius:12px;background:#fff}
+.ajuste button{border:0;border-radius:10px;background:var(--verde);color:#fff;font-weight:800;min-width:44px;height:40px}
+/* zoom */
+#zoom{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.92);display:flex;flex-direction:column;justify-content:center}
+#zoom img{max-width:100%;max-height:80vh;object-fit:contain;margin:0 auto;touch-action:pinch-zoom}
+#zoom p{color:#ddd;font:14px system-ui;text-align:center;padding:10px 16px}
+#zoom p a{color:var(--amarelo-cl)}
+#zoom .ib{position:absolute;top:calc(12px + env(safe-area-inset-top));right:12px}
+#toast{position:fixed;left:50%;top:calc(76px + env(safe-area-inset-top));transform:translateX(-50%);z-index:50;background:#222;color:#fff;padding:9px 16px;border-radius:10px;font-size:15px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#2f4a22;color:#fbf6e6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Livro do Canavial</b></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,700-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
+
+<div id="topo">
+ <button class="ib" id="b-menu" aria-label="Sumário">☰</button>
+ <div id="onde"><small id="o-tema">Livro do Canavial</small><b id="o-cap">Capa</b></div>
+ <div id="versao" role="group" aria-label="Versão do texto">
+  <button data-v="t" aria-pressed="true">Técnica</button>
+  <button data-v="s" aria-pressed="false">Simples</button>
+ </div>
+</div>
+
+<div id="livro" aria-live="polite"></div>
+
+<div id="base">
+ <button class="ib" id="b-ant" aria-label="Página anterior">‹</button>
+ <div id="prog"><div class="barra"><i id="p-barra"></i></div><small id="p-txt">1 / 1</small></div>
+ <button class="ib" id="b-fontes" aria-label="Fontes">📚</button>
+ <button class="ib" id="b-prox" aria-label="Próxima página">›</button>
+</div>
+
+<div id="veu" hidden></div>
+<aside id="gaveta" aria-label="Sumário e fontes">
+ <header><h3>📖 Livro do Canavial</h3>
+  <div class="abas"><button data-a="sum" aria-pressed="true">Sumário</button><button data-a="fon" aria-pressed="false">Fontes</button><button data-a="cfg" aria-pressed="false">Ajustes</button></div>
+ </header>
+ <div id="gcorpo"></div>
+</aside>
+
+<div id="zoom" hidden><button class="ib" id="z-x" aria-label="Fechar">✕</button><img id="z-img" alt=""><p id="z-cap"></p></div>
+<div id="toast" hidden></div>
+
+<script src="conteudo.js"></script>
+<script>
+"use strict";
+/* ---------- estado ---------- */
+const LS={get(k,d){try{const v=localStorage.getItem("livro-"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("livro-"+k,JSON.stringify(v))}catch(e){}}};
+let modo=LS.get("modo","t"), fs=LS.get("fs",18), atual=0, instPrompt=null;
+document.documentElement.style.setProperty("--fs",fs+"px");
+
+/* ---------- monta a lista de páginas ---------- */
+const PAGS=[]; // {tipo, ti, ci, pi}
+PAGS.push({tipo:"capa"});
+PAGS.push({tipo:"indice"});
+LIVRO.forEach((T,ti)=>{
+  PAGS.push({tipo:"tema",ti});
+  T.caps.forEach((C,ci)=>{
+    C.pags.forEach((P,pi)=>PAGS.push({tipo:"pag",ti,ci,pi}));
+    PAGS.push({tipo:"fontes",ti,ci});
+  });
+});
+PAGS.push({tipo:"todas"});
+const primeiraDoCap=(ti,ci)=>PAGS.findIndex(p=>p.tipo==="pag"&&p.ti===ti&&p.ci===ci);
+const paginaDoTema=ti=>PAGS.findIndex(p=>p.tipo==="tema"&&p.ti===ti);
+
+/* ---------- ilustrações desenhadas (sem internet) ---------- */
+const C={v:"#2f6b34",ve:"#1f4a24",a:"#e8b923",ac:"#f7e3a1",m:"#6b4226",me:"#3b2616",p:"#fbf6e6",t:"#2a2118",cz:"#8a7f6c"};
+const txt=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-family="system-ui,sans-serif" font-size="${o.fs||13}" font-weight="${o.w||600}" fill="${o.c||C.t}" text-anchor="${o.a||"middle"}">${s}</text>`;
+const FIGS={
+ fluxo:{cap:"A sequência de decisões do livro",svg:()=>{const e=["Tipo de solo","Correção","Preparo","Nutrição","Daninhas","Pragas e doenças","Produtividade"],cs=[C.m,"#a77b1e",C.v,"#2f7a3c","#6b8e23","#8b3a2b",C.a];let s=`<svg viewBox="0 0 340 330" xmlns="http://www.w3.org/2000/svg">`;e.forEach((n,i)=>{const y=8+i*46;s+=`<rect x="60" y="${y}" width="220" height="34" rx="10" fill="${cs[i]}"/>`+txt(170,y+22,(i+1)+". "+n,{c:i===6?C.me:"#fff",fs:15,w:800});if(i<6)s+=`<path d="M170 ${y+35} v8" stroke="${C.cz}" stroke-width="2.5"/><path d="M164 ${y+40} l6 6 l6 -6" fill="none" stroke="${C.cz}" stroke-width="2.5"/>`});return s+"</svg>"}},
+ perfil:{cap:"Horizontes do solo e profundidade explorada pela cana",svg:()=>{const h=[["O","Palha / restos",14,"#5a4a2a"],["A","Superficial, escuro",60,"#5b3b22"],["B","Subsolo: define a classe",120,"#a0522d"],["C","Rocha alterada",60,"#c49a6c"],["R","Rocha",36,"#8a8a80"]];let y=6,s=`<svg viewBox="0 0 340 310" xmlns="http://www.w3.org/2000/svg">`;h.forEach(([l,d,a,c])=>{s+=`<rect x="20" y="${y}" width="150" height="${a}" fill="${c}"/>`+txt(40,y+a/2+5,l,{c:"#fff",fs:16,w:800})+txt(182,y+a/2+5,d,{a:"start",fs:13});y+=a});s+=`<path d="M95 20 q-10 60 4 110 q8 50 -6 120" stroke="${C.ac}" stroke-width="3" fill="none"/><path d="M95 60 q20 30 28 60 M95 90 q-24 30 -30 70" stroke="${C.ac}" stroke-width="2" fill="none"/>`+txt(170,305,"raiz da cana: busca água até ~60 cm ou mais",{fs:12,c:C.me});return s+"</svg>"}},
+ textura:{cap:"Classes de textura pelo teor de argila (SiBCS)",svg:()=>{const cl=[["Arenosa","< 15%",15,"#e6c98a"],["Média","15–35%",20,"#c9935a"],["Argilosa","35–60%",25,"#a0522d"],["Muito argilosa","> 60%",40,"#6b3216"]];let x=10,s=`<svg viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg">`+txt(170,18,"% de argila no solo",{fs:13,c:C.mut||C.me});cl.forEach(([n,f,w,c])=>{const W=w*3.2;s+=`<rect x="${x}" y="28" width="${W}" height="44" fill="${c}"/>`+txt(x+W/2,56,f,{c:"#fff",fs:12,w:800})+txt(x+W/2,92,n,{fs:12});x+=W});s+=txt(60,128,"← mais areia: seca rápido, perde K e N",{fs:11,a:"start",c:C.me})+txt(330,144,"mais argila: segura água, compacta →",{fs:11,a:"end",c:C.me});return s+"</svg>"}},
+ analise:{cap:"CTC é a “caixa” de cátions; V% é quanto dela está ocupado por bases",svg:()=>`<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="20" width="280" height="56" rx="10" fill="#fff" stroke="${C.me}" stroke-width="2"/><rect x="32" y="22" width="76" height="52" rx="8" fill="${C.v}"/><rect x="108" y="22" width="200" height="52" rx="0" fill="#d9c9a3"/>${txt(70,53,"SB",{c:"#fff",fs:16,w:800})}${txt(208,53,"H + Al (acidez)",{fs:14,w:700})}${txt(170,100,"CTC = SB + (H+Al)",{fs:15,w:800,c:C.me})}${txt(170,126,"V% = SB ÷ CTC × 100 → neste desenho ≈ 27%",{fs:13})}${txt(170,152,"meta para cana: V% ≈ 60",{fs:13,w:800,c:C.v})}</svg>`},
+ ambientes:{cap:"Ambientes de produção (média de cortes, t/ha) — escala clássica",svg:()=>{const a=[["A",97],["B",92],["C",87],["D",82],["E",75],["F",65]];let s=`<svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">`;a.forEach(([l,v],i)=>{const y=10+i*30,w=(v-40)*4;s+=txt(18,y+19,l,{fs:16,w:900,c:C.me})+`<rect x="32" y="${y}" width="${w}" height="24" rx="6" fill="${["#1f4a24","#2f6b34","#6b8e23","#a77b1e","#b5651d","#8b3a2b"][i]}"/>`+txt(40+w,y+17,["> 95","90–95","85–89","80–84","70–79","< 70"][i],{a:"start",fs:13,w:700})});return s+"</svg>"}},
+ phdisp:{cap:"Disponibilidade dos nutrientes conforme o pH (esquema simplificado)",svg:()=>{const n=[["N, K, S",[.5,1,1,.9]],["P",[.2,.7,1,.6]],["Ca, Mg",[.3,.8,1,1]],["Zn, Mn, Fe, Cu, B",[1,1,.7,.35]],["Al tóxico",[1,.4,.05,0]]];let s=`<svg viewBox="0 0 340 230" xmlns="http://www.w3.org/2000/svg">`;["4,5","5,0","5,5","6,5"].forEach((p,i)=>s+=txt(130+i*55,18,"pH "+p,{fs:11,c:C.me}));n.forEach(([nm,v],j)=>{const y=30+j*38;s+=txt(108,y+19,nm,{a:"end",fs:12});let d=`M110 ${y+14}`;v.forEach((k,i)=>{d+=` L${130+i*55} ${y+14-k*13}`});let d2=`M110 ${y+14}`;v.slice().reverse().forEach((k,i)=>{});s+=`<path d="M108 ${y+14} ${v.map((k,i)=>`L${130+i*55} ${y+14-k*13}`).join(" ")} L300 ${y+14} ${v.slice().reverse().map((k,i)=>`L${130+(3-i)*55} ${y+14+k*13}`).join(" ")} Z" fill="${j===4?"#8b3a2b":C.v}" opacity=".85"/>`});s+=`<rect x="158" y="24" width="82" height="196" rx="8" fill="${C.a}" opacity=".18"/>`+txt(199,226,"faixa ideal para cana",{fs:11,w:800,c:C.me});return s+"</svg>"}},
+ calagem:{cap:"Como cada número entra na conta da calagem",svg:()=>`<svg viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="320" height="56" rx="12" fill="#fff7d6" stroke="${C.a}" stroke-width="2" stroke-dasharray="6 4"/>${txt(170,47,"NC = (V₂ − V₁) × CTC ÷ (10 × PRNT)",{fs:16,w:800,c:C.me})}${txt(70,98,"V₂ = 60%",{fs:13,w:800,c:C.v})}${txt(70,116,"meta da cana",{fs:11})}${txt(170,98,"V₁ e CTC",{fs:13,w:800,c:C.v})}${txt(170,116,"da análise (mmolc)",{fs:11})}${txt(270,98,"PRNT",{fs:13,w:800,c:C.v})}${txt(270,116,"força do calcário",{fs:11})}${txt(170,142,"resultado em t/ha para 0–20 cm",{fs:12,w:700,c:C.me})}</svg>`},
+ preparo:{cap:"Qual preparo escolher (Demattê, 2004)",svg:()=>`<svg viewBox="0 0 340 230" xmlns="http://www.w3.org/2000/svg"><rect x="90" y="6" width="160" height="40" rx="10" fill="${C.me}"/>${txt(170,24,"Diagnóstico da área",{c:"#fff",fs:13,w:800})}${txt(170,40,"pragas · química · compactação",{c:"#f7e3a1",fs:10})}<path d="M130 46 L70 80 M210 46 L270 80" stroke="${C.cz}" stroke-width="2.5"/><rect x="6" y="80" width="150" height="140" rx="10" fill="${C.m}"/>${txt(81,102,"CONVENCIONAL",{c:"#fff",fs:13,w:900})}${["Migdolus","correção funda","vindo de pasto","compactação severa"].map((t,i)=>txt(81,128+i*22,"• "+t,{c:"#fff",fs:12})).join("")}<rect x="184" y="80" width="150" height="140" rx="10" fill="${C.v}"/>${txt(259,102,"REDUZIDO / DIRETO",{c:"#fff",fs:13,w:900})}${["solo já corrigido","sem pragas de solo","sem camada dura","menos custo e erosão"].map((t,i)=>txt(259,128+i*22,"• "+t,{c:"#fff",fs:12})).join("")}</svg>`},
+ compact:{cap:"Compactação × produtividade (Demattê, 2004)",svg:()=>`<svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg">${txt(170,16,"Densidade do solo (g/cm³)",{fs:12,c:C.me})}<rect x="50" y="${170-105*1.3}" width="90" height="${105*1.3}" rx="6" fill="${C.v}"/><rect x="200" y="${170-90*1.3}" width="90" height="${90*1.3}" rx="6" fill="#8b3a2b"/>${txt(95,170-105*1.3-6,"105 t/ha",{fs:14,w:800})}${txt(245,170-90*1.3-6,"90 t/ha",{fs:14,w:800})}${txt(95,186,"1,32",{fs:13,w:800})}${txt(245,186,"1,42 (−15%)",{fs:13,w:800})}</svg>`},
+ critico:{cap:"Período crítico de competição das daninhas (época úmida)",svg:()=>`<svg viewBox="0 0 340 120" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="40" width="300" height="26" rx="8" fill="#e9e1c9"/><rect x="20" y="40" width="${300*120/180}" height="26" rx="8" fill="#8b3a2b"/>${[0,30,60,90,120,150,180].map(d=>`<path d="M${20+d/180*300} 66 v6" stroke="${C.me}"/>`+txt(20+d/180*300,86,d,{fs:11})).join("")}${txt(120,57,"0 a 90–120 dias: manter limpo!",{c:"#fff",fs:12,w:800})}${txt(270,57,"cana fecha",{fs:11,w:700,c:C.v})}${txt(170,108,"dias após a emergência",{fs:12,c:C.me})}${txt(170,26,"perdas de até 80% sem controle",{fs:13,w:800,c:"#8b3a2b"})}</svg>`},
+ vinhaca:{cap:"De onde vem cada número da fórmula da P4.231",svg:()=>`<svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="8" width="328" height="48" rx="10" fill="#fff7d6" stroke="${C.a}" stroke-width="2" stroke-dasharray="6 4"/>${txt(170,38,"[(0,05×CTC − ks) × 3744 + 185] ÷ kvi",{fs:15,w:800,c:C.me})}${[["0,05","teto de K = 5% da CTC"],["ks","K que o solo já tem"],["3744","converte p/ kg K₂O/ha em 0,80 m"],["185","K₂O retirado por corte"],["kvi","K₂O da vinhaça (kg/m³)"]].map(([a,b],i)=>`<rect x="14" y="${66+i*24}" width="54" height="20" rx="5" fill="${C.v}"/>`+txt(41,80+i*24,a,{c:"#fff",fs:12,w:800})+txt(78,80+i*24,b,{a:"start",fs:12})).join("")}</svg>`},
+ broca:{cap:"Ciclo da broca-da-cana: o ataque começa na folha e termina no colmo",svg:()=>{const e=[["Ovo","na folha"],["Lagarta","entra no colmo"],["Pupa","dentro da galeria"],["Mariposa","põe novos ovos"]];let s=`<svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg"><circle cx="170" cy="120" r="78" fill="none" stroke="${C.ac}" stroke-width="10"/>`;const pos=[[170,30],[290,120],[170,210],[50,120]];e.forEach(([a,b],i)=>{const [x,y]=pos[i];s+=`<circle cx="${x}" cy="${y}" r="30" fill="${["#e8b923","#8b3a2b","#6b4226","#2f6b34"][i]}"/>`+txt(x,y+2,a,{c:i===0?C.me:"#fff",fs:12,w:800})+txt(x,y+14,b,{c:i===0?C.me:"#fff",fs:8})});s+=txt(170,116,"Cotesia ataca",{fs:12,w:800,c:"#8b3a2b"})+txt(170,132,"a lagarta",{fs:12,w:800,c:"#8b3a2b"});return s+"</svg>"}}
+};
+
+/* ---------- fotos reais (Wikimedia) ---------- */
+const memFoto={};
+const limpa=h=>{const d=document.createElement("div");d.innerHTML=h||"";return (d.textContent||"").trim().replace(/\s+/g," ").slice(0,90)};
+async function opcoes(q){
+  if(memFoto[q])return memFoto[q];
+  const salvo=LS.get("op:"+q,null);
+  if(salvo&&salvo.length){memFoto[q]=salvo;return salvo}
+  let ops=[];
+  try{
+    if(q.startsWith("w:")){
+      const [,lang,...r]=q.split(":");const t=r.join(":");
+      const j=await (await fetch(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(t.replace(/ /g,"_"))}`)).json();
+      const src=(j.originalimage&&j.originalimage.width<=1200?j.originalimage.source:null)||(j.thumbnail&&j.thumbnail.source.replace(/\/\d+px-/,"/900px-"));
+      if(src&&!/\.svg/i.test(src))ops.push({src,cred:"Wikipédia: "+(j.title||t),link:j.content_urls&&j.content_urls.mobile&&j.content_urls.mobile.page});
+    }else{
+      const s=q.slice(2);
+      const u=`https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=8&gsrsearch=${encodeURIComponent("filetype:bitmap "+s)}&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=900&iiextmetadatafilter=Artist|LicenseShortName`;
+      const j=await (await fetch(u)).json();
+      const ps=Object.values((j.query&&j.query.pages)||{}).sort((a,b)=>a.index-b.index);
+      ps.forEach(p=>{const ii=p.imageinfo&&p.imageinfo[0];if(!ii)return;const m=ii.extmetadata||{};
+        ops.push({src:ii.thumburl||ii.url,cred:[limpa(m.Artist&&m.Artist.value),m.LicenseShortName&&m.LicenseShortName.value].filter(Boolean).join(" · ")||"Wikimedia Commons",link:ii.descriptionurl})});
+    }
+  }catch(e){ops=null}
+  if(ops&&ops.length){memFoto[q]=ops;LS.set("op:"+q,ops)}
+  return ops||[];
+}
+async function listaFotos(img){
+  let todas=[];
+  for(const q of img.q){const o=await opcoes(q);todas=todas.concat(o);if(todas.length>=6)break}
+  const vis=new Set();return todas.filter(o=>!vis.has(o.src)&&vis.add(o.src));
+}
+async function carregaFoto(fig,img,chave){
+  const box=fig.querySelector(".ft");
+  const lista=await listaFotos(img);
+  if(!fig.isConnected)return;
+  if(!lista.length){box.innerHTML=`<div class="carr">📷 Foto indisponível agora.<br>Abra com internet uma vez para guardar as fotos no celular.</div>`;return}
+  let i=LS.get("esc:"+chave,0)%lista.length;
+  const mostra=()=>{const o=lista[i];
+    box.innerHTML=`<img alt="${img.cap}" src="${o.src}" loading="lazy" referrerpolicy="no-referrer">`+(lista.length>1?`<button class="outra" type="button">↻ outra foto</button>`:"");
+    const im=box.querySelector("img");
+    im.onerror=()=>{if(lista.length>1){i=(i+1)%lista.length;LS.set("esc:"+chave,i);mostra()}else box.innerHTML=`<div class="carr">📷 Foto indisponível.</div>`};
+    im.onclick=()=>abreZoom(o,img.cap);
+    const b=box.querySelector(".outra");if(b)b.onclick=ev=>{ev.stopPropagation();i=(i+1)%lista.length;LS.set("esc:"+chave,i);mostra()};
+    fig.querySelector("figcaption").innerHTML=`<b>${img.cap}</b><br>Foto: ${o.cred} — <a href="${o.link||"https://commons.wikimedia.org"}" target="_blank" rel="noopener">ver origem</a>`;
+  };
+  mostra();
+}
+
+/* ---------- desenho das páginas ---------- */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function htmlPagina(i){
+  const P=PAGS[i];
+  if(P.tipo==="capa")return `<div class="capa"><img class="logo" src="icon-512.png" alt=""><h1>Livro do Canavial</h1><p class="sub">do tipo de solo à melhor produtividade</p><p class="dica">6 temas em sequência, com fotos reais, ilustrações e fontes no fim de cada capítulo.<br><br><b>Arraste a página para o lado</b> para folhear. No topo, troque entre a versão <b>Técnica</b> e a <b>Simples</b> com um toque.</p><div class="seta">⟵ arraste</div><div style="margin-top:14px"><button class="btn" data-ir="${LS.get("pag",0)>1?LS.get("pag",0):2}">${LS.get("pag",0)>2?"Continuar de onde parei":"Começar a ler"}</button>${instPrompt?`<button class="btn cl" data-inst>📲 Instalar app</button>`:""}</div></div>`;
+  if(P.tipo==="indice")return `<div class="miolo"><div class="cab"><span>Sumário</span><span></span></div><h2>O caminho do livro</h2><div class="texto">${LIVRO.map((T,ti)=>`<p style="margin:.9em 0 .3em"><b style="color:${T.cor}">${T.ic} Tema ${ti+1} — ${T.tema}</b></p><ol style="margin:0">${T.caps.map((C,ci)=>`<li><a href="#" data-ir="${primeiraDoCap(ti,ci)}" style="color:var(--tinta)">${C.titulo}</a></li>`).join("")}</ol>`).join("")}<p style="margin-top:1em"><a href="#" data-ir="${PAGS.length-1}" style="color:var(--verde)">📚 Todas as fontes</a></p></div></div>`;
+  if(P.tipo==="tema"){const T=LIVRO[P.ti];return `<div class="abre" style="background:linear-gradient(160deg,${T.cor},#2e1d10)"><div class="ic">${T.ic}</div><div class="num">Tema ${P.ti+1} de ${LIVRO.length}</div><h1>${T.tema}</h1><ol>${T.caps.map((C,ci)=>`<li><button data-ir="${primeiraDoCap(P.ti,ci)}">${C.titulo}</button></li>`).join("")}</ol><p style="opacity:.8;font-size:15px">⟵ arraste para começar</p></div>`}
+  if(P.tipo==="fontes"){const T=LIVRO[P.ti],Cp=T.caps[P.ci];return `<div class="miolo"><div class="cab"><span>${T.tema}</span><span>Fontes</span></div><h2>📚 Fontes deste capítulo</h2><p style="color:var(--mut);margin-top:-6px">${Cp.titulo}</p><ol class="fontes">${Cp.fontes.map(f=>`<li>${esc(FONTES[f].t)}<br><a href="${FONTES[f].u}" target="_blank" rel="noopener">${FONTES[f].u}</a></li>`).join("")}</ol><p class="rodape-p">Doses de defensivos e herbicidas: sempre com receituário agronômico e bula.<br>Números são referências da literatura; confira com o agrônomo e as normas da sua usina.</p></div>`}
+  if(P.tipo==="todas")return `<div class="miolo"><div class="cab"><span>Referências</span><span>Fim</span></div><h2>📚 Todas as fontes</h2><ol class="fontes">${Object.values(FONTES).map(f=>`<li>${esc(f.t)}<br><a href="${f.u}" target="_blank" rel="noopener">${f.u}</a></li>`).join("")}</ol><p class="rodape-p">Fim do livro 🌱 <button class="btn" data-ir="1">Voltar ao sumário</button></p></div>`;
+  const T=LIVRO[P.ti],Cp=T.caps[P.ci],Pg=Cp.pags[P.pi];
+  const ultima=P.pi===Cp.pags.length-1;
+  let figs="";
+  if(Pg.img)figs+=`<figure data-img="${i}"><div class="ft"><div class="carr">📷 Carregando foto real…</div></div><figcaption><b>${Pg.img.cap}</b></figcaption></figure>`;
+  if(Pg.fig&&FIGS[Pg.fig])figs+=`<figure><div class="svgfig">${FIGS[Pg.fig].svg()}</div><figcaption><b>${FIGS[Pg.fig].cap}</b></figcaption></figure>`;
+  return `<div class="miolo"><div class="cab"><span style="color:${T.cor}">${T.ic} ${T.tema}</span><span>Cap. ${P.ci+1}.${P.pi+1}</span></div>`+
+   `<span class="selo ${modo}">${modo==="t"?"Versão técnica":"Versão simples"}</span><h2>${Pg.h}</h2>${figs}<div class="texto">${modo==="t"?Pg.t:Pg.s}</div>`+
+   (ultima?`<div class="fim-cap"><small style="color:var(--mut)">📚 Fonte(s): ${Cp.fontes.map(f=>FONTES[f].t.split(".")[0]).filter((v,k,a)=>a.indexOf(v)===k).join("; ")} — lista completa na próxima página.</small></div>`:"")+
+   `<div class="rodape-p">— ${i+1} —</div></div>`;
+}
+function montaEl(i,cls){
+  const d=document.createElement("div");d.className="pag "+(cls||"");d.dataset.i=i;
+  d.innerHTML=htmlPagina(i)+`<div class="vela"></div>`;
+  d.querySelectorAll("figure[data-img]").forEach(f=>{const P=PAGS[i];const Pg=LIVRO[P.ti].caps[P.ci].pags[P.pi];carregaFoto(f,Pg.img,P.ti+"-"+P.ci+"-"+P.pi)});
+  return d;
+}
+const livro=document.getElementById("livro");
+let elAtual=null;
+function mostra(i,sem){
+  atual=Math.max(0,Math.min(PAGS.length-1,i));
+  livro.innerHTML="";elAtual=montaEl(atual,"cur");livro.appendChild(elAtual);
+  LS.set("pag",atual);atualizaBarras();
+  // pré-carrega fotos vizinhas
+  [atual+1,atual-1].forEach(j=>{const P=PAGS[j];if(P&&P.tipo==="pag"){const g=LIVRO[P.ti].caps[P.ci].pags[P.pi].img;if(g)listaFotos(g)}});
+}
+function atualizaBarras(){
+  const P=PAGS[atual];
+  document.getElementById("p-barra").style.width=((atual+1)/PAGS.length*100)+"%";
+  document.getElementById("p-txt").textContent=`${atual+1} / ${PAGS.length}`;
+  let tema="Livro do Canavial",cap="Capa";
+  if(P.tipo==="indice")cap="Sumário";
+  if(P.tipo==="todas")cap="Todas as fontes";
+  if(P.ti!=null){tema=`Tema ${P.ti+1} · ${LIVRO[P.ti].tema}`;cap=P.tipo==="tema"?"Abertura do tema":(LIVRO[P.ti].caps[P.ci].titulo+(P.tipo==="fontes"?" · Fontes":""))}
+  document.getElementById("o-tema").textContent=tema;document.getElementById("o-cap").textContent=cap;
+  document.getElementById("b-ant").disabled=atual===0;document.getElementById("b-prox").disabled=atual===PAGS.length-1;
+}
+
+/* ---------- virar página (arrastando) ---------- */
+let gesto=null,animando=false;
+function vira(dir){ // 1 = próxima, -1 = anterior
+  if(animando)return;const alvo=atual+dir;if(alvo<0||alvo>=PAGS.length)return;
+  animando=true;
+  if(dir>0){
+    const baixo=montaEl(alvo,"");livro.insertBefore(baixo,elAtual);
+    elAtual.classList.add("anim");requestAnimationFrame(()=>{elAtual.style.transform="rotateY(-180deg)";elAtual.querySelector(".vela").style.opacity=1});
+    setTimeout(()=>{elAtual.remove();elAtual=baixo;elAtual.classList.add("cur");atual=alvo;LS.set("pag",atual);atualizaBarras();animando=false},380);
+  }else{
+    const cima=montaEl(alvo,"");cima.style.transform="rotateY(-180deg)";livro.appendChild(cima);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{cima.classList.add("anim");cima.style.transform="rotateY(0deg)"}));
+    setTimeout(()=>{elAtual.remove();elAtual=cima;cima.classList.remove("anim");elAtual.classList.add("cur");atual=alvo;LS.set("pag",atual);atualizaBarras();animando=false},380);
+  }
+}
+livro.addEventListener("pointerdown",e=>{
+  if(animando||e.button>0)return;
+  gesto={x:e.clientX,y:e.clientY,id:e.pointerId,dec:null,dx:0,outra:null,t:Date.now(),alvoTap:e.target};
+});
+livro.addEventListener("pointermove",e=>{
+  if(!gesto||e.pointerId!==gesto.id)return;
+  const dx=e.clientX-gesto.x,dy=e.clientY-gesto.y;
+  if(gesto.dec===null){
+    if(Math.abs(dx)<12&&Math.abs(dy)<12)return;
+    gesto.dec=Math.abs(dx)>Math.abs(dy)*1.1?"h":"v";
+    if(gesto.dec==="h"){
+      const dir=dx<0?1:-1,alvo=atual+dir;
+      if(alvo<0||alvo>=PAGS.length){gesto.dec="x";return}
+      gesto.dir=dir;
+      try{livro.setPointerCapture(e.pointerId)}catch(_){}
+      if(dir>0){gesto.outra=montaEl(alvo,"");livro.insertBefore(gesto.outra,elAtual)}
+      else{gesto.outra=montaEl(alvo,"");gesto.outra.style.transform="rotateY(-180deg)";livro.appendChild(gesto.outra)}
+    }
+  }
+  if(gesto.dec!=="h")return;
+  e.preventDefault();
+  const W=livro.clientWidth;
+  if(gesto.dir>0){const p=Math.min(1,Math.max(0,-dx/(W*.75)));gesto.p=p;elAtual.style.transform=`rotateY(${-180*p}deg)`;elAtual.querySelector(".vela").style.opacity=p*1.6}
+  else{const p=Math.min(1,Math.max(0,dx/(W*.75)));gesto.p=p;gesto.outra.style.transform=`rotateY(${-180+180*p}deg)`}
+},{passive:false});
+function soltar(e){
+  if(!gesto||e.pointerId!==gesto.id)return;
+  const g=gesto;gesto=null;
+  if(g.dec===null&&Date.now()-g.t<350){ // toque nas bordas
+    const el=g.alvoTap;if(el.closest("a,button,img,input,table,figure"))return;
+    const r=livro.getBoundingClientRect(),x=e.clientX-r.left;
+    if(x>r.width*.84)vira(1);else if(x<r.width*.16)vira(-1);
+    return;
+  }
+  if(g.dec!=="h")return;
+  const ok=(g.p||0)>.22;animando=true;
+  if(g.dir>0){
+    elAtual.classList.add("anim");elAtual.style.transform=ok?"rotateY(-180deg)":"rotateY(0deg)";elAtual.querySelector(".vela").style.opacity=ok?1:0;
+    setTimeout(()=>{if(ok){elAtual.remove();elAtual=g.outra;elAtual.classList.add("cur");atual+=1}else{g.outra.remove();elAtual.classList.remove("anim")}LS.set("pag",atual);atualizaBarras();animando=false},380);
+  }else{
+    g.outra.classList.add("anim");g.outra.style.transform=ok?"rotateY(0deg)":"rotateY(-180deg)";
+    setTimeout(()=>{if(ok){elAtual.remove();elAtual=g.outra;elAtual.classList.remove("anim");elAtual.classList.add("cur");atual-=1}else g.outra.remove();LS.set("pag",atual);atualizaBarras();animando=false},380);
+  }
+}
+livro.addEventListener("pointerup",soltar);livro.addEventListener("pointercancel",soltar);
+document.getElementById("b-prox").onclick=()=>vira(1);
+document.getElementById("b-ant").onclick=()=>vira(-1);
+addEventListener("keydown",e=>{if(e.key==="ArrowRight")vira(1);if(e.key==="ArrowLeft")vira(-1)});
+livro.addEventListener("click",e=>{
+  const b=e.target.closest("[data-ir]");if(b){e.preventDefault();mostra(+b.dataset.ir);return}
+  if(e.target.closest("[data-inst]"))instalar();
+});
+
+/* ---------- chave Técnica / Simples ---------- */
+function trocaModo(m){
+  modo=m;LS.set("modo",m);
+  document.querySelectorAll("#versao button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===m));
+  mostra(atual);toast(m==="t"?"Versão técnica":"Versão simples");
+}
+document.querySelectorAll("#versao button").forEach(b=>b.onclick=()=>{if(b.dataset.v!==modo)trocaModo(b.dataset.v)});
+document.querySelectorAll("#versao button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===modo));
+
+/* ---------- gaveta: sumário, fontes, ajustes ---------- */
+const gav=document.getElementById("gaveta"),veu=document.getElementById("veu"),gc=document.getElementById("gcorpo");
+let aba="sum";
+function abreGaveta(a){aba=a||aba;veu.hidden=false;requestAnimationFrame(()=>gav.classList.add("on"));desenhaGaveta()}
+function fechaGaveta(){gav.classList.remove("on");veu.hidden=true}
+function desenhaGaveta(){
+  document.querySelectorAll(".abas button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.a===aba));
+  const P=PAGS[atual];
+  if(aba==="sum")gc.innerHTML=`<button class="gc" data-ir="0">📖 Capa</button>`+LIVRO.map((T,ti)=>`<div class="gt"><span style="background:${T.cor}">${T.ic}</span>Tema ${ti+1} · ${T.tema}</div>`+T.caps.map((Cp,ci)=>`<button class="gc ${P.ti===ti&&P.ci===ci?"at":""}" data-ir="${primeiraDoCap(ti,ci)}">${ti+1}.${ci+1} ${Cp.titulo}<br><small>${Cp.pags.length} páginas + fontes</small></button>`).join("")).join("")+`<button class="gc" data-ir="${PAGS.length-1}">📚 Todas as fontes</button>`;
+  if(aba==="fon")gc.innerHTML=`<p style="color:var(--mut);font-size:14px">Fontes usadas no livro. As fotos vêm do Wikimedia Commons, com autor e licença na legenda de cada uma.</p><ol class="fontes">${Object.values(FONTES).map(f=>`<li>${esc(f.t)}<br><a href="${f.u}" target="_blank" rel="noopener">${f.u}</a></li>`).join("")}</ol>`;
+  if(aba==="cfg")gc.innerHTML=`<div class="ajuste"><span>Tamanho da letra</span><span><button id="fs-" type="button">A−</button> <b id="fs-v">${fs}</b> <button id="fs+" type="button">A+</button></span></div>
+   <div class="ajuste"><span>Versão do texto</span><span><button type="button" data-m="t" style="${modo==="t"?"":"opacity:.5"}">Técnica</button> <button type="button" data-m="s" style="${modo==="s"?"background:var(--amarelo);color:var(--marrom-esc)":"opacity:.5;background:var(--amarelo);color:var(--marrom-esc)"}">Simples</button></span></div>
+   <div class="ajuste"><span>Fotos guardadas para usar sem internet</span><button type="button" id="baixar">Baixar</button></div>
+   ${instPrompt?`<div class="ajuste"><span>Instalar no celular</span><button type="button" data-inst>📲</button></div>`:(matchMedia("(display-mode: standalone)").matches?"":`<p style="font-size:14px;color:var(--mut)">Para instalar: menu ⋮ do Chrome → <b>Instalar app</b>.</p>`)}
+   <p style="font-size:13px;color:var(--mut)">Feito para estudo pessoal. Números e doses são referências da literatura citada; confirme sempre com o agrônomo, as bulas e as normas.</p>`;
+}
+document.getElementById("b-menu").onclick=()=>abreGaveta("sum");
+document.getElementById("b-fontes").onclick=()=>abreGaveta("fon");
+veu.onclick=fechaGaveta;
+document.querySelectorAll(".abas button").forEach(b=>b.onclick=()=>{aba=b.dataset.a;desenhaGaveta()});
+gc.addEventListener("click",e=>{
+  const ir=e.target.closest("[data-ir]");if(ir){fechaGaveta();mostra(+ir.dataset.ir);return}
+  if(e.target.id==="fs-"||e.target.id==="fs+"){fs=Math.max(15,Math.min(26,fs+(e.target.id==="fs+"?1:-1)));LS.set("fs",fs);document.documentElement.style.setProperty("--fs",fs+"px");document.getElementById("fs-v").textContent=fs;return}
+  const m=e.target.closest("[data-m]");if(m){if(m.dataset.m!==modo)trocaModo(m.dataset.m);desenhaGaveta();return}
+  if(e.target.closest("[data-inst]")){instalar();return}
+  if(e.target.id==="baixar")baixarFotos(e.target);
+});
+async function baixarFotos(btn){
+  btn.disabled=true;let n=0,tot=0;
+  const imgs=[];LIVRO.forEach((T,ti)=>T.caps.forEach((Cp,ci)=>Cp.pags.forEach((Pg,pi)=>{if(Pg.img)imgs.push([Pg.img,ti+"-"+ci+"-"+pi])})));
+  tot=imgs.length;
+  for(const [img,ch] of imgs){
+    const l=await listaFotos(img);
+    if(l.length){const o=l[LS.get("esc:"+ch,0)%l.length];try{await fetch(o.src,{mode:"no-cors"})}catch(e){}}
+    n++;btn.textContent=`${n}/${tot}`;
+  }
+  btn.textContent="✓ Pronto";toast("Fotos guardadas no celular");
+}
+
+/* ---------- zoom de foto ---------- */
+function abreZoom(o,cap){document.getElementById("z-img").src=o.src;document.getElementById("z-cap").innerHTML=`<b>${cap}</b><br>Foto: ${o.cred} — <a href="${o.link||"#"}" target="_blank" rel="noopener">ver origem</a>`;document.getElementById("zoom").hidden=false}
+document.getElementById("z-x").onclick=()=>document.getElementById("zoom").hidden=true;
+
+/* ---------- utilidades ---------- */
+let tT;function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(tT);tT=setTimeout(()=>t.hidden=true,1400)}
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();instPrompt=e;if(atual===0)mostra(0)});
+addEventListener("appinstalled",()=>{instPrompt=null;toast("App instalado!")});
+async function instalar(){if(instPrompt){instPrompt.prompt();await instPrompt.userChoice;instPrompt=null;mostra(atual)}else toast("Menu ⋮ do Chrome → Instalar app")}
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+mostra(0);
+</script>
+</body>
+</html>
