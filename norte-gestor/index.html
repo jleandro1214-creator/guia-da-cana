@@ -45,6 +45,12 @@ p{margin:6px 0}
 .item .tx{flex:1}
 .item .tx b{display:block;font-weight:700}
 .item .tx small{display:block;color:#6d5a44;font-size:.85rem}
+.item.conf{background:#fbe3e0;border-radius:10px;padding-left:8px;padding-right:4px;border:2px solid var(--vermelho)}
+.item.conf .hora{background:var(--vermelho);color:#fff}
+.avisoConf{display:block;color:var(--vermelho);font-style:normal;font-weight:800;font-size:.85rem;margin-top:3px}
+.alerta{background:#fbe3e0;border:2px solid var(--vermelho);color:var(--vermelho);border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:.95rem}
+.lnk{background:none;border:0;color:var(--vermelho);font:inherit;font-weight:700;text-decoration:underline;padding:2px 0}
+.item.novo{animation:pisca 1.6s ease 2}@keyframes pisca{50%{background:var(--amarelo2)}}
 .item.feito .tx b{color:#8a7a66;text-decoration:line-through}
 .hora{flex:none;background:var(--amarelo2);color:var(--marrom);font-weight:800;font-size:.85rem;border-radius:8px;padding:4px 7px;margin-top:3px}
 .del{flex:none;background:none;border:0;font-size:1.2rem;color:var(--vermelho);padding:4px}
@@ -258,23 +264,29 @@ const DIAS=["domingo","segunda","terça","quarta","quinta","sexta","sábado"],ME
 function horaTurno(h){if(!h)return"";if(D.turno!=="noite")return h.replace(":","h");let[a,b]=h.split(":").map(Number);a=(a+10)%24;return a+"h"+p2(b)}
 
 /* ===== listas ===== */
+/* minutos do horário guardado (base turno do dia) e ordem na tela conforme o turno */
+function minDia(h){let m=+h.slice(0,2)*60+ +h.slice(3);if(m<6*60)m+=1440;return m}
+function ordem(h){if(!h)return null;let m=+h.slice(0,2)*60+ +h.slice(3);if(D.turno==="noite"){m=(m+600)%1440;if(m<360)m+=1440}else if(m<360)m+=1440;return m}
+function conflitos(){const mapa={};itens("dia").forEach(i=>{if(i.h)(mapa[i.h]=mapa[i.h]||[]).push(i)});return Object.values(mapa).filter(v=>v.length>1)}
 function itens(tipo){const pad=PADRAO[tipo].filter(i=>!D.ocultos.includes(i.id)).map(i=>Object.assign({pad:true},i,(D.edits||{})[i.id]||{}));
  const ex=D.extra[tipo].map(i=>Object.assign({},i));
  let l=pad.concat(ex);
- if(tipo==="dia"){const ord=i=>{if(!i.h)return null;let m=+i.h.slice(0,2)*60+ +i.h.slice(3);if(D.turno==="noite"){m=(m+600)%1440;if(m<360)m+=1440}return m};
-  const grupos=["Início do turno","Durante o turno","Fim do turno","Meus itens"];
-  l.forEach(i=>{if(!i.g)i.g="Meus itens"});
-  l.sort((a,b)=>{const ga=grupos.indexOf(a.g),gb=grupos.indexOf(b.g);if(ga!==gb)return ga-gb;const oa=ord(a),ob=ord(b);if(oa==null&&ob==null)return 0;if(oa==null)return 1;if(ob==null)return -1;return oa-ob})}
+ if(tipo==="dia"){
+  const grupos=["Início do turno","Durante o turno","Fim do turno","Sem horário"];
+  l.forEach(i=>{if(i.h){const m=minDia(i.h);i.g=m<8*60?grupos[0]:m>=16*60?grupos[2]:grupos[1]}else if(!i.pad)i.g=grupos[3]});
+  l.sort((a,b)=>{const ga=grupos.indexOf(a.g),gb=grupos.indexOf(b.g);if(ga!==gb)return ga-gb;const oa=ordem(a.h),ob=ordem(b.h);if(oa==null&&ob==null)return 0;if(oa==null)return 1;if(ob==null)return -1;return oa-ob})}
  return l}
 function marcados(tipo){const k=chaves()[tipo];return D.checks[k]||{}}
 function pct(tipo){const l=itens(tipo);if(!l.length)return 0;const m=marcados(tipo);return Math.round(l.filter(i=>m[i.id]).length/l.length*100)}
 let editando=false;
 function renderLista(tipo,el){
  const l=itens(tipo),m=marcados(tipo);let html="",grupo=null;
+ const conf=tipo==="dia"?conflitos():[],emConf=new Set(conf.flat().map(i=>i.id));
+ if(conf.length)html+=`<div class="alerta">⚠️ <b>Conflito de horário</b>${conf.map(g=>`<br>${g.length} compromissos às ${horaTurno(g[0].h)}: ${g.map(i=>`<button class="lnk" data-edit="dia:${i.id}">${esc(i.t)} ✏️</button>`).join(" · ")}`).join("")}</div>`;
  if(!l.length){el.innerHTML=`<div class="vazio">Nenhum item. Toque em ➕ Item para criar.</div>`;return}
  l.forEach(i=>{if(tipo==="dia"&&i.g!==grupo){grupo=i.g;html+=`<h3>${esc(grupo)}</h3>`}
   const ok=!!m[i.id];
-  html+=`<div class="item ${ok?"feito":""}"><input type="checkbox" data-tipo="${tipo}" data-id="${i.id}" ${ok?"checked":""} aria-label="${esc(i.t)}">${i.h?`<span class="hora">${horaTurno(i.h)}</span>`:""}<div class="tx"><b>${esc(i.t)}</b>${i.s?`<small>${esc(i.s)}</small>`:""}</div><button class="del" data-edit="${tipo}:${i.id}" aria-label="Editar item" style="color:var(--marrom)">✏️</button></div>`});
+  html+=`<div class="item ${ok?"feito":""} ${emConf.has(i.id)?"conf":""}" id="it-${i.id}"><input type="checkbox" data-tipo="${tipo}" data-id="${i.id}" ${ok?"checked":""} aria-label="${esc(i.t)}">${i.h?`<span class="hora">${horaTurno(i.h)}</span>`:""}<div class="tx"><b>${esc(i.t)}</b>${i.s?`<small>${esc(i.s)}</small>`:""}${emConf.has(i.id)?`<em class="avisoConf">⚠️ Mesmo horário de outro compromisso — toque em ✏️</em>`:""}</div><button class="del" data-edit="${tipo}:${i.id}" aria-label="Editar item" style="color:var(--marrom)">✏️</button></div>`});
  html+=`<p style="font-size:.82rem;color:#7d6a52;margin-top:8px">✏️ edita qualquer compromisso: texto, detalhe, horário, esconder ou apagar</p>`;
  el.innerHTML=html}
 function renderChecks(){
@@ -303,6 +315,11 @@ $("btnPassagem").onclick=()=>{const r=D.registros[chaves().data]||{};const d=cha
  if(!r.rHa&&!r.rCargas&&!ps.length&&!r.rObs){toast("Preencha o registro primeiro");return}
  if(navigator.share)navigator.share({text:t}).catch(()=>{});else location.href="https://wa.me/?text="+encodeURIComponent(t)};
 
+/* ===== destacar item novo/editado ===== */
+function destacar(id,h){setTimeout(()=>{const el=id&&document.getElementById("it-"+id);if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.add("novo")}
+ const c=h&&conflitos().find(g=>g[0].h===h);
+ if(c)toast(`⚠️ Já tem compromisso às ${horaTurno(h)}. Veja o alerta em vermelho.`);else toast(id?"Compromisso no lugar certo ✔":"Salvo")},350)}
+
 /* ===== editar item ===== */
 function hParaTela(h){if(!h||D.turno!=="noite")return h||"";let m=(+h.slice(0,2)*60+ +h.slice(3)+600)%1440;return p2(Math.floor(m/60))+":"+p2(m%60)}
 function hDaTela(h){if(!h||D.turno!=="noite")return h||"";let m=(+h.slice(0,2)*60+ +h.slice(3)-600+1440)%1440;return p2(Math.floor(m/60))+":"+p2(m%60)}
@@ -318,7 +335,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-edit]");if
  $("eSalvar").onclick=()=>{const t=$("eT").value.trim();if(!t){toast("Escreva o compromisso");return}
   const novo={t,s:$("eS").value.trim()};if(tipo==="dia")novo.h=hDaTela($("eH").value);
   if(pad){D.edits=D.edits||{};D.edits[id]=novo}else{const x=D.extra[tipo].find(x=>x.id===id);Object.assign(x,novo)}
-  salvar();fecharModal();renderChecks();toast("Compromisso atualizado")};
+  salvar();fecharModal();renderChecks();destacar("dia"===tipo?id:null,tipo==="dia"?novo.h:"")};
  if(ed)$("eOrig").onclick=()=>{delete D.edits[id];salvar();fecharModal();renderChecks();toast("Voltou ao original")}});
 
 /* ===== adicionar item ===== */
@@ -334,10 +351,10 @@ $("fab").onclick=()=>{const at=document.querySelector("#abas button.on").dataset
   <button class="btn grande" id="mSalvar">💾 Adicionar</button>`);
  let sel=tipo;const pint=()=>{document.querySelectorAll("#mTipo button").forEach(b=>b.classList.toggle("on",b.dataset.v===sel));$("mHL").hidden=sel!=="dia"};pint();
  $("mTipo").onclick=e=>{const b=e.target.closest("button");if(b){sel=b.dataset.v;pint()}};
- setTimeout(()=>$("mT").focus(),100);
+ setTimeout(()=>{const e=$("mT");if(e)e.focus()},100);
  $("mSalvar").onclick=()=>{const t=$("mT").value.trim();if(!t){toast("Escreva o item");return}
-  D.extra[sel].push({id:"x"+uid(),t,s:$("mS").value.trim(),h:sel==="dia"?hDaTela($("mH").value):"",g:"Meus itens"});salvar();fecharModal();renderChecks();
-  irAba(sel==="sem"?"semana":sel==="mes"?"mes":"hoje");toast("Item adicionado")}};
+  const nid="x"+uid(),nh=sel==="dia"?hDaTela($("mH").value):"";D.extra[sel].push({id:nid,t,s:$("mS").value.trim(),h:nh,g:""});salvar();fecharModal();renderChecks();
+  irAba(sel==="sem"?"semana":sel==="mes"?"mes":"hoje");if(sel==="dia")destacar(nid,nh);else toast("Item adicionado")}};
 
 /* ===== modal ===== */
 function abrirModal(h){$("caixa").innerHTML=h;$("modal").hidden=false;document.body.style.overflow="hidden"}
