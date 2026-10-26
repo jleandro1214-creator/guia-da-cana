@@ -6,6 +6,7 @@
 <title>Dia Leve</title>
 <meta name="description" content="Hábitos diários, pausas de respiração e diário do humor. Funciona sem internet.">
 <meta name="theme-color" content="#2f7d6d">
+<meta name="color-scheme" content="light dark">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -98,6 +99,11 @@ textarea{min-height:84px;resize:vertical;margin-top:12px}
 .dot{aspect-ratio:1;border-radius:50%;background:var(--line);max-width:30px;justify-self:center;width:100%}
 .dot.half{background:linear-gradient(90deg,var(--pri) 50%,var(--line) 50%);opacity:.8}
 .dot.full{background:var(--pri)}
+:root{color-scheme:light dark}
+@media (prefers-color-scheme: dark){
+  .dot.full{background:#6ee7a8;box-shadow:0 0 8px rgba(110,231,168,.35)}
+  .dot.half{background:linear-gradient(90deg,#6ee7a8 50%,var(--line) 50%);opacity:1}
+}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .stat{background:var(--pri2);border-radius:16px;padding:14px}
 .stat b{display:block;font-size:28px;color:var(--pri)}
