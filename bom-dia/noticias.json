@@ -1,211 +1,199 @@
 {
- "gerado": "2026-10-25T23:02:47-03:00",
- "assuntos": {
-  "cana": [
-   {
-    "titulo": "Canaplan reduz previsão de moagem no Centro-Sul",
-    "resumo": "A consultoria Canaplan agora espera 632 milhões de toneladas de cana na safra 2026/27, bem abaixo dos 676 milhões previstos no início. A estimativa inclui 36,6 milhões de toneladas de açúcar e cerca de 37 bilhões de litros de etanol somando cana e milho.",
-    "fonte": "JornalCana",
-    "link": "https://jornalcana.com.br/mercado/quanto-de-cana-sera-mesmo-processada-na-safra-2026-27-no-centro-sul/"
-   },
-   {
-    "titulo": "Chuvas atrasam colheita e podem deixar cana no campo",
-    "resumo": "O excesso de chuva no Centro-Sul encharcou as lavouras e dificultou a entrada das máquinas. Um levantamento da XP estima que cerca de 27 milhões de toneladas de cana fiquem para 2027, e o etanol de milho deve compensar parte da perda.",
-    "fonte": "Energia Limpa",
-    "link": "https://energialimpa.live/chuva-atrasa-colheita-de-cana-e-preve-27-milhoes-de-toneladas-no-campo/"
-   },
-   {
-    "titulo": "Norte e Nordeste moeram 16,7% da cana prevista",
-    "resumo": "Até meados de setembro, as usinas do Norte e Nordeste processaram quase 10 milhões de toneladas, volume estável em relação à safra passada. A produção de açúcar subiu um pouco, enquanto a de etanol caiu cerca de 7%.",
-    "fonte": "JornalCana",
-    "link": "https://jornalcana.com.br/industria/etanol/usinas-do-norte-e-nordeste-moeram-167-das-previstas-60-milhoes-de-toneladas-de-cana/"
-   },
-   {
-    "titulo": "Preço médio do etanol nos postos cai levemente",
-    "resumo": "Segundo a ANP, o litro do etanol hidratado ficou em média em 4 reais e 11 centavos na semana até 17 de outubro, queda de 0,7%. São Paulo teve o menor preço médio do país, e o Amapá, o maior.",
-    "fonte": "Safras & Mercado",
-    "link": "https://safras.com.br/preco-do-etanol-cai-07-na-media-nacional-anp"
-   },
-   {
-    "titulo": "Índia proíbe uso de açúcar para fazer etanol",
-    "resumo": "O governo indiano decidiu que nenhum açúcar será destinado ao etanol no ciclo 2026/27, para segurar o preço do produto no mercado interno. A medida derrubou ações de usinas indianas e pode mexer com o mercado mundial de açúcar.",
-    "fonte": "Forbes Brasil",
-    "link": "https://forbes.com.br/forbes-agro/2026/10/india-proibe-uso-de-acucar-para-etanol-em-2026-27-e-pressiona-acoes-do-setor/"
-   }
-  ],
-  "politica": [
-   {
-    "titulo": "Lula é reeleito presidente no segundo turno",
-    "resumo": "Lula venceu Flávio Bolsonaro com cerca de 51,8% dos votos válidos, contra 48,2%, uma diferença de aproximadamente 4,4 milhões de votos. Será o quarto mandato dele, com posse marcada para 5 de janeiro de 2027, ao lado de Geraldo Alckmin.",
-    "fonte": "InvestNews",
-    "link": "https://investnews.com.br/economia/lula-vence-2-turno-presidente-brasil/"
-   },
-   {
-    "titulo": "Primeira virada no segundo turno desde 1989",
-    "resumo": "Flávio Bolsonaro liderou o primeiro turno com 47% dos votos, mas perdeu a disputa final. É a primeira vez desde a redemocratização que o primeiro colocado no primeiro turno é superado no segundo.",
-    "fonte": "Terra",
-    "link": "https://www.terra.com.br/noticias/eleicoes/flavio-bolsonaro-e-o-primeiro-candidato-a-sofrer-virada-perde-para-lula-e-fracassa-na-tentativa-de-levar-bolsonarismo-de-volta-ao-poder,b09e3b98d7a3b08300764fc476261c97wfzci8nu.html"
-   },
-   {
-    "titulo": "País dividido: Lula vence em 13 estados, Flávio em 14",
-    "resumo": "Lula ganhou em todo o Nordeste, além de Minas Gerais, Pará, Amazonas e Amapá. Flávio venceu no Sul, no Centro-Oeste, em São Paulo, no Rio de Janeiro e em parte do Norte.",
-    "fonte": "Metrópoles",
-    "link": "https://www.metropoles.com/brasil/no-2o-turno-lula-ganhou-em-13-estados-flavio-bolsonaro-venceu-em-14"
-   },
-   {
-    "titulo": "Seis governadores são definidos no segundo turno",
-    "resumo": "Foram eleitos Mailza Assis no Acre, Omar Aziz no Amazonas, Celina Leão no Distrito Federal, Lorenzo Pazolini no Espírito Santo, Cadu de Lula no Rio Grande do Norte e Vicentinho Júnior no Tocantins.",
-    "fonte": "Forbes Brasil",
-    "link": "https://forbes.com.br/geral/2026/10/eleicoes-2026-governadores-eleitos-no-2o-turno-nos-5-estados-e-no-df/"
-   },
-   {
-    "titulo": "No discurso da vitória, Lula defende regular as redes",
-    "resumo": "Em seu primeiro pronunciamento como reeleito, Lula disse que o país precisará regular as plataformas digitais e tratar crimes na internet como os de fora dela. Ele também fez críticas duras ao adversário e agradeceu aos eleitores e aliados.",
-    "fonte": "ND+",
-    "link": "https://ndmais.com.br/politica/lula-primeiro-discurso-vitoria-flavio-bolsonaro-regulamentacao-redes/"
-   }
-  ],
-  "tecnologia": [
-   {
-    "titulo": "Falhas graves no PHP deixaram servidores expostos",
-    "resumo": "Duas brechas críticas na linguagem PHP permitiam que invasores executassem comandos em servidores sem senha. Empresas e governos tiraram sistemas do ar para aplicar correções, e as falhas foram achadas com ajuda de inteligência artificial.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/25/seguranca/duas-falhas-criticas-no-php-quase-provocaram-crise-global-na-internet/"
-   },
-   {
-    "titulo": "Anthropic se prepara para estrear na bolsa",
-    "resumo": "A Anthropic planeja abrir capital em novembro, com valor que pode chegar a 1,5 trilhão de dólares, segundo a Reuters. Enquanto isso, outras empresas de infraestrutura de IA adiaram suas ofertas por causa da instabilidade do mercado.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/25/pro/anthropic-prepara-ipo-bilionario-enquanto-empresas-de-ia-adiam-estreia-na-bolsa/"
-   },
-   {
-    "titulo": "Chinesa Moonshot limita sua IA para evitar ataques hackers",
-    "resumo": "A Moonshot AI retirou dados de ciberataques do treinamento do seu modelo aberto mais avançado, reduzindo sua capacidade ofensiva. A medida reflete a preocupação de que a IA torne ataques mais fáceis e baratos.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/25/inteligencia-artificial/moonshot-limita-capacidades-de-seu-modelo-de-ia-mais-avancado-para-evitar-ataques-hackers/"
-   },
-   {
-    "titulo": "Unitree mostra robô humanoide que luta kung fu",
-    "resumo": "A fabricante chinesa apresentou um robô de cerca de 1,8 metro pensado como guarda-costas, que reage a ameaças com golpes de kung fu. A empresa não disse se as cenas foram autônomas nem divulgou preço ou data de lançamento.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/25/pro/unitree-apresenta-robo-humanoide-guarda-costas-que-executa-movimentos-de-kung-fu-veja/"
-   }
-  ],
-  "ciencia": [
-   {
-    "titulo": "Aspirina em dose baixa e menor risco de demência",
-    "resumo": "Um estudo australiano com mais de 13 mil idosos viu risco de demência bem menor em quem tomava aspirina e tinha certo perfil genético. Mas esse mesmo grupo teve o dobro de sangramentos graves, e os autores pedem novas pesquisas antes de qualquer recomendação.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261024222026.htm"
-   },
-   {
-    "titulo": "Supercondutor estudado há 40 anos guarda surpresa",
-    "resumo": "Pesquisadores da Universidade de Warwick descobriram, com raios X em 3D, que um supercondutor de cobre tem duas estruturas atômicas misturadas, e não uma só. Isso pode obrigar a revisar medições e teorias antigas.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261023023731.htm"
-   },
-   {
-    "titulo": "Linguagem humana tem preferência por segurança",
-    "resumo": "Cientistas da Universidade de Vermont analisaram bilhões de usos de palavras e propõem que o sentido delas é melhor explicado por poder, perigo e estrutura. Eles encontraram uma tendência geral da linguagem a favorecer a segurança.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261023023738.htm"
-   },
-   {
-    "titulo": "Método para detectar a hipotética vida espelhada",
-    "resumo": "Pesquisadores britânicos propuseram usar luz polarizada, o mesmo princípio dos óculos de cinema 3D, para identificar organismos feitos de moléculas invertidas. A técnica ainda não foi testada na prática.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261023023726.htm"
-   },
-   {
-    "titulo": "Estímulo elétrico na orelha contra pressão alta",
-    "resumo": "Um teste com 63 pacientes mostrou que um aparelho que dá pequenos pulsos na orelha é seguro para uso em casa. No geral, ele não baixou a pressão mais que o placebo, mas pareceu ajudar quem tinha hipertensão mais grave.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261023023732.htm"
-   }
-  ],
-  "astronomia": [
-   {
-    "titulo": "Lua Cheia ilumina o céu nesta segunda-feira",
-    "resumo": "A Lua ficou cheia na madrugada desta segunda, 26 de outubro, à 1h11 de Brasília, e segue bem iluminada nas próximas noites. Basta um lugar com horizonte livre para observar, sem precisar de telescópio.",
-    "fonte": "Correio",
-    "link": "https://www.correio24horas.com.br/em-alta/lua-cheia-em-touro-acontece-nesta-segunda-feira-26-de-outubro-e-promete-um-espetaculo-no-ceu-antes-do-halloween-1026"
-   },
-   {
-    "titulo": "Pode ter sido achada a primeira lua fora do Sistema Solar",
-    "resumo": "Astrônomos usaram o telescópio VLT, no Chile, e encontraram indícios de um objeto do tamanho de Júpiter ou maior orbitando uma anã marrom. O estudo saiu na revista Nature e chama o corpo de exossatélite.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261023023736.htm"
-   },
-   {
-    "titulo": "Amostras do asteroide Bennu contam a história do Sistema Solar",
-    "resumo": "Uma análise da ETH Zurique indica que o Bennu se formou numa região onde materiais do Sistema Solar interno e externo se misturaram. Os autores sugerem que Júpiter teve papel importante nessa mistura no início de tudo.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261023023734.htm"
-   },
-   {
-    "titulo": "Teia magnética misteriosa é vista acima do Sol",
-    "resumo": "Um telescópio levado por balão a 35 quilômetros de altura revelou estruturas magnéticas finas como fios na atmosfera do Sol. Simulações sugerem que movimentos de torção na superfície solar dão forma a elas.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261023023723.htm"
-   }
-  ],
-  "filosofia": [
-   {
-    "titulo": "Filósofo que foi coveiro lança livro sobre a morte",
-    "resumo": "Osmair Camargo Cândido, formado em filosofia e leitor de Nietzsche, reuniu décadas de trabalho em cemitérios no livro Memórias de um coveiro, da Fósforo. O lançamento está marcado para 23 de novembro.",
-    "fonte": "Brasil em Folhas",
-    "link": "https://brasilemfolhas.com.br/2026/10/filosofo-que-trabalhou-como-coveiro-lanca-livro-sobre-a-morte/"
-   },
-   {
-    "titulo": "Simpósio debate crise da democracia em Pirenópolis",
-    "resumo": "De 28 a 30 de outubro, Pirenópolis, em Goiás, recebe o simpósio da Associação Ibero-americana de Filosofia Política. O tema é a crise das democracias, a crise ecológica e os novos autoritarismos.",
-    "fonte": "ANPOF",
-    "link": "https://anpof.org.br/agenda/eventos/xix-simposio-internacional-da-associacao-iberoamericana-de-filosofia-politica-aifp--crise-das-democracias-crise-ecologica-e-novos-autoritarismos"
-   },
-   {
-    "titulo": "Colóquio une literatura, Bíblia e reflexão filosófica",
-    "resumo": "Entre 26 e 28 de outubro, Unicamp e Mackenzie promovem um colóquio internacional sobre poéticas bíblicas e seculares. Os debates passam por imaginação moral, tolerância religiosa e liberdade de expressão.",
-    "fonte": "Jornal da Unicamp",
-    "link": "https://jornal.unicamp.br/noticias/2026/10/23/coloquio-internacional-debate-relacoes-entre-literatura-textos-biblicos-e-experiencia-humana"
-   },
-   {
-    "titulo": "Seis livros para pensar democracia e polarização",
-    "resumo": "Uma seleção reúne obras sobre polarização, uso político da palavra, algoritmos e sistema eleitoral no Brasil. A proposta é ajudar o leitor a refletir sobre o debate público para além das eleições.",
-    "fonte": "Diário do Comércio",
-    "link": "https://diariodocomercio.com.br/negocios/leituras-alem-polarizacao"
-   }
-  ],
-  "livros": [
-   {
-    "titulo": "Pedro Bandeira estreia na ficção adulta com Holmes e Capitu",
-    "resumo": "Aos 84 anos, o autor de clássicos juvenis lança pela Rocco o romance Sherlock Holmes e Capitu. No livro, o detetive investiga se Capitu traiu Bentinho, a grande dúvida de Dom Casmurro.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/10/23/pedro-bandeira-estreia-na-ficcao-adulta-com-encontro-entre-sherlock-holmes-e-capitu/"
-   },
-   {
-    "titulo": "Contos de Dalton Trevisan ganham antologia e audiolivro",
-    "resumo": "A Todavia reuniu 77 contos do escritor curitibano em Educação sentimental do vampiro, organizado por Caetano Galindo e Felipe Hirsch. A versão em áudio tem doze narradores diferentes.",
-    "fonte": "PublishNews",
-    "link": "https://publishnews.com.br/materias/2026/10/23/ler-o-som-caetano-w-galindo-e-as-doze-vozes-de-77-contos-de-dalton-trevisan"
-   },
-   {
-    "titulo": "Prêmio Demócrito Rocha abre inscrições no Ceará",
-    "resumo": "O prêmio literário recebe obras de poesia, ficção e ensaio de 30 de outubro a 18 de novembro. Cada vencedor ganha 3 mil reais, além de livro impresso e audiolivro.",
-    "fonte": "O Povo",
-    "link": "https://opovo.com.br/vidaearte/2026/10/23/com-rs-3-mil-para-vencedores-e-edicao-de-livro-premio-literario-democrito-rocha-abre-inscricoes.html"
-   },
-   {
-    "titulo": "Sempre um Papo fará 27 conversas com autores do país",
-    "resumo": "Para comemorar 40 anos, o projeto vai lançar conversas com um escritor de cada estado e do Distrito Federal, conduzidas por Marcelino Freire. A estreia gratuita no YouTube está marcada para 7 de dezembro.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/10/23/novo-projeto-sempre-um-papo-br027-conversa-com-autores-das-27-regioes-do-pais/"
-   },
-   {
-    "titulo": "Feira do Livro de Londres anuncia autores convidados",
-    "resumo": "Bernardine Evaristo, Uketsu e Holly Jackson estão entre os nomes confirmados na próxima edição da London Book Fair, um dos maiores eventos do mercado editorial.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/10/23/bernardine-evaristo-uketsu-e-holly-jackson-estao-entre-os-autores-da-feira-do-livro-de-londres/"
-   }
-  ]
- }
+  "gerado": "2026-10-26T22:53:08-03:00",
+  "assuntos": {
+    "cana": [
+      {
+        "titulo": "Setor da cana pede união após reeleição de Lula",
+        "resumo": "Na abertura da Conferência Datagro, em São Paulo, líderes da Orplana e da Siamig disseram que o resultado frustrou parte do setor, mas defenderam falar com uma só voz. Um dos temas citados é o fim da escala seis por um, aprovado pelo Senado.",
+        "fonte": "The AgriBiz",
+        "link": "https://www.theagribiz.com/empresas/bioenergia/poderiamos-ter-amanhecido-mais-animados-o-clima-pos-eleitoral-no-setor-sucroalcooleiro"
+      },
+      {
+        "titulo": "Datagro prevê mais cana e etanol, e menos açúcar",
+        "resumo": "A consultoria projeta moagem de 640,5 milhões de toneladas no Centro-Sul na safra 2026/27, com alta de cerca de 10% no etanol e queda de 5% no açúcar. A umidade deve reduzir o teor de açúcar da cana e atrasar o fim da safra.",
+        "fonte": "The AgriBiz",
+        "link": "https://www.theagribiz.com/agribuzz/mais-cana-menos-acucar-as-projecoes-da-datagro-para-2026-27/"
+      },
+      {
+        "titulo": "Ações de Cosan e Raízen despencam após a eleição",
+        "resumo": "No dia de forte queda da Bolsa, a Cosan chegou a perder mais de 40% e a Raízen cerca de 20%. A São Martinho também caiu, mas recuperou parte da perda ao longo do pregão.",
+        "fonte": "AgFeed",
+        "link": "https://agfeed.com.br/financas/quem-riu-ou-chorou-na-b3-apos-vitoria-de-lula-suzano-e-jbs-disparam-enquanto-cosan-e-camil-derretem/"
+      },
+      {
+        "titulo": "Açúcar recua em Nova York e usinas antecipam vendas",
+        "resumo": "O açúcar fechou a semana perto de 20,3 centavos de dólar por libra-peso, em leve queda. A Índia cortou o uso de açúcar para etanol, e usinas brasileiras aceleram a venda antecipada da safra 2027/28.",
+        "fonte": "JornalCana",
+        "link": "https://jornalcana.com.br/mercado/ninguem-quebra-com-margem-no-bolso/"
+      }
+    ],
+    "politica": [
+      {
+        "titulo": "TSE confirma reeleição de Lula no segundo turno",
+        "resumo": "Lula teve 51,79% dos votos válidos, contra 48,21% de Flávio Bolsonaro. A abstenção ficou em torno de 19%, menor que no primeiro turno.",
+        "fonte": "TSE",
+        "link": "https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/presidente-do-tse-anuncia-reeleicao-de-lula-e-faz-balanco-do-2o-turno-das-eleicoes-2026"
+      },
+      {
+        "titulo": "Flávio Bolsonaro não reconhece resultado e promete ir à Justiça",
+        "resumo": "Em vídeo, o senador disse que vai pedir a anulação da eleição por causa da extensão do horário de votação até as sete da noite. Ele não apresentou provas de que a medida tenha mudado o resultado.",
+        "fonte": "Metrópoles",
+        "link": "https://www.metropoles.com/brasil/lula-nao-reconheceria-minha-vitoria-se-fosse-o-contrario-diz-flavio"
+      },
+      {
+        "titulo": "Bolsa aciona circuit breaker no dia seguinte à eleição",
+        "resumo": "O Ibovespa caiu mais de 10% logo na abertura desta segunda, e as negociações foram suspensas por meia hora. Segundo analistas, o mercado esperava outro resultado.",
+        "fonte": "InfoMoney",
+        "link": "https://www.infomoney.com.br/mercados/circuit-breaker-por-que-bolsa-suspendeu-negociacoes-veja-quando-ela-volta/"
+      },
+      {
+        "titulo": "Seis estados definem governadores no segundo turno",
+        "resumo": "Foram eleitos Mailza Assis no Acre, Omar Aziz no Amazonas, Celina Leão no Distrito Federal, Lorenzo Pazolini no Espírito Santo, Cadu de Lula no Rio Grande do Norte e Vicentinho Júnior no Tocantins.",
+        "fonte": "Jovem Pan",
+        "link": "https://jovempan.com.br/politica/segundo-turno-seis-governadores-eleitos-2026/"
+      },
+      {
+        "titulo": "Lula poderá indicar até quatro ministros do STF até 2030",
+        "resumo": "Além da vaga aberta por Barroso, ainda sem substituto, haverá aposentadorias de Fux, Cármen Lúcia e Gilmar Mendes. Cada indicação precisa ser aprovada pelo Senado.",
+        "fonte": "Diário do Grande ABC",
+        "link": "https://www.dgabc.com.br/Noticia/4365017/lula-podera-indicar-ate-quatro-ministros-ao-stf-ate-2030"
+      }
+    ],
+    "tecnologia": [
+      {
+        "titulo": "Vivo lança internet via satélite Starlink direto no celular",
+        "resumo": "O Vivo Satélite permite mandar mensagens, áudios e usar mapas em áreas sem sinal, sem antena nem aplicativo. Por tempo limitado, o uso é gratuito e não consome a franquia.",
+        "fonte": "Exame",
+        "link": "https://exame.com/tecnologia/vivo-e-starlink-lancam-conexao-direta-entre-celulares-e-satelites-veja-como-funciona/"
+      },
+      {
+        "titulo": "Itaú compra startup brasileira de IA por R$ 2,9 bilhões",
+        "resumo": "O banco vai adquirir a NeoSpace, que já tinha 15% do Itaú como sócio. O negócio ainda precisa de aprovação do Cade e do Banco Central.",
+        "fonte": "Tecnoblog",
+        "link": "https://tecnoblog.net/noticias/itau-compra-startup-de-ia-por-r-29-bilhoes"
+      },
+      {
+        "titulo": "Compradores relatam tela rachada no iPhone dobrável",
+        "resumo": "Donos do iPhone Duo mostraram rachaduras perto da dobradiça poucos dias após o lançamento. A Apple não comentou, e ainda não se sabe se o problema é comum.",
+        "fonte": "Tecnoblog",
+        "link": "https://tecnoblog.net/noticias/iphone-duo-tem-relatos-de-tela-rachada-poucos-dias-apos-lancamento"
+      },
+      {
+        "titulo": "Globoplay muda planos e preços",
+        "resumo": "O plano com anúncios ficou mais caro e ganhou mais canais, e o plano com o Premiere ficou mais barato. Os novos valores já valem para quem assinar agora.",
+        "fonte": "Tecnoblog",
+        "link": "https://tecnoblog.net/noticias/globoplay-reformula-planos-confira-os-novos-recursos-e-precos/"
+      }
+    ],
+    "ciencia": [
+      {
+        "titulo": "IA encontra sinais de câncer de pâncreas mais de um ano antes",
+        "resumo": "Um sistema analisou exames antigos e achou pistas da doença, em média, 475 dias antes do diagnóstico, superando radiologistas. O método ainda precisa ser testado em novos pacientes.",
+        "fonte": "ScienceDaily (revista Gut)",
+        "link": "https://www.sciencedaily.com/releases/2026/10/261024222031.htm"
+      },
+      {
+        "titulo": "Fungo gigante apelidado de D-Rex é descoberto na China",
+        "resumo": "Cientistas descreveram um cogumelo que chega a meio metro de altura e mais de dois quilos. Ele pertence a uma família nova, surgida logo depois da extinção dos dinossauros.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/10/261025073034.htm"
+      },
+      {
+        "titulo": "Arqueólogos podem ter achado o naufrágio mais antigo do mundo",
+        "resumo": "Na costa da Turquia, uma equipe encontrou restos de um barco com jarros de cerâmica de cerca de 4.500 anos. A datação ainda é preliminar e o estudo não foi revisado por outros cientistas.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/10/261025073036.htm"
+      },
+      {
+        "titulo": "Eclipse de 2.700 anos atrás revela rotação da Terra",
+        "resumo": "Pesquisadores japoneses reconstruíram um eclipse registrado na China antiga e concluíram que a Terra girava um pouco mais rápido naquela época.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/10/261025073055.htm"
+      },
+      {
+        "titulo": "Adultos foram mais criativos que crianças em estudo",
+        "resumo": "Na Áustria, pesquisadores compararam crianças em idade pré-escolar e adultos em tarefas de imaginação. Os adultos se saíram melhor, principalmente quando havia um objetivo definido.",
+        "fonte": "Gizmodo Brasil",
+        "link": "https://www.gizmodo.com.br/criancas-nao-sao-mais-criativas-que-adultos-estudo-revela-resultado-inesperado-72880"
+      }
+    ],
+    "astronomia": [
+      {
+        "titulo": "Telescópio Swift, da NASA, deve cair nas próximas semanas",
+        "resumo": "Depois de 22 anos estudando explosões no universo, o Swift encerrou as observações e vai reentrar na atmosfera sem controle. A NASA diz ser improvável que os pedaços causem danos.",
+        "fonte": "Diário do Pará",
+        "link": "https://diariodopara.com.br/noticias/telescopio-da-nasa-deve-cair-nas-proximas-semanas-em-faixa-da-america-latina/"
+      },
+      {
+        "titulo": "Lua do Caçador ainda brilha quase cheia no céu",
+        "resumo": "A Lua cheia de outubro aconteceu na madrugada de segunda e continua bonita nas próximas noites. Vale olhar para o leste perto do anoitecer, com Saturno nas proximidades.",
+        "fonte": "Aventuras na História",
+        "link": "https://aventurasnahistoria.com.br/noticias/historia-hoje/lua-cheia-do-cacador-ilumina-o-ceu-esta-semana-veja-como-ver.phtml"
+      },
+      {
+        "titulo": "James Webb acha três buracos negros numa galáxia antiga",
+        "resumo": "Em uma galáxia a mais de 12,5 bilhões de anos-luz, o telescópio viu três buracos negros gigantes ativos. Dois deles estão tão próximos que devem se fundir.",
+        "fonte": "ScienceDaily",
+        "link": "https://sciencedaily.com/releases/2026/10/261024222000.htm"
+      },
+      {
+        "titulo": "Astrônomos podem ter achado a primeira lua fora do Sistema Solar",
+        "resumo": "Com um telescópio do ESO, no Chile, a equipe viu sinais de uma lua enorme girando em torno de uma anã marrom. A descoberta ainda precisa ser confirmada.",
+        "fonte": "ScienceDaily",
+        "link": "https://sciencedaily.com/releases/2026/10/261023023736.htm"
+      }
+    ],
+    "filosofia": [
+      {
+        "titulo": "Filósofos discutem resposta conjunta ao uso de IA na pesquisa",
+        "resumo": "Diante de artigos e pareceres feitos por IA, uma fundação vai reunir editores, filósofos e juristas em Nova York, em abril de 2027, para debater regras comuns para a área.",
+        "fonte": "Daily Nous",
+        "link": "https://dailynous.com/2026/10/26/coordinating-the-philosophy-professions-response-to-the-use-of-ai-in-research"
+      },
+      {
+        "titulo": "Dia Mundial da Filosofia terá tema sobre um mundo em crise",
+        "resumo": "A data da UNESCO será em 19 de novembro e vai perguntar como conviver em meio a crises de clima, migração, saúde e inteligência artificial.",
+        "fonte": "Daily Nous",
+        "link": "https://dailynous.com/2026/10/26/reminder-world-philosophy-day-coming-up-next-month"
+      },
+      {
+        "titulo": "Belchior faria 80 anos; letras dialogam com Nietzsche",
+        "resumo": "Uma análise liga a postura crítica do cantor à ideia de intempestividade de Nietzsche. Professores usam suas músicas em aulas de filosofia.",
+        "fonte": "O Povo",
+        "link": "https://mais.opovo.com.br/jornal/vidaearte/2026/10/25/belchior-80-anos-compositor-intempestivo-uniu-filosofia-e-literatura.html"
+      },
+      {
+        "titulo": "Eduardo Giannetti fala sobre o futuro do Brasil em São Paulo",
+        "resumo": "O economista e filósofo participa no dia 29 de outubro de um encontro no Teatro Iguatemi, sobre economia, comportamento humano e desenvolvimento.",
+        "fonte": "Revista Business",
+        "link": "https://revistabusiness.com.br/2026/10/26/teatro-iguatemi-reune-eduardo-giannetti-e-martha-gabriel-em-serie-sobre-futuro-do-brasil"
+      }
+    ],
+    "livros": [
+      {
+        "titulo": "Prêmio Jabuti anuncia vencedores nesta terça",
+        "resumo": "A cerimônia é nesta terça, 27 de outubro, na Sala São Paulo, com 23 categorias. O Livro do Ano recebe 70 mil reais e uma viagem a uma feira internacional.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/10/14/premio-jabuti-anuncia-os-finalistas-das-23-categorias-de-2026"
+      },
+      {
+        "titulo": "Novo livro de Giuliana Mafra lidera lista de mais vendidos",
+        "resumo": "Eu duvido você terminar este livro tirou Verity do primeiro lugar. As vendas dos vinte mais vendidos caíram na semana seguinte ao primeiro turno.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/10/26/livros-sobre-politica-deixam-a-lista-nielsen-publishnews-na-semana-apos-o-primeiro-turno/"
+      },
+      {
+        "titulo": "A Feira do Livro de 2027 já tem mais de 50 expositores",
+        "resumo": "A feira gratuita será de 22 a 30 de maio, na praça Charles Miller, em São Paulo. Editoras estreantes podem se inscrever até 18 de dezembro.",
+        "fonte": "PublishNews",
+        "link": "https://publishnews.com.br/materias/2026/10/26/a-feira-do-livro-confirma-mais-de-50-expositores-para-2027"
+      },
+      {
+        "titulo": "Site japonês de mangás grátis passa a vender 40 mil títulos",
+        "resumo": "A plataforma criada pelo autor Ken Akamatsu agora mistura leitura gratuita e venda de volumes de editoras, depois da queda na receita com anúncios.",
+        "fonte": "PublishNews",
+        "link": "https://publishnews.com.br/materias/2026/10/26/plataforma-japonesa-de-mangas-gratuitos-passa-a-vender-40-mil-titulos-de-editoras"
+      }
+    ]
+  }
 }
