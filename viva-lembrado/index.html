@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Viva Lembrado</title>
+<meta name="description" content="Checklist diário dos 8 princípios do e-book Viva como se estivesse sendo lembrado. Funciona sem internet.">
+<meta name="theme-color" content="#1d1a16">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+@font-face{font-family:Lora;src:url(lora.woff) format("woff");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:Lora;src:url(lora-italic.woff) format("woff");font-weight:400 700;font-style:italic;font-display:swap}
+[hidden]{display:none!important}
+:root{--bg:#faf6ee;--card:#fffdf8;--soft:#f2ead9;--ink:#1c1915;--mute:#6f665a;--line:#e5dac5;--gold:#b0843a;--gold2:#d6b26c;--terra:#9a4b2e;--dark:#1d1a16;--ok:#5b7a3a}
+@media (prefers-color-scheme:dark){:root{--bg:#15130f;--card:#1f1c17;--soft:#2a251d;--ink:#efe6d4;--mute:#a99d87;--line:#342e25;--gold:#d6b26c;--terra:#d98a63}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;overscroll-behavior-y:contain}
+.serif{font-family:Lora,Georgia,"Noto Serif",serif}
+header{background:var(--dark);color:#f2e9d8;padding:calc(14px + env(safe-area-inset-top)) 18px 14px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;border:1px solid rgba(214,178,108,.25)}
+header img{width:40px;height:40px;border-radius:10px}
+header h1{margin:0;font:500 21px/1.15 Lora,Georgia,serif}
+header small{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
+header .grow{flex:1}
+#install-btn{border:1px solid var(--gold2);background:transparent;color:var(--gold2);font:600 14px system-ui;padding:8px 12px;border-radius:99px;position:relative;z-index:1}
+main{flex:1;overflow:hidden;position:relative}
+.panel{position:absolute;inset:0;overflow-y:auto;padding:16px 16px 110px;-webkit-overflow-scrolling:touch}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:5}
+nav button{flex:1;border:0;background:none;color:var(--mute);font:600 13px system-ui;padding:9px 0 10px;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button svg{width:24px;height:24px}
+nav button[aria-selected=true]{color:var(--gold)}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:4px 0 8px}
+h2{font:500 24px/1.2 Lora,Georgia,serif;margin:0 0 6px}
+.mute{color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
+/* Hoje */
+.dayhead{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.dayhead .d{flex:1}
+.dayhead .d b{display:block;font:500 20px/1.2 Lora,Georgia,serif}
+.navd{border:1px solid var(--line);background:var(--card);color:var(--ink);width:42px;height:42px;border-radius:50%;font-size:20px}
+.navd:disabled{opacity:.3}
+.ring{display:flex;align-items:center;gap:16px;background:var(--dark);color:#f2e9d8;border-radius:20px;padding:16px 18px;margin-bottom:14px}
+.ring svg{flex:none}
+.ring .msg b{display:block;font:500 19px/1.25 Lora,Georgia,serif;color:var(--gold2)}
+.ring .msg span{font-size:15px;color:#cfc3ad}
+.foco{background:var(--soft);border-radius:14px;padding:11px 14px;margin-bottom:14px;font-size:15px}
+.foco b{color:var(--terra)}
+.item{display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:9px;cursor:pointer;transition:background .2s,border-color .2s;user-select:none}
+.item .ck{flex:none;width:30px;height:30px;border-radius:9px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin-top:1px;transition:background .2s}
+.item .ck svg{width:18px;height:18px;opacity:0;transform:scale(.4);transition:.2s}
+.item.on{background:var(--soft);border-color:var(--gold2)}
+.item.on .ck{background:var(--gold)}
+.item.on .ck svg{opacity:1;transform:scale(1)}
+.item .tx{flex:1;min-width:0}
+.item .tx i{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.item .tx b{display:block;font:500 17px/1.3 Lora,Georgia,serif}
+.item .tx small{display:block;color:var(--mute);font-size:14px;margin-top:3px}
+.item.focus{border-left:4px solid var(--terra)}
+textarea{width:100%;min-height:80px;font:16px/1.45 Lora,Georgia,serif;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;resize:vertical}
+/* Plano */
+.btn{border:0;border-radius:14px;padding:13px 18px;font:700 16px system-ui;background:var(--gold);color:#1d1a16;width:100%}
+.btn.soft{background:var(--soft);color:var(--ink)}
+.prog{height:10px;background:var(--soft);border-radius:99px;overflow:hidden;margin:10px 0 4px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:99px}
+.week{border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:12px;background:var(--card)}
+.week .wh{background:var(--dark);color:#f2e9d8;padding:11px 16px;display:flex;justify-content:space-between;align-items:baseline}
+.week .wh b{font:500 17px Lora,Georgia,serif}
+.week .wh span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2)}
+.week.now .wh{background:var(--terra)}
+.week.now .wh span{color:#fbe6d6}
+.week .wb{padding:12px 16px}
+.week .q{font:italic 15.5px/1.4 Lora,Georgia,serif;color:var(--terra);margin:0 0 10px}
+.dl{display:flex;gap:11px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);cursor:pointer;font-size:15.5px;line-height:1.35}
+.dl .bx{flex:none;width:22px;height:22px;border:2px solid var(--gold);border-radius:6px;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.dl.on .bx{background:var(--gold)}
+.dl.on .bx::after{content:"";width:6px;height:11px;border:solid #1d1a16;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.dl.on span{color:var(--mute);text-decoration:line-through}
+.dl em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--gold);display:block;text-transform:uppercase}
+/* Histórico */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 8px;text-align:center}
+.stats b{display:block;font:500 28px/1.1 Lora,Georgia,serif;color:var(--terra)}
+.stats span{font-size:12.5px;color:var(--mute)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal .h{font-size:12px;font-weight:700;color:var(--mute);text-align:center}
+.cal .c{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:var(--soft);color:var(--mute);border:0;padding:0}
+.cal .c.l1{background:rgba(214,178,108,.3);color:var(--ink)}
+.cal .c.l2{background:rgba(214,178,108,.6);color:#1d1a16}
+.cal .c.l3{background:var(--gold);color:#1d1a16}
+.cal .c.t{outline:2px solid var(--terra);outline-offset:1px}
+.cal .c.x{visibility:hidden}
+.legend{display:flex;gap:10px;align-items:center;justify-content:flex-end;font-size:12.5px;color:var(--mute);margin-top:10px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.bar{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:14.5px}
+.bar span{width:92px;flex:none}
+.bar .tr{flex:1;height:12px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;background:var(--gold);border-radius:99px}
+.bar b{width:36px;text-align:right;font-weight:700;color:var(--terra)}
+/* Princípios */
+.pr{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px;overflow:hidden}
+.pr summary{list-style:none;display:flex;gap:13px;align-items:center;padding:14px 16px;cursor:pointer}
+.pr summary::-webkit-details-marker{display:none}
+.pr .n{flex:none;width:44px;height:44px;border-radius:50%;background:var(--dark);color:var(--gold2);display:flex;align-items:center;justify-content:center;font:italic 500 19px Lora,Georgia,serif}
+.pr summary b{font:500 16.5px/1.3 Lora,Georgia,serif;flex:1}
+.pr summary::after{content:"+";font-size:24px;color:var(--gold)}
+.pr[open] summary::after{content:"–"}
+.pr .bd{padding:0 16px 16px}
+.pr .ep{font:italic 16px/1.45 Lora,Georgia,serif;color:var(--terra);border-left:3px solid var(--gold);padding-left:12px;margin:0 0 12px}
+.pr ul{margin:0;padding-left:20px}
+.pr li{margin:6px 0;font-size:15.5px}
+.manif{background:var(--dark);color:#f2e9d8;border-radius:20px;padding:22px 20px;text-align:center;margin-top:16px}
+.manif p{font:italic 16.5px/1.5 Lora,Georgia,serif;margin:0;padding:8px 0;border-bottom:1px solid rgba(214,178,108,.2)}
+.manif p:last-child{border:0}
+.manif .lbl{color:var(--gold2)}
+.ghost{background:none;border:1px solid var(--line);color:var(--mute);font:600 14px system-ui;padding:10px 14px;border-radius:12px;width:100%;margin-top:8px}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--dark);color:#f2e9d8;padding:11px 18px;border-radius:12px;font-size:15px;z-index:9;border:1px solid var(--gold2);max-width:90%;text-align:center}
+.burst{animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1d1a16;color:#f2e9d8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:Lora,Georgia,serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 28px rgba(0,0,0,.5)}#splash-app b{font-size:1.35rem;font-weight:500;text-align:center;padding:0 24px}#splash-app small{font-family:system-ui;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#d6b26c}#splash-app.fim{opacity:0;pointer-events:none}</style><div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Viva Lembrado</b><small>8 princípios · checklist</small></div><script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,800-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
+
+<header>
+ <img src="icon-192.png" alt="">
+ <div class="grow"><small>8 princípios</small><h1>Viva Lembrado</h1></div>
+ <button id="install-btn" type="button" hidden>📲 Instalar</button>
+</header>
+
+<main>
+ <section class="panel" id="p-hoje"></section>
+ <section class="panel" id="p-plano" hidden></section>
+ <section class="panel" id="p-hist" hidden></section>
+ <section class="panel" id="p-prin" hidden></section>
+</main>
+
+<nav role="tablist">
+ <button data-t="hoje" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Hoje</button>
+ <button data-t="plano" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>30 dias</button>
+ <button data-t="hist" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progresso</button>
+ <button data-t="prin" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16"/></svg>Princípios</button>
+</nav>
+<div id="toast" hidden></div>
+
+<script>
+const P=[
+ {t:"Corpo",f:"Escove os dentes como quem vai ver o dentista",c:"Cuidei do corpo como quem vai ser avaliado",ep:"O cuidado consigo mesmo é o primeiro contrato de respeito que você assina.",pr:["Faça o básico completo: escovação, fio dental, água.","Marque check-ups antes de sentir dor.","Cuide do que não aparece: sono, postura, alimentação.","Crie um ritual: mesmo horário, mesma ordem."],d:["Escovar com atenção total, sem celular na mão","Marcar um exame ou consulta atrasado","Dormir no mesmo horário por 7 dias"]},
+ {t:"Presença",f:"Se arrume como se alguém fosse te fotografar",c:"Me apresentei como quem quer ser lembrado",ep:"A forma como você se apresenta é a primeira frase que você diz.",pr:["Limpo e alinhado vale mais que caro.","Separe a roupa na noite anterior.","Vista-se para o papel que está construindo.","A postura é a peça principal."],d:["Separar a roupa de cada dia na noite anterior","Consertar ou doar três peças do guarda-roupa","Prestar atenção à postura três vezes por dia"]},
+ {t:"Trabalho",f:"Trabalhe como se Deus fosse seu cliente",c:"Trabalhei como se fosse assinado com meu nome",ep:"Excelência não é para impressionar o chefe. É para honrar quem você é.",pr:["Faça a parte invisível com o mesmo cuidado.","Entregue um pouco além do combinado.","Assuma o erro antes que alguém descubra.","Trate qualquer função como importante."],d:["Executar uma tarefa diária no nível máximo","Revisar tudo antes de considerar pronto","Anotar uma coisa feita melhor do que precisava"]},
+ {t:"Mente",f:"Leia como quem procura uma resposta",c:"Li algo procurando uma resposta",ep:"Ler para passar o tempo distrai. Ler para encontrar algo transforma.",pr:["Escreva sua pergunta antes de abrir o livro.","Leia com caneta: sublinhe, anote, discorde.","Resuma em três frases ao terminar.","Aplique uma ideia em até 48 horas."],d:["Ler 15 minutos por dia, com uma pergunta","Anotar uma ideia útil por dia","Aplicar uma das ideias antes do fim da semana"]},
+ {t:"Pessoas",f:"Trate as pessoas pensando no que seus filhos vão saber sobre você",c:"Tratei alguém como gostaria que meus filhos soubessem",ep:"Seu caráter é a herança que ninguém pode recusar.",pr:["Seja gentil com quem não pode retribuir.","Chame as pessoas pelo nome.","Discorde sem humilhar.","Peça desculpas na frente de quem viu o erro."],d:["Aprender e usar o nome de três pessoas","Um gesto gentil por dia a quem não pode retribuir","Pedir desculpas por algo pendente"]},
+ {t:"Liderança",f:"Lidere de um jeito que sua equipe queira contar a sua história",c:"Liderei, ajudei ou orientei alguém",ep:"O verdadeiro cargo de um líder é o que dizem dele quando ele sai da sala.",pr:["Elogie em público, corrija em particular.","Esteja onde o trabalho acontece.","Assuma a culpa, divida o mérito.","Desenvolva pessoas, não só resultados.","Seja previsível."],d:["Conversa individual de 10 minutos com cada pessoa","Um elogio específico e público por dia","Perguntar: “O que posso fazer para facilitar seu trabalho?”"]},
+ {t:"Palavra",f:"Fale como se cada palavra fosse ficar registrada",c:"Falei apenas o que assinaria embaixo",ep:"Palavras são sementes: você escolhe o que planta, mas não onde nasce.",pr:["Pause antes de responder com emoção.","Fale de quem não está como se estivesse presente.","Prometa menos, cumpra sempre.","Releia antes de enviar.","Prefira o “eu sinto” ao “você sempre”."],d:["Não falar mal de ninguém ausente por 7 dias","Reler toda mensagem importante antes de enviar","Cumprir 100% do que prometer"]},
+ {t:"Amor",f:"Visite seus pais como se fosse o último domingo",c:"Dei atenção de verdade a quem amo",ep:"O tempo com quem amamos não volta. E quase nunca avisa quando vai acabar.",pr:["Esteja presente: celular guardado.","Pergunte sobre a vida deles.","Registre as histórias: áudios, receitas, fotos.","Diga o que sente.","Não espere ocasião especial."],d:["Visitar ou ligar com calma, por 30 minutos","Fazer uma pergunta nova sobre a família","Dizer o quanto essa pessoa é importante"]}
+];
+const WEEKS=[[0,4,"O que meu exemplo está ensinando?"],[1,6,"Como as pessoas me percebem?"],[2,5,"Que padrão eu sigo quando ninguém vê?"],[3,7,"O que eu não posso mais adiar?"]];
+const MAN=["Eu me cuido, porque meu corpo é minha casa.","Eu me apresento com respeito, porque cada dia merece.","Eu trabalho para um padrão maior que qualquer plateia.","Eu leio para encontrar, não para passar o tempo.","Eu trato as pessoas como quero ser lembrado.","Eu lidero para que outros cresçam.","Eu falo como quem assina embaixo.","Eu amo agora, porque o tempo não avisa."];
+const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="#1d1a16" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+
+const $=s=>document.querySelector(s);
+const KEY="viva-lembrado-v1";
+let S;try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+S.days=S.days||{};S.des=S.des||{};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parse=s=>{const[a,b,c]=s.split("-").map(Number);return new Date(a,b-1,c)};
+const today=()=>ymd(new Date());
+const addDays=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return ymd(d)};
+const diff=(a,b)=>Math.round((parse(b)-parse(a))/864e5);
+let cur=today();
+function day(k){return S.days[k]||{c:[0,0,0,0,0,0,0,0],n:""}}
+const score=k=>day(k).c.filter(Boolean).length;
+function planDay(k){if(!S.start)return null;const n=diff(S.start,k)+1;return n>=1&&n<=30?n:null}
+function weekOf(n){return n==null?null:(n>28?4:Math.floor((n-1)/7))}
+function toast(m){const e=$("#toast");e.textContent=m;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2400)}
+function msg(n){if(n===8)return["Dia memorável","Você viveu os 8 princípios hoje."];if(n>=5)return["Bom dia","Cada marcação é um tijolo do seu legado."];if(n>0)return["Comece onde está","Amanhã é um novo recomeço, sem culpa."];return["O dia está à sua espera","Toque em cada princípio que você viveu hoje."]}
+function ring(n){const r=30,c=2*Math.PI*r,o=c*(1-n/8);return `<svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="${r}" stroke="rgba(214,178,108,.22)" stroke-width="7" fill="none"/><circle cx="38" cy="38" r="${r}" stroke="#d6b26c" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${o}" transform="rotate(-90 38 38)" style="transition:stroke-dashoffset .5s"/><text x="38" y="44" text-anchor="middle" fill="#f2e9d8" font-family="Lora,Georgia,serif" font-size="20">${n}/8</text></svg>`}
+
+function rHoje(){
+ const d=day(cur),n=score(cur),[m1,m2]=msg(n),pd=planDay(cur),w=weekOf(pd);
+ let dt=parse(cur).toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"});dt=dt[0].toUpperCase()+dt.slice(1);
+ const isT=cur===today();
+ let foco="";
+ if(w!=null&&w<4){const[a,b,q]=WEEKS[w];foco=`<div class="foco">Dia ${pd} de 30 · foco da semana: <b>${P[a].t}</b> e <b>${P[b].t}</b><br><i class="serif">“${q}”</i></div>`}
+ else if(w===4)foco=`<div class="foco">Dia ${pd} de 30 · <b>revisão</b>: <i class="serif">“Quem eu me tornei neste mês?”</i></div>`;
+ const focusIdx=w!=null&&w<4?[WEEKS[w][0],WEEKS[w][1]]:[];
+ $("#p-hoje").innerHTML=`
+ <div class="dayhead"><button class="navd" id="prev" aria-label="Dia anterior">‹</button><div class="d"><span class="lbl">${isT?"Hoje":"Registro"}</span><b>${dt}</b></div><button class="navd" id="next" aria-label="Próximo dia" ${isT?"disabled":""}>›</button></div>
+ <div class="ring" id="ring">${ring(n)}<div class="msg"><b>${m1}</b><span>${m2}</span></div></div>
+ ${foco}
+ ${P.map((p,i)=>`<div class="item ${d.c[i]?"on":""} ${focusIdx.includes(i)?"focus":""}" data-i="${i}" role="checkbox" aria-checked="${!!d.c[i]}" tabindex="0"><div class="ck">${CHECK}</div><div class="tx"><i>${pad(i+1)} · ${p.t}</i><b>${p.c}</b><small>${p.f}</small></div></div>`).join("")}
+ <div class="lbl" style="margin-top:18px">Uma frase sobre o dia</div>
+ <textarea id="nota" placeholder="O que fez este dia valer a pena ser lembrado?">${esc(d.n)}</textarea>`;
+ $("#prev").onclick=()=>{cur=addDays(cur,-1);rHoje()};
+ $("#next").onclick=()=>{if(cur<today()){cur=addDays(cur,1);rHoje()}};
+ $("#p-hoje").querySelectorAll(".item").forEach(el=>el.onclick=()=>{
+  const i=+el.dataset.i,x=day(cur);x.c[i]=x.c[i]?0:1;S.days[cur]=x;save();
+  const before=n;rHoje();const now=score(cur);
+  if(now===8&&before<8){$("#ring").classList.add("burst");toast("Dia memorável! Os 8 princípios vividos hoje.");if(navigator.vibrate)navigator.vibrate([30,60,30])}
+  else if(navigator.vibrate)navigator.vibrate(12);
+ });
+ $("#nota").oninput=e=>{const x=day(cur);x.n=e.target.value;S.days[cur]=x;save()};
+}
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function rPlano(){
+ const el=$("#p-plano");
+ if(!S.start){el.innerHTML=`<div class="lbl">Plano de 30 dias</div><h2>Dois princípios por semana</h2>
+ <p class="mute">Oito princípios de uma vez não funcionam. Cada semana combina um princípio ligado a você e outro ligado aos outros. Os dois últimos dias são para revisar.</p>
+ <button class="btn" id="go">Começar meu plano hoje</button>
+ ${WEEKS.map(([a,b,q],k)=>`<div class="week" style="margin-top:12px"><div class="wh"><b>Semana ${k+1}</b><span>Dias ${k*7+1} a ${k*7+7}</span></div><div class="wb"><p class="q">“${q}”</p><div class="mute" style="font-size:15px">${P[a].t} · ${P[b].t}</div></div></div>`).join("")}`;
+ $("#go").onclick=()=>{S.start=today();save();rPlano();rHoje();toast("Plano iniciado. Dia 1 de 30!")};return}
+ const n=Math.max(0,Math.min(30,diff(S.start,today())+1)),w=weekOf(n||1);
+ const fim=diff(S.start,today())>=30;
+ el.innerHTML=`<div class="lbl">Plano de 30 dias</div><h2>${fim?"Plano concluído":"Dia "+n+" de 30"}</h2>
+ <div class="prog"><i style="width:${(fim?30:n)/30*100}%"></i></div>
+ <p class="mute" style="font-size:14px;margin:0 0 14px">Começou em ${parse(S.start).toLocaleDateString("pt-BR")}. Marque os desafios conforme cumprir.</p>
+ ${WEEKS.map(([a,b,q],k)=>`<div class="week ${!fim&&w===k?"now":""}"><div class="wh"><b>Semana ${k+1}${!fim&&w===k?" · agora":""}</b><span>Dias ${k*7+1} a ${k*7+7}</span></div><div class="wb"><p class="q">“${q}”</p>
+ ${[a,b].map(pi=>P[pi].d.map((t,j)=>{const id=`${k}-${pi}-${j}`;return `<div class="dl ${S.des[id]?"on":""}" data-id="${id}"><div class="bx"></div><span><em>${P[pi].t}</em>${t}</span></div>`}).join("")).join("")}
+ </div></div>`).join("")}
+ <div class="week ${!fim&&w===4?"now":""}"><div class="wh"><b>Dias 29 e 30</b><span>Revisão</span></div><div class="wb"><p class="q">“Quem eu me tornei neste mês?”</p>
+ ${["Reler minhas frases do mês na aba Progresso","Escolher o princípio que mais quero manter","Recomeçar o plano com um novo olhar"].map((t,j)=>{const id="r-"+j;return `<div class="dl ${S.des[id]?"on":""}" data-id="${id}"><div class="bx"></div><span>${t}</span></div>`}).join("")}</div></div>
+ <button class="ghost" id="reset">Recomeçar o plano a partir de hoje</button>`;
+ el.querySelectorAll(".dl").forEach(x=>x.onclick=()=>{const id=x.dataset.id;S.des[id]=!S.des[id];save();x.classList.toggle("on");if(navigator.vibrate)navigator.vibrate(12)});
+ $("#reset").onclick=()=>{if(confirm("Recomeçar o plano de 30 dias a partir de hoje? Suas marcações diárias continuam guardadas.")){S.start=today();S.des={};save();rPlano();rHoje()}};
+}
+
+function rHist(){
+ const t=today(),ks=Object.keys(S.days).filter(k=>score(k)>0).sort();
+ let streak=0;for(let k=score(t)>0?t:addDays(t,-1);score(k)>0;k=addDays(k,-1))streak++;
+ const last30=[...Array(30)].map((_,i)=>addDays(t,-29+i));
+ const act=last30.filter(k=>score(k)>0);
+ const avg=act.length?(act.reduce((s,k)=>s+score(k),0)/act.length).toFixed(1).replace(".",","):"–";
+ const first=parse(last30[0]),off=(first.getDay()+6)%7;
+ let cal='<div class="cal">'+["S","T","Q","Q","S","S","D"].map(x=>`<div class="h">${x}</div>`).join("")+'<div class="c x"></div>'.repeat(off);
+ for(const k of last30){const s=score(k),l=s===0?"":s<=4?"l1":s<=7?"l2":"l3";cal+=`<button class="c ${l} ${k===t?"t":""}" data-k="${k}" aria-label="${k}: ${s} de 8">${parse(k).getDate()}</button>`}
+ cal+="</div>";
+ const per=P.map((p,i)=>last30.filter(k=>day(k).c[i]).length);
+ const notes=ks.slice().reverse().filter(k=>day(k).n&&day(k).n.trim()).slice(0,10);
+ $("#p-hist").innerHTML=`<div class="lbl">Progresso</div><h2>Seus últimos 30 dias</h2>
+ <div class="stats"><div><b>${streak}</b><span>dias seguidos</span></div><div><b>${act.length}</b><span>dias registrados</span></div><div><b>${avg}</b><span>média por dia</span></div></div>
+ <div class="card">${cal}<div class="legend">menos <i style="background:var(--soft)"></i><i style="background:rgba(214,178,108,.3)"></i><i style="background:rgba(214,178,108,.6)"></i><i style="background:var(--gold)"></i> mais</div></div>
+ <div class="card"><div class="lbl">Princípios mais vividos</div>${P.map((p,i)=>`<div class="bar"><span>${p.t}</span><div class="tr"><i style="width:${per[i]/30*100}%"></i></div><b>${per[i]}</b></div>`).join("")}<p class="mute" style="font-size:13px;margin:8px 0 0">Dias em que você marcou cada princípio, nos últimos 30.</p></div>
+ ${notes.length?`<div class="card"><div class="lbl">Suas frases</div>${notes.map(k=>`<p style="margin:0 0 10px"><b style="font-size:13px;color:var(--gold)">${parse(k).toLocaleDateString("pt-BR",{day:"numeric",month:"short"})}</b><br><span class="serif" style="font-style:italic">${esc(day(k).n)}</span></p>`).join("")}</div>`:""}
+ <button class="ghost" id="bk">Salvar cópia dos meus dados</button><button class="ghost" id="rs">Restaurar cópia</button><input type="file" id="rsf" accept=".json,application/json" hidden>`;
+ $("#p-hist").querySelectorAll(".c[data-k]").forEach(b=>b.onclick=()=>{cur=b.dataset.k;tab("hoje");rHoje()});
+ $("#bk").onclick=async()=>{const blob=new Blob([JSON.stringify(S)],{type:"application/json"}),f=new File([blob],"viva-lembrado-"+t+".json",{type:"application/json"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Viva Lembrado — cópia"});return}catch(e){if(e.name==="AbortError")return}}
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=f.name;a.click();toast("Cópia salva em Downloads")};
+ $("#rs").onclick=()=>$("#rsf").click();
+ $("#rsf").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.days)throw 0;S=d;S.des=S.des||{};save();rAll();toast("Dados restaurados")}catch(_){toast("Arquivo inválido")}};
+}
+
+function rPrin(){
+ $("#p-prin").innerHTML=`<div class="lbl">Os 8 princípios</div><h2>Para relembrar</h2><p class="mute" style="margin-top:0">Um resumo de cada capítulo do e-book.</p>
+ ${P.map((p,i)=>`<details class="pr"><summary><span class="n">${i+1}</span><b>${p.f}</b></summary><div class="bd"><p class="ep">${p.ep}</p><div class="lbl">Na prática</div><ul>${p.pr.map(x=>`<li>${x}</li>`).join("")}</ul></div></details>`).join("")}
+ <div class="manif"><div class="lbl">Manifesto</div>${MAN.map(m=>`<p>${m}</p>`).join("")}</div>
+ <p class="mute" style="text-align:center;font-size:13px;margin-top:18px">Acompanha o e-book <i class="serif">Viva como se estivesse sendo lembrado</i>.<br>Seus dados ficam só neste celular.</p>`;
+}
+
+function rAll(){rHoje();rPlano();rHist();rPrin()}
+const TABS=["hoje","plano","hist","prin"];let curTab="hoje";
+function tab(t){curTab=t;TABS.forEach(x=>$("#p-"+x).hidden=x!==t);document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));if(t==="hist")rHist();if(t==="plano")rPlano();if(t==="hoje")rHoje()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>tab(b.dataset.t));
+// arrasto lateral
+let sx=0,sy=0;$("main").addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+$("main").addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6&&!e.target.closest("textarea")){const i=TABS.indexOf(curTab)+(dx<0?1:-1);if(i>=0&&i<TABS.length)tab(TABS[i])}},{passive:true});
+// volta para hoje ao reabrir no dia seguinte
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&cur!==today()&&curTab==="hoje"){cur=today();rHoje()}});
+rAll();
+
+// instalar
+let deferred=null;const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;if(!standalone())$("#install-btn").hidden=false});
+window.addEventListener("appinstalled",()=>{$("#install-btn").hidden=true;toast("App instalado!")});
+$("#install-btn").onclick=async()=>{if(deferred){deferred.prompt();try{await deferred.userChoice}catch(e){}deferred=null;$("#install-btn").hidden=true}else alert("No Chrome, toque no menu ⋮ e escolha “Instalar app” ou “Adicionar à tela inicial”.")};
+if(!standalone())setTimeout(()=>{if(!deferred&&!standalone())$("#install-btn").hidden=false},2500);
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
