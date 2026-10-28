@@ -1,199 +1,53 @@
 {
-  "gerado": "2026-10-26T22:53:08-03:00",
+  "gerado": "2026-10-27T23:08:29-03:00",
   "assuntos": {
     "cana": [
-      {
-        "titulo": "Setor da cana pede união após reeleição de Lula",
-        "resumo": "Na abertura da Conferência Datagro, em São Paulo, líderes da Orplana e da Siamig disseram que o resultado frustrou parte do setor, mas defenderam falar com uma só voz. Um dos temas citados é o fim da escala seis por um, aprovado pelo Senado.",
-        "fonte": "The AgriBiz",
-        "link": "https://www.theagribiz.com/empresas/bioenergia/poderiamos-ter-amanhecido-mais-animados-o-clima-pos-eleitoral-no-setor-sucroalcooleiro"
-      },
-      {
-        "titulo": "Datagro prevê mais cana e etanol, e menos açúcar",
-        "resumo": "A consultoria projeta moagem de 640,5 milhões de toneladas no Centro-Sul na safra 2026/27, com alta de cerca de 10% no etanol e queda de 5% no açúcar. A umidade deve reduzir o teor de açúcar da cana e atrasar o fim da safra.",
-        "fonte": "The AgriBiz",
-        "link": "https://www.theagribiz.com/agribuzz/mais-cana-menos-acucar-as-projecoes-da-datagro-para-2026-27/"
-      },
-      {
-        "titulo": "Ações de Cosan e Raízen despencam após a eleição",
-        "resumo": "No dia de forte queda da Bolsa, a Cosan chegou a perder mais de 40% e a Raízen cerca de 20%. A São Martinho também caiu, mas recuperou parte da perda ao longo do pregão.",
-        "fonte": "AgFeed",
-        "link": "https://agfeed.com.br/financas/quem-riu-ou-chorou-na-b3-apos-vitoria-de-lula-suzano-e-jbs-disparam-enquanto-cosan-e-camil-derretem/"
-      },
-      {
-        "titulo": "Açúcar recua em Nova York e usinas antecipam vendas",
-        "resumo": "O açúcar fechou a semana perto de 20,3 centavos de dólar por libra-peso, em leve queda. A Índia cortou o uso de açúcar para etanol, e usinas brasileiras aceleram a venda antecipada da safra 2027/28.",
-        "fonte": "JornalCana",
-        "link": "https://jornalcana.com.br/mercado/ninguem-quebra-com-margem-no-bolso/"
-      }
+      {"titulo": "Etanol anidro sobe mais de 10% em São Paulo", "resumo": "Segundo o Cepea, o etanol anidro subiu cerca de 10% em uma semana nas usinas paulistas e o hidratado também ficou mais caro. As chuvas atrasam a moagem e a oferta está apertada.", "fonte": "RPAnews", "link": "https://revistarpanews.com.br/etanol-sobe-ate-101-em-sao-paulo-com-chuvas-oferta-restrita-e-demanda-aquecida/"},
+      {"titulo": "Usinas paulistas podem vender recorde de etanol hidratado em outubro", "resumo": "O Cepea estima que as usinas de São Paulo vendam perto de 350 milhões de litros de hidratado em outubro, o maior volume da safra. Com a procura forte nos postos, os preços nas usinas já subiram até 47% desde julho.", "fonte": "Click Petróleo e Gás", "link": "https://clickpetroleoegas.com.br/modelo-vacs75/"},
+      {"titulo": "Açúcar cristal sobe pela 14ª semana seguida", "resumo": "O açúcar cristal acumula 14 semanas seguidas de alta, a sequência mais longa desde 2020, embora o ritmo tenha diminuído. A chuva continua atrapalhando a colheita da safra 2026/27.", "fonte": "AgroContexto", "link": "https://agrocontexto.com.br/agronegocio/derivados-da-cana-acucar-cristal-tem-14a-alta-semanal-outubro-pode-registrar-maior-venda-de-etanol-da-safra/"},
+      {"titulo": "Governo pode manter subsídio aos combustíveis em 2027", "resumo": "O ministro da Fazenda, Dario Durigan, disse que os subsídios aos combustíveis devem continuar no ano que vem se o petróleo seguir caro. A política de preços da gasolina mexe diretamente com a competitividade do etanol.", "fonte": "NovaCana / Reuters", "link": "https://www.novacana.com/noticias/governo-deve-manter-subsidios-em-2027-se-petroleo-seguir-alta-diz-durigan"},
+      {"titulo": "Raio provoca incêndio em tanque de etanol em Pitangueiras", "resumo": "Um tanque de etanol de uma usina em Pitangueiras, no interior paulista, pegou fogo no domingo, possivelmente depois de ser atingido por um raio. Os bombeiros foram chamados e ninguém se feriu.", "fonte": "NovaCana", "link": "https://www.novacana.com/noticias/incendio-atinge-tanque-de-etanol-em-usina-em-pitangueiras-sp-suspeita-e-que-raio-tenha-provocado-chamas"}
     ],
     "politica": [
-      {
-        "titulo": "TSE confirma reeleição de Lula no segundo turno",
-        "resumo": "Lula teve 51,79% dos votos válidos, contra 48,21% de Flávio Bolsonaro. A abstenção ficou em torno de 19%, menor que no primeiro turno.",
-        "fonte": "TSE",
-        "link": "https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/presidente-do-tse-anuncia-reeleicao-de-lula-e-faz-balanco-do-2o-turno-das-eleicoes-2026"
-      },
-      {
-        "titulo": "Flávio Bolsonaro não reconhece resultado e promete ir à Justiça",
-        "resumo": "Em vídeo, o senador disse que vai pedir a anulação da eleição por causa da extensão do horário de votação até as sete da noite. Ele não apresentou provas de que a medida tenha mudado o resultado.",
-        "fonte": "Metrópoles",
-        "link": "https://www.metropoles.com/brasil/lula-nao-reconheceria-minha-vitoria-se-fosse-o-contrario-diz-flavio"
-      },
-      {
-        "titulo": "Bolsa aciona circuit breaker no dia seguinte à eleição",
-        "resumo": "O Ibovespa caiu mais de 10% logo na abertura desta segunda, e as negociações foram suspensas por meia hora. Segundo analistas, o mercado esperava outro resultado.",
-        "fonte": "InfoMoney",
-        "link": "https://www.infomoney.com.br/mercados/circuit-breaker-por-que-bolsa-suspendeu-negociacoes-veja-quando-ela-volta/"
-      },
-      {
-        "titulo": "Seis estados definem governadores no segundo turno",
-        "resumo": "Foram eleitos Mailza Assis no Acre, Omar Aziz no Amazonas, Celina Leão no Distrito Federal, Lorenzo Pazolini no Espírito Santo, Cadu de Lula no Rio Grande do Norte e Vicentinho Júnior no Tocantins.",
-        "fonte": "Jovem Pan",
-        "link": "https://jovempan.com.br/politica/segundo-turno-seis-governadores-eleitos-2026/"
-      },
-      {
-        "titulo": "Lula poderá indicar até quatro ministros do STF até 2030",
-        "resumo": "Além da vaga aberta por Barroso, ainda sem substituto, haverá aposentadorias de Fux, Cármen Lúcia e Gilmar Mendes. Cada indicação precisa ser aprovada pelo Senado.",
-        "fonte": "Diário do Grande ABC",
-        "link": "https://www.dgabc.com.br/Noticia/4365017/lula-podera-indicar-ate-quatro-ministros-ao-stf-ate-2030"
-      }
+      {"titulo": "Flávio Bolsonaro deixa o Brasil apesar de ordem do STF", "resumo": "Reportagens indicam que o senador Flávio Bolsonaro chegou aos Estados Unidos sem entregar o passaporte, como havia determinado o ministro Alexandre de Moraes. Lula chamou a saída de ato vergonhoso; não há registro oficial da viagem.", "fonte": "Agência Brasil", "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/ato-vergonhoso-diz-lula-sobre-fuga-de-flavio-bolsonaro"},
+      {"titulo": "Polícia Federal cancela os passaportes de Flávio", "resumo": "A Polícia Federal cancelou os passaportes do senador depois que ele não os entregou no prazo. Ele é investigado no STF por suspeita de ter recebido recursos de uma empresa sediada na Ilha da Madeira.", "fonte": "Agência Brasil", "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/policia-federal-cancela-passaportes-de-flavio-bolsonaro"},
+      {"titulo": "Posse de Lula para o quarto mandato será em 5 de janeiro", "resumo": "Por causa de uma emenda constitucional de 2021, a posse do presidente passa de 1º para 5 de janeiro de 2027, e a dos governadores para o dia seguinte. Deputados e senadores continuam assumindo em 1º de fevereiro.", "fonte": "Agência Brasil", "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/posse-de-lula-sera-em-5-de-janeiro"},
+      {"titulo": "Alcolumbre e Motta visitam Lula e defendem diálogo", "resumo": "Os presidentes do Senado e da Câmara foram ao Palácio da Alvorada cumprimentar Lula pela reeleição e pediram diálogo entre os Poderes. Os dois pretendem disputar novamente o comando das Casas em 2027.", "fonte": "Gazeta do Povo", "link": "https://www.gazetadopovo.com.br/eleicoes/2026/alcolumbre-e-motta-visitam-lula-apos-reeleicao-e-defendem-dialogo-entre-poderes/"},
+      {"titulo": "Itália nega extradição de ex-assessor de Moraes", "resumo": "A Justiça italiana recusou extraditar Eduardo Tagliaferro, ex-assessor de Alexandre de Moraes, alegando dúvidas sobre a imparcialidade do processo no Brasil. A decisão não o absolve das acusações feitas aqui.", "fonte": "Gazeta do Povo", "link": "https://www.gazetadopovo.com.br/republica/italia-nega-extradicao-de-tagliaferro-por-duvidas-sobre-imparcialidade-no-brasil/"}
     ],
     "tecnologia": [
-      {
-        "titulo": "Vivo lança internet via satélite Starlink direto no celular",
-        "resumo": "O Vivo Satélite permite mandar mensagens, áudios e usar mapas em áreas sem sinal, sem antena nem aplicativo. Por tempo limitado, o uso é gratuito e não consome a franquia.",
-        "fonte": "Exame",
-        "link": "https://exame.com/tecnologia/vivo-e-starlink-lancam-conexao-direta-entre-celulares-e-satelites-veja-como-funciona/"
-      },
-      {
-        "titulo": "Itaú compra startup brasileira de IA por R$ 2,9 bilhões",
-        "resumo": "O banco vai adquirir a NeoSpace, que já tinha 15% do Itaú como sócio. O negócio ainda precisa de aprovação do Cade e do Banco Central.",
-        "fonte": "Tecnoblog",
-        "link": "https://tecnoblog.net/noticias/itau-compra-startup-de-ia-por-r-29-bilhoes"
-      },
-      {
-        "titulo": "Compradores relatam tela rachada no iPhone dobrável",
-        "resumo": "Donos do iPhone Duo mostraram rachaduras perto da dobradiça poucos dias após o lançamento. A Apple não comentou, e ainda não se sabe se o problema é comum.",
-        "fonte": "Tecnoblog",
-        "link": "https://tecnoblog.net/noticias/iphone-duo-tem-relatos-de-tela-rachada-poucos-dias-apos-lancamento"
-      },
-      {
-        "titulo": "Globoplay muda planos e preços",
-        "resumo": "O plano com anúncios ficou mais caro e ganhou mais canais, e o plano com o Premiere ficou mais barato. Os novos valores já valem para quem assinar agora.",
-        "fonte": "Tecnoblog",
-        "link": "https://tecnoblog.net/noticias/globoplay-reformula-planos-confira-os-novos-recursos-e-precos/"
-      }
+      {"titulo": "Siri com IA passa a falar português no iOS 27.2", "resumo": "A Apple lançou o iOS 27.2, que dá à Siri memória de conversas anteriores e suporte a novos idiomas, entre eles o português. Os recursos de IA funcionam no iPhone 15 Pro e nos modelos mais novos.", "fonte": "Dataconomy", "link": "https://dataconomy.com/2026/10/27/apple-releases-ios-27-2-with-siri-ai-conversation-memory/"},
+      {"titulo": "Microsoft oferece demissão voluntária a 60 mil funcionários", "resumo": "A Microsoft abriu um programa de saída voluntária para cerca de 60 mil pessoas, perto de um quarto da sua força de trabalho. A empresa não disse quantas devem aceitar.", "fonte": "Mobile Time", "link": "https://www.mobiletime.com.br/noticias/27/10/2026/microsoft-demissao-volun/"},
+      {"titulo": "Anthropic entra com pedido para abrir capital nos EUA", "resumo": "A Anthropic, dona do Claude, entregou à SEC o pedido para fazer sua oferta inicial de ações. O preço e o valor da empresa na oferta ainda não foram definidos.", "fonte": "TechStartups", "link": "https://techstartups.com/2026/10/27/tech-news-today-october-27-2026-anthropic-files-for-ipo-63b-ai-chip-deal-microsofts-60000-employee-buyouts-and-openais-new-gpt-6-1-terra/"},
+      {"titulo": "Grupo aprova R$ 1,66 bilhão para conversores da TV 3.0", "resumo": "Um grupo ligado à Anatel aprovou o uso de cerca de R$ 1,66 bilhão do leilão do 5G em conversores para a TV 3.0 e num data center do governo. A medida ainda precisa do aval do conselho da Anatel.", "fonte": "Mobile Time", "link": "https://www.mobiletime.com.br/noticias/27/10/2026/gaispi-aprova-rs-166-bi/"},
+      {"titulo": "Keeta chega a 10 milhões de downloads no Brasil", "resumo": "O aplicativo de entrega de comida Keeta completou um ano no país com 10 milhões de downloads e 83 mil restaurantes cadastrados.", "fonte": "Mobile Time", "link": "https://www.mobiletime.com.br/noticias/27/10/2026/keeta-10-mi-downloads-br/"}
     ],
     "ciencia": [
-      {
-        "titulo": "IA encontra sinais de câncer de pâncreas mais de um ano antes",
-        "resumo": "Um sistema analisou exames antigos e achou pistas da doença, em média, 475 dias antes do diagnóstico, superando radiologistas. O método ainda precisa ser testado em novos pacientes.",
-        "fonte": "ScienceDaily (revista Gut)",
-        "link": "https://www.sciencedaily.com/releases/2026/10/261024222031.htm"
-      },
-      {
-        "titulo": "Fungo gigante apelidado de D-Rex é descoberto na China",
-        "resumo": "Cientistas descreveram um cogumelo que chega a meio metro de altura e mais de dois quilos. Ele pertence a uma família nova, surgida logo depois da extinção dos dinossauros.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/10/261025073034.htm"
-      },
-      {
-        "titulo": "Arqueólogos podem ter achado o naufrágio mais antigo do mundo",
-        "resumo": "Na costa da Turquia, uma equipe encontrou restos de um barco com jarros de cerâmica de cerca de 4.500 anos. A datação ainda é preliminar e o estudo não foi revisado por outros cientistas.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/10/261025073036.htm"
-      },
-      {
-        "titulo": "Eclipse de 2.700 anos atrás revela rotação da Terra",
-        "resumo": "Pesquisadores japoneses reconstruíram um eclipse registrado na China antiga e concluíram que a Terra girava um pouco mais rápido naquela época.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/10/261025073055.htm"
-      },
-      {
-        "titulo": "Adultos foram mais criativos que crianças em estudo",
-        "resumo": "Na Áustria, pesquisadores compararam crianças em idade pré-escolar e adultos em tarefas de imaginação. Os adultos se saíram melhor, principalmente quando havia um objetivo definido.",
-        "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/criancas-nao-sao-mais-criativas-que-adultos-estudo-revela-resultado-inesperado-72880"
-      }
+      {"titulo": "IA da USP identifica o tipo mais grave de infarto", "resumo": "Pesquisadores da USP e da Suécia criaram uma inteligência artificial que reconhece pelo eletrocardiograma o infarto mais grave e aponta qual artéria está entupida. Testada no InCor, ela ainda é experimental e serve de apoio ao médico.", "fonte": "Agência FAPESP", "link": "https://agencia.fapesp.br/inteligencia-artificial-detecta-tipo-mais-grave-de-infarto-e-localiza-arteria-bloqueada-com-alta-precisao/59478"},
+      {"titulo": "Neurônios jovens podem ajudar cérebros a resistir ao Alzheimer", "resumo": "Cientistas holandeses acharam neurônios imaturos até em cérebros de pessoas com mais de 80 anos. Em quem manteve a memória apesar de sinais de Alzheimer, essas células pareciam mais protegidas.", "fonte": "ScienceDaily", "link": "https://www.sciencedaily.com/releases/2026/10/261025222538.htm"},
+      {"titulo": "Ártico tem três zonas climáticas diferentes, diz estudo", "resumo": "Usando 20 anos de medições, satélites e IA, pesquisadores dividiram o Ártico em três regiões que reagem de jeitos distintos ao aquecimento. O trabalho saiu na revista Nature Geoscience.", "fonte": "Earth.com", "link": "https://www.earth.com/climate/scientists-discover-the-arctic-has-three-distinct-climate-zones/"},
+      {"titulo": "OpenAI diz que sua IA fez três descobertas científicas", "resumo": "A OpenAI anunciou resultados em matemática, computação e física atribuídos a seus modelos. Especialistas independentes ainda vão conferir se as descobertas se sustentam.", "fonte": "Olhar Digital", "link": "https://olhardigital.com.br/2026/10/26/ciencia-e-espaco/openai-anuncia-tres-descobertas-cientificas-especialistas-verificarao-resultados"},
+      {"titulo": "Treino em excesso mexe com a química do cérebro", "resumo": "Em testes com camundongos, o excesso de exercício deixou a dopamina alta mesmo em repouso. Os pesquisadores ligam isso a ansiedade e problemas de sono.", "fonte": "Agência FAPESP", "link": "https://agencia.fapesp.br/excesso-de-treino-afeta-a-regulacao-quimica-do-cerebro-mostra-estudo/59468"}
     ],
     "astronomia": [
-      {
-        "titulo": "Telescópio Swift, da NASA, deve cair nas próximas semanas",
-        "resumo": "Depois de 22 anos estudando explosões no universo, o Swift encerrou as observações e vai reentrar na atmosfera sem controle. A NASA diz ser improvável que os pedaços causem danos.",
-        "fonte": "Diário do Pará",
-        "link": "https://diariodopara.com.br/noticias/telescopio-da-nasa-deve-cair-nas-proximas-semanas-em-faixa-da-america-latina/"
-      },
-      {
-        "titulo": "Lua do Caçador ainda brilha quase cheia no céu",
-        "resumo": "A Lua cheia de outubro aconteceu na madrugada de segunda e continua bonita nas próximas noites. Vale olhar para o leste perto do anoitecer, com Saturno nas proximidades.",
-        "fonte": "Aventuras na História",
-        "link": "https://aventurasnahistoria.com.br/noticias/historia-hoje/lua-cheia-do-cacador-ilumina-o-ceu-esta-semana-veja-como-ver.phtml"
-      },
-      {
-        "titulo": "James Webb acha três buracos negros numa galáxia antiga",
-        "resumo": "Em uma galáxia a mais de 12,5 bilhões de anos-luz, o telescópio viu três buracos negros gigantes ativos. Dois deles estão tão próximos que devem se fundir.",
-        "fonte": "ScienceDaily",
-        "link": "https://sciencedaily.com/releases/2026/10/261024222000.htm"
-      },
-      {
-        "titulo": "Astrônomos podem ter achado a primeira lua fora do Sistema Solar",
-        "resumo": "Com um telescópio do ESO, no Chile, a equipe viu sinais de uma lua enorme girando em torno de uma anã marrom. A descoberta ainda precisa ser confirmada.",
-        "fonte": "ScienceDaily",
-        "link": "https://sciencedaily.com/releases/2026/10/261023023736.htm"
-      }
+      {"titulo": "Chuva de meteoros Orionídeas segue até 7 de novembro", "resumo": "A chuva de meteoros Orionídeas continua ativa até o começo de novembro, com rastros que podem ser vistos a olho nu. O melhor horário é de madrugada, longe das luzes da cidade.", "fonte": "Mix Vale", "link": "https://www.mixvale.com.br/2026/10/27/orionideas-seguem-ate-7-de-novembro-com-rastros-visiveis-a-olho-nu/"},
+      {"titulo": "Noite Estrelada de Van Gogh mostraria o céu de 22 de julho de 1889", "resumo": "Pesquisadores sul-coreanos afirmam que o quadro reproduz o céu daquela madrugada, com a Lua, Vênus e um aglomerado de estrelas. A conclusão contesta a data aceita há décadas.", "fonte": "Space Today", "link": "https://spacetoday.com.br/noite-estrelada-de-van-gogh-retrata-ceu-de-22-de-julho-de-1889-diz-estudo/"},
+      {"titulo": "Sol arrancou a casca do cometa interestelar 3I/ATLAS", "resumo": "Um estudo calcula que o calor do Sol tirou milhões de toneladas de gás do cometa, que veio de fora do Sistema Solar. Assim, camadas internas mais preservadas podem ter ficado expostas.", "fonte": "Space Today", "link": "https://spacetoday.com.br/sol-raspou-a-casca-do-cometa-interestelar-3i-atlas-aponta-estudo/"},
+      {"titulo": "Pontinhos vermelhos do James Webb podem ser estrelas gigantes", "resumo": "Astrofísicos de Harvard sugerem que os misteriosos pontinhos vermelhos vistos pelo James Webb seriam estrelas de até um milhão de vezes a massa do Sol. A ideia ainda disputa espaço com a hipótese de buracos negros.", "fonte": "Space Today", "link": "https://spacetoday.com.br/os-little-red-dots-podem-ser-estrelas-com-um-milhao-de-vezes-a-massa-do-sol/"},
+      {"titulo": "Lua Io deixa marca fria na aurora de Júpiter", "resumo": "O James Webb flagrou um núcleo de gás mais frio e denso na marca que a lua Io deixa nas auroras de Júpiter. A estrutura surgiu e sumiu em poucos minutos, e a causa ainda não está clara.", "fonte": "Space Today", "link": "https://spacetoday.com.br/o-coracao-gelado-da-lua-io-que-deixa-sua-pegada-em-jupiter/"}
     ],
     "filosofia": [
-      {
-        "titulo": "Filósofos discutem resposta conjunta ao uso de IA na pesquisa",
-        "resumo": "Diante de artigos e pareceres feitos por IA, uma fundação vai reunir editores, filósofos e juristas em Nova York, em abril de 2027, para debater regras comuns para a área.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/10/26/coordinating-the-philosophy-professions-response-to-the-use-of-ai-in-research"
-      },
-      {
-        "titulo": "Dia Mundial da Filosofia terá tema sobre um mundo em crise",
-        "resumo": "A data da UNESCO será em 19 de novembro e vai perguntar como conviver em meio a crises de clima, migração, saúde e inteligência artificial.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/10/26/reminder-world-philosophy-day-coming-up-next-month"
-      },
-      {
-        "titulo": "Belchior faria 80 anos; letras dialogam com Nietzsche",
-        "resumo": "Uma análise liga a postura crítica do cantor à ideia de intempestividade de Nietzsche. Professores usam suas músicas em aulas de filosofia.",
-        "fonte": "O Povo",
-        "link": "https://mais.opovo.com.br/jornal/vidaearte/2026/10/25/belchior-80-anos-compositor-intempestivo-uniu-filosofia-e-literatura.html"
-      },
-      {
-        "titulo": "Eduardo Giannetti fala sobre o futuro do Brasil em São Paulo",
-        "resumo": "O economista e filósofo participa no dia 29 de outubro de um encontro no Teatro Iguatemi, sobre economia, comportamento humano e desenvolvimento.",
-        "fonte": "Revista Business",
-        "link": "https://revistabusiness.com.br/2026/10/26/teatro-iguatemi-reune-eduardo-giannetti-e-martha-gabriel-em-serie-sobre-futuro-do-brasil"
-      }
+      {"titulo": "Morre o lógico britânico Timothy Smiley", "resumo": "Morreu Timothy Smiley, professor emérito de Cambridge conhecido pelos trabalhos em lógica. Ele passou toda a carreira na universidade.", "fonte": "Daily Nous", "link": "https://dailynous.com/2026/10/26/timothy-smiley-1930-2026/"},
+      {"titulo": "Filósofo e ex-coveiro lança livro sobre a morte", "resumo": "Osmair Camargo Cândido, o Fininho, reuniu em Memórias de um coveiro as reflexões de décadas trabalhando em cemitérios de São Paulo. O livro sai em 23 de novembro pela Fósforo.", "fonte": "Correio do Povo Penedo", "link": "https://correiodopovopenedo.com.br/noticia/2026/10/25/filosofo-e-ex-coveiro-lanca-livro-com-memorias-sobre-a-morte"},
+      {"titulo": "Oxford cria série dedicada à filosofia da inteligência artificial", "resumo": "A editora da Universidade de Oxford lançou uma nova série de estudos sobre filosofia da IA e da computação, que já aceita textos.", "fonte": "Leiter Reports", "link": "https://leiterreports.com/2026/10/27/new-oxford-studies-in-philosophy-of-ai-and-computing/"},
+      {"titulo": "Análise conclui que a filosofia acadêmica está saudável", "resumo": "Os filósofos Kit Fine e Gideon Rosen publicaram a análise final sobre a área ligada ao chamado Relatório Boghossian. Eles concluem que a disciplina mantém, em geral, padrões altos.", "fonte": "Leiter Reports", "link": "https://leiterreports.com/2026/10/26/final-field-specific-analysis-related-to-the-boghossian-report-is-released-on-philosophy/"},
+      {"titulo": "Semana tem jornada de filosofias asiáticas na USP", "resumo": "Nesta quarta acontecem a jornada de filosofias asiáticas e interculturais na USP e um simpósio internacional em Pirenópolis, Goiás. Na quinta, Belém recebe um colóquio sobre mulheres na filosofia antiga.", "fonte": "ANPOF", "link": "https://anpof.org.br/agenda"}
     ],
     "livros": [
-      {
-        "titulo": "Prêmio Jabuti anuncia vencedores nesta terça",
-        "resumo": "A cerimônia é nesta terça, 27 de outubro, na Sala São Paulo, com 23 categorias. O Livro do Ano recebe 70 mil reais e uma viagem a uma feira internacional.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/10/14/premio-jabuti-anuncia-os-finalistas-das-23-categorias-de-2026"
-      },
-      {
-        "titulo": "Novo livro de Giuliana Mafra lidera lista de mais vendidos",
-        "resumo": "Eu duvido você terminar este livro tirou Verity do primeiro lugar. As vendas dos vinte mais vendidos caíram na semana seguinte ao primeiro turno.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/10/26/livros-sobre-politica-deixam-a-lista-nielsen-publishnews-na-semana-apos-o-primeiro-turno/"
-      },
-      {
-        "titulo": "A Feira do Livro de 2027 já tem mais de 50 expositores",
-        "resumo": "A feira gratuita será de 22 a 30 de maio, na praça Charles Miller, em São Paulo. Editoras estreantes podem se inscrever até 18 de dezembro.",
-        "fonte": "PublishNews",
-        "link": "https://publishnews.com.br/materias/2026/10/26/a-feira-do-livro-confirma-mais-de-50-expositores-para-2027"
-      },
-      {
-        "titulo": "Site japonês de mangás grátis passa a vender 40 mil títulos",
-        "resumo": "A plataforma criada pelo autor Ken Akamatsu agora mistura leitura gratuita e venda de volumes de editoras, depois da queda na receita com anúncios.",
-        "fonte": "PublishNews",
-        "link": "https://publishnews.com.br/materias/2026/10/26/plataforma-japonesa-de-mangas-gratuitos-passa-a-vender-40-mil-titulos-de-editoras"
-      }
+      {"titulo": "Livro de Ruy Castro sobre a guerra no Rio é o Livro do Ano", "resumo": "Trincheira tropical, de Ruy Castro, venceu o Jabuti como Livro do Ano. Em romance, a vencedora foi Meridiana, de Eliana Alves Cruz.", "fonte": "CNN Brasil", "link": "https://www.cnnbrasil.com.br/pop/premio-jabuti-2026-confira-a-lista-completa-de-vencedores/"},
+      {"titulo": "Perfil Bookster ganha Jabuti de incentivo à leitura", "resumo": "Pedro Pacífico, do perfil Bookster no Instagram, venceu a nova categoria do Jabuti dedicada ao incentivo à leitura na internet.", "fonte": "Rede 98", "link": "https://rede98.com.br/noticias/cultura/bookster-vence-jabuti-2026-e-recebe-premio-de-gustavo-scarpa-veja-vencedores"},
+      {"titulo": "Prêmio Oceanos anuncia seus finalistas nesta quarta", "resumo": "O Prêmio Oceanos revela nesta quarta, às 19h, em São Paulo, seus 12 finalistas de 2026: seis de prosa e seis de poesia.", "fonte": "PublishNews", "link": "https://publishnews.com.br/materias/2026/10/27/premio-oceanos-faz-evento-para-anunciar-os-finalistas-de-2026"},
+      {"titulo": "Livrarias independentes alemãs cobram transparência das editoras", "resumo": "Um grupo de 26 livreiros independentes da Alemanha publicou uma carta aberta pedindo regras mais justas às editoras, como respeito às datas de lançamento.", "fonte": "PublishNews", "link": "https://publishnews.com.br/materias/2026/10/27/livrarias-independentes-da-alemanha-cobram-medidas-de-transparencia-das-editoras"}
     ]
   }
 }
