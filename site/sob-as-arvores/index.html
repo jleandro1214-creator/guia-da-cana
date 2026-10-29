@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sob as Árvores</title>
+<meta name="description" content="Conto de José Leandro Lucas. Leitura de 4 minutos.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sob as Árvores">
+<meta property="og:description" content="Único sobrevivente da queda de um avião na Amazônia, o repórter Caio acorda num laboratório debaixo da terra. Ali vive um povo escondido sob as árvore…">
+<meta property="og:image" content="https://jleandro1214-creator.github.io/guia-da-cana/site/sob-as-arvores/capa.jpg">
+<meta property="og:url" content="https://jleandro1214-creator.github.io/guia-da-cana/site/sob-as-arvores/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../leandro/icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Nunito+Sans:wght@400;600;800&display=swap">
+<style>
+:root{
+  --bg:#f6f3e8; --surface:#fffdf6; --fg:#1f2a1c; --muted:#5d6656;
+  --verde:#1f6b34; --verde-esc:#134a24; --verde-claro:#dcebd3;
+  --amarelo:#f2c230; --amarelo-esc:#b98a00;
+  --marrom:#6b4423; --marrom-claro:#ead9c4; --terra:#3e2714;
+  --on-verde:#fbf8ec; --linha:#d9d2bf;
+  --f-display:"Zilla Slab",Georgia,serif;
+  --f-body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a12; --surface:#1c2419; --fg:#eef0e4; --muted:#a8b19c;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f;
+  --amarelo:#f2c230; --amarelo-esc:#f2c230;
+  --marrom:#c4925f; --marrom-claro:#33261a; --terra:#24170c;
+  --on-verde:#f4f1e3; --linha:#2f3a2b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a12; --surface:#1c2419; --fg:#eef0e4; --muted:#a8b19c;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f;
+  --amarelo:#f2c230; --amarelo-esc:#f2c230;
+  --marrom:#c4925f; --marrom-claro:#33261a; --terra:#24170c;
+  --on-verde:#f4f1e3; --linha:#2f3a2b; color-scheme:dark}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);line-height:1.6}
+.wrap{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+.topo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-weight:700}
+.topo a{color:var(--verde);text-decoration:none}
+.capa{display:block;width:min(260px,70%);height:auto;margin:32px auto 0;border-radius:10px;box-shadow:0 12px 30px rgba(30,20,10,.25)}
+.eyebrow{text-align:center;margin-top:28px;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amarelo-esc)}
+.conto-corpo{font-family:Georgia,"Times New Roman",serif;font-size:1.12rem;line-height:1.85}
+.conto-corpo h3{font-family:var(--f-display);text-align:center;color:var(--marrom);font-size:clamp(1.8rem,6vw,2.4rem);line-height:1.15;margin:8px 0 28px;text-wrap:balance}
+.conto-corpo p{margin:0 0 1em;text-indent:1.4em}
+.conto-corpo p.fala{text-indent:0;font-style:italic;color:var(--marrom)}
+.conto-corpo .conto-fim{text-indent:0;text-align:center;font-style:italic;color:var(--amarelo-esc);margin-top:1.6em}
+.fim{margin-top:36px;padding-top:24px;border-top:1px dashed var(--linha);display:grid;gap:12px;justify-items:center;text-align:center}
+.fim p{color:var(--muted)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;padding:11px 18px;border-radius:999px;font-weight:800;text-decoration:none;border:2px solid var(--verde);color:var(--verde)}
+.btn.cheio{background:var(--verde);color:var(--on-verde)}
+
+.conto-corpo h4{font-family:var(--f-display);color:var(--marrom);font-size:1.25rem;margin:2em 0 .8em;text-align:center}
+.conto-corpo p.dedica{text-indent:0;text-align:center;font-style:italic;color:var(--muted);margin-top:2em}
+.inspira{text-align:center;color:var(--muted);font-size:.92rem;margin:6px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topo"><a href="../#contos">← Meus contos</a><span style="color:var(--muted)">Leitura de 4 minutos</span></div>
+  <img class="capa" src="capa.jpg" width="480" height="671" alt="Capa do conto Sob as Árvores: dois personagens diante de uma árvore gigante cujas raízes abrem passagem para uma cidade de luz verde">
+  <p class="eyebrow">Um conto de José Leandro Lucas</p>
+  <p class="inspira">Inspirado nos temas de A Mão Esquerda da Escuridão, de Ursula K. Le Guin.</p>
+  <div class="conto-corpo">
+<h3>Sob as Árvores</h3>
+<h4>I. A queda</h4>
+<p>O voo de Manaus para Lima levava 63 pessoas. Caio Ferraz, repórter de São Paulo, cochilava com o fone no ouvido quando o avião começou a tremer. Ouviu gritos, depois um estrondo, e depois nada.</p>
+<p>Acordou de cara na lama, com o cheiro de querosene e de folhas molhadas. Ao redor, só destroços e silêncio. Chamou por alguém durante horas. Ninguém respondeu.</p>
+<p>No terceiro dia, com febre e uma perna ferida, desmaiou perto de uma árvore enorme. A última coisa que viu foram olhos o observando entre as raízes.</p>
+<h4>II. O laboratório</h4>
+<p>Acordou numa sala redonda, de paredes lisas e quentes, iluminada por uma luz verde que não vinha de lugar nenhum. Estava debaixo da terra. Por uma abertura no teto, via raízes e um pedaço de céu filtrado pelas copas.</p>
+<p>Pessoas entravam e saíam. Mediam, observavam, anotavam. Tinham rostos que Caio não conseguia classificar. Não eram homens nem mulheres. Ou eram as duas coisas, ou nenhuma. Ele tentava encaixá-las numa caixa, e elas escapavam de todas.</p>
+<p>E percebeu, aos poucos, que ali o estranho era ele. Apontavam para o corpo dele com curiosidade e certo receio, como se olha para um bicho raro. Para aquele povo, ter um sexo fixo era uma anomalia.</p>
+<h4>III. Jaci</h4>
+<p>Quem mais aparecia era Jaci. Tinha mãos finas, voz baixa e uma paciência infinita. Trazia uma máquina pequena, cheia de fios, que colava no pescoço de Caio enquanto ele falava.</p>
+<p>Caio levou semanas para entender: aquele aparelho tinha sido criado para decifrar o som dos animais pela vibração. O canto do uirapuru, o ronco da onça, o grito do macaco. E Jaci o estudava do mesmo jeito.</p>
+<p>Até que, numa manhã, Caio disse &quot;água&quot;, e a máquina devolveu um som na língua deles. Jaci parou. Olhou para ele de um jeito diferente, como quem olha para uma pessoa, não para um animal.</p>
+<p class="fala">— Você… fala — traduziu a máquina.</p>
+<p class="fala">— Faz tempo — respondeu Caio, e riu pela primeira vez desde a queda.</p>
+<h4>IV. O mundo de baixo</h4>
+<p>Depois disso, Jaci passou a levá-lo pelos túneis. A cidade se estendia por quilômetros debaixo do solo, com plantações iluminadas, rios subterrâneos e salas de estudo. Em cima, só floresta. Nenhum satélite jamais tinha visto nada.</p>
+<p>Caio não via chefes gritando, nem disputas de poder. As decisões eram tomadas em roda, devagar. Ninguém mandava em ninguém por ter nascido de um jeito ou de outro.</p>
+<p>Uma noite ele tentou explicar o mundo de fora: homens que achavam que valiam mais que as mulheres, guerras por orgulho, gente brigando para ser maior que os outros. Jaci ouviu tudo pela máquina, em silêncio.</p>
+<p class="fala">— Por que vocês se dividem em dois para depois brigar? — perguntou.</p>
+<p>Caio não soube responder.</p>
+<h4>V. Os sinais</h4>
+<p>Foi aí que começou. Primeiro, a voz ficou mais suave. Depois o rosto, no reflexo da água, parecia outro. A barba parou de crescer. O corpo mudava devagar, de um jeito que ele não sabia nomear.</p>
+<p>Caio entrou em pânico e correu até Jaci.</p>
+<p>Jaci o levou à parte mais funda dos túneis, uma câmara antiga com pedras que brilhavam fraco no escuro.</p>
+<p class="fala">— Isso veio do céu, há muito tempo — traduziu a máquina. — Uma pedra que caiu e mudou tudo. Ela muda quem vive aqui. Sempre mudou.</p>
+<p>Uma radiação. Era isso que fazia aquele povo ser como era. Para eles, não era doença nem anomalia. Era simplesmente a vida.</p>
+<p>E agora estava nele.</p>
+<h4>VI. O resgate</h4>
+<p>Na mesma época, Jaci trouxe a notícia: havia estranhos na floresta. Homens de uniforme, com drones e cães, seguindo os destroços do avião. A cada dia chegavam mais perto da árvore grande.</p>
+<p>Caio entendeu o que significava. Se o encontrassem, encontrariam a cidade. Viriam cientistas, governos, câmeras. O mundo de baixo deixaria de existir.</p>
+<p>Ele podia voltar para casa. Para a mãe, para o apartamento em São Paulo, para a vida que conhecia.</p>
+<p>Mas, quando pensava em São Paulo, já não sentia saudade. Sentia um aperto, quase medo. O trânsito, as brigas, as pessoas medindo umas às outras. A cada dia, o mundo de fora parecia mais estranho, e o de baixo mais seu.</p>
+<p>Ele não sabia mais se era ele mesmo pensando aquilo, ou a pedra pensando por ele.</p>
+<h4>VII. Sob as árvores</h4>
+<p>Na última manhã, os homens do resgate chegaram à árvore grande. Caio estava logo abaixo, no túnel, a poucos metros. Ouvia as vozes, em português.</p>
+<p class="fala">— Aqui tem marca de pegada — disse um deles. — Pequena. Pode ser de algum sobrevivente.</p>
+<p>Bastava um grito. Uma palavra.</p>
+<p>Caio fechou os olhos. Sentiu a mão de Jaci no seu ombro. E ficou em silêncio.</p>
+<p>Os passos se afastaram. Os cães latiram mais longe. Horas depois, o barulho do helicóptero sumiu no céu.</p>
+<p>Três semanas depois, os jornais anunciaram: &quot;Nenhum sobrevivente no voo Manaus–Lima&quot;.</p>
+<p>No fundo da terra, Caio se olhou no reflexo da água. Não reconheceu o rosto, e mesmo assim sorriu para ele.</p>
+<p>Até hoje não sabe se escolheu ficar, ou se foi escolhido.</p>
+<p class="conto-fim">Fim.</p>
+</div>
+  <div class="fim">
+    <p>Gostou? Compartilhe com alguém que gosta de uma boa história.</p>
+    <div class="btns">
+      <a class="btn cheio" href="../#contos">Ler outros contos</a>
+      <a class="btn" href="../">Conhecer o site</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
