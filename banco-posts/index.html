@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Banco de Posts</title>
+<meta name="description" content="Seus posts prontos para Instagram, separados por perfil: Apps, Agro e Livros.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1b3a24">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--verde:#1b3a24;--verde2:#2f5d34;--amarelo:#d9a520;--marrom:#5a3e24;--bg:#f6f1e4;--card:#fffdf7;--fg:#241d16;--mut:#6b6052;--line:#e2d8c3;--soft:#efe6d1}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+header{background:var(--verde);color:#fbf6e6;padding:calc(14px + env(safe-area-inset-top)) 16px 0;position:sticky;top:0;z-index:5}
+.top{display:flex;align-items:center;gap:10px}
+.top img{width:38px;height:38px;border-radius:10px}
+.top h1{margin:0;font-size:22px;flex:1;line-height:1.1}
+.top h1 small{display:block;font-size:13px;font-weight:500;opacity:.8}
+.ibtn{background:none;border:0;color:inherit;font-size:24px;width:44px;height:44px;border-radius:12px}
+.ibtn:active{background:rgba(255,255,255,.12)}
+.tabs{display:flex;margin-top:10px}
+.tab{flex:1;background:none;border:0;color:#d9d2bd;padding:10px 4px 12px;font-weight:700;font-size:16px;border-bottom:4px solid transparent}
+.tab[aria-selected=true]{color:#fff;border-color:var(--amarelo)}
+.tab span{display:inline-block;min-width:22px;margin-left:4px;padding:0 6px;border-radius:99px;background:rgba(255,255,255,.15);font-size:13px}
+main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
+.busca{display:flex;gap:8px}
+#q{flex:1;min-width:0;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);font-size:17px}
+#fst{padding:0 10px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);font-size:15px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);padding:7px 14px;border-radius:99px;font-size:15px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--marrom);border-color:var(--marrom);color:#fff}
+.post{display:flex;gap:12px;align-items:stretch;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;margin-top:10px;width:100%;text-align:left}
+.post:active{background:var(--soft)}
+.th{width:76px;height:95px;flex:none;border-radius:10px;background:var(--soft) center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:30px;position:relative;overflow:hidden}
+.th.story{height:110px;width:62px}
+.th em{position:absolute;right:4px;bottom:4px;background:rgba(0,0,0,.6);color:#fff;font-style:normal;font-size:12px;padding:1px 6px;border-radius:8px}
+.pi{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.pi b{font-size:17px;line-height:1.25}
+.pi p{margin:0;color:var(--mut);font-size:14.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tg{font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--marrom)}
+.st-rascunho{background:#ece6d8;color:#6b6052}.st-pronto{background:#fbedc5;color:#7a5a00}.st-postado{background:#dcebdc;color:#1b3a24}
+.vazio{text-align:center;color:var(--mut);padding:40px 10px}
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));background:var(--amarelo);color:#2a1f0f;border:0;border-radius:18px;padding:16px 20px;font-weight:800;font-size:17px;box-shadow:0 6px 18px rgba(60,40,10,.3);z-index:6}
+/* editor */
+#ed{position:fixed;inset:0;background:var(--bg);z-index:20;overflow-y:auto;overscroll-behavior:contain}
+#ed header{display:flex;align-items:center;gap:6px;padding:calc(8px + env(safe-area-inset-top)) 8px 8px}
+#ed header h2{flex:1;margin:0;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#salvo{font-size:13px;opacity:.85;margin-right:6px}
+.ed{max-width:720px;margin:0 auto;padding:14px 16px 120px}
+.ed label.l{display:block;font-weight:700;font-size:15px;color:var(--marrom);margin:18px 0 6px}
+.ed input[type=text],.ed textarea,.ed select{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);font-size:17px}
+.ed textarea{resize:vertical;line-height:1.45}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.row3 select{padding:10px 6px;font-size:15px}
+.mini{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:700;font-size:16px;background:var(--soft);color:var(--fg);text-decoration:none;text-align:center}
+.btn.pri{background:var(--verde);color:#fff}.btn.am{background:var(--amarelo);color:#2a1f0f}.btn.del{background:#f6dcd6;color:#8a2a17}
+.btn.sm{padding:8px 12px;font-size:14.5px}
+.imgs{display:flex;gap:8px;overflow-x:auto;padding:4px 0}
+.imgs .im{position:relative;flex:none}
+.imgs img{height:150px;border-radius:10px;display:block}
+.imgs .im button{position:absolute;top:4px;right:4px;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:18px}
+.imgs .im span{position:absolute;left:4px;top:4px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:1px 7px;border-radius:8px}
+.addimg{flex:none;height:150px;width:120px;border:2px dashed var(--amarelo);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:700;color:var(--marrom);background:var(--card);font-size:15px;text-align:center;padding:6px}
+.addimg i{font-style:normal;font-size:28px}
+.slide{display:flex;gap:8px;align-items:flex-start;margin-top:8px}
+.slide b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--marrom);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:8px}
+.slide textarea{flex:1}
+.slide button{flex:none;width:40px;height:44px;border:0;background:none;font-size:20px;color:var(--mut)}
+.cont{font-size:13px;color:var(--mut);text-align:right;margin-top:3px}
+.acoes{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;z-index:21}
+.acoes .btn{flex:1;padding:14px 6px}
+.dica{font-size:14px;color:var(--mut);margin:6px 0 0}
+/* sheet */
+#bg{position:fixed;inset:0;background:rgba(20,15,8,.5);z-index:30}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom));z-index:31;max-width:720px;margin:0 auto}
+.sheet h3{margin:8px 4px 10px;font-size:18px}
+.sheet button.it{display:flex;gap:12px;align-items:center;width:100%;border:0;background:none;padding:14px 8px;font-size:17px;text-align:left;border-radius:12px}
+.sheet button.it:active{background:var(--soft)}
+.sheet .it i{font-style:normal;font-size:22px;width:30px;text-align:center}
+.sheet .it small{display:block;color:var(--mut);font-size:13.5px}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#241d16;color:#fff;padding:11px 16px;border-radius:12px;font-size:15px;z-index:50;max-width:90vw;text-align:center}
+#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1b3a24;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800}#splash-app small{opacity:.75;margin-top:-10px}#splash-app.fim{opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Banco de Posts</b><small>Apps · Agro · Livros</small></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove()},450)}function ok(){setTimeout(f,Math.max(0,700-(Date.now()-t0)))}if(document.readyState==="complete")ok();else addEventListener("load",ok);setTimeout(f,3500)})();</script>
+
+<header>
+ <div class="top"><img src="icon-192.png" alt=""><h1>Banco de Posts<small id="sub">Seus posts prontos para postar</small></h1><button class="ibtn" id="b-menu" aria-label="Menu">⋮</button></div>
+ <div class="tabs" role="tablist" id="tabs"></div>
+</header>
+<main id="main">
+ <div class="busca"><input id="q" type="search" placeholder="Buscar post…" autocomplete="off"><select id="fst" aria-label="Situação"><option value="">Todos</option><option value="rascunho">Rascunho</option><option value="pronto">Pronto</option><option value="postado">Postado</option></select></div>
+ <div class="chips" id="chips"></div>
+ <div id="lista"></div>
+</main>
+<button class="fab" id="b-novo">＋ Novo post</button>
+
+<section id="ed" hidden>
+ <header><button class="ibtn" id="ed-voltar" aria-label="Voltar">←</button><h2 id="ed-tit">Post</h2><span id="salvo"></span><button class="ibtn" id="ed-mais" aria-label="Mais opções">⋮</button></header>
+ <div class="ed">
+  <label class="l" for="f-titulo">Nome do post</label>
+  <input type="text" id="f-titulo" placeholder="Ex.: Dica de calagem">
+  <div class="row3" style="margin-top:12px">
+   <select id="f-perfil" aria-label="Perfil"><option value="apps">📱 Apps</option><option value="agro">🌾 Agro</option><option value="livros">📚 Livros</option></select>
+   <select id="f-tipo" aria-label="Modalidade"><option value="post">🖼️ Post</option><option value="carrossel">🗂️ Carrossel</option><option value="story">📲 Story</option></select>
+   <select id="f-status" aria-label="Situação"><option value="rascunho">✏️ Rascunho</option><option value="pronto">⭐ Pronto</option><option value="postado">✅ Postado</option></select>
+  </div>
+
+  <label class="l">Imagens</label>
+  <div class="imgs" id="imgs"></div>
+  <input type="file" id="f-img" accept="image/*" multiple hidden>
+  <p class="dica" id="dica-img"></p>
+
+  <div id="bx-slides">
+   <label class="l">Texto de cada slide</label>
+   <div id="slides"></div>
+   <div class="mini"><button class="btn sm" id="b-addslide" type="button">＋ Slide</button><button class="btn sm" id="b-copslides" type="button">📋 Copiar slides</button></div>
+  </div>
+
+  <label class="l" for="f-ideia">Ideia de imagem</label>
+  <textarea id="f-ideia" rows="3" placeholder="Descreva a imagem que você quer gerar"></textarea>
+  <div class="mini"><button class="btn sm am" id="b-prompt" type="button">✨ Copiar pedido para gerar a imagem</button></div>
+
+  <label class="l" for="f-legenda">Legenda</label>
+  <textarea id="f-legenda" rows="9" placeholder="Escreva a legenda"></textarea>
+  <div class="cont" id="c-leg"></div>
+
+  <label class="l" for="f-hash">Hashtags</label>
+  <textarea id="f-hash" rows="2" placeholder="#exemplo #outra"></textarea>
+  <div class="cont" id="c-hash"></div>
+ </div>
+ <div class="acoes"><button class="btn" id="b-copiar">📋 Copiar legenda</button><button class="btn pri" id="b-share">📤 Postar</button></div>
+</section>
+
+<div id="bg" hidden></div>
+<div class="sheet" id="sh-menu" hidden>
+ <h3>Banco de Posts</h3>
+ <button class="it" id="m-inst"><i>📲</i><span>Instalar app<small>Fica na tela inicial e funciona sem internet</small></span></button>
+ <button class="it" id="m-backup"><i>💾</i><span>Salvar cópia de segurança<small>Baixa um arquivo com todos os posts e imagens</small></span></button>
+ <button class="it" id="m-restore"><i>📂</i><span>Restaurar cópia<small>Traz de volta posts de um arquivo salvo</small></span></button>
+ <button class="it" id="m-exemplos"><i>🌱</i><span>Repor posts de exemplo<small>Devolve só os exemplos que você apagou</small></span></button>
+ <input type="file" id="f-restore" accept=".json,application/json" hidden>
+</div>
+<div class="sheet" id="sh-post" hidden>
+ <h3>Opções do post</h3>
+ <button class="it" id="p-tudo"><i>📋</i><span>Copiar tudo<small>Slides, legenda e hashtags juntos</small></span></button>
+ <button class="it" id="p-dup"><i>⧉</i><span>Duplicar<small>Cria uma cópia para fazer outra versão</small></span></button>
+ <button class="it" id="p-del"><i>🗑️</i><span>Apagar post</span></button>
+</div>
+<div id="toast" hidden></div>
+
+<script>
+const SEEDS=[{"id": "a01", "perfil": "apps", "tipo": "post", "titulo": "Quem sou eu", "ideia": "Retrato estilo pintura de um técnico agrícola de boné verde segurando um celular com ícones de apps brilhando, canavial ao pôr do sol ao fundo, cores verde, amarelo e marrom. Texto: \"Da roça à rotina\".", "legenda": "Prazer, eu sou o Leandro! 👋🌱\n\nSou técnico agrícola e, nas horas vagas, crio aplicativos que resolvem problemas do dia a dia.\n\nTudo começou no campo: anotações perdidas, planilhas no papel, contas feitas na mão. Pensei: e se isso coubesse no celular? Assim nasceram meus primeiros apps.\n\nHoje são mais de 30, para o campo, para a casa, para a saúde e até para o lazer. Todos grátis, instaláveis no celular e funcionando até sem internet.\n\n👇 O link de todos está na bio.\n\nTem um problema que um app resolveria? Me conta nos comentários!", "hashtags": "#criadordeapps #apps #tecnicoagricola #agro #tecnologia #produtividade #celular #inovação", "slides": []}, {"id": "a02", "perfil": "apps", "tipo": "carrossel", "titulo": "Como instalar meus apps", "ideia": "Sequência de telas de celular mostrando o Chrome aberto, o menu de três pontinhos e o botão \"Instalar app\", com setas amarelas indicando cada toque. Fundo verde-escuro.", "legenda": "Instalar meus apps é mais fácil do que parece! 📲\n\nNão precisa de Play Store, não ocupa quase nada de memória e funciona sem internet depois de aberto uma vez.\n\nArrasta para o lado e veja o passo a passo 👉\n\nSalve este post para mandar para quem precisar! 💾", "hashtags": "#tutorial #dicasdecelular #apps #android #semInternet #criadordeapps", "slides": ["Como instalar meus apps em 3 toques 📲", "1. Toque no link da bio e escolha o app", "2. No Chrome, toque nos três pontinhos ⋮", "3. Toque em \"Instalar app\". Pronto! O ícone aparece na sua tela", "Funciona sem internet depois de aberto uma vez ✅ Salve este post!"]}, {"id": "a03", "perfil": "apps", "tipo": "carrossel", "titulo": "EPI em Dia: chega de controle no papel", "ideia": "Prancheta com folhas bagunçadas e um capacete de segurança de um lado; do outro, celular com tela organizada e selo verde de ok. Cores verde e amarelo.", "legenda": "Quem controla EPI no papel sabe: folha some, assinatura falta, estoque acaba sem ninguém perceber. 😩\n\nO EPI em Dia resolve isso:\n✅ Registro de cada entrega por colaborador\n✅ Estoque atualizado na hora\n✅ Alerta do que está acabando\n✅ Tudo no celular, sem internet\n\nFeito para gestores e técnicos de segurança.\n\n👇 Link na bio, é grátis!", "hashtags": "#EPI #segurancadotrabalho #gestao #tecnicodeseguranca #controledeestoque #apps", "slides": ["Ainda controla EPI no papel? 📋", "Folha some, assinatura falta, o estoque acaba sem aviso", "Conheça o EPI em Dia 🦺", "Entregas, estoque e alertas na palma da mão", "Grátis e sem internet. Link na bio 👇"]}, {"id": "a04", "perfil": "apps", "tipo": "carrossel", "titulo": "Rolê Dividido: racha conta sem briga", "ideia": "Mesa de churrasco com amigos sorrindo, celular no centro mostrando a divisão de valores com ícone de PIX. Cores azul-marinho e laranja.", "legenda": "Todo rolê tem aquele momento: \"quanto eu te devo mesmo?\" 🤔💸\n\nCom o Rolê Dividido:\n✅ Você lança quem pagou o quê\n✅ O app calcula quem deve para quem\n✅ Acerto direto no PIX\n✅ Ainda tem roteiro de viagem e lista da mala\n\nMarca aquele amigo que sempre some na hora de pagar 😂\n\n👇 Link na bio!", "hashtags": "#rachaconta #churrasco #viagem #amigos #pix #financas #apps", "slides": ["\"Quanto eu te devo mesmo?\" 🤔", "Conta de churrasco, viagem, pizza... sempre dá confusão", "Rolê Dividido faz a conta por você 🧮", "Mostra quem deve para quem e o acerto no PIX", "Marca o amigo que some na hora de pagar 😂 Link na bio"]}, {"id": "a05", "perfil": "apps", "tipo": "post", "titulo": "Dia Leve: pausa para respirar", "ideia": "Pessoa sentada na varanda ao amanhecer, olhos fechados, xícara de café ao lado, celular mostrando um círculo de respiração. Tons roxo e lilás suaves.", "legenda": "Quantas vezes hoje você parou só para respirar? 🌿\n\nO Dia Leve te ajuda a cuidar do básico que a correria faz a gente esquecer:\n💧 Beber água\n😴 Dormir bem\n🫁 Pausas de respiração guiada\n📝 Diário do humor\n\nPequenos hábitos, todo dia, mudam tudo.\n\n👇 Grátis, link na bio.", "hashtags": "#bemestar #habitos #respiracao #saudemental #autocuidado #rotina #apps", "slides": []}, {"id": "a06", "perfil": "apps", "tipo": "carrossel", "titulo": "Grana em Dia: onde foi parar meu dinheiro?", "ideia": "Carteira vazia com notas voando e, ao lado, celular mostrando gráfico simples de gastos do mês em verde e amarelo.", "legenda": "Chega o fim do mês e a pergunta é sempre a mesma: onde foi parar meu dinheiro? 💸\n\nO Grana em Dia foi feito para ser simples:\n✅ Lança o gasto em segundos\n✅ Contas fixas e faturas do mês\n✅ Dívidas e metas em um só lugar\n\nSem cadastro, sem banco conectado. Seus dados ficam só no seu celular. 🔒\n\n👇 Link na bio!", "hashtags": "#financaspessoais #controledegastos #organizacaofinanceira #dinheiro #economia #apps", "slides": ["Onde foi parar meu dinheiro? 💸", "Gasto pequeno todo dia vira rombo no fim do mês", "Grana em Dia: lance o gasto em segundos", "Contas fixas, dívidas e metas num lugar só", "Seus dados ficam só no seu celular 🔒 Link na bio"]}, {"id": "a07", "perfil": "apps", "tipo": "post", "titulo": "Rótulo Claro: entenda o que você come", "ideia": "Mão segurando celular apontado para o rótulo de uma embalagem no mercado; na tela, avisos coloridos de açúcar, sódio e calorias.", "legenda": "Você entende tudo o que está escrito no rótulo? 🧐\n\nO Rótulo Claro lê a tabela nutricional pela câmera e explica em português simples:\n🍬 Açúcar\n🧂 Sódio\n🔥 Calorias\n⚠️ Alerta para diabéticos e hipertensos\n\nIdeal para fazer compras com mais consciência.\n\n👇 Link na bio!", "hashtags": "#rotulo #alimentacaosaudavel #nutricao #supermercado #saude #apps", "slides": []}, {"id": "a08", "perfil": "apps", "tipo": "post", "titulo": "Faço apps sob medida", "ideia": "Bancada com caderno de anotações cheio de rabiscos de telas, celular ao lado com um app pronto, lâmpada acesa. Cores verde, amarelo e marrom.", "legenda": "Tem um problema que se repete todo dia no seu trabalho ou na sua casa? 💡\n\nAlém dos meus apps, eu crio aplicativos personalizados:\n✅ Controle de estoque\n✅ Checklists e rotinas\n✅ Calculadoras do seu negócio\n✅ Catálogo de produtos\n\nVocê me conta o problema, eu transformo em app. 📱\n\n👉 Me chama no direct!", "hashtags": "#appsobmedida #pequenosnegocios #empreendedorismo #tecnologia #criadordeapps #solucoes", "slides": []}, {"id": "a09", "perfil": "apps", "tipo": "story", "titulo": "Enquete: qual app você quer?", "ideia": "Fundo verde-escuro com ícones de apps espalhados e um grande ponto de interrogação amarelo no centro.", "legenda": "Qual será o próximo app? 🤔\n\nUse a figurinha de ENQUETE:\n🅰️ Finanças da casa\n🅱️ Estudo e concursos\n\nOu a figurinha de PERGUNTA: \"Que problema um app resolveria para você?\"", "hashtags": "", "slides": []}, {"id": "g01", "perfil": "agro", "tipo": "carrossel", "titulo": "Vinhaça: de resíduo a adubo", "ideia": "Ilustração em pintura de uma usina ao fundo, tubulação levando líquido escuro até o canavial verde, com símbolos de K (potássio) brilhando no solo. Pôr do sol dourado.", "legenda": "Você sabia que um dos maiores \"resíduos\" da usina vira adubo para a própria cana? 🌱\n\nA vinhaça sobra da destilação do etanol. Para cada litro de etanol, saem vários litros de vinhaça. Antigamente era problema; hoje é solução.\n\nEla é rica em potássio e matéria orgânica, e volta para o canavial pela fertirrigação: irriga e aduba ao mesmo tempo.\n\nMas tem regra! A dose é calculada pelo solo, para não sobrar potássio nem contaminar a água.\n\nArrasta para o lado 👉 e salve para estudar depois.", "hashtags": "#vinhaca #fertirrigacao #canadeacucar #agro #sustentabilidade #etanol #potassio", "slides": ["Vinhaça: de resíduo a adubo 🌱", "Ela sobra da destilação do etanol, vários litros para cada litro de álcool", "É rica em potássio (K) e matéria orgânica", "Volta para a lavoura irrigando e adubando ao mesmo tempo", "A dose segue o solo, para proteger a água e a terra 💧"]}, {"id": "g02", "perfil": "agro", "tipo": "post", "titulo": "Potássio: o nutriente da cana", "ideia": "Close de um colmo de cana grosso e suculento, com o símbolo K em amarelo e gotas de caldo. Fundo de canavial.", "legenda": "A cana é uma das culturas que mais extraem potássio do solo. 🌾\n\nO potássio (K) ajuda a planta a:\n💧 Controlar a água\n🍬 Transportar o açúcar até o colmo\n🛡️ Resistir melhor à seca e a doenças\n\nFalta de K aparece primeiro nas folhas mais velhas, com pontas e bordas amareladas que secam.\n\nPor isso a adubação potássica, com vinhaça ou adubo mineral, é tão importante no canavial.", "hashtags": "#potassio #nutricaodeplantas #canadeacucar #adubacao #agronomia #agro", "slides": []}, {"id": "g03", "perfil": "agro", "tipo": "carrossel", "titulo": "Calagem e gessagem: qual a diferença?", "ideia": "Corte do solo mostrando camadas: calcário branco na superfície e gesso descendo para o subsolo, raízes de cana crescendo fundo.", "legenda": "Calcário e gesso parecem a mesma coisa, mas não são! 🤔\n\n🪨 CALCÁRIO: corrige a acidez (sobe o pH) e fornece cálcio e magnésio. Age mais na camada de cima.\n\n⚪ GESSO: não corrige o pH, mas leva cálcio para camadas mais profundas e diminui o alumínio tóxico lá embaixo. Assim a raiz desce mais e a planta aguenta melhor a seca.\n\nOs dois juntos, no momento certo, fazem a raiz ir longe. 🌱\n\nA dose sempre vem da análise de solo!", "hashtags": "#calagem #gessagem #solo #analisedesolo #fertilidade #agronomia #agro", "slides": ["Calcário x gesso: qual a diferença? 🤔", "Calcário corrige a acidez e fornece cálcio e magnésio", "Gesso leva cálcio para o fundo e reduz o alumínio tóxico", "Raiz mais funda = planta que aguenta a seca 🌱", "A dose sempre vem da análise de solo 📋"]}, {"id": "g04", "perfil": "agro", "tipo": "carrossel", "titulo": "Broca da cana: o inimigo escondido", "ideia": "Colmo de cana cortado ao meio mostrando a galeria feita pela lagarta da broca, com uma pequena vespa (Cotesia) ao lado. Estilo ilustração científica colorida.", "legenda": "Por fora a cana parece boa. Por dentro... 🐛\n\nA broca-da-cana (Diatraea saccharalis) é uma lagarta que entra no colmo e abre galerias. Resultado:\n📉 Perda de peso da cana\n🍬 Menos açúcar\n🦠 Porta de entrada para fungos (podridões)\n\nUm dos controles mais usados é biológico: a vespinha Cotesia flavipes, que parasita a lagarta. 🐝\n\nMonitorar é o primeiro passo!", "hashtags": "#brocadacana #pragas #controlebiologico #canadeacucar #manejointegrado #agro", "slides": ["Por fora, cana boa. Por dentro... 🐛", "A broca abre galerias dentro do colmo", "Menos peso, menos açúcar e entrada de fungos", "Controle biológico: a vespinha Cotesia flavipes 🐝", "Monitorar é o primeiro passo ✅"]}, {"id": "g05", "perfil": "agro", "tipo": "post", "titulo": "Cigarrinha-das-raízes", "ideia": "Espuma branca na base de uma touceira de cana entre a palha, com a ninfa da cigarrinha em destaque numa lupa.", "legenda": "Viu uma espuminha branca na base da cana? Atenção! 👀\n\nÉ sinal da cigarrinha-das-raízes. A ninfa fica protegida na espuma sugando a raiz, e o adulto suga a folha.\n\nEla gosta de calor, chuva e da palha que fica no chão na colheita mecanizada.\n\nO estrago: perda de produtividade e de qualidade do caldo.\n\nMonitoramento no início das chuvas faz toda a diferença! 🌧️", "hashtags": "#cigarrinha #pragasdacana #canadeacucar #monitoramento #agro #manejo", "slides": []}, {"id": "g06", "perfil": "agro", "tipo": "carrossel", "titulo": "Compactação do solo", "ideia": "Trator e transbordo passando sobre o solo, com corte mostrando camada compactada e raízes tortas, ao lado de solo solto com raízes retas.", "legenda": "Máquina pesada passando sempre no mesmo lugar deixa marca... lá embaixo. 🚜\n\nA compactação aperta o solo e:\n❌ Dificulta a entrada de água\n❌ Raiz não consegue descer\n❌ Planta sofre mais na seca\n\nComo evitar:\n✅ Controle de tráfego (máquina sempre na mesma linha)\n✅ Evitar entrar com o solo muito úmido\n✅ Manter matéria orgânica e palha\n\nSolo solto, raiz feliz! 🌱", "hashtags": "#compactacao #solo #manejodosolo #mecanizacao #canadeacucar #agro", "slides": ["Máquina pesada deixa marca lá embaixo 🚜", "Solo compactado segura a água e trava a raiz", "Controle de tráfego: máquina sempre na mesma linha", "Evite entrar com o solo encharcado", "Solo solto, raiz feliz 🌱"]}, {"id": "g07", "perfil": "agro", "tipo": "post", "titulo": "Por que escolher bem a variedade", "ideia": "Fileiras de cana de variedades diferentes lado a lado, cada uma com uma plaquinha, em tons de verde distintos. Céu azul.", "legenda": "Variedade certa no lugar certo vale mais que muito adubo. 🌾\n\nNa hora de escolher, olhe:\n📅 Época de colheita (início, meio ou fim de safra)\n🌍 Ambiente de produção (tipo de solo e água)\n🛡️ Resistência a doenças como ferrugem e carvão\n🍬 Teor de açúcar\n\nE nunca coloque tudo numa variedade só: diversificar protege a lavoura.", "hashtags": "#variedadesdecana #canadeacucar #planejamento #agronomia #melhoramento #agro", "slides": []}, {"id": "g08", "perfil": "agro", "tipo": "post", "titulo": "Quem cuida da terra, colhe o futuro", "ideia": "Homem de boné verde ao lado de um trator, olhando o canavial ao pôr do sol, carreta de vinhaça na estrada levantando poeira dourada. Frase no topo em letras brancas.", "legenda": "Quem cuida da terra, colhe o futuro. 🌅\n\nPor trás de cada litro de etanol e de cada quilo de açúcar existe gente que acorda cedo, trabalha de noite e conhece cada talhão pelo nome.\n\nAgro é tecnologia, é ciência, mas antes de tudo é gente.\n\nMarca alguém que faz o campo acontecer! 👇", "hashtags": "#agro #canadeacucar #orgulhodeseragro #trabalhadorrural #campo #motivacao", "slides": []}, {"id": "g09", "perfil": "agro", "tipo": "story", "titulo": "Quiz: você sabe o que é vinhaça?", "ideia": "Fundo de canavial desfocado com caixa central amarela para a figurinha de quiz.", "legenda": "Use a figurinha de QUIZ:\n\"A vinhaça é rica em qual nutriente?\"\n🅰️ Nitrogênio\n🅱️ Potássio ✅\n🅲 Ferro\n\nDepois, poste outro story com a resposta explicada.", "hashtags": "", "slides": []}, {"id": "l01", "perfil": "livros", "tipo": "post", "titulo": "Lendo: Queda de Gigantes", "ideia": "Livro grosso aberto sobre a mesa da cozinha ao amanhecer, xícara de café fumegando ao lado, luz suave pela janela.", "legenda": "Leitura do momento: Queda de Gigantes, de Ken Follett. ☕📖\n\nUm tijolão de quase mil páginas que acompanha famílias de vários países durante a Primeira Guerra e a Revolução Russa.\n\nMeus favoritos até agora são os irmãos Ethel e Billy, de uma família de mineiros do País de Gales. É através deles que a gente vê a história do lado de quem trabalha duro.\n\nJá leu? O que achou? Me conta sem spoiler! 😅", "hashtags": "#quedadegigantes #kenfollett #leitura #livros #romancehistorico #bookstagram #lendo", "slides": []}, {"id": "l02", "perfil": "livros", "tipo": "carrossel", "titulo": "Livros para quem está começando", "ideia": "Pilha de cinco livros clássicos sobre uma mesa de madeira, com óculos e uma planta ao lado. Cores quentes.", "legenda": "Quer começar a ler e não sabe por onde? Separei 5 livros que me marcaram 📚\n\n1️⃣ O Alienista, Machado de Assis: curto, divertido e muito atual\n2️⃣ Crime e Castigo, Dostoiévski: um mergulho na mente de um culpado\n3️⃣ Fundação, Isaac Asimov: ficção científica que prende do início ao fim\n4️⃣ Queda de Gigantes, Ken Follett: história contada por gente comum\n5️⃣ A Mão Esquerda da Escuridão, Ursula K. Le Guin: muda o jeito de pensar\n\nSalve para não esquecer! 💾", "hashtags": "#dicasdeleitura #livrosparainiciantes #leitura #bookstagram #classicos #livros", "slides": ["5 livros para quem está começando 📚", "O Alienista: curto, divertido e atual", "Crime e Castigo: a mente de um culpado", "Fundação e Queda de Gigantes: histórias que prendem", "A Mão Esquerda da Escuridão: muda o jeito de pensar"]}, {"id": "l03", "perfil": "livros", "tipo": "carrossel", "titulo": "Conto: A Dívida", "ideia": "Capa do conto A Dívida: rapaz de capuz numa rua de paralelepípedo na chuva, lua vermelha ao fundo.", "legenda": "Novo conto no ar: A Dívida 🌑\n\nRafael largou a faculdade, vive num quarto apertado de pensão e não para de fazer uma conta: quanto vale a vida da agiota que arruína a cidade inteira?\n\nUma releitura de Crime e Castigo, de Dostoiévski, nos dias de hoje.\n\n📖 Leitura de poucos minutos. Link na bio!", "hashtags": "#conto #literaturabrasileira #crimeecastigo #releitura #escritor #leitura", "slides": ["A Dívida 🌑 um conto de José Leandro Lucas", "Rafael não para de fazer uma conta...", "Quanto vale a vida de quem arruína uma cidade?", "Inspirado em Crime e Castigo", "Leia grátis, link na bio 📖"]}, {"id": "l04", "perfil": "livros", "tipo": "post", "titulo": "Conto: Sob as Árvores", "ideia": "Capa do conto Sob as Árvores: duas figuras diante de uma árvore gigante cujas raízes abrem passagem para uma cidade de luz verde.", "legenda": "Único sobrevivente da queda de um avião na Amazônia, o repórter Caio acorda num laboratório debaixo da terra. 🌳\n\nAli vive um povo escondido sob as árvores, e o estranho é ele.\n\nSob as Árvores é inspirado nos temas de A Mão Esquerda da Escuridão, um dos livros que mais me marcaram.\n\n📖 Link na bio para ler!", "hashtags": "#conto #ficcao #amazonia #ficcaocientifica #escritor #leitura", "slides": []}, {"id": "l05", "perfil": "livros", "tipo": "post", "titulo": "Conto: O Quarto do Fundo", "ideia": "Capa do conto O Quarto do Fundo: quarto escuro com porta entreaberta deixando passar luz quente.", "legenda": "\"Meu nome é Gilmar. E eu fui muito amado.\" 🚪\n\nO Quarto do Fundo é uma releitura de A Metamorfose, de Kafka. Um conto em primeira pessoa sobre o amor de quem fica e o que acontece com esse amor quando a esperança cansa.\n\nEscrevi em memória de um amigo.\n\n📖 Link na bio.", "hashtags": "#conto #ametamorfose #kafka #releitura #escritor #literatura", "slides": []}, {"id": "l06", "perfil": "livros", "tipo": "post", "titulo": "Conto: A Nota de Vicente", "ideia": "Capa do conto A Nota de Vicente: homem no escuro olhando a tela verde de um celular com uma nota em destaque.", "legenda": "Em Santa Rita dos Dois Rios, um aplicativo dá nota a cada morador pelo que posta, curte e... cala. 📱\n\nVicente só queria viver quieto. Mas ficar calado também tira ponto.\n\nA Nota de Vicente mistura O Alienista, de Machado de Assis, com 1984, de George Orwell.\n\n📖 Leia no link da bio!", "hashtags": "#conto #oalienista #1984 #distopia #escritor #literaturabrasileira", "slides": []}, {"id": "l07", "perfil": "livros", "tipo": "post", "titulo": "Ler logo pela manhã", "ideia": "Mesa da cozinha de madrugada, casa em silêncio, livro aberto e café coado, luz amarela de abajur.", "legenda": "Meu momento favorito do dia: a casa ainda dormindo, o café pronto e um livro aberto. ☕📖\n\nLer logo cedo, antes do celular e do trabalho, deixa a cabeça mais calma para o resto do dia.\n\nE você, qual o seu horário de leitura? 👇", "hashtags": "#habitodeleitura #rotinamatinal #leitura #cafeelivro #bookstagram #livros", "slides": []}, {"id": "l08", "perfil": "livros", "tipo": "carrossel", "titulo": "Por que releituras de clássicos", "ideia": "Livro antigo de capa gasta ao lado de um celular moderno, com uma linha dourada ligando os dois.", "legenda": "Por que eu escrevo releituras de livros antigos? 🤔\n\nOs clássicos falam de coisas que nunca mudam: culpa, amor, medo, poder. Só o cenário muda.\n\nEntão eu pego essas histórias e trago para o Brasil de hoje: pensão, celular, cidade do interior.\n\nJá são cinco contos, todos grátis no link da bio. Qual clássico você queria ver recontado? 👇", "hashtags": "#releitura #classicos #escritor #conto #literatura #leitura", "slides": ["Por que releituras de clássicos? 🤔", "Culpa, amor, medo e poder nunca mudam", "Só o cenário muda", "Trago essas histórias para o Brasil de hoje", "Qual clássico você quer ver recontado? 👇"]}, {"id": "l09", "perfil": "livros", "tipo": "story", "titulo": "Caixinha: o que você está lendo?", "ideia": "Foto da estante de livros de casa, levemente desfocada, com espaço no centro para a caixinha de perguntas.", "legenda": "Use a figurinha de PERGUNTA:\n\"O que você está lendo agora? 📚\"\n\nDepois compartilhe as melhores respostas nos stories.", "hashtags": "", "slides": []}];
+const PERFIS=[["apps","📱 Apps"],["agro","🌾 Agro"],["livros","📚 Livros"]];
+const TIPOS=[["","Todos"],["post","🖼️ Post"],["carrossel","🗂️ Carrossel"],["story","📲 Story"]];
+const ICO={post:"🖼️",carrossel:"🗂️",story:"📲"};
+const NOMES={post:"Post",carrossel:"Carrossel",story:"Story",rascunho:"Rascunho",pronto:"Pronto",postado:"Postado"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
+const norm=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+let ls={};try{ls=JSON.parse(localStorage.getItem("bp-ui")||"{}")}catch(e){}
+let perfil=ls.perfil||"apps",tipo="",q="",fst="";
+function saveUI(){try{localStorage.setItem("bp-ui",JSON.stringify({perfil}))}catch(e){}}
+
+/* ---------- banco local ---------- */
+let db;
+function openDB(){return new Promise((ok,no)=>{const r=indexedDB.open("bancoPosts",1);r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore("posts",{keyPath:"id"});d.createObjectStore("imgs",{keyPath:"id"});d.createObjectStore("meta",{keyPath:"k"})};r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)})}
+function tx(st,mode,fn){return new Promise((ok,no)=>{const t=db.transaction(st,mode);let res;const s=t.objectStore(st);const r=fn(s);if(r)r.onsuccess=()=>res=r.result;t.oncomplete=()=>ok(res);t.onerror=()=>no(t.error)})}
+const all=st=>tx(st,"readonly",s=>s.getAll());
+const get=(st,k)=>tx(st,"readonly",s=>s.get(k));
+const put=(st,v)=>tx(st,"readwrite",s=>s.put(v));
+const del=(st,k)=>tx(st,"readwrite",s=>s.delete(k));
+let POSTS=[];
+const novoId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function deSeed(s,i){return {id:s.id,perfil:s.perfil,tipo:s.tipo,titulo:s.titulo,slides:s.slides||[],ideia:s.ideia||"",legenda:s.legenda||"",hashtags:s.hashtags||"",status:"rascunho",imgs:[],ordem:i,atualizado:Date.now()-i*1000}}
+async function iniciar(){
+ db=await openDB();
+ const m=await get("meta","seeded");
+ if(!m){for(let i=0;i<SEEDS.length;i++)await put("posts",deSeed(SEEDS[i],i));await put("meta",{k:"seeded",v:1})}
+ POSTS=await all("posts");
+}
+
+/* ---------- lista ---------- */
+const urlCache=new Map();
+async function urlImg(id){if(urlCache.has(id))return urlCache.get(id);const r=await get("imgs",id);if(!r)return null;const u=URL.createObjectURL(r.blob);urlCache.set(id,u);return u}
+function tabs(){$("#tabs").innerHTML=PERFIS.map(([k,n])=>`<button class="tab" role="tab" aria-selected="${k===perfil}" data-p="${k}">${n}<span>${POSTS.filter(p=>p.perfil===k).length}</span></button>`).join("")}
+function chips(){$("#chips").innerHTML=TIPOS.map(([k,n])=>`<button class="chip" aria-pressed="${k===tipo}" data-t="${k}">${n}</button>`).join("")}
+function ord(a,b){return (b.atualizado||0)-(a.atualizado||0)}
+async function render(){
+ tabs();chips();
+ const t=norm(q);
+ const f=POSTS.filter(p=>p.perfil===perfil&&(!tipo||p.tipo===tipo)&&(!fst||p.status===fst)&&(!t||norm(p.titulo+" "+p.legenda+" "+p.hashtags+" "+(p.slides||[]).join(" ")+" "+p.ideia).includes(t))).sort(ord);
+ const pr=POSTS.filter(p=>p.perfil===perfil);
+ const np=pr.filter(p=>p.status==="pronto").length,nq=pr.filter(p=>p.status==="postado").length;$("#sub").textContent=`${np} pronto${np===1?"":"s"} · ${nq} postado${nq===1?"":"s"} · ${pr.length} no total`;
+ if(!f.length){$("#lista").innerHTML=`<p class="vazio">Nenhum post aqui ainda.<br>Toque em <b>＋ Novo post</b> para criar.</p>`;return}
+ $("#lista").innerHTML=f.map(p=>`<button class="post" data-id="${p.id}"><div class="th ${p.tipo==="story"?"story":""}" data-img="${p.imgs&&p.imgs[0]||""}">${p.imgs&&p.imgs.length?"":ICO[p.tipo]}${p.imgs&&p.imgs.length>1?`<em>${p.imgs.length}</em>`:""}</div><div class="pi"><b>${esc(p.titulo||"Sem nome")}</b><div class="tags"><span class="tg">${NOMES[p.tipo]}${p.tipo==="carrossel"&&p.slides.length?" · "+p.slides.length+" slides":""}</span><span class="tg st-${p.status}">${NOMES[p.status]}</span></div><p>${esc((p.legenda||"").split("\n")[0])}</p></div></button>`).join("");
+ for(const el of document.querySelectorAll(".th[data-img]")){const id=el.dataset.img;if(!id)continue;urlImg(id).then(u=>{if(u)el.style.backgroundImage=`url("${u}")`})}
+}
+$("#tabs").onclick=e=>{const b=e.target.closest(".tab");if(!b)return;mudaPerfil(b.dataset.p)};
+function mudaPerfil(p){perfil=p;saveUI();render();scrollTo({top:0})}
+$("#chips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;tipo=b.dataset.t;render()};
+$("#q").oninput=e=>{q=e.target.value;render()};
+$("#fst").onchange=e=>{fst=e.target.value;render()};
+$("#lista").onclick=e=>{const b=e.target.closest(".post");if(b)abrir(b.dataset.id)};
+/* arrastar para trocar de perfil */
+let sx=0,sy=0,st=0;
+$("#main").addEventListener("touchstart",e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now()},{passive:true});
+$("#main").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)<28||Math.abs(dx)<Math.abs(dy)*1.6||Date.now()-st>700)return;if(e.target.closest(".chips"))return;const i=PERFIS.findIndex(p=>p[0]===perfil);const n=i+(dx<0?1:-1);if(n>=0&&n<PERFIS.length)mudaPerfil(PERFIS[n][0])},{passive:true});
+
+/* ---------- editor ---------- */
+let atual=null,tSave=null;
+function campos(){return ["f-titulo","f-perfil","f-tipo","f-status","f-ideia","f-legenda","f-hash"]}
+async function abrir(id,push=true){
+ atual=POSTS.find(p=>p.id===id);if(!atual)return;
+ $("#f-titulo").value=atual.titulo;$("#f-perfil").value=atual.perfil;$("#f-tipo").value=atual.tipo;$("#f-status").value=atual.status;
+ $("#f-ideia").value=atual.ideia;$("#f-legenda").value=atual.legenda;$("#f-hash").value=atual.hashtags;
+ $("#salvo").textContent="";$("#ed").hidden=false;$("#ed").scrollTop=0;if(push)history.pushState({ed:1},"");
+ pintaEd();await pintaImgs();contar();
+}
+function pintaEd(){
+ $("#ed-tit").textContent=atual.titulo||"Novo post";
+ $("#bx-slides").hidden=atual.tipo!=="carrossel";
+ const fmt=atual.tipo==="story"?"vertical 9:16 (1080×1920)":"retrato 4:5 (1080×1350)";
+ $("#dica-img").textContent=`Formato ideal: ${fmt}.`+(atual.tipo==="carrossel"?" Adicione as imagens na ordem dos slides.":"");
+ if(atual.tipo==="carrossel"){if(!atual.slides.length)atual.slides=[""];$("#slides").innerHTML=atual.slides.map((s,i)=>`<div class="slide"><b>${i+1}</b><textarea rows="2" data-i="${i}" placeholder="Texto do slide ${i+1}">${esc(s)}</textarea><button type="button" data-rm="${i}" aria-label="Tirar slide">✕</button></div>`).join("")}
+}
+async function pintaImgs(){
+ const h=[];for(let i=0;i<atual.imgs.length;i++){const u=await urlImg(atual.imgs[i]);if(u)h.push(`<div class="im"><img src="${u}" alt="Imagem ${i+1}"><span>${i+1}</span><button type="button" data-rmi="${i}" aria-label="Tirar imagem">✕</button></div>`)}
+ h.push(`<label class="addimg" for="f-img"><i>📷</i>Adicionar imagem</label>`);
+ $("#imgs").innerHTML=h.join("");
+}
+function contar(){const l=$("#f-legenda").value.length,hs=($("#f-hash").value.match(/#[^\s#]+/g)||[]).length;$("#c-leg").textContent=`${l} de 2.200 caracteres`;$("#c-hash").textContent=`${hs} hashtags (o Instagram aceita até 30)`}
+function lerCampos(){atual.titulo=$("#f-titulo").value;atual.perfil=$("#f-perfil").value;const nt=$("#f-tipo").value;const mudouTipo=nt!==atual.tipo;atual.tipo=nt;atual.status=$("#f-status").value;atual.ideia=$("#f-ideia").value;atual.legenda=$("#f-legenda").value;atual.hashtags=$("#f-hash").value;return mudouTipo}
+function agenda(){$("#salvo").textContent="…";clearTimeout(tSave);tSave=setTimeout(salvar,400)}
+async function salvar(){clearTimeout(tSave);if(!atual)return;atual.atualizado=Date.now();await put("posts",atual);$("#salvo").textContent="✓ Salvo"}
+for(const id of campos())$("#"+id).addEventListener(id.startsWith("f-")&&["f-perfil","f-tipo","f-status"].includes(id)?"change":"input",()=>{const m=lerCampos();if(m||id==="f-titulo")pintaEd();contar();agenda()});
+$("#slides").addEventListener("input",e=>{const t=e.target.closest("textarea");if(!t)return;atual.slides[+t.dataset.i]=t.value;agenda()});
+$("#slides").addEventListener("click",e=>{const b=e.target.closest("[data-rm]");if(!b)return;atual.slides.splice(+b.dataset.rm,1);pintaEd();agenda()});
+$("#b-addslide").onclick=()=>{atual.slides.push("");pintaEd();agenda();const ts=document.querySelectorAll("#slides textarea");ts[ts.length-1].focus()};
+$("#b-copslides").onclick=()=>copiar(atual.slides.map((s,i)=>`Slide ${i+1}: ${s}`).join("\n"),"Slides copiados");
+$("#b-prompt").onclick=()=>{const fmt=atual.tipo==="story"?"vertical 9:16":"vertical 4:5 (1080×1350)";const extra=atual.tipo==="carrossel"&&atual.slides.length?`\nÉ a capa de um carrossel. Escreva na imagem, em letras grandes e legíveis: "${atual.slides[0]}"`:"";copiar(`Crie uma ilustração digital de alta qualidade, formato ${fmt}, para um post de Instagram. Cena: ${atual.ideia}${extra}\nPaleta de cores com verde, amarelo e marrom. Sem logotipos ou marcas.`,"Pedido copiado. Cole na Meta AI, Gemini ou ChatGPT")};
+$("#imgs").addEventListener("click",async e=>{const b=e.target.closest("[data-rmi]");if(!b)return;const i=+b.dataset.rmi;if(!confirm("Tirar esta imagem do post?"))return;const [id]=atual.imgs.splice(i,1);await del("imgs",id);await salvar();pintaImgs()});
+$("#f-img").onchange=async e=>{const fs=[...e.target.files];e.target.value="";if(!fs.length)return;toast("Guardando imagem…");for(const f of fs){try{const blob=await reduz(f);const id="i"+novoId();await put("imgs",{id,blob,nome:f.name});atual.imgs.push(id)}catch(err){toast("Não consegui abrir uma das imagens")}}await salvar();pintaImgs();toast(fs.length>1?"Imagens guardadas":"Imagem guardada")};
+function reduz(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{const M=1920,s=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?ok(b):no(),"image/jpeg",.9)};im.onerror=()=>{URL.revokeObjectURL(u);no()};im.src=u})}
+function textoPost(){return [atual.legenda.trim(),atual.hashtags.trim()].filter(Boolean).join("\n\n")}
+$("#b-copiar").onclick=()=>copiar(textoPost(),"Legenda e hashtags copiadas");
+$("#b-share").onclick=async()=>{
+ await salvar();const txt=textoPost();await copiar(txt,null);
+ const files=[];for(const id of atual.imgs){const r=await get("imgs",id);if(r)files.push(new File([r.blob],`post-${files.length+1}.jpg`,{type:"image/jpeg"}))}
+ try{
+  if(files.length&&navigator.canShare&&navigator.canShare({files})){await navigator.share({files,text:txt,title:atual.titulo});}
+  else if(navigator.share){await navigator.share({text:txt,title:atual.titulo});}
+  else{toast("Legenda copiada. Abra o Instagram e cole");return}
+  if(atual.status!=="postado"&&confirm("Legenda copiada. Marcar este post como postado?")){atual.status="postado";$("#f-status").value="postado";await salvar()}
+ }catch(err){if(err&&err.name!=="AbortError")toast("Legenda copiada. Abra o Instagram e cole")}
+};
+async function fechar(){if($("#ed").hidden)return;await salvar();$("#ed").hidden=true;atual=null;POSTS=await all("posts");render()}
+$("#ed-voltar").onclick=()=>history.back();
+addEventListener("popstate",()=>{if(!$("#sh-menu").hidden||!$("#sh-post").hidden){fechaSheet();if(!$("#ed").hidden)history.pushState({ed:1},"");return}fechar()});
+$("#b-novo").onclick=async()=>{const p={id:novoId(),perfil,tipo:tipo||"post",titulo:"",slides:[],ideia:"",legenda:"",hashtags:"",status:"rascunho",imgs:[],atualizado:Date.now()};await put("posts",p);POSTS.push(p);await abrir(p.id);$("#f-titulo").focus()};
+
+/* ---------- menus ---------- */
+function abreSheet(id){$("#bg").hidden=false;$(id).hidden=false}
+function fechaSheet(){$("#bg").hidden=true;$("#sh-menu").hidden=true;$("#sh-post").hidden=true}
+$("#bg").onclick=fechaSheet;
+$("#b-menu").onclick=()=>abreSheet("#sh-menu");
+$("#ed-mais").onclick=()=>abreSheet("#sh-post");
+$("#p-tudo").onclick=()=>{fechaSheet();const s=atual.tipo==="carrossel"&&atual.slides.length?"SLIDES\n"+atual.slides.map((x,i)=>`${i+1}. ${x}`).join("\n")+"\n\n":"";copiar(s+"LEGENDA\n"+textoPost(),"Tudo copiado")};
+$("#p-dup").onclick=async()=>{fechaSheet();await salvar();const n={...atual,id:novoId(),titulo:atual.titulo+" (cópia)",status:"rascunho",slides:[...atual.slides],imgs:[],atualizado:Date.now()};for(const id of atual.imgs){const r=await get("imgs",id);if(r){const nid="i"+novoId();await put("imgs",{...r,id:nid});n.imgs.push(nid)}}await put("posts",n);POSTS.push(n);await abrir(n.id,false);toast("Cópia criada, você está nela agora")};
+$("#p-del").onclick=async()=>{fechaSheet();if(!confirm(`Apagar "${atual.titulo||"este post"}"? Não dá para desfazer.`))return;for(const id of atual.imgs)await del("imgs",id);await del("posts",atual.id);const id=atual.id;atual=null;POSTS=POSTS.filter(p=>p.id!==id);$("#ed").hidden=true;history.back();render();toast("Post apagado")};
+$("#m-exemplos").onclick=async()=>{fechaSheet();const ids=new Set(POSTS.map(p=>p.id));let n=0;for(let i=0;i<SEEDS.length;i++)if(!ids.has(SEEDS[i].id)){await put("posts",deSeed(SEEDS[i],i));n++}POSTS=await all("posts");render();toast(n?`${n} exemplo(s) de volta`:"Todos os exemplos já estão aqui")};
+const b64=b=>new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.readAsDataURL(b)});
+$("#m-backup").onclick=async()=>{fechaSheet();toast("Preparando a cópia…");const posts=await all("posts"),imgs=[];for(const r of await all("imgs"))imgs.push({id:r.id,nome:r.nome||"",data:await b64(r.blob)});const blob=new Blob([JSON.stringify({app:"banco-posts",v:1,data:new Date().toISOString(),posts,imgs})],{type:"application/json"});const d=new Date().toISOString().slice(0,10);const file=new File([blob],`banco-de-posts-${d}.json`,{type:"application/json"});
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Cópia do Banco de Posts"});return}catch(e){if(e.name==="AbortError")return}}
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=file.name;a.click();toast("Cópia salva em Downloads")};
+$("#m-restore").onclick=()=>{fechaSheet();$("#f-restore").click()};
+$("#f-restore").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const j=JSON.parse(await f.text());if(j.app!=="banco-posts")throw 0;for(const im of j.imgs||[]){const blob=await (await fetch(im.data)).blob();await put("imgs",{id:im.id,nome:im.nome,blob})}for(const p of j.posts||[])await put("posts",p);POSTS=await all("posts");render();toast(`${(j.posts||[]).length} posts restaurados`)}catch(err){toast("Esse arquivo não é uma cópia do Banco de Posts")}};
+
+/* ---------- utilidades ---------- */
+async function copiar(t,msg){try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}if(msg)toast(msg)}
+function toast(m){const e=$("#toast");e.textContent=m;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2600)}
+
+/* ---------- instalar ---------- */
+let def=null;const sa=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();def=e});
+if(sa())$("#m-inst").hidden=true;
+$("#m-inst").onclick=async()=>{fechaSheet();if(def){def.prompt();try{await def.userChoice}catch(e){}def=null}else alert('No Chrome, toque no menu ⋮ e depois em "Instalar app" (ou "Adicionar à tela inicial").')};
+addEventListener("appinstalled",()=>{$("#m-inst").hidden=true;toast("App instalado!")});
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+iniciar().then(render).catch(e=>{$("#lista").innerHTML='<p class="vazio">Não consegui abrir o banco de posts neste navegador. Abra pelo Chrome.</p>';console.error(e)});
+</script>
+</body>
+</html>
