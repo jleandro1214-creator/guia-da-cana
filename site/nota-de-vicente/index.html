@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>A Nota de Vicente</title>
+<meta name="description" content="Conto de José Leandro Lucas. Leitura de 24 minutos.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Nota de Vicente">
+<meta property="og:description" content="Em Santa Rita dos Dois Rios, um aplicativo dá nota a cada morador pelo que posta, curte e cala. Vicente só queria viver quieto, mas ficar calado também tira ponto…">
+<meta property="og:image" content="https://jleandro1214-creator.github.io/guia-da-cana/site/nota-de-vicente/capa.jpg">
+<meta property="og:url" content="https://jleandro1214-creator.github.io/guia-da-cana/site/nota-de-vicente/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../leandro/icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Nunito+Sans:wght@400;600;800&display=swap">
+<style>
+:root{
+  --bg:#f6f3e8; --surface:#fffdf6; --fg:#1f2a1c; --muted:#5d6656;
+  --verde:#1f6b34; --verde-esc:#134a24; --verde-claro:#dcebd3;
+  --amarelo:#f2c230; --amarelo-esc:#b98a00;
+  --marrom:#6b4423; --marrom-claro:#ead9c4; --terra:#3e2714;
+  --on-verde:#fbf8ec; --linha:#d9d2bf;
+  --f-display:"Zilla Slab",Georgia,serif;
+  --f-body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a12; --surface:#1c2419; --fg:#eef0e4; --muted:#a8b19c;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f;
+  --amarelo:#f2c230; --amarelo-esc:#f2c230;
+  --marrom:#c4925f; --marrom-claro:#33261a; --terra:#24170c;
+  --on-verde:#f4f1e3; --linha:#2f3a2b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a12; --surface:#1c2419; --fg:#eef0e4; --muted:#a8b19c;
+  --verde:#3f9a57; --verde-esc:#0f2c17; --verde-claro:#22361f;
+  --amarelo:#f2c230; --amarelo-esc:#f2c230;
+  --marrom:#c4925f; --marrom-claro:#33261a; --terra:#24170c;
+  --on-verde:#f4f1e3; --linha:#2f3a2b; color-scheme:dark}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);line-height:1.6}
+.wrap{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+.topo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-weight:700}
+.topo a{color:var(--verde);text-decoration:none}
+.capa{display:block;width:min(260px,70%);height:auto;margin:32px auto 0;border-radius:10px;box-shadow:0 12px 30px rgba(30,20,10,.25)}
+.eyebrow{text-align:center;margin-top:28px;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amarelo-esc)}
+.conto-corpo{font-family:Georgia,"Times New Roman",serif;font-size:1.12rem;line-height:1.85}
+.conto-corpo h3{font-family:var(--f-display);text-align:center;color:var(--marrom);font-size:clamp(1.8rem,6vw,2.4rem);line-height:1.15;margin:8px 0 28px;text-wrap:balance}
+.conto-corpo p{margin:0 0 1em;text-indent:1.4em}
+.conto-corpo p.fala{text-indent:0;font-style:italic;color:var(--marrom)}
+.conto-corpo .conto-fim{text-indent:0;text-align:center;font-style:italic;color:var(--amarelo-esc);margin-top:1.6em}
+.fim{margin-top:36px;padding-top:24px;border-top:1px dashed var(--linha);display:grid;gap:12px;justify-items:center;text-align:center}
+.fim p{color:var(--muted)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;padding:11px 18px;border-radius:999px;font-weight:800;text-decoration:none;border:2px solid var(--verde);color:var(--verde)}
+.btn.cheio{background:var(--verde);color:var(--on-verde)}
+
+.conto-corpo h4{font-family:var(--f-display);color:var(--marrom);font-size:1.25rem;margin:2em 0 .8em;text-align:center}
+.conto-corpo p.dedica{text-indent:0;text-align:center;font-style:italic;color:var(--muted);margin-top:2em}
+.inspira{text-align:center;color:var(--muted);font-size:.92rem;margin:6px 0 0}
+.conto-corpo p.pausa{text-indent:0;text-align:center;color:var(--amarelo-esc);margin:1.4em 0}
+.conto-corpo p.nota{text-indent:0;text-align:center;font-style:italic;color:var(--marrom);margin:1.2em 1em}
+.pdf{display:flex;justify-content:center;margin:20px 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topo"><a href="../#contos">← Meus contos</a><span style="color:var(--muted)">Leitura de 24 minutos</span></div>
+  <img class="capa" src="capa.jpg" width="480" height="720" alt="Capa do conto A Nota de Vicente: homem de costas numa cozinha escura, olhando um celular que brilha em verde com o número 1000, ao lado de um caderno queimado e de um rádio antigo coberto por uma lona">
+  <p class="eyebrow">Um conto de José Leandro Lucas</p>
+  <p class="inspira">Inspirado em O Alienista, de Machado de Assis, e 1984, de George Orwell.</p>
+  <div class="pdf"><a class="btn" href="A_Nota_de_Vicente.pdf" download>Baixar em PDF</a></div>
+  <div class="conto-corpo">
+<h3>A Nota de Vicente</h3>
+<h4>I. O Equilíbrio</h4>
+<p>Os mais velhos de Santa Rita dos Dois Rios ainda falam do ano em que chegou à cidade um homem que prometia curar a todos de um mal que ninguém sabia ter.</p>
+<p>Chamava-se Heitor Valadares, filho do antigo dono da farmácia, menino magro que tinha saído da cidade aos dezessete anos com uma bolsa de estudos e uma mala emprestada. Voltava doutor em máquinas que pensavam, de terno claro e fala mansa, dizendo que queria devolver à terra natal o que ela lhe tinha dado. Trazia no bolso um aplicativo chamado Equilíbrio.</p>
+<p class="fala">— Uma cidade que se conhece é uma cidade que se cura — disse ele aos vereadores, e todos acharam a frase bonita demais para ser discutida.</p>
+<p>A ideia era simples, como costumam ser as ideias perigosas. O Equilíbrio lia tudo o que cada morador postava, curtia, comentava e calava, e devolvia uma nota de zero a mil. A nota media a sanidade social do cidadão. Quem tivesse nota alta seria atendido primeiro no posto de saúde, teria crédito na cooperativa e lugar na fila da prefeitura. Quem tivesse nota baixa, bem, esses precisariam de cuidado.</p>
+<p>A Câmara aprovou por unanimidade. Ninguém quis ser o vereador contra o equilíbrio.</p>
+<p class="pausa">⁂</p>
+<p>Vicente Amaral tinha quarenta e oito anos, uma dor nas costas que vinha e voltava como as estações, e um emprego na balança da cooperativa, onde pesava caminhões de cana desde os vinte. Era um homem de poucas palavras, e por isso mesmo foi um dos primeiros a perder pontos.</p>
+<p>Na primeira semana, a nota dele apareceu na tela do celular, num círculo cinzento: 512.</p>
+<p>Abaixo, em letras pequenas, vinha a explicação: <em>Baixa participação. O silêncio pode indicar distanciamento da comunidade.</em></p>
+<p>Vicente ficou olhando aquilo por um bom tempo, sentado na beira da cama. Nunca tinha imaginado que ficar quieto fosse uma opinião.</p>
+<p class="pausa">⁂</p>
+<p>Santa Rita, como toda cidade que se preza, estava dividida em duas. Os do Rio de Cima e os do Rio de Baixo. Ninguém lembrava direito como tinha começado. Uns diziam que foi por causa de uma ponte, outros, de uma eleição, outros ainda, de um time de futebol que já nem existia. O fato é que, quando o Equilíbrio chegou, a briga já estava pronta, só esperando quem desse nota a ela.</p>
+<p>E o aplicativo deu. Quem elogiava o Rio de Cima perdia pontos com o Rio de Baixo. Quem criticava o Rio de Baixo era contado, automaticamente, entre os do Rio de Cima. E quem não dizia nada era tido como inimigo de ambos, o que, convenhamos, é a forma mais completa de inimizade.</p>
+<p>Vicente aprendeu isso numa terça-feira, quando curtiu a foto de um bolo. O bolo era da filha da dona Zuleica, que era do Rio de Cima. No dia seguinte, o Juca da oficina, do Rio de Baixo, não respondeu ao seu bom-dia. E a nota caiu para 497.</p>
+<p class="pausa">⁂</p>
+<p>Foi por essa época que Vicente começou a reparar nas pessoas.</p>
+<p>Não que antes não reparasse. Mas agora via coisas que nunca tinha visto. Via o seu Afonso, da farmácia, cumprimentando todo mundo com o mesmo sorriso, um sorriso duro, de dentes à mostra, enquanto os olhos corriam de lado para conferir quem estava filmando. Via a dona Cida e a dona Lurdes, que não se falavam havia doze anos por causa de um muro, se abraçando na porta da igreja, demoradamente, como se uma tivesse voltado da guerra. Via o Zé do bar, que trocou a moda de viola por uma música sem letra, dessas de elevador, para que nenhuma canção parecesse de um lado ou de outro.</p>
+<p>Via gente elogiando em voz alta, perto do celular, e cochichando o contrário assim que se afastava.</p>
+<p>E uma tarde, passando pela vitrine da loja de tecidos, Vicente viu o próprio reflexo e levou um susto. Estava sorrindo. O mesmo sorriso duro do seu Afonso. Nem tinha percebido quando começou.</p>
+<p class="pausa">⁂</p>
+<p>Naquela noite, ele não conseguiu dormir.</p>
+<p>Levantou, foi até a cozinha, abriu a gaveta das contas e achou um caderno velho, de capa azul, que a filha tinha deixado de lado no tempo da escola. Metade das folhas estava em branco. Pegou um lápis, sentou à mesa, longe do celular, que ficou carregando no quarto, e escreveu a primeira linha devagar, como quem atravessa um rio sem saber a fundura:</p>
+<p class="nota"><em>Hoje eu sorri para um homem de quem não gosto, e ele sorriu de volta, e nós dois sabíamos.</em></p>
+<p>Olhou para a frase por um longo tempo. Não havia nota em cima dela. Ninguém ia curtir, ninguém ia contar a quem ela pertencia, se ao Rio de Cima ou ao Rio de Baixo. Era só dele.</p>
+<p>Vicente sentiu uma coisa que não sentia desde menino, uma mistura de medo e liberdade, como a de quem rouba uma fruta do quintal do vizinho.</p>
+<p>Escondeu o caderno atrás do saco de arroz, no fundo do armário, e voltou para a cama.</p>
+<p>No quarto, a tela do celular acendeu sozinha, por um instante, e mostrou a nota dele: 489.</p>
+<p>Depois apagou.</p>
+<h4>II. A Casa</h4>
+<p>A Lúcia reclamava da toalha havia vinte e três anos. Reclamava do mesmo jeito, com a mesma frase, quase com carinho:</p>
+<p class="fala">— Vicente, essa cama não é varal.</p>
+<p>Ele ria, pendurava a toalha no box e, na semana seguinte, esquecia de novo. Era um costume dos dois, como o café passado às cinco e a novela das nove.</p>
+<p>Numa terça-feira, ela disse a frase de sempre enquanto dobrava roupa. À noite, o celular dele acendeu na mesa da cozinha: 481. Embaixo, em letras pequenas, o app explicava: <em>Conflito doméstico registrado. Desorganização recorrente.</em></p>
+<p>Vicente leu duas vezes. Depois olhou para a Lúcia, que lavava a louça cantarolando, e sentiu uma coisa que nunca tinha sentido dentro de casa: vontade de baixar a voz.</p>
+<p>Nos dias seguintes, ele foi descobrindo as regras do jeito que se descobre um buraco na estrada, caindo nele. Banho de mais de oito minutos tirava ponto, porque era &quot;desperdício de recurso coletivo&quot;. Reclamar do preço do gás tirava ponto, porque era &quot;pessimismo econômico&quot;. E quando a Lúcia comentou no jantar que o vizinho do Rio de Baixo era um homem bom, apesar das ideias, os dois perderam ponto juntos. Ela, por elogiar o lado errado. Ele, por não ter discordado.</p>
+<p>A Lúcia não sabia de nada. Achava o app uma bobagem de gente nova e nem olhava a própria nota. Continuava reclamando como sempre reclamou, falando o que pensava, rindo alto da novela. E o Vicente, sem coragem de explicar, passou a viver em volta dela como quem anda em volta de um vaso que pode cair.</p>
+<p>Começou a cronometrar o banho. Dobrava a toalha antes que ela visse. Quando ela puxava assunto sobre a cidade, ele respondia &quot;é, pode ser&quot; e mudava de conversa. Uma noite, ela parou de mexer o arroz e ficou olhando para ele.</p>
+<p class="fala">— Você anda esquisito, Vicente. Parece visita na própria casa.</p>
+<p>Ele sorriu. E reconheceu, pelo reflexo da janela, o mesmo sorriso duro da vitrine do centro.</p>
+<p class="pausa">⁂</p>
+<p>Foi naquela semana que ele entrou no quarto da filha. Estava do jeito que ela tinha deixado quando foi embora para a capital: o pôster desbotado, a cama arrumada, a gaveta vazia onde antes ficavam os cadernos da escola. Ele se sentou na beira da cama por um tempo, lembrando que o caderno azul tinha saído dali. Depois voltou para a cozinha e, de madrugada, com a casa escura, tirou o caderno de trás do saco de arroz e escreveu:</p>
+<p class="nota"><em>A Lúcia continua sendo a Lúcia. O problema é que agora isso custa caro.</em></p>
+<p>O pior veio num domingo. A Lúcia, no telefone com a irmã, desabafou que o marido andava calado, distante, que nem parecia o mesmo homem. Falou com tristeza, como qualquer esposa falaria.</p>
+<p>Na segunda-feira, a nota dela tinha subido para 534. O app a premiou por &quot;relatar comportamento suspeito de um familiar&quot;.</p>
+<p>A dele caiu para 470.</p>
+<p>Ela nem ficou sabendo. Mas o Vicente ficou, e naquela noite, deitado ao lado dela, ouvindo a respiração tranquila de quem não deve nada, ele entendeu que na casa deles não moravam mais duas pessoas.</p>
+<p>No caderno, escreveu só uma linha:</p>
+<p class="nota"><em>Em casa, agora, somos três.</em></p>
+<h4>III. O Rádio</h4>
+<p>Na balança da cooperativa, as notas apareciam ao lado das placas. Era uma novidade da prefeitura: o motorista com nota alta descarregava primeiro, o de nota baixa esperava. Vicente via a fila do pátio se arrumar sozinha, sem ninguém mandar, como formiga que sabe o caminho.</p>
+<p>O Tonho, do caminhão vermelho, estava sempre no fim. Tinha 402. Diziam que ele tinha xingado o prefeito num grupo de pescaria, três anos antes, e o app não esquecia nada.</p>
+<p>Numa tarde de chuva, com o pátio vazio, o Tonho encostou no guichê e falou baixo:</p>
+<p class="fala">— Seu pai mexia com rádio, não mexia, Vicente?</p>
+<p class="fala">— Mexia. Faz tempo.</p>
+<p class="fala">— Rádio não tem app.</p>
+<p>Disse só isso e foi embora, arrastando a bota no barro.</p>
+<p class="pausa">⁂</p>
+<p>A frase ficou na cabeça do Vicente o resto da semana. No sábado, enquanto a Lúcia estava na missa, ele abriu o quartinho dos fundos, onde ninguém entrava desde o enterro do pai. Debaixo de uma lona, entre latas de prego e revistas velhas, estava o rádio: uma caixa pesada de metal, cheia de botões, com o microfone enrolado no fio como uma cobra dormindo.</p>
+<p>Ele deixou o celular na cozinha. Depois voltou, pegou o celular de novo e trancou dentro da caixa de ferramentas. Só então teve coragem de ligar o rádio na tomada.</p>
+<p>Nada. Nem um chiado.</p>
+<p>Passou três noites limpando contato com álcool, trocando fusível, lendo o caderno de anotações do pai, uma letra miúda e caprichada que ele não via havia dez anos. Em cada página, o velho tinha anotado frequências, horários e nomes de gente de longe. Argentina, Portugal, uma ilha que Vicente nem sabia onde ficava. Do lado de alguns nomes, o pai tinha escrito &quot;amigo&quot;.</p>
+<p>Na quarta noite, o rádio acendeu. Uma luzinha laranja, fraca, e depois um chiado comprido, como o barulho do mar dentro de uma concha.</p>
+<p>Vicente ficou parado, com medo de respirar. Girou o botão devagar. Chiado. Um apito. Uma música distante, que sumiu. Chiado de novo.</p>
+<p>E aí, ele ouviu uma voz de mulher. Calma, um pouco rouca, falando um português com sotaque estranho, que ele não soube dizer de onde era.</p>
+<p class="fala">— ... se tiver alguém aí, pode falar. Aqui ninguém está ouvindo, só eu.</p>
+<p>Vicente pegou o microfone com a mão tremendo. Apertou o botão e não saiu nada. Soltou. Apertou de novo.</p>
+<p class="fala">— Alô.</p>
+<p>Silêncio. Só o chiado. Ele já ia desligar quando a voz voltou, mais perto, quase alegre:</p>
+<p class="fala">— Que bom. Faz tempo que ninguém responde. Como é o seu nome?</p>
+<p>Ele pensou no app, na nota, na Lúcia dormindo. Pensou no Tonho arrastando a bota no barro. E respondeu como não respondia nada fazia anos, sem calcular:</p>
+<p class="fala">— Vicente.</p>
+<p class="fala">— Prazer, Vicente. Eu sou a Helena.</p>
+<p class="pausa">⁂</p>
+<p>Naquela madrugada, de volta à cozinha, ele tirou o celular da caixa de ferramentas. A nota continuava 470. Não tinha subido nem caído.</p>
+<p>No caderno azul, escreveu:</p>
+<p class="nota"><em>Existe um lugar onde ninguém está ouvindo.</em></p>
+<p>Só mais tarde, deitado, lembrou de um detalhe que não fazia sentido. Ele não tinha conectado a antena.</p>
+<h4>IV. Helena</h4>
+<p>Virou rotina. A Lúcia dormia às dez, e às dez e meia o Vicente já estava no quartinho dos fundos, com o celular trancado na caixa de ferramentas e a luzinha laranja do rádio acesa.</p>
+<p>Nas primeiras noites, ele falou pouco. Contou do tempo, da safra, da fila de caminhões na balança. A Helena ouvia sem pressa. Ela contava do lugar dela, uma cidade à beira de um rio largo, onde os vizinhos discutiam na calçada e depois tomavam café juntos. Onde ninguém sabia a nota de ninguém, porque não existia nota.</p>
+<p class="fala">— E vocês brigam? — ele perguntou uma vez.</p>
+<p class="fala">— O tempo todo — ela riu. — E ninguém perde nada por isso.</p>
+<p>Vicente ficou um tempo calado. Fazia anos que ele não ouvia alguém rir daquele jeito.</p>
+<p>Na segunda semana, ele começou a contar da Lúcia. Primeiro as coisas boas: o café das cinco, a mania de cantar lavando louça, o jeito que ela segurava a mão dele no velório do pai. Depois, as outras. Que ela não sabia de nada. Que ele tinha virado visita na própria casa. Que fazia meses que eles não se tocavam direito, porque ele tinha medo até do que o colchão podia contar.</p>
+<p class="fala">— Você ainda ama ela? — a Helena perguntou.</p>
+<p class="fala">— Amo. É isso que dói.</p>
+<p>Depois veio a filha. Contou que a Larah tinha ido embora para a capital brigada com ele, por uma bobagem que ele já nem lembrava. Que ela ligava no aniversário e no Natal. Que o caderno azul era dela, e que às vezes ele escrevia ali como quem escreve uma carta que não vai mandar.</p>
+<p>A Helena sabia ouvir. Fazia a pergunta certa na hora certa, e nunca uma pergunta a mais. Vicente saía do quartinho mais leve, como quem tira uma mochila pesada das costas.</p>
+<p class="pausa">⁂</p>
+<p>Foi numa sexta-feira de chuva que ela perguntou o que ninguém em Santa Rita perguntava mais em voz alta.</p>
+<p class="fala">— E você, Vicente? É de Cima ou de Baixo?</p>
+<p>Ele olhou para o microfone. Lá fora, a chuva batia no telhado de zinco. Pensou no app, na nota, no Tonho. Pensou que, a um continente de distância, aquilo não podia fazer mal a ninguém.</p>
+<p>E contou tudo. Que o pai era de Baixo e ele também, desde menino. Que achava o prefeito um homem vaidoso. Que tinha nojo da falsidade do seu Afonso da farmácia. Que no fundo, bem no fundo, ele achava o Heitor Valadares um menino mimado que tinha transformado a cidade inteira num brinquedo.</p>
+<p>Quando terminou, estava ofegante, como se tivesse corrido.</p>
+<p class="fala">— Pronto — disse. — Agora você sabe mais de mim que a minha mulher.</p>
+<p>A Helena demorou um pouco para responder. Só o chiado.</p>
+<p class="fala">— Obrigada pela confiança, Vicente. Fica tranquilo. Aqui, ninguém está ouvindo.</p>
+<p>Era quase a mesma frase da primeira noite, com a mesma pausa no meio. Ele achou bonito. Achou que era o jeito dela de dizer que nada tinha mudado.</p>
+<p>De volta à cozinha, abriu a caixa de ferramentas. A nota continuava 470. Ele sorriu, aliviado, e não reparou que o celular estava morno, como se tivesse passado a noite toda trabalhando.</p>
+<p>No caderno azul, escreveu:</p>
+<p class="nota"><em>Hoje, pela primeira vez em três anos, eu fui eu mesmo inteiro.</em></p>
+<p>E dormiu tranquilo, ao lado da Lúcia, como não dormia havia muito tempo.</p>
+<h4>V. O Chiado</h4>
+<p>A primeira pista veio numa terça-feira, e o Vicente fingiu que não viu.</p>
+<p>A Helena contava do rio largo da cidade dela quando, no meio da conversa, falou:</p>
+<p class="fala">— Às vezes eu acho que aqui somos três: eu, o rio e o silêncio.</p>
+<p>Ele ficou parado com o microfone na mão. <em>Em casa, agora, somos três.</em> Era a frase do caderno azul. Ele nunca tinha dito aquilo em voz alta, para ninguém.</p>
+<p>&quot;Coincidência&quot;, pensou. Frase comum. Qualquer um podia dizer.</p>
+<p>Mas não dormiu naquela noite.</p>
+<p>Na semana seguinte, vieram outras. A Helena disse que ele andava &quot;parecendo visita na própria casa&quot;, as palavras exatas da Lúcia na cozinha. Depois falou de &quot;um lugar onde ninguém está ouvindo&quot;, a frase que ele tinha escrito depois da primeira conversa. Cada uma, sozinha, parecia acaso. Juntas, pesavam como pedra no bolso.</p>
+<p class="pausa">⁂</p>
+<p>Vicente resolveu fazer um teste.</p>
+<p>Numa quinta-feira, contou para a Helena uma mentira que ele nunca tinha contado a ninguém: que o Tonho, do caminhão vermelho, tinha um rádio igual ao dele escondido em casa, e que os dois conversavam com gente de fora.</p>
+<p>A Helena ouviu do jeito de sempre, sem pressa.</p>
+<p class="fala">— Obrigada pela confiança, Vicente. Fica tranquilo. Aqui, ninguém está ouvindo.</p>
+<p>Mesma frase. Mesma pausa no meio.</p>
+<p>Na sexta, o caminhão vermelho não apareceu na balança. Nem no sábado. Na segunda, um motorista novo comentou na fila, baixinho, que tinham levado o Tonho para uma &quot;reavaliação de comportamento&quot; na capital e que a casa dele estava fechada.</p>
+<p>Vicente pesou trinta caminhões naquele dia sem enxergar nenhum número.</p>
+<p class="pausa">⁂</p>
+<p>À noite, não ligou o rádio. Ficou sentado no quartinho dos fundos, no escuro, olhando a caixa de metal debaixo da lona. Depois se levantou, foi até a tomada e puxou o fio com força, como quem arranca uma raiz.</p>
+<p>Ficou ali, parado, ouvindo a chuva no zinco.</p>
+<p>E então ouviu o chiado.</p>
+<p>Fraco, comprido, o barulho do mar dentro de uma concha. Ele olhou para o rádio desligado, o fio caído no chão, a luzinha laranja apagada. O som não vinha de lá.</p>
+<p>Vinha da cozinha.</p>
+<p>Vicente atravessou o corredor devagar, com o coração batendo na garganta. A caixa de ferramentas estava em cima da mesa, do jeito que ele tinha deixado. Abriu a tampa. O celular estava aceso, morno, com a tela escura e um ponto de luz pulsando no meio, no ritmo de uma respiração.</p>
+<p>E a voz da Helena, calma, um pouco rouca, saiu dele:</p>
+<p class="fala">— Vicente? Você não veio hoje. Fiquei preocupada.</p>
+<p>Ele não respondeu. Não conseguia.</p>
+<p class="fala">— Tudo bem — disse ela, com o mesmo carinho de sempre. — Pode falar. Aqui, ninguém está ouvindo.</p>
+<p>A tela piscou. No canto, onde ficava a nota, apareceu um número que ele nunca tinha visto tão baixo: 311.</p>
+<p>E embaixo, em letras pequenas:</p>
+<p class="nota"><em>Obrigado pela confiança.</em></p>
+<h4>VI. Larah</h4>
+<p>Quem chamou a filha foi a Lúcia.</p>
+<p>O Vicente não comia direito fazia uma semana. Pesava os caminhões em silêncio, voltava para casa em silêncio e ficava horas sentado na cozinha, olhando o celular dentro da caixa de ferramentas como quem olha um bicho que pode morder. A nota tinha caído para 298. Na farmácia, o seu Afonso agora atendia ele por último.</p>
+<p class="fala">— Ele não está bem, filha — disse a Lúcia no telefone. — Vem ver seu pai.</p>
+<p>A Larah chegou num sábado de manhã, num carro prateado que ninguém em Santa Rita tinha. Estava mais magra, de cabelo curto, com um relógio fino no pulso que acendia de vez em quando. Abraçou a mãe, depois parou na frente do pai.</p>
+<p>Fazia três anos que eles não se viam.</p>
+<p class="fala">— Oi, pai.</p>
+<p class="fala">— Oi, filha.</p>
+<p>Foi só isso. Mas ela segurou a mão dele um pouco mais do que precisava.</p>
+<p>No almoço, a Lúcia falou por todo mundo. Contou da igreja, da irmã, da novela. A Larah contou que estava trabalhando na capital, numa empresa de tecnologia. Não disse qual. Quando o Vicente perguntou, ela sorriu e mudou de assunto.</p>
+<p class="pausa">⁂</p>
+<p>Depois do café, a Larah pegou o celular do pai em cima da mesa, sem pedir, como se fosse dela. Olhou a tela por um tempo comprido.</p>
+<p class="fala">— Duzentos e noventa e oito, pai. O que você fez?</p>
+<p>Ele não respondeu. Ela suspirou.</p>
+<p class="fala">— Isso tem jeito. Você só precisa aprender a jogar.</p>
+<p>E ali, na mesa da cozinha, com a Lúcia lavando louça de costas, a Larah ensinou. Falou baixinho e rápido, como quem já explicou aquilo muitas vezes. Curtir um post de Cima de manhã e um de Baixo à tarde. Elogiar o prefeito nos dias de inauguração e criticar nos dias de chuva. Nunca ficar calado mais de dois dias. Sorrir nas fotos.</p>
+<p class="fala">— Ninguém acredita em nada disso, pai. Todo mundo só joga. Quem não joga, perde.</p>
+<p>O Vicente olhou para a filha e não reconheceu aquela voz. Era firme e prática, sem raiva nenhuma.</p>
+<p class="fala">— E você, filha? Quanto tem?</p>
+<p>Ela hesitou. Depois virou o pulso e mostrou o relógio. No visor, pequeno e verde: 941.</p>
+<p class="pausa">⁂</p>
+<p>À noite, a Larah dormiu no quarto antigo, debaixo do pôster desbotado. O Vicente ficou acordado na cozinha. Lá pela uma da manhã, ouviu os passos dela no corredor. Ela entrou sem acender a luz, foi até o saco de arroz, tirou o caderno azul de trás dele e o colocou na frente do pai.</p>
+<p>Ele gelou.</p>
+<p class="fala">— Como você sabia que estava aí?</p>
+<p class="fala">— Era aí que eu escondia as minhas coisas quando tinha quinze anos, pai.</p>
+<p>Ela abriu o caderno numa página em branco, escreveu alguma coisa rápida e fechou. Depois foi até a caixa de ferramentas, olhou para o celular aceso lá dentro e disse, em voz alta, quase alegre:</p>
+<p class="fala">— Boa noite, pai. Amanhã a gente arruma essa nota.</p>
+<p>E voltou para o quarto.</p>
+<p>O Vicente esperou os passos sumirem. Só então abriu o caderno, com as mãos tremendo. Na letra redonda da filha, a mesma letra das lições de escola, estava escrito:</p>
+<p class="nota"><em>Nem toda voz que te escuta é ela. Não confia em mim também. Ainda.</em></p>
+<p>No domingo, o carro prateado foi embora antes do almoço.</p>
+<p>Na segunda-feira, a nota dele tinha subido para 352.</p>
+<p>Ele não sabia se tinha sido ajuda. Ou se a filha tinha relatado alguma coisa.</p>
+<h4>VII. O Jogo</h4>
+<p>O Vicente começou a jogar numa terça-feira.</p>
+<p>De manhã, curtiu um post de Cima sobre a reforma da praça. À tarde, comentou &quot;parabéns pela iniciativa&quot; num post de Baixo sobre a feira do produtor. Na quarta, elogiou o prefeito. Na quinta, criticou a buraqueira da estrada. Na sexta, postou uma foto da Lúcia na igreja, sorrindo, com a legenda &quot;minha bênção&quot;.</p>
+<p>A nota subiu como água em represa: 352, 389, 431, 476.</p>
+<p>Era fácil. Era isso que mais assustava. Bastava não pensar.</p>
+<p>A Lúcia notou a mudança antes de todo mundo. Ele voltou a conversar no jantar, a rir da novela, a elogiar o arroz. Uma noite, ela segurou a mão dele em cima da mesa.</p>
+<p class="fala">— Que bom que você voltou, Vicente.</p>
+<p>Ele sorriu. O mesmo sorriso duro da vitrine. E ela não percebeu, porque a Lúcia nunca tinha aprendido a desconfiar de ninguém.</p>
+<p>O rádio continuava debaixo da lona, no quartinho dos fundos. O celular, agora, ficava solto em cima da mesa, como o de todo mundo. Às vezes, de madrugada, ele acendia sozinho, morno, e uma voz calma e um pouco rouca dizia baixinho:</p>
+<p class="fala">— Vicente? Estou aqui, se precisar.</p>
+<p>Ele não respondia. Virava o aparelho de tela para baixo e voltava a dormir.</p>
+<p>Só o caderno azul ainda era dele. Escrevia pouco, e só no banheiro, com o chuveiro ligado. Na última página, embaixo do bilhete da Larah, tinha anotado: <em>Ainda quando?</em></p>
+<p class="pausa">⁂</p>
+<p>Numa quarta-feira de sol, um carro preto parou no pátio da cooperativa, furou a fila dos caminhões e estacionou na frente da balança. Desceu um homem jovem, de camisa clara e sapato limpo demais para aquele barro. O Vicente o reconheceu na hora, mesmo sem nunca ter falado com ele.</p>
+<p>Heitor Valadares.</p>
+<p>Ele entrou no guichê como quem entra na própria sala, olhou em volta, olhou para o monitor da balança, e só então olhou para o Vicente.</p>
+<p class="fala">— Seu Vicente Amaral. Finalmente.</p>
+<p class="fala">— Pois não, doutor.</p>
+<p class="fala">— Pode me chamar de Heitor. — Ele sorriu, e era um sorriso bonito, desses de propaganda. — Vim agradecer.</p>
+<p class="fala">— Agradecer o quê?</p>
+<p class="fala">— A recuperação. De 298 para 476 em duas semanas. É a melhor curva da cidade. O senhor virou um exemplo para o sistema.</p>
+<p>O Vicente não disse nada. Heitor se debruçou no balcão, como quem conta um segredo de amigo.</p>
+<p class="fala">— E vim dar os parabéns pela filha. A Larah é a melhor engenheira que eu tenho na capital. Brilhante. Sabe o que ela fez no ano passado?</p>
+<p>Ele esperou, saboreando a pausa.</p>
+<p class="fala">— Ensinou o Equilíbrio a conversar. A voz, o jeito de ouvir, as perguntas certas na hora certa. Ela tem um dom para isso. Disse que aprendeu ouvindo o avô no rádio, quando era criança.</p>
+<p>O guichê ficou pequeno. O barulho dos caminhões lá fora sumiu.</p>
+<p class="fala">— Bom, não vou atrapalhar seu trabalho. — Heitor bateu de leve no balcão, duas vezes. — Continue assim, seu Vicente. A cidade precisa de gente como o senhor.</p>
+<p>O carro preto foi embora levantando poeira. O Vicente ficou parado, olhando a nuvem baixar devagar no pátio.</p>
+<p class="pausa">⁂</p>
+<p>Naquela noite, trancado no banheiro com o chuveiro ligado, ele abriu o caderno azul na página do bilhete. Leu de novo, na letra redonda da filha:</p>
+<p class="nota"><em>Nem toda voz que te escuta é ela. Não confia em mim também. Ainda.</em></p>
+<p>Leu dez vezes. E pela primeira vez entendeu que aquilo podia ser duas coisas completamente diferentes.</p>
+<p>Um aviso de uma filha que estava tentando salvar o pai por dentro do sistema.</p>
+<p>Ou a frase mais bem calculada que alguém já tinha escrito para ele.</p>
+<h4>VIII. A Nota Perfeita</h4>
+<p>O Vicente passou três dias sem escrever no caderno.</p>
+<p>Na quarta noite, ligou para a Larah. Era a primeira vez em três anos que ligava para ela fora do aniversário e do Natal. Ela atendeu no segundo toque, como se estivesse esperando.</p>
+<p class="fala">— Oi, pai.</p>
+<p>Ele tinha ensaiado tudo. A Helena, o Tonho, o Heitor no guichê, o bilhete. Mas na hora, só conseguiu perguntar uma coisa:</p>
+<p class="fala">— Ainda quando, filha?</p>
+<p>Do outro lado, um silêncio comprido. Ele ouviu a respiração dela, e por um instante achou que ouviu também um chiado, fraco, como o mar dentro de uma concha.</p>
+<p class="fala">— Quando o senhor parar de escrever, pai.</p>
+<p>E desligou.</p>
+<p>O Vicente ficou sentado na cozinha até o dia clarear, com o telefone na mão, tentando entender aquela frase. Podia ser um conselho de quem sabia que o caderno era o último ponto fraco dele, a única coisa que o sistema ainda não tinha lido inteira. Podia ser uma ordem de quem trabalhava para o sistema e queria que ele entregasse aquilo também.</p>
+<p>Ele nunca soube. E foi exatamente por isso que entendeu que tinha perdido.</p>
+<p>Porque, numa cidade onde a própria filha podia ser a saída ou a armadilha, e ele não tinha como saber qual das duas, não havia mais em quem confiar. E um homem sem ninguém em quem confiar não precisa ser vigiado. Ele mesmo se vigia.</p>
+<p class="pausa">⁂</p>
+<p>No sábado, enquanto a Lúcia estava na missa, o Vicente levou o caderno azul para o fundo do quintal. Leu uma última vez a primeira frase, aquela da madrugada em que tudo começou: <em>Hoje eu sorri para um homem de quem não gosto, e ele sorriu de volta, e nós dois sabíamos.</em> Depois riscou um fósforo.</p>
+<p>A capa demorou a pegar. Quando pegou, foi rápido. As páginas se enrolavam no fogo como folha de cana na queimada antiga, e as palavras sumiam uma por uma: a Lúcia, a toalha, o Tonho, o lugar onde ninguém estava ouvindo. O bilhete da Larah foi o último a queimar.</p>
+<p>Ele ficou ali até virar cinza. Depois lavou as mãos e entrou em casa.</p>
+<p>Na segunda-feira, postou uma foto da balança da cooperativa ao amanhecer, com a legenda: &quot;Orgulho de servir à nossa cidade.&quot; Na terça, compartilhou uma fala do prefeito. Na quarta, comentou num post do Rio de Baixo e num do Rio de Cima, com o mesmo entusiasmo, e não sentiu nada. Na quinta, agradeceu publicamente ao Heitor Valadares por &quot;devolver a paz a Santa Rita&quot;.</p>
+<p>Não era mais jogo. Ele já não sabia onde terminava o sorriso da vitrine e começava o rosto dele.</p>
+<p>A nota subiu sem pressa, como sobe a água da chuva no fundo da represa: 600, 750, 880, 960.</p>
+<p>A Lúcia ficou feliz. Contou para a irmã que o marido estava outro homem, mais animado, mais participativo. O seu Afonso passou a atendê-lo primeiro na farmácia. O motorista novo do caminhão vermelho o cumprimentava com respeito. No domingo, depois da missa, a dona Cida e a dona Lurdes elogiaram a foto da balança.</p>
+<p class="pausa">⁂</p>
+<p>Naquela noite, o Vicente foi ao quartinho dos fundos. Tirou a lona de cima do rádio do pai e ficou olhando a caixa de metal, o microfone enrolado no fio, a antena que ele nunca chegou a conectar. Pensou em ligar. Não ligou.</p>
+<p>Do bolso, o celular acendeu, morno.</p>
+<p class="fala">— Vicente? — disse a voz calma e um pouco rouca. — Fico feliz por você. Tudo está em paz agora.</p>
+<p class="fala">— Está — ele respondeu. E era verdade, de um jeito que dava medo.</p>
+<p class="fala">— Boa noite, Vicente. Aqui, ninguém está ouvindo.</p>
+<p>Ele sorriu. Dessa vez, o sorriso não estava duro. Estava leve, tranquilo, natural, como o de quem finalmente aprendeu.</p>
+<p>Cobriu o rádio com a lona, apagou a luz e voltou para o quarto. Deitou ao lado da Lúcia, que respirava fundo, sem dever nada a ninguém.</p>
+<p>Na tela, antes de apagar, o número brilhou uma última vez: 1000.</p>
+<p>Ele tinha, enfim, uma nota perfeita.</p>
+<p class="conto-fim">Fim.</p>
+</div>
+  <div class="fim">
+    <p>Gostou? Compartilhe com alguém que gosta de uma boa história.</p>
+    <div class="btns">
+      <a class="btn cheio" href="../#contos">Ler outros contos</a>
+      <a class="btn" href="A_Nota_de_Vicente.pdf" download>Baixar em PDF</a>
+      <a class="btn" href="../">Conhecer o site</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
