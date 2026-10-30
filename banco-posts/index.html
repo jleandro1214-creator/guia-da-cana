@@ -84,6 +84,23 @@ main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
 .sheet .it i{font-style:normal;font-size:22px;width:30px;text-align:center}
 .sheet .it small{display:block;color:var(--mut);font-size:13.5px}
 #toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#241d16;color:#fff;padding:11px 16px;border-radius:12px;font-size:15px;z-index:50;max-width:90vw;text-align:center}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:12px}
+.seg button{flex:1;border:0;background:none;padding:10px;border-radius:11px;font-weight:700;font-size:16px;color:var(--mut)}
+.seg button[aria-pressed=true]{background:var(--card);color:var(--fg);box-shadow:0 1px 4px rgba(60,40,10,.15)}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.gal button{border:0;padding:0;aspect-ratio:4/5;border-radius:10px;background:var(--soft) center/cover no-repeat}
+.gal.pick button{aspect-ratio:1}
+.gadd{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border:2px dashed var(--amarelo);border-radius:14px;background:var(--card);font-weight:800;color:var(--marrom);margin-bottom:12px;font-size:16px}
+.busca-fotos{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.busca-fotos h3{margin:0 0 4px;font-size:17px}
+.busca-fotos p{margin:0 0 10px;color:var(--mut);font-size:14.5px}
+.termo{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.termo span{flex:1;font-size:15.5px}.termo span small{display:block;color:var(--mut);font-size:13px}
+.termo a{font-size:14px;font-weight:700;padding:8px 10px;border-radius:10px;text-decoration:none;background:var(--soft);color:var(--fg)}
+.termo a.un{background:#241d16;color:#fff}.termo a.px{background:#05a081;color:#fff}
+.livre{display:flex;gap:6px;margin-bottom:6px}.livre input{flex:1;min-width:0;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);font-size:16px}
+.prev{width:100%;max-height:46vh;object-fit:contain;border-radius:12px;background:var(--soft);display:block;margin:4px 0 6px}
+.sheet{max-height:88vh;overflow-y:auto}
 #splash-app{position:fixed;inset:0;z-index:2147483647;background:#1b3a24;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800}#splash-app small{opacity:.75;margin-top:-10px}#splash-app.fim{opacity:0;pointer-events:none}
 </style>
 </head>
@@ -96,9 +113,23 @@ main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
  <div class="tabs" role="tablist" id="tabs"></div>
 </header>
 <main id="main">
+ <div class="seg" id="seg"><button data-v="posts" aria-pressed="true">📝 Posts</button><button data-v="imgs" aria-pressed="false">🖼️ Imagens</button></div>
+ <div id="v-posts">
  <div class="busca"><input id="q" type="search" placeholder="Buscar post…" autocomplete="off"><select id="fst" aria-label="Situação"><option value="">Todos</option><option value="rascunho">Rascunho</option><option value="pronto">Pronto</option><option value="postado">Postado</option></select></div>
  <div class="chips" id="chips"></div>
  <div id="lista"></div>
+ </div>
+ <div id="v-imgs" hidden>
+  <label class="gadd" for="f-gal">📷 Guardar imagens neste perfil</label>
+  <input type="file" id="f-gal" accept="image/*" multiple hidden>
+  <div class="gal" id="gal"></div>
+  <div class="busca-fotos">
+   <h3>🔎 Buscar fotos grátis</h3>
+   <p>Fotos profissionais que podem ser usadas de graça. Baixe a que gostar e guarde aqui com o botão acima.</p>
+   <div class="livre"><input id="q-foto" type="search" placeholder="Outra busca, em inglês"><a class="btn sm" id="b-un" href="#" target="_blank" rel="noopener" style="background:#241d16;color:#fff">Unsplash</a><a class="btn sm" id="b-px" href="#" target="_blank" rel="noopener" style="background:#05a081;color:#fff">Pexels</a></div>
+   <div id="termos"></div>
+  </div>
+ </div>
 </main>
 <button class="fab" id="b-novo">＋ Novo post</button>
 
@@ -148,6 +179,22 @@ main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
  <button class="it" id="m-exemplos"><i>🌱</i><span>Repor posts de exemplo<small>Devolve só os exemplos que você apagou</small></span></button>
  <input type="file" id="f-restore" accept=".json,application/json" hidden>
 </div>
+<div class="sheet" id="sh-addimg" hidden>
+ <h3>Adicionar imagem</h3>
+ <button class="it" id="ai-banco"><i>🖼️</i><span>Do banco de imagens<small>Imagens que você já guardou no app</small></span></button>
+ <button class="it" id="ai-cel"><i>📷</i><span>Da galeria do celular<small>Também fica guardada no banco de imagens</small></span></button>
+</div>
+<div class="sheet" id="sh-pick" hidden>
+ <h3>Escolha a imagem</h3>
+ <div class="chips" id="pick-chips"></div>
+ <div class="gal pick" id="pick"></div>
+</div>
+<div class="sheet" id="sh-gal" hidden>
+ <img class="prev" id="gal-prev" alt="">
+ <button class="it" id="g-post"><i>📝</i><span>Criar post com esta imagem</span></button>
+ <button class="it" id="g-share"><i>📤</i><span>Compartilhar ou salvar no celular</span></button>
+ <button class="it" id="g-del"><i>🗑️</i><span>Apagar do banco</span></button>
+</div>
 <div class="sheet" id="sh-post" hidden>
  <h3>Opções do post</h3>
  <button class="it" id="p-tudo"><i>📋</i><span>Copiar tudo<small>Slides, legenda e hashtags juntos</small></span></button>
@@ -166,12 +213,12 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
 const norm=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 let ls={};try{ls=JSON.parse(localStorage.getItem("bp-ui")||"{}")}catch(e){}
-let perfil=ls.perfil||"apps",tipo="",q="",fst="";
+let perfil=ls.perfil||"apps",tipo="",q="",fst="",view="posts",GAL=[];
 function saveUI(){try{localStorage.setItem("bp-ui",JSON.stringify({perfil}))}catch(e){}}
 
 /* ---------- banco local ---------- */
 let db;
-function openDB(){return new Promise((ok,no)=>{const r=indexedDB.open("bancoPosts",1);r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore("posts",{keyPath:"id"});d.createObjectStore("imgs",{keyPath:"id"});d.createObjectStore("meta",{keyPath:"k"})};r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)})}
+function openDB(){return new Promise((ok,no)=>{const r=indexedDB.open("bancoPosts",2);r.onupgradeneeded=()=>{const d=r.result;for(const [s,k] of [["posts","id"],["imgs","id"],["meta","k"],["galeria","id"]])if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:k})};r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)})}
 function tx(st,mode,fn){return new Promise((ok,no)=>{const t=db.transaction(st,mode);let res;const s=t.objectStore(st);const r=fn(s);if(r)r.onsuccess=()=>res=r.result;t.oncomplete=()=>ok(res);t.onerror=()=>no(t.error)})}
 const all=st=>tx(st,"readonly",s=>s.getAll());
 const get=(st,k)=>tx(st,"readonly",s=>s.get(k));
@@ -184,17 +231,19 @@ async function iniciar(){
  db=await openDB();
  const m=await get("meta","seeded");
  if(!m){for(let i=0;i<SEEDS.length;i++)await put("posts",deSeed(SEEDS[i],i));await put("meta",{k:"seeded",v:1})}
- POSTS=await all("posts");
+ POSTS=await all("posts");GAL=await all("galeria");
 }
 
 /* ---------- lista ---------- */
 const urlCache=new Map();
 async function urlImg(id){if(urlCache.has(id))return urlCache.get(id);const r=await get("imgs",id);if(!r)return null;const u=URL.createObjectURL(r.blob);urlCache.set(id,u);return u}
-function tabs(){$("#tabs").innerHTML=PERFIS.map(([k,n])=>`<button class="tab" role="tab" aria-selected="${k===perfil}" data-p="${k}">${n}<span>${POSTS.filter(p=>p.perfil===k).length}</span></button>`).join("")}
+function tabs(){$("#tabs").innerHTML=PERFIS.map(([k,n])=>`<button class="tab" role="tab" aria-selected="${k===perfil}" data-p="${k}">${n}<span>${(view==="imgs"?GAL:POSTS).filter(p=>p.perfil===k).length}</span></button>`).join("")}
 function chips(){$("#chips").innerHTML=TIPOS.map(([k,n])=>`<button class="chip" aria-pressed="${k===tipo}" data-t="${k}">${n}</button>`).join("")}
 function ord(a,b){return (b.atualizado||0)-(a.atualizado||0)}
 async function render(){
- tabs();chips();
+ tabs();$("#seg").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===view));$("#v-posts").hidden=view!=="posts";$("#v-imgs").hidden=view!=="imgs";$("#b-novo").hidden=view!=="posts";
+ if(view==="imgs")return renderGal();
+ chips();
  const t=norm(q);
  const f=POSTS.filter(p=>p.perfil===perfil&&(!tipo||p.tipo===tipo)&&(!fst||p.status===fst)&&(!t||norm(p.titulo+" "+p.legenda+" "+p.hashtags+" "+(p.slides||[]).join(" ")+" "+p.ideia).includes(t))).sort(ord);
  const pr=POSTS.filter(p=>p.perfil===perfil);
@@ -233,7 +282,7 @@ function pintaEd(){
 }
 async function pintaImgs(){
  const h=[];for(let i=0;i<atual.imgs.length;i++){const u=await urlImg(atual.imgs[i]);if(u)h.push(`<div class="im"><img src="${u}" alt="Imagem ${i+1}"><span>${i+1}</span><button type="button" data-rmi="${i}" aria-label="Tirar imagem">✕</button></div>`)}
- h.push(`<label class="addimg" for="f-img"><i>📷</i>Adicionar imagem</label>`);
+ h.push(`<button type="button" class="addimg" id="b-addimg"><i>📷</i>Adicionar imagem</button>`);
  $("#imgs").innerHTML=h.join("");
 }
 function contar(){const l=$("#f-legenda").value.length,hs=($("#f-hash").value.match(/#[^\s#]+/g)||[]).length;$("#c-leg").textContent=`${l} de 2.200 caracteres`;$("#c-hash").textContent=`${hs} hashtags (o Instagram aceita até 30)`}
@@ -247,7 +296,7 @@ $("#b-addslide").onclick=()=>{atual.slides.push("");pintaEd();agenda();const ts=
 $("#b-copslides").onclick=()=>copiar(atual.slides.map((s,i)=>`Slide ${i+1}: ${s}`).join("\n"),"Slides copiados");
 $("#b-prompt").onclick=()=>{const fmt=atual.tipo==="story"?"vertical 9:16":"vertical 4:5 (1080×1350)";const extra=atual.tipo==="carrossel"&&atual.slides.length?`\nÉ a capa de um carrossel. Escreva na imagem, em letras grandes e legíveis: "${atual.slides[0]}"`:"";copiar(`Crie uma ilustração digital de alta qualidade, formato ${fmt}, para um post de Instagram. Cena: ${atual.ideia}${extra}\nPaleta de cores com verde, amarelo e marrom. Sem logotipos ou marcas.`,"Pedido copiado. Cole na Meta AI, Gemini ou ChatGPT")};
 $("#imgs").addEventListener("click",async e=>{const b=e.target.closest("[data-rmi]");if(!b)return;const i=+b.dataset.rmi;if(!confirm("Tirar esta imagem do post?"))return;const [id]=atual.imgs.splice(i,1);await del("imgs",id);await salvar();pintaImgs()});
-$("#f-img").onchange=async e=>{const fs=[...e.target.files];e.target.value="";if(!fs.length)return;toast("Guardando imagem…");for(const f of fs){try{const blob=await reduz(f);const id="i"+novoId();await put("imgs",{id,blob,nome:f.name});atual.imgs.push(id)}catch(err){toast("Não consegui abrir uma das imagens")}}await salvar();pintaImgs();toast(fs.length>1?"Imagens guardadas":"Imagem guardada")};
+$("#f-img").onchange=async e=>{const fs=[...e.target.files];e.target.value="";if(!fs.length)return;toast("Guardando imagem…");for(const f of fs){try{const blob=await reduz(f);const id="i"+novoId();await put("imgs",{id,blob,nome:f.name});atual.imgs.push(id);const g={id:"g"+novoId(),perfil:atual.perfil,blob,criado:Date.now()};await put("galeria",g);GAL.push(g)}catch(err){toast("Não consegui abrir uma das imagens")}}await salvar();pintaImgs();toast(fs.length>1?"Imagens guardadas":"Imagem guardada")};
 function reduz(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{const M=1920,s=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?ok(b):no(),"image/jpeg",.9)};im.onerror=()=>{URL.revokeObjectURL(u);no()};im.src=u})}
 function textoPost(){return [atual.legenda.trim(),atual.hashtags.trim()].filter(Boolean).join("\n\n")}
 $("#b-copiar").onclick=()=>copiar(textoPost(),"Legenda e hashtags copiadas");
@@ -263,12 +312,13 @@ $("#b-share").onclick=async()=>{
 };
 async function fechar(){if($("#ed").hidden)return;await salvar();$("#ed").hidden=true;atual=null;POSTS=await all("posts");render()}
 $("#ed-voltar").onclick=()=>history.back();
-addEventListener("popstate",()=>{if(!$("#sh-menu").hidden||!$("#sh-post").hidden){fechaSheet();if(!$("#ed").hidden)history.pushState({ed:1},"");return}fechar()});
+addEventListener("popstate",()=>{if(SHEETS.some(s=>!$(s).hidden)){fechaSheet();if(!$("#ed").hidden)history.pushState({ed:1},"");return}fechar()});
 $("#b-novo").onclick=async()=>{const p={id:novoId(),perfil,tipo:tipo||"post",titulo:"",slides:[],ideia:"",legenda:"",hashtags:"",status:"rascunho",imgs:[],atualizado:Date.now()};await put("posts",p);POSTS.push(p);await abrir(p.id);$("#f-titulo").focus()};
 
 /* ---------- menus ---------- */
 function abreSheet(id){$("#bg").hidden=false;$(id).hidden=false}
-function fechaSheet(){$("#bg").hidden=true;$("#sh-menu").hidden=true;$("#sh-post").hidden=true}
+const SHEETS=["#sh-menu","#sh-post","#sh-addimg","#sh-pick","#sh-gal"];
+function fechaSheet(){$("#bg").hidden=true;SHEETS.forEach(s=>$(s).hidden=true)}
 $("#bg").onclick=fechaSheet;
 $("#b-menu").onclick=()=>abreSheet("#sh-menu");
 $("#ed-mais").onclick=()=>abreSheet("#sh-post");
@@ -277,11 +327,47 @@ $("#p-dup").onclick=async()=>{fechaSheet();await salvar();const n={...atual,id:n
 $("#p-del").onclick=async()=>{fechaSheet();if(!confirm(`Apagar "${atual.titulo||"este post"}"? Não dá para desfazer.`))return;for(const id of atual.imgs)await del("imgs",id);await del("posts",atual.id);const id=atual.id;atual=null;POSTS=POSTS.filter(p=>p.id!==id);$("#ed").hidden=true;history.back();render();toast("Post apagado")};
 $("#m-exemplos").onclick=async()=>{fechaSheet();const ids=new Set(POSTS.map(p=>p.id));let n=0;for(let i=0;i<SEEDS.length;i++)if(!ids.has(SEEDS[i].id)){await put("posts",deSeed(SEEDS[i],i));n++}POSTS=await all("posts");render();toast(n?`${n} exemplo(s) de volta`:"Todos os exemplos já estão aqui")};
 const b64=b=>new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.readAsDataURL(b)});
-$("#m-backup").onclick=async()=>{fechaSheet();toast("Preparando a cópia…");const posts=await all("posts"),imgs=[];for(const r of await all("imgs"))imgs.push({id:r.id,nome:r.nome||"",data:await b64(r.blob)});const blob=new Blob([JSON.stringify({app:"banco-posts",v:1,data:new Date().toISOString(),posts,imgs})],{type:"application/json"});const d=new Date().toISOString().slice(0,10);const file=new File([blob],`banco-de-posts-${d}.json`,{type:"application/json"});
+$("#m-backup").onclick=async()=>{fechaSheet();toast("Preparando a cópia…");const posts=await all("posts"),imgs=[];for(const r of await all("imgs"))imgs.push({id:r.id,nome:r.nome||"",data:await b64(r.blob)});const galeria=[];for(const r of await all("galeria"))galeria.push({id:r.id,perfil:r.perfil,criado:r.criado,data:await b64(r.blob)});const blob=new Blob([JSON.stringify({app:"banco-posts",v:2,data:new Date().toISOString(),posts,imgs,galeria})],{type:"application/json"});const d=new Date().toISOString().slice(0,10);const file=new File([blob],`banco-de-posts-${d}.json`,{type:"application/json"});
  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Cópia do Banco de Posts"});return}catch(e){if(e.name==="AbortError")return}}
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=file.name;a.click();toast("Cópia salva em Downloads")};
 $("#m-restore").onclick=()=>{fechaSheet();$("#f-restore").click()};
-$("#f-restore").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const j=JSON.parse(await f.text());if(j.app!=="banco-posts")throw 0;for(const im of j.imgs||[]){const blob=await (await fetch(im.data)).blob();await put("imgs",{id:im.id,nome:im.nome,blob})}for(const p of j.posts||[])await put("posts",p);POSTS=await all("posts");render();toast(`${(j.posts||[]).length} posts restaurados`)}catch(err){toast("Esse arquivo não é uma cópia do Banco de Posts")}};
+$("#f-restore").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const j=JSON.parse(await f.text());if(j.app!=="banco-posts")throw 0;for(const im of j.imgs||[]){const blob=await (await fetch(im.data)).blob();await put("imgs",{id:im.id,nome:im.nome,blob})}for(const g of j.galeria||[]){const blob=await (await fetch(g.data)).blob();await put("galeria",{id:g.id,perfil:g.perfil,criado:g.criado,blob})}for(const p of j.posts||[])await put("posts",p);POSTS=await all("posts");GAL=await all("galeria");render();toast(`${(j.posts||[]).length} posts restaurados`)}catch(err){toast("Esse arquivo não é uma cópia do Banco de Posts")}};
+
+/* ---------- banco de imagens ---------- */
+const TERMOS={
+ apps:[["smartphone hands","Mãos com celular"],["mobile app screen","Tela de app"],["workspace desk","Mesa de trabalho"],["notebook planning","Caderno e planejamento"],["people using phone","Pessoas no celular"],["small business","Pequeno negócio"]],
+ agro:[["sugarcane","Cana-de-açúcar"],["sugarcane field","Canavial"],["tractor field","Trator no campo"],["agriculture soil","Solo agrícola"],["farm sunset","Pôr do sol na roça"],["farmer","Trabalhador rural"]],
+ livros:[["books coffee","Livro e café"],["reading","Pessoa lendo"],["bookshelf","Estante de livros"],["open book","Livro aberto"],["writing notebook","Escrevendo"],["library","Biblioteca"]]
+};
+const gUrl=new Map();
+function urlGal(r){if(!gUrl.has(r.id))gUrl.set(r.id,URL.createObjectURL(r.blob));return gUrl.get(r.id)}
+const UN=s=>"https://unsplash.com/s/photos/"+encodeURIComponent(s.trim().replace(/\s+/g,"-"));
+const PX=s=>"https://www.pexels.com/search/"+encodeURIComponent(s.trim())+"/";
+function renderGal(){
+ const g=GAL.filter(x=>x.perfil===perfil).sort((a,b)=>b.criado-a.criado);
+ const nome=PERFIS.find(p=>p[0]===perfil)[1];
+ $("#sub").textContent=`${g.length} ${g.length===1?"imagem":"imagens"} em ${nome.slice(2).trim()}`;
+ $("#gal").innerHTML=g.length?g.map(x=>`<button data-g="${x.id}" style="background-image:url('${urlGal(x)}')" aria-label="Imagem"></button>`).join(""):`<p class="vazio" style="grid-column:1/-1;padding:16px">Nenhuma imagem guardada aqui ainda.<br>As imagens que você coloca nos posts também aparecem aqui.</p>`;
+ $("#termos").innerHTML=TERMOS[perfil].map(([en,pt])=>`<div class="termo"><span>${pt}<small>${en}</small></span><a class="un" href="${UN(en)}" target="_blank" rel="noopener">Unsplash</a><a class="px" href="${PX(en)}" target="_blank" rel="noopener">Pexels</a></div>`).join("");
+}
+$("#seg").onclick=e=>{const b=e.target.closest("button");if(!b)return;view=b.dataset.v;render();scrollTo({top:0})};
+$("#q-foto").oninput=e=>{const v=e.target.value.trim()||"nature";$("#b-un").href=UN(v);$("#b-px").href=PX(v)};
+$("#q-foto").dispatchEvent(new Event("input"));
+$("#f-gal").onchange=async e=>{const fs=[...e.target.files];e.target.value="";if(!fs.length)return;toast("Guardando…");let n=0;for(const f of fs){try{const blob=await reduz(f);const g={id:"g"+novoId(),perfil,blob,criado:Date.now()+n};await put("galeria",g);GAL.push(g);n++}catch(err){}}render();toast(n?`${n} ${n>1?"imagens guardadas":"imagem guardada"}`:"Não consegui abrir a imagem")};
+let gSel=null;
+$("#gal").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;gSel=GAL.find(x=>x.id===b.dataset.g);$("#gal-prev").src=urlGal(gSel);abreSheet("#sh-gal")};
+async function copiaParaPost(g){const id="i"+novoId();await put("imgs",{id,blob:g.blob,nome:"banco.jpg"});atual.imgs.push(id);await salvar();pintaImgs()}
+$("#g-post").onclick=async()=>{fechaSheet();const g=gSel;view="posts";const p={id:novoId(),perfil:g.perfil,tipo:"post",titulo:"",slides:[],ideia:"",legenda:"",hashtags:"",status:"rascunho",imgs:[],atualizado:Date.now()};await put("posts",p);POSTS.push(p);await abrir(p.id);await copiaParaPost(g);render();$("#f-titulo").focus()};
+$("#g-share").onclick=async()=>{fechaSheet();const f=new File([gSel.blob],"imagem.jpg",{type:"image/jpeg"});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]})}catch(e){}}else{const a=document.createElement("a");a.href=urlGal(gSel);a.download="imagem.jpg";a.click()}};
+$("#g-del").onclick=async()=>{fechaSheet();if(!confirm("Apagar esta imagem do banco? Os posts que já usam ela não mudam."))return;await del("galeria",gSel.id);GAL=GAL.filter(x=>x.id!==gSel.id);render();toast("Imagem apagada")};
+/* adicionar imagem no editor */
+$("#imgs").addEventListener("click",e=>{if(e.target.closest("#b-addimg"))abreSheet("#sh-addimg")});
+$("#ai-cel").onclick=()=>{fechaSheet();$("#f-img").click()};
+let pickP="";
+function pintaPick(){$("#pick-chips").innerHTML=PERFIS.map(([k,n])=>`<button class="chip" aria-pressed="${k===pickP}" data-pp="${k}">${n}</button>`).join("");const g=GAL.filter(x=>x.perfil===pickP).sort((a,b)=>b.criado-a.criado);$("#pick").innerHTML=g.length?g.map(x=>`<button data-g="${x.id}" style="background-image:url('${urlGal(x)}')"></button>`).join(""):`<p class="vazio" style="grid-column:1/-1;padding:14px">Nenhuma imagem neste perfil.</p>`}
+$("#ai-banco").onclick=()=>{$("#sh-addimg").hidden=true;pickP=atual.perfil;pintaPick();$("#sh-pick").hidden=false};
+$("#pick-chips").onclick=e=>{const b=e.target.closest("[data-pp]");if(b){pickP=b.dataset.pp;pintaPick()}};
+$("#pick").onclick=async e=>{const b=e.target.closest("[data-g]");if(!b)return;fechaSheet();await copiaParaPost(GAL.find(x=>x.id===b.dataset.g));toast("Imagem colocada no post")};
 
 /* ---------- utilidades ---------- */
 async function copiar(t,msg){try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}if(msg)toast(msg)}
