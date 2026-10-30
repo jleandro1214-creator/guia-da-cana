@@ -85,7 +85,7 @@ main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
 .sheet .it small{display:block;color:var(--mut);font-size:13.5px}
 #toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#241d16;color:#fff;padding:11px 16px;border-radius:12px;font-size:15px;z-index:50;max-width:90vw;text-align:center}
 .seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:12px}
-.seg button{flex:1;border:0;background:none;padding:10px;border-radius:11px;font-weight:700;font-size:16px;color:var(--mut)}
+.seg button{flex:1;font-size:15px!important;padding:10px 4px!important;border:0;background:none;padding:10px;border-radius:11px;font-weight:700;font-size:16px;color:var(--mut)}
 .seg button[aria-pressed=true]{background:var(--card);color:var(--fg);box-shadow:0 1px 4px rgba(60,40,10,.15)}
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .gal button{border:0;padding:0;aspect-ratio:4/5;border-radius:10px;background:var(--soft) center/cover no-repeat}
@@ -101,6 +101,13 @@ main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
 .livre{display:flex;gap:6px;margin-bottom:6px}.livre input{flex:1;min-width:0;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);font-size:16px}
 .prev{width:100%;max-height:46vh;object-fit:contain;border-radius:12px;background:var(--soft);display:block;margin:4px 0 6px}
 .sheet{max-height:88vh;overflow-y:auto}
+.grupo{margin-bottom:18px}.grupo h3{margin:0 0 2px;font-size:17px;color:var(--marrom)}.grupo>p{margin:0 0 8px;color:var(--mut);font-size:14.5px}
+.fer{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:8px;text-decoration:none;color:var(--fg)}
+.fer:active{background:var(--soft)}.fer i{font-style:normal;font-size:26px;width:44px;height:44px;flex:none;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center}
+.fer span{flex:1;min-width:0}.fer b{display:block;font-size:17px}.fer small{display:block;color:var(--mut);font-size:14px;line-height:1.35}.fer em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--verde2)}
+.fer .ir{flex:none;font-size:20px;color:var(--mut)}
+.cores{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.cor{border:0;border-radius:12px;padding:10px 12px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line)}.cor s{width:22px;height:22px;border-radius:6px;display:block;text-decoration:none;border:1px solid rgba(0,0,0,.1)}
+.passo{background:var(--soft);border-radius:14px;padding:12px 14px;margin-bottom:18px;font-size:15px}.passo ol{margin:6px 0 0;padding-left:20px}.passo li{margin:3px 0}
 #splash-app{position:fixed;inset:0;z-index:2147483647;background:#1b3a24;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800}#splash-app small{opacity:.75;margin-top:-10px}#splash-app.fim{opacity:0;pointer-events:none}
 </style>
 </head>
@@ -113,7 +120,7 @@ main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
  <div class="tabs" role="tablist" id="tabs"></div>
 </header>
 <main id="main">
- <div class="seg" id="seg"><button data-v="posts" aria-pressed="true">📝 Posts</button><button data-v="imgs" aria-pressed="false">🖼️ Imagens</button></div>
+ <div class="seg" id="seg"><button data-v="posts" aria-pressed="true">📝 Posts</button><button data-v="imgs" aria-pressed="false">🖼️ Imagens</button><button data-v="tools" aria-pressed="false">🧰 Ferramentas</button></div>
  <div id="v-posts">
  <div class="busca"><input id="q" type="search" placeholder="Buscar post…" autocomplete="off"><select id="fst" aria-label="Situação"><option value="">Todos</option><option value="rascunho">Rascunho</option><option value="pronto">Pronto</option><option value="postado">Postado</option></select></div>
  <div class="chips" id="chips"></div>
@@ -130,6 +137,7 @@ main{max-width:720px;margin:0 auto;padding:12px 14px 110px;min-height:70vh}
    <div id="termos"></div>
   </div>
  </div>
+ <div id="v-tools" hidden></div>
 </main>
 <button class="fab" id="b-novo">＋ Novo post</button>
 
@@ -241,8 +249,9 @@ function tabs(){$("#tabs").innerHTML=PERFIS.map(([k,n])=>`<button class="tab" ro
 function chips(){$("#chips").innerHTML=TIPOS.map(([k,n])=>`<button class="chip" aria-pressed="${k===tipo}" data-t="${k}">${n}</button>`).join("")}
 function ord(a,b){return (b.atualizado||0)-(a.atualizado||0)}
 async function render(){
- tabs();$("#seg").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===view));$("#v-posts").hidden=view!=="posts";$("#v-imgs").hidden=view!=="imgs";$("#b-novo").hidden=view!=="posts";
+ tabs();$("#seg").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===view));$("#v-posts").hidden=view!=="posts";$("#v-imgs").hidden=view!=="imgs";$("#v-tools").hidden=view!=="tools";$("#tabs").hidden=view==="tools";$("#b-novo").hidden=view!=="posts";
  if(view==="imgs")return renderGal();
+ if(view==="tools")return renderTools();
  chips();
  const t=norm(q);
  const f=POSTS.filter(p=>p.perfil===perfil&&(!tipo||p.tipo===tipo)&&(!fst||p.status===fst)&&(!t||norm(p.titulo+" "+p.legenda+" "+p.hashtags+" "+(p.slides||[]).join(" ")+" "+p.ideia).includes(t))).sort(ord);
@@ -294,7 +303,7 @@ $("#slides").addEventListener("input",e=>{const t=e.target.closest("textarea");i
 $("#slides").addEventListener("click",e=>{const b=e.target.closest("[data-rm]");if(!b)return;atual.slides.splice(+b.dataset.rm,1);pintaEd();agenda()});
 $("#b-addslide").onclick=()=>{atual.slides.push("");pintaEd();agenda();const ts=document.querySelectorAll("#slides textarea");ts[ts.length-1].focus()};
 $("#b-copslides").onclick=()=>copiar(atual.slides.map((s,i)=>`Slide ${i+1}: ${s}`).join("\n"),"Slides copiados");
-$("#b-prompt").onclick=()=>{const fmt=atual.tipo==="story"?"vertical 9:16":"vertical 4:5 (1080×1350)";const extra=atual.tipo==="carrossel"&&atual.slides.length?`\nÉ a capa de um carrossel. Escreva na imagem, em letras grandes e legíveis: "${atual.slides[0]}"`:"";copiar(`Crie uma ilustração digital de alta qualidade, formato ${fmt}, para um post de Instagram. Cena: ${atual.ideia}${extra}\nPaleta de cores com verde, amarelo e marrom. Sem logotipos ou marcas.`,"Pedido copiado. Cole na Meta AI, Gemini ou ChatGPT")};
+$("#b-prompt").onclick=()=>{const fmt=atual.tipo==="story"?"vertical 9:16":"vertical 4:5 (1080×1350)";const extra=atual.tipo==="carrossel"&&atual.slides.length?`\nÉ a capa de um carrossel. Escreva na imagem, em letras grandes e legíveis: "${atual.slides[0]}"`:"";copiar(`Crie uma ilustração digital de alta qualidade, formato ${fmt}, para um post de Instagram. Cena: ${atual.ideia}${extra}\nPaleta de cores com verde, amarelo e marrom. Sem logotipos ou marcas.`,"Pedido copiado. Cole na Meta AI, Ideogram ou Designer (aba Ferramentas)")};
 $("#imgs").addEventListener("click",async e=>{const b=e.target.closest("[data-rmi]");if(!b)return;const i=+b.dataset.rmi;if(!confirm("Tirar esta imagem do post?"))return;const [id]=atual.imgs.splice(i,1);await del("imgs",id);await salvar();pintaImgs()});
 $("#f-img").onchange=async e=>{const fs=[...e.target.files];e.target.value="";if(!fs.length)return;toast("Guardando imagem…");for(const f of fs){try{const blob=await reduz(f);const id="i"+novoId();await put("imgs",{id,blob,nome:f.name});atual.imgs.push(id);const g={id:"g"+novoId(),perfil:atual.perfil,blob,criado:Date.now()};await put("galeria",g);GAL.push(g)}catch(err){toast("Não consegui abrir uma das imagens")}}await salvar();pintaImgs();toast(fs.length>1?"Imagens guardadas":"Imagem guardada")};
 function reduz(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{const M=1920,s=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?ok(b):no(),"image/jpeg",.9)};im.onerror=()=>{URL.revokeObjectURL(u);no()};im.src=u})}
@@ -368,6 +377,37 @@ function pintaPick(){$("#pick-chips").innerHTML=PERFIS.map(([k,n])=>`<button cla
 $("#ai-banco").onclick=()=>{$("#sh-addimg").hidden=true;pickP=atual.perfil;pintaPick();$("#sh-pick").hidden=false};
 $("#pick-chips").onclick=e=>{const b=e.target.closest("[data-pp]");if(b){pickP=b.dataset.pp;pintaPick()}};
 $("#pick").onclick=async e=>{const b=e.target.closest("[data-g]");if(!b)return;fechaSheet();await copiaParaPost(GAL.find(x=>x.id===b.dataset.g));toast("Imagem colocada no post")};
+
+/* ---------- ferramentas ---------- */
+const FERR=[
+ ["✨ Criar imagens com IA","Cole o pedido copiado do post e gere a imagem.",[
+  ["💬","Meta AI","https://www.meta.ai","Gera imagens dentro do WhatsApp. Acerta bem frases escritas na imagem.","Grátis"],
+  ["🔤","Ideogram","https://ideogram.ai","O melhor para imagens com texto, como capas de carrossel e frases.","Plano grátis com limite"],
+  ["🎨","Microsoft Designer","https://designer.microsoft.com","O antigo Bing Image Creator. Imagens de ótima qualidade.","Grátis com conta Microsoft"],
+  ["🖌️","Leonardo.ai","https://leonardo.ai","Estilos prontos: pintura, foto realista, ilustração.","Créditos grátis todo dia"],
+  ["🌟","Gemini","https://gemini.google.com","IA do Google, também cria e edita imagens.","Grátis com conta Google"]]],
+ ["📸 Fotos, vídeos e músicas grátis","Material real e profissional, livre para usar nos posts.",[
+  ["📷","Unsplash","https://unsplash.com","Fotos com cara artística. Busque em inglês.","Grátis"],
+  ["🎞️","Pexels","https://www.pexels.com","Fotos e vídeos curtos, bons para Reels.","Grátis"],
+  ["🎵","Pixabay","https://pixabay.com","Fotos, vídeos, ilustrações e músicas de fundo.","Grátis"]]],
+ ["🛠️ Ajustar imagens","Para limpar e acertar a imagem antes de montar o post.",[
+  ["✂️","Remove.bg","https://www.remove.bg/pt-br","Tira o fundo de uma foto em segundos.","Grátis em qualidade de post"],
+  ["🧩","Photopea","https://www.photopea.com","Editor parecido com o Photoshop, no navegador.","Grátis"]]],
+ ["🧱 Montar o post","Junte imagem, texto e logo no tamanho certo.",[
+  ["🟣","Canva","https://www.canva.com","Modelos de post, carrossel e story. Já está conectado ao Claude.","Plano grátis"]]],
+ ["🎨 Cores e letras","Para manter a identidade dos seus perfis.",[
+  ["🌈","Coolors","https://coolors.co","Monta e testa paletas de cores.","Grátis"],
+  ["🔠","Google Fonts","https://fonts.google.com","Fontes bonitas e gratuitas para títulos e textos.","Grátis"]]]
+];
+const CORES=[["Verde","#1b3a24"],["Verde claro","#2f5d34"],["Amarelo","#d9a520"],["Marrom","#5a3e24"],["Creme","#f6f1e4"]];
+function renderTools(){
+ $("#sub").textContent="Ferramentas grátis para criar conteúdo";
+ let h=`<div class="passo"><b>Caminho de um post</b><ol><li>Escolha o post e toque em <b>✨ Copiar pedido</b>.</li><li>Gere a imagem numa IA ou pegue uma foto grátis.</li><li>Ajuste se precisar (tirar fundo, cortar).</li><li>Monte o texto por cima no Canva.</li><li>Guarde a imagem no post e toque em <b>📤 Postar</b>.</li></ol></div>`;
+ for(const [tit,desc,itens] of FERR){h+=`<div class="grupo"><h3>${tit}</h3><p>${desc}</p>`+itens.map(([ic,n,u,d,pr])=>`<a class="fer" href="${u}" target="_blank" rel="noopener"><i>${ic}</i><span><b>${n}</b><small>${d}</small><em>${pr}</em></span><span class="ir">↗</span></a>`).join("")+`</div>`}
+ h+=`<div class="grupo"><h3>🎯 Suas cores</h3><p>Toque para copiar o código e usar no Canva ou no Coolors.</p><div class="cores">`+CORES.map(([n,c])=>`<button class="cor" data-cor="${c}"><s style="background:${c}"></s>${n} ${c}</button>`).join("")+`</div></div>`;
+ $("#v-tools").innerHTML=h;
+}
+$("#v-tools").addEventListener("click",e=>{const b=e.target.closest("[data-cor]");if(b)copiar(b.dataset.cor,`Cor ${b.dataset.cor} copiada`)});
 
 /* ---------- utilidades ---------- */
 async function copiar(t,msg){try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}if(msg)toast(msg)}
