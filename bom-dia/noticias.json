@@ -1,217 +1,217 @@
 {
-  "gerado": "2026-10-29T22:51:43-03:00",
-  "assuntos": {
-    "cana": [
-      {
-        "titulo": "Congresso aprova ajuda de R$ 12 por tonelada a canavieiros do Nordeste",
-        "resumo": "Câmara e Senado aprovaram um auxílio de doze reais por tonelada para produtores independentes de cana do Nordeste na safra 2025/26, cerca de 270 milhões de reais no total. O texto agora vai para sanção do presidente.",
-        "fonte": "Agência FPA",
-        "link": "https://agencia.fpagropecuaria.org.br/2026/10/29/com-apoio-da-fpa-congresso-aprova-auxilio-a-canavieiros-e-novas-linhas-de-financiamento-para-o-setor-produtivo/"
-      },
-      {
-        "titulo": "Etanol fica estável em R$ 4,11 nos postos, segundo a ANP",
-        "resumo": "Na semana de 18 a 24 de outubro, o litro do etanol custou em média 4,11 reais, o mesmo da semana anterior. O combustível compensou mais que a gasolina em 11 estados e no Distrito Federal.",
-        "fonte": "O Povo (Estadão Conteúdo)",
-        "link": "https://www.opovo.com.br/noticias/economia/2026/10/27/anp-preco-do-etanol-cai-em-12-estados-e-no-df-sobe-em-outros-11-e-fica-estavel-em-2-na-semana.html"
-      },
-      {
-        "titulo": "Açúcar volta a subir em Nova York depois da queda pós-eleição",
-        "resumo": "O açúcar bruto subiu meio por cento em Nova York depois de cair forte na segunda-feira. Com o real mais fraco, exportar ficou mais vantajoso, e as chuvas seguem atrasando a moagem.",
-        "fonte": "NovaCana (Reuters)",
-        "link": "https://www.novacana.com/noticias/acucar-sobe-na-ice-a-medida-que-fundamentos-prevalecem-apos-eleicoes-no-brasil"
-      },
-      {
-        "titulo": "Brasil pode precisar de mais 15 bilhões de litros de etanol",
-        "resumo": "Um estudo da CNI calcula que o país pode precisar de mais 15 bilhões de litros de etanol até 2035 para cumprir as metas de descarbonização. Se faltarem créditos de carbono, o preço dos combustíveis pode subir.",
-        "fonte": "NovaCana (Exame)",
-        "link": "https://www.novacana.com/noticias/brasil-deve-precisar-de-mais-15-bilhoes-de-litros-de-etanol-ate-2035-para-descarbonizar"
-      },
-      {
-        "titulo": "Datagro cobra do governo medidas para proteger o setor sucroenergético",
-        "resumo": "Plinio Nastari, presidente da Datagro, disse que segurar o preço da gasolina prejudica as usinas de etanol. Ele também pediu apoio às exportações e mais investimento em infraestrutura.",
-        "fonte": "NovaCana (Agência Estado)",
-        "link": "https://www.novacana.com/noticias/setor-sucroenergetico-precisa-de-medidas-para-garantir-sustentabilidade-diz-plinio-nastari"
-      }
-    ],
-    "politica": [
-      {
-        "titulo": "Polícia Federal apura como Flávio Bolsonaro deixou o país",
-        "resumo": "A PF investiga a ida do senador Flávio Bolsonaro aos Estados Unidos, passando pela Argentina, apesar de ordem do STF que o proibia de sair do Brasil. Ele é alvo de dois inquéritos no Supremo e nega irregularidades.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/pf-investiga-circunstancias-da-fuga-de-flavio-bolsonaro-do-brasil"
-      },
-      {
-        "titulo": "Coordenador da campanha do PL diz não haver provas de fraude",
-        "resumo": "O senador Rogério Marinho, que coordenou a campanha de Flávio Bolsonaro, disse que o partido não pode afirmar que houve fraude porque não tem provas. A fala veio depois de uma carta de Flávio questionando o resultado.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/coordenador-de-campanha-do-pl-admite-nao-ter-prova-de-fraude-eleitoral"
-      },
-      {
-        "titulo": "Deputados do governo e da oposição debatem viagem de Flávio Bolsonaro",
-        "resumo": "No plenário da Câmara, governistas criticaram a ida do senador aos Estados Unidos. Deputados da oposição defenderam a viagem e disseram que ele sofre perseguição.",
-        "fonte": "Agência Câmara",
-        "link": "https://www.camara.leg.br/noticias/1314703-reeleicao-de-lula-e-viagem-de-flavio-bolsonaro-aos-eua-repercutem-no-plenario"
-      },
-      {
-        "titulo": "Senado aprova aumento do adicional de fronteira para servidores federais",
-        "resumo": "O adicional diário para servidores federais em regiões de fronteira passa de 91 para 191 reais a partir de 2027. O texto agora depende da sanção do presidente.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/senado-aprova-aumento-de-adicional-de-fronteira-veja-o-que-diz-o-texto/"
-      },
-      {
-        "titulo": "Câmara aprova acordo do Mercosul de proteção a mulheres",
-        "resumo": "Com o acordo, medidas protetivas dadas a mulheres em um país do Mercosul passam a valer nos outros países do bloco. O texto segue para o Senado.",
-        "fonte": "Agência Câmara",
-        "link": "https://www.camara.leg.br/noticias/1314230-camara-aprova-acordo-do-mercosul-para-proteger-mulheres-vitimas-de-violencia"
-      }
-    ],
-    "tecnologia": [
-      {
-        "titulo": "Google lança Gemini 4 Carbon, IA voltada à cibersegurança",
-        "resumo": "O novo modelo do Google é especializado em achar e corrigir falhas de segurança em programas. Por enquanto só especialistas selecionados podem usar, e o acesso geral deve sair em poucas semanas.",
-        "fonte": "PCGuia",
-        "link": "https://www.pcguia.pt/2026/10/google-anuncia-o-modelo-de-ia-especializado-em-ciberseguranca-gemini-4-carbon/"
-      },
-      {
-        "titulo": "Anúncios no Modo IA do Google vão chegar ao Brasil",
-        "resumo": "O Google vai mostrar anúncios patrocinados nas respostas do Modo IA da busca em mais dez países, incluindo o Brasil. A novidade deve chegar ainda neste fim de ano.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/10/29/internet-e-redes-sociais/google-leva-anuncios-do-modo-ia-a-novos-paises-brasil-esta-na-lista"
-      },
-      {
-        "titulo": "Golpistas usam iPhone dobrável como isca contra brasileiros",
-        "resumo": "A Kaspersky encontrou sites falsos de pré-venda do iPhone Duo que pedem e-mail e telefone para depois aplicar golpes. A dica é comprar só em lojas oficiais e conferir o endereço do site.",
-        "fonte": "Agência O Globo (via Tribuna do Sertão)",
-        "link": "https://www.tribunadosertao.com.br/financas/2026/10/28/1008478-criminosos-usam-falsas-paginas-de-venda-do-iphone-duo-para-aplicar-golpes"
-      },
-      {
-        "titulo": "DoorDash compra Instacart por cerca de 17 bilhões de dólares",
-        "resumo": "O aplicativo de entregas DoorDash fechou acordo para comprar a rival Instacart, de compras de supermercado. O negócio ainda precisa de aprovação e deve ser concluído só entre 2027 e 2028.",
-        "fonte": "Reuters (via Yahoo Finance)",
-        "link": "https://finance.yahoo.com/small-business/articles/doordash-strikes-17-billion-deal-122549998.html"
-      }
-    ],
-    "ciencia": [
-      {
-        "titulo": "Exame de sangue simples pode indicar longevidade e risco de doenças",
-        "resumo": "Pesquisadores europeus criaram uma nota de saúde metabólica com dez substâncias de exames de sangue comuns. Notas maiores foram ligadas a muitos anos a mais até surgir doenças como diabetes, infarto ou AVC.",
-        "fonte": "Agência FAPESP",
-        "link": "https://agencia.fapesp.br/novo-indicador-metabolico-preve-longevidade-e-risco-de-doencas-cronicas/59506"
-      },
-      {
-        "titulo": "Calor extremo e poluição aumentam risco de AVC em idosos",
-        "resumo": "Um estudo da USP em São Paulo mostrou que cada dia de onda de calor aumenta a chance de AVC em pessoas com mais de 65 anos. Junto com a poluição do ar, o risco sobe ainda mais.",
-        "fonte": "Agência FAPESP",
-        "link": "https://agencia.fapesp.br/ondas-de-calor-e-poluicao-aumentam-risco-de-avc-em-idosos-constata-estudo/59500"
-      },
-      {
-        "titulo": "Dente de elefante revela paisagem onde viviam humanos antigos",
-        "resumo": "Um dente de elefante de 700 mil anos, achado com ferramentas de pedra no Vale do Jordão, mostra que a região tinha rios, pântanos e florestas. Ela teria servido de refúgio na passagem entre a África e a Eurásia.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/10/261028232709.htm"
-      },
-      {
-        "titulo": "Gelo de 128 mil anos no Tibete muda história do clima",
-        "resumo": "Cientistas acharam numa geleira do Tibete gelo que pode ter mais de 128 mil anos, bem mais antigo do que se pensava. Isso ajuda a entender o clima da Ásia desde a última era glacial.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/10/261028232713.htm"
-      },
-      {
-        "titulo": "Cientistas descobrem por que os músculos enfraquecem com a idade",
-        "resumo": "Um estudo em Copenhague mostrou que uma gordura das mitocôndrias, a cardiolipina, diminui nos músculos com a idade. Em camundongos, repor essa gordura reverteu parte da perda muscular.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/10/261027063704.htm"
-      }
-    ],
-    "astronomia": [
-      {
-        "titulo": "Chuva de meteoros Táuridas tem pico na noite de 4 de novembro",
-        "resumo": "As Táuridas do Sul chegam ao pico na noite de 4 para 5 de novembro, com cerca de cinco meteoros por hora e algumas bolas de fogo. Dá para ver do Brasil, melhor perto da meia-noite e longe das luzes.",
-        "fonte": "Starlust",
-        "link": "https://starlust.org/southern-taurid-meteor-shower-will-hit-2nd-peak-next-week-when-where-to-watch-the-shooting-stars/"
-      },
-      {
-        "titulo": "Possível novo planeta anão é encontrado além de Plutão",
-        "resumo": "Com o Observatório Vera Rubin, no Chile, astrônomos acharam um objeto que leva cerca de 281 anos para dar a volta no Sol. Ele ainda é só candidato a planeta anão e precisa ser confirmado.",
-        "fonte": "Infobae",
-        "link": "https://infobae.com/america/ciencia-america/2026/10/29/descubren-un-posible-planeta-enano-que-llevaba-una-decada-oculto-mas-alla-de-pluton"
-      },
-      {
-        "titulo": "Caminhadas espaciais concluem novos painéis solares da estação espacial",
-        "resumo": "A NASA marcou caminhadas espaciais para 29 de outubro e 5 de novembro para instalar os últimos painéis solares novos da Estação Espacial. Com eles, a energia da estação sobe de cerca de 160 para 215 quilowatts.",
-        "fonte": "Spaceflight Now",
-        "link": "https://spaceflightnow.com/2026/10/28/nasa-nears-end-of-space-station-solar-array-upgrade-with-oct-29-and-nov-5-spacewalks"
-      },
-      {
-        "titulo": "Planeta solitário sem estrela engole gás em ritmo impressionante",
-        "resumo": "Os telescópios James Webb e VLT viram um objeto do tamanho de um planeta vagando sozinho a cerca de 620 anos-luz. Ele puxou bilhões de toneladas de gás e poeira por segundo, como uma estrela jovem.",
-        "fonte": "Brasil 247",
-        "link": "https://brasil247.com/tendencias/2026/10/28/astronomos-podem-ter-descoberto-um-planeta-errante-ele-absorve-6-bilhoes-de-toneladas-de-materia-por-segundo"
-      },
-      {
-        "titulo": "Cápsula da SpaceX entrega carga militar americana vinda do espaço",
-        "resumo": "A cápsula Starfall levou ao espaço comida e equipamentos médicos e voltou com eles até o Oceano Pacífico. O teste quer mostrar que foguetes podem entregar carga rápido em qualquer lugar do planeta.",
-        "fonte": "Space.com",
-        "link": "https://space.com/space-exploration/launches-spacecraft/spacexs-starfall-capsule-delivers-cargo-for-us-air-force-in-landmark-point-to-point-space-mission"
-      }
-    ],
-    "filosofia": [
-      {
-        "titulo": "Laurent de Sutter critica o 'pensamento único' da filosofia ocidental",
-        "resumo": "Em entrevista ao jornal português SOL, o pensador belga diz que a filosofia ensinada no Ocidente virou pensamento único. Ele defende olhar também para tradições islâmicas, chinesas e japonesas.",
-        "fonte": "SOL (Portugal)",
-        "link": "https://sol.iol.pt/cultura/noticias/a-filosofia-ocidental-que-se-ensina-tornou-se-o-pensamento-unico-que-traz-mais-males-do-que-bens/20261029/6ae38e5a0cf22b9f89053260"
-      },
-      {
-        "titulo": "Falantes não nativos de inglês publicam menos em filosofia, diz estudo",
-        "resumo": "Uma pesquisa com mais de cem mil artigos mostra que filósofos sem o inglês como língua materna aparecem bem menos nas revistas de ponta. A revisão anônima ajudou um pouco a reduzir essa diferença.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/10/28/underrepresentation-of-non-native-english-speakers-in-philosophy-findings-from-over-100000-papers-guest-post/"
-      },
-      {
-        "titulo": "Oxford lança série anual dedicada à filosofia da inteligência artificial",
-        "resumo": "Foi lançada a série Oxford Studies in Philosophy of AI and Computing, com uma conferência anual. O editor Seth Lazar diz que os filósofos precisam participar mais do debate sobre IA.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/10/27/new-oxford-studies-in-philosophy-of-ai-and-computing/"
-      },
-      {
-        "titulo": "Morre o lógico britânico Timothy Smiley, de Cambridge, aos 96 anos",
-        "resumo": "Timothy Smiley, professor de Cambridge conhecido pelos estudos de lógica, morreu na semana passada. Entre suas obras está o livro Plural Logic, escrito com Alex Oliver.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/10/26/timothy-smiley-1930-2026/"
-      },
-      {
-        "titulo": "Filósofo que foi coveiro lança livro de memórias sobre a morte",
-        "resumo": "Osmair Camargo Cândido, o Fininho, trabalhou décadas em cemitérios e junta Platão e Nietzsche ao que viveu nos enterros. O livro Memórias de um coveiro sai pela Fósforo em 23 de novembro.",
-        "fonte": "Brasil em Folhas",
-        "link": "https://brasilemfolhas.com.br/2026/10/filosofo-que-trabalhou-como-coveiro-lanca-livro-sobre-a-morte/"
-      }
-    ],
-    "livros": [
-      {
-        "titulo": "Ruy Castro leva Jabuti de Livro do Ano pela segunda vez seguida",
-        "resumo": "Trincheira Tropical, sobre o Rio de Janeiro durante a Segunda Guerra, ganhou o principal troféu do 68º Prêmio Jabuti. É a quarta vez que Ruy Castro leva o prêmio maior.",
-        "fonte": "Metrópoles",
-        "link": "https://www.metropoles.com/entretenimento/quem-e-ruy-castro-vencedor-do-jabuti-de-livro-do-ano-pelo-2o-ano-seguido"
-      },
-      {
-        "titulo": "Adélia Prado e Agualusa estão entre os finalistas do Prêmio Oceanos",
-        "resumo": "O Prêmio Oceanos anunciou doze finalistas, seis em prosa e seis em poesia, entre mais de três mil livros inscritos. Os vencedores saem em 11 de dezembro, em São Paulo.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/10/29/adelia-prado-e-jose-eduardo-agualusa-entre-os-finalistas-do-premio-oceanos-2026/"
-      },
-      {
-        "titulo": "Feira do Livro de Porto Alegre começa nesta sexta com patrona inédita",
-        "resumo": "A 72ª feira vai de 30 de outubro a 15 de novembro, na Praça da Alfândega, com entrada gratuita. A patrona Heloisa Pires Lima é a primeira mulher negra no posto.",
-        "fonte": "Brasil de Fato",
-        "link": "https://www.brasildefato.com.br/2026/10/29/feira-do-livro-de-porto-alegre-comeca-nesta-sexta-com-lancamentos-debates-e-sessoes-de-autografos/"
-      },
-      {
-        "titulo": "O que a indústria editorial da Índia pode ensinar ao Brasil",
-        "resumo": "Uma análise mostra que o mercado indiano de livros impressos vale cerca de dez bilhões de dólares e exporta muito. O texto aponta gargalos brasileiros, como compras públicas incertas e pirataria.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/10/29/mercados-industria-editorial-india-producao-grafica/"
-      }
-    ]
-  }
+ "gerado": "2026-10-30T22:51:03-03:00",
+ "assuntos": {
+  "cana": [
+   {
+    "titulo": "Chuvas derrubam moagem de cana na primeira quinzena de outubro",
+    "resumo": "Na primeira metade de outubro, as usinas moeram 32 milhões de toneladas de cana, quase 18% menos que um ano antes. A produção de açúcar caiu 23% e a de etanol caiu cerca de 22%.",
+    "fonte": "Piranot",
+    "link": "https://www.piranot.com.br/2026/10/30/noticias/economia/moagem-cana-acucar-etanol/"
+   },
+   {
+    "titulo": "Governo começa em janeiro testes com 35% de etanol na gasolina",
+    "resumo": "O Ministério de Minas e Energia vai testar a mistura de 35% de etanol na gasolina a partir de janeiro de 2027, em carros e motos. Hoje a mistura é de 32%, e os resultados devem sair até julho.",
+    "fonte": "NovaCana",
+    "link": "https://www.novacana.com/noticias/governo-inicia-em-janeiro-testes-para-mistura-de-35-de-etanol-na-gasolina"
+   },
+   {
+    "titulo": "Biocombustíveis devem receber 142 bilhões de reais até 2036",
+    "resumo": "Um plano do governo prevê 142 bilhões de reais em investimentos no setor até 2036. A oferta de etanol deve subir de 41,6 para 53,1 bilhões de litros nesse período.",
+    "fonte": "NovaCana",
+    "link": "https://www.novacana.com/noticias/mme-estima-que-biocombustiveis-terao-investimentos-de-r-142-bilhoes-ate-2036"
+   },
+   {
+    "titulo": "Açúcar sobe em Nova York com excesso de chuva no Brasil",
+    "resumo": "O açúcar bruto para março subiu 0,7% e fechou em 19,47 centavos de dólar por libra-peso. O excesso de chuva nos canaviais brasileiros preocupa o mercado.",
+    "fonte": "NovaCana",
+    "link": "https://www.novacana.com/noticias/precos-do-acucar-sobem-na-ice-em-meio-as-chuvas-no-brasil"
+   },
+   {
+    "titulo": "Raízen avança na reestruturação e Shell deve ficar com fatia menor",
+    "resumo": "Segundo fontes ouvidas pela Bloomberg, os credores da Raízen devem ficar com mais de 80% da empresa em troca de uma dívida de cerca de 65 bilhões de reais. A Shell ficaria com menos de 20% da distribuidora.",
+    "fonte": "NovaCana",
+    "link": "https://www.novacana.com/noticias/raizen-avanca-em-reestruturacao-e-shell-tera-direitos-na-distribuidora-dizem-fontes"
+   }
+  ],
+  "politica": [
+   {
+    "titulo": "Lula se reúne com aliados para planejar o quarto mandato",
+    "resumo": "Na primeira semana após a reeleição, o presidente Lula teve encontros reservados com aliados, incluindo os presidentes da Câmara e do Senado. As mudanças nos ministérios devem ser definidas só na segunda quinzena de novembro.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/politica/lula-reune-aliados-e-mapeia-novo-governo-em-primeira-semana-pos-eleicoes/"
+   },
+   {
+    "titulo": "Fachin arquiva investigações ligadas ao inquérito das fake news",
+    "resumo": "O presidente do Supremo, Edson Fachin, arquivou mais de dez apurações ligadas ao inquérito das fake news, aberto em 2019. Ele ainda vai revisar outros procedimentos antes de encerrar o inquérito, sem prazo definido.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/politica/fachin-arquiva-investigacoes-e-avanca-no-fim-do-inquerito-das-fake-news/"
+   },
+   {
+    "titulo": "Itamaraty chama diplomata argentina por saída de Flávio Bolsonaro",
+    "resumo": "O Itamaraty convocou a encarregada de negócios da Argentina para explicar o papel do país na ida do senador Flávio Bolsonaro aos Estados Unidos, passando por Puerto Iguazú. O chanceler argentino disse que não houve pedido formal de explicações.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-10/itamaraty-quer-que-diplomata-argentina-explique-ajuda-a-flavio-em-fuga"
+   },
+   {
+    "titulo": "Justiça manda Meta remover posts sobre demissão por voto",
+    "resumo": "Uma vara do trabalho de São Paulo, a pedido do Ministério Público do Trabalho, mandou a Meta retirar 14 publicações que incentivavam demitir funcionários por preferência política. O MPT pede ainda indenização de 50 milhões de reais, que será analisada.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/justica-manda-meta-excluir-posts-sobre-demissao-por-voto-politico"
+   }
+  ],
+  "tecnologia": [
+   {
+    "titulo": "Binance sofre o maior roubo de criptomoedas já registrado",
+    "resumo": "Hackers levaram cerca de 6,3 bilhões de dólares da corretora Binance, e empresas de análise apontam a Coreia do Norte como suspeita. A Binance diz que os clientes não foram afetados e que cerca de metade do valor já foi congelada.",
+    "fonte": "Reuters (via Terra)",
+    "link": "https://www.terra.com.br/economia/hackers-roubam-recorde-de-us63-bi-da-binance-em-ataque-atribuido-a-coreia-do-norte,5526166ab15fb211131e75f4f8048afa4ddlagte.html"
+   },
+   {
+    "titulo": "Amazon tem lucro abaixo do esperado e ações caem",
+    "resumo": "A Amazon faturou cerca de 202 bilhões de dólares no trimestre, e a nuvem AWS cresceu 39%. Mesmo assim, os gastos com inteligência artificial pesaram no lucro, e as ações caíram cerca de 6%.",
+    "fonte": "Exame",
+    "link": "https://exame.com/invest/mercados/amazon-tem-margem-recorde-e-aws-acelera-mas-lucro-decepciona-no-3o-tri-acao-cai-6/"
+   },
+   {
+    "titulo": "Intel supera previsões, mas espera fim de ano mais fraco",
+    "resumo": "A Intel faturou 16,5 bilhões de dólares no trimestre, alta de 21%, puxada por data centers e inteligência artificial. A previsão para o quarto trimestre, porém, ficou abaixo do esperado pelo mercado.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/29/pro/intel-supera-expectativas-no-trimestre-mas-preve-desaceleracao"
+   },
+   {
+    "titulo": "Gemini passa a editar PDFs, textos e planilhas no chat",
+    "resumo": "O Google agora permite criar e alterar documentos sem sair da conversa com o Gemini. Os PDFs funcionam no celular e na web; os outros formatos, por enquanto, só no navegador.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/29/inteligencia-artificial/gemini-agora-permite-editar-pdfs-documentos-e-planilhas-dentro-do-chat"
+   },
+   {
+    "titulo": "Alexa turbinada continua grátis no Brasil até fevereiro",
+    "resumo": "A Amazon estendeu o teste gratuito da Alexa+ no Brasil até pelo menos 15 de fevereiro de 2027. Depois disso, o recurso fica incluído no Prime ou terá mensalidade própria.",
+    "fonte": "Tecnoblog",
+    "link": "https://tecnoblog.net/noticias/amazon-prorroga-acesso-gratis-a-alexa-turbinada/"
+   }
+  ],
+  "ciencia": [
+   {
+    "titulo": "Exame com dez substâncias do sangue indica saúde e longevidade",
+    "resumo": "Pesquisadores da Holanda criaram um índice com dez substâncias do sangue, usando dados de 44 mil voluntários, que ajuda a prever o risco de doenças crônicas. Um índice melhor está ligado a anos de atraso no surgimento de doenças do coração e do metabolismo.",
+    "fonte": "Agência FAPESP",
+    "link": "https://agencia.fapesp.br/novo-indicador-metabolico-preve-longevidade-e-risco-de-doencas-cronicas/59506"
+   },
+   {
+    "titulo": "Calor e poluição juntos aumentam risco de AVC em idosos",
+    "resumo": "Um estudo da USP mostrou que cada dia a mais de onda de calor em São Paulo aumenta o risco de AVC em pessoas com 65 anos ou mais. O risco cresce ainda mais quando o calor vem junto com ar poluído.",
+    "fonte": "Agência FAPESP",
+    "link": "https://agencia.fapesp.br/ondas-de-calor-e-poluicao-aumentam-risco-de-avc-em-idosos-constata-estudo/59500"
+   },
+   {
+    "titulo": "Regiões quentes ajudaram crocodilos a sobreviver ao fim dos dinossauros",
+    "resumo": "Cientistas de Londres analisaram mais de 7 mil fósseis e concluíram que os parentes dos crocodilos sempre seguiram os climas quentes. Depois do asteroide, a faixa do equador serviu de abrigo para esses animais.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261030002922.htm"
+   },
+   {
+    "titulo": "Picadas de cobra podem matar até meio milhão por ano",
+    "resumo": "Uma revisão de dados de 79 países estima que picadas de cobras venenosas matam entre 274 mil e 513 mil pessoas por ano. A África ao sul do Saara concentra quase metade das mortes.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261029072117.htm"
+   },
+   {
+    "titulo": "Dente de elefante antigo revela refúgio verde de humanos primitivos",
+    "resumo": "Pesquisadores de Israel estudaram um dente de elefante de 700 mil anos e reconstruíram uma paisagem com florestas, rios e pântanos. O lugar teria sido um abrigo estável para animais e para os primeiros grupos humanos.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261028232709.htm"
+   }
+  ],
+  "astronomia": [
+   {
+    "titulo": "Começo de novembro tem Táuridas, Lua perto de planetas e Lua Nova",
+    "resumo": "Antes do amanhecer de 2 e 3 de novembro, a Lua minguante passa perto de Marte e Júpiter, e as Táuridas do Sul têm pico entre 4 e 5 de novembro, com até dez meteoros por hora. A Lua Nova chega no dia 9, deixando o céu mais escuro.",
+    "fonte": "Star Walk",
+    "link": "https://starwalk.space/en/news/what-to-see-in-the-sky-at-the-beginning-of-november"
+   },
+   {
+    "titulo": "Nasa encerra o telescópio Swift depois de 22 anos",
+    "resumo": "A Nasa encerrou a missão do observatório Swift, que deve reentrar na atmosfera nas próximas semanas. A maior parte da nave deve queimar na descida, e a queda de destroços no Brasil é possível, mas não prevista.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/ciencia/nasa-encerra-operacoes-do-telescopio-espacial-swift-apos-22-anos-nave-vai-reentrar-na-atmosfera-terrestre-nas-proximas-semanas/"
+   },
+   {
+    "titulo": "Astronautas instalam novo painel solar na Estação Espacial",
+    "resumo": "Em uma caminhada espacial de mais de sete horas, dois astronautas instalaram o sétimo painel solar enrolável na Estação Espacial Internacional. O oitavo e último deve ser colocado no dia 5 de novembro.",
+    "fonte": "Spaceflight Now",
+    "link": "https://spaceflightnow.com/2026/10/29/as-it-happened-spacewalkers-install-new-solar-array/"
+   },
+   {
+    "titulo": "Meteorito marciano de 4 bilhões de anos sugere passado úmido",
+    "resumo": "Um estudo mostra que o meteorito Teghaza 001, achado no Saara, é a rocha vulcânica mais antiga de Marte já identificada. Ele traz sinais de água circulando no planeta, mas nenhuma evidência de vida.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/30/ciencia-e-espaco/marte-meteorito-mais-antigo-indica-ambiente-semelhante-ao-da-terra"
+   },
+   {
+    "titulo": "Estrela morta tem dois anéis de restos de planetas",
+    "resumo": "Astrônomos encontraram uma anã branca cercada por dois discos de detritos rochosos, talvez de planetas destruídos. A descoberta dá pistas sobre o futuro do Sistema Solar quando o Sol morrer.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/30/ciencia-e-espaco/estrela-morta-revela-dois-discos-de-detritos-que-podem-indicar-o-futuro-do-sistema-solar/"
+   }
+  ],
+  "filosofia": [
+   {
+    "titulo": "Filósofo belga Laurent de Sutter critica o pensamento crítico",
+    "resumo": "Em entrevista a um jornal português, Laurent de Sutter diz que a filosofia ocidental ensinada nas escolas virou um pensamento único. Ele defende uma forma de pensar que vá além da simples crítica.",
+    "fonte": "Sol (Portugal)",
+    "link": "https://sol.iol.pt/cultura/noticias/a-filosofia-ocidental-que-se-ensina-tornou-se-o-pensamento-unico-que-traz-mais-males-do-que-bens/20261029/6ae38e5a0cf22b9f89053260"
+   },
+   {
+    "titulo": "Byung-Chul Han e a sociedade do cansaço voltam ao debate",
+    "resumo": "Um artigo retoma a ideia do filósofo Byung-Chul Han de que hoje as pessoas exploram a si mesmas em busca de sucesso. A proposta é recuperar o descanso e o tempo livre como forma de liberdade.",
+    "fonte": "Infobae",
+    "link": "https://www.infobae.com/espana/cultura/2026/10/29/byung-chul-han-filosofo-la-sociedad-del-trabajo-y-del-exito-no-es-una-sociedad-libre-conduce-a-un-mundo-en-el-que-el-amo-se-convierte-en-esclavo/"
+   },
+   {
+    "titulo": "Lúcia Helena Galvão fará palestra no Dia Mundial da Filosofia",
+    "resumo": "A filósofa vai falar sobre ética e autoconhecimento em Cabedelo, na Paraíba, no dia 18 de novembro. A entrada pode ser trocada por alimentos não perecíveis.",
+    "fonte": "WSCOM",
+    "link": "https://wscom.com.br/noticias/2026/10/29/lucia-helena-galvao-palestra-cabedelo-dia-da-filosofia/"
+   },
+   {
+    "titulo": "Filósofo que trabalhou como coveiro lança livro sobre a morte",
+    "resumo": "Osmair Cândido, conhecido como Fininho, lança o livro Memórias de um coveiro, pela editora Fósforo. A obra reúne reflexões sobre a morte a partir dos anos em que trabalhou em cemitério.",
+    "fonte": "Brasil em Folhas",
+    "link": "https://brasilemfolhas.com.br/2026/10/filosofo-que-trabalhou-como-coveiro-lanca-livro-sobre-a-morte/"
+   }
+  ],
+  "livros": [
+   {
+    "titulo": "Ruy Castro vence o Livro do Ano no Jabuti outra vez",
+    "resumo": "No 68º Prêmio Jabuti, Ruy Castro levou o Livro do Ano com Trincheira Tropical, sobre o Rio de Janeiro na Segunda Guerra. Eliana Alves Cruz venceu como melhor romance.",
+    "fonte": "Jornal do Comércio",
+    "link": "https://www.jornaldocomercio.com/cultura/2026/10/1268521-ruy-castro-repete-vitoria-no-jabuti-e-eliana-alves-cruz-ganha-melhor-romance-literario.html"
+   },
+   {
+    "titulo": "YouTube se prepara para entrar no mercado de audiolivros",
+    "resumo": "Segundo o Wall Street Journal, o YouTube negocia com editoras para lançar uma área de audiolivros no ano que vem. A empresa ainda não confirmou o plano.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/30/youtube-audiolivros/"
+   },
+   {
+    "titulo": "Enrique Vila-Matas ganha o Prêmio Nacional de Letras Espanholas",
+    "resumo": "O escritor espanhol recebeu o prêmio pelo conjunto da obra, no valor de 50 mil euros. O júri elogiou o jeito como ele mistura realidade e ficção.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/29/enrique-vila-matas-vence-o-premio-nacional-de-letras-espanholas/"
+   },
+   {
+    "titulo": "Primavera dos Livros reúne editoras independentes no Rio",
+    "resumo": "A feira de editoras pequenas e médias acontece no Museu de Arte do Rio, de 6 a 8 de novembro. A entrada é gratuita.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/30/primavera-dos-livros-reune-mais-de-200-editoras-pequenas-e-medias-no-mar/"
+   },
+   {
+    "titulo": "Dicionário Mini Aurélio muda de editora",
+    "resumo": "O conhecido Mini Aurélio passa a ser publicado pelo Grupo Ciranda Cultural. A nova edição mantém a estrutura original do dicionário.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/29/dicionario-mini-aurelio-ganha-nova-casa/"
+   }
+  ]
+ }
 }
