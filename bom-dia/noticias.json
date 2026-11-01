@@ -1,216 +1,192 @@
 {
- "gerado": "2026-10-30T22:51:03-03:00",
+ "gerado": "2026-10-31T22:50:23-03:00",
  "assuntos": {
   "cana": [
    {
-    "titulo": "Chuvas derrubam moagem de cana na primeira quinzena de outubro",
-    "resumo": "Na primeira metade de outubro, as usinas moeram 32 milhões de toneladas de cana, quase 18% menos que um ano antes. A produção de açúcar caiu 23% e a de etanol caiu cerca de 22%.",
+    "titulo": "Moagem de cana cai quase 18% na primeira quinzena de outubro",
+    "resumo": "As usinas moeram cerca de 32 milhões de toneladas de cana na primeira metade de outubro, bem menos que no ano passado. Mesmo assim, a produção de etanol na safra segue cerca de 6% maior.",
     "fonte": "Piranot",
     "link": "https://www.piranot.com.br/2026/10/30/noticias/economia/moagem-cana-acucar-etanol/"
    },
    {
-    "titulo": "Governo começa em janeiro testes com 35% de etanol na gasolina",
-    "resumo": "O Ministério de Minas e Energia vai testar a mistura de 35% de etanol na gasolina a partir de janeiro de 2027, em carros e motos. Hoje a mistura é de 32%, e os resultados devem sair até julho.",
-    "fonte": "NovaCana",
+    "titulo": "Testes com 35% de etanol na gasolina começam em janeiro",
+    "resumo": "O governo quer testar a mistura de 35% de etanol na gasolina entre janeiro e julho de 2027, com uma frota de carros e motos. A decisão final caberá ao Conselho Nacional de Política Energética.",
+    "fonte": "NovaCana / CNN Brasil",
     "link": "https://www.novacana.com/noticias/governo-inicia-em-janeiro-testes-para-mistura-de-35-de-etanol-na-gasolina"
    },
    {
-    "titulo": "Biocombustíveis devem receber 142 bilhões de reais até 2036",
-    "resumo": "Um plano do governo prevê 142 bilhões de reais em investimentos no setor até 2036. A oferta de etanol deve subir de 41,6 para 53,1 bilhões de litros nesse período.",
-    "fonte": "NovaCana",
+    "titulo": "Biocombustíveis devem receber R$ 142 bilhões em investimentos até 2036",
+    "resumo": "Um plano do Ministério de Minas e Energia prevê que a oferta de etanol suba de 41,6 para 53,1 bilhões de litros até 2036. O documento está em consulta pública até 6 de novembro.",
+    "fonte": "NovaCana / Agência Estado",
     "link": "https://www.novacana.com/noticias/mme-estima-que-biocombustiveis-terao-investimentos-de-r-142-bilhoes-ate-2036"
    },
    {
-    "titulo": "Açúcar sobe em Nova York com excesso de chuva no Brasil",
-    "resumo": "O açúcar bruto para março subiu 0,7% e fechou em 19,47 centavos de dólar por libra-peso. O excesso de chuva nos canaviais brasileiros preocupa o mercado.",
+    "titulo": "Cocal projeta etanol com emissão negativa de carbono",
+    "resumo": "A usina Cocal calcula que, somando biogás, biometano e captura de carbono, seu etanol pode retirar mais carbono do que emite. A conta foi apresentada em evento da Datagro em São Paulo.",
     "fonte": "NovaCana",
-    "link": "https://www.novacana.com/noticias/precos-do-acucar-sobem-na-ice-em-meio-as-chuvas-no-brasil"
+    "link": "https://www.novacana.com/noticias/cocal-preve-emissoes-negativas-de-11g-de-co2-por-megajoule-com-captura-de-carbono"
    },
    {
-    "titulo": "Raízen avança na reestruturação e Shell deve ficar com fatia menor",
-    "resumo": "Segundo fontes ouvidas pela Bloomberg, os credores da Raízen devem ficar com mais de 80% da empresa em troca de uma dívida de cerca de 65 bilhões de reais. A Shell ficaria com menos de 20% da distribuidora.",
-    "fonte": "NovaCana",
-    "link": "https://www.novacana.com/noticias/raizen-avanca-em-reestruturacao-e-shell-tera-direitos-na-distribuidora-dizem-fontes"
+    "titulo": "Exportação de etanol para a União Europeia quase dobra",
+    "resumo": "Nos primeiros cinco meses do acordo com a União Europeia, as vendas do agro brasileiro ao bloco subiram cerca de 15%. As exportações de etanol para lá passaram de 67 para 131 milhões de dólares.",
+    "fonte": "NovaCana / CNN Brasil",
+    "link": "https://www.novacana.com/noticias/exportacoes-do-agro-a-ue-crescem-15-nos-cinco-primeiros-meses-de-acordo"
    }
   ],
   "politica": [
    {
-    "titulo": "Lula se reúne com aliados para planejar o quarto mandato",
-    "resumo": "Na primeira semana após a reeleição, o presidente Lula teve encontros reservados com aliados, incluindo os presidentes da Câmara e do Senado. As mudanças nos ministérios devem ser definidas só na segunda quinzena de novembro.",
+    "titulo": "Lula deve indicar nome ao STF ainda este ano",
+    "resumo": "Aliados no Congresso aconselham o presidente a escolher um nome com apoio garantido no Senado para a vaga de Barroso. Lula ainda não decidiu, e o advogado-geral Jorge Messias segue como opção.",
     "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/politica/lula-reune-aliados-e-mapeia-novo-governo-em-primeira-semana-pos-eleicoes/"
+    "link": "https://www.cnnbrasil.com.br/politica/lula-e-aconselhado-a-fazer-indicacao-segura-ao-stf-antes-do-fim-do-ano/"
    },
    {
-    "titulo": "Fachin arquiva investigações ligadas ao inquérito das fake news",
-    "resumo": "O presidente do Supremo, Edson Fachin, arquivou mais de dez apurações ligadas ao inquérito das fake news, aberto em 2019. Ele ainda vai revisar outros procedimentos antes de encerrar o inquérito, sem prazo definido.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/politica/fachin-arquiva-investigacoes-e-avanca-no-fim-do-inquerito-das-fake-news/"
+    "titulo": "TSE analisa ações contra a chapa de Lula",
+    "resumo": "O Tribunal Superior Eleitoral tem pelo menos 15 ações da oposição que questionam o uso da máquina pública na campanha. Os processos estão em fase inicial.",
+    "fonte": "Gazeta do Povo",
+    "link": "https://www.gazetadopovo.com.br/republica/tribunal-analisa-supostos-abusos-da-chapa-de-lula-na-corrida-eleitoral-de-2026/"
    },
    {
-    "titulo": "Itamaraty chama diplomata argentina por saída de Flávio Bolsonaro",
-    "resumo": "O Itamaraty convocou a encarregada de negócios da Argentina para explicar o papel do país na ida do senador Flávio Bolsonaro aos Estados Unidos, passando por Puerto Iguazú. O chanceler argentino disse que não houve pedido formal de explicações.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-10/itamaraty-quer-que-diplomata-argentina-explique-ajuda-a-flavio-em-fuga"
+    "titulo": "Moraes manda PF guardar a minuta do golpe como prova",
+    "resumo": "O ministro Alexandre de Moraes decidiu que o documento apreendido na casa de Anderson Torres fica sob guarda da Polícia Federal. Ele também mandou destruir armas e munições apreendidas no caso.",
+    "fonte": "Gazeta do Povo",
+    "link": "https://www.gazetadopovo.com.br/republica/moraes-manda-pf-guardar-minuta-do-golpe-e-destruir-armas-de-torres-e-pms/"
    },
    {
-    "titulo": "Justiça manda Meta remover posts sobre demissão por voto",
-    "resumo": "Uma vara do trabalho de São Paulo, a pedido do Ministério Público do Trabalho, mandou a Meta retirar 14 publicações que incentivavam demitir funcionários por preferência política. O MPT pede ainda indenização de 50 milhões de reais, que será analisada.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/justica-manda-meta-excluir-posts-sobre-demissao-por-voto-politico"
+    "titulo": "Toffoli mantém Filipe Martins em regime fechado",
+    "resumo": "O ministro Dias Toffoli rejeitou o pedido da defesa do ex-assessor, condenado no processo da trama golpista, sem analisar o mérito. A defesa diz que vai recorrer.",
+    "fonte": "Gazeta do Povo",
+    "link": "https://www.gazetadopovo.com.br/republica/ministro-dias-toffoli-mantem-filipe-martins-em-regime-de-prisao-fechado/"
+   },
+   {
+    "titulo": "Flávio Bolsonaro fala dos Estados Unidos e prevê crise",
+    "resumo": "Em transmissão feita dos Estados Unidos, o senador disse esperar uma crise no governo Lula e anunciou apoio a Rogério Marinho para presidir o Senado. São declarações do senador, não fatos confirmados.",
+    "fonte": "Gazeta do Povo",
+    "link": "https://www.gazetadopovo.com.br/republica/flavio-bolsonaro-projeta-fim-antecipado-do-governo-lula-e-atua-dos-eua/"
    }
   ],
   "tecnologia": [
    {
-    "titulo": "Binance sofre o maior roubo de criptomoedas já registrado",
-    "resumo": "Hackers levaram cerca de 6,3 bilhões de dólares da corretora Binance, e empresas de análise apontam a Coreia do Norte como suspeita. A Binance diz que os clientes não foram afetados e que cerca de metade do valor já foi congelada.",
-    "fonte": "Reuters (via Terra)",
-    "link": "https://www.terra.com.br/economia/hackers-roubam-recorde-de-us63-bi-da-binance-em-ataque-atribuido-a-coreia-do-norte,5526166ab15fb211131e75f4f8048afa4ddlagte.html"
-   },
-   {
-    "titulo": "Amazon tem lucro abaixo do esperado e ações caem",
-    "resumo": "A Amazon faturou cerca de 202 bilhões de dólares no trimestre, e a nuvem AWS cresceu 39%. Mesmo assim, os gastos com inteligência artificial pesaram no lucro, e as ações caíram cerca de 6%.",
-    "fonte": "Exame",
-    "link": "https://exame.com/invest/mercados/amazon-tem-margem-recorde-e-aws-acelera-mas-lucro-decepciona-no-3o-tri-acao-cai-6/"
-   },
-   {
-    "titulo": "Intel supera previsões, mas espera fim de ano mais fraco",
-    "resumo": "A Intel faturou 16,5 bilhões de dólares no trimestre, alta de 21%, puxada por data centers e inteligência artificial. A previsão para o quarto trimestre, porém, ficou abaixo do esperado pelo mercado.",
+    "titulo": "EUA investigam hackers norte-coreanos no ataque à Binance",
+    "resumo": "O governo americano apura se hackers ligados à Coreia do Norte desviaram cerca de 6,3 bilhões de dólares da corretora. A Binance diz já ter localizado parte do dinheiro.",
     "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/29/pro/intel-supera-expectativas-no-trimestre-mas-preve-desaceleracao"
+    "link": "https://olhardigital.com.br/2026/10/30/seguranca/ataque-a-binance-trump-comenta-suspeita-de-envolvimento-de-hackers-norte-coreanos/"
    },
    {
-    "titulo": "Gemini passa a editar PDFs, textos e planilhas no chat",
-    "resumo": "O Google agora permite criar e alterar documentos sem sair da conversa com o Gemini. Os PDFs funcionam no celular e na web; os outros formatos, por enquanto, só no navegador.",
+    "titulo": "Gigantes da tecnologia perdem valor e reacendem medo de bolha da IA",
+    "resumo": "As maiores empresas do setor perderam cerca de 900 bilhões de dólares em valor de mercado. Investidores se preocupam com os gastos enormes em inteligência artificial.",
     "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/29/inteligencia-artificial/gemini-agora-permite-editar-pdfs-documentos-e-planilhas-dentro-do-chat"
+    "link": "https://olhardigital.com.br/2026/10/30/pro/big-techs-perdem-quase-r-4-8-trilhoes-e-acendem-alerta-sobre-bolha-da-ia/"
    },
    {
-    "titulo": "Alexa turbinada continua grátis no Brasil até fevereiro",
-    "resumo": "A Amazon estendeu o teste gratuito da Alexa+ no Brasil até pelo menos 15 de fevereiro de 2027. Depois disso, o recurso fica incluído no Prime ou terá mensalidade própria.",
-    "fonte": "Tecnoblog",
-    "link": "https://tecnoblog.net/noticias/amazon-prorroga-acesso-gratis-a-alexa-turbinada/"
+    "titulo": "Google roda inteligência artificial dentro de um satélite",
+    "resumo": "O Google conseguiu executar um modelo de IA a bordo de um satélite em órbita. É um teste do projeto de levar centros de dados para o espaço.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/30/pro/google-testa-ia-em-satelite-e-avanca-em-projeto-de-data-centers-espaciais/"
+   },
+   {
+    "titulo": "Meta faz acordo e sai de julgamento sobre vício em redes",
+    "resumo": "A Meta fechou acordo com uma jovem que acusava as redes sociais de prejudicar sua saúde mental. O julgamento em Los Angeles segue apenas contra o Snapchat.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/10/30/pro/meta-deixa-julgamento-sobre-vicio-em-redes-sociais-snapchat-segue-como-unico-reu/"
    }
   ],
   "ciencia": [
    {
-    "titulo": "Exame com dez substâncias do sangue indica saúde e longevidade",
-    "resumo": "Pesquisadores da Holanda criaram um índice com dez substâncias do sangue, usando dados de 44 mil voluntários, que ajuda a prever o risco de doenças crônicas. Um índice melhor está ligado a anos de atraso no surgimento de doenças do coração e do metabolismo.",
-    "fonte": "Agência FAPESP",
-    "link": "https://agencia.fapesp.br/novo-indicador-metabolico-preve-longevidade-e-risco-de-doencas-cronicas/59506"
+    "titulo": "Estudo explica por que câncer de intestino é agressivo em jovens",
+    "resumo": "Pesquisadores analisaram mais de 850 mil células de tumores e viram diferenças no ambiente ao redor do câncer em pacientes jovens. Isso pode ajudar a entender a resistência à quimioterapia.",
+    "fonte": "Perfil Brasil",
+    "link": "https://brasil.perfil.com/saude/estudo-descobre-por-que-o-cancer-colorretal-avanca-de-forma-agressiva-em-jovens.phtml"
    },
    {
-    "titulo": "Calor e poluição juntos aumentam risco de AVC em idosos",
-    "resumo": "Um estudo da USP mostrou que cada dia a mais de onda de calor em São Paulo aumenta o risco de AVC em pessoas com 65 anos ou mais. O risco cresce ainda mais quando o calor vem junto com ar poluído.",
-    "fonte": "Agência FAPESP",
-    "link": "https://agencia.fapesp.br/ondas-de-calor-e-poluicao-aumentam-risco-de-avc-em-idosos-constata-estudo/59500"
+    "titulo": "Colisões de oxigênio recriam matéria do início do universo",
+    "resumo": "Cientistas chocaram núcleos de oxigênio quase na velocidade da luz e recriaram um estado da matéria parecido com o do Big Bang. Isso mostra que ele surge até em colisões menores.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261030002935.htm"
    },
    {
-    "titulo": "Regiões quentes ajudaram crocodilos a sobreviver ao fim dos dinossauros",
-    "resumo": "Cientistas de Londres analisaram mais de 7 mil fósseis e concluíram que os parentes dos crocodilos sempre seguiram os climas quentes. Depois do asteroide, a faixa do equador serviu de abrigo para esses animais.",
+    "titulo": "Exame de sangue pode prever Alzheimer anos antes",
+    "resumo": "Um grande estudo internacional indica que um exame de sangue simples ajuda a prever a perda de memória ligada ao Alzheimer antes dos sintomas.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261029072142.htm"
+   },
+   {
+    "titulo": "Dieta e exercício levam metade dos jovens diabéticos à remissão",
+    "resumo": "Em um estudo, 54% dos adultos jovens com diabetes tipo 2 entraram em remissão em seis meses. Eles seguiram dieta de poucas calorias e exercícios orientados.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/10/261029072129.htm"
+   },
+   {
+    "titulo": "Por que os crocodilos sobreviveram ao fim dos dinossauros",
+    "resumo": "Fósseis e dados de clima antigo sugerem que o gosto dos crocodilos por lugares quentes os ajudou a resistir depois da queda do asteroide.",
     "fonte": "ScienceDaily",
     "link": "https://www.sciencedaily.com/releases/2026/10/261030002922.htm"
-   },
-   {
-    "titulo": "Picadas de cobra podem matar até meio milhão por ano",
-    "resumo": "Uma revisão de dados de 79 países estima que picadas de cobras venenosas matam entre 274 mil e 513 mil pessoas por ano. A África ao sul do Saara concentra quase metade das mortes.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261029072117.htm"
-   },
-   {
-    "titulo": "Dente de elefante antigo revela refúgio verde de humanos primitivos",
-    "resumo": "Pesquisadores de Israel estudaram um dente de elefante de 700 mil anos e reconstruíram uma paisagem com florestas, rios e pântanos. O lugar teria sido um abrigo estável para animais e para os primeiros grupos humanos.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/10/261028232709.htm"
    }
   ],
   "astronomia": [
    {
-    "titulo": "Começo de novembro tem Táuridas, Lua perto de planetas e Lua Nova",
-    "resumo": "Antes do amanhecer de 2 e 3 de novembro, a Lua minguante passa perto de Marte e Júpiter, e as Táuridas do Sul têm pico entre 4 e 5 de novembro, com até dez meteoros por hora. A Lua Nova chega no dia 9, deixando o céu mais escuro.",
-    "fonte": "Star Walk",
-    "link": "https://starwalk.space/en/news/what-to-see-in-the-sky-at-the-beginning-of-november"
+    "titulo": "Novembro terá chuvas de meteoros e planetas alinhados",
+    "resumo": "O mês traz as Táuridas, com pico em 11 e 12, e as Leônidas, na madrugada de 17 para 18. Por volta do dia 14, Mercúrio, Vênus, Marte e Júpiter aparecem alinhados.",
+    "fonte": "O Povo",
+    "link": "https://www.opovo.com.br/noticias/curiosidades/2026/10/31/novembro-de-2026-tera-chuvas-de-meteoros-alinhamento-planetario-e-conjuncoes-celestes.html"
    },
    {
-    "titulo": "Nasa encerra o telescópio Swift depois de 22 anos",
-    "resumo": "A Nasa encerrou a missão do observatório Swift, que deve reentrar na atmosfera nas próximas semanas. A maior parte da nave deve queimar na descida, e a queda de destroços no Brasil é possível, mas não prevista.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/ciencia/nasa-encerra-operacoes-do-telescopio-espacial-swift-apos-22-anos-nave-vai-reentrar-na-atmosfera-terrestre-nas-proximas-semanas/"
+    "titulo": "Superlua no dia 24 fecha o calendário lunar de novembro",
+    "resumo": "A Lua cheia de 24 de novembro será uma superlua, mais perto da Terra. Na madrugada do dia 3, a Lua encobre a estrela Régulo, visível em parte do Brasil.",
+    "fonte": "Exame",
+    "link": "https://exame.com/ciencia/ceu-de-novembro-tera-superlua-e-chuva-de-meteoros-veja-o-calendario-lunar-completo/"
    },
    {
-    "titulo": "Astronautas instalam novo painel solar na Estação Espacial",
-    "resumo": "Em uma caminhada espacial de mais de sete horas, dois astronautas instalaram o sétimo painel solar enrolável na Estação Espacial Internacional. O oitavo e último deve ser colocado no dia 5 de novembro.",
-    "fonte": "Spaceflight Now",
-    "link": "https://spaceflightnow.com/2026/10/29/as-it-happened-spacewalkers-install-new-solar-array/"
+    "titulo": "Observatório Rubin acha aglomerado de estrelas escondido",
+    "resumo": "O Observatório Vera Rubin encontrou um aglomerado de estrelas com cerca de 9 bilhões de anos, oculto pela poeira da Via Láctea. Ele provavelmente veio de uma galáxia anã vizinha.",
+    "fonte": "Space Today",
+    "link": "https://spacetoday.com.br/observatorio-rubin-descobre-aglomerado-de-estrelas-escondido-pela-poeira/"
    },
    {
-    "titulo": "Meteorito marciano de 4 bilhões de anos sugere passado úmido",
-    "resumo": "Um estudo mostra que o meteorito Teghaza 001, achado no Saara, é a rocha vulcânica mais antiga de Marte já identificada. Ele traz sinais de água circulando no planeta, mas nenhuma evidência de vida.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/30/ciencia-e-espaco/marte-meteorito-mais-antigo-indica-ambiente-semelhante-ao-da-terra"
-   },
-   {
-    "titulo": "Estrela morta tem dois anéis de restos de planetas",
-    "resumo": "Astrônomos encontraram uma anã branca cercada por dois discos de detritos rochosos, talvez de planetas destruídos. A descoberta dá pistas sobre o futuro do Sistema Solar quando o Sol morrer.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/10/30/ciencia-e-espaco/estrela-morta-revela-dois-discos-de-detritos-que-podem-indicar-o-futuro-do-sistema-solar/"
+    "titulo": "NASA confirma novo telescópio ultravioleta",
+    "resumo": "A NASA aprovou a missão UVEX, que vai observar o céu em luz ultravioleta. O lançamento está previsto até 2031.",
+    "fonte": "Space Today",
+    "link": "https://spacetoday.com.br/o-ceu-que-ninguem-ve-nasa-confirma-o-uvex-seu-novo-telescopio-ultravioleta/"
    }
   ],
   "filosofia": [
    {
-    "titulo": "Filósofo belga Laurent de Sutter critica o pensamento crítico",
-    "resumo": "Em entrevista a um jornal português, Laurent de Sutter diz que a filosofia ocidental ensinada nas escolas virou um pensamento único. Ele defende uma forma de pensar que vá além da simples crítica.",
-    "fonte": "Sol (Portugal)",
-    "link": "https://sol.iol.pt/cultura/noticias/a-filosofia-ocidental-que-se-ensina-tornou-se-o-pensamento-unico-que-traz-mais-males-do-que-bens/20261029/6ae38e5a0cf22b9f89053260"
-   },
-   {
-    "titulo": "Byung-Chul Han e a sociedade do cansaço voltam ao debate",
-    "resumo": "Um artigo retoma a ideia do filósofo Byung-Chul Han de que hoje as pessoas exploram a si mesmas em busca de sucesso. A proposta é recuperar o descanso e o tempo livre como forma de liberdade.",
-    "fonte": "Infobae",
-    "link": "https://www.infobae.com/espana/cultura/2026/10/29/byung-chul-han-filosofo-la-sociedad-del-trabajo-y-del-exito-no-es-una-sociedad-libre-conduce-a-un-mundo-en-el-que-el-amo-se-convierte-en-esclavo/"
-   },
-   {
-    "titulo": "Lúcia Helena Galvão fará palestra no Dia Mundial da Filosofia",
-    "resumo": "A filósofa vai falar sobre ética e autoconhecimento em Cabedelo, na Paraíba, no dia 18 de novembro. A entrada pode ser trocada por alimentos não perecíveis.",
-    "fonte": "WSCOM",
-    "link": "https://wscom.com.br/noticias/2026/10/29/lucia-helena-galvao-palestra-cabedelo-dia-da-filosofia/"
-   },
-   {
-    "titulo": "Filósofo que trabalhou como coveiro lança livro sobre a morte",
-    "resumo": "Osmair Cândido, conhecido como Fininho, lança o livro Memórias de um coveiro, pela editora Fósforo. A obra reúne reflexões sobre a morte a partir dos anos em que trabalhou em cemitério.",
-    "fonte": "Brasil em Folhas",
-    "link": "https://brasilemfolhas.com.br/2026/10/filosofo-que-trabalhou-como-coveiro-lanca-livro-sobre-a-morte/"
+    "titulo": "Festival de Filosofia de Abrantes debate o poder da verdade",
+    "resumo": "O festival português acontece de 18 a 21 de novembro, com debates sobre desinformação, inteligência artificial e pensamento crítico. A abertura será no Dia Mundial da Filosofia, 19 de novembro.",
+    "fonte": "Antena Livre / Lusa",
+    "link": "https://www.antenalivre.pt/cultura/festival-de-filosofia-debate-poder-da-verdade-e-desafios-da-desinformacao/"
    }
   ],
   "livros": [
    {
-    "titulo": "Ruy Castro vence o Livro do Ano no Jabuti outra vez",
-    "resumo": "No 68º Prêmio Jabuti, Ruy Castro levou o Livro do Ano com Trincheira Tropical, sobre o Rio de Janeiro na Segunda Guerra. Eliana Alves Cruz venceu como melhor romance.",
-    "fonte": "Jornal do Comércio",
-    "link": "https://www.jornaldocomercio.com/cultura/2026/10/1268521-ruy-castro-repete-vitoria-no-jabuti-e-eliana-alves-cruz-ganha-melhor-romance-literario.html"
-   },
-   {
-    "titulo": "YouTube se prepara para entrar no mercado de audiolivros",
-    "resumo": "Segundo o Wall Street Journal, o YouTube negocia com editoras para lançar uma área de audiolivros no ano que vem. A empresa ainda não confirmou o plano.",
+    "titulo": "YouTube se prepara para vender audiolivros",
+    "resumo": "Segundo o Wall Street Journal, o YouTube negocia com editoras para lançar audiolivros no ano que vem. A empresa ainda não confirmou.",
     "fonte": "PublishNews",
     "link": "https://www.publishnews.com.br/materias/2026/10/30/youtube-audiolivros/"
    },
    {
-    "titulo": "Enrique Vila-Matas ganha o Prêmio Nacional de Letras Espanholas",
-    "resumo": "O escritor espanhol recebeu o prêmio pelo conjunto da obra, no valor de 50 mil euros. O júri elogiou o jeito como ele mistura realidade e ficção.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/10/29/enrique-vila-matas-vence-o-premio-nacional-de-letras-espanholas/"
-   },
-   {
     "titulo": "Primavera dos Livros reúne editoras independentes no Rio",
-    "resumo": "A feira de editoras pequenas e médias acontece no Museu de Arte do Rio, de 6 a 8 de novembro. A entrada é gratuita.",
+    "resumo": "A feira acontece de 6 a 8 de novembro no Museu de Arte do Rio, com entrada gratuita. Esta edição homenageia os 90 anos de Silviano Santiago.",
     "fonte": "PublishNews",
     "link": "https://www.publishnews.com.br/materias/2026/10/30/primavera-dos-livros-reune-mais-de-200-editoras-pequenas-e-medias-no-mar/"
    },
    {
-    "titulo": "Dicionário Mini Aurélio muda de editora",
-    "resumo": "O conhecido Mini Aurélio passa a ser publicado pelo Grupo Ciranda Cultural. A nova edição mantém a estrutura original do dicionário.",
+    "titulo": "Brasileiros participam da conferência de editores em Sharjah",
+    "resumo": "A conferência da Feira do Livro de Sharjah, nos Emirados Árabes, começa neste domingo com eventos para a América Latina. Um brasileiro dará oficina sobre produção de audiolivros.",
     "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/10/29/dicionario-mini-aurelio-ganha-nova-casa/"
+    "link": "https://www.publishnews.com.br/materias/2026/10/30/conferencia-de-sharjah/"
+   },
+   {
+    "titulo": "Escritora de Cabo Verde lança livro e visita o Rio",
+    "resumo": "Vanessa Yetu lança no Brasil o primeiro título de uma coleção de literatura africana curada por Ondjaki. Ela terá encontros com leitores de 5 a 9 de novembro.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/30/escritora-cabo-verdiana-vanessa-yetu-encontra-leitores-no-rio-de-janeiro/"
+   },
+   {
+    "titulo": "Ubook e Funktoon fazem parceria para webtoons",
+    "resumo": "A plataforma Ubook passa a oferecer quadrinhos digitais da Funktoon em seus planos de assinatura no Brasil.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/10/30/ubook-funktoon-webtoon/"
    }
   ]
  }
