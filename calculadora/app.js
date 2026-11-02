@@ -70,20 +70,27 @@ addEventListener("hashchange",render);
 
 /* ---------- Início ---------- */
 ROTAS.home=async()=>{
-  const planos=await DB.all("planos"); const pend=planos.filter(p=>!p.exec && p.data<=hojeISO()).length;
-  const nh=(await DB.all("calculos")).length;
-  return `<div class="sec-t" style="margin-top:4px">Cálculos</div>
-  <div class="grid">${Object.entries(MODULOS).map(([k,m])=>`<a class="mod" href="#/m/${k}"><span class="e">${m.ic}</span><b>${m.nome}</b><small>${m.desc}</small></a>`).join("")}
-    <a class="mod" href="#/hist"><span class="e">🗂️</span><b>Histórico de cálculos</b><small>${nh} cálculo(s) salvo(s) com memória</small></a></div>
-  <div class="sec-t">Gestão</div>
+  const [planos,calculos,fazendas,talhoes]=await Promise.all(["planos","calculos","fazendas","talhoes"].map(x=>DB.all(x)));
+  const pend=planos.filter(p=>!p.exec && p.data<=hojeISO()).length;
+  const nh=calculos.length;
+  const cards=[["🧮","Cálculos salvos",nh],["🏡","Fazendas cadastradas",fazendas.length],["🌱","Talhões cadastrados",talhoes.length],["📋","Planos pendentes",pend]];
+  return `<section class="jl-hero" aria-label="Painel inicial">
+    <div class="jl-brand"><span class="jl-brand-icon" aria-hidden="true">🌱</span><div><strong>Calculadora da Cana</strong><small>JL LABS · Painel de trabalho</small></div></div>
+    <h2>Visão geral</h2><p>Indicadores dos dados armazenados neste aparelho.</p>
+    <div class="jl-stats">${cards.map(([ic,n,v])=>`<div class="jl-stat"><span aria-hidden="true">${ic}</span><b>${v}</b><small>${n}</small></div>`).join("")}</div>
+    <div class="jl-actions"><a href="#/m/campo">＋ Novo cálculo</a><a href="#/hist">◷ Histórico</a></div>
+  </section>
+  <div class="sec-t">Calculadoras</div>
+  <div class="grid jl-module-grid">${Object.entries(MODULOS).map(([k,m])=>`<a class="mod" href="#/m/${k}"><span class="e">${m.ic}</span><b>${m.nome}</b><small>${m.desc}</small></a>`).join("")}</div>
+  <div class="sec-t">Gestão e registros</div>
   <div class="grid">
-    <a class="mod" href="#/plan"><span class="e">📅</span><b>Planejamento diário</b><small>Plano x execução${pend?` · <b style="color:var(--warn)">${pend} pendente(s)</b>`:""}</small></a>
+    <a class="mod" href="#/plan"><span class="e">📅</span><b>Planejamento diário</b><small>Plano x execução${pend?` · ${pend} pendente(s)`:""}</small></a>
     <a class="mod" href="#/abast"><span class="e">⛽</span><b>Abastecimentos</b><small>Diesel por máquina, custo e consumo</small></a>
     <a class="mod" href="#/colh"><span class="e">🚜</span><b>Registros de colheita</b><small>Área, toneladas, horas e paradas</small></a>
     <a class="mod" href="#/painel"><span class="e">📊</span><b>Painel gerencial</b><small>Indicadores com filtros</small></a>
     <a class="mod" href="#/cad/talhoes"><span class="e">🗺️</span><b>Cadastros</b><small>Fazendas, talhões e equipamentos</small></a>
     <a class="mod" href="#/rel"><span class="e">📤</span><b>Relatórios e backup</b><small>PDF, Excel/CSV e cópia de segurança</small></a></div>
-  <div class="info" style="margin-top:16px">Versão das fórmulas: <b>${CALC_VERSAO}</b>. Os dados ficam <b>só neste aparelho</b> — não há servidor de sincronização. Faça backup em Relatórios.</div>`;
+  <div class="info" style="margin-top:16px">Versão das fórmulas: <b>${CALC_VERSAO}</b>. Dados armazenados <b>somente neste aparelho</b>. Faça backup em Relatórios.</div>`;
 };
 ROTAS.registros=()=>`<h2 class="tit">Registros</h2><p class="sub">Tudo fica salvo no aparelho, mesmo sem internet.</p>
   <a class="item" href="#/plan"><div class="ic">📅</div><div class="t"><h4>Planejamento diário</h4><p>Metas do dia e o que foi realizado</p></div><div class="chev">›</div></a>
