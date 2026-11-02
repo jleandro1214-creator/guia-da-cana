@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Calculadora da Cana</title>
-<meta name="theme-color" content="#5b3412">
+<meta name="theme-color" content="#1B5E20">
 <meta name="description" content="Cálculos agrícolas com memória de cálculo, histórico por fazenda e talhão, planejamento, diesel, colheita e painel gerencial.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icone2-192.png">
@@ -12,10 +12,10 @@
 <style>
   /* Layout: cabeçalho fixo com fazenda/talhão ativos, conteúdo em módulos, barra inferior para uso no campo */
   :root{
-    --bg:#f6f3ee; --card:#ffffff; --ink:#24190f; --soft:#62564a; --line:#ddd3c6;
-    --accent:#9a5a1c; --accent-strong:#5b3412; --tint:#f3e6d6; --on-accent:#ffffff;
+    --bg:#f7f4e9; --card:#ffffff; --ink:#213226; --soft:#665b4f; --line:#e2dacd;
+    --accent:#1b5e20; --accent-strong:#1b5e20; --tint:#e9f1e7; --on-accent:#ffffff;
     --ok:#2e7d32; --ok-tint:#e3f1e1; --warn:#a1461a; --warn-tint:#fbe5d9; --info:#6b5a12; --info-tint:#f6efcf;
-    --head-bg:#5b3412; --head-ink:#ffffff; --radius:14px;
+    --head-bg:#1b5e20; --head-ink:#ffffff; --radius:14px;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
@@ -139,12 +139,28 @@
     .printonly{display:block;} body{background:#fff;color:#000;font-size:12pt;} main{padding:0;max-width:none;}
     .card,.calc{border:1px solid #999;break-inside:avoid;} details.mem{border:none;} details.mem>*{display:block;}
   }
+
+  /* JL LABS: painel inicial responsivo, sem alterar IDs ou navegação existentes */
+  .jl-hero{background:linear-gradient(145deg,#1b5e20,#28783a);color:#fff;border-radius:18px;padding:20px 16px;margin-bottom:20px}
+  .jl-brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .jl-brand-icon{display:grid;place-items:center;background:#f7f4e9;color:#1b5e20;border-radius:12px;width:48px;height:48px;font-size:26px}
+  .jl-brand strong,.jl-brand small{display:block}.jl-brand small{font-size:12px;color:#f0ca59;margin-top:3px}
+  .jl-hero h2{font-size:22px;margin:0 0 4px}.jl-hero p{font-size:13px;margin:0 0 15px;color:#e6eedf}
+  .jl-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .jl-stat{background:#fff;color:#1b5e20;border-radius:12px;padding:12px;min-width:0;display:flex;flex-direction:column;gap:3px}
+  .jl-stat span{font-size:20px}.jl-stat b{font-size:25px;font-variant-numeric:tabular-nums}
+  .jl-stat small{font-size:12px;color:#795548;line-height:1.3}
+  .jl-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .jl-actions a{display:block;text-align:center;text-decoration:none;background:#e6b52e;color:#1b351d;border-radius:12px;padding:12px 8px;font-weight:750;font-size:14px}
+  .jl-actions a+a{background:#fff;color:#1b5e20}
+  .jl-module-grid .mod{border-color:#dbe5d7}
+  @media(min-width:650px){.jl-stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body><style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#14100c;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style><div id="splash-app" aria-hidden="true"><img src="icone2-192.png" alt=""><b>Calculadora</b></div><script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,700-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
 <div id="offlineBadge">Sem conexão — tudo continua funcionando e salvando no aparelho</div>
 <header class="app" id="appHead">
-  <div class="hrow"><a href="../index.html" class="guiaHome" aria-label="Voltar ao Guia da Cana" style="color:inherit;text-decoration:none;font-size:15px;font-weight:700;background:rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;white-space:nowrap">🏠 Guia</a><h1>🧮 Calculadora da Cana</h1><button id="openInstall" type="button">📲 Instalar app</button></div>
+  <div class="hrow"><a href="../index.html" class="guiaHome" aria-label="Voltar ao Guia da Cana" style="color:inherit;text-decoration:none;font-size:15px;font-weight:700;background:rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;white-space:nowrap">🏠 Guia</a><h1>🌱 Calculadora da Cana <small style="display:block;font-size:11px;color:#f0ca59;letter-spacing:1.5px">JL LABS</small></h1><button id="openInstall" type="button">📲 Instalar app</button></div>
   <div class="ctx">
     <div><label for="codigo">Código</label><input id="codigo" inputmode="numeric" placeholder="10001" autocomplete="off"></div>
     <div><label for="fazenda">Fazenda</label><input id="fazenda" list="listaFazendas" placeholder="Nome da fazenda" autocomplete="off"></div>
