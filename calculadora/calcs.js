@@ -94,8 +94,8 @@ const CALCS = [
           {id:"areas",label:"Outras áreas (separe por ;)",kind:"txt",opt:true,unit:"ha",full:true},
           {id:"carga",label:"Capacidade por carga",unit:"kg",opt:true},{id:"disp",label:"Quantidade disponível",unit:"kg",opt:true},
           {id:"apl",label:"Quantidade efetivamente aplicada",unit:"kg",opt:true}],
-  check:v=>{ const s=(v.N||0)+(v.P||0)+(v.K||0); return s>100 ? ["A soma dos teores passa de 100%."] : []; },
-  compute:(v,raw)=>{ const extras=String(raw.areas||"").split(/[;\n]/).map(x=>Number(String(x).trim().replace(/\./g,"").replace(",","."))).filter(x=>isFinite(x)&&x>0);
+  check:(v,raw)=>{ const e=[]; const s=(v.N||0)+(v.P||0)+(v.K||0); if(s>100)e.push("A soma dos teores passa de 100%."); for(const x of String(raw.areas||"").split(/[;\n]/).map(x=>x.trim()).filter(Boolean)){ const a=parseNum(x); if(!Number.isFinite(a)||a<=0)e.push("Área adicional inválida: "+x); } return e; },
+  compute:(v,raw)=>{ const extras=String(raw.areas||"").split(/[;\n]/).map(x=>x.trim()).filter(Boolean).map(parseNum);
     const areaTot=v.area+extras.reduce((a,b)=>a+b,0), tot=v.dose*areaTot;
     const rows=[R("Produto total",tot,"kg",0,1),R("Em toneladas",tot/1000,"t",3),R("Área total",areaTot,"ha",2)];
     const steps=[`Área total = ${[v.area,...extras].map(a=>nfx(a,2)).join(" + ")} = ${nfx(areaTot,2)} ha`,`Produto total = ${nfx(v.dose,1)} kg/ha × ${nfx(areaTot,2)} ha = ${nfx(tot,1)} kg`];
@@ -108,13 +108,16 @@ const CALCS = [
       if(Math.abs(pct)>10) warn.push("Aplicado difere mais de 10% do planejado: confira a regulagem do equipamento."); }
     return {rows,steps,warn,prem:["Dose do produto comercial ≠ quantidade de nutriente: o nutriente é a dose × teor declarado.","Não gera recomendação: use a dose da recomendação técnica."]}; } },
 { mod:"adubo", id:"vinh", title:"Vinhaça pela dose de potássio",
-  desc:"Use o teor de K₂O da análise da vinhaça. A dose não pode passar o limite da norma CETESB P4.231 para o talhão.",
+  desc:"Dose teórica por K₂O. Informe um limite validado externamente para planejamento; este cálculo não comprova conformidade ambiental.",
   inputs:[{id:"k",label:"K₂O desejado",unit:"kg/ha"},{id:"kv",label:"K₂O na vinhaça (análise)",unit:"kg/m³",min:0.01,warn:[0.5,10]},
-          {id:"area",label:"Área do talhão",unit:"ha",opt:true,area:true},{id:"cap",label:"Capacidade do caminhão",unit:"m³",def:"22,5",opt:true}],
-  compute:v=>{ const dose=v.k/v.kv; const rows=[R("Dose de vinhaça",dose,"m³/ha",0,1)]; const steps=[`Dose = ${nfx(v.k,1)} kg/ha ÷ ${nfx(v.kv,2)} kg/m³ = ${nfx(dose,2)} m³/ha`];
-    if(v.area>0){ const tot=dose*v.area; rows.push(R("Total no talhão",tot,"m³",0)); steps.push(`Total = ${nfx(dose,2)} × ${nfx(v.area,2)} = ${nfx(tot,1)} m³`);
-      if(v.cap>0){ rows.push(R("Viagens do caminhão",Math.ceil(tot/v.cap),"un",0)); steps.push(`Viagens = ${nfx(tot,1)} ÷ ${nfx(v.cap,1)} m³ (para cima)`); } }
-    return {rows,steps,prem:["Não confere o limite da CETESB P4.231 (depende da CTC e do K do solo)."]}; } },
+          {id:"area",label:"Área do talhão",unit:"ha",opt:true,area:true},{id:"cap",label:"Capacidade do caminhão",unit:"m³",def:"22,5",opt:true},{id:"limite",label:"Limite tecnicamente validado para o talhão",unit:"m³/ha",min:0.01,opt:true,full:true}],
+  compute:v=>{ const teorica=v.k/v.kv; const rows=[R("Dose teórica (não autorizada)",teorica,"m³/ha",2,1)]; const steps=[`Dose teórica = ${nfx(v.k,1)} kg/ha ÷ ${nfx(v.kv,2)} kg/m³ = ${nfx(teorica,2)} m³/ha`]; const warn=[];
+    if(!(v.limite>0)){ warn.push("Sem limite tecnicamente validado: não utilizar a dose teórica como autorização de aplicação."); return {rows,steps,warn,prem:["O aplicativo não verifica a CETESB P4.231. Consulte análise de solo, vinhaça e condicionantes aplicáveis."]}; }
+    const dose=Math.min(teorica,v.limite); rows.push(R("Dose limitada para planejamento",dose,"m³/ha",2)); steps.push(`Dose limitada = mínimo(${nfx(teorica,2)}, ${nfx(v.limite,2)}) = ${nfx(dose,2)} m³/ha`);
+    if(teorica>v.limite) warn.push("Dose teórica excede o limite informado.");
+    if(v.area>0){const tot=dose*v.area; rows.push(R("Volume planejado",tot,"m³",1));steps.push(`Volume = ${nfx(dose,2)} × ${nfx(v.area,2)} = ${nfx(tot,1)} m³`);
+      if(v.cap>0){rows.push(R("Viagens do caminhão",Math.ceil(tot/v.cap),"un",0));steps.push(`Viagens = teto(${nfx(tot,1)} ÷ ${nfx(v.cap,1)})`);}}
+    return {rows,steps,warn,prem:["O limite informado deve ser validado por responsável técnico; não é calculado nem autorizado pelo aplicativo."]}; } },
 { mod:"adubo", id:"torta", title:"Torta de filtro pela dose do nutriente",
   desc:"Informe o nutriente que quer suprir (K₂O ou P₂O₅) e o teor da torta úmida pela análise.",
   inputs:[{id:"k",label:"Nutriente desejado",unit:"kg/ha"},{id:"kt",label:"Teor na torta (análise)",unit:"kg/t",min:0.01},
@@ -146,7 +149,7 @@ const CALCS = [
           {id:"tp",label:"Toneladas previstas",unit:"t",opt:true},{id:"tr",label:"Toneladas colhidas",unit:"t",opt:true},
           {id:"orig",label:"Origem das toneladas",kind:"sel",opts:["Pesagem (balança)","Estimativa"],opt:true},
           {id:"hp",label:"Horas produtivas",unit:"h",opt:true},{id:"hpar",label:"Horas paradas",unit:"h",opt:true},{id:"turno",label:"Horas por turno",unit:"h",opt:true,def:"8"}],
-  check:v=> v.ac>v.ap*1.5 ? [] : [],
+  check:v=>{ const e=[]; if(v.tr>0 && !(v.ac>0)) e.push("Informe área colhida maior que zero para calcular TCH."); if(v.hp>0 && !(v.ac>0)) e.push("Informe área colhida maior que zero para calcular rendimento por hora."); return e; },
   compute:(v,raw)=>{ const rows=[], steps=[], warn=[]; const pa=v.ac/v.ap*100;
     rows.push(R("Execução da meta de área",pa,"%",1,1),R("Área restante",Math.max(0,v.ap-v.ac),"ha",1)); steps.push(`Execução = ${nfx(v.ac,2)} ÷ ${nfx(v.ap,2)} × 100 = ${nfx(pa,2)}%`);
     if(v.tr>0){ const tch=v.tr/v.ac; rows.push(R("Produtividade realizada (TCH)",tch,"t/ha",1)); steps.push(`TCH = ${nfx(v.tr,1)} t ÷ ${nfx(v.ac,2)} ha = ${nfx(tch,2)} t/ha`);
@@ -192,7 +195,7 @@ const CALCS = [
 { mod:"uteis", id:"conv", title:"Hectare ⇄ alqueire",
   desc:"Preencha um dos dois campos.",
   inputs:[{id:"ha",label:"Hectares",unit:"ha",opt:true},{id:"alq",label:"Alqueires paulistas",unit:"alq",opt:true}],
-  check:v=> (!(v.ha>0)&&!(v.alq>0)) ? ["Preencha um dos campos."] : [],
+  check:v=>{const e=[]; if(!(v.ha>0)&&!(v.alq>0))e.push("Preencha um dos campos."); if(v.ha>0&&v.alq>0)e.push("Preencha apenas hectares ou alqueires."); return e;},
   compute:v=>{ const rows=[], steps=[];
     if(v.ha>0){ rows.push(R(nfx(v.ha,2)+" ha =",v.ha/2.42,"alq",2,1)); steps.push(`${nfx(v.ha,2)} ÷ 2,42`); }
     if(v.alq>0){ rows.push(R(nfx(v.alq,2)+" alq =",v.alq*2.42,"ha",2,!rows.length)); steps.push(`${nfx(v.alq,2)} × 2,42`); }
@@ -231,7 +234,7 @@ function validar(c, raw){
     if(x<0 && min>=0) err.push(`${i.label} não pode ser negativo.`);
     else if(x<min || (min===0 && x===0 && !i.opt && !i.zeroOk)) err.push(`${i.label} precisa ser maior que ${String(min).replace(".",",")}${i.unit?" "+i.unit:""}.`);
     if(i.max!==undefined && x>i.max) err.push(`${i.label} não pode passar de ${String(i.max).replace(".",",")}${i.unit?" "+i.unit:""}.`);
-    if(i.int && !Number.isInteger(x)) warn.push(`${i.label}: esperado número inteiro.`);
+    if(i.int && !Number.isInteger(x)) err.push(`${i.label}: informe um número inteiro.`);
     if(i.warn && x>0 && (x<i.warn[0]||x>i.warn[1])) warn.push(`${i.label} (${String(x).replace(".",",")} ${i.unit||""}) está fora da faixa comum (${String(i.warn[0]).replace(".",",")} a ${String(i.warn[1]).replace(".",",")}). Confira.`);
   });
   if(!err.length && c.check) err.push(...c.check(v,raw));
