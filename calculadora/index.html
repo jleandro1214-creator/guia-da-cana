@@ -7,7 +7,8 @@
 <meta name="theme-color" content="#1B5E20">
 <meta name="description" content="Cálculos agrícolas com memória de cálculo, histórico por fazenda e talhão, planejamento, diesel, colheita e painel gerencial.">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icone2-192.png">
+<link rel="icon" type="image/svg+xml" href="logo-jl-labs.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="icone2-192.png">
 <link rel="apple-touch-icon" href="icone2-apple.png">
 <style>
   /* Layout: cabeçalho fixo com fazenda/talhão ativos, conteúdo em módulos, barra inferior para uso no campo */
@@ -140,6 +141,7 @@
     .card,.calc{border:1px solid #999;break-inside:avoid;} details.mem{border:none;} details.mem>*{display:block;}
   }
 
+  .jl-head-logo{width:42px;height:42px;border-radius:10px;object-fit:contain;flex-shrink:0}
   /* JL LABS: painel inicial responsivo, sem alterar IDs ou navegação existentes */
   .jl-hero{background:linear-gradient(145deg,#1b5e20,#28783a);color:#fff;border-radius:18px;padding:20px 16px;margin-bottom:20px}
   .jl-brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -160,7 +162,7 @@
 <body><style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#14100c;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style><div id="splash-app" aria-hidden="true"><img src="icone2-192.png" alt=""><b>Calculadora</b></div><script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,700-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
 <div id="offlineBadge">Sem conexão — tudo continua funcionando e salvando no aparelho</div>
 <header class="app" id="appHead">
-  <div class="hrow"><a href="../index.html" class="guiaHome" aria-label="Voltar ao Guia da Cana" style="color:inherit;text-decoration:none;font-size:15px;font-weight:700;background:rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;white-space:nowrap">🏠 Guia</a><h1>🌱 Calculadora da Cana <small style="display:block;font-size:11px;color:#f0ca59;letter-spacing:1.5px">JL LABS</small></h1><button id="openInstall" type="button">📲 Instalar app</button></div>
+  <div class="hrow"><a href="../index.html" class="guiaHome" aria-label="Voltar ao Guia da Cana" style="color:inherit;text-decoration:none;font-size:15px;font-weight:700;background:rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;white-space:nowrap">🏠 Guia</a><img src="logo-jl-labs.svg" alt="JL LABS" class="jl-head-logo"><h1>Calculadora da Cana <small style="display:block;font-size:11px;color:#f0ca59;letter-spacing:1.5px">JL LABS</small></h1><button id="openInstall" type="button">📲 Instalar app</button></div>
   <div class="ctx">
     <div><label for="codigo">Código</label><input id="codigo" inputmode="numeric" placeholder="10001" autocomplete="off"></div>
     <div><label for="fazenda">Fazenda</label><input id="fazenda" list="listaFazendas" placeholder="Nome da fazenda" autocomplete="off"></div>
