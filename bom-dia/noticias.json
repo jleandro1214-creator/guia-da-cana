@@ -1,205 +1,199 @@
 {
-  "gerado": "2026-11-02T22:51:54-03:00",
-  "assuntos": {
-    "cana": [
-      {
-        "titulo": "Moagem de cana cai quase 18% no início de outubro",
-        "resumo": "A moagem de cana no Brasil caiu 17,8% na primeira quinzena de outubro, para cerca de 32 milhões de toneladas. No mesmo período, a produção de açúcar recuou 23% e a de etanol, quase 22%.",
-        "fonte": "Visão Agro",
-        "link": "https://visaoagro.com.br/cana-agricultura-moagem-no-brasil-cai-178-na-1a-quinzena-de-outubro-para-3204-mi-de-t"
-      },
-      {
-        "titulo": "Senado aprova ajuda de R$ 12 por tonelada à cana nordestina",
-        "resumo": "O Senado aprovou o pagamento de R$ 12 por tonelada a fornecedores independentes de cana do Nordeste atingidos pelas tarifas dos Estados Unidos ou pelo clima. O custo estimado é de R$ 270 milhões, e o texto segue para sanção.",
-        "fonte": "Rádio Senado",
-        "link": "https://www12.senado.leg.br/radio/1/noticia/2026/10/28/senado-aprova-apoio-financeiro-a-produtores-de-cana-de-acucar-no-nordeste"
-      },
-      {
-        "titulo": "Chuvas atrasam a colheita e a moagem no Centro-Sul",
-        "resumo": "Pelas contas da Datagro, o excesso de chuva já tirou das usinas cerca de 28 dias de trabalho, e algumas devem moer até dezembro. A projeção é de menos açúcar e mais etanol nesta safra.",
-        "fonte": "Portal PaNoRaMa",
-        "link": "https://pn7.com.br/chuvas-atrasam-moagem-cana-centro-sul-2026/"
-      },
-      {
-        "titulo": "Etanol sobe nas usinas e vendas em São Paulo se aproximam de recorde",
-        "resumo": "Segundo o Cepea, as vendas de etanol hidratado em São Paulo devem chegar a 350 milhões de litros em outubro, o maior volume da safra. Com menos oferta por causa da chuva, o anidro subiu mais de 47% desde agosto.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/agro/vendas-de-etanol-hidratado-em-sao-paulo-se-aproximam-de-recorde/"
-      }
-    ],
-    "politica": [
-      {
-        "titulo": "Governo corre para aprovar pautas antes da posse do novo Congresso",
-        "resumo": "Uma semana depois da eleição, o governo tenta aprovar projetos prioritários, como a PEC da Segurança Pública e a regulação da inteligência artificial. Também está em discussão a indicação para a vaga de Barroso no STF.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/governo-lula-retoma-articulacao-com-o-congresso-apos-eleicoes/"
-      },
-      {
-        "titulo": "Senado marca votação da PEC da Segurança para esta terça",
-        "resumo": "O presidente do Senado, Davi Alcolumbre, marcou para terça-feira, dia 3, a votação em dois turnos da PEC da Segurança Pública. A oposição quer incluir a redução da maioridade penal, e o governo prefere tratar o tema em outra proposta.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/governo-tenta-acelerar-pec-da-seguranca-oposicao-insiste-em-maioridade/"
-      },
-      {
-        "titulo": "Denúncias de violência política crescem durante as eleições",
-        "resumo": "O Ministério dos Direitos Humanos recebeu 189 denúncias de violência política no período eleitoral. Os casos foram encaminhados a órgãos como a Polícia Federal e o Ministério Público.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/violencia-politica-disque-100-recebeu-189-denuncias-durante-eleicao"
-      },
-      {
-        "titulo": "Ministros vão a Mato Grosso do Sul apurar violência contra indígenas",
-        "resumo": "Uma força-tarefa com três ministros foi ao estado acompanhar denúncias de violência e ameaças contra indígenas durante e depois das eleições. O governo prometeu reforço das polícias federais na região.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/governo-investiga-189-denuncias-de-violencia-contra-indigenas-em-ms/"
-      },
-      {
-        "titulo": "Tarifa zero no transporte esbarra na falta de financiamento",
-        "resumo": "O governo enviou ao Congresso uma PEC que torna o transporte público gratuito nos fins de semana e feriados, bancada com parte das emendas parlamentares. O custo estimado é de R$ 12 bilhões, e o financiamento é o principal obstáculo.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/debate-no-congresso-sobre-tarifa-zero-no-transporte-se-estende-desde-2021/"
-      }
-    ],
-    "tecnologia": [
-      {
-        "titulo": "OpenAI endurece regras do ChatGPT sobre armas e violência",
-        "resumo": "A OpenAI vai limitar respostas detalhadas sobre armas e ataques violentos, com proteção extra para menores de 18 anos. Conversas com sinais de obsessão por violência poderão ser encerradas.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/01/inteligencia-artificial/openai-amplia-restricoes-do-chatgpt-sobre-armas-e-violencia-para-criancas-e-adolescentes/"
-      },
-      {
-        "titulo": "Metrô de São Paulo aposenta o bilhete magnético depois de 52 anos",
-        "resumo": "As catracas do Metrô não aceitam mais o bilhete magnético, usado desde 1974. Quem ainda tem bilhetes pode trocar por QR Code nas estações Paraíso e Tatuapé até 31 de janeiro de 2027.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/01/carros-e-tecnologia/metro-de-sp-aposenta-bilhete-magnetico-usado-ha-mais-de-50-anos-veja-como-trocar/"
-      },
-      {
-        "titulo": "Itaú lança forma de pagar compras online pelo aplicativo",
-        "resumo": "Com o Itaú Pay, o cliente conclui compras em lojas parceiras dentro do app do banco, sem digitar os dados do cartão. A Decolar é a primeira loja a usar o sistema.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/01/pro/nova-ferramenta-de-pagamento-do-itau-leva-compras-online-para-dentro-do-aplicativo-do-banco/"
-      },
-      {
-        "titulo": "Meta testa robô humanoide para ajudar nas tarefas de casa",
-        "resumo": "A Meta criou com a startup chinesa Fourier um protótipo de robô humanoide chamado Max, com cerca de um metro e meio. A empresa diz que o projeto é só para pesquisa interna, sem planos de venda.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/10/31/pro/meta-entra-no-mercado-dos-robos-humanoides/"
-      },
-      {
-        "titulo": "Sam Altman vai à Coreia do Sul discutir chips com a Samsung",
-        "resumo": "O chefe da OpenAI se reuniu com executivos da Samsung para ampliar a parceria em chips de memória e centros de dados. A visita ocorre num momento de falta de memória e preços em alta.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/10/31/pro/sam-altman-visita-samsung-para-discutir-futuro-dos-chips-de-ia/"
-      }
-    ],
-    "ciencia": [
-      {
-        "titulo": "Predador de sete metros viveu na Patagônia há 86 milhões de anos",
-        "resumo": "Paleontólogos argentinos descreveram o Rinconraptor pipoae, um dinossauro carnívoro de cerca de sete metros encontrado em Neuquén. O nome homenageia Laura Pipo, jovem cientista que ajudou na escavação.",
-        "fonte": "Brasil 247",
-        "link": "https://www.brasil247.com/tendencias/2026/11/02/predador-de-7-metros-viveu-na-patagonia-ha-86-milhoes-de-anos-e-recebeu-nome-em-homenagem-a-jovem-cientista-que-ajudou-a-descobrir-seus-fosseis/"
-      },
-      {
-        "titulo": "Fóssil de dinossauro do Ceará guarda vestígios de sangue",
-        "resumo": "Cientistas acharam sinais de glóbulos vermelhos num osso de 115 milhões de anos de um dinossauro carnívoro encontrado no Ceará. O estudo saiu na revista PNAS, com participação do Museu Nacional.",
-        "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/cientistas-descobrem-vestigios-de-sangue-de-dinossauro-de-115-milhoes-de-anos-no-brasil-73822"
-      },
-      {
-        "titulo": "Cientistas descrevem duas novas espécies de bugio na Amazônia",
-        "resumo": "Uma equipe internacional identificou duas novas espécies de bugio-vermelho, as primeiras do grupo desde 1940. Os pesquisadores alertam que o desmatamento ameaça esses macacos.",
-        "fonte": "Observador",
-        "link": "https://observador.pt/2026/11/02/equipa-com-investigadores-do-porto-descobriu-duas-novas-especies-de-macacos-bugio-na-amazonia/"
-      },
-      {
-        "titulo": "NASA mede gás carbônico no ar com mais precisão",
-        "resumo": "A NASA melhorou o processamento dos dados de dois instrumentos que medem o gás carbônico desde 2014. Agora é possível acompanhar mês a mês o acúmulo do gás e o efeito de secas e incêndios.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/01/ciencia-e-espaco/nasa-aprimora-satelites-e-revela-registro-mais-preciso-de-co-na-atmosfera/"
-      }
-    ],
-    "astronomia": [
-      {
-        "titulo": "Táuridas do Sul trazem meteoros lentos e brilhantes nesta semana",
-        "resumo": "A chuva de meteoros Táuridas do Sul tem pico em 5 de novembro, com cerca de cinco meteoros por hora, alguns bem brilhantes. As Táuridas do Norte chegam ao pico em 12 de novembro.",
-        "fonte": "Meteored",
-        "link": "https://www.meteored.com.br/noticias/astronomia/novembro-tera-chuvas-de-meteoros-conjuncoes-e-fenomenos-para-observar-no-ceu.html"
-      },
-      {
-        "titulo": "Novembro terá superlua, Leônidas e Marte junto de Júpiter",
-        "resumo": "A superlua acontece em 24 de novembro, melhor vista quando a Lua nasce. Antes disso, Marte e Júpiter aparecem bem juntinhos na madrugada de 16, e as Leônidas têm pico entre 17 e 18.",
-        "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/novembro-tera-superlua-encontro-raro-entre-planetas-e-chuva-de-meteoros-veja-as-datas-para-observar-no-brasil-73633"
-      },
-      {
-        "titulo": "James Webb encontra gelo diferente no visitante interestelar 3I/ATLAS",
-        "resumo": "O telescópio James Webb mostrou que o gelo do cometa 3I/ATLAS é fino e misturado com poeira, diferente dos cometas do Sistema Solar. Ele pode ter se formado há mais de 10 bilhões de anos, perto de outra estrela.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/02/ciencia-e-espaco/james-webb-revela-novas-pistas-sobre-a-origem-do-visitante-interestelar-3i-atlas"
-      },
-      {
-        "titulo": "Telescópio Swift, da NASA, deve reentrar na atmosfera nesta quarta",
-        "resumo": "Depois de quase 22 anos estudando explosões de raios gama, o observatório Swift deve cair na atmosfera em 4 de novembro. A maior parte vai queimar, e o risco para pessoas é muito baixo.",
-        "fonte": "NASA",
-        "link": "https://science.nasa.gov/blogs/swift/2026/11/02/nasas-swift-observatory-to-re-enter-atmosphere/"
-      }
-    ],
-    "filosofia": [
-      {
-        "titulo": "Festival de Filosofia de Abrantes vai debater o poder da verdade",
-        "resumo": "O festival, em Portugal, acontece de 18 a 21 de novembro com o tema O poder da verdade. Os debates tratam de desinformação, algoritmos e inteligência artificial, com entrada gratuita.",
-        "fonte": "Notícias ao Minuto",
-        "link": "https://www.noticiasaominuto.com/cultura/3075743/festival-de-filosofia-de-abrantes-debate-verdade-e-desinformacao"
-      },
-      {
-        "titulo": "Humanista ganha direito de não usar inteligência artificial no trabalho",
-        "resumo": "Um funcionário da Universidade de Kentucky, nos Estados Unidos, foi dispensado de usar IA por suas convicções humanistas. Ele argumentou que entregar o raciocínio às máquinas prejudicaria sua capacidade de agir moralmente.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/10/30/humanist-gets-religious-exemption-from-using-ai-at-work/"
-      },
-      {
-        "titulo": "Laurent de Sutter critica o pensamento único da filosofia ocidental",
-        "resumo": "Em entrevista, o pensador belga diz que a filosofia ensinada no Ocidente virou pensamento único. Ele defende olhar para outras tradições, como a chinesa, a japonesa e a islâmica.",
-        "fonte": "Jornal SOL",
-        "link": "https://sol.iol.pt/cultura/noticias/a-filosofia-ocidental-que-se-ensina-tornou-se-o-pensamento-unico-que-traz-mais-males-do-que-bens/20261029/6ae38e5a0cf22b9f89053260"
-      },
-      {
-        "titulo": "Dia Mundial da Filosofia terá foco em crises globais",
-        "resumo": "O Dia Mundial da Filosofia será em 19 de novembro, e a Unesco escolheu como tema a convivência em um mundo de crises. Migração, clima, inteligência artificial e saúde estão em debate.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/10/26/reminder-world-philosophy-day-coming-up-next-month"
-      }
-    ],
-    "livros": [
-      {
-        "titulo": "Prêmio Goncourt anuncia vencedor nesta terça entre quatro finalistas",
-        "resumo": "O mais importante prêmio literário da França será entregue em 3 de novembro, em Paris. Disputam Yannick Haenel, Philippe Jaenada, Clémentine Mélois e Sylvain Prudhomme.",
-        "fonte": "La Libre Belgique",
-        "link": "https://www.lalibre.be/culture/livres-bd/2026/10/27/voici-les-quatre-ecrivains-finalistes-du-prix-goncourt-LC3TMLM7LFG2FPZLDG2RN2UV5Q/"
-      },
-      {
-        "titulo": "Feira do Livro de Porto Alegre abre 72ª edição",
-        "resumo": "A feira na Praça da Alfândega vai até 15 de novembro, com mais de 700 atividades gratuitas. A patrona é Heloisa Pires Lima, primeira mulher negra a ocupar o posto.",
-        "fonte": "Brasil de Fato",
-        "link": "https://www.brasildefato.com.br/2026/10/31/feira-do-livro-de-porto-alegre-abre-72a-edicao-com-protagonismo-feminino-e-diversidade-literaria/"
-      },
-      {
-        "titulo": "YouTube prepara entrada no mercado de audiolivros",
-        "resumo": "Segundo o Wall Street Journal, o YouTube negocia com editoras para lançar audiolivros no ano que vem. Com isso, passaria a concorrer com Audible e Spotify.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/10/30/youtube-audiolivros/"
-      },
-      {
-        "titulo": "Venda de livros no Brasil cresce quase 9% em 2026",
-        "resumo": "Até o início de setembro, as livrarias venderam 44,7 milhões de exemplares, alta de 8,7% sobre o ano anterior. O faturamento chegou a 2,38 bilhões de reais, segundo SNEL e Nielsen.",
-        "fonte": "AL1",
-        "link": "https://al1.com.br/noticias/noticias/210265-com-447-milhoes-de-exemplares-vendidos-mercado-editorial-avanca-em-2026"
-      },
-      {
-        "titulo": "Ruy Castro leva Livro do Ano no Jabuti pela segunda vez",
-        "resumo": "Ruy Castro venceu com Trincheira Tropical, sobre os cariocas na Segunda Guerra Mundial. Eliana Alves Cruz ganhou na categoria romance literário.",
-        "fonte": "Jornal do Comércio",
-        "link": "https://www.jornaldocomercio.com/cultura/2026/10/1268521-ruy-castro-repete-vitoria-no-jabuti-e-eliana-alves-cruz-ganha-melhor-romance-literario.html"
-      }
-    ]
-  }
+ "gerado": "2026-11-03T22:51:28-03:00",
+ "assuntos": {
+  "cana": [
+   {
+    "titulo": "Três usinas de Alagoas mantêm preço do ATR de setembro",
+    "resumo": "As usinas Serra Grande, Utinga Leão e Pindorama vão pagar aos fornecedores o valor do ATR de setembro, evitando a queda de 7,5% prevista para outubro. O acordo veio após negociação com a Asplana, que quer que outras usinas façam o mesmo.",
+    "fonte": "Revista RPAnews",
+    "link": "https://revistarpanews.com.br/asplana-evita-queda-no-preco-do-atr-em-tres-usinas-de-alagoas-queremos-mais/"
+   },
+   {
+    "titulo": "Orplana pede apoio federal também para canavieiros do Centro-Sul",
+    "resumo": "A Orplana quer que a ajuda de 12 reais por tonelada aprovada para fornecedores do Nordeste chegue também aos produtores de outras regiões. A entidade cita custos mais altos, dívidas e cana que ficou no campo por causa das chuvas.",
+    "fonte": "Revista RPAnews",
+    "link": "https://revistarpanews.com.br/orplana-cobra-ampliacao-de-apoio-aos-produtores-de-cana-do-centro-sul-apos-aprovacao-de-subvencao-para-o-nordeste/"
+   },
+   {
+    "titulo": "Índia multiplica produção de açúcar em outubro",
+    "resumo": "A Índia fez cerca de 845 mil toneladas de açúcar em outubro, contra 100 mil um ano antes, porque a moagem começou mais cedo. Mais oferta indiana tende a pressionar o preço do açúcar no mercado internacional.",
+    "fonte": "Revista RPAnews (com Reuters)",
+    "link": "https://revistarpanews.com.br/producao-de-acucar-da-india-salta-745-em-outubro-com-inicio-antecipado-da-moagem/"
+   }
+  ],
+  "politica": [
+   {
+    "titulo": "Senado aprova PEC da Segurança Pública sem reduzir maioridade penal",
+    "resumo": "O Senado aprovou a PEC da Segurança Pública em dois turnos, sem votos contrários, e o texto vai à promulgação. A redução da maioridade penal ficou para ser discutida separadamente, por 38 votos a 36.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/senado-aprova-pec-da-seguranca-publica-sem-reducao-da-maioridade-penal"
+   },
+   {
+    "titulo": "Hugo Motta comemora aprovação da PEC da Segurança",
+    "resumo": "O presidente da Câmara elogiou a votação no Senado e disse que a medida aumenta a pressão sobre as facções. A emenda coloca o Sistema Único de Segurança Pública na Constituição.",
+    "fonte": "Agência Câmara",
+    "link": "https://www.camara.leg.br/noticias/1315533-hugo-motta-destaca-aprovacao-da-pec-da-seguranca-publica-pelo-senado"
+   },
+   {
+    "titulo": "Novo mandato de Lula exigirá mais negociação com o Congresso",
+    "resumo": "Especialistas avaliam que a oposição ficou mais forte no Congresso e que o centrão terá papel decisivo. A eleição para o comando da Câmara e do Senado, em fevereiro, será o primeiro teste.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/governabilidade-de-lula-exigira-negociacao-e-acordos-alem-da-esplanada"
+   },
+   {
+    "titulo": "Fux rebate críticas e defende proibir as bets",
+    "resumo": "O ministro do STF Luiz Fux negou ter chamado só defensores das apostas on-line para a audiência pública. Ele disse ver as bets como problema de saúde pública e que deveriam ser proibidas.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/fux-rebate-criticas-e-diz-ter-percepcao-de-que-bets-devem-ser-banidas"
+   },
+   {
+    "titulo": "Lula promete manter os programas sociais no próximo mandato",
+    "resumo": "Em vídeo, Lula disse que não vai acabar com nenhum programa social entre 2027 e 2030 e que pode criar ou melhorar outros. Ele também agradeceu os votos recebidos no segundo turno.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/lula-garante-que-programas-sociais-serao-mantidos"
+   }
+  ],
+  "tecnologia": [
+   {
+    "titulo": "Justiça impede Meta de usar notícias sem autorização",
+    "resumo": "Uma decisão provisória proíbe a Meta de coletar conteúdo jornalístico sem permissão, inclusive para treinar inteligência artificial. A multa por descumprimento pode chegar a um milhão de reais por dia.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/03/pro/justica-brasileira-proibe-meta-de-usar-conteudo-jornalistico-sem-autorizacao"
+   },
+   {
+    "titulo": "AMD tem receita recorde com chips para data centers",
+    "resumo": "A AMD faturou 13,4 bilhões de dólares no terceiro trimestre, alta de 45% em um ano. O crescimento veio dos chips para data centers, enquanto a área de games caiu.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/03/pro/amd-bate-recorde-de-receita-com-explosao-de-vendas-de-chips-para-data-centers"
+   },
+   {
+    "titulo": "Ataque hacker esquenta geladeiras de supermercados na Europa",
+    "resumo": "Criminosos invadiram freezers conectados em supermercados de sete países, elevando a temperatura a até 50 graus. O caso reforça o alerta sobre a segurança de aparelhos ligados à internet.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/03/seguranca/ataques-hacker-na-europa-acendem-alerta-para-internet-das-coisas"
+   },
+   {
+    "titulo": "Big techs montam equipes contra fraudes de IA em eleição americana",
+    "resumo": "OpenAI, Anthropic, Google e Meta criaram times para vigiar o uso de inteligência artificial nas eleições legislativas dos Estados Unidos. O medo é de textos, imagens e vídeos falsos.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/03/inteligencia-artificial/big-techs-reforcam-combate-a-conteudos-falsos-gerados-por-ia-nas-eleicoes-dos-eua"
+   },
+   {
+    "titulo": "Anthropic apresenta método para provar qual IA deu a resposta",
+    "resumo": "A pesquisa usa criptografia para confirmar que uma resposta veio do modelo anunciado, e não de um mais barato. Ainda não há data de lançamento, mas parte do código foi aberta.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/03/inteligencia-artificial/anthropic-quer-impedir-que-empresas-escondam-qual-ia-estao-usando"
+   }
+  ],
+  "ciencia": [
+   {
+    "titulo": "Super El Niño pode ser o mais forte já registrado",
+    "resumo": "O Pacífico tropical esquentou rápido desde maio e o fenômeno deve atingir o pico em dezembro, com risco de secas e enchentes. Cientistas veem chance rara de estudo, mas cortes de verba nos Estados Unidos preocupam.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/um-super-el-nino-ameaca-o-planeta-e-oferece-uma-oportunidade-rara-para-a-ciencia-73960"
+   },
+   {
+    "titulo": "Fungo explica sumiço de sapos na Mata Atlântica",
+    "resumo": "Um estudo com animais de coleções aponta um fungo como provável causa do desaparecimento de anfíbios numa reserva paulista no fim dos anos 1970. Doze das dezessete espécies foram reencontradas recentemente.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/cientistas-descobrem-o-que-causou-o-misterioso-desaparecimento-de-sapos-na-mata-atlantica-brasileira-ha-quase-50-anos-73933"
+   },
+   {
+    "titulo": "Uma sessão de tabaco aquecido já afeta vasos e DNA",
+    "resumo": "Pesquisadores alemães viram alteração nos vasos sanguíneos, pressão mais alta e danos ao DNA após um único uso. Para eles, o produto não é seguro para o coração.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/uma-sessao-de-tabaco-aquecido-foi-suficiente-para-alterar-vasos-sanguineos-e-detectar-danos-ao-dna-73937"
+   },
+   {
+    "titulo": "Físicos acham indício de decaimento raro buscado desde 1984",
+    "resumo": "Com dados do CERN, uma equipe de Cambridge encontrou sinais de uma transformação de partícula raríssima. Por enquanto é um indício, ainda não uma descoberta confirmada.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/cientistas-descobrem-sinais-do-zeptoverso-um-mundo-100-bilhoes-de-vezes-menor-que-um-atomo-73929"
+   },
+   {
+    "titulo": "Água dos oceanos pode ter nascido dentro da Terra",
+    "resumo": "Experimentos sugerem que rochas quentes reagindo com hidrogênio produziram muita água na Terra primitiva. A ideia desafia a tese de que ela veio só de cometas, mas ainda precisa de confirmação.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/a-origem-dos-oceanos-pode-ser-diferente-do-que-imaginavamos-revela-experimento-73877"
+   }
+  ],
+  "astronomia": [
+   {
+    "titulo": "Telescópio Swift, da NASA, deve cair na Terra nesta madrugada",
+    "resumo": "O observatório Swift, desativado após mais de 20 anos em órbita, deve reentrar na atmosfera na madrugada de quarta-feira, dia 4. A maior parte dele deve queimar na reentrada.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/03/ciencia-e-espaco/telescopio-espacial-da-nasa-esta-prestes-a-cair-na-terra-brasil-pode-ser-atingido/"
+   },
+   {
+    "titulo": "Desviar asteroide com bomba nuclear depende do lado atingido",
+    "resumo": "Simulações do laboratório Sandia mostram que o lado atingido pela radiação muda bastante o desvio e a rotação do asteroide. O novo modelo considera formatos irregulares e é bem mais rápido.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/03/ciencia-e-espaco/desviar-asteroide-com-bomba-nuclear-depende-de-um-detalhe-surpreendente"
+   },
+   {
+    "titulo": "James Webb dá pistas sobre a origem do 3I/ATLAS",
+    "resumo": "Um estudo indica que o objeto interestelar pode ter se formado há mais de 10 bilhões de anos ao redor de outra estrela. O gelo dele aparece misturado à poeira, diferente dos cometas do Sistema Solar.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/02/ciencia-e-espaco/james-webb-revela-novas-pistas-sobre-a-origem-do-visitante-interestelar-3i-atlas"
+   },
+   {
+    "titulo": "Novembro tem superlua, Leônidas e Voyager a um dia-luz",
+    "resumo": "O mês traz o pico da chuva de meteoros Leônidas por volta do dia 18 e uma superlua no fim do mês. A sonda Voyager 1 chega a um dia-luz de distância da Terra por volta do dia 15.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/01/ciencia-e-espaco/calendario-astronomico-novembro-traz-distancia-historica-da-terra-fim-do-mercurio-retrogrado-e-chuva-de-meteoros"
+   },
+   {
+    "titulo": "Táuridas do Sul têm pico nesta quinta-feira",
+    "resumo": "A chuva de meteoros Táuridas do Sul chega ao pico no dia 5, e a do Norte no dia 12. Depois vêm as Leônidas, com até 15 meteoros por hora.",
+    "fonte": "Meteored",
+    "link": "https://www.meteored.com.br/noticias/astronomia/novembro-tera-chuvas-de-meteoros-conjuncoes-e-fenomenos-para-observar-no-ceu.html"
+   }
+  ],
+  "filosofia": [
+   {
+    "titulo": "Savater: pensar na morte ensina a viver melhor",
+    "resumo": "O filósofo espanhol Fernando Savater diz que lembrar da morte não deve paralisar. Para ele, isso ajuda a escolher o que realmente importa.",
+    "fonte": "Correio do Estado",
+    "link": "https://correiodoestado.com.br/extra/fernando-savater-sobre-a-morte-ela-serve-para-nos-fazer-pensar-nao/476142/"
+   },
+   {
+    "titulo": "Encontro Nacional da Anpof reúne filósofos em Florianópolis",
+    "resumo": "O 21º Encontro Nacional da Anpof acontece de 16 a 20 de novembro, na UFSC. Haverá grupos de trabalho, minicursos e lançamento de dezenas de livros.",
+    "fonte": "ANPOF",
+    "link": "https://www.anpof.org/encontros/xxi-encontro-nacional-da-anpof"
+   },
+   {
+    "titulo": "Dia Mundial da Filosofia terá programação pelo Brasil",
+    "resumo": "A Nova Acrópole organiza atividades de 9 a 24 de novembro sobre o diálogo entre filosofia e ciência. São palestras e exposições em várias regiões do país.",
+    "fonte": "Dia Mundial da Filosofia (Nova Acrópole)",
+    "link": "https://diamundialdafilosofia.com.br/dia-mundial-da-filosofia-2026/"
+   },
+   {
+    "titulo": "Festival em Portugal vai debater verdade e desinformação",
+    "resumo": "O Festival de Filosofia de Abrantes acontece de 18 a 21 de novembro, com entrada gratuita. Os temas incluem verdade, desinformação e inteligência artificial.",
+    "fonte": "Mais Ribatejo",
+    "link": "https://maisribatejo.pt/festival-filosofia-abrantes-2026-poder-verdade/"
+   }
+  ],
+  "livros": [
+   {
+    "titulo": "Philippe Jaenada vence o Prêmio Goncourt",
+    "resumo": "O francês ganhou o principal prêmio literário da França com um romance que investiga a morte de uma jovem às margens do Sena nos anos 1950. O Renaudot foi para François-Henri Désérable.",
+    "fonte": "Euronews",
+    "link": "https://www.euronews.com/2026/11/03/philippe-jaenada-wins-2026-prix-goncourt-for-novel-linconnue-du-quai-de-javel"
+   },
+   {
+    "titulo": "Cosac retoma coleção de clássicos com novo nome",
+    "resumo": "A editora relança a antiga série Prosa do mundo, agora com mais autores da África, Ásia e Américas. O primeiro título é Moll Flanders, de Daniel Defoe, em nova tradução.",
+    "fonte": "PublishNews",
+    "link": "https://publishnews.com.br/materias/2026/11/03/cosac-retoma-colecao-de-25-anos-atras-agora-chamada-literatura-literatura"
+   },
+   {
+    "titulo": "Conceição Evaristo, 80 anos, é capa da Quatro Cinco Um",
+    "resumo": "A edição de novembro traz entrevista com a escritora e um especial de literatura negra. Também lista mais de cem lançamentos do mês.",
+    "fonte": "Quatro Cinco Um",
+    "link": "https://quatrocincoum.com.br/noticias/451/quatro-cinco-um-de-novembro-traz-na-capa-conceicao-evaristo"
+   }
+  ]
+ }
 }
