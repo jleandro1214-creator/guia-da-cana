@@ -1,223 +1,211 @@
 {
- "gerado": "2026-11-04T22:51:20-03:00",
- "assuntos": {
-  "cana": [
-   {
-    "titulo": "Etanol fecha outubro mais caro nas usinas paulistas",
-    "resumo": "Segundo o Cepea, o etanol hidratado subiu quase 8% e o anidro mais de 11% em outubro em relação a setembro. As chuvas atrasaram a moagem, a oferta caiu e a procura ficou mais forte.",
-    "fonte": "JornalCana",
-    "link": "https://jornalcana.com.br/mercado/precos-dos-etanois-para-usinas-fecham-outubro-em-alta-entenda-os-motivos/"
-   },
-   {
-    "titulo": "Sucden reduz previsão de açúcar do Brasil por causa das chuvas",
-    "resumo": "A trading Sucden baixou sua estimativa de produção de açúcar do Brasil de 40 para 37 milhões de toneladas. O motivo são as chuvas fortes que atrasaram a colheita, e muita cana deve ficar no campo para a próxima safra.",
-    "fonte": "Portal do Agronegócio",
-    "link": "https://www.portaldoagronegocio.com.br/agricultura/cana-de-acucar/noticias/chuvas-atrasam-colheita-da-cana-e-sucden-corta-previsao-de-acucar-do-brasil-para-37-milhoes-de-toneladas"
-   },
-   {
-    "titulo": "Açúcar cristal recua em São Paulo depois de quinze semanas subindo",
-    "resumo": "O preço do açúcar cristal em São Paulo caiu na terça-feira, depois de quinze semanas seguidas de alta, a maior sequência desde 2020. As bolsas de Nova York e Londres também fecharam em queda.",
-    "fonte": "Portal do Agronegócio",
-    "link": "https://portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/acucar-cai-nas-bolsas-e-em-sao-paulo-apos-cristal-acumular-15-semanas-de-alta"
-   },
-   {
-    "titulo": "Açúcar sobe em Nova York e cai em Londres",
-    "resumo": "Na quarta-feira, o açúcar bruto subiu um pouco em Nova York com o dólar mais fraco, enquanto o açúcar branco caiu em Londres com a forte queda do petróleo. Mesmo assim, o mercado vem de três semanas de baixa.",
-    "fonte": "Notícias Agrícolas",
-    "link": "https://www.noticiasagricolas.com.br/noticias/sucroenergetico/430835-acucar-fecha-em-direcoes-opostas-com-queda-do-petroleo-e-recuo-do-dolar.html"
-   },
-   {
-    "titulo": "CNI alerta que pode faltar etanol para as metas climáticas",
-    "resumo": "Um estudo da Confederação Nacional da Indústria diz que a produção de biocombustíveis pode não acompanhar as metas de descarbonização até 2035. Isso pode deixar faltar créditos de carbono e pressionar o preço dos combustíveis.",
-    "fonte": "AtualMT",
-    "link": "https://atualmt.com.br/2026/11/04/falta-de-etanol-ameaca-metas-ambientais-e-precos-de-combustiveis"
-   }
-  ],
-  "politica": [
-   {
-    "titulo": "Senado aprova PEC da Segurança Pública, que segue para promulgação",
-    "resumo": "O Senado aprovou a proposta que coloca o Sistema Único de Segurança Pública na Constituição e endurece regras contra facções e milícias. Os trechos sobre redução da maioridade penal foram separados e vão tramitar em outra proposta.",
-    "fonte": "Agência Senado",
-    "link": "https://www12.senado.leg.br/noticias/materias/2026/11/03/senado-aprova-pec-da-seguranca-publica-sem-reducao-da-maioridade-penal"
-   },
-   {
-    "titulo": "Flávio Bolsonaro vota dos Estados Unidos a favor da PEC da Segurança",
-    "resumo": "O senador Flávio Bolsonaro participou remotamente da votação da PEC da Segurança enquanto estava nos Estados Unidos. A viagem ocorreu depois de o ministro Alexandre de Moraes, do STF, determinar a entrega de seus passaportes em uma investigação.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/nos-eua-flavio-bolsonaro-vota-remotamente-favor-da-pec-da-seguranca"
-   },
-   {
-    "titulo": "Denúncias de assédio eleitoral no trabalho passam de sete mil",
-    "resumo": "O Ministério do Trabalho informou que recebeu mais de sete mil denúncias de assédio eleitoral, com forte aumento após o segundo turno. O ministro Luiz Marinho disse que os casos ainda serão analisados pela fiscalização.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/assedio-eleitoral-supera-7-mil-denuncias-aponta-ministerio"
-   },
-   {
-    "titulo": "Fux responde a críticas em audiência no STF sobre proibição das bets",
-    "resumo": "O ministro Luiz Fux conduziu no STF uma audiência pública sobre a medida provisória que proibiu as apostas online. Ele rebateu críticas sobre a lista de participantes e disse ver as bets como questão de saúde pública.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/fux-rebate-criticas-e-diz-ter-percepcao-de-que-bets-devem-ser-banidas"
-   },
-   {
-    "titulo": "Boletim médico diz que exames de Lula estão normais",
-    "resumo": "O presidente Lula fez exames de rotina no Hospital Sírio-Libanês, em São Paulo, e o boletim médico informou resultados dentro da normalidade. Ele manteve sua agenda de trabalho nesta quarta-feira.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/exames-do-presidente-lula-estao-dentro-da-normalidade-diz-boletim"
-   }
-  ],
-  "tecnologia": [
-   {
-    "titulo": "Meta compra startup de programação com IA Conductor",
-    "resumo": "A Meta comprou a Conductor, uma startup cuja ferramenta coloca vários agentes de inteligência artificial para programar ao mesmo tempo. O serviço em nuvem da Conductor será desligado em 20 de novembro, e um novo produto deve sair no começo de 2027.",
-    "fonte": "TechCrunch",
-    "link": "https://techcrunch.com/2026/11/04/meta-acquires-ai-coding-startup-conductor"
-   },
-   {
-    "titulo": "Beta da One UI 9.5 deve chegar em breve ao Galaxy S26 Ultra",
-    "resumo": "Foi encontrado um firmware de teste da One UI 9.5 para o Galaxy S26 Ultra, e o beta pode começar ainda em novembro ou no início de dezembro. A atualização continua com base no Android 17, mas a Samsung ainda não confirmou a data.",
-    "fonte": "Oficina da Net",
-    "link": "https://www.oficinadanet.com.br/samsung/73869-one-ui-9-5-aparece-galaxy-s26-ultra-estrear"
-   },
-   {
-    "titulo": "Windows 11 ganha recurso que reinstala o sistema pela internet",
-    "resumo": "A Microsoft lançou o Cloud Rebuild, que baixa uma instalação nova do Windows 11 pela internet mesmo quando o computador não liga. Como o sistema é instalado do zero, os arquivos podem ser apagados, então é bom fazer backup antes.",
-    "fonte": "Oficina da Net",
-    "link": "https://www.oficinadanet.com.br/windows/73835-windows-11-cloud-rebuild-reinstalar-sistema-nuvem"
-   },
-   {
-    "titulo": "Samsung corrige 20 falhas críticas no pacote de segurança de novembro",
-    "resumo": "O pacote de segurança de novembro da Samsung corrige 20 falhas graves do Android, entre elas uma que atinge o Android 17 e pode permitir que invasores executem código à distância. No Brasil, a atualização ainda não tinha chegado a todos os aparelhos.",
-    "fonte": "Oficina da Net",
-    "link": "https://www.oficinadanet.com.br/samsung/73818-samsung-detalha-patch-novembro-20-falhas-criticas"
-   },
-   {
-    "titulo": "Vazamento revela tela, chip e câmeras do iPhone 18",
-    "resumo": "Segundo um vazamento, o iPhone 18 comum terá tela de 6,3 polegadas a 120 Hz, chip A20 de 2 nanômetros e duas câmeras de 48 megapixels. O lançamento deve ser no primeiro semestre de 2027, provavelmente com preço mais alto.",
-    "fonte": "Oficina da Net",
-    "link": "https://www.oficinadanet.com.br/apple/73826-iphone-18-especificacoes-vazadas"
-   }
-  ],
-  "ciencia": [
-   {
-    "titulo": "Fungo explica sumiço de sapos na Mata Atlântica paulista nos anos 1980",
-    "resumo": "Pesquisadores do Smithsonian e da USP analisaram sapos guardados em museus e viram que o fungo da quitridiomicose chegou a Boracéia, em São Paulo, quando os anfíbios começaram a desaparecer, entre 1979 e 1982. A boa notícia é que a maioria das populações se recuperou, mesmo com o fungo ainda presente.",
-    "fonte": "ScienceDaily (Smithsonian)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261102202838.htm"
-   },
-   {
-    "titulo": "Asteroide Ryugu tem as cinco bases químicas do DNA e do RNA",
-    "resumo": "Cientistas japoneses encontraram as cinco peças que formam o código genético em amostras trazidas do asteroide Ryugu pela missão Hayabusa2. A descoberta reforça a ideia de que ingredientes da vida podem ter chegado à Terra vindos do espaço.",
-    "fonte": "ScienceDaily (The Conversation)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261102075903.htm"
-   },
-   {
-    "titulo": "Experimento confirma o altermagnetismo, um terceiro tipo de magnetismo",
-    "resumo": "Físicos do laboratório SLAC, nos Estados Unidos, usaram raios X para confirmar um novo tipo de magnetismo em um material feito de manganês e telúrio. A descoberta pode ajudar a criar memórias de computador e data centers mais eficientes.",
-    "fonte": "ScienceDaily (SLAC)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261104012256.htm"
-   },
-   {
-    "titulo": "Ultraprocessados mexem com o centro de recompensa do cérebro infantil",
-    "resumo": "Um estudo nos Estados Unidos com 46 crianças viu que quem comia mais ultraprocessados tinha o cérebro mais ativado ao ver comidas apetitosas, e isso se ligou a maior ganho de peso em um ano. Como o estudo é observacional, ele não prova que um fator cause o outro.",
-    "fonte": "ScienceDaily (USC)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261101010549.htm"
-   },
-   {
-    "titulo": "Horário de verão permanente deixaria crianças indo à escola no escuro",
-    "resumo": "Pesquisadores da Universidade de Washington estimam que um horário de verão o ano todo nos Estados Unidos faria bilhões de trajetos escolares acontecerem antes do amanhecer. Eles também viram que atropelamentos fatais de estudantes são cerca de duas vezes mais prováveis em manhãs escuras.",
-    "fonte": "ScienceDaily (Universidade de Washington)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261103003157.htm"
-   }
-  ],
-  "astronomia": [
-   {
-    "titulo": "Chuva de meteoros Táuridas do Sul tem pico nesta madrugada",
-    "resumo": "A chuva de meteoros Táuridas do Sul atinge seu ponto máximo na madrugada de 4 para 5 de novembro e pode trazer bolas de fogo brilhantes. A dica é procurar um lugar escuro e olhar para a região da constelação de Touro, perto das Três Marias.",
-    "fonte": "Metrópoles",
-    "link": "https://www.metropoles.com/ciencia/tauridas-do-sul-chuva-de-meteoros-com-bolas-de-fogo-ocorre-nesta-madrugada"
-   },
-   {
-    "titulo": "Telescópio Swift da NASA reentra na atmosfera após 22 anos",
-    "resumo": "O observatório Swift, que estudava explosões de raios gama, caiu de forma descontrolada sobre o norte de Sumatra, na Indonésia, na manhã de quarta-feira. Uma missão para salvá-lo e elevar sua órbita não conseguiu alcançá-lo a tempo.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/04/ciencia-e-espaco/telescopio-da-nasa-cai-na-terra-apos-22-anos-no-espaco"
-   },
-   {
-    "titulo": "Astronautas fazem caminhada para instalar último painel solar da Estação",
-    "resumo": "Nesta quinta-feira, Joshua Kutryk, do Canadá, e Anil Menon, da NASA, saem da Estação Espacial Internacional para instalar o último painel solar novo. Com ele, a estação passa a gerar cerca de 215 quilowatts de energia.",
-    "fonte": "NASA",
-    "link": "https://www.nasa.gov/blogs/spacestation/2026/11/04/astronauts-are-go-for-final-power-upgrade-spacewalk"
-   },
-   {
-    "titulo": "Sonda europeia vê possíveis sinais de vulcanismo ativo em Marte",
-    "resumo": "A sonda ExoMars TGO, da Agência Espacial Europeia, detectou picos de um gás perto do vulcão Alba Mons, o que pode indicar calor vindo do subsolo marciano. Os cientistas avisam que essa explicação ainda precisa ser confirmada.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/04/ciencia-e-espaco/sonda-encontra-possiveis-sinais-de-atividade-vulcanica-em-marte"
-   },
-   {
-    "titulo": "Novembro terá Leônidas, Táuridas do Norte e uma superlua",
-    "resumo": "Depois das Táuridas do Sul, o céu de novembro tem o pico das Táuridas do Norte por volta do dia 12 e o das Leônidas perto do dia 17. A superlua chega por volta de 24 de novembro e fica mais bonita logo depois do pôr do Sol.",
-    "fonte": "Meteored",
-    "link": "https://www.meteored.com.br/noticias/astronomia/novembro-tera-chuvas-de-meteoros-conjuncoes-e-fenomenos-para-observar-no-ceu.html"
-   }
-  ],
-  "filosofia": [
-   {
-    "titulo": "Universidade americana Wichita State vai acabar com o curso de filosofia",
-    "resumo": "A Wichita State, no Kansas, decidiu que a graduação em filosofia deixa de existir em julho de 2027, por causa de metas de número de alunos impostas pelo governo estadual. Professores do departamento lamentaram a decisão.",
-    "fonte": "Daily Nous",
-    "link": "https://dailynous.com/2026/11/03/wichita-state-to-eliminate-philosophy-major/"
-   },
-   {
-    "titulo": "Filósofo de Purdue recebe quase 3 milhões de dólares para estudar o liberalismo",
-    "resumo": "Uma equipe liderada pelo filósofo J.P. Messina, da Universidade Purdue, vai estudar instituições pouco lembradas que sustentam a democracia liberal, como partidos, universidades e normas informais. A maior parte do dinheiro vem da Fundação John Templeton.",
-    "fonte": "Daily Nous",
-    "link": "https://dailynous.com/2026/11/04/philosopher-led-team-nets-2-91-million-in-grants-for-project-on-safeguards-of-liberalism/"
-   },
-   {
-    "titulo": "Professor do Tocantins vai ao encontro nacional de filosofia em Florianópolis",
-    "resumo": "O professor Valdo Rosário vai apresentar um trabalho sobre Protágoras e Nietzsche no ensino médio e lançar um romance filosófico no XXI Encontro da ANPOF. O evento acontece de 16 a 20 de novembro, na UFSC.",
-    "fonte": "Gazeta do Cerrado",
-    "link": "https://gazetadocerrado.com.br/tocantins/tocantinense-representa-o-estado-em-encontro-em-sc/"
-   },
-   {
-    "titulo": "Festival de Filosofia de Abrantes vai debater verdade e desinformação",
-    "resumo": "A nona edição do festival português, com o tema O poder da verdade, acontece de 18 a 21 de novembro e vai discutir inteligência artificial e pensamento crítico. A entrada é gratuita, e entre os convidados estão Rui Tavares e Olga Pombo.",
-    "fonte": "Notícias ao Minuto (Lusa)",
-    "link": "https://www.noticiasaominuto.com/cultura/3075743/festival-de-filosofia-de-abrantes-debate-verdade-e-desinformacao"
-   }
-  ],
-  "livros": [
-   {
-    "titulo": "Philippe Jaenada vence o Prêmio Goncourt 2026",
-    "resumo": "O francês Philippe Jaenada levou o Goncourt, o prêmio literário mais importante da França, com o romance L'inconnue du quai de Javel. Ele ganhou por seis votos a três contra Sylvain Prudhomme.",
-    "fonte": "Livres Hebdo",
-    "link": "https://www.livreshebdo.fr/article/philippe-jaenada-remporte-le-prix-goncourt-2026"
-   },
-   {
-    "titulo": "Espanhola Cristina Fernández Cubas ganha o Prêmio Cervantes 2026",
-    "resumo": "Cristina Fernández Cubas recebeu o Cervantes, principal prêmio da língua espanhola, que vale 125 mil euros. O júri elogiou como ela renovou o conto e a literatura fantástica.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/04/premio-cervantes-2026/"
-   },
-   {
-    "titulo": "FliConquista leva Itamar Vieira Junior e Ailton Krenak à Bahia",
-    "resumo": "A quarta Feira Literária de Vitória da Conquista será de 12 a 15 de novembro, com entrada gratuita. Entre os convidados estão Itamar Vieira Junior, Ailton Krenak, Jeferson Tenório e Cidinha da Silva.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/03/fliconquista-leva-itamar-vieira-jr-calila-das-merces-isabel-filardis-e-ailton-krenak-a-bahia/"
-   },
-   {
-    "titulo": "Editoras independentes francesas se unem contra empresas de inteligência artificial",
-    "resumo": "Dez editoras francesas criaram uma associação para cobrar indenização de empresas de IA suspeitas de usar seus livros sem autorização. Elas querem negociar primeiro e só vão à Justiça se não houver acordo.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/04/editoras-independentes-francesas-criam-associacao-para-buscar-direitos-contra-empresas-de-ia/"
-   },
-   {
-    "titulo": "Bienal Internacional do Livro de Guarulhos começa nesta sexta",
-    "resumo": "A quarta Bienal do Livro de Guarulhos vai de 6 a 15 de novembro, no Espaço Inter. O jornal local preparou uma lista de livros de autores da cidade para procurar na feira.",
-    "fonte": "Guarulhos Hoje",
-    "link": "https://guarulhoshoje.com.br/2026/11/04/15-dicas-de-livros-de-autores-guarulhenses-para-voce-garimpar-na-bienal-a-partir-de-sexta"
-   }
-  ]
- }
+  "gerado": "2026-11-05T22:51:08-03:00",
+  "assuntos": {
+    "cana": [
+      {
+        "titulo": "Rabobank prevê safra mais açucareira no Centro-Sul em 2027/28",
+        "resumo": "O banco projeta a produção de açúcar subindo cerca de 14%, para 42,6 milhões de toneladas. O etanol de milho deve crescer bem mais que o de cana.",
+        "fonte": "NovaCana",
+        "link": "https://novacana.com/noticias/producao-de-acucar-do-centro-sul-pode-crescer-13-9-em-2027-28-preve-rabobank"
+      },
+      {
+        "titulo": "Consultoria vê excesso de etanol e pressão sobre usinas em 2027",
+        "resumo": "A Veeries estima uma safra recorde de 670 milhões de toneladas de cana. Com sobra de etanol, o preço do hidratado pode ficar abaixo do custo de produção a partir de abril.",
+        "fonte": "The AgriBiz",
+        "link": "https://theagribiz.com/empresas/bioenergia/enxurrada-de-etanol-a-caminho-vai-desafiar-usinas-em-2027"
+      },
+      {
+        "titulo": "Tradings esperam até 660 milhões de toneladas de cana",
+        "resumo": "Em evento da Datagro, tradings estimaram entre 650 e 660 milhões de toneladas para 2027/28. As chuvas devem deixar muita cana no campo nesta safra, a chamada cana bisada.",
+        "fonte": "NovaCana",
+        "link": "https://novacana.com/noticias/tradings-estimam-entre-650-e-660-mi-t-de-cana-para-2027-28-cana-bisada-pode-ser-problema"
+      },
+      {
+        "titulo": "Chuvas param moagem e preço do etanol sobe nas usinas",
+        "resumo": "Segundo o Cepea, as chuvas de outubro travaram a moagem. O hidratado paulista subiu quase 8% no mês, e o anidro mais de 11%.",
+        "fonte": "AtualMT",
+        "link": "https://atualmt.com.br/2026/11/05/chuvas-interrompem-moagem-de-cana-de-acucar-e-preco-do-etanol-dispara-ate-1152"
+      },
+      {
+        "titulo": "Raízen aprova aumento de capital e divisão em duas empresas",
+        "resumo": "Os acionistas aprovaram aporte de até 39,8 bilhões de reais, com participação da Shell. A empresa será separada entre distribuição de combustíveis e produção de etanol e açúcar.",
+        "fonte": "NovaCana",
+        "link": "https://www.novacana.com/noticias/raizen-avanca-na-divisao-em-duas-empresas-e-escolhe-novos-comandos"
+      }
+    ],
+    "politica": [
+      {
+        "titulo": "Lula diz que criará Ministério da Segurança Pública por MP",
+        "resumo": "O presidente afirmou que vai editar uma medida provisória para criar a pasta. O Congresso terá até 120 dias para aprovar a medida.",
+        "fonte": "Agência Brasil",
+        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/lula-vai-criar-ministerio-da-seguranca-publica-com-medida-provisoria"
+      },
+      {
+        "titulo": "Comissão aprova nova ajuda a exportadores afetados por tarifas",
+        "resumo": "Uma comissão mista aprovou a terceira edição do Plano Brasil Soberano, com até 13,5 bilhões de reais em crédito. O texto ainda vai aos plenários da Câmara e do Senado.",
+        "fonte": "Agência Câmara",
+        "link": "https://www.camara.leg.br/noticias/1316545-comissao-mista-aprova-terceira-edicao-de-plano-para-auxiliar-exportadores-atingidos-pelo-tarifaco-norte-americano"
+      },
+      {
+        "titulo": "Senado aprova mudança no ECA sobre ensino obrigatório",
+        "resumo": "O projeto garante educação básica obrigatória e gratuita dos 4 aos 17 anos. As escolas terão de avisar o Conselho Tutelar sobre maus-tratos e evasão. Segue para sanção.",
+        "fonte": "Agência Senado",
+        "link": "https://www12.senado.leg.br/noticias/materias/2026/11/04/senado-aprova-atualizacao-do-estatuto-da-crianca-e-do-adolescente"
+      },
+      {
+        "titulo": "Senado ratifica protocolo de defesa da democracia no Mercosul",
+        "resumo": "O acordo amplia as medidas possíveis contra um país em caso de ruptura democrática, como a suspensão do bloco. Ele vale quando quatro países o ratificarem.",
+        "fonte": "Agência Senado",
+        "link": "https://www12.senado.leg.br/noticias/materias/2026/11/04/senado-aprova-protocolo-que-amplia-defesa-da-democracia-no-mercosul"
+      },
+      {
+        "titulo": "Relator da PEC da maioridade penal promete parecer no fim do mês",
+        "resumo": "O deputado Mendonça Filho disse que apresenta o parecer até o fim de novembro. A comissão aprovou 12 pedidos de audiências públicas.",
+        "fonte": "Agência Câmara",
+        "link": "https://www.camara.leg.br/noticias/1316048-relator-da-pec-da-maioridade-penal-deve-apresentar-parecer-no-final-do-mes"
+      }
+    ],
+    "tecnologia": [
+      {
+        "titulo": "Nasdaq despenca com temor sobre expansão da IA",
+        "resumo": "Ações de fabricantes de chips e de empresas de data centers caíram forte. Investidores temem mais fiscalização sobre o setor após as eleições nos Estados Unidos.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/economia/money/mercado/wall-street-bolsas-nova-york-5-novembro-2026/"
+      },
+      {
+        "titulo": "FGC informa acesso indevido a dados de clientes",
+        "resumo": "O Fundo Garantidor de Créditos detectou acesso não autorizado a dados como nome e CPF. Diz que avisou os afetados e não vê sinal de perda financeira.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/05/seguranca/fgc-sofre-acesso-nao-autorizado-e-expoe-dados-pessoais-de-clientes/"
+      },
+      {
+        "titulo": "Brasil sofreu quase 500 mil ataques DDoS no semestre",
+        "resumo": "Relatório da Netscout contou mais de 487 mil ataques no primeiro semestre. As operadoras de telefonia sem fio foram as mais atingidas.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/05/seguranca/brasil-sofre-487-mil-ataques-ddos-no-1o-semestre-de-2026-veja-dados/"
+      },
+      {
+        "titulo": "Motorola lança no Brasil celular com câmera de 200 megapixels",
+        "resumo": "O Motorola Signature 27 entrou em pré-venda a partir de cerca de 11 mil reais. O aparelho tem bateria de 7 mil mAh e tela muito brilhante.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/05/reviews/motorola-signature-27-chega-ao-brasil-com-camera-de-200-mp-veja-o-preco/"
+      }
+    ],
+    "ciencia": [
+      {
+        "titulo": "Estudo explica por que o cérebro controla o lado oposto do corpo",
+        "resumo": "Pesquisadores dos Estados Unidos sugerem que esse cruzamento surgiu nos primeiros vertebrados, ligado à visão. A evolução teria mantido o desenho em vez de refazê-lo.",
+        "fonte": "Gizmodo Brasil",
+        "link": "https://gizmodo.com.br/pesquisadores-descobrem-uma-possivel-razao-para-o-cerebro-controlar-o-lado-oposto-do-corpo-74164"
+      },
+      {
+        "titulo": "Trocar o sal comum pode salvar milhões de vidas, diz estudo",
+        "resumo": "Um modelo estimou que usar substitutos com potássio evitaria quase 3 milhões de mortes por ano. A troca não é indicada para quem tem problema nos rins.",
+        "fonte": "Gizmodo Brasil",
+        "link": "https://www.gizmodo.com.br/uma-pequena-mudanca-no-sal-pode-evitar-quase-3-milhoes-de-mortes-por-ano-estima-estudo-74155"
+      },
+      {
+        "titulo": "Cientistas japoneses usam gás do tumor para atacar o câncer",
+        "resumo": "Pesquisadores do Riken aproveitaram um gás produzido pelas células doentes para fabricar remédio dentro delas. Por enquanto, os testes foram só em laboratório.",
+        "fonte": "Gizmodo Brasil",
+        "link": "https://www.gizmodo.com.br/uma-descoberta-japonesa-pode-abrir-um-caminho-surpreendente-para-novos-tratamentos-contra-o-cancer-74171"
+      },
+      {
+        "titulo": "Bactérias vivas resolvem problema de matemática em labirintos",
+        "resumo": "Uma equipe canadense usou bactérias em canais microscópicos para testar várias soluções ao mesmo tempo. É só uma prova de conceito, ainda longe de um computador.",
+        "fonte": "Gizmodo Brasil",
+        "link": "https://gizmodo.com.br/bacterias-vivas-podem-se-transformar-em-processadores-de-uma-nova-geracao-de-computadores-74148"
+      }
+    ],
+    "astronomia": [
+      {
+        "titulo": "Telescópio Swift, da NASA, cai na Terra após 22 anos",
+        "resumo": "O observatório reentrou na atmosfera sobre a Indonésia. Planejado para dois anos, registrou mais de 2 mil explosões de raios gama.",
+        "fonte": "O Tempo",
+        "link": "https://www.otempo.com.br/ciencia/2026/11/4/apos-duas-decadas-telescopio-da-nasa-deixa-orbita-e-retorna-a-terra"
+      },
+      {
+        "titulo": "Novembro tem chuvas de meteoros e superlua no céu",
+        "resumo": "As Táuridas seguem ativas nestes dias, e as Leônidas chegam ao auge por volta de 17 de novembro. A superlua aparece no fim do mês.",
+        "fonte": "Meteored",
+        "link": "https://www.meteored.com.br/noticias/astronomia/novembro-tera-chuvas-de-meteoros-conjuncoes-e-fenomenos-para-observar-no-ceu.html"
+      },
+      {
+        "titulo": "Voyager 1 vai ficar a um dia-luz da Terra",
+        "resumo": "Por volta de meados de novembro, a sonda estará tão longe que sua luz leva um dia para chegar aqui. O mês também tem Urano em boa posição para observação.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/01/ciencia-e-espaco/calendario-astronomico-novembro-traz-distancia-historica-da-terra-fim-do-mercurio-retrogrado-e-chuva-de-meteoros/"
+      },
+      {
+        "titulo": "Aglomerado escondido pode ser o mais antigo da Via Láctea",
+        "resumo": "Atrás de uma nuvem de poeira, astrônomos mediram um grupo de estrelas com cerca de 13,4 bilhões de anos. Ele parece ter nascido na própria galáxia.",
+        "fonte": "Space Today",
+        "link": "https://spacetoday.com.br/o-objeto-mais-velho-da-via-lactea-estava-escondido-atras-de-uma-cortina-de-poeira/"
+      },
+      {
+        "titulo": "Anã branca tem dois anéis de gás e sinal de planetas",
+        "resumo": "Um telescópio no Chile achou dois anéis separados por uma lacuna em volta de uma estrela morta. A lacuna pode ser causada por corpos que sobreviveram.",
+        "fonte": "Space Today",
+        "link": "https://spacetoday.com.br/o-enigma-dos-dois-aneis-anas-brancas-revelam-sistemas-planetarios-despedacados/"
+      }
+    ],
+    "filosofia": [
+      {
+        "titulo": "Nova Acrópole prepara Dia Mundial da Filosofia pelo Brasil",
+        "resumo": "A escola terá palestras e debates em mais de 130 unidades, com o tema filosofia e ciência. O Dia Mundial da Filosofia é em 19 de novembro.",
+        "fonte": "Jornal de Barueri",
+        "link": "https://jornaldebarueri.com.br/cultura/nova-acropole-celebra-a-filosofia-e-a-ciencia-no-brasil"
+      },
+      {
+        "titulo": "Djamila Ribeiro dá palestra sobre lugar de fala em Ribeirão Preto",
+        "resumo": "A filósofa se apresenta em 11 de novembro no Theatro Pedro II. A fala parte do seu livro sobre raça, gênero e quem tem voz no debate.",
+        "fonte": "ACidade ON",
+        "link": "https://www.acidadeon.com/ribeiraopreto/lazer-e-cultura/djamila-ribeiro-apresenta-palestra-lugar-de-fala-no-theatro-pedro-ii-em-ribeirao-preto/"
+      },
+      {
+        "titulo": "Luc Ferry debate inteligência artificial em Portugal",
+        "resumo": "O filósofo francês abre uma conferência em Viseu no sábado, 7 de novembro. A pergunta é se a IA vai nos submeter ou nos complementar.",
+        "fonte": "Estação Diária",
+        "link": "https://estacaodiariajornal.sapo.pt/viseu-filosofo-luc-ferry-debate-inteligencia-artificial-e-relacao-entre-humanos-e-tecnologia/"
+      },
+      {
+        "titulo": "Festival português de filosofia discute o poder da verdade",
+        "resumo": "O encontro em Abrantes vai de 18 a 21 de novembro, com entrada gratuita. Os debates tratam de desinformação, ciência e inteligência artificial.",
+        "fonte": "Notícias ao Minuto",
+        "link": "https://www.noticiasaominuto.com/cultura/3075743/festival-de-filosofia-de-abrantes-debate-verdade-e-desinformacao"
+      }
+    ],
+    "livros": [
+      {
+        "titulo": "Philippe Jaenada vence o Prêmio Goncourt",
+        "resumo": "O francês ganhou o principal prêmio literário da França com um romance sobre um crime de 1949 nunca resolvido. Ele ainda não tem livros lançados no Brasil.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/03/philippe-jaenada-vence-o-premio-goncourt-2026/"
+      },
+      {
+        "titulo": "Ruy Castro fala sobre seu novo Jabuti de Livro do Ano",
+        "resumo": "O escritor venceu pelo segundo ano seguido, agora com um livro sobre o Rio na Segunda Guerra. Ele se tornou o maior vencedor da categoria.",
+        "fonte": "Brasil de Fato",
+        "link": "https://brasildefato.com.br/podcast/bem-viver/2026/11/04/ruy-castro-nada-supera-a-historia-do-lula-afirma-ganhador-do-premio-jabuti"
+      },
+      {
+        "titulo": "Romance 'Os imortais' vai virar filme",
+        "resumo": "A produtora de 'Ainda estou aqui' vai adaptar o livro de Paulliny Tort. A obra ganhou o Prêmio Biblioteca Nacional de romance.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/04/rt-features-vai-adaptar-os-imortais-para-o-cinema/"
+      },
+      {
+        "titulo": "Livro sobre militante argentina refugiada no Brasil é lançado",
+        "resumo": "'Desaparecida duas vezes' conta a história de uma mulher perseguida pela ditadura argentina. O lançamento é em 14 de novembro, em São Paulo.",
+        "fonte": "Quatro Cinco Um",
+        "link": "https://quatrocincoum.com.br/noticias/bagagem-literaria/autora-e-personagens-reais-se-reunem-para-o-lancamento-de-desaparecida-duas-vezes-em-sao-paulo"
+      },
+      {
+        "titulo": "Editoras francesas se unem contra uso de livros por IA",
+        "resumo": "Dez editoras independentes criaram uma associação para cobrar empresas que treinaram IA com livros sem autorização.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/04/editoras-independentes-francesas-criam-associacao-para-buscar-direitos-contra-empresas-de-ia/"
+      }
+    ]
+  }
 }
