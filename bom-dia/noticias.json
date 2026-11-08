@@ -1,210 +1,216 @@
 {
-  "gerado": "2026-11-05T22:51:08-03:00",
+  "gerado": "2026-11-07T22:50:31-03:00",
   "assuntos": {
     "cana": [
       {
-        "titulo": "Rabobank prevê safra mais açucareira no Centro-Sul em 2027/28",
-        "resumo": "O banco projeta a produção de açúcar subindo cerca de 14%, para 42,6 milhões de toneladas. O etanol de milho deve crescer bem mais que o de cana.",
-        "fonte": "NovaCana",
-        "link": "https://novacana.com/noticias/producao-de-acucar-do-centro-sul-pode-crescer-13-9-em-2027-28-preve-rabobank"
+        "titulo": "Comissão da Câmara aprova incentivo à produção de etanol",
+        "resumo": "O projeto prevê crédito mais barato e benefícios fiscais para usinas, e meta de levar a mistura de etanol na gasolina a 35%. O texto ainda passa por outras comissões, pela Câmara e pelo Senado.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/comissao-aprova-projeto-de-incentivo-a-producao-e-ao-uso-do-etanol"
       },
       {
-        "titulo": "Consultoria vê excesso de etanol e pressão sobre usinas em 2027",
-        "resumo": "A Veeries estima uma safra recorde de 670 milhões de toneladas de cana. Com sobra de etanol, o preço do hidratado pode ficar abaixo do custo de produção a partir de abril.",
-        "fonte": "The AgriBiz",
-        "link": "https://theagribiz.com/empresas/bioenergia/enxurrada-de-etanol-a-caminho-vai-desafiar-usinas-em-2027"
+        "titulo": "Cofco assume usinas que comprou da Bunge",
+        "resumo": "A trading chinesa começou a operar as usinas Rio Vermelho e Nova Unialco. O Cade aprovou o negócio sem restrições.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/cofco-assume-as-operacoes-de-usinas-recem-compradas-da-bunge"
       },
       {
-        "titulo": "Tradings esperam até 660 milhões de toneladas de cana",
-        "resumo": "Em evento da Datagro, tradings estimaram entre 650 e 660 milhões de toneladas para 2027/28. As chuvas devem deixar muita cana no campo nesta safra, a chamada cana bisada.",
-        "fonte": "NovaCana",
-        "link": "https://novacana.com/noticias/tradings-estimam-entre-650-e-660-mi-t-de-cana-para-2027-28-cana-bisada-pode-ser-problema"
+        "titulo": "Governo estuda passar mistura de biocombustíveis para as refinarias",
+        "resumo": "O Conselho Nacional de Política Energética discutiu fazer a mistura de etanol e biodiesel nas refinarias, e não nas distribuidoras. A ideia é baixar custos de logística e facilitar a fiscalização.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/cnpe-analisa-mudanca-de-responsabilidade-sobre-mistura-de-biocombustiveis"
       },
       {
-        "titulo": "Chuvas param moagem e preço do etanol sobe nas usinas",
-        "resumo": "Segundo o Cepea, as chuvas de outubro travaram a moagem. O hidratado paulista subiu quase 8% no mês, e o anidro mais de 11%.",
-        "fonte": "AtualMT",
-        "link": "https://atualmt.com.br/2026/11/05/chuvas-interrompem-moagem-de-cana-de-acucar-e-preco-do-etanol-dispara-ate-1152"
+        "titulo": "Açúcar sobe em Nova York com dólar fraco e petróleo alto",
+        "resumo": "O contrato de março fechou perto de 18,56 centavos de dólar por libra-peso. Antes disso, o preço vinha caindo há três semanas por causa da safra maior na Índia.",
+        "fonte": "novaCana",
+        "link": "https://novacana.com/noticias/preco-do-acucar-sobe-na-ice-com-dolar-mais-fraco-e-alta-do-petroleo"
       },
       {
-        "titulo": "Raízen aprova aumento de capital e divisão em duas empresas",
-        "resumo": "Os acionistas aprovaram aporte de até 39,8 bilhões de reais, com participação da Shell. A empresa será separada entre distribuição de combustíveis e produção de etanol e açúcar.",
-        "fonte": "NovaCana",
-        "link": "https://www.novacana.com/noticias/raizen-avanca-na-divisao-em-duas-empresas-e-escolhe-novos-comandos"
+        "titulo": "Fila de navios para embarcar açúcar no Brasil encolhe",
+        "resumo": "A programação de embarques caiu de cerca de 1,9 milhão para 1,5 milhão de toneladas, com Santos na frente. As chuvas fora de época reduziram a moagem e a produção de açúcar.",
+        "fonte": "Portal do Agronegócio",
+        "link": "https://portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/acucar-embarques-previstos-recuam-para-1-5-milhao-de-toneladas-rabobank-ve-deficit-global"
       }
     ],
     "politica": [
       {
-        "titulo": "Lula diz que criará Ministério da Segurança Pública por MP",
-        "resumo": "O presidente afirmou que vai editar uma medida provisória para criar a pasta. O Congresso terá até 120 dias para aprovar a medida.",
+        "titulo": "Nova lei exige exame para registro de novos médicos",
+        "resumo": "Lula sancionou a lei que faz o registro profissional depender da aprovação no Enamed, prova feita em etapas durante o curso. A regra vale para quem entrou em Medicina a partir de junho de 2026.",
+        "fonte": "Agência Câmara de Notícias",
+        "link": "https://www.camara.leg.br/noticias/1316981-nova-lei-condiciona-registro-de-medicos-a-aprovacao-em-exame"
+      },
+      {
+        "titulo": "TSE aceita ação do Novo contra a chapa Lula e Alckmin",
+        "resumo": "O corregedor da Justiça Eleitoral aceitou a ação que fala em abuso de poder político na eleição. Lula e Alckmin têm cinco dias para se defender, e o mérito ainda não foi julgado.",
+        "fonte": "TSE",
+        "link": "https://www.tse.jus.br/comunicacao/noticias/2026/Novembro/corregedor-geral-admite-acao-do-novo-contra-lula-e-alckmin-por-suposto-abuso-do-poder-politico-nas-eleicoes"
+      },
+      {
+        "titulo": "Senado ainda não define situação de Flávio Bolsonaro",
+        "resumo": "A Casa não informou se o senador, que deixou o país em 27 de outubro, terá faltas ou salário cortado. Davi Alcolumbre disse que vai analisar um pedido para anular um voto remoto dele.",
         "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/lula-vai-criar-ministerio-da-seguranca-publica-com-medida-provisoria"
+        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/sem-posicao-do-senado-regras-sobre-flavio-seguem-indefinidas"
       },
       {
-        "titulo": "Comissão aprova nova ajuda a exportadores afetados por tarifas",
-        "resumo": "Uma comissão mista aprovou a terceira edição do Plano Brasil Soberano, com até 13,5 bilhões de reais em crédito. O texto ainda vai aos plenários da Câmara e do Senado.",
-        "fonte": "Agência Câmara",
-        "link": "https://www.camara.leg.br/noticias/1316545-comissao-mista-aprova-terceira-edicao-de-plano-para-auxiliar-exportadores-atingidos-pelo-tarifaco-norte-americano"
+        "titulo": "Lula fala em tornar o Brasil desenvolvido em quatro anos",
+        "resumo": "Em reunião do conselho de política energética, ele citou energia renovável e minerais críticos como oportunidades. Disse também que data centers deverão gerar a própria energia.",
+        "fonte": "Agência Brasil",
+        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/lula-quer-levar-brasil-condicao-de-pais-desenvolvido-em-quatro-anos"
       },
       {
-        "titulo": "Senado aprova mudança no ECA sobre ensino obrigatório",
-        "resumo": "O projeto garante educação básica obrigatória e gratuita dos 4 aos 17 anos. As escolas terão de avisar o Conselho Tutelar sobre maus-tratos e evasão. Segue para sanção.",
-        "fonte": "Agência Senado",
-        "link": "https://www12.senado.leg.br/noticias/materias/2026/11/04/senado-aprova-atualizacao-do-estatuto-da-crianca-e-do-adolescente"
-      },
-      {
-        "titulo": "Senado ratifica protocolo de defesa da democracia no Mercosul",
-        "resumo": "O acordo amplia as medidas possíveis contra um país em caso de ruptura democrática, como a suspensão do bloco. Ele vale quando quatro países o ratificarem.",
-        "fonte": "Agência Senado",
-        "link": "https://www12.senado.leg.br/noticias/materias/2026/11/04/senado-aprova-protocolo-que-amplia-defesa-da-democracia-no-mercosul"
-      },
-      {
-        "titulo": "Relator da PEC da maioridade penal promete parecer no fim do mês",
-        "resumo": "O deputado Mendonça Filho disse que apresenta o parecer até o fim de novembro. A comissão aprovou 12 pedidos de audiências públicas.",
-        "fonte": "Agência Câmara",
-        "link": "https://www.camara.leg.br/noticias/1316048-relator-da-pec-da-maioridade-penal-deve-apresentar-parecer-no-final-do-mes"
+        "titulo": "Lula se prepara para viagens à COP31 e à Ásia",
+        "resumo": "Sem agenda neste sábado, o presidente descansou para recuperar a voz. Ele vai à COP31, na Turquia, nos dias 11 e 12, e depois à cúpula da Asean, nas Filipinas.",
+        "fonte": "O Tempo",
+        "link": "https://www.otempo.com.br/politica/governo/2026/11/7/lula-tenta-curar-rouquidao-antes-da-cop31-e-diz-que-fara-live-com-janones-durante-viagem-a-turquia"
       }
     ],
     "tecnologia": [
       {
-        "titulo": "Nasdaq despenca com temor sobre expansão da IA",
-        "resumo": "Ações de fabricantes de chips e de empresas de data centers caíram forte. Investidores temem mais fiscalização sobre o setor após as eleições nos Estados Unidos.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/economia/money/mercado/wall-street-bolsas-nova-york-5-novembro-2026/"
+        "titulo": "Queda das ações de tecnologia ameaça estreia da Anthropic na bolsa",
+        "resumo": "Investidores acham alto o valor de 1,5 trilhão de dólares pedido pela empresa, e a abertura de capital pode atrasar. A pressão vem da forte queda das ações de tecnologia.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/06/pro/queda-em-acoes-de-tecnologia-ameaca-estreia-da-anthropic-na-bolsa"
       },
       {
-        "titulo": "FGC informa acesso indevido a dados de clientes",
-        "resumo": "O Fundo Garantidor de Créditos detectou acesso não autorizado a dados como nome e CPF. Diz que avisou os afetados e não vê sinal de perda financeira.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/05/seguranca/fgc-sofre-acesso-nao-autorizado-e-expoe-dados-pessoais-de-clientes/"
+        "titulo": "Meta recua de regras para copiar conteúdo de sites jornalísticos",
+        "resumo": "A empresa suspendeu a mudança nos termos que valeria a partir de 20 de novembro. A decisão veio após críticas da imprensa e uma derrota na Justiça de São Paulo.",
+        "fonte": "Jornal de Brasília (Folhapress)",
+        "link": "https://jornaldebrasilia.com.br/noticias/mundo/meta-suspende-novos-termos-comerciais-apos-criticas-da-imprensa-global-e-reves-judicial-no-brasil/"
       },
       {
-        "titulo": "Brasil sofreu quase 500 mil ataques DDoS no semestre",
-        "resumo": "Relatório da Netscout contou mais de 487 mil ataques no primeiro semestre. As operadoras de telefonia sem fio foram as mais atingidas.",
+        "titulo": "Trump promete apoiar estados que investirem em inteligência artificial",
+        "resumo": "Depois da queda das ações de tecnologia, Trump disse nas redes que vai trabalhar com os estados que quiserem expandir a IA. Ele não detalhou as medidas.",
         "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/05/seguranca/brasil-sofre-487-mil-ataques-ddos-no-1o-semestre-de-2026-veja-dados/"
+        "link": "https://olhardigital.com.br/2026/11/06/inteligencia-artificial/trump-promete-apoiar-estados-que-investirem-em-inteligencia-artificial"
       },
       {
-        "titulo": "Motorola lança no Brasil celular com câmera de 200 megapixels",
-        "resumo": "O Motorola Signature 27 entrou em pré-venda a partir de cerca de 11 mil reais. O aparelho tem bateria de 7 mil mAh e tela muito brilhante.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/05/reviews/motorola-signature-27-chega-ao-brasil-com-camera-de-200-mp-veja-o-preco/"
+        "titulo": "Tesla vai encerrar a produção da picape Cybertruck",
+        "resumo": "Elon Musk disse que a fabricação vai diminuir até meados de 2027 para abrir espaço ao táxi-robô Cybercab. As vendas ficaram bem abaixo do planejado.",
+        "fonte": "Electrek",
+        "link": "https://electrek.co/2026/11/06/tesla-ending-cybertruck-production-sales-10-percent-plan/"
+      },
+      {
+        "titulo": "Aplicativo do Xbox para computador fica mais rápido",
+        "resumo": "A Microsoft lançou uma atualização que deixa o app até 60% mais rápido, com biblioteca e busca renovadas. Quem está no programa de testes recebe primeiro.",
+        "fonte": "Dexerto",
+        "link": "https://www.dexerto.com/gaming/xbox-pc-app-gets-major-update-that-makes-it-faster-easier-to-navigate-3425257/"
       }
     ],
     "ciencia": [
       {
-        "titulo": "Estudo explica por que o cérebro controla o lado oposto do corpo",
-        "resumo": "Pesquisadores dos Estados Unidos sugerem que esse cruzamento surgiu nos primeiros vertebrados, ligado à visão. A evolução teria mantido o desenho em vez de refazê-lo.",
-        "fonte": "Gizmodo Brasil",
-        "link": "https://gizmodo.com.br/pesquisadores-descobrem-uma-possivel-razao-para-o-cerebro-controlar-o-lado-oposto-do-corpo-74164"
+        "titulo": "Físicos investigam o zeptoverso, escala muito menor que um átomo",
+        "resumo": "Com dados do acelerador LHC, cientistas estudaram partículas em distâncias bilhões de vezes menores que um átomo. Eles buscam sinais de uma física nova, talvez ligada à matéria escura.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/05/ciencia-e-espaco/zeptoverso-experimento-no-lhc-revela-sinais-de-um-mundo-menor-que-o-atomo"
       },
       {
-        "titulo": "Trocar o sal comum pode salvar milhões de vidas, diz estudo",
-        "resumo": "Um modelo estimou que usar substitutos com potássio evitaria quase 3 milhões de mortes por ano. A troca não é indicada para quem tem problema nos rins.",
+        "titulo": "Ondas cerebrais do sono perdem sincronia com a idade",
+        "resumo": "Pesquisadores de Berkeley viram que, em pessoas mais velhas, as ondas lentas do sono ficam desorganizadas. Isso se ligou a pior memória e a mais proteína tau no cérebro.",
         "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/uma-pequena-mudanca-no-sal-pode-evitar-quase-3-milhoes-de-mortes-por-ano-estima-estudo-74155"
+        "link": "https://www.gizmodo.com.br/cientistas-descobriram-que-certas-ondas-cerebrais-deixam-de-trabalhar-juntas-com-o-envelhecimento-74453"
       },
       {
-        "titulo": "Cientistas japoneses usam gás do tumor para atacar o câncer",
-        "resumo": "Pesquisadores do Riken aproveitaram um gás produzido pelas células doentes para fabricar remédio dentro delas. Por enquanto, os testes foram só em laboratório.",
+        "titulo": "Composto protege proteína que ajuda a reparar músculos",
+        "resumo": "Cientistas japoneses testaram em ratos uma substância que evita que a idade danifique uma proteína da regeneração muscular. Ainda não se sabe se isso devolve força ao músculo.",
         "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/uma-descoberta-japonesa-pode-abrir-um-caminho-surpreendente-para-novos-tratamentos-contra-o-cancer-74171"
+        "link": "https://www.gizmodo.com.br/a-ciencia-encontrou-uma-maneira-de-reforcar-um-mecanismo-muscular-que-se-deteriora-com-a-idade-74432"
       },
       {
-        "titulo": "Bactérias vivas resolvem problema de matemática em labirintos",
-        "resumo": "Uma equipe canadense usou bactérias em canais microscópicos para testar várias soluções ao mesmo tempo. É só uma prova de conceito, ainda longe de um computador.",
+        "titulo": "Intestino do peixe-boi revela bactérias e enzimas novas",
+        "resumo": "Pesquisadores brasileiros acharam milhares de bactérias desconhecidas que quebram fibras de plantas. Essas enzimas podem ajudar na produção de biocombustíveis.",
+        "fonte": "Jornal da USP",
+        "link": "https://jornal.usp.br/ciencias/processo-digestivo-do-peixe-boi-revela-novas-possibilidades-para-a-biotecnologia/"
+      },
+      {
+        "titulo": "Água do mar sob geleira antártica pode acelerar o degelo",
+        "resumo": "Um estudo da NASA mostra que a água do oceano entra por baixo da geleira Thwaites e acelera o derretimento. A contribuição dela para a subida do mar pode dobrar até 2100.",
         "fonte": "Gizmodo Brasil",
-        "link": "https://gizmodo.com.br/bacterias-vivas-podem-se-transformar-em-processadores-de-uma-nova-geracao-de-computadores-74148"
+        "link": "https://www.gizmodo.com.br/cientistas-descobrem-uma-ameaca-escondida-sob-o-gelo-da-antartida-que-pode-mudar-as-previsoes-para-2100-74375"
       }
     ],
     "astronomia": [
       {
-        "titulo": "Telescópio Swift, da NASA, cai na Terra após 22 anos",
-        "resumo": "O observatório reentrou na atmosfera sobre a Indonésia. Planejado para dois anos, registrou mais de 2 mil explosões de raios gama.",
-        "fonte": "O Tempo",
-        "link": "https://www.otempo.com.br/ciencia/2026/11/4/apos-duas-decadas-telescopio-da-nasa-deixa-orbita-e-retorna-a-terra"
-      },
-      {
-        "titulo": "Novembro tem chuvas de meteoros e superlua no céu",
-        "resumo": "As Táuridas seguem ativas nestes dias, e as Leônidas chegam ao auge por volta de 17 de novembro. A superlua aparece no fim do mês.",
-        "fonte": "Meteored",
-        "link": "https://www.meteored.com.br/noticias/astronomia/novembro-tera-chuvas-de-meteoros-conjuncoes-e-fenomenos-para-observar-no-ceu.html"
-      },
-      {
-        "titulo": "Voyager 1 vai ficar a um dia-luz da Terra",
-        "resumo": "Por volta de meados de novembro, a sonda estará tão longe que sua luz leva um dia para chegar aqui. O mês também tem Urano em boa posição para observação.",
+        "titulo": "Leônidas tem pico na noite de 17 para 18 de novembro",
+        "resumo": "A chuva de meteoros pode mostrar até 15 meteoros por hora em céu escuro. No Brasil, o melhor horário é da meia-noite ao amanhecer, olhando para o leste.",
         "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/01/ciencia-e-espaco/calendario-astronomico-novembro-traz-distancia-historica-da-terra-fim-do-mercurio-retrogrado-e-chuva-de-meteoros/"
+        "link": "https://olhardigital.com.br/curiosidades/2026/11/06/chuva-de-meteoros-leonidas-tem-pico-na-noite-de-17-para-18-de-novembro-com-ate-15-meteoros-hora/"
       },
       {
-        "titulo": "Aglomerado escondido pode ser o mais antigo da Via Láctea",
-        "resumo": "Atrás de uma nuvem de poeira, astrônomos mediram um grupo de estrelas com cerca de 13,4 bilhões de anos. Ele parece ter nascido na própria galáxia.",
-        "fonte": "Space Today",
-        "link": "https://spacetoday.com.br/o-objeto-mais-velho-da-via-lactea-estava-escondido-atras-de-uma-cortina-de-poeira/"
+        "titulo": "Táuridas podem trazer meteoros brilhantes nesta semana",
+        "resumo": "O pico das Táuridas do Norte vai de 9 a 12 de novembro, com cerca de cinco meteoros por hora. Dá para ver a olho nu em todo o Brasil a partir das 21h, para leste e nordeste.",
+        "fonte": "Estado de Minas",
+        "link": "https://www.em.com.br/ciencia/2026/11/7533660-chuva-de-meteoros-tauridas-pode-iluminar-o-ceu-do-brasil-com-bolas-de-fogo.html"
       },
       {
-        "titulo": "Anã branca tem dois anéis de gás e sinal de planetas",
-        "resumo": "Um telescópio no Chile achou dois anéis separados por uma lacuna em volta de uma estrela morta. A lacuna pode ser causada por corpos que sobreviveram.",
+        "titulo": "Sonda Hera mostra de perto asteroide atingido pela DART",
+        "resumo": "A missão europeia divulgou as primeiras imagens próximas do asteroide Didymos. Agora vai medir a cratera deixada pela nave da NASA que bateu na lua dele em 2022.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/06/ciencia-e-espaco/nasa-lancou-espaconave-contra-um-asteroide-de-proposito-e-estamos-prestes-a-descobrir-o-que-aconteceu-depois"
+      },
+      {
+        "titulo": "Nova técnica deixa o James Webb até 15 vezes mais sensível",
+        "resumo": "Cientistas criaram um jeito de processar imagens que ajuda o telescópio a enxergar planetas de outras estrelas. Nada foi mudado no equipamento.",
         "fonte": "Space Today",
-        "link": "https://spacetoday.com.br/o-enigma-dos-dois-aneis-anas-brancas-revelam-sistemas-planetarios-despedacados/"
+        "link": "https://spacetoday.com.br/sem-trocar-um-parafuso-o-james-webb-ficou-15-vezes-mais-poderoso/"
+      },
+      {
+        "titulo": "Lado do asteroide define sucesso de desvio com bomba nuclear",
+        "resumo": "Simulações mostram que a posição do asteroide na hora da explosão muda muito o resultado. O empurrão pode variar até cinco vezes conforme o lado atingido.",
+        "fonte": "Space Today",
+        "link": "https://spacetoday.com.br/todo-asteroide-tem-um-lado-bom-e-um-lado-ruim-para-levar-uma-bomba/"
       }
     ],
     "filosofia": [
       {
-        "titulo": "Nova Acrópole prepara Dia Mundial da Filosofia pelo Brasil",
-        "resumo": "A escola terá palestras e debates em mais de 130 unidades, com o tema filosofia e ciência. O Dia Mundial da Filosofia é em 19 de novembro.",
-        "fonte": "Jornal de Barueri",
-        "link": "https://jornaldebarueri.com.br/cultura/nova-acropole-celebra-a-filosofia-e-a-ciencia-no-brasil"
+        "titulo": "Renato Noguera debate amor e racismo no CCBB Rio",
+        "resumo": "O filósofo participa do Clube de Leitura do CCBB na quarta, 11 de novembro, com entrada gratuita. A conversa parte do livro dele sobre o amor e o efeito do racismo na vida afetiva.",
+        "fonte": "Agenda do Poder",
+        "link": "https://agendadopoder.com.br/renato-noguera-debate-amor-racismo-e-ancestralidade-no-ccbb/"
       },
       {
-        "titulo": "Djamila Ribeiro dá palestra sobre lugar de fala em Ribeirão Preto",
-        "resumo": "A filósofa se apresenta em 11 de novembro no Theatro Pedro II. A fala parte do seu livro sobre raça, gênero e quem tem voz no debate.",
-        "fonte": "ACidade ON",
-        "link": "https://www.acidadeon.com/ribeiraopreto/lazer-e-cultura/djamila-ribeiro-apresenta-palestra-lugar-de-fala-no-theatro-pedro-ii-em-ribeirao-preto/"
+        "titulo": "Goiânia terá encontro gratuito no Dia Mundial da Filosofia",
+        "resumo": "No sábado, 14 de novembro, a PUC Goiás recebe filósofos e um cientista. Eles vão falar sobre filosofia e ciência, consciência e sentido da vida.",
+        "fonte": "Isso é Goiás",
+        "link": "https://issoegoias.com.br/2026/11/dia-mundial-da-filosofia-inspira.html"
       },
       {
-        "titulo": "Luc Ferry debate inteligência artificial em Portugal",
-        "resumo": "O filósofo francês abre uma conferência em Viseu no sábado, 7 de novembro. A pergunta é se a IA vai nos submeter ou nos complementar.",
-        "fonte": "Estação Diária",
-        "link": "https://estacaodiariajornal.sapo.pt/viseu-filosofo-luc-ferry-debate-inteligencia-artificial-e-relacao-entre-humanos-e-tecnologia/"
-      },
-      {
-        "titulo": "Festival português de filosofia discute o poder da verdade",
-        "resumo": "O encontro em Abrantes vai de 18 a 21 de novembro, com entrada gratuita. Os debates tratam de desinformação, ciência e inteligência artificial.",
-        "fonte": "Notícias ao Minuto",
-        "link": "https://www.noticiasaominuto.com/cultura/3075743/festival-de-filosofia-de-abrantes-debate-verdade-e-desinformacao"
+        "titulo": "Aulão revisa filosofia para a prova do Enem",
+        "resumo": "Antes da prova de Ciências Humanas, uma aula ao vivo passou de Platão e Aristóteles a Kant e autores atuais. O professor sugeriu entender o raciocínio de cada pensador em vez de decorar.",
+        "fonte": "A Gazeta (ES)",
+        "link": "https://www.agazeta.com.br/enem-2026/aulao-de-filosofia-e-sociologia-revisa-temas-do-enem-nesta-quinta-5-assista-ao-vivo-1126"
       }
     ],
     "livros": [
       {
-        "titulo": "Philippe Jaenada vence o Prêmio Goncourt",
-        "resumo": "O francês ganhou o principal prêmio literário da França com um romance sobre um crime de 1949 nunca resolvido. Ele ainda não tem livros lançados no Brasil.",
+        "titulo": "Vencedor do Goncourt admite ter usado inteligência artificial",
+        "resumo": "Philippe Jaenada disse que usou o ChatGPT algumas vezes ao escrever o livro premiado. A fala gerou polêmica, porque outro livro foi tirado da disputa por suspeita de IA.",
         "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/03/philippe-jaenada-vence-o-premio-goncourt-2026/"
+        "link": "https://www.publishnews.com.br/materias/2026/11/06/goncourt-ia/"
       },
       {
-        "titulo": "Ruy Castro fala sobre seu novo Jabuti de Livro do Ano",
-        "resumo": "O escritor venceu pelo segundo ano seguido, agora com um livro sobre o Rio na Segunda Guerra. Ele se tornou o maior vencedor da categoria.",
+        "titulo": "Feira do Livro de Porto Alegre segue até 15 de novembro",
+        "resumo": "A 72ª edição tem entrada gratuita na Praça da Alfândega. Há lançamentos de ficção, poesia e infantis, além de traduções inéditas de Ángel Rama e Beatriz Sarlo.",
         "fonte": "Brasil de Fato",
-        "link": "https://brasildefato.com.br/podcast/bem-viver/2026/11/04/ruy-castro-nada-supera-a-historia-do-lula-afirma-ganhador-do-premio-jabuti"
+        "link": "https://www.brasildefato.com.br/2026/11/06/feira-do-livro-de-porto-alegre-reune-diversidade-de-lancamentos-com-obras-de-hamilton-vaz-pereira-assis-brasil-e-paulo-paim/"
       },
       {
-        "titulo": "Romance 'Os imortais' vai virar filme",
-        "resumo": "A produtora de 'Ainda estou aqui' vai adaptar o livro de Paulliny Tort. A obra ganhou o Prêmio Biblioteca Nacional de romance.",
+        "titulo": "Feira de Sharjah abre com entrega de prêmios literários",
+        "resumo": "A feira do livro nos Emirados Árabes premiou autores e editoras de vários países. As inscrições passaram de cerca de 2 mil para mais de 3 mil.",
         "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/04/rt-features-vai-adaptar-os-imortais-para-o-cinema/"
+        "link": "https://www.publishnews.com.br/materias/2026/11/06/autores-recebem-premios-em-sharjah/"
       },
       {
-        "titulo": "Livro sobre militante argentina refugiada no Brasil é lançado",
-        "resumo": "'Desaparecida duas vezes' conta a história de uma mulher perseguida pela ditadura argentina. O lançamento é em 14 de novembro, em São Paulo.",
-        "fonte": "Quatro Cinco Um",
-        "link": "https://quatrocincoum.com.br/noticias/bagagem-literaria/autora-e-personagens-reais-se-reunem-para-o-lancamento-de-desaparecida-duas-vezes-em-sao-paulo"
+        "titulo": "Autores baianos ganham destaque na Flica, em Cachoeira",
+        "resumo": "Um projeto do governo da Bahia levou 30 autores de várias regiões do estado à festa literária. Uma editora de livros costurados à mão também participou.",
+        "fonte": "Portal MF",
+        "link": "https://portalmf.com.br/index.php/2026/11/07/da-caatinga-aos-livros-costurados-a-mao-a-diversidade-da-bahia-ganha-destaque-na-flica/"
       },
       {
-        "titulo": "Editoras francesas se unem contra uso de livros por IA",
-        "resumo": "Dez editoras independentes criaram uma associação para cobrar empresas que treinaram IA com livros sem autorização.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/04/editoras-independentes-francesas-criam-associacao-para-buscar-direitos-contra-empresas-de-ia/"
+        "titulo": "Feira do Livro de Santa Cruz do Sul quer bater recorde",
+        "resumo": "A 36ª edição abriu e vai até 15 de novembro, com entrada gratuita. No ano passado foram vendidos quase 23 mil livros.",
+        "fonte": "Portal Arauto",
+        "link": "https://portalarauto.com.br/07-11-2026/36a-feira-do-livro-abre-oficialmente-e-projeta-superar-vendas-de-2025/"
       }
     ]
   }
