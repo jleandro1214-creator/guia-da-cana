@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Biblioteca do Crescimento</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#6b4426">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--verde:#1f5f3a;--verde2:#2f7a4d;--verdeclaro:#e3efe5;--amarelo:#f2b705;--amareloclaro:#fdf1c7;--marrom:#6b4426;--marrom2:#4e301a;--marromclaro:#efe3d6;--creme:#f7f3e8;--card:#fffdf7;--tx:#2a2218;--mut:#6a5f50;--linha:#dcd3c0;--erro:#a3361a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;min-height:100%}
+body{background:var(--creme);color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+header{background:var(--marrom);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 14px 14px}
+.topo{display:flex;align-items:center;gap:10px}
+.topo img{width:40px;height:40px;border-radius:10px}
+.topo h1{margin:0;font-size:21px;flex:1;line-height:1.2}
+.topo small{display:block;font-size:13px;font-weight:400;opacity:.88}
+.tag-esb{background:var(--amarelo);color:#3a2a00;font:800 12px system-ui;padding:5px 9px;border-radius:99px}
+main{max-width:640px;margin:0 auto;padding:14px}
+h2{font-size:21px;margin:20px 0 6px;line-height:1.25}
+h3{font-size:17px;margin:16px 0 4px;color:var(--marrom)}
+.mut{color:var(--mut);font-size:15px}
+.card{background:var(--card);border:2px solid var(--linha);border-radius:18px;padding:16px;margin-top:12px}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px 12px;font:700 17px system-ui;background:var(--verde);color:#fff;min-height:52px;margin-top:10px;text-align:center;text-decoration:none}
+.btn.am{background:var(--amarelo);color:#3a2a00}.btn.mr{background:var(--marrom)}.btn.lin{background:transparent;border:2px solid var(--linha);color:var(--tx)}
+/* capas originais */
+.capa{position:relative;border-radius:6px 14px 14px 6px;padding:14px 12px 12px 18px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 6px 0 0 rgba(0,0,0,.18),0 6px 14px rgba(60,40,20,.25);overflow:hidden}
+.capa::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.08)}
+.capa .ct{font:800 17px/1.15 Georgia,serif;position:relative;z-index:1}
+.capa .ca{font:600 12px system-ui;opacity:.9;position:relative;z-index:1}
+.capa svg{width:46px;height:46px;position:relative;z-index:1}
+.capa.g{width:150px;height:215px}.capa.g .ct{font-size:21px}.capa.g svg{width:64px;height:64px}
+.capa.p{width:100%;aspect-ratio:2/3}
+.capa.off{filter:grayscale(.55) brightness(.92)}
+.capa .lock{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.45);border-radius:99px;padding:2px 8px;font:800 11px system-ui;z-index:2}
+.capa.p .ct{font-size:14px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.capa.p{padding:10px 8px 10px 14px}.capa.p svg{width:38px;height:38px}
+/* destaque do mês */
+.mes{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,var(--verde),var(--verde2));color:#fff;border-radius:20px;padding:16px;margin-top:4px}
+.mes .info{flex:1}.mes .k{font:800 12px system-ui;letter-spacing:.06em;color:var(--amarelo)}
+.mes h2{margin:4px 0;color:#fff;font-size:22px}
+.mes .btn{background:var(--amarelo);color:#3a2a00;margin-top:12px;min-height:46px;padding:10px}
+.prog{height:10px;background:rgba(255,255,255,.25);border-radius:99px;overflow:hidden;margin-top:8px}.prog i{display:block;height:100%;background:var(--amarelo)}
+.estante{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+.estante .lv{cursor:pointer}.estante .lv small{display:block;font-size:12px;color:var(--mut);margin-top:4px;line-height:1.25}
+.trilho{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scroll-snap-type:x mandatory}
+/* livro aberto */
+.voltar{background:none;border:0;font:700 16px system-ui;color:var(--verde2);padding:6px 0}
+.livro-top{display:flex;gap:14px;align-items:flex-end}
+.livro-top .info{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{background:var(--verdeclaro);color:var(--verde);font:700 13px system-ui;padding:4px 10px;border-radius:99px}
+.secs{display:flex;gap:6px;overflow-x:auto;margin:16px -14px 0;padding:0 14px 6px;position:sticky;top:0;background:var(--creme);z-index:3;padding-top:8px}
+.secs button{flex:0 0 auto;border:2px solid var(--linha);background:#fff;border-radius:99px;padding:8px 14px;font:700 15px system-ui;color:var(--mut)}
+.secs button.on{background:var(--marrom);border-color:var(--marrom);color:#fff}
+.secs button.ok::after{content:" ✓";color:var(--verde2)}.secs button.on.ok::after{color:var(--amarelo)}
+/* cartões de 5 minutos */
+.cards{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:12px -14px 0;padding:4px 14px 12px}
+.cards::-webkit-scrollbar{display:none}
+.ic{flex:0 0 86%;scroll-snap-align:center;background:var(--card);border:2px solid var(--linha);border-radius:20px;padding:18px;min-height:330px;display:flex;flex-direction:column}
+.ic .n{font:800 13px system-ui;color:var(--verde2);letter-spacing:.05em}
+.ic h4{margin:6px 0 8px;font:700 23px/1.2 Georgia,serif;color:var(--marrom)}
+.ic p{margin:0 0 8px}
+.ic .ex{margin-top:auto;background:var(--verdeclaro);border-radius:12px;padding:10px 12px;font-size:15px}
+.ic .ex b{color:var(--verde)}
+.ic.fim{background:var(--verde);color:#fff;border-color:var(--verde);justify-content:center;text-align:center}.ic.fim h4{color:var(--amarelo)}
+.pontos{display:flex;justify-content:center;gap:6px}.pontos i{width:8px;height:8px;border-radius:50%;background:var(--linha)}.pontos i.on{background:var(--marrom);width:22px;border-radius:99px}
+.num-grande{font:800 46px/1 Georgia,serif;color:var(--verde);margin:6px 0}
+/* ferramentas */
+.fer{background:var(--card);border:2px solid var(--linha);border-left:8px solid var(--amarelo);border-radius:16px;padding:14px;margin-top:12px}
+.fer h4{margin:0 0 4px;font-size:19px}
+.fer ol{margin:8px 0 0;padding-left:22px}.fer li{margin:4px 0}
+.fer .campo{background:var(--marromclaro);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:15px}
+.fer .campo b{color:var(--marrom)}
+/* checklist */
+.chk{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:2px solid var(--linha);border-radius:14px;padding:12px;margin-top:10px;cursor:pointer}
+.chk .bx{flex:0 0 30px;height:30px;border-radius:8px;border:3px solid var(--verde2);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff}
+.chk.on{background:var(--verdeclaro);border-color:#bfd8c4}.chk.on .bx{background:var(--verde2)}
+.chk small{display:block;color:var(--mut);font-size:14px}
+/* quiz */
+.qz{background:var(--card);border:2px solid var(--linha);border-radius:18px;padding:16px;margin-top:12px}
+.qz .qn{font:800 13px system-ui;color:var(--verde2)}
+.qz h4{margin:6px 0 10px;font-size:19px;line-height:1.35}
+.op{display:block;width:100%;text-align:left;border:2px solid var(--linha);background:#fff;border-radius:12px;padding:12px;font:600 16px system-ui;color:var(--tx);margin-top:8px}
+.op.cer{background:var(--verdeclaro);border-color:var(--verde2)}.op.err{background:#f6dcd3;border-color:var(--erro)}
+.exp{margin-top:10px;font-size:15px;background:var(--amareloclaro);border-radius:12px;padding:10px 12px}
+.placar{text-align:center}.placar .num-grande{font-size:56px}
+.lembrar{font:600 22px/1.4 Georgia,serif;background:var(--amareloclaro);border-left:6px solid var(--amarelo);border-radius:0 14px 14px 0;padding:16px;margin-top:12px}
+textarea{width:100%;min-height:120px;margin-top:8px;border:2px solid var(--linha);border-radius:12px;padding:10px;font:17px system-ui;background:#fff;color:var(--tx)}
+/* plano */
+.pl{background:var(--card);border:2px solid var(--linha);border-radius:16px;padding:14px;margin-top:10px}
+.pl h4{margin:0 0 4px;font-size:18px;color:var(--verde)}
+.pl ul{margin:6px 0 0;padding-left:20px}.pl li{margin:4px 0}
+.preco{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.preco div{background:var(--verdeclaro);border-radius:12px;padding:10px;text-align:center}.preco b{display:block;font-size:22px;color:var(--verde)}
+.linha-t{border-left:4px solid var(--amarelo);margin:10px 0 0 8px;padding-left:14px}
+.linha-t div{position:relative;margin-bottom:12px}.linha-t div::before{content:"";position:absolute;left:-23px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--verde2);border:3px solid var(--creme)}
+.nota-esb{background:var(--amareloclaro);border:2px dashed var(--amarelo);border-radius:14px;padding:12px;margin-top:14px;font-size:15px}
+.inst{display:flex;gap:10px;align-items:center;border:2px dashed var(--amarelo);background:var(--amareloclaro);border-radius:14px;padding:10px 12px;margin-top:16px}
+.inst span{flex:1;font-size:15px}.inst .btn{width:auto;margin:0;padding:10px 14px;min-height:44px}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:2px solid var(--linha);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{flex:1;border:0;background:none;font:700 12px system-ui;color:var(--mut);padding:6px 1px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:1px}
+nav button span{font-size:21px}
+nav button[aria-current=true]{background:var(--marromclaro);color:var(--marrom)}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:var(--tx);color:#fff;padding:10px 16px;border-radius:12px;font-size:15px;z-index:9;max-width:90%;text-align:center}
+</style>
+</head>
+<body>
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#6b4426;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Biblioteca do Crescimento</b></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,500-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3000)})();</script>
+
+<header><div class="topo"><img src="icon-192.png" alt=""><h1>Biblioteca do Crescimento<small>Grandes livros, aplicados ao campo</small></h1><span class="tag-esb">ESBOÇO</span></div></header>
+<main id="view"></main>
+<nav>
+ <button data-t="inicio" aria-current="true"><span>🏠</span>Início</button>
+ <button data-t="estante"><span>📚</span>Estante</button>
+ <button data-t="notas"><span>✍️</span>Anotações</button>
+ <button data-t="plano"><span>🚀</span>O produto</button>
+</nav>
+
+<script>
+/* ===== Ícones das capas (desenhos próprios) ===== */
+const IC={
+escada:`<svg viewBox="0 0 64 64"><path d="M6 56h14V44h12V32h12V20h14v36z" fill="#fdf8ec"/><path d="M10 38 42 10" stroke="#f2b705" stroke-width="4" stroke-linecap="round"/><path d="M42 10h-10m10 0v10" stroke="#f2b705" stroke-width="4" stroke-linecap="round"/></svg>`,
+relogio:`<svg viewBox="0 0 64 64"><circle cx="32" cy="34" r="24" fill="#fdf8ec"/><rect x="27" y="4" width="10" height="7" rx="2" fill="#fdf8ec"/><path d="M32 34V18" stroke="#1f5f3a" stroke-width="4" stroke-linecap="round"/><path d="M32 34l11 6" stroke="#f2b705" stroke-width="4" stroke-linecap="round"/></svg>`,
+bussola:`<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#fdf8ec"/><path d="M32 10l6 22-6 22-6-22z" fill="#6b4426"/><path d="M32 10l6 22H26z" fill="#c0392b"/></svg>`,
+sapo:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="22" ry="16" fill="#7cc47c"/><circle cx="22" cy="24" r="8" fill="#7cc47c"/><circle cx="42" cy="24" r="8" fill="#7cc47c"/><circle cx="22" cy="24" r="3.5" fill="#222"/><circle cx="42" cy="24" r="3.5" fill="#222"/><path d="M22 42q10 8 20 0" stroke="#24502a" stroke-width="3" fill="none"/></svg>`,
+lupa:`<svg viewBox="0 0 64 64"><circle cx="28" cy="28" r="16" fill="#fdf8ec" stroke="#fdf8ec" stroke-width="4"/><circle cx="28" cy="28" r="6" fill="#f2b705"/><path d="M40 40l14 14" stroke="#fdf8ec" stroke-width="8" stroke-linecap="round"/></svg>`,
+balao:`<svg viewBox="0 0 64 64"><path d="M6 12h34a5 5 0 0 1 5 5v14a5 5 0 0 1-5 5H18l-8 8v-8H6a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5z" fill="#fdf8ec"/><path d="M28 32h30a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5h-2v7l-7-7H28a5 5 0 0 1-5-5V37a5 5 0 0 1 5-5z" fill="#f2b705"/></svg>`,
+broto:`<svg viewBox="0 0 64 64"><path d="M8 56q24-8 48 0" stroke="#fdf8ec" stroke-width="5" fill="none"/><path d="M32 54V26" stroke="#7cc47c" stroke-width="4"/><path d="M32 38C20 38 14 30 16 22c10 0 16 6 16 16z" fill="#7cc47c"/><path d="M32 30c10 0 18-8 16-18-10 0-16 8-16 18z" fill="#a8dca8"/></svg>`,
+monte:`<svg viewBox="0 0 64 64"><path d="M2 56 26 18l10 14 8-10 18 34z" fill="#fdf8ec"/><path d="M26 18V4" stroke="#fdf8ec" stroke-width="3"/><path d="M27 4l12 4-12 4z" fill="#f2b705"/></svg>`,
+caixa:`<svg viewBox="0 0 64 64"><rect x="16" y="6" width="30" height="32" rx="2" fill="#fdf8ec" transform="rotate(-6 31 22)"/><path d="M4 36h14l5 8h18l5-8h14v20H4z" fill="#f2b705"/></svg>`,
+ciclo:`<svg viewBox="0 0 64 64"><g fill="none" stroke="#fdf8ec" stroke-width="6" stroke-linecap="round"><path d="M32 8a24 24 0 0 1 21 31"/><path d="M48 48a24 24 0 0 1-33 0"/><path d="M11 39A24 24 0 0 1 24 9"/></g><circle cx="32" cy="32" r="7" fill="#f2b705"/></svg>`,
+alvo:`<svg viewBox="0 0 64 64"><circle cx="30" cy="34" r="22" fill="#fdf8ec"/><circle cx="30" cy="34" r="14" fill="#f2b705"/><circle cx="30" cy="34" r="6" fill="#fdf8ec"/><path d="M30 34 56 8" stroke="#fdf8ec" stroke-width="4"/></svg>`,
+moeda:`<svg viewBox="0 0 64 64"><ellipse cx="32" cy="48" rx="22" ry="7" fill="#c99a04"/><rect x="10" y="38" width="44" height="10" fill="#f2b705"/><ellipse cx="32" cy="38" rx="22" ry="7" fill="#fdd65b"/><ellipse cx="32" cy="26" rx="22" ry="7" fill="#f2b705"/><rect x="10" y="16" width="44" height="10" fill="#f2b705"/><ellipse cx="32" cy="16" rx="22" ry="7" fill="#fdd65b"/></svg>`
+};
+
+/* ===== A estante: 12 livros, 1 por mês ===== */
+const L=[
+{id:"habitos",t:"Hábitos Atômicos",a:"James Clear",ic:"escada",cor:"#1f5f3a",mes:"Mês 1",tema:"Hábitos",min:6,ok:true},
+{id:"gestor",t:"O Gestor Eficaz",a:"Peter Drucker",ic:"relogio",cor:"#6b4426",mes:"Mês 2",tema:"Gestão",min:7,ok:true},
+{id:"7h",t:"Os 7 Hábitos",a:"Stephen Covey",ic:"bussola",cor:"#b07d00",mes:"Mês 3",tema:"Prioridades",tz:"Separar o urgente do importante e liderar a si mesmo antes de liderar a equipe."},
+{id:"sapo",t:"Comece pelo Mais Difícil",a:"Brian Tracy",ic:"sapo",cor:"#2f7a4d",mes:"Mês 4",tema:"Execução",tz:"Atacar cedo a tarefa que você mais empurra e ver o resto do turno render."},
+{id:"foco",t:"Trabalho Focado",a:"Cal Newport",ic:"lupa",cor:"#4e301a",mes:"Mês 5",tema:"Foco",tz:"Blocos sem celular para planejar, estudar e decidir melhor."},
+{id:"amigos",t:"Como Fazer Amigos e Influenciar Pessoas",a:"Dale Carnegie",ic:"balao",cor:"#1f5f3a",mes:"Mês 6",tema:"Liderança",tz:"Liderar tratoristas e motoristas pelo respeito, não pelo grito."},
+{id:"mindset",t:"Mindset",a:"Carol Dweck",ic:"broto",cor:"#6b4426",mes:"Mês 7",tema:"Crescimento",tz:"Transformar erro de campo em aprendizado da equipe."},
+{id:"garra",t:"Garra",a:"Angela Duckworth",ic:"monte",cor:"#2f7a4d",mes:"Mês 8",tema:"Persistência",tz:"Aguentar a safra inteira com constância, não com empolgação."},
+{id:"gtd",t:"A Arte de Fazer Acontecer",a:"David Allen",ic:"caixa",cor:"#b07d00",mes:"Mês 9",tema:"Organização",tz:"Tirar ocorrências, pedidos e pendências da cabeça e pôr num sistema."},
+{id:"poder",t:"O Poder do Hábito",a:"Charles Duhigg",ic:"ciclo",cor:"#4e301a",mes:"Mês 10",tema:"Hábitos",tz:"Descobrir o gatilho dos atrasos e retrabalhos e trocar a rotina."},
+{id:"hill",t:"Quem Pensa Enriquece",a:"Napoleon Hill",ic:"alvo",cor:"#1f5f3a",mes:"Mês 11",tema:"Propósito",tz:"Meta definida, plano escrito e um grupo de apoio (com senso crítico)."},
+{id:"babilonia",t:"O Homem Mais Rico da Babilônia",a:"George S. Clason",ic:"moeda",cor:"#6b4426",mes:"Mês 12",tema:"Dinheiro",tz:"Guardar uma parte de tudo o que ganha e fazer o dinheiro trabalhar."}
+];
+
+/* ===== Conteúdo completo (ideias resumidas com palavras próprias) ===== */
+const CT={
+habitos:{
+ frase:"Você não precisa de uma revolução. Precisa de 1% por dia, todo dia.",
+ porque:"Na frente de trabalho tudo é rotina: checklist, passagem de turno, apontamento, manutenção. Quem domina hábitos domina o resultado da safra.",
+ cards:[
+  {h:"1% por dia",big:"37×",p:"Melhorar 1% por dia parece nada. Mas 1,01 multiplicado 365 vezes dá quase 38. Piorar 1% por dia leva quase a zero. Pequenas escolhas viram juros compostos, para o bem ou para o mal.",ex:"Um minuto a mais no checklist do aplicador não muda o dia. Em 200 dias de safra, evita a quebra que para a frente."},
+  {h:"Sistema vale mais que meta",p:"Todo mundo na usina tem a mesma meta: bater os hectares. O que separa as frentes não é a meta, é o processo de cada dia. A meta mostra a direção; o sistema é o que te leva até lá.",ex:"Em vez de só cobrar \"bate a meta\", crie o sistema: caminhão no ponto antes da troca de turno, escala fechada na véspera."},
+  {h:"Comece pela identidade",p:"Hábito que dura nasce de quem você decide ser, não do que você quer ter. Cada ação pequena é um voto nessa pessoa. Não é \"quero ler mais\", é \"sou alguém que lê\".",ex:"\"Sou um gestor que nunca deixa a equipe sem retorno.\" Cada mensagem respondida no grupo é um voto nisso."},
+  {h:"As 4 leis",p:"Para criar um hábito, deixe-o óbvio (à vista), atraente (ligado a algo bom), fácil (pouco esforço) e satisfatório (com recompensa rápida). Para largar um hábito ruim, faça o contrário: escondido, sem graça, difícil e insatisfatório.",ex:"Checklist plastificado preso no painel do trator (óbvio), 2 minutos (fácil), e um ✓ no quadro da base (satisfatório)."},
+  {h:"2 minutos e nunca falhar duas vezes",p:"Todo hábito novo deve caber em 2 minutos no começo: o importante é aparecer. E se falhar um dia, tudo bem; o perigo é falhar dois dias seguidos, porque aí começa um hábito novo, o errado.",ex:"Estudo para a agronomia: abrir o material e ler uma página. Só isso. Num dia ruim, uma página ainda conta."}
+ ],
+ fer:[
+  {t:"Empilhar hábitos",d:"Prenda o hábito novo a algo que você já faz todo dia, sem pensar.",p:["Liste o que você faz todo dia no automático (bater o ponto, tomar café, ligar a caminhonete).","Escolha o hábito novo.","Escreva: \"Depois de ___, eu vou ___.\"","Faça por 7 dias e veja se gruda."],c:"\"Depois de bater o ponto, confiro a escala do turno.\" \"Depois de estacionar na frente, passo no aplicador antes de qualquer conversa.\""},
+  {t:"Desenhar o ambiente",d:"Motivação falha; ambiente não. Deixe o certo fácil e o errado difícil.",p:["Olhe onde o hábito deveria acontecer.","Coloque à vista o que puxa o hábito bom.","Esconda ou dificulte o que puxa o ruim.","Ajuste até ficar no automático."],c:"EPI pendurado ao lado da porta de saída da base. Formulário de ocorrência fixado no grupo do WhatsApp. Celular longe da cama para não perder o sono antes do turno da noite."},
+  {t:"Placar visível",d:"O que é medido e visto, melhora. Recompensa rápida faz o hábito voltar.",p:["Escolha um comportamento da equipe.","Crie um placar simples (quadro, papel ou mensagem fixada).","Atualize todo dia.","Comemore marcos (10, 30, 50 dias)."],c:"Quadro na base: \"Dias sem retrabalho na aplicação\" ou \"Turnos com checklist 100%\". A equipe cuida do placar sozinha."}
+ ],
+ chk:[["Escrever minha frase de identidade","\"Sou alguém que...\""],["Escolher 1 hábito de 2 minutos","Pequeno a ponto de ser ridículo."],["Empilhar o hábito em algo da rotina","\"Depois de ___, eu vou ___.\""],["Mudar 1 coisa no ambiente","Deixar o hábito bom à vista."],["Criar 1 placar com a equipe","Algo simples, atualizado todo dia."],["Não falhar 2 dias seguidos","Se falhou ontem, hoje é obrigatório."]],
+ quiz:[
+  {q:"Melhorar 1% por dia durante um ano deixa você aproximadamente:",o:["1 vez melhor","3 vezes melhor","37 vezes melhor","365 vezes melhor"],c:2,e:"1,01 elevado a 365 dá cerca de 37,8: a força dos juros compostos nos hábitos."},
+  {q:"Segundo a ideia central do livro, o que mais separa quem consegue de quem não consegue?",o:["Ter metas maiores","O sistema que segue todo dia","Ter mais talento","Ter mais motivação"],c:1,e:"Todos têm metas parecidas. O resultado vem do processo diário, o sistema."},
+  {q:"Qual destes é um exemplo de \"empilhar hábitos\"?",o:["Prometer treinar mais","Depois de bater o ponto, confiro a escala","Ler 10 livros no ano","Acordar motivado"],c:1,e:"Empilhar é prender o hábito novo a algo que você já faz: \"depois de X, eu faço Y\"."},
+  {q:"Para LARGAR um hábito ruim, você deve deixá-lo:",o:["Óbvio e fácil","Invisível e difícil","Atraente e rápido","Igual, só com mais força de vontade"],c:1,e:"É o inverso das 4 leis: escondido, sem graça, difícil e insatisfatório."},
+  {q:"Você falhou no hábito ontem. O que o livro recomenda?",o:["Recomeçar na segunda-feira","Desistir, não é pra você","Fazer hoje, nem que seja a versão de 2 minutos","Compensar dobrando amanhã"],c:2,e:"A regra é nunca falhar duas vezes seguidas. Faça hoje, mesmo que seja pouco."}
+ ]},
+gestor:{
+ frase:"Antes de organizar o seu tempo, descubra para onde ele está indo.",
+ porque:"Gestor de frente vive entre rádio, WhatsApp, caminhão atrasado e equipamento quebrado. Drucker ensina a separar o que é ocupação do que é resultado.",
+ cards:[
+  {h:"Eficácia se aprende",p:"Drucker observou que os gestores que entregam resultado não têm uma personalidade única: há tímidos e falantes, organizados e bagunçados. O que eles têm em comum são práticas, e prática se aprende.",ex:"Você não precisa \"nascer líder\". Precisa de 5 práticas repetidas todo dia."},
+  {h:"Eficiente x eficaz",p:"Ser eficiente é fazer bem as coisas. Ser eficaz é fazer as coisas certas. Dá para ser muito eficiente numa tarefa que nem deveria existir.",ex:"Montar um relatório perfeito que ninguém lê é eficiente. Resolver o gargalo de caminhão que trava a frente é eficaz."},
+  {h:"Conheça o seu tempo",big:"3 dias",p:"O tempo é o recurso mais escasso e o único que não se repõe. Drucker manda primeiro registrar onde ele vai, depois cortar o que não precisa e, por fim, juntar o tempo livre em blocos.",ex:"Quase todo gestor que anota o próprio dia se assusta com o tanto de tempo que vai para interrupção e deslocamento."},
+  {h:"A pergunta da contribuição",p:"Em vez de \"o que eu faço?\", pergunte \"o que eu posso entregar que faz diferença para a usina?\". Isso muda o foco de esforço para resultado e mostra o que só você pode fazer.",ex:"Tratorista sabe aplicar. A contribuição do gestor é garantir que ele tenha vinhaça, caminhão, área liberada e retorno."},
+  {h:"Forças e uma coisa de cada vez",p:"Gestor eficaz coloca as pessoas onde elas são fortes, em vez de viver tentando consertar fraquezas. E concentra energia: primeiro o primeiro, uma coisa de cada vez.",ex:"O tratorista mais cuidadoso vai no equipamento mais caro ou na área mais difícil. Escala pela força, não só pela vez."}
+ ],
+ fer:[
+  {t:"Diário de tempo",d:"Três dias anotando o que você fez a cada hora, sem julgar.",p:["Anote a cada hora o que fez (pode ser áudio para você mesmo).","No 3º dia, separe: resultado · necessário · desperdício.","Corte ou delegue 1 item de desperdício.","Junte as horas salvas num bloco fixo para o importante."],c:"Marque à parte o tempo de deslocamento entre frentes, ligações repetidas e retrabalho. Costuma ser ali que o turno some."},
+  {t:"A pergunta da contribuição",d:"Uma pergunta que muda a semana inteira.",p:["Escreva: \"O que só eu posso entregar nesta semana?\"","Liste no máximo 3 respostas.","Bloqueie tempo para elas antes de tudo.","Na sexta, confira se entregou."],c:"Exemplos: escala da semana que vem fechada sem furos; conversa individual com o colaborador que está faltando; plano para a área de fornecedor atrasada."},
+  {t:"Escala pelas forças",d:"Montar a equipe pelo que cada um faz de melhor.",p:["Liste a equipe.","Para cada pessoa, anote 1 ponto forte real.","Combine força com tarefa (equipamento, área, turno).","Converse com a pessoa: \"te coloquei aqui porque você é bom em...\""],c:"Isso também é reconhecimento: o colaborador entende que foi escolhido por um motivo."}
+ ],
+ chk:[["Fazer o diário de tempo por 3 dias","Pode ser por áudio."],["Cortar ou delegar 1 desperdício","Uma reunião, uma ligação repetida, um relatório."],["Responder: o que só eu posso entregar?","No máximo 3 itens."],["Anotar 1 força de cada pessoa da equipe","Força real, não elogio genérico."],["Ajustar a escala usando as forças","E explicar para a pessoa o porquê."],["Fazer 1 bloco de 60 min sem interrupção","Para o item mais importante da semana."]],
+ quiz:[
+  {q:"Para Drucker, ser EFICAZ é:",o:["Fazer tudo rápido","Fazer as coisas certas","Trabalhar mais horas","Nunca errar"],c:1,e:"Eficiência é fazer bem; eficácia é fazer a coisa certa. As duas importam, mas a eficácia vem primeiro."},
+  {q:"Qual é o primeiro passo para gerir o tempo?",o:["Fazer uma lista de tarefas","Comprar uma agenda","Registrar para onde o tempo realmente vai","Cortar o horário de almoço"],c:2,e:"Antes de planejar, ele manda medir: anotar onde as horas vão, depois cortar e consolidar."},
+  {q:"A \"pergunta da contribuição\" é:",o:["Quanto eu ganho?","O que eu posso entregar que faz diferença?","Quem é o culpado?","Quantas horas trabalhei?"],c:1,e:"Ela tira o foco do esforço e põe no resultado que só você pode entregar."},
+  {q:"Sobre as pessoas da equipe, um gestor eficaz:",o:["Foca em corrigir os pontos fracos","Coloca cada um onde é forte","Trata todos como iguais em tudo","Faz o trabalho dos outros"],c:1,e:"Construir sobre as forças rende mais do que viver consertando fraquezas."},
+  {q:"\"Primeiro o primeiro, uma coisa de cada vez\" significa:",o:["Fazer várias coisas ao mesmo tempo","Concentrar energia na prioridade principal","Fazer o mais fácil primeiro","Esperar o chefe mandar"],c:1,e:"Concentração: terminar o mais importante antes de espalhar energia."}
+ ]}
+};
+
+/* ===== Estado ===== */
+const $=s=>document.querySelector(s);
+const LS={g(k,d){try{const v=localStorage.getItem("bib_"+k);return v?JSON.parse(v):d}catch(e){return d}},s(k,v){try{localStorage.setItem("bib_"+k,JSON.stringify(v))}catch(e){}}};
+let st=LS.g("st",{});/* st[id]={lidos:[..secs], chk:[], quiz:{acertos,feito}, nota:"" } */
+let aba="inicio", livro=null, sec="ideias", qi=0, qAc=0, qResp=null;
+const SECS=[["ideias","⚡ 5 minutos"],["ferr","🛠️ Ferramentas"],["aplicar","✅ Aplicar"],["quiz","🎯 Quiz"],["notas","✍️ Notas"]];
+const S=id=>st[id]||(st[id]={lidos:[],chk:[],quiz:null,nota:""});
+const salva=()=>LS.s("st",st);
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2300)}
+function pct(id){const s=st[id];if(!s)return 0;return Math.round(s.lidos.length/SECS.length*100)}
+function capa(l,cls){return `<div class="capa ${cls} ${l.ok?"":"off"}" style="background:${l.cor}"><span class="ca">${l.mes}</span>${IC[l.ic]}<div><div class="ct">${l.t}</div><div class="ca">${l.a}</div></div>${l.ok?"":`<div class="lock">🔒</div>`}</div>`}
+function marcaLido(id,s){const x=S(id);if(!x.lidos.includes(s)){x.lidos.push(s);salva()}}
+
+/* ===== Telas ===== */
+function tInicio(){
+ const atual=L.find(l=>l.ok&&pct(l.id)<100)||L[0];
+ const lidos=L.filter(l=>l.ok&&pct(l.id)===100).length;
+ const ferrFeitas=Object.values(st).reduce((a,s)=>a+s.chk.length,0);
+ return `<div class="mes"><div class="capa g" style="background:${atual.cor};border:2px solid rgba(255,255,255,.3)"><span class="ca">${atual.mes}</span>${IC[atual.ic]}<div><div class="ct">${atual.t}</div><div class="ca">${atual.a}</div></div></div>
+ <div class="info"><div class="k">${pct(atual.id)?"CONTINUAR":"LIVRO DO MÊS"}</div><h2>${atual.t}</h2><div style="font-size:15px;opacity:.9">${CT[atual.id].frase}</div>
+ <div class="prog"><i style="width:${pct(atual.id)}%"></i></div><div style="font-size:13px;margin-top:4px;opacity:.9">${pct(atual.id)}% · ${atual.min} min de leitura</div>
+ <button class="btn" data-l="${atual.id}">${pct(atual.id)?"Continuar":"Começar"} →</button></div></div>
+ <div class="card" style="display:flex;gap:10px;text-align:center"><div style="flex:1"><b style="font-size:26px;color:var(--verde)">${lidos}</b><div class="mut">livros concluídos</div></div><div style="flex:1"><b style="font-size:26px;color:var(--verde)">${ferrFeitas}</b><div class="mut">ações aplicadas</div></div><div style="flex:1"><b style="font-size:26px;color:var(--verde)">12</b><div class="mut">livros no ano</div></div></div>
+ <h2>Como funciona</h2>
+ <div class="card"><p style="margin:0"><b>1 livro por mês, 4 passos:</b></p>
+ <p style="margin:8px 0 0">⚡ <b>5 minutos</b>: as ideias principais em cartões, com exemplo do campo.<br>🛠️ <b>Ferramentas</b>: 3 métodos práticos, passo a passo.<br>✅ <b>Aplicar</b>: checklist da semana.<br>🎯 <b>Quiz</b>: 5 perguntas para fixar.</p></div>
+ <h2>Próximos na estante</h2><div class="trilho">${L.slice(2,7).map(l=>`<div style="flex:0 0 110px" data-l="${l.id}">${capa(l,"p")}</div>`).join("")}</div>
+ <div class="inst" id="inst" hidden><span>Instale para levar a biblioteca no bolso, mesmo sem sinal no campo.</span><button class="btn am" id="btnInst">📲 Instalar app</button></div>`;
+}
+function tEstante(){
+ return `<h2>📚 A estante do ano</h2><p class="mut">12 livros, 1 por mês. No esboço, os 2 primeiros estão completos.</p>
+ <div class="estante">${L.map(l=>`<div class="lv" data-l="${l.id}">${capa(l,"p")}<small>${l.ok&&pct(l.id)?pct(l.id)+"% lido":l.tema}</small></div>`).join("")}</div>`;
+}
+function tTeaser(l){
+ return `<button class="voltar" id="voltar">← Voltar</button><div class="livro-top">${capa(l,"g")}<div class="info"><div class="mut">${l.mes} · ${l.tema}</div><h2 style="margin:4px 0">${l.t}</h2><div class="mut">${l.a}</div></div></div>
+ <div class="card"><h3 style="margin-top:0">🌾 O que vem aí</h3><p>${l.tz}</p><p class="mut">Este livro entra na estante no ${l.mes.toLowerCase()}, com os mesmos 4 passos: 5 minutos, ferramentas, aplicar e quiz.</p></div>`;
+}
+function tLivro(){
+ const l=L.find(x=>x.id===livro);if(!l.ok)return tTeaser(l);
+ const c=CT[l.id],s=S(l.id);
+ let body="";
+ if(sec==="ideias"){body=`<p class="mut" style="margin-top:12px">Arraste para o lado ➜</p><div class="cards" id="cards">${c.cards.map((k,i)=>`<div class="ic"><span class="n">IDEIA ${i+1} DE ${c.cards.length}</span><h4>${k.h}</h4>${k.big?`<div class="num-grande">${k.big}</div>`:""}<p>${k.p}</p><div class="ex"><b>🌾 No campo:</b> ${k.ex}</div></div>`).join("")}<div class="ic fim"><span class="n" style="color:#fff">PRA LEMBRAR</span><h4>“${c.frase}”</h4><p>Agora vamos para as ferramentas.</p><button class="btn am" data-ir="ferr">🛠️ Ver ferramentas</button></div></div><div class="pontos" id="pontos">${c.cards.concat([0]).map((_,i)=>`<i class="${i?"":"on"}"></i>`).join("")}</div>`}
+ else if(sec==="ferr"){body=`<p class="mut" style="margin-top:12px">3 métodos tirados do livro, adaptados para a frente de trabalho.</p>`+c.fer.map((f,i)=>`<div class="fer"><span class="mut">FERRAMENTA ${i+1}</span><h4>${f.t}</h4><p style="margin:0">${f.d}</p><ol>${f.p.map(x=>`<li>${x}</li>`).join("")}</ol><div class="campo"><b>🌾 Na sua frente:</b> ${f.c}</div></div>`).join("")+`<button class="btn" data-ir="aplicar">✅ Aplicar nesta semana</button>`}
+ else if(sec==="aplicar"){body=`<p class="mut" style="margin-top:12px">Toque para marcar. Ler sem aplicar é só passatempo.</p>`+c.chk.map((k,i)=>`<div class="chk ${s.chk.includes(i)?"on":""}" data-c="${i}"><div class="bx">${s.chk.includes(i)?"✓":""}</div><div><b>${k[0]}</b><small>${k[1]}</small></div></div>`).join("")+`<div class="card" style="text-align:center"><b>${s.chk.length} de ${c.chk.length} feitos</b><div class="prog" style="background:#eee8d8"><i style="width:${s.chk.length/c.chk.length*100}%;background:var(--verde2)"></i></div></div><button class="btn" data-ir="quiz">🎯 Fazer o quiz</button>`}
+ else if(sec==="quiz"){
+  if(qi>=c.quiz.length){if(!s.quiz||qAc>s.quiz.acertos){s.quiz={acertos:qAc};salva()}marcaLido(l.id,"quiz");
+   body=`<div class="qz placar"><div class="mut">Resultado</div><div class="num-grande">${qAc}/${c.quiz.length}</div><p>${qAc===5?"Perfeito! Você domina o livro. 🏆":qAc>=3?"Muito bom! Revise os cartões para fechar 5/5.":"Vale reler os 5 minutos e tentar de novo."}</p><button class="btn am" id="refazer">↻ Refazer quiz</button><button class="btn lin" data-ir="notas">✍️ Fazer minhas anotações</button></div>`}
+  else{const q=c.quiz[qi];body=`<div class="qz"><span class="qn">PERGUNTA ${qi+1} DE ${c.quiz.length}</span><h4>${q.q}</h4>${q.o.map((o,i)=>`<button class="op ${qResp!==null?(i===q.c?"cer":i===qResp?"err":""):""}" data-o="${i}" ${qResp!==null?"disabled":""}>${o}</button>`).join("")}${qResp!==null?`<div class="exp">${qResp===q.c?"✅ Certo!":"❌ Não foi dessa vez."} ${q.e}</div><button class="btn" id="prox">${qi+1<c.quiz.length?"Próxima →":"Ver resultado"}</button>`:""}</div>`}
+ }
+ else{body=`<div class="lembrar">“${c.frase}”</div><h3>✍️ O que eu vou levar deste livro</h3><textarea id="nota" placeholder="Escreva com suas palavras: o que mais te pegou e onde vai usar na frente ou em casa...">${esc(s.nota)}</textarea><p class="mut">Salva sozinho. Suas anotações de todos os livros ficam na aba Anotações.</p>
+ <div class="card"><b>🧭 Por que este livro para quem trabalha no campo?</b><p style="margin:6px 0 0">${c.porque}</p></div>
+ <button class="btn mr" id="share">📤 Mandar a ideia principal no WhatsApp</button>
+ <p class="mut" style="margin-top:14px">As ideias foram resumidas com palavras próprias, com exemplos adaptados ao campo. Para ler a obra completa, procure o livro original de ${l.a}.</p>`}
+ return `<button class="voltar" id="voltar">← Estante</button>
+ <div class="livro-top">${capa(l,"g")}<div class="info"><div class="mut">${l.mes} · ${l.tema}</div><h2 style="margin:4px 0">${l.t}</h2><div class="mut">${l.a}</div><div class="chips"><span class="chip">⏱️ ${l.min} min</span><span class="chip">${pct(l.id)}% feito</span></div></div></div>
+ <div class="secs">${SECS.map(([k,n])=>`<button class="${sec===k?"on":""} ${s.lidos.includes(k)?"ok":""}" data-s="${k}">${n}</button>`).join("")}</div>${body}`;
+}
+function tNotas(){
+ const ns=L.filter(l=>st[l.id]&&st[l.id].nota&&st[l.id].nota.trim());
+ return `<h2>✍️ Minhas anotações</h2><p class="mut">O que você decidiu levar de cada livro.</p>`+(ns.length?ns.map(l=>`<div class="card" data-l="${l.id}" style="cursor:pointer"><b style="color:var(--marrom)">${l.t}</b> <span class="mut">· ${l.a}</span><p style="margin:6px 0 0;white-space:pre-wrap">${esc(st[l.id].nota)}</p></div>`).join(""):`<div class="card"><p style="margin:0">Ainda vazio. Abra um livro e vá até a aba ✍️ <b>Notas</b>.</p></div>`);
+}
+function tPlano(){
+ return `<h2>🚀 Como isso vira produto</h2><p class="mut">Esta aba é só do esboço, para avaliarmos a ideia. Ela não vai para a versão final.</p>
+ <div class="pl"><h4>💡 A ideia em uma frase</h4><p style="margin:0">Os 12 livros de produtividade mais lidos do mundo, explicados em 5 minutos e <b>aplicados à rotina de quem trabalha no campo e na usina</b>.</p></div>
+ <div class="pl"><h4>👥 Para quem</h4><ul><li>Gestores, líderes e encarregados de frente agrícola</li><li>Técnicos agrícolas e estudantes de agronomia</li><li>Tratoristas e motoristas que querem crescer na carreira</li><li>Pequenos produtores rurais</li></ul></div>
+ <div class="pl"><h4>⭐ O diferencial</h4><p style="margin:0">Resumo de livro tem aos montes na internet. Resumo com <b>exemplo de frente de trabalho, escala, caminhão, safra e equipe</b>, praticamente ninguém faz. Quem escreve é alguém que vive isso todos os dias.</p></div>
+ <div class="pl"><h4>📦 O que a pessoa leva</h4><ul><li><b>E-book</b> com os 12 capítulos (um por livro)</li><li><b>App de brinde</b> (este aqui), com quiz, checklist e anotações</li><li>Bônus: 12 cartões de imagem para fixar no celular</li></ul></div>
+ <div class="pl"><h4>💰 Preço para testar</h4><div class="preco"><div><b>R$ 19</b><span class="mut">pré-venda, só os 3 primeiros livros</span></div><div><b>R$ 37</b><span class="mut">completo, 12 livros + app</span></div></div></div>
+ <div class="pl"><h4>📣 Como vender sem aparecer em vídeo</h4><ul><li>Carrosséis no Instagram: \"1 ideia de livro aplicada ao campo\"</li><li>Cartões prontos para status e grupos de WhatsApp do agro</li><li>Amostra grátis: o capítulo de Hábitos Atômicos em troca do contato</li><li>Indicação: quem indicar 3 pessoas ganha o próximo e-book</li></ul></div>
+ <div class="pl"><h4>🛒 Onde vender (sem mensalidade)</h4><p style="margin:0">Hotmart, Kiwify ou Eduzz são grátis para começar e cobram só uma porcentagem quando vende. Entregam o PDF e o link do app sozinhos.</p></div>
+ <h2>🗺️ Plano de 12 semanas</h2>
+ <div class="linha-t"><div><b>Semanas 1–2 · Validar</b><br><span class="mut">Postar 5 carrosséis de teste e ver qual livro gera mais comentários e salvamentos.</span></div>
+ <div><b>Semanas 3–4 · Lista de espera</b><br><span class="mut">Oferecer o capítulo grátis em troca do WhatsApp. Meta: 50 interessados.</span></div>
+ <div><b>Semanas 5–8 · Pré-venda</b><br><span class="mut">Vender os 3 primeiros livros por R$ 19. Se 10 pessoas comprarem, a ideia está validada.</span></div>
+ <div><b>Semanas 9–12 · Completar</b><br><span class="mut">Escrever os outros 9 capítulos (o Claude ajuda), fechar o e-book e subir o preço.</span></div></div>
+ <div class="pl" style="border-color:var(--amarelo)"><h4 style="color:var(--marrom)">⚠️ Cuidados</h4><ul><li><b>Direitos autorais:</b> nunca copiar trechos nem capas dos livros. Resumir as ideias com palavras próprias, focar na aplicação ao campo e indicar o livro original.</li><li><b>Capas próprias:</b> como neste esboço, com desenhos originais.</li><li><b>Não prometer enriquecimento:</b> vender como desenvolvimento profissional.</li></ul></div>
+ <div class="nota-esb"><b>Como avaliar o esboço:</b> abra <b>Hábitos Atômicos</b>, passe pelos cartões, veja as ferramentas, marque o checklist e faça o quiz. Se a experiência te prender, ela vai prender o seu público.</div>`;
+}
+
+/* ===== Render ===== */
+function render(){
+ document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-current",b.dataset.t===aba));
+ const v=$("#view");
+ v.innerHTML=livro?tLivro():aba==="inicio"?tInicio():aba==="estante"?tEstante():aba==="notas"?tNotas():tPlano();
+ v.querySelectorAll("[data-l]").forEach(e=>e.onclick=()=>{livro=e.dataset.l;sec="ideias";qi=0;qAc=0;qResp=null;render();scrollTo(0,0)});
+ const vt=$("#voltar");if(vt)vt.onclick=()=>{livro=null;render();scrollTo(0,0)};
+ v.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{sec=b.dataset.s;if(sec==="quiz"&&qi>=5){}render()});
+ v.querySelectorAll("[data-ir]").forEach(b=>b.onclick=()=>{sec=b.dataset.ir;render();scrollTo(0,0)});
+ if(livro){
+  const l=livro,c=CT[l];
+  if(sec==="ideias"){const cs=$("#cards"),ps=document.querySelectorAll("#pontos i");cs.onscroll=()=>{const w=cs.firstElementChild.offsetWidth+12,i=Math.round(cs.scrollLeft/w);ps.forEach((p,j)=>p.classList.toggle("on",j===i));if(i>=c.cards.length-1){marcaLido(l,"ideias")}}}
+  if(sec==="ferr")marcaLido(l,"ferr");
+  if(sec==="aplicar"){v.querySelectorAll(".chk").forEach(e=>e.onclick=()=>{const s=S(l),i=+e.dataset.c;s.chk=s.chk.includes(i)?s.chk.filter(x=>x!==i):[...s.chk,i];if(s.chk.length>=3)marcaLido(l,"aplicar");salva();if(s.chk.length===c.chk.length)toast("Livro aplicado por completo! 🌱");render()})}
+  if(sec==="quiz"){v.querySelectorAll(".op").forEach(b=>b.onclick=()=>{qResp=+b.dataset.o;if(qResp===c.quiz[qi].c)qAc++;render()});const p=$("#prox");if(p)p.onclick=()=>{qi++;qResp=null;render()};const r=$("#refazer");if(r)r.onclick=()=>{qi=0;qAc=0;qResp=null;render()}}
+  if(sec==="notas"){$("#nota").oninput=e=>{S(l).nota=e.target.value;if(e.target.value.trim())marcaLido(l,"notas");salva()};
+   $("#share").onclick=()=>{const L0=L.find(x=>x.id===l),t=`📚 *${L0.t}* (${L0.a})\n\n💡 ${c.frase}\n\n🌾 ${c.cards[0].h}: ${c.cards[0].ex}\n\n_Biblioteca do Crescimento_`;if(navigator.share)navigator.share({text:t}).catch(()=>{});else location.href="https://wa.me/?text="+encodeURIComponent(t)}}
+ }
+ if(!livro&&aba==="inicio")mostraInst();
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{aba=b.dataset.t;livro=null;render();scrollTo(0,0)});
+let pedido=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;mostraInst()});
+function mostraInst(){const el=$("#inst");if(!el||standalone)return;el.hidden=false;$("#btnInst").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userChoice;pedido=null;el.hidden=true}else alert("No Chrome, toque no menu ⋮ (canto de cima) e depois em \"Instalar app\" ou \"Adicionar à tela inicial\".")}}
+render();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>
