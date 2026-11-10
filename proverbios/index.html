@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Provérbio do Dia</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#6b4426">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--verde:#1f5f3a;--verde2:#2f7a4d;--verdeclaro:#e3efe5;--amarelo:#f2b705;--amareloclaro:#fdf1c7;--marrom:#6b4426;--marromclaro:#efe3d6;--creme:#f7f3e8;--card:#fffdf7;--tx:#2a2218;--mut:#6a5f50;--linha:#dcd3c0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;min-height:100%}
+body{background:var(--creme);color:var(--tx);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+header{background:var(--marrom);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 14px 14px}
+.topo{display:flex;align-items:center;gap:10px}
+.topo img{width:40px;height:40px;border-radius:10px}
+.topo h1{margin:0;font-size:22px;flex:1}
+.topo small{display:block;font-size:13px;font-weight:400;opacity:.85}
+.seq{background:var(--amarelo);color:#3a2a00;font:800 14px system-ui;padding:6px 10px;border-radius:99px;white-space:nowrap}
+main{max-width:640px;margin:0 auto;padding:14px}
+.data{font-size:15px;color:var(--mut);margin:2px 0 8px}.data::first-letter{text-transform:uppercase}
+.verso{background:var(--card);border:2px solid var(--linha);border-left:8px solid var(--amarelo);border-radius:18px;padding:20px 18px;margin-top:6px}
+.verso .tema{display:inline-block;font:800 13px system-ui;padding:3px 10px;border-radius:99px;background:var(--amareloclaro);color:#7a5a00}
+.verso blockquote{margin:12px 0 8px;font:600 23px/1.4 Georgia,"Times New Roman",serif;color:var(--tx)}
+.verso cite{font-style:normal;font-weight:800;color:var(--marrom)}
+.bloco{border-radius:16px;padding:14px 16px;margin-top:12px}
+.bloco h2{margin:0 0 4px;font-size:16px;display:flex;gap:6px;align-items:center}
+.bloco p{margin:0}
+.trab{background:var(--verdeclaro);border:2px solid #bfd8c4}.trab h2{color:var(--verde)}
+.casa{background:var(--marromclaro);border:2px solid #dcc6ae}.casa h2{color:var(--marrom)}
+.acao{background:var(--amareloclaro);border:2px dashed var(--amarelo)}.acao h2{color:#7a5a00}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px 12px;font:700 17px system-ui;background:var(--verde);color:#fff;min-height:52px;margin-top:10px}
+.btn.am{background:var(--amarelo);color:#3a2a00}.btn.mr{background:var(--marrom)}
+.btn.lin{background:transparent;border:2px solid var(--linha);color:var(--tx)}
+.btn.feito{background:var(--verde2)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+textarea{width:100%;min-height:90px;margin-top:8px;border:2px solid var(--linha);border-radius:12px;padding:10px;font:17px system-ui;background:#fff;color:var(--tx)}
+.mut{color:var(--mut);font-size:15px}
+.item{background:var(--card);border:2px solid var(--linha);border-radius:14px;padding:12px 14px;margin-top:10px}
+.item b{color:var(--marrom)}
+.item .ok{float:right;font-size:14px;font-weight:800;color:var(--verde2)}
+.item p{margin:4px 0 0}
+.inst{display:flex;gap:10px;align-items:center;border:2px dashed var(--amarelo);background:var(--amareloclaro);border-radius:14px;padding:10px 12px;margin-top:16px}
+.inst span{flex:1;font-size:15px}.inst .btn{width:auto;margin:0;padding:10px 14px;min-height:44px}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:2px solid var(--linha);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{flex:1;border:0;background:none;font:700 13px system-ui;color:var(--mut);padding:6px 2px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button span{font-size:22px}
+nav button[aria-current=true]{background:var(--verdeclaro);color:var(--verde)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--tx);color:#fff;padding:10px 16px;border-radius:12px;font-size:15px;z-index:9}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
+.cal div{aspect-ratio:1;border-radius:8px;background:#eee8d8;display:flex;align-items:center;justify-content:center;font:700 14px system-ui;color:var(--mut)}
+.cal div.f{background:var(--verde2);color:#fff}.cal div.h{outline:3px solid var(--amarelo)}
+h3{margin:18px 0 4px;font-size:19px}
+</style>
+</head>
+<body>
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#6b4426;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Provérbio do Dia</b></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,500-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3000)})();</script>
+
+<header>
+ <div class="topo"><img src="icon-192.png" alt=""><h1>Provérbio do Dia<small>Um capítulo por dia, uma lição pra vida</small></h1><span class="seq" id="seq">🔥 0</span></div>
+</header>
+<main id="view"></main>
+<nav id="nav">
+ <button data-t="hoje" aria-current="true"><span>☀️</span>Hoje</button>
+ <button data-t="todos"><span>📖</span>Os 31</button>
+ <button data-t="diario"><span>✍️</span>Meu diário</button>
+ <button data-t="sobre"><span>ℹ️</span>Como usar</button>
+</nav>
+
+<script>
+/* Textos de Provérbios em paráfrase própria, fiel ao sentido. Capítulo = dia do mês. */
+const P=[
+{r:"Provérbios 1:7",t:"Começo de tudo",v:"O respeito a Deus é o começo do conhecimento; só o tolo despreza a sabedoria e a correção.",w:"Toda decisão no turno começa por respeitar o que é certo: a norma, a segurança, a dose correta. Atalho que fere a regra cobra depois.",c:"Comece o dia agradecendo antes de pegar o celular para o trabalho.",a:"Antes de sair, faça uma oração curta pedindo sabedoria para as decisões de hoje."},
+{r:"Provérbios 2:6",t:"Fonte da sabedoria",v:"É o Senhor quem dá sabedoria; da boca dele vêm o conhecimento e o entendimento.",w:"Seu estudo pra agronomia é semeadura: cada página lida hoje vira decisão melhor no campo amanhã.",c:"Divida em casa algo novo que você aprendeu nesta semana.",a:"Separe 15 minutos hoje para estudar um assunto do seu trabalho."},
+{r:"Provérbios 3:5-6",t:"Confiança",v:"Confie no Senhor de todo o coração e não se apoie só no seu próprio entendimento. Reconheça-o em todos os seus caminhos, e ele endireitará as suas veredas.",w:"Nem tudo depende de você: chuva, quebra de equipamento, atraso de caminhão. Faça sua parte bem feita e entregue o resto.",c:"Quando algo sair do controle hoje, respire antes de reagir.",a:"Escolha uma preocupação e entregue em oração. Depois, faça só o próximo passo possível."},
+{r:"Provérbios 4:23",t:"Guardar o coração",v:"Acima de tudo, guarde o seu coração, porque dele brotam as fontes da vida.",w:"Como a vinhaça precisa de duto limpo para chegar boa na cana, o que entra no coração define o que sai nas suas palavras com a equipe.",c:"Preste atenção no que você assiste e ouve hoje: isso enche ou esvazia?",a:"Troque 15 minutos de rede social por algo que edifique (leitura, conversa, oração)."},
+{r:"Provérbios 5:18",t:"Família",v:"Seja abençoada a sua fonte; alegre-se com a mulher da sua mocidade.",w:"Turno puxado não pode tirar o melhor de você só para o trabalho. Guarde energia para quem te espera em casa.",c:"Sua esposa é sua fonte: valorize em palavras, não só em atitudes.",a:"Mande hoje uma mensagem de carinho para sua esposa, sem motivo nenhum."},
+{r:"Provérbios 6:6-8",t:"Diligência",v:"Vá olhar a formiga, preguiçoso; observe e aprenda. Ela não tem chefe nem fiscal, mas no verão junta o seu alimento.",w:"A formiga trabalha sem ninguém olhando. Faça a ronda e o apontamento bem feitos mesmo quando ninguém vai conferir.",c:"Pequenas reservas hoje evitam aperto amanhã, no dinheiro e no tempo.",a:"Adiante hoje uma tarefa que você vem empurrando."},
+{r:"Provérbios 7:2",t:"Valor do ensino",v:"Guarde os meus ensinos e você viverá; cuide deles como cuida da menina dos seus olhos.",w:"Procedimento de segurança não é burocracia: é a menina dos olhos de quem opera trator e aplicador.",c:"O que você ensina às suas filhas com o exemplo vale mais que o que diz.",a:"Reforce hoje com a equipe um cuidado de segurança, com calma e respeito."},
+{r:"Provérbios 8:11",t:"O que vale mais",v:"A sabedoria vale mais do que joias; nada do que se possa desejar se compara a ela.",w:"Um gestor sábio vale mais que um gestor só esperto. Sabedoria é saber a hora de cobrar e a hora de apoiar.",c:"Dinheiro resolve muita coisa, mas não compra paz em casa.",a:"Antes de uma decisão hoje, pergunte: o que um homem sábio faria aqui?"},
+{r:"Provérbios 9:9",t:"Ensinável",v:"Instrua o sábio, e ele ficará ainda mais sábio; ensine o justo, e ele aumentará o seu saber.",w:"Receba correção do Luciano, da Jamile ou de um tratorista experiente sem se defender. Quem aprende de todos cresce mais rápido.",c:"Ouça uma ideia de alguém da família como se fosse nova, mesmo que você já saiba.",a:"Peça hoje a opinião de alguém da equipe sobre algo que pode melhorar."},
+{r:"Provérbios 10:4",t:"Trabalho",v:"A mão preguiçosa empobrece, mas a mão diligente enriquece.",w:"Meta de hectares por dia se bate com constância, não com arrancada no fim do mês.",c:"Seus projetos de apps e renda extra crescem com um pouco todo dia, não com esforço só quando sobra ânimo.",a:"Dê hoje 20 minutos a um projeto pessoal seu."},
+{r:"Provérbios 11:14",t:"Conselho",v:"Sem orientação o povo cai, mas com muitos conselheiros há segurança.",w:"Decisão de escala ou de frente fica mais firme quando você escuta os outros gestores antes de bater o martelo.",c:"Converse com sua esposa antes de decidir algo grande com dinheiro.",a:"Leve uma decisão pendente para alguém de confiança e ouça antes de falar."},
+{r:"Provérbios 12:25",t:"Ansiedade",v:"A ansiedade pesa no coração do homem, mas uma boa palavra o alegra.",w:"Tem colaborador carregando peso que você não vê. Uma palavra boa no começo do turno muda o dia dele.",c:"Pergunte de verdade como alguém de casa está, e escute até o fim.",a:"Diga hoje uma palavra de ânimo para um colaborador pelo nome."},
+{r:"Provérbios 13:20",t:"Companhias",v:"Quem anda com os sábios será sábio, mas o companheiro dos tolos sofrerá.",w:"Aproxime-se de quem entende mais de solo, nutrição e gestão. Pergunte, observe, aprenda.",c:"Escolha bem o que e quem você escuta: grupos, vídeos, conversas.",a:"Procure hoje alguém que sabe mais que você em algo e faça uma pergunta."},
+{r:"Provérbios 14:29",t:"Paciência",v:"Quem demora a se irar tem grande entendimento, mas o impaciente mostra a sua loucura.",w:"Quando o caminhão atrasar ou o equipamento quebrar, a equipe vai olhar como você reage. Calma também é liderança.",c:"Em casa, conte até dez antes de responder no calor do momento.",a:"Hoje, em toda situação de irritação, respire fundo antes da primeira palavra."},
+{r:"Provérbios 15:1",t:"Resposta branda",v:"A resposta calma desvia a fúria, mas a palavra dura faz a raiva crescer.",w:"No grupo de apontamentos, mensagem escrita soa mais dura do que você pensa. Releia antes de mandar.",c:"Baixe o tom antes de responder às filhas quando estiver cansado.",a:"Releia hoje toda mensagem de cobrança antes de enviar e troque uma palavra dura por uma firme e gentil."},
+{r:"Provérbios 16:3",t:"Planos",v:"Entregue ao Senhor tudo o que você faz, e os seus planos serão bem-sucedidos.",w:"Planeje o dia da frente com cuidado, e depois execute em paz, sem carregar o peso sozinho.",c:"Seus planos grandes, como a casa, também podem ser entregues em oração.",a:"Anote os 3 objetivos de hoje e entregue cada um a Deus."},
+{r:"Provérbios 17:22",t:"Alegria",v:"O coração alegre é bom remédio, mas o espírito abatido seca os ossos.",w:"Bom humor no turno não é falta de seriedade; é combustível pra equipe aguentar a jornada.",c:"Ria com as filhas hoje. Brincadeira também é cuidado.",a:"Faça alguém rir hoje, de propósito."},
+{r:"Provérbios 18:13",t:"Ouvir primeiro",v:"Quem responde antes de ouvir mostra tolice e passa vergonha.",w:"Antes de apontar a ocorrência ou dar bronca, ouça a versão do colaborador por inteiro.",c:"Quando alguém de casa começar a falar, largue o celular.",a:"Hoje, em toda conversa, só fale depois que a outra pessoa terminar."},
+{r:"Provérbios 19:11",t:"Relevar",v:"A sabedoria torna o homem paciente; é uma honra para ele não ligar para ofensas.",w:"Nem toda provocação precisa de resposta. Gestor que releva o pequeno ganha força para cobrar o que importa.",c:"Deixe passar hoje aquela implicância pequena em casa.",a:"Escolha não rebater uma ofensa hoje e siga em frente."},
+{r:"Provérbios 20:5",t:"Águas profundas",v:"Os propósitos do coração do homem são como águas profundas, mas quem tem entendimento sabe tirá-los.",w:"Como na irrigação, o que importa às vezes está fundo. Pergunte com paciência o que realmente desanima um colaborador.",c:"Faça uma pergunta mais profunda que \"como foi o dia?\" para sua esposa ou suas filhas.",a:"Pergunte hoje a alguém: \"o que está pesando pra você esses dias?\""},
+{r:"Provérbios 21:5",t:"Planejar",v:"Os planos do diligente levam à fartura, mas quem tem pressa demais acaba na falta.",w:"Logística de vinhaça planejada evita trator parado e caminhão sobrando. Planejamento é economia.",c:"Compra por impulso é pressa. Espere um dia antes de gastar com o que não é necessário.",a:"Planeje amanhã ainda hoje: escreva a primeira tarefa do dia seguinte."},
+{r:"Provérbios 22:6",t:"Ensinar os filhos",v:"Ensine a criança no caminho em que deve andar, e mesmo quando envelhecer não se desviará dele.",w:"O mesmo vale para quem está começando na equipe: ensine com paciência e terá alguém firme lá na frente.",c:"Suas filhas aprendem mais vendo você ler, orar e cumprir a palavra do que ouvindo conselhos.",a:"Leia hoje um versículo ou uma história com uma das suas filhas."},
+{r:"Provérbios 23:4-5",t:"Dinheiro",v:"Não se mate de trabalhar só para ficar rico; tenha bom senso. Num piscar de olhos a riqueza some, como se criasse asas e voasse.",w:"Hora extra demais cobra da saúde e da família. Trabalhe forte, mas com limite.",c:"Busque renda extra com propósito, sem sacrificar o tempo com quem você ama.",a:"Reveja hoje um gasto do mês e pergunte: isso era necessário?"},
+{r:"Provérbios 24:27",t:"Ordem certa",v:"Prepare primeiro o seu trabalho lá fora e deixe pronto o seu campo; depois construa a sua casa.",w:"Na cana é assim: solo corrigido, preparo bem feito, depois o plantio. Pular etapa custa caro.",c:"Para um sonho grande como a casa própria: primeiro organizar as contas e quitar o que pesa, depois construir.",a:"Dê hoje um passo concreto na ordem certa de um plano seu."},
+{r:"Provérbios 25:11",t:"Palavra certa",v:"A palavra dita na hora certa é como maçãs de ouro numa bandeja de prata.",w:"Um elogio na frente da equipe, na hora certa, vale mais que um bônus esquecido.",c:"Elogie hoje algo específico que alguém de casa fez.",a:"Faça hoje um elogio específico e sincero a alguém."},
+{r:"Provérbios 26:20",t:"Fofoca",v:"Sem lenha, o fogo se apaga; sem fofoca, a briga acaba.",w:"Conversa de corredor sobre colega é lenha. Gestor que não alimenta fofoca apaga incêndio antes de começar.",c:"Não leve pra casa o falatório do trabalho.",a:"Se ouvir fofoca hoje, mude de assunto ou fale direto com a pessoa envolvida."},
+{r:"Provérbios 27:17",t:"Ferro afia ferro",v:"Assim como o ferro afia o ferro, uma pessoa afia a outra.",w:"Troca de ideias com os outros gestores deixa todos mais afiados. Compartilhe o que funciona na sua frente.",c:"Uma boa conversa com um amigo também afia a fé e o caráter.",a:"Compartilhe hoje uma boa prática sua com um colega, ou peça uma dele."},
+{r:"Provérbios 28:13",t:"Assumir o erro",v:"Quem esconde os seus erros não prospera, mas quem os confessa e os abandona encontra misericórdia.",w:"Errou numa dose, num apontamento ou numa escala? Assuma rápido. A equipe confia em quem admite.",c:"Peça desculpas em casa se passou do ponto ontem.",a:"Corrija hoje um erro seu, pequeno que seja, e assuma em voz alta."},
+{r:"Provérbios 29:18",t:"Visão",v:"Onde não há visão, o povo perde o rumo; feliz é quem segue a instrução.",w:"Mostre à equipe para onde a frente está indo: a meta da semana, o porquê do trabalho. Quem entende o propósito trabalha melhor.",c:"Tenha uma visão para sua família e fale dela em casa: onde vocês querem estar daqui a 5 anos?",a:"Escreva hoje, em uma frase, a visão que você tem para sua vida."},
+{r:"Provérbios 30:8",t:"Contentamento",v:"Não me dês pobreza nem riqueza; dá-me apenas o pão de cada dia.",w:"Trabalhe com excelência, mas sem medir seu valor pelo cargo ou pelo salário.",c:"Agradeça pelo que já tem antes de pedir o que falta.",a:"Liste hoje 3 coisas pelas quais você é grato."},
+{r:"Provérbios 31:10, 28",t:"Honra no lar",v:"Uma mulher virtuosa, quem a encontrará? Seu valor é muito maior que o de pedras preciosas. Seus filhos se levantam e a chamam de feliz, e o marido também a elogia.",w:"Reconhecer em público o valor de quem trabalha ao seu lado é sinal de grandeza, no campo e em casa.",c:"Elogie sua esposa na frente das suas filhas. Elas aprendem a se valorizar vendo isso.",a:"Diga hoje à sua esposa, com palavras claras, o quanto ela vale pra você."}
+];
+
+const $=s=>document.querySelector(s);
+const LS={get(k,d){try{const v=localStorage.getItem("prov_"+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem("prov_"+k,JSON.stringify(v))}catch(e){}}};
+/* O dia "vira" às 4h da manhã */
+function hojeData(){const d=new Date(Date.now()-4*3600e3);return d}
+function chave(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+let feitos=LS.get("feitos",{}), notas=LS.get("notas",{}), favs=LS.get("favs",[]);
+let aba="hoje", ver=null;
+
+function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
+function seq(){let n=0,d=hojeData();if(!feitos[chave(d)])d=new Date(d-864e5);while(feitos[chave(d)]){n++;d=new Date(d-864e5)}return n}
+function atualizaSeq(){$("#seq").textContent="🔥 "+seq()+(seq()===1?" dia":" dias")}
+function falar(p){if(!("speechSynthesis" in window))return toast("Seu celular não lê em voz alta");speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(p.r+". "+p.v+". No trabalho: "+p.w+". Em casa: "+p.c+". Pra hoje: "+p.a);u.lang="pt-BR";u.rate=.95;speechSynthesis.speak(u)}
+function compartilhar(p){const t="☀️ *Provérbio do Dia*\n\n\""+p.v+"\"\n— "+p.r+"\n\n🎯 Pra hoje: "+p.a;if(navigator.share)navigator.share({text:t}).catch(()=>{});else location.href="https://wa.me/?text="+encodeURIComponent(t)}
+
+function cartao(i,ehHoje){
+ const p=P[i],d=hojeData(),k=chave(d),fav=favs.includes(i);
+ return `${ehHoje?`<div class="data">${d.toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"})} · capítulo ${i+1}</div>`:`<button class="btn lin" id="voltar">← Voltar</button>`}
+ <div class="verso"><span class="tema">${p.t}</span><blockquote>“${p.v}”</blockquote><cite>${p.r}</cite></div>
+ <div class="bloco trab"><h2>🌾 No seu trabalho</h2><p>${p.w}</p></div>
+ <div class="bloco casa"><h2>🏠 Em casa</h2><p>${p.c}</p></div>
+ <div class="bloco acao"><h2>🎯 Desafio de hoje</h2><p>${p.a}</p></div>
+ ${ehHoje?`<button class="btn ${feitos[k]?"feito":"am"}" id="feito">${feitos[k]?"✅ Vivi isso hoje":"☐ Marcar: vivi isso hoje"}</button>
+ <h3>✍️ Como isso aconteceu no meu dia</h3>
+ <textarea id="nota" placeholder="Escreva aqui onde esse provérbio apareceu no seu dia...">${(notas[k]&&notas[k].t)||""}</textarea>`:""}
+ <div class="row"><button class="btn mr" id="ouvir">🔊 Ouvir</button><button class="btn" id="zap">📤 Enviar</button></div>
+ <button class="btn lin" id="fav">${fav?"⭐ Nos favoritos":"☆ Guardar nos favoritos"}</button>
+ ${ehHoje?`<div class="inst" id="inst" hidden><span>Instale para abrir direto no provérbio do dia, como um atalho na tela inicial.</span><button class="btn am" id="btnInst">📲 Instalar app</button></div>`:""}`;
+}
+function ligaCartao(i,ehHoje){
+ const p=P[i];
+ $("#ouvir").onclick=()=>falar(p);$("#zap").onclick=()=>compartilhar(p);
+ $("#fav").onclick=()=>{favs=favs.includes(i)?favs.filter(x=>x!==i):[...favs,i];LS.set("favs",favs);render()};
+ if(ehHoje){
+  const k=chave(hojeData());
+  $("#feito").onclick=()=>{if(feitos[k])delete feitos[k];else{feitos[k]=1;toast("Boa! Sequência: "+(seq()+0)+" 🔥")}LS.set("feitos",feitos);render()};
+  $("#nota").oninput=e=>{const t=e.target.value.trim();if(t)notas[k]={c:i,t:e.target.value};else delete notas[k];LS.set("notas",notas)};
+  mostraInst();
+ }else $("#voltar").onclick=()=>{ver=null;render()};
+}
+function render(){
+ atualizaSeq();
+ document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-current",b.dataset.t===aba));
+ const v=$("#view");
+ if(aba==="hoje"){const i=hojeData().getDate()-1;v.innerHTML=cartao(i,true);ligaCartao(i,true)}
+ else if(aba==="todos"){
+  if(ver!==null){v.innerHTML=cartao(ver,false);ligaCartao(ver,false);return}
+  const hoje=hojeData().getDate()-1;
+  const lista=i=>`<div class="item" data-i="${i}">${i===hoje?'<span class="ok">HOJE</span>':""}${favs.includes(i)?"⭐ ":""}<b>Cap. ${i+1} · ${P[i].t}</b><p class="mut">${P[i].v.slice(0,90)}${P[i].v.length>90?"…":""}</p></div>`;
+  v.innerHTML=(favs.length?`<h3>⭐ Favoritos</h3>`+favs.slice().sort((a,b)=>a-b).map(lista).join(""):"")+`<h3>📖 Os 31 capítulos</h3><p class="mut">Cada dia do mês abre o capítulo do mesmo número. Toque para ler qualquer um.</p>`+P.map((_,i)=>lista(i)).join("");
+  v.querySelectorAll(".item").forEach(e=>e.onclick=()=>{ver=+e.dataset.i;render();scrollTo(0,0)});
+ }
+ else if(aba==="diario"){
+  const d=hojeData(),ano=d.getFullYear(),m=d.getMonth(),dias=new Date(ano,m+1,0).getDate(),ini=new Date(ano,m,1).getDay();
+  let cal="";for(let x=0;x<ini;x++)cal+="<div style='background:none'></div>";
+  for(let x=1;x<=dias;x++){const k=ano+"-"+String(m+1).padStart(2,"0")+"-"+String(x).padStart(2,"0");cal+=`<div class="${feitos[k]?"f":""} ${x===d.getDate()?"h":""}">${x}</div>`}
+  const ks=Object.keys(notas).sort().reverse();
+  v.innerHTML=`<h3>📅 ${d.toLocaleDateString("pt-BR",{month:"long",year:"numeric"})}</h3><p class="mut">Verde = dia em que você viveu o provérbio.</p>
+  <div class="cal">${["D","S","T","Q","Q","S","S"].map(x=>`<div style="background:none">${x}</div>`).join("")}${cal}</div>
+  <h3>✍️ Minhas anotações</h3>`+(ks.length?ks.map(k=>{const [a,mm,dd]=k.split("-");return `<div class="item"><b>${dd}/${mm}/${a} · ${P[notas[k].c].r}</b><p>${notas[k].t.replace(/</g,"&lt;").replace(/\n/g,"<br>")}</p></div>`}).join(""):`<p class="mut">Ainda não tem anotações. Na aba Hoje, escreva onde o provérbio apareceu no seu dia.</p>`);
+ }
+ else{
+  v.innerHTML=`<h3>☀️ Como funciona</h3>
+  <div class="item"><p>Provérbios tem <b>31 capítulos</b>, um para cada dia do mês. Todo dia, a partir das <b>4h da manhã</b>, o app troca sozinho para o capítulo do dia.</p></div>
+  <div class="item"><p>Cada mensagem traz o versículo, uma ligação com o <b>seu trabalho</b> na frente, outra com a <b>sua casa</b> e um <b>desafio prático</b> pra viver hoje.</p></div>
+  <div class="item"><p>À noite, marque <b>"Vivi isso hoje"</b> e escreva onde o provérbio apareceu. Sua sequência 🔥 cresce a cada dia.</p></div>
+  <div class="item"><p>🔊 <b>Ouvir</b> lê tudo em voz alta (bom no caminho do trabalho). 📤 <b>Enviar</b> manda no WhatsApp.</p></div>
+  <div class="item"><p class="mut">Os versículos estão em linguagem atual, fiéis ao sentido do texto bíblico. Funciona sem internet depois de aberto uma vez.</p></div>
+  <a class="btn lin" style="text-align:center;text-decoration:none" href="../apps/">🧰 Abrir meus apps</a>`;
+ }
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{aba=b.dataset.t;ver=null;render();scrollTo(0,0)});
+
+/* Instalação */
+let pedido=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;mostraInst()});
+function mostraInst(){const el=$("#inst");if(!el||standalone)return;el.hidden=false;$("#btnInst").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userChoice;pedido=null;el.hidden=true}else alert("No Chrome, toque no menu ⋮ (canto de cima) e depois em \"Instalar app\" ou \"Adicionar à tela inicial\".")}}
+
+/* Troca sozinho se o app ficar aberto de um dia para o outro */
+let ultimo=chave(hojeData());document.addEventListener("visibilitychange",()=>{if(!document.hidden&&chave(hojeData())!==ultimo){ultimo=chave(hojeData());aba="hoje";render()}});
+render();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>
