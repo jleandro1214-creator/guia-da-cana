@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Os 13 da Evolução</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f5f3a">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--verde:#1f5f3a;--verde2:#2f7a4d;--verdeclaro:#e3efe5;--amarelo:#f2b705;--amareloclaro:#fdf1c7;--marrom:#6b4426;--marromclaro:#efe3d6;--creme:#f7f3e8;--card:#fffdf7;--tx:#2a2218;--mut:#6a5f50;--linha:#dcd3c0;--erro:#a3361a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;min-height:100%}
+body{background:var(--creme);color:var(--tx);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+header{background:var(--verde);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 14px 14px}
+.topo{display:flex;align-items:center;gap:10px}
+.topo img{width:40px;height:40px;border-radius:10px}
+.topo h1{margin:0;font-size:21px;flex:1;line-height:1.2}
+.topo small{display:block;font-size:13px;font-weight:400;opacity:.88}
+.pill{background:var(--amarelo);color:#3a2a00;font:800 13px system-ui;padding:6px 10px;border-radius:99px;white-space:nowrap;text-align:center;line-height:1.2}
+main{max-width:640px;margin:0 auto;padding:14px}
+h2{font-size:20px;margin:18px 0 6px}
+h3{font-size:17px;margin:14px 0 4px;color:var(--marrom)}
+.mut{color:var(--mut);font-size:15px}
+.card{background:var(--card);border:2px solid var(--linha);border-radius:18px;padding:16px;margin-top:12px}
+.hero{display:flex;gap:14px;align-items:center}
+.hero svg{flex:0 0 92px;width:92px;height:92px}
+.hero .sem{font:800 13px system-ui;color:var(--verde2);text-transform:uppercase;letter-spacing:.04em}
+.hero h2{margin:2px 0 2px;font-size:24px;line-height:1.15}
+.hero .aut{font-weight:700;color:var(--marrom)}
+.lema{font:600 21px/1.4 Georgia,"Times New Roman",serif;margin:14px 0 0;padding:12px 14px;border-left:6px solid var(--amarelo);background:var(--amareloclaro);border-radius:0 12px 12px 0}
+.bloco{border-radius:14px;padding:12px 14px;margin-top:10px}
+.bloco b.t{display:block;font-size:15px;margin-bottom:2px}
+.campo{background:var(--verdeclaro)}.campo b.t{color:var(--verde)}
+.casa{background:var(--marromclaro)}.casa b.t{color:var(--marrom)}
+.ferr{background:#fff;border:2px dashed var(--verde2)}.ferr b.t{color:var(--verde2)}
+.ferr ol{margin:6px 0 0;padding-left:22px}.ferr li{margin:3px 0}
+.pv{background:#fff;border:2px solid var(--marromclaro);font-style:italic}.pv b.t{font-style:normal;color:var(--marrom)}
+.desafio{background:var(--verde);color:#fff;border-radius:16px;padding:14px 16px;margin-top:12px}
+.desafio b{display:block;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--amarelo)}
+.desafio p{margin:4px 0 0;font-size:19px;font-weight:600}
+label.q{display:block;font-weight:800;margin-top:14px}
+textarea,input[type=text]{width:100%;margin-top:6px;border:2px solid var(--linha);border-radius:12px;padding:10px;font:17px system-ui;background:#fff;color:var(--tx)}
+textarea{min-height:78px}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px 12px;font:700 17px system-ui;background:var(--verde);color:#fff;min-height:52px;margin-top:10px}
+.btn.am{background:var(--amarelo);color:#3a2a00}.btn.mr{background:var(--marrom)}
+.btn.lin{background:transparent;border:2px solid var(--linha);color:var(--tx)}
+.btn.er{background:var(--erro)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.sel{outline:4px solid var(--amarelo);outline-offset:2px}
+/* tabela de Franklin */
+.tab{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:3px;margin-top:8px;font-size:14px}
+.tab th{font-weight:800;color:var(--mut);padding:2px}
+.tab th.hj{color:var(--verde);text-decoration:underline 3px var(--amarelo)}
+.tab td{background:#fff;border-radius:8px;text-align:center;height:38px;border:1px solid var(--linha)}
+.tab td.nm{text-align:left;padding:2px 6px;font-weight:700;font-size:13px;line-height:1.15;background:none;border:0;width:38%}
+.tab tr.foco td.nm{color:var(--verde)}
+.tab tr.foco td:not(.nm){background:var(--amareloclaro);border-color:var(--amarelo)}
+.tab td.f::after{content:"●";color:var(--erro);font-size:20px}
+.tab td.fut{opacity:.35}
+/* lista */
+.item{display:flex;gap:12px;align-items:center;background:var(--card);border:2px solid var(--linha);border-radius:14px;padding:10px 12px;margin-top:10px;cursor:pointer}
+.item svg{flex:0 0 58px;width:58px;height:58px}
+.item div{flex:1}.item b{display:block;line-height:1.25}.item span{font-size:14px;color:var(--mut)}
+.item.atual{border-color:var(--amarelo);background:var(--amareloclaro)}
+.num{font:800 13px system-ui;color:var(--verde2)}
+.autor-top{text-align:center}.autor-top svg{width:150px;height:150px}
+.autor-top h2{margin:6px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{background:var(--verdeclaro);color:var(--verde);font:700 14px system-ui;padding:5px 10px;border-radius:99px}
+ul.id{padding-left:20px;margin:6px 0}ul.id li{margin:5px 0}
+.barra{height:12px;background:#eee8d8;border-radius:99px;overflow:hidden;margin-top:4px}
+.barra i{display:block;height:100%;background:var(--verde2);border-radius:99px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.kpi{background:var(--card);border:2px solid var(--linha);border-radius:14px;padding:10px;text-align:center}
+.kpi b{display:block;font-size:26px;color:var(--verde)}.kpi span{font-size:13px;color:var(--mut)}
+.inst{display:flex;gap:10px;align-items:center;border:2px dashed var(--amarelo);background:var(--amareloclaro);border-radius:14px;padding:10px 12px;margin-top:16px}
+.inst span{flex:1;font-size:15px}.inst .btn{width:auto;margin:0;padding:10px 14px;min-height:44px}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:2px solid var(--linha);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{flex:1;border:0;background:none;font:700 12px system-ui;color:var(--mut);padding:6px 1px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:1px}
+nav button span{font-size:21px}
+nav button[aria-current=true]{background:var(--verdeclaro);color:var(--verde)}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:var(--tx);color:#fff;padding:10px 16px;border-radius:12px;font-size:15px;z-index:9;max-width:90%;text-align:center}
+.voltar{background:none;border:0;font:700 16px system-ui;color:var(--verde2);padding:6px 0}
+.dias{display:flex;gap:6px;margin-top:10px}
+.dias button{flex:1;border:2px solid var(--linha);background:#fff;border-radius:10px;padding:8px 0;font:700 14px system-ui;color:var(--mut)}
+.dias button.on{background:var(--verde);border-color:var(--verde);color:#fff}
+.dias button.ok{border-color:var(--verde2);color:var(--verde2)}
+.dias button.fa{border-color:var(--erro);color:var(--erro)}
+.dias button.on{background:var(--verde)!important;border-color:var(--verde)!important;color:#fff!important}
+</style>
+</head>
+<body>
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1f5f3a;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Os 13 da Evolução</b></div>
+<script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,500-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3000)})();</script>
+
+<header>
+ <div class="topo"><img src="icon-192.png" alt=""><h1>Os 13 da Evolução<small id="sub">Uma virtude por semana</small></h1><span class="pill" id="pill"></span></div>
+</header>
+<main id="view"></main>
+<nav>
+ <button data-t="hoje" aria-current="true"><span>☀️</span>Hoje</button>
+ <button data-t="tabela"><span>📋</span>Tabela</button>
+ <button data-t="virtudes"><span>🪜</span>Virtudes</button>
+ <button data-t="autores"><span>📚</span>Mestres</button>
+ <button data-t="progresso"><span>📈</span>Evolução</button>
+</nav>
+
+<script>
+/* ===== Emblemas ilustrados de cada mestre (desenhos, não retratos) ===== */
+const C={v:"#1f5f3a",v2:"#2f7a4d",a:"#f2b705",m:"#6b4426",c:"#fdf8ec",mc:"#efe3d6"};
+const EMB={
+fra:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><path d="M50 14 L70 38 L50 62 L30 38Z" fill="${C.c}" stroke="${C.m}" stroke-width="2"/><path d="M50 14V62M30 38H70" stroke="${C.m}" stroke-width="1.5"/><path d="M50 62 C44 70 56 74 48 82" stroke="${C.c}" stroke-width="2.5" fill="none"/><circle cx="47" cy="85" r="4" fill="none" stroke="${C.a}" stroke-width="3"/><path d="M50 85h10m-4 0v5m4-5v4" stroke="${C.a}" stroke-width="3"/><path d="M78 12 L70 26 L77 26 L69 40" stroke="${C.a}" stroke-width="3.5" fill="none" stroke-linejoin="round"/>`,
+hil:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><circle cx="46" cy="54" r="30" fill="${C.c}"/><circle cx="46" cy="54" r="21" fill="${C.a}"/><circle cx="46" cy="54" r="12" fill="${C.c}"/><circle cx="46" cy="54" r="5" fill="${C.m}"/><path d="M46 54 L82 18" stroke="${C.m}" stroke-width="4"/><path d="M82 18 l-12 2 m12-2 l-2 12" stroke="${C.m}" stroke-width="4" stroke-linecap="round"/>`,
+cov:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><circle cx="50" cy="50" r="34" fill="${C.c}" stroke="${C.a}" stroke-width="5"/><path d="M50 22 L57 50 L50 78 L43 50Z" fill="${C.m}"/><path d="M50 22 L57 50 L43 50Z" fill="#c0392b"/><path d="M22 50 L50 45 L78 50 L50 55Z" fill="${C.v2}" opacity=".6"/><circle cx="50" cy="50" r="4" fill="${C.a}"/>`,
+tra:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><ellipse cx="50" cy="60" rx="30" ry="22" fill="#5aa45a"/><circle cx="36" cy="38" r="11" fill="#5aa45a"/><circle cx="64" cy="38" r="11" fill="#5aa45a"/><circle cx="36" cy="37" r="6" fill="${C.c}"/><circle cx="64" cy="37" r="6" fill="${C.c}"/><circle cx="37" cy="38" r="3" fill="#222"/><circle cx="65" cy="38" r="3" fill="#222"/><path d="M36 62 Q50 72 64 62" stroke="#24502a" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="30" cy="80" rx="9" ry="4" fill="#4a8c4a"/><ellipse cx="70" cy="80" rx="9" ry="4" fill="#4a8c4a"/>`,
+cle:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><path d="M18 78H34V66H48V54H62V42H76V78Z" fill="${C.c}"/><path d="M22 60 L70 22" stroke="${C.a}" stroke-width="4" stroke-linecap="round"/><path d="M70 22 l-11 1 m11-1 l-2 11" stroke="${C.a}" stroke-width="4" stroke-linecap="round"/><text x="30" y="36" font-family="system-ui" font-weight="800" font-size="16" fill="${C.c}">+1%</text>`,
+duh:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><g fill="none" stroke="${C.c}" stroke-width="6" stroke-linecap="round"><path d="M50 20 A30 30 0 0 1 76 64"/><path d="M72 70 A30 30 0 0 1 26 66"/><path d="M23 58 A30 30 0 0 1 42 21"/></g><g fill="${C.a}"><path d="M70 60 l10 6 l1-12z"/><path d="M32 70 l-11 -2 l6 10z"/><path d="M38 14 l10 6 l-10 5z"/></g><circle cx="50" cy="50" r="9" fill="${C.a}"/>`,
+new:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><circle cx="44" cy="44" r="22" fill="${C.c}" stroke="${C.m}" stroke-width="6"/><path d="M60 60 L80 80" stroke="${C.m}" stroke-width="10" stroke-linecap="round"/><circle cx="44" cy="44" r="7" fill="${C.a}"/><circle cx="44" cy="44" r="13" fill="none" stroke="${C.a}" stroke-width="2" stroke-dasharray="3 3"/>`,
+all:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><rect x="30" y="16" width="40" height="44" rx="3" fill="${C.c}" transform="rotate(-6 50 38)"/><path d="M36 28h26M36 36h26M36 44h18" stroke="${C.v2}" stroke-width="3" transform="rotate(-6 50 38)"/><path d="M18 56 H34 L40 66 H60 L66 56 H82 V82 H18Z" fill="${C.m}"/><path d="M58 30 l5 5 l10 -12" stroke="${C.a}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+car:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><path d="M14 26 h44 a6 6 0 0 1 6 6 v18 a6 6 0 0 1 -6 6 h-28 l-10 10 v-10 h-6 a6 6 0 0 1 -6 -6 v-18 a6 6 0 0 1 6 -6z" fill="${C.c}"/><path d="M42 48 h38 a6 6 0 0 1 6 6 v16 a6 6 0 0 1 -6 6 h-4 v9 l-9 -9 h-25 a6 6 0 0 1 -6 -6 v-16 a6 6 0 0 1 6 -6z" fill="${C.a}"/><circle cx="26" cy="41" r="3" fill="${C.m}"/><circle cx="36" cy="41" r="3" fill="${C.m}"/><circle cx="46" cy="41" r="3" fill="${C.m}"/><path d="M56 62 q8 8 16 0" stroke="${C.m}" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+dru:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><circle cx="50" cy="52" r="32" fill="${C.c}" stroke="${C.m}" stroke-width="5"/><rect x="44" y="12" width="12" height="8" rx="2" fill="${C.m}"/><g stroke="${C.m}" stroke-width="3"><path d="M50 24v6M50 74v6M22 52h6M72 52h6"/></g><path d="M50 52 L50 34" stroke="${C.v}" stroke-width="5" stroke-linecap="round"/><path d="M50 52 L64 60" stroke="${C.a}" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="52" r="4" fill="${C.m}"/>`,
+dwe:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><path d="M20 80 Q50 70 80 80 V86 H20Z" fill="${C.m}"/><path d="M50 78 V40" stroke="#5aa45a" stroke-width="5"/><path d="M50 56 C34 56 26 44 28 34 C40 34 50 42 50 56Z" fill="#5aa45a"/><path d="M50 46 C64 46 74 34 72 22 C58 22 50 32 50 46Z" fill="#7cc47c"/><path d="M74 66 V44 m-6 6 l6 -6 l6 6" stroke="${C.a}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+duc:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><path d="M8 82 L40 30 L56 52 L66 40 L92 82Z" fill="${C.m}"/><path d="M40 30 L33 41 L38 39 L42 44 L47 38Z" fill="${C.c}"/><path d="M40 30 V10" stroke="${C.c}" stroke-width="3"/><path d="M41 10 L58 15 L41 20Z" fill="${C.a}"/><path d="M14 82 Q30 70 26 60 M60 82 Q54 72 62 64" stroke="${C.a}" stroke-width="2.5" stroke-dasharray="3 3" fill="none"/>`,
+roh:(b)=>`<circle cx="50" cy="50" r="48" fill="${b}"/><circle cx="76" cy="24" r="9" fill="${C.a}"/><path d="M50 84 V54" stroke="${C.m}" stroke-width="8"/><path d="M50 62 L38 50 M50 58 L62 48" stroke="${C.m}" stroke-width="4"/><circle cx="50" cy="40" r="22" fill="#5aa45a"/><circle cx="36" cy="48" r="13" fill="#4a8c4a"/><circle cx="64" cy="48" r="13" fill="#7cc47c"/><circle cx="44" cy="34" r="3" fill="#c0392b"/><circle cx="58" cy="42" r="3" fill="#c0392b"/><path d="M14 86 H86" stroke="${C.m}" stroke-width="4"/>`
+};
+const svg=(k,b)=>`<svg viewBox="0 0 100 100" aria-hidden="true">${EMB[k](b||C.v)}</svg>`;
+
+/* ===== Os mestres ===== */
+const A={
+fra:{n:"Benjamin Franklin",x:"1706–1790 · EUA",l:"Autobiografia",b:C.v,
+ bio:"Filho de um fabricante de velas, saiu da escola aos 10 anos e virou tipógrafo, inventor, cientista e diplomata. Aos 20 anos criou um plano de 13 virtudes e passou a vida se avaliando numa tabelinha. Este app nasceu desse método.",
+ id:["Escolher poucas virtudes e treinar uma de cada vez, uma por semana.","Marcar com um ponto, todo dia, as falhas em cada virtude, sem se condenar: o objetivo é ver a tabela ficar limpa com o tempo.","Começar o dia perguntando \"Que bem farei hoje?\" e terminar com \"Que bem fiz hoje?\"."],
+ fr:"Que bem farei hoje?"},
+hil:{n:"Napoleon Hill",x:"1883–1970 · EUA",l:"Quem Pensa Enriquece",b:C.m,
+ bio:"Jornalista que passou anos estudando pessoas bem-sucedidas da sua época e resumiu o que viu em princípios de realização. É um dos livros de autoajuda mais vendidos da história.",
+ id:["Propósito definido: saber exatamente o que se quer, com prazo, e escrever isso.","Persistência: a maioria desiste perto da linha de chegada.","Mente mestra: um pequeno grupo que se ajuda em harmonia rende mais que cada um sozinho."]},
+cov:{n:"Stephen Covey",x:"1932–2012 · EUA",l:"Os 7 Hábitos das Pessoas Altamente Eficazes",b:C.a,
+ bio:"Professor e consultor de liderança. Ensinou que eficácia vem de caráter e princípios, não de truques. Seus 7 hábitos são usados em empresas do mundo inteiro.",
+ id:["Ser proativo: focar no que você controla, não no que reclama.","Começar com o fim em mente.","Primeiro o mais importante: separar o urgente do importante e proteger o importante."]},
+tra:{n:"Brian Tracy",x:"1944– · Canadá/EUA",l:"Comece pelo Mais Difícil",b:C.v2,
+ bio:"Largou a escola, trabalhou em serviços braçais e virou um dos palestrantes de produtividade mais conhecidos. Ficou famoso pela imagem de \"engolir o sapo\".",
+ id:["Fazer primeiro, logo cedo, a tarefa mais difícil e importante do dia (o \"sapo\").","Planejar o dia na véspera, por escrito.","A regra 80/20: poucas tarefas geram a maior parte do resultado."]},
+cle:{n:"James Clear",x:"1986– · EUA",l:"Hábitos Atômicos",b:C.m,
+ bio:"Ex-atleta que se recuperou de uma lesão grave melhorando um pouquinho por dia. Seu livro sobre pequenos hábitos virou referência mundial.",
+ id:["Melhorar 1% por dia vira uma mudança enorme em um ano.","Você não sobe ao nível das suas metas; cai ao nível dos seus sistemas.","Mudar a identidade: \"sou alguém que...\", e cada ação é um voto nessa identidade."]},
+duh:{n:"Charles Duhigg",x:"1974– · EUA",l:"O Poder do Hábito",b:C.v,
+ bio:"Jornalista que pesquisou como os hábitos funcionam no cérebro, em pessoas e em empresas.",
+ id:["Todo hábito tem um gatilho, uma rotina e uma recompensa.","Para mudar um hábito, mantenha o gatilho e a recompensa e troque a rotina.","Hábitos-chave (como exercício ou planejar o dia) puxam outros hábitos bons junto."]},
+new:{n:"Cal Newport",x:"1982– · EUA",l:"Trabalho Focado",b:C.a,
+ bio:"Professor de computação que estuda foco e distração. Defende que a capacidade de concentrar fundo está ficando rara e, por isso, valiosa.",
+ id:["Trabalho profundo: blocos de tempo sem nenhuma distração produzem o melhor resultado.","Distração frequente treina o cérebro a não conseguir focar.","Agendar o tempo de celular, e não o tempo de foco."]},
+all:{n:"David Allen",x:"1945– · EUA",l:"A Arte de Fazer Acontecer",b:C.v2,
+ bio:"Consultor que criou o método GTD, conhecido no mundo todo para organizar tarefas e tirar o peso da cabeça.",
+ id:["A mente serve para ter ideias, não para guardar lembretes.","Anotar tudo num lugar confiável e revisar toda semana.","Se leva menos de 2 minutos, faça agora."]},
+car:{n:"Dale Carnegie",x:"1888–1955 · EUA",l:"Como Fazer Amigos e Influenciar Pessoas",b:C.m,
+ bio:"Filho de agricultores pobres do Missouri, vendeu de porta em porta e virou professor de oratória. Seu livro de relacionamento é lido há quase 90 anos.",
+ id:["Interesse sincero pelas pessoas abre mais portas que qualquer argumento.","O nome de uma pessoa é, para ela, o som mais importante.","Criticar, condenar e reclamar raramente muda alguém; elogio sincero muda."]},
+dru:{n:"Peter Drucker",x:"1909–2005 · Áustria/EUA",l:"O Gestor Eficaz",b:C.v,
+ bio:"Considerado o pai da administração moderna. Ensinou que a eficácia de um gestor começa por saber onde o tempo dele realmente vai.",
+ id:["Conheça o seu tempo: anote onde ele vai antes de tentar organizar.","Eficiência é fazer certo as coisas; eficácia é fazer as coisas certas.","Foque em contribuição: o que só você pode entregar?"]},
+dwe:{n:"Carol Dweck",x:"1946– · EUA",l:"Mindset: A Nova Psicologia do Sucesso",b:C.a,
+ bio:"Psicóloga da Universidade Stanford. Pesquisou por décadas por que algumas pessoas crescem com o erro e outras travam.",
+ id:["Mentalidade fixa acha que talento é de nascença; mentalidade de crescimento acha que dá para aprender.","O \"ainda\" muda tudo: \"não sei fazer ainda\".","Elogiar o esforço e a estratégia, não o \"dom\"."]},
+duc:{n:"Angela Duckworth",x:"1970– · EUA",l:"Garra",b:C.m,
+ bio:"Psicóloga que estudou cadetes, vendedores e estudantes e descobriu que a perseverança com paixão prevê o sucesso melhor que o talento.",
+ id:["Garra é paixão mais perseverança por objetivos de longo prazo.","Prática deliberada: treinar o ponto fraco, com foco e retorno.","Esforço conta duas vezes: transforma talento em habilidade e habilidade em resultado."]},
+roh:{n:"Jim Rohn",x:"1930–2009 · EUA",l:"Palestras sobre filosofia pessoal",b:C.v2,
+ bio:"Filho de fazendeiros de Idaho. Comparava a vida às estações do ano: há tempo de plantar, de cuidar, de colher e de aguentar o inverno.",
+ id:["Disciplinas pequenas, todo dia, evitam arrependimentos grandes depois.","As estações: não dá para mudar a estação, dá para se preparar para ela.","Trabalhe mais em você do que no seu emprego."]}
+};
+
+/* ===== As 13 virtudes ===== */
+const V=[
+{a:"fra",n:"Ordem e revisão",lema:"Cada coisa no seu lugar, cada tarefa no seu tempo. E todo dia uma pergunta: que bem farei hoje?",
+ id:"Franklin acordava às 5h, perguntava a si mesmo que bem faria naquele dia e dividia as horas entre trabalho, refeições, leitura e descanso. À noite revia o dia. Ordem não é perfeição: é saber onde as coisas estão e para onde o tempo vai.",
+ cp:"Comece o turno com 2 minutos de planejamento: frentes, equipamentos, caminhões, escala. Termine com 2 minutos de revisão: o que ficou pendente passa para amanhã por escrito, não na memória.",
+ cs:"Um lugar fixo para chave, carteira, crachá e EPI. Menos procura de manhã, menos estresse.",
+ fe:["Ao acordar, escreva: \"Que bem farei hoje?\"","Liste no máximo 3 prioridades.","À noite, responda: \"Que bem fiz hoje?\"","Marque na tabela as virtudes em que falhou."],
+ d:["Escreva sua resposta para \"Que bem farei hoje?\" antes de sair de casa.","Escolha um lugar fixo para as coisas que você sempre procura.","Organize a pasta, o porta-luvas ou a mesa de trabalho em 10 minutos.","Planeje amanhã ainda hoje, por escrito.","Limpe as fotos e os arquivos inúteis do celular.","Revise a semana: o que ficou para trás?","Descanse de verdade: ordem também é ter hora para parar."],
+ pv:"Provérbios 21:5 · Os planos de quem é diligente levam à fartura."},
+{a:"hil",n:"Propósito definido",lema:"Quem não sabe aonde vai, qualquer caminho serve. Escreva o que você quer, com prazo.",
+ id:"Hill dizia que o ponto de partida de toda conquista é um desejo definido: saber exatamente o que quer, até quando, e o que vai dar em troca. Um objetivo vago (\"quero melhorar de vida\") não puxa ninguém da cama.",
+ cp:"Qual é a meta da sua frente neste mês, em hectares e em qualidade? A equipe sabe? Meta que só o gestor conhece não move a equipe.",
+ cs:"Converse em casa sobre um objetivo da família, como a casa própria, com valor e prazo. Um sonho escrito vira plano.",
+ fe:["Escreva o objetivo em uma frase, com número e data.","Escreva o que você vai fazer para chegar lá.","Leia em voz alta de manhã e à noite.","Comece hoje, mesmo que pequeno."],
+ d:["Escreva seu principal objetivo para os próximos 12 meses, com data.","Escreva por que ele importa. Sem um \"porquê\" forte, a meta morre.","Divida o objetivo em 3 etapas.","Faça hoje uma ação concreta da etapa 1.","Conte seu objetivo para uma pessoa de confiança.","Diga à equipe a meta da semana e o porquê dela.","Releia seu objetivo e ajuste o que precisar."],
+ pv:"Provérbios 29:18 · Onde não há visão, o povo perde o rumo."},
+{a:"cov",n:"O importante primeiro",lema:"O urgente grita, o importante espera calado. Proteja o importante.",
+ id:"Covey dividia as tarefas em quatro caixas: urgente e importante, importante sem urgência, urgente sem importância e nenhum dos dois. Quem vive só apagando incêndio nunca planta nada. O crescimento mora no importante que ainda não é urgente: estudar, planejar, cuidar da saúde e da família.",
+ cp:"Manutenção preventiva do aplicador e conversa de alinhamento com os tratoristas são importantes sem urgência. Se você não fizer, viram incêndio depois.",
+ cs:"Tempo com a esposa e as filhas não grita, mas é o mais importante. Agende como se fosse reunião.",
+ fe:["Liste suas tarefas da semana.","Separe em: urgente e importante · importante · só urgente · nenhum.","Bloqueie um horário fixo para o \"importante sem urgência\".","Corte ou delegue um item de \"nenhum dos dois\"."],
+ d:["Faça a lista da semana nas 4 caixas.","Reserve 30 minutos para algo importante sem urgência.","Diga \"não\" (com educação) a uma coisa que não importa.","Faça uma manutenção preventiva: no carro, na casa ou no equipamento.","Estude 20 minutos para o seu futuro.","Tenha um tempo só com a família, sem celular.","Pergunte-se: o que eu adiei a semana toda que realmente importa?"],
+ pv:"Provérbios 24:27 · Prepare primeiro o campo; depois construa a casa."},
+{a:"tra",n:"Comece pelo mais difícil",lema:"Se tem que engolir um sapo, engula logo cedo. O resto do dia fica leve.",
+ id:"Tracy diz que, se a primeira coisa do dia for engolir um sapo vivo, nada pior vai acontecer depois. O \"sapo\" é a tarefa mais difícil e importante, aquela que você empurra. Feita cedo, ela libera energia para o dia inteiro.",
+ cp:"Aquela conversa difícil com um colaborador, o apontamento atrasado, a cobrança chata: faça na primeira hora do turno.",
+ cs:"A conta para negociar, o conserto que você adia: resolva antes de abrir rede social.",
+ fe:["Na noite anterior, escolha o sapo de amanhã.","Ao começar, não olhe mensagens antes de atacar o sapo.","Trabalhe nele até terminar ou por 45 minutos seguidos.","Comemore. Depois siga o dia."],
+ d:["Escolha o seu sapo de amanhã e escreva.","Engula o sapo na primeira hora do dia.","Faça hoje a ligação ou a conversa que você vem adiando.","Resolva primeiro o apontamento ou o relatório mais chato.","Na lista do dia, marque as 20% de tarefas que dão 80% do resultado.","Termine uma pendência antiga, de qualquer área.","Reveja a semana: quantos sapos você engoliu cedo?"],
+ pv:"Provérbios 6:6 · Vá até a formiga, preguiçoso, e aprenda com ela."},
+{a:"cle",n:"1% melhor por dia",lema:"Pequeno demais para falhar, constante demais para não dar resultado.",
+ id:"Clear mostra que melhorar 1% por dia deixa você cerca de 37 vezes melhor em um ano. O segredo não é motivação; é sistema: tornar o hábito óbvio, atraente, fácil e satisfatório. E cada ação é um voto na pessoa que você quer ser.",
+ cp:"Melhore um detalhe por dia na frente: um checklist, a passagem de turno, a organização do caminhão. Ninguém nota no dia; todo mundo nota no mês.",
+ cs:"Uma página de leitura, uma flexão, um copo de água a mais. Ridiculamente pequeno, todo dia.",
+ fe:["Escolha um hábito e reduza para 2 minutos.","Prenda o hábito a algo que já existe: \"depois do café, eu...\"","Deixe à vista o que facilita (livro na mesa, tênis na porta).","Marque cada dia feito e não falhe dois dias seguidos."],
+ d:["Escolha um hábito de 2 minutos e faça hoje.","Escreva: \"Eu sou alguém que...\" (a identidade que você quer).","Prenda o hábito a um gatilho: \"Depois de ___, eu vou ___.\"","Deixe o ambiente pronto para o hábito de amanhã.","Melhore 1 detalhe de um processo no trabalho.","Esconda o que atrapalha (o celular longe na hora de estudar).","Conte quantos dias você fez. Não falhe dois seguidos."],
+ pv:"Provérbios 13:11 · Quem ajunta aos poucos terá cada vez mais."},
+{a:"duh",n:"Gatilho, rotina, recompensa",lema:"Não brigue com o hábito ruim: descubra o gatilho e troque a rotina.",
+ id:"Duhigg mostra que todo hábito é um ciclo: algo dispara (gatilho), você age no automático (rotina) e ganha algo (recompensa). Para mudar, observe o gatilho, mantenha a recompensa e troque a rotina no meio.",
+ cp:"Se a equipe sempre atrasa na troca de turno, qual é o gatilho? Mude o processo, não só a bronca.",
+ cs:"Pega o celular ao deitar? O gatilho é deitar. Troque a rotina: livro na cabeceira, celular carregando longe.",
+ fe:["Escolha um hábito que quer mudar.","Anote quando acontece: hora, lugar, emoção, quem está perto.","Descubra a recompensa real (descanso? distração? companhia?).","Planeje: \"Quando [gatilho], vou [nova rotina] para ter [recompensa].\""],
+ d:["Escolha um hábito ruim e anote cada vez que ele acontecer.","Descubra o gatilho: hora, lugar ou sentimento.","Descubra a recompensa verdadeira por trás dele.","Escreva seu plano: \"Quando ___, vou ___.\"","Teste a nova rotina hoje.","Escolha um hábito-chave (exercício, planejar o dia) e faça.","Avalie: o que mudou desde segunda?"],
+ pv:"Provérbios 4:26 · Pense bem no caminho dos seus pés."},
+{a:"new",n:"Foco profundo",lema:"Uma hora sem distração vale mais que quatro horas picotadas.",
+ id:"Newport mostra que a capacidade de se concentrar fundo, sem interrupções, está ficando rara e, por isso, valiosa. Cada olhada no celular custa minutos de reconcentração. Quem treina o foco aprende mais rápido e entrega melhor.",
+ cp:"Para escala, metas e relatórios, faça blocos de 30 a 60 minutos com o WhatsApp silenciado, avisando a equipe do horário.",
+ cs:"Estudo para a agronomia em bloco fechado: celular em outro cômodo, um tema só.",
+ fe:["Marque na agenda um bloco de foco (30 a 60 min).","Celular em modo avião ou em outro lugar.","Uma tarefa só, com um objetivo claro.","No fim, anote o que avançou."],
+ d:["Faça um bloco de 30 minutos sem celular.","Silencie os grupos que não são essenciais.","Estude um tema só, por 40 minutos.","Faça um planejamento difícil em bloco fechado.","Fique 15 minutos de tédio sem pegar o celular (fila, espera).","Aumente o bloco de foco para 60 minutos.","Conte quantos blocos de foco você fez na semana."],
+ pv:"Provérbios 4:25 · Olhe sempre para frente, com os olhos fixos no caminho."},
+{a:"all",n:"Cabeça livre",lema:"A mente é para ter ideias, não para guardar lembretes.",
+ id:"Allen ensina que cada compromisso guardado só na memória gasta energia e gera ansiedade. A solução é anotar tudo num lugar confiável, decidir o próximo passo de cada coisa e revisar toda semana. Se leva menos de 2 minutos, faça na hora.",
+ cp:"Ocorrências, atestados, banco de horas, pedidos de peça: tudo num lugar só, anotado na hora, e não \"depois eu lembro\".",
+ cs:"Uma lista única da casa: contas, consertos, compras, datas das filhas.",
+ fe:["Escolha UM lugar para anotar tudo (bloco de notas do celular).","Esvazie a cabeça: anote tudo o que está pendente.","Para cada item, escreva o próximo passo concreto.","Toda semana, revise e limpe a lista."],
+ d:["Esvazie a cabeça: anote tudo o que está pendente.","Defina o próximo passo concreto de cada item.","Faça na hora tudo o que leva menos de 2 minutos.","Anote as ocorrências do turno no momento em que acontecem.","Crie a lista única da casa.","Delegue um item que não precisa ser você.","Faça a revisão semanal: limpe, atualize e planeje."],
+ pv:"Provérbios 16:3 · Entregue ao Senhor o que você faz, e seus planos se firmarão."},
+{a:"car",n:"Interesse pelas pessoas",lema:"Interesse sincero pelas pessoas abre mais portas que qualquer argumento.",
+ id:"Carnegie ensina que as pessoas se movem por quem se importa com elas. Chamar pelo nome, ouvir de verdade, elogiar com sinceridade e evitar críticas humilhantes muda a relação, em casa e no trabalho.",
+ cp:"Sabe o nome dos filhos dos seus tratoristas? Pergunte. Equipe que se sente vista trabalha com mais vontade e falta menos.",
+ cs:"Ouça suas filhas até o fim, sem corrigir no meio. Pergunte mais do que fala.",
+ fe:["Chame cada pessoa pelo nome.","Faça uma pergunta pessoal e escute a resposta inteira.","Elogie algo específico e verdadeiro.","Se precisar corrigir, comece pelo que está bom."],
+ d:["Cumprimente cada pessoa da equipe pelo nome.","Faça um elogio específico e sincero.","Ouça alguém sem interromper nem dar conselho.","Lembre e pergunte algo que alguém te contou antes.","Troque uma crítica por uma pergunta: \"como podemos melhorar isso?\"","Agradeça a alguém que ninguém costuma agradecer.","Tenha uma conversa de verdade em casa, sem celular."],
+ pv:"Provérbios 25:11 · A palavra certa na hora certa é como maçãs de ouro."},
+{a:"dru",n:"Conhecer o seu tempo",lema:"Antes de organizar o tempo, descubra para onde ele vai.",
+ id:"Drucker dizia que gestores eficazes não começam pelas tarefas; começam pelo tempo. Anotam onde as horas realmente vão, cortam o que não traz resultado e juntam o tempo livre em blocos. Ele também separava eficiência (fazer certo) de eficácia (fazer a coisa certa).",
+ cp:"Quanto do seu turno vai para deslocamento, telefone e retrabalho? Medir é o primeiro passo para devolver horas à gestão.",
+ cs:"Quantas horas por dia vão para a tela? O próprio celular mostra no Bem-estar digital.",
+ fe:["Durante 3 dias, anote o que fez a cada hora.","Marque: o que não precisava ser feito? O que outro faria?","Corte ou delegue.","Junte o tempo que sobrou num bloco para o que importa."],
+ d:["Anote o que você fez em cada hora do dia.","Continue anotando e veja o tempo de tela do celular.","Termine o 3º dia de registro.","Marque as atividades que não precisavam ser feitas.","Corte ou delegue uma delas.","Use o tempo recuperado num bloco de algo importante.","Pergunte-se: o que só eu posso entregar?"],
+ pv:"Provérbios 27:23 · Procure conhecer bem o estado do seu rebanho."},
+{a:"dwe",n:"Mentalidade de crescimento",lema:"Não é \"não consigo\", é \"não consigo AINDA\".",
+ id:"Dweck mostra que quem acredita que a capacidade é fixa evita desafios e desiste no erro. Quem acredita que dá para aprender encara o difícil e usa o erro como professor. A boa notícia: a própria mentalidade pode ser treinada.",
+ cp:"Quando um colaborador errar, pergunte o que ele aprendeu, e não só quem errou. Errar e aprender vira cultura da frente.",
+ cs:"Com as filhas, elogie o esforço (\"você treinou muito\") mais que o dom (\"você é inteligente\").",
+ fe:["Perceba quando pensar \"não sou bom nisso\".","Acrescente \"ainda\".","Pergunte: qual estratégia eu posso mudar?","Procure alguém que já sabe e peça uma dica."],
+ d:["Troque um \"não consigo\" por \"não consigo ainda\".","Faça algo que você evita por medo de errar.","Peça uma crítica sincera do seu trabalho a alguém.","Anote um erro recente e o que ele te ensinou.","Elogie o esforço de alguém, não o talento.","Aprenda 15 minutos de algo totalmente novo.","Escreva: em que eu melhorei este mês?"],
+ pv:"Provérbios 9:9 · Ensine o sábio, e ele ficará ainda mais sábio."},
+{a:"duc",n:"Garra",lema:"Talento conta. Esforço conta duas vezes.",
+ id:"Duckworth descobriu que o que mais prevê sucesso não é talento, é garra: paixão por um objetivo de longo prazo somada à perseverança. Garra se constrói com interesse, prática deliberada, propósito e esperança.",
+ cp:"Safra é maratona. Os dias de chuva, quebra e meta apertada são exatamente onde a garra separa as frentes.",
+ cs:"Seu caminho até se formar agrônomo é um objetivo de garra: constância por anos, não empolgação por semanas.",
+ fe:["Escreva seu objetivo de longo prazo (anos).","Escolha um ponto fraco para treinar de propósito.","Treine com foco e peça retorno.","Quando der vontade de largar, espere o fim da semana antes de decidir."],
+ d:["Escreva o objetivo pelo qual você vai lutar por anos.","Identifique um ponto fraco seu e treine 20 minutos.","Peça retorno a alguém sobre esse ponto.","Termine algo que você começou e largou.","Lembre de uma vez em que você não desistiu e deu certo.","Leia ou ouça a história de alguém que venceu com perseverança.","Avalie: o que aumentou sua garra nesta semana?"],
+ pv:"Provérbios 24:16 · O justo cai sete vezes e se levanta."},
+{a:"roh",n:"Disciplina e estações",lema:"A dor da disciplina pesa gramas. A do arrependimento pesa toneladas.",
+ id:"Rohn, filho de fazendeiros, ensinava que a vida tem estações como o campo: plantar na primavera, cuidar no verão, colher no outono e se preparar para o inverno. Não dá para mudar a estação, mas dá para fazer a disciplina certa em cada uma.",
+ cp:"Entressafra e safra pedem disciplinas diferentes. Em que estação sua frente está agora, e o que ela pede de você?",
+ cs:"Em que estação está sua vida financeira e familiar? Tempo de plantar (estudar, poupar) ou de colher?",
+ fe:["Escolha 3 pequenas disciplinas diárias.","Faça mesmo sem vontade: disciplina vem antes da motivação.","Revise toda semana o que plantou.","Prepare-se para o \"inverno\": reserva, saúde, estudo."],
+ d:["Defina 3 pequenas disciplinas para fazer todos os dias.","Leia 10 páginas de um bom livro.","Guarde um valor, mesmo pequeno, para o \"inverno\".","Cuide do corpo: treino, caminhada ou sono em dia.","Anote suas ideias e aprendizados do dia num diário.","Pergunte-se: em que estação estou, e o que ela pede?","Feche o ciclo: releia a tabela das 13 semanas e celebre a evolução."],
+ pv:"Provérbios 20:4 · O preguiçoso não ara no tempo certo e na colheita nada encontra."}
+];
+
+/* ===== Estado ===== */
+const $=s=>document.querySelector(s);
+const LS={g(k,d){try{const v=localStorage.getItem("ev13_"+k);return v?JSON.parse(v):d}catch(e){return d}},s(k,v){try{localStorage.setItem("ev13_"+k,JSON.stringify(v))}catch(e){}}};
+let ini=LS.g("ini",null), dia=LS.g("dia",{}), falhas=LS.g("falhas",{}), rev=LS.g("rev",{});
+let aba="hoje", ver=null, verA=null, dSel=null;
+const DS=["D","S","T","Q","Q","S","S"];
+function hoje(){const d=new Date(Date.now()-4*3600e3);d.setHours(12,0,0,0);return d}
+function ch(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function deCh(k){const[a,m,d]=k.split("-").map(Number);return new Date(a,m-1,d,12)}
+function segunda(d){const x=new Date(d);const w=(x.getDay()+6)%7;x.setDate(x.getDate()-w);return x}
+function semIdx(d){return Math.floor((segunda(d)-deCh(ini))/(7*864e5))}
+function vDa(d){const s=semIdx(d);return((s%13)+13)%13}
+function ciclo(d){return Math.floor(semIdx(d)/13)+1}
+function diaSem(d){return(d.getDay()+6)%7}
+function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function cabecalho(){
+ if(!ini){$("#pill").textContent="Início";$("#sub").textContent="Uma virtude por semana";return}
+ const h=hoje();$("#pill").innerHTML=`Semana ${vDa(h)+1}/13<br>Ciclo ${ciclo(h)}`;$("#sub").textContent=V[vDa(h)].n;
+}
+
+/* ===== Telas ===== */
+function telaInicio(){
+ return `<div class="card" style="text-align:center"><div style="width:120px;margin:0 auto">${svg("fra",C.v)}</div>
+ <h2>O método de Franklin</h2><p>Aos 20 anos, Benjamin Franklin escolheu 13 virtudes e passou a treinar <b>uma por semana</b>, marcando numa tabela, todo dia, um ponto onde falhava. Em 13 semanas fechava um ciclo e começava de novo.</p>
+ <p>Aqui, cada semana tem uma virtude ensinada por um <b>mestre da produtividade</b>, com desafios diários ligados ao seu trabalho e à sua casa.</p>
+ <button class="btn am" id="comecar">🌱 Começar nesta semana</button>
+ <p class="mut">A semana vira toda segunda-feira. Sua 1ª virtude será <b>${V[0].n}</b>.</p></div>`;
+}
+function telaHoje(){
+ const h=hoje(),k=ch(h),i=vDa(h),v=V[i],a=A[v.a],ds=diaSem(h),r=dia[k]||{};
+ const seg=segunda(h);
+ let bt="";for(let x=0;x<7;x++){const d=new Date(seg);d.setDate(d.getDate()+x);const kk=ch(d),rr=dia[kk]||{};bt+=`<button class="${x===(dSel??ds)?"on":""} ${rr.st==="ok"?"ok":rr.st==="fa"?"fa":""}" data-x="${x}">${["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"][x]}${rr.st==="ok"?"<br>✓":rr.st==="fa"?"<br>●":""}</button>`}
+ const xs=dSel??ds;
+ return `<div class="card"><div class="hero">${svg(v.a,a.b)}<div><div class="sem">Semana ${i+1} de 13</div><h2>${v.n}</h2><div class="aut">com ${a.n}</div></div></div>
+ <div class="lema">${v.lema}</div></div>
+ <div class="dias" id="dias">${bt}</div>
+ <div class="desafio"><b>${xs===ds?"Desafio de hoje":"Desafio de "+["segunda","terça","quarta","quinta","sexta","sábado","domingo"][xs]}</b><p>${v.d[xs]}</p></div>
+ <label class="q">☀️ Que bem farei hoje?</label><textarea id="bem" placeholder="Ex.: dar retorno aos tratoristas sobre a meta da semana">${esc(r.bem)}</textarea>
+ <label class="q">🌙 Que bem fiz hoje?</label><textarea id="fiz" placeholder="À noite: o que você fez de bom e onde aplicou a virtude?">${esc(r.fiz)}</textarea>
+ <div class="row"><button class="btn ${r.st==="ok"?"":"lin"}" id="ok">✓ Pratiquei</button><button class="btn ${r.st==="fa"?"er":"lin"}" id="fa">● Falhei</button></div>
+ <h3>🧠 A ideia</h3><p>${v.id}</p>
+ <div class="bloco campo"><b class="t">🌾 Na frente de trabalho</b>${v.cp}</div>
+ <div class="bloco casa"><b class="t">🏠 Em casa</b>${v.cs}</div>
+ <div class="bloco ferr"><b class="t">🛠️ Ferramenta da semana</b><ol>${v.fe.map(f=>`<li>${f}</li>`).join("")}</ol></div>
+ <div class="bloco pv"><b class="t">📜 Sabedoria antiga</b>${v.pv}</div>
+ <button class="btn mr" id="verAutor">📚 Conhecer ${a.n}</button>
+ ${ds===6?telaRevisao(semIdx(h)):""}
+ <button class="btn lin" id="share">📤 Enviar a virtude da semana</button>
+ <div class="inst" id="inst" hidden><span>Instale o app para abrir direto na sua virtude da semana.</span><button class="btn am" id="btnInst">📲 Instalar app</button></div>`;
+}
+function telaRevisao(s){const r=rev[s]||{};return `<div class="card"><h2>🗓️ Revisão de domingo</h2>
+ <label class="q">O que funcionou nesta semana?</label><textarea data-r="a">${esc(r.a)}</textarea>
+ <label class="q">O que travou?</label><textarea data-r="b">${esc(r.b)}</textarea>
+ <label class="q">O que vou levar para a próxima semana?</label><textarea data-r="c">${esc(r.c)}</textarea></div>`}
+
+function telaTabela(){
+ const h=hoje(),seg=segunda(h),foco=vDa(h),hd=diaSem(h);
+ let th="<tr><th></th>"+["S","T","Q","Q","S","S","D"].map((d,x)=>`<th class="${x===hd?"hj":""}">${d}</th>`).join("")+"</tr>";
+ let rows=V.map((v,i)=>{let tds="";for(let x=0;x<7;x++){const d=new Date(seg);d.setDate(d.getDate()+x);const k=ch(d),f=(falhas[k]||[]).includes(i);tds+=`<td class="${f?"f":""} ${x>hd?"fut":""}" data-k="${k}" data-v="${i}" data-fut="${x>hd?1:0}"></td>`}
+  return `<tr class="${i===foco?"foco":""}"><td class="nm">${i+1}. ${v.n}</td>${tds}</tr>`}).join("");
+ const tot=Object.entries(falhas).filter(([k])=>{const d=deCh(k);return d>=seg&&d<=h}).reduce((s,[,l])=>s+l.length,0);
+ return `<h2>📋 Tabela de Franklin</h2><p class="mut">Igual ao caderno de Franklin: a linha amarela é a <b>virtude da semana</b> (foco total), mas você observa todas. Toque no quadrinho para marcar um <b style="color:var(--erro)">●</b> quando falhar. A meta é ver a tabela limpar com o tempo.</p>
+ <table class="tab">${th}${rows}</table>
+ <div class="card"><b>${tot===0?"Nenhuma falha marcada nesta semana":"Falhas nesta semana: "+tot}</b><p class="mut">Franklin dizia que nunca chegou à perfeição, mas que ficou um homem melhor e mais feliz só por tentar.</p></div>`;
+}
+function telaVirtudes(){
+ if(ver!==null)return detalheVirtude(ver);
+ const f=ini?vDa(hoje()):-1;
+ return `<h2>🪜 As 13 virtudes</h2><p class="mut">Uma por semana, em ordem. Toque para ver tudo sobre cada uma.</p>`+V.map((v,i)=>`<div class="item ${i===f?"atual":""}" data-i="${i}">${svg(v.a,A[v.a].b)}<div><span class="num">SEMANA ${i+1}${i===f?" · AGORA":""}</span><b>${v.n}</b><span>${A[v.a].n}</span></div></div>`).join("");
+}
+function detalheVirtude(i){const v=V[i],a=A[v.a];
+ return `<button class="voltar" id="voltar">← Voltar</button><div class="card"><div class="hero">${svg(v.a,a.b)}<div><div class="sem">Semana ${i+1}</div><h2>${v.n}</h2><div class="aut">${a.n}</div></div></div><div class="lema">${v.lema}</div></div>
+ <h3>🧠 A ideia</h3><p>${v.id}</p>
+ <div class="bloco campo"><b class="t">🌾 Na frente de trabalho</b>${v.cp}</div>
+ <div class="bloco casa"><b class="t">🏠 Em casa</b>${v.cs}</div>
+ <div class="bloco ferr"><b class="t">🛠️ Ferramenta</b><ol>${v.fe.map(f=>`<li>${f}</li>`).join("")}</ol></div>
+ <h3>📅 Os 7 desafios</h3><ol>${v.d.map((d,x)=>`<li><b>${["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"][x]}:</b> ${d}</li>`).join("")}</ol>
+ <div class="bloco pv"><b class="t">📜 Sabedoria antiga</b>${v.pv}</div>
+ <button class="btn mr" data-autor="${v.a}">📚 Conhecer ${a.n}</button>`;
+}
+function telaAutores(){
+ if(verA)return detalheAutor(verA);
+ return `<h2>📚 Os 13 mestres</h2><p class="mut">Cada mestre lidera uma semana. Toque para conhecer a história e as ideias.</p>`+V.map((v,i)=>{const a=A[v.a];return `<div class="item" data-a="${v.a}">${svg(v.a,a.b)}<div><b>${a.n}</b><span>${a.l} · ${a.x}</span></div></div>`}).join("");
+}
+function detalheAutor(k){const a=A[k],i=V.findIndex(v=>v.a===k);
+ return `<button class="voltar" id="voltar">← Voltar</button><div class="card"><div class="autor-top">${svg(k,a.b)}<h2>${a.n}</h2><div class="mut">${a.x}</div></div>
+ <div class="chips"><span class="chip">📖 ${a.l}</span><span class="chip">🪜 Semana ${i+1}: ${V[i].n}</span></div>
+ <h3>Quem foi</h3><p>${a.bio}</p>
+ <h3>Ideias principais</h3><ul class="id">${a.id.map(x=>`<li>${x}</li>`).join("")}</ul>
+ ${k==="fra"?`<h3>As 13 virtudes originais de Franklin</h3><p class="mut">Temperança, Silêncio, Ordem, Resolução, Frugalidade, Diligência, Sinceridade, Justiça, Moderação, Limpeza, Tranquilidade, Castidade e Humildade.</p>`:""}
+ ${a.fr?`<div class="lema">“${a.fr}”<br><small style="font:600 14px system-ui;color:var(--mut)">— ${a.n}</small></div>`:""}
+ <p class="mut" style="margin-top:12px">As ideias estão resumidas com nossas palavras. O emblema é uma ilustração do pensamento do autor.</p></div>
+ <button class="btn" data-virt="${i}">🪜 Ver a virtude ${V[i].n}</button>`;
+}
+function telaProgresso(){
+ const h=hoje(),seg=segunda(h);
+ const ks=Object.keys(dia).filter(k=>dia[k].st);
+ const ok=ks.filter(k=>dia[k].st==="ok").length,fa=ks.filter(k=>dia[k].st==="fa").length;
+ let seq=0;{let d=new Date(h);if(!(dia[ch(d)]&&dia[ch(d)].st==="ok"))d.setDate(d.getDate()-1);while(dia[ch(d)]&&dia[ch(d)].st==="ok"){seq++;d.setDate(d.getDate()-1)}}
+ const porV=V.map(()=>({ok:0,t:0}));ks.forEach(k=>{const vi=vDa(deCh(k));porV[vi].t++;if(dia[k].st==="ok")porV[vi].ok++});
+ const notas=Object.keys(dia).filter(k=>dia[k].fiz||dia[k].bem).sort().reverse().slice(0,30);
+ const sems=Object.keys(rev).map(Number).sort((a,b)=>b-a);
+ return `<h2>📈 Sua evolução</h2><div class="kpis"><div class="kpi"><b>${ok}</b><span>dias praticados</span></div><div class="kpi"><b>${seq}</b><span>em sequência</span></div><div class="kpi"><b>${ini?ciclo(h):1}</b><span>ciclo atual</span></div></div>
+ <div class="card"><b>Por virtude</b>${V.map((v,i)=>{const p=porV[i].t?Math.round(porV[i].ok/porV[i].t*100):0;return `<div style="margin-top:10px"><div style="display:flex;justify-content:space-between;font-size:15px"><span>${i+1}. ${v.n}</span><span class="mut">${porV[i].t?p+"%":"—"}</span></div><div class="barra"><i style="width:${p}%"></i></div></div>`}).join("")}</div>
+ <h3>🌙 Meu diário</h3>${notas.length?notas.map(k=>{const r=dia[k],d=deCh(k);return `<div class="card" style="padding:12px"><b>${d.toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"2-digit"})} · ${V[vDa(d)].n} ${r.st==="ok"?"✓":r.st==="fa"?"●":""}</b>${r.bem?`<p style="margin:6px 0 0"><span class="mut">Farei:</span> ${esc(r.bem)}</p>`:""}${r.fiz?`<p style="margin:4px 0 0"><span class="mut">Fiz:</span> ${esc(r.fiz)}</p>`:""}</div>`}).join(""):`<p class="mut">Suas respostas de \"Que bem farei/fiz hoje?\" aparecem aqui.</p>`}
+ ${sems.length?`<h3>🗓️ Revisões de domingo</h3>`+sems.map(s=>{const r=rev[s];return `<div class="card" style="padding:12px"><b>Semana ${((s%13)+13)%13+1} · ${V[((s%13)+13)%13].n}</b>${r.a?`<p style="margin:6px 0 0">✅ ${esc(r.a)}</p>`:""}${r.b?`<p style="margin:4px 0 0">⛔ ${esc(r.b)}</p>`:""}${r.c?`<p style="margin:4px 0 0">➡️ ${esc(r.c)}</p>`:""}</div>`}).join(""):""}
+ <h3>⚙️ Ajustes</h3><button class="btn lin" id="mudarSem">🔄 Escolher outra virtude para esta semana</button>`;
+}
+
+/* ===== Render e eventos ===== */
+function render(){
+ cabecalho();
+ document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-current",b.dataset.t===aba));
+ const v=$("#view");
+ if(!ini&&(aba==="hoje"||aba==="tabela"||aba==="progresso")){v.innerHTML=telaInicio();$("#comecar").onclick=()=>{ini=ch(segunda(hoje()));LS.s("ini",ini);toast("Bora! Semana 1: "+V[0].n);render()};return}
+ if(aba==="hoje"){v.innerHTML=telaHoje();ligaHoje()}
+ else if(aba==="tabela"){v.innerHTML=telaTabela();v.querySelectorAll("td[data-k]").forEach(td=>td.onclick=()=>{if(td.dataset.fut==="1")return toast("Esse dia ainda não chegou");const k=td.dataset.k,i=+td.dataset.v,l=falhas[k]||[];falhas[k]=l.includes(i)?l.filter(x=>x!==i):[...l,i];if(!falhas[k].length)delete falhas[k];LS.s("falhas",falhas);td.classList.toggle("f")})}
+ else if(aba==="virtudes"){v.innerHTML=telaVirtudes();ligaLista()}
+ else if(aba==="autores"){v.innerHTML=telaAutores();ligaLista()}
+ else{v.innerHTML=telaProgresso();$("#mudarSem").onclick=mudarSemana}
+}
+function ligaLista(){
+ const v=$("#view");
+ v.querySelectorAll(".item[data-i]").forEach(e=>e.onclick=()=>{ver=+e.dataset.i;render();scrollTo(0,0)});
+ v.querySelectorAll(".item[data-a]").forEach(e=>e.onclick=()=>{verA=e.dataset.a;render();scrollTo(0,0)});
+ const vt=$("#voltar");if(vt)vt.onclick=()=>{ver=null;verA=null;render()};
+ v.querySelectorAll("[data-autor]").forEach(b=>b.onclick=()=>{aba="autores";verA=b.dataset.autor;ver=null;render();scrollTo(0,0)});
+ v.querySelectorAll("[data-virt]").forEach(b=>b.onclick=()=>{aba="virtudes";ver=+b.dataset.virt;verA=null;render();scrollTo(0,0)});
+}
+function ligaHoje(){
+ const h=hoje(),k=ch(h),i=vDa(h);
+ const salva=()=>{LS.s("dia",dia)};
+ const g=()=>dia[k]||(dia[k]={});
+ $("#bem").oninput=e=>{g().bem=e.target.value;salva()};
+ $("#fiz").oninput=e=>{g().fiz=e.target.value;salva()};
+ const marca=st=>{const r=g();r.st=r.st===st?undefined:st;
+  const l=falhas[k]||[];if(r.st==="fa"&&!l.includes(i))falhas[k]=[...l,i];if(r.st!=="fa"&&l.includes(i)){falhas[k]=l.filter(x=>x!==i);if(!falhas[k].length)delete falhas[k]}
+  LS.s("falhas",falhas);salva();if(r.st==="ok")toast("Mais um voto na pessoa que você quer ser ✓");render()};
+ $("#ok").onclick=()=>marca("ok");$("#fa").onclick=()=>marca("fa");
+ $("#dias").querySelectorAll("button").forEach(b=>b.onclick=()=>{dSel=+b.dataset.x===diaSem(h)?null:+b.dataset.x;render()});
+ $("#verAutor").onclick=()=>{aba="autores";verA=V[i].a;render();scrollTo(0,0)};
+ document.querySelectorAll("[data-r]").forEach(t=>t.oninput=()=>{const s=semIdx(h);rev[s]=rev[s]||{};rev[s][t.dataset.r]=t.value;LS.s("rev",rev)});
+ $("#share").onclick=()=>{const v=V[i],a=A[v.a],t=`🪜 *Os 13 da Evolução* · Semana ${i+1}\n\n*${v.n}* (${a.n})\n"${v.lema}"\n\n🎯 Desafio de hoje: ${v.d[diaSem(h)]}`;if(navigator.share)navigator.share({text:t}).catch(()=>{});else location.href="https://wa.me/?text="+encodeURIComponent(t)};
+ mostraInst();
+}
+function mudarSemana(){
+ const n=prompt("Qual virtude você quer nesta semana? Digite o número de 1 a 13:\n\n"+V.map((v,i)=>(i+1)+". "+v.n).join("\n"));
+ const x=parseInt(n);if(!x||x<1||x>13)return;
+ const h=hoje(),atual=vDa(h),dif=((x-1-atual)%13+13)%13;
+ const d=deCh(ini);d.setDate(d.getDate()-dif*7);ini=ch(d);LS.s("ini",ini);toast("Semana ajustada: "+V[x-1].n);aba="hoje";render();
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{aba=b.dataset.t;ver=null;verA=null;dSel=null;render();scrollTo(0,0)});
+
+let pedido=null;const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedido=e;mostraInst()});
+function mostraInst(){const el=$("#inst");if(!el||standalone)return;el.hidden=false;$("#btnInst").onclick=async()=>{if(pedido){pedido.prompt();await pedido.userChoice;pedido=null;el.hidden=true}else alert("No Chrome, toque no menu ⋮ (canto de cima) e depois em \"Instalar app\" ou \"Adicionar à tela inicial\".")}}
+let ult=ch(hoje());document.addEventListener("visibilitychange",()=>{if(!document.hidden&&ch(hoje())!==ult){ult=ch(hoje());dSel=null;render()}});
+render();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>
