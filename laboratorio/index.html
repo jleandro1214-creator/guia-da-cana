@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Laboratório dos Apps</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1b3a24">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#1b3a24;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.3rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style>
+<style>
+:root{--verde:#1b3a24;--verde2:#2e6b3a;--folha:#7ec078;--amarelo:#f2c230;--marrom:#6b4423;--marrom2:#a8794a;--bg:#f6f1e4;--card:#fffdf7;--fg:#1f2a20;--mut:#5e6a5f;--line:#e2d9c4;--soft:#e7efe3;color-scheme:light}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+header{background:var(--verde);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;border-bottom:5px solid var(--marrom)}
+header .row{display:flex;align-items:center;gap:12px}
+header img{width:44px;height:44px;border-radius:12px}
+header h1{margin:0;font-size:22px;line-height:1.15}
+header p{margin:2px 0 0;font-size:15px;opacity:.85}
+#b-inst{margin-left:auto;background:var(--amarelo);color:var(--verde);border:0;border-radius:10px;font:800 15px system-ui;padding:9px 10px}
+main{max-width:700px;margin:0 auto;padding:14px 14px 30px}
+section.tab{animation:fade .18s ease}
+@keyframes fade{from{opacity:.4}to{opacity:1}}
+h2{font-size:20px;margin:18px 0 10px;color:var(--verde)}
+h3{font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--marrom);margin:18px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.muted{color:var(--mut)}
+.small{font-size:15px}
+/* nav */
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--verde);padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:20;border-top:4px solid var(--amarelo)}
+nav button{flex:1;background:none;border:0;color:#dfe9dc;font:700 13px system-ui;padding:6px 2px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button span{font-size:23px;line-height:1}
+nav button[aria-selected=true]{background:#ffffff1f;color:var(--amarelo)}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{border-radius:14px;padding:12px 8px;text-align:center;color:#fff}
+.stat b{display:block;font-size:30px;line-height:1.1}
+.stat small{font-size:14px;font-weight:700}
+.s-util{background:var(--verde2)}.s-raz{background:#c79a12}.s-nao{background:var(--marrom)}
+.bar{height:12px;border-radius:99px;background:#e6dcc5;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--verde2),var(--folha))}
+/* matrix */
+.mtx{display:grid;grid-template-columns:22px 1fr 1fr;grid-template-rows:1fr 1fr 22px;gap:6px}
+.mtx .ylab{grid-row:1/3;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-size:13px;font-weight:700;color:var(--mut)}
+.mtx .xlab{grid-column:2/4;text-align:center;font-size:13px;font-weight:700;color:var(--mut)}
+.q{border-radius:14px;padding:10px;min-height:120px}
+.q h4{margin:0 0 6px;font-size:15px}
+.q p{margin:0 0 8px;font-size:13px;opacity:.85}
+.q1{background:#e3f1df}.q2{background:#fff3cc}.q3{background:#eef0ea}.q4{background:#f1e4d6}
+.mini{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:99px;padding:3px 9px;margin:0 4px 5px 0;font-size:14px;font-weight:600;color:var(--fg)}
+.mini.pal{border-style:dashed;opacity:.8}
+/* list */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--fg);padding:8px 14px;border-radius:99px;font:700 15px system-ui}
+.chip[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:#fff}
+#busca{width:100%;font-size:18px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg);margin-bottom:8px}
+.app{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:11px;margin-bottom:9px;width:100%;text-align:left;font:inherit;color:inherit}
+.app img{width:54px;height:54px;border-radius:13px;flex:none;background:#ddd}
+.app .t{flex:1;min-width:0}
+.app b{display:block;font-size:18px}
+.app small{display:block;color:var(--mut);font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.tag{font-size:13px;font-weight:800;padding:2px 8px;border-radius:99px;color:#fff}
+.t-util{background:var(--verde2)}.t-raz{background:#c79a12}.t-nao{background:var(--marrom)}.t-pal{background:#8a948b}.t-ok{background:#e7efe3;color:var(--verde)}
+.notas{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:13px;font-weight:700;color:var(--mut);flex:none}
+.notas em{font-style:normal;font-size:17px;color:var(--fg)}
+/* sheet */
+#ficha{position:fixed;inset:0;background:var(--bg);z-index:40;overflow-y:auto;padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+#ficha .top{position:sticky;top:0;background:var(--verde);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 12px 10px;display:flex;align-items:center;gap:10px;z-index:2;border-bottom:4px solid var(--marrom)}
+#ficha .top button{background:#ffffff26;color:#fff;border:0;border-radius:10px;font:800 17px system-ui;padding:9px 13px}
+#ficha .top b{font-size:19px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ficha .wrap{max-width:700px;margin:0 auto;padding:14px}
+.head{display:flex;gap:14px;align-items:center}
+.head img{width:72px;height:72px;border-radius:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:12px;font:800 16px system-ui;padding:12px 14px;text-decoration:none;cursor:pointer}
+.b1{background:var(--verde);color:#fff}.b2{background:var(--amarelo);color:var(--verde)}.b3{background:var(--soft);color:var(--verde)}.b4{background:#f1e4d6;color:var(--marrom)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btns .btn{flex:1 1 140px}
+.palpite{background:#fff8de;border:1.5px dashed var(--amarelo);border-radius:14px;padding:12px}
+.palpite b{color:var(--marrom)}
+.pq{padding:10px 0;border-bottom:1px solid var(--line)}
+.pq:last-child{border-bottom:0}
+.pq p{margin:0 0 7px;font-weight:600}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;border:1.5px solid var(--line);background:#fff;color:var(--fg);border-radius:10px;padding:10px 4px;font:700 15px system-ui}
+.seg button.on[data-v="2"]{background:var(--verde2);border-color:var(--verde2);color:#fff}
+.seg button.on[data-v="1"]{background:var(--amarelo);border-color:var(--amarelo);color:var(--verde)}
+.seg button.on[data-v="0"]{background:var(--marrom);border-color:var(--marrom);color:#fff}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.res div{border-radius:14px;padding:12px;text-align:center;background:var(--soft)}
+.res b{display:block;font-size:28px;color:var(--verde)}
+.res small{font-weight:700;color:var(--mut)}
+.decisao{margin-top:10px;border-radius:14px;padding:12px 14px;background:var(--verde);color:#fff;font-weight:700}
+.decisao span{display:block;font-size:14px;font-weight:500;opacity:.9;margin-top:3px}
+.pt{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.pt:last-child{border-bottom:0}
+.pt input{width:26px;height:26px;flex:none;margin-top:1px;accent-color:var(--verde2)}
+.pt .tx{flex:1}
+.pt.feito .tx{text-decoration:line-through;color:var(--mut)}
+.pt .tp{display:inline-block;font-size:12px;font-weight:800;padding:1px 7px;border-radius:99px;margin-right:4px;vertical-align:1px}
+.tp-Utilidade{background:#e3f1df;color:var(--verde2)}.tp-Usabilidade{background:#fff3cc;color:#7a5d00}.tp-Técnico{background:#f1e4d6;color:var(--marrom)}
+.pt .del{background:none;border:0;font-size:20px;color:var(--mut);padding:0 4px}
+.add{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.add input{flex:1 1 200px;font-size:17px;padding:11px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.add select{font-size:16px;padding:10px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+textarea{width:100%;min-height:96px;font:17px/1.4 system-ui;padding:11px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--fg)}
+.dec-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.dec-chips button{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:7px 11px;font:700 14px system-ui;color:var(--fg)}
+.dec-chips button[aria-pressed=true]{background:var(--marrom);border-color:var(--marrom);color:#fff}
+.fila .fh{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.fila .fh img{width:36px;height:36px;border-radius:10px}
+.fila .fh b{flex:1;font-size:17px}
+.fila .fh button{border:0;background:var(--soft);color:var(--verde);border-radius:10px;padding:7px 10px;font:800 14px system-ui}
+.grupo{border-left:5px solid var(--amarelo)}
+.grupo p{margin:4px 0 8px}
+.vazio{text-align:center;color:var(--mut);padding:26px 8px}
+ol.how{padding-left:22px;margin:6px 0}ol.how li{margin-bottom:6px}
+#toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#222;color:#fff;padding:11px 16px;border-radius:12px;font-size:15px;z-index:60;max-width:90vw;text-align:center}
+</style>
+</head>
+<body>
+<div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Laboratório dos Apps</b></div><script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,700-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
+
+<header><div class="row"><img src="icon-192.png" alt=""><div><h1>Laboratório dos Apps</h1><p>Avaliar, decidir e melhorar cada app</p></div><button id="b-inst" type="button" hidden>📲 Instalar</button></div></header>
+
+<main id="main">
+ <section class="tab" id="t-painel"></section>
+ <section class="tab" id="t-apps" hidden>
+  <input id="busca" type="search" placeholder="Buscar app…" autocomplete="off">
+  <div class="chips" id="f-class"></div>
+  <div class="chips" id="f-ord"></div>
+  <div id="lista"></div>
+ </section>
+ <section class="tab" id="t-melh" hidden></section>
+ <section class="tab" id="t-como" hidden></section>
+</main>
+
+<div id="ficha" hidden></div>
+
+<nav id="nav">
+ <button data-t="painel" aria-selected="true"><span>🧪</span>Painel</button>
+ <button data-t="apps" aria-selected="false"><span>📋</span>Apps</button>
+ <button data-t="melh" aria-selected="false"><span>🔧</span>Melhorias</button>
+ <button data-t="como" aria-selected="false"><span>📖</span>Método</button>
+</nav>
+<div id="toast" hidden></div>
+<input type="file" id="arq" accept=".json,application/json" hidden>
+
+<script>
+const BASE="https://jleandro1214-creator.github.io/guia-da-cana/";
+const T={U:"Utilidade",S:"Usabilidade",X:"Técnico"};
+/* p=pasta, u/s=palpite do Claude (0-10), g=grupo de apps parecidos, m=comentário do palpite, pts=pontos a melhorar [tipo,texto] */
+const APPS=[
+{id:"guia",n:"Guia da Cana",c:"Campo",p:"",i:"../icone2-192.png",u:8,s:6,g:"campo",m:"É a base de tudo. Funciona, mas está separado de Daninhas e Variedades.",pts:[["X","Abertura com o próprio logo e nome (hoje não tem a 'piscada' de abertura)"],["U","Conferir se cada foto bate com a praga ou doença certa"],["U","Uma busca única de campo: pragas, daninhas e variedades no mesmo lugar"]]},
+{id:"daninhas",n:"Daninhas da Cana",c:"Campo",p:"daninhas/",i:"../daninhas/icone2-192.png",u:7,s:5,g:"campo",m:"Conteúdo útil, mas falta botão de instalar e fotos para reconhecer no campo.",pts:[["X","Botão 📲 Instalar app (hoje não tem)"],["U","Foto real de cada daninha para reconhecer no campo"],["U","Conferir doses por tipo de solo com as bulas atuais"]]},
+{id:"variedades",n:"Variedades de Cana",c:"Campo",p:"variedades-cana/",i:"../variedades-cana/icon-192.png",u:7,s:6,g:"campo",m:"Bom para consulta. Você mesmo já pediu fotos reais e um logo melhor.",pts:[["U","Fotos reais e características físicas para distinguir cada variedade"],["S","Logo mais bonito e fácil de reconhecer"],["U","Comparar 2 variedades lado a lado"]]},
+{id:"tabela",n:"Tabela Periódica do Campo",c:"Campo",p:"tabela-periodica/",i:"../tabela-periodica/icon-192.png",u:5,s:6,g:"estudo",m:"Bonita, mas parecida com o Nutri Cana. Talvez caiba dentro dele.",pts:[["U","Cada elemento abrir direto o simulador do Nutri Cana"],["S","Abrir já filtrado na cana (menos rolagem)"],["S","Aumentar letras pequenas (há textos com 14px)"]]},
+{id:"livro",n:"Livro do Canavial",c:"Campo",p:"livro-canavial/",i:"../livro-canavial/icon-192.png",u:6,s:6,g:"estudo",m:"Ótimo para estudar com calma. Falta lembrar onde você parou.",pts:[["S","Marcar a página onde parei e mostrar o progresso"],["X","Conferir se as fotos aparecem sem internet"],["U","Ligar cada capítulo ao quiz do Estudo Agro"]]},
+{id:"estudo",n:"Estudo Agro",c:"Campo",p:"estudo-agro/",i:"../estudo-agro/icon-192.png",u:8,s:7,g:"estudo",m:"Um dos mais fortes para o seu objetivo de virar agrônomo.",pts:[["U","Revisão inteligente: repetir mais os cartões que eu errei"],["X","Backup do progresso (salvar e restaurar)"],["U","Trazer o Cartão do Dia para dentro dele como atalho"]]},
+{id:"cartao",n:"Cartão do Dia",c:"Campo",p:"cartao-do-dia/",i:"../cartao-do-dia/icon-192.png",u:6,s:8,g:"estudo",m:"Muito fácil de usar. A dúvida é se precisa ser um app separado.",pts:[["U","Usar o mesmo banco de cartões do Estudo Agro (um só lugar para atualizar)"],["U","Mostrar primeiro os cartões que mais errei"]]},
+{id:"nutri",n:"Nutri Cana",c:"Campo",p:"nutri-cana/",i:"../nutri-cana/icon-192.png",u:7,s:6,g:"estudo",m:"Ligado direto ao seu estudo de nutrição e potássio da vinhaça.",pts:[["U","Exemplo com números reais da vinhaça (K₂O por m³ e por hectare)"],["U","Calcular dose a partir de uma análise de solo"],["S","Aumentar letras pequenas (há textos com 15px)"]]},
+{id:"calc",n:"Calculadora da Cana",c:"Campo",p:"calculadora/",i:"../calculadora/icone2-192.png",u:7,s:5,g:"",m:"Útil, mas é dos mais antigos: sem botão de instalar e sem guardar contas.",pts:[["X","Botão 📲 Instalar app (hoje não tem)"],["U","Cálculo de dose de vinhaça (m³/ha)"],["S","Guardar os últimos cálculos feitos"]]},
+{id:"fazendas",n:"Fazendas por Código",c:"Campo",p:"fazendas/",i:"../fazendas/icon-192.png",u:8,s:7,g:"",m:"Resolve um problema do dia a dia. Precisa manter a lista atualizada.",pts:[["U","Atualizar com as fazendas novas da safra"],["U","Botão para abrir a fazenda no Google Maps"],["X","Backup das anotações"]]},
+{id:"logistica",n:"Logística Vinhaça",c:"Vinhaça",p:"logistica-vinhaca/",i:"../logistica-vinhaca/icon-192.png",u:8,s:5,g:"caminhoes",m:"Muito útil, mas faz conta parecida com o Metas Localizada.",pts:[["U","Juntar com o Metas Localizada num só app de vinhaça"],["S","Uma tela só: área, dose e distância → caminhões"],["S","Resultado em letras grandes"]]},
+{id:"metas",n:"Metas Localizada",c:"Vinhaça",p:"metas-localizada/",i:"../metas-localizada/icon-192.png",u:8,s:6,g:"caminhoes",m:"Forte para gestão. Dá para virar o app principal da vinhaça.",pts:[["U","Comparar meta x realizado da semana"],["U","Resumo pronto para mandar no grupo do WhatsApp"],["X","Backup dos cenários salvos"]]},
+{id:"produtiva",n:"Vinhaça Produtiva",c:"Vinhaça",p:"vinhaca-produtiva/",i:"../vinhaca-produtiva/icon-192.png",u:7,s:5,g:"",m:"Guarda lançamentos, mas só exporta planilha: se limpar o Chrome, perde tudo.",pts:[["X","Restaurar backup (hoje só exporta CSV, não volta os dados)"],["S","Lançamento rápido em até 3 toques"],["U","Resumo do dia para o WhatsApp"]]},
+{id:"gs3",n:"Simulador GS3 Vinhaça",c:"Vinhaça",p:"simulador-gs3/",i:"../simulador-gs3/icon-192.png",u:6,s:5,g:"",m:"Bom para treinar tratorista novo, se as telas baterem com o GS3 real.",pts:[["U","Conferir se as telas batem com o GS3 de verdade"],["U","Roteiro de treino passo a passo para tratorista novo"],["S","Aumentar letras (há textos com 13px)"]]},
+{id:"aplicador",n:"Catálogo Aplicador de Vinhaça",c:"Vinhaça",p:"aplicador/",i:"../aplicador/icon-192.png",u:6,s:7,g:"",m:"Bom de consulta. Falta virar ferramenta de inspeção do dia a dia.",pts:[["U","Fotos reais das peças"],["U","Checklist de inspeção salvo com data"],["U","Mandar defeito com foto pelo WhatsApp"]]},
+{id:"norte",n:"Norte do Gestor",c:"Gestão",p:"norte-gestor/",i:"../norte-gestor/icon-192.png",u:9,s:7,g:"",m:"Talvez o mais útil para o seu trabalho de gestor.",pts:[["U","Checklist do turno com hora e envio pelo WhatsApp"],["U","Lugar para os apontamentos (atestados, banco de horas)"],["S","Testar no turno da noite (brilho e letras)"]]},
+{id:"epi",n:"EPI em Dia",c:"Gestão",p:"epi/",i:"../epi/icon-192.png",u:9,s:6,g:"",m:"Muito útil, mas sem restaurar backup o estoque pode se perder.",pts:[["X","Restaurar backup (hoje só exporta)"],["S","Aumentar letras (há textos com 14px)"],["U","Uma versão só para os 3 gestores, com seletor de gestor"],["U","Aviso quando o estoque de um EPI ficar baixo"]]},
+{id:"curriculo",n:"Currículo em 5 Minutos",c:"Gestão",p:"curriculo/",i:"../curriculo/icon-192.png",u:4,s:7,g:"",m:"Pouco uso para você, mas bom para divulgar no Instagram dos apps.",pts:[["U","Divulgar para quem procura o primeiro emprego"],["U","Mais modelos de currículo"]]},
+{id:"caderno",n:"Caderno do Claude",c:"Gestão",p:"caderno/",i:"../caderno/icon-192.png",u:6,s:6,g:"conteudo",m:"Ajuda a pedir melhor. Precisa estar sempre atualizado.",pts:[["U","Atualizar com os comandos que mais usamos agora"],["S","Busca no topo para achar comando rápido"],["S","Aumentar letras (há textos com 15px)"]]},
+{id:"posts",n:"Banco de Posts",c:"Gestão",p:"banco-posts/",i:"../banco-posts/icon-192.png",u:6,s:6,g:"conteudo",m:"Útil se o Instagram dos apps estiver ativo.",pts:[["U","Calendário de postagens da semana"],["S","Marcar post como já publicado"]]},
+{id:"chave",n:"Chave Certa",c:"Oficina",p:"chave-certa/",i:"../chave-certa/icon-192.png",u:5,s:4,g:"",m:"Ideia boa, mas medir pela câmera é difícil e pode errar.",pts:[["U","Testar com 5 parafusos reais e anotar acertos"],["S","Usar moeda ou crachá como régua de referência"],["U","Tabela manual de medidas como reserva"]]},
+{id:"casa",n:"Casa em Ordem",c:"Casa",p:"casa-em-ordem/",i:"../casa-em-ordem/icon-192.png",u:6,s:6,g:"",m:"Depende de a família usar junto.",pts:[["X","Backup dos dados"],["U","Mandar a lista de compras pelo WhatsApp"],["U","Lembrete de manutenção (filtro, gás, caixa d'água)"]]},
+{id:"grana",n:"Grana em Dia",c:"Casa",p:"grana-em-dia/",i:"../grana-em-dia/icon-192.png",u:8,s:6,g:"dinheiro",m:"Útil para o plano da casa própria, se o lançamento for bem rápido.",pts:[["S","Lançar gasto em 2 toques (botão + direto na tela inicial)"],["U","Mostrar quanto falta para a meta da casa"],["S","Lembrete de fazer backup no fim do mês"]]},
+{id:"precos",n:"Preço na Mão",c:"Casa",p:"precos/",i:"../precos/icon-192.png",u:6,s:5,g:"dinheiro",m:"Faz muita coisa; pode ficar complicado de usar no mercado.",pts:[["U","Testar a leitura do cupom fiscal num mercado real"],["S","Simplificar a tela inicial"],["U","Mandar o total da compra para o Grana em Dia"]]},
+{id:"bomdia",n:"Bom Dia",c:"Bem-estar",p:"bom-dia/",i:"../bom-dia/icon-192.png",u:5,s:5,g:"",m:"Depende de internet e não toca sozinho como alarme de verdade.",pts:[["U","Testar uma semana de manhã e ver se ajuda mesmo"],["S","Deixar claro que precisa abrir o app (não toca sozinho)"]]},
+{id:"treino",n:"Bora Treinar",c:"Bem-estar",p:"bora-treinar/",i:"../bora-treinar/icon-192.png",u:7,s:7,g:"",m:"Bem feito. Falta proteger o histórico.",pts:[["X","Backup do histórico de treinos"],["U","Treino rápido de 10 minutos"],["S","Aumentar letras (há textos com 15px)"]]},
+{id:"dialeve",n:"Dia Leve",c:"Bem-estar",p:"dia-leve/",i:"../dia-leve/icon-192.png",u:5,s:7,g:"cresc",m:"Fácil de usar, mas parecido com outros apps de hábito.",pts:[["U","Pensar em juntar com Os 13 da Evolução e Viva Lembrado"],["X","Backup do diário"]]},
+{id:"rotulo",n:"Rótulo Claro",c:"Bem-estar",p:"rotulo/",i:"../rotulo/icon-192.png",u:5,s:4,g:"",m:"Ler rótulo pela câmera é difícil; precisa ser testado no mercado.",pts:[["U","Testar com 5 rótulos reais"],["S","Digitar os números à mão como reserva rápida"]]},
+{id:"proverbios",n:"Provérbio do Dia",c:"Bem-estar",p:"proverbios/",i:"../proverbios/icon-192.png",u:7,s:7,g:"cresc",m:"Tem uso diário. Proteger o diário é o principal.",pts:[["X","Backup do diário"],["U","Campo de frases de autores sobre prosperidade"]]},
+{id:"evolucao",n:"Os 13 da Evolução",c:"Bem-estar",p:"evolucao/",i:"../evolucao/icon-192.png",u:6,s:6,g:"cresc",m:"Conteúdo forte; letras pequenas atrapalham.",pts:[["S","Aumentar letras (há textos com 13px)"],["X","Backup da tabela semanal"],["U","Juntar com Viva Lembrado num só app de evolução"]]},
+{id:"biblioteca",n:"Biblioteca do Crescimento",c:"Bem-estar",p:"biblioteca/",i:"../biblioteca/icon-192.png",u:5,s:6,g:"cresc",m:"Ainda é esboço. Pode virar produto (e-book) e conteúdo de Instagram.",pts:[["U","Terminar os 12 livros"],["U","Cada livro virar um carrossel para o Instagram"]]},
+{id:"viva",n:"Viva Lembrado",c:"Bem-estar",p:"viva-lembrado/",i:"../viva-lembrado/icon-192.png",u:6,s:7,g:"cresc",m:"Faz sentido junto com a venda do e-book.",pts:[["U","Ligar ao e-book à venda (link e bônus)"],["U","Lembrete diário do checklist"]]},
+{id:"corpo",n:"Corpo em Foco",c:"Bem-estar",p:"corpo-em-foco/",i:"../corpo-em-foco/icon-192.png",u:4,s:6,g:"",m:"Mais para estudo escolar do que para o seu dia a dia.",pts:[["U","Testar com quem estuda o corpo humano na escola"],["U","Quiz por nível (fácil, médio, difícil)"]]},
+{id:"ondas",n:"Ondas",c:"Lazer",p:"podcasts/",i:"../podcasts/icon-192.png",u:5,s:5,g:"",m:"Depende de internet; o Spotify faz parte disso.",pts:[["U","Testar o comando de voz lavando louça"],["S","Simplificar: menos abas, play maior"]]},
+{id:"bichos",n:"Bichos do Mundo",c:"Lazer",p:"bichos/",i:"../bichos/icon-192.png",u:4,s:7,g:"",m:"Bom para crianças; pouco uso para você.",pts:[["U","Modo criança com letras grandes e sons"]]},
+{id:"role",n:"Rolê Dividido",c:"Lazer",p:"role-dividido/",i:"../role-dividido/icon-192.png",u:6,s:7,g:"",m:"Só se prova num rolê de verdade.",pts:[["U","Testar num rolê ou churrasco real"],["X","Backup dos rolês"]]},
+{id:"palito",n:"Palitirinhas",c:"Lazer",p:"palitirinhas/",i:"../palitirinhas/icon-192.png",u:7,s:7,g:"",m:"Já publicado e com cara de produto.",pts:[["U","Salvar a tirinha animada como vídeo"],["U","Mais poses e cenários para os bonecos"]]}
+];
+const GRUPOS={
+ estudo:["📚 Estudo agro","5 apps de estudo com conteúdo parecido. Juntar num só app de estudo deixaria tudo num lugar e mais fácil de atualizar."],
+ caminhoes:["🚚 Caminhões da vinhaça","Os dois calculam caminhões e metas. Um app só de vinhaça evita conta repetida."],
+ cresc:["🌱 Crescimento pessoal","5 apps de hábito, leitura e virtudes. Pode virar 1 ou 2 apps mais fortes."],
+ dinheiro:["💰 Dinheiro","Gastos e preços podem conversar: compra do mercado vira gasto lançado."],
+ conteudo:["✍️ Conteúdo e Claude","Comandos e posts prontos: os dois servem para criar conteúdo."],
+ campo:["🌾 Consulta de campo","Pragas, daninhas e variedades: uma busca única ajudaria no campo."]
+};
+const QU=["Resolve um problema real do meu dia a dia?","Uso (ou usaria) pelo menos uma vez por semana?","Outras pessoas (equipe, família) usariam?","Economiza tempo ou evita erro?","Faz algo que outro app grátis não faz tão bem?"];
+const QS=["Acho o que preciso em até 3 toques?","Funciona bem sem internet no campo?","Letras e botões fáceis de ler e tocar no sol?","Meus dados ficam salvos com segurança (backup)?","Abre rápido e sem erro?"];
+const DEC={manter:["⭐ Manter e divulgar","Está útil e fácil. Divulgar e só cuidar."],ja:["🔧 Melhorar já","É útil, mas difícil de usar. Prioridade no laboratório."],depois:["🛠️ Melhorar depois","Tem valor, mas não é urgente."],juntar:["🔄 Juntar ou repensar","Fácil de usar, mas pouco útil sozinho. Pode virar parte de outro app."],arquivar:["📦 Arquivar","Pouco útil e difícil. Tirar da central e liberar espaço."]};
+const KEY="lab-apps-v1";
+let st;try{st=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){st={}}
+st.apps=st.apps||{};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){toast("Não consegui salvar neste aparelho")}}
+function A(id){let a=st.apps[id];if(!a){a=st.apps[id]={r:{},pts:null,nota:"",dec:""}}if(!a.pts){const d=APPS.find(x=>x.id===id);a.pts=d.pts.map(p=>({t:p[1],tp:T[p[0]],f:false}))}return a}
+APPS.forEach(a=>A(a.id));save();
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function notas(d){const a=A(d.id),r=a.r;let u=0,s=0,nu=0,ns=0;for(let i=0;i<5;i++){if(r["u"+i]!=null){u+=r["u"+i];nu++}if(r["s"+i]!=null){s+=r["s"+i];ns++}}
+ const av=nu===5&&ns===5;return{u:av?u:d.u,s:av?s:d.s,av,parcial:(nu+ns>0)&&!av,resp:nu+ns}}
+function classU(u){return u>=7?["Útil","util"]:u>=4?["Razoável","raz"]:["Não útil","nao"]}
+function classS(s){return s>=7?"Boa":s>=4?"Média":"Ruim"}
+function decAuto(n){const cu=classU(n.u)[1];if(cu==="util")return n.s>=7?"manter":"ja";if(cu==="raz")return"depois";return n.s>=7?"juntar":"arquivar"}
+function decOf(d){const a=A(d.id);return a.dec||decAuto(notas(d))}
+function prio(d){const n=notas(d);return n.u*(11-n.s)+(decOf(d)==="ja"?40:0)}
+function pend(d){return A(d.id).pts.filter(p=>!p.f).length}
+function toast(m){const e=$("#toast");e.textContent=m;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2400)}
+
+/* ---------- PAINEL ---------- */
+function painel(){
+ const ns=APPS.map(d=>({d,n:notas(d)}));const av=ns.filter(x=>x.n.av).length;
+ const cnt={util:0,raz:0,nao:0};ns.forEach(x=>cnt[classU(x.n.u)[1]]++);
+ let tot=0,fe=0;APPS.forEach(d=>{const p=A(d.id).pts;tot+=p.length;fe+=p.filter(x=>x.f).length});
+ const quad={manter:[],ja:[],juntar:[],arquivar:[],depois:[]};APPS.forEach(d=>quad[decOf(d)].push(d));
+ const mi=d=>`<button class="mini ${notas(d).av?"":"pal"}" data-ab="${d.id}">${esc(d.n)}</button>`;
+ const top=[...APPS].filter(d=>pend(d)>0&&decOf(d)!=="arquivar").sort((a,b)=>prio(b)-prio(a)).slice(0,5);
+ $("#t-painel").innerHTML=`
+ <div class="card"><b>Avaliados por você: ${av} de ${APPS.length}</b><div class="bar"><i style="width:${av/APPS.length*100}%"></i></div>
+ <span class="small muted">Enquanto você não avalia, vale o palpite do Claude (nome com borda tracejada).</span></div>
+ <div class="stats"><div class="stat s-util"><b>${cnt.util}</b><small>Útil</small></div><div class="stat s-raz"><b>${cnt.raz}</b><small>Razoável</small></div><div class="stat s-nao"><b>${cnt.nao}</b><small>Não útil</small></div></div>
+ <h2>Mapa de decisão</h2>
+ <div class="mtx"><div class="ylab">Utilidade ↑</div>
+  <div class="q q2"><h4>🔧 Melhorar já</h4><p>Útil, mas difícil de usar</p>${quad.ja.map(mi).join("")||'<span class="small muted">—</span>'}</div>
+  <div class="q q1"><h4>⭐ Manter e divulgar</h4><p>Útil e fácil</p>${quad.manter.map(mi).join("")||'<span class="small muted">—</span>'}</div>
+  <div class="q q4"><h4>📦 Arquivar</h4><p>Pouco útil e difícil</p>${quad.arquivar.map(mi).join("")||'<span class="small muted">—</span>'}</div>
+  <div class="q q3"><h4>🔄 Juntar ou repensar</h4><p>Fácil, mas pouco útil</p>${quad.juntar.map(mi).join("")||'<span class="small muted">—</span>'}</div>
+  <div class="xlab">Usabilidade →</div></div>
+ <div class="card" style="margin-top:10px"><b>🛠️ Melhorar depois (razoáveis)</b><div style="margin-top:8px">${quad.depois.map(mi).join("")||'<span class="small muted">Nenhum</span>'}</div></div>
+ <h2>Próximos na bancada</h2>
+ ${top.map(d=>{const n=notas(d);return`<button class="app" data-ab="${d.id}"><img src="${d.i}" alt=""><div class="t"><b>${esc(d.n)}</b><small>${pend(d)} melhoria(s) pendente(s) · ${DEC[decOf(d)][0]}</small></div><div class="notas">U<em>${n.u}</em>S<em>${n.s}</em></div></button>`}).join("")}
+ <div class="card"><b>Melhorias feitas: ${fe} de ${tot}</b><div class="bar"><i style="width:${tot?fe/tot*100:0}%"></i></div></div>
+ <h2>Apps parecidos (pensar em juntar)</h2>
+ ${Object.entries(GRUPOS).map(([k,g])=>`<div class="card grupo"><b>${g[0]}</b><p class="small muted">${g[1]}</p>${APPS.filter(d=>d.g===k).map(mi).join("")}</div>`).join("")}
+ `;
+}
+
+/* ---------- LISTA ---------- */
+let fc="Todos",ord="prio",q="";
+const FC=["Todos","Útil","Razoável","Não útil","Não avaliados","Melhorar já"];
+const ORD=[["prio","Prioridade"],["u","Mais úteis"],["s","Mais fáceis"],["cat","Categoria"]];
+function lista(){
+ $("#f-class").innerHTML=FC.map(c=>`<button class="chip" aria-pressed="${c===fc}" data-fc="${c}">${c}</button>`).join("");
+ $("#f-ord").innerHTML=ORD.map(o=>`<button class="chip" aria-pressed="${o[0]===ord}" data-or="${o[0]}">↕ ${o[1]}</button>`).join("");
+ const t=norm(q);let f=APPS.filter(d=>{const n=notas(d),c=classU(n.u)[0];
+  if(t&&!norm(d.n+" "+d.c).includes(t))return false;
+  if(fc==="Todos")return true;if(fc==="Não avaliados")return!n.av;if(fc==="Melhorar já")return decOf(d)==="ja";return c===fc});
+ f.sort((a,b)=>ord==="prio"?prio(b)-prio(a):ord==="u"?notas(b).u-notas(a).u:ord==="s"?notas(b).s-notas(a).s:a.c.localeCompare(b.c)||a.n.localeCompare(b.n));
+ $("#lista").innerHTML=f.length?f.map(d=>{const n=notas(d),c=classU(n.u);
+  return`<button class="app" data-ab="${d.id}"><img src="${d.i}" alt="" loading="lazy"><div class="t"><b>${esc(d.n)}</b><small>${d.c} · ${pend(d)} melhoria(s) pendente(s)</small><div class="tags"><span class="tag t-${c[1]}">${c[0]}</span>${n.av?'<span class="tag t-ok">✓ avaliado</span>':'<span class="tag t-pal">palpite</span>'}</div></div><div class="notas">Utilid.<em>${n.u}</em>Usab.<em>${n.s}</em></div></button>`}).join(""):'<p class="vazio">Nenhum app nesse filtro.</p>';
+}
+
+/* ---------- MELHORIAS ---------- */
+let ftp="Todos";
+function melh(){
+ const tps=["Todos","Utilidade","Usabilidade","Técnico"];
+ const ap=[...APPS].filter(d=>decOf(d)!=="arquivar").sort((a,b)=>prio(b)-prio(a));
+ let h=`<p class="small muted" style="margin-top:0">Fila de tudo que falta melhorar, do app mais urgente para o menos. Marque ✔ quando ficar pronto.</p><div class="chips">${tps.map(t=>`<button class="chip" aria-pressed="${t===ftp}" data-tp="${t}">${t}</button>`).join("")}</div>`;
+ let algum=false;
+ for(const d of ap){const a=A(d.id);const ps=a.pts.map((p,i)=>({p,i})).filter(x=>!x.p.f&&(ftp==="Todos"||x.p.tp===ftp));if(!ps.length)continue;algum=true;
+  h+=`<div class="card fila"><div class="fh"><img src="${d.i}" alt=""><b>${esc(d.n)}</b><button data-ab="${d.id}">Ficha</button></div>${ps.map(x=>ptHTML(d.id,x.p,x.i,false)).join("")}</div>`}
+ if(!algum)h+='<p class="vazio">🎉 Nada pendente nesse filtro.</p>';
+ $("#t-melh").innerHTML=h;
+}
+function ptHTML(id,p,i,del){return`<div class="pt ${p.f?"feito":""}"><input type="checkbox" ${p.f?"checked":""} data-pid="${id}" data-pi="${i}" aria-label="Feito"><div class="tx"><span class="tp tp-${p.tp}">${p.tp}</span>${esc(p.t)}</div>${del?`<button class="del" data-did="${id}" data-di="${i}" aria-label="Apagar">✕</button>`:""}</div>`}
+
+/* ---------- MÉTODO ---------- */
+function como(){
+ $("#t-como").innerHTML=`
+ <h2 style="margin-top:4px">Como funciona o laboratório</h2>
+ <div class="card"><ol class="how">
+ <li>Abra um app na aba <b>Apps</b> e responda as <b>10 perguntas</b> (5 de utilidade, 5 de usabilidade).</li>
+ <li>Cada resposta vale: <b>Sim = 2</b>, <b>Mais ou menos = 1</b>, <b>Não = 0</b>. Cada nota vai de 0 a 10.</li>
+ <li>Utilidade 7 a 10 = <b>Útil</b>; 4 a 6 = <b>Razoável</b>; 0 a 3 = <b>Não útil</b>.</li>
+ <li>O laboratório sugere a decisão. Você pode trocar se discordar.</li>
+ <li>Na <b>ficha</b> do app, marque os pontos a melhorar, crie os seus e toque em <b>Pedir ao Claude</b>: a mensagem sai pronta para colar aqui no chat.</li>
+ </ol></div>
+ <h3>Utilidade — serve para quê?</h3><div class="card">${QU.map((x,i)=>`<div class="small">${i+1}. ${x}</div>`).join("")}</div>
+ <h3>Usabilidade — é fácil de usar?</h3><div class="card">${QS.map((x,i)=>`<div class="small">${i+1}. ${x}</div>`).join("")}</div>
+ <h3>As 5 decisões</h3><div class="card">${Object.values(DEC).map(d=>`<div style="margin-bottom:6px"><b>${d[0]}</b><br><span class="small muted">${d[1]}</span></div>`).join("")}</div>
+ <h3>Relatório e backup</h3>
+ <div class="card"><p class="small muted" style="margin-top:0">Suas avaliações ficam só neste celular. Faça backup de vez em quando.</p>
+ <div class="btns"><button class="btn b1" id="b-rel">📤 Mandar relatório</button><button class="btn b2" id="b-bkp">💾 Salvar backup</button><button class="btn b3" id="b-rest">📂 Restaurar backup</button></div></div>
+ <p class="small muted" style="text-align:center">Laboratório dos Apps · José Leandro</p>`;
+}
+
+/* ---------- FICHA ---------- */
+let aberto=null;
+function ficha(id){
+ aberto=id;const d=APPS.find(x=>x.id===id),a=A(id),n=notas(d),c=classU(n.u),dc=decOf(d);
+ const seg=(k)=>`<div class="seg">${[[2,"Sim"],[1,"Mais ou menos"],[0,"Não"]].map(([v,l])=>`<button class="${a.r[k]===v?"on":""}" data-k="${k}" data-v="${v}">${l}</button>`).join("")}</div>`;
+ $("#ficha").innerHTML=`<div class="top"><button id="voltar">← Voltar</button><b>${esc(d.n)}</b></div><div class="wrap">
+ <div class="head"><img src="${d.i}" alt=""><div><b style="font-size:21px">${esc(d.n)}</b><div class="muted small">${d.c}${d.g?" · grupo "+GRUPOS[d.g][0]:""}</div></div></div>
+ <div class="btns"><a class="btn b1" href="${BASE+d.p}" target="_blank" rel="noopener">▶ Abrir app</a><button class="btn b2" id="b-pedir">🤖 Pedir ao Claude</button></div>
+ <h3>Palpite do Claude</h3>
+ <div class="palpite"><b>Utilidade ${d.u} · Usabilidade ${d.s}</b><div class="small" style="margin-top:4px">${esc(d.m)}</div></div>
+ <h3>Sua avaliação ${n.av?"✓":`(${n.resp}/10 respondidas)`}</h3>
+ <div class="card"><b style="color:var(--verde2)">Utilidade</b>${QU.map((x,i)=>`<div class="pq"><p>${x}</p>${seg("u"+i)}</div>`).join("")}</div>
+ <div class="card"><b style="color:#a07c00">Usabilidade</b>${QS.map((x,i)=>`<div class="pq"><p>${x}</p>${seg("s"+i)}</div>`).join("")}</div>
+ <div class="res"><div><small>Utilidade</small><b>${n.u}</b><small>${c[0]}</small></div><div><small>Usabilidade</small><b>${n.s}</b><small>${classS(n.s)}</small></div></div>
+ ${n.av?"":'<p class="small muted">Notas mostradas = palpite do Claude até você responder as 10.</p>'}
+ <div class="decisao">${DEC[dc][0]}<span>${DEC[dc][1]}${a.dec?" (escolha sua)":" (sugestão automática)"}</span></div>
+ <div class="dec-chips"><button data-dec="" aria-pressed="${!a.dec}">Automática</button>${Object.entries(DEC).map(([k,v])=>`<button data-dec="${k}" aria-pressed="${a.dec===k}">${v[0]}</button>`).join("")}</div>
+ <h3>Pontos a melhorar (${a.pts.filter(p=>!p.f).length} pendentes)</h3>
+ <div class="card" id="pts">${a.pts.length?a.pts.map((p,i)=>ptHTML(id,p,i,true)).join(""):'<span class="muted small">Nenhum ponto ainda.</span>'}
+ <div class="add"><input id="novo" placeholder="Novo ponto a melhorar…"><select id="novo-tp"><option>Utilidade</option><option>Usabilidade</option><option>Técnico</option></select><button class="btn b1" id="b-add">＋</button></div></div>
+ <h3>Anotações do laboratório</h3>
+ <textarea id="nota" placeholder="O que notei usando, ideias, quem usa…">${esc(a.nota||"")}</textarea>
+ </div>`;
+ if($("#ficha").hidden){$("#ficha").hidden=false;document.body.style.overflow="hidden";$("#ficha").scrollTop=0;history.pushState({f:1},"")}
+}
+function fechar(){if($("#ficha").hidden)return;$("#ficha").hidden=true;document.body.style.overflow="";aberto=null;render()}
+addEventListener("popstate",()=>fechar());
+
+/* ---------- EVENTOS ---------- */
+document.addEventListener("click",async e=>{
+ const ab=e.target.closest("[data-ab]");if(ab){ficha(ab.dataset.ab);return}
+ const nb=e.target.closest("nav button");if(nb){tab(nb.dataset.t);return}
+ const f1=e.target.closest("[data-fc]");if(f1){fc=f1.dataset.fc;lista();return}
+ const o1=e.target.closest("[data-or]");if(o1){ord=o1.dataset.or;lista();return}
+ const t1=e.target.closest("[data-tp]");if(t1){ftp=t1.dataset.tp;melh();return}
+ if(e.target.id==="voltar"){history.back();return}
+ const sb=e.target.closest(".seg button");if(sb){const a=A(aberto),k=sb.dataset.k,v=+sb.dataset.v;a.r[k]=a.r[k]===v?null:v;if(a.r[k]==null)delete a.r[k];a.data=new Date().toISOString();save();const y=$("#ficha").scrollTop;ficha(aberto);$("#ficha").scrollTop=y;return}
+ const db=e.target.closest("[data-dec]");if(db){A(aberto).dec=db.dataset.dec;save();const y=$("#ficha").scrollTop;ficha(aberto);$("#ficha").scrollTop=y;return}
+ const dl=e.target.closest("[data-did]");if(dl){if(!confirm("Apagar este ponto?"))return;A(dl.dataset.did).pts.splice(+dl.dataset.di,1);save();const y=$("#ficha").scrollTop;ficha(aberto);$("#ficha").scrollTop=y;return}
+ if(e.target.id==="b-add"){addPt();return}
+ if(e.target.id==="b-pedir"){pedir();return}
+ if(e.target.id==="b-rel"){relatorio();return}
+ if(e.target.id==="b-bkp"){backup();return}
+ if(e.target.id==="b-rest"){$("#arq").click();return}
+});
+document.addEventListener("change",e=>{const c=e.target.closest("[data-pid]");if(!c)return;const p=A(c.dataset.pid).pts[+c.dataset.pi];p.f=c.checked;p.em=c.checked?new Date().toISOString():null;save();
+ if(!$("#ficha").hidden){const y=$("#ficha").scrollTop;ficha(aberto);$("#ficha").scrollTop=y}else{toast(c.checked?"✔ Melhoria feita!":"Voltou para pendente");setTimeout(render,350)}});
+document.addEventListener("input",e=>{if(e.target.id==="nota"){A(aberto).nota=e.target.value;save()}if(e.target.id==="busca"){q=e.target.value;lista()}});
+document.addEventListener("keydown",e=>{if(e.target.id==="novo"&&e.key==="Enter")addPt()});
+function addPt(){const i=$("#novo"),t=i.value.trim();if(!t){i.focus();return}A(aberto).pts.push({t,tp:$("#novo-tp").value,f:false,meu:true});save();const y=$("#ficha").scrollTop;ficha(aberto);$("#ficha").scrollTop=y;toast("Ponto adicionado")}
+
+async function compartilhar(txt,titulo){
+ if(navigator.share){try{await navigator.share({title:titulo,text:txt});return}catch(e){if(e.name==="AbortError")return}}
+ try{await navigator.clipboard.writeText(txt);toast("Copiado! É só colar.")}catch(e){window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank")}
+}
+function pedir(){const d=APPS.find(x=>x.id===aberto),a=A(aberto),n=notas(d);const ps=a.pts.filter(p=>!p.f);
+ const txt=`Laboratório dos Apps — vamos melhorar o app "${d.n}" (${BASE+d.p}).\nAvaliação: utilidade ${n.u}/10 (${classU(n.u)[0]}), usabilidade ${n.s}/10 (${classS(n.s)})${n.av?"":" — palpite"}.\nDecisão: ${DEC[decOf(d)][0]}.\nPontos a melhorar:\n${ps.map((p,i)=>`${i+1}. [${p.tp}] ${p.t}`).join("\n")||"(nenhum pendente)"}${a.nota?`\nMinhas anotações: ${a.nota}`:""}\nFaça essas melhorias e publique de novo no mesmo endereço.`;
+ compartilhar(txt,"Pedir melhoria")}
+function relatorio(){const ls=[...APPS].sort((a,b)=>notas(b).u-notas(a).u);
+ const g={};ls.forEach(d=>{const k=DEC[decOf(d)][0];(g[k]=g[k]||[]).push(d)});
+ let txt=`🧪 Laboratório dos Apps — relatório\nAvaliados: ${APPS.filter(d=>notas(d).av).length} de ${APPS.length}\n`;
+ for(const k of Object.values(DEC).map(x=>x[0])){if(!g[k])continue;txt+=`\n${k}\n`+g[k].map(d=>{const n=notas(d);return`• ${d.n} — U ${n.u} · S ${n.s}${n.av?"":" (palpite)"} · ${pend(d)} pendente(s)`}).join("\n")+"\n"}
+ compartilhar(txt,"Relatório do laboratório")}
+function backup(){const blob=new Blob([JSON.stringify({app:"laboratorio",v:1,data:new Date().toISOString(),st},null,1)],{type:"application/json"});
+ const nome="laboratorio-apps-"+new Date().toISOString().slice(0,10)+".json";const file=new File([blob],nome,{type:"application/json"});
+ if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:nome}).catch(()=>{});return}
+ const u=URL.createObjectURL(blob),l=document.createElement("a");l.href=u;l.download=nome;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast("Backup salvo em Downloads")}
+$("#arq").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(j.app!=="laboratorio"||!j.st)throw 0;if(!confirm("Trocar os dados atuais pelos do backup?"))return;st=j.st;st.apps=st.apps||{};APPS.forEach(a=>A(a.id));save();render();toast("Backup restaurado ✔")}catch(err){toast("Arquivo de backup inválido")}e.target.value=""};
+
+/* ---------- ABAS + ARRASTO ---------- */
+const TABS=["painel","apps","melh","como"];let atual="painel";
+function tab(t){atual=t;TABS.forEach(x=>{$("#t-"+x).hidden=x!==t});document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));render();scrollTo(0,0)}
+function render(){if(atual==="painel")painel();if(atual==="apps")lista();if(atual==="melh")melh();if(atual==="como")como()}
+let sx=0,sy=0,ok=false;
+$("#main").addEventListener("touchstart",e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;ok=!e.target.closest(".chips,input,textarea")},{passive:true});
+$("#main").addEventListener("touchend",e=>{if(!ok)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.3){const i=TABS.indexOf(atual)+(dx<0?1:-1);if(i>=0&&i<TABS.length)tab(TABS[i])}},{passive:true});
+
+/* ---------- INSTALAR ---------- */
+let def=null;const sa=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+if(!sa())$("#b-inst").hidden=false;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();def=e});
+$("#b-inst").onclick=async()=>{if(def){def.prompt();try{await def.userChoice}catch(e){}def=null}else alert('No Chrome, toque no menu ⋮ e depois em "Instalar app" (ou "Adicionar à tela inicial").')};
+addEventListener("appinstalled",()=>$("#b-inst").hidden=true);
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+render();
+</script>
+</body>
+</html>
