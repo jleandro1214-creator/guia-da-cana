@@ -1,198 +1,198 @@
 {
-  "gerado": "2026-11-09T22:50:56-03:00",
+  "gerado": "2026-11-10T22:51:00-03:00",
   "assuntos": {
     "cana": [
       {
-        "titulo": "USDA corta previsão de açúcar do Brasil por cana mais fraca",
-        "resumo": "O escritório do USDA em Brasília reduziu em 4% a estimativa de produção de açúcar do Brasil na safra 2026/27, para 40,5 milhões de toneladas, porque a cana está com menos açúcar depois das chuvas. A previsão de exportação também caiu.",
-        "fonte": "Investing.com Brasil (Reuters)",
-        "link": "https://br.investing.com/news/commodities-news/usda-reduz-projecao-da-producao-de-acucar-do-brasil-2121435"
+        "titulo": "São Martinho reduz previsão de ATR por causa das chuvas",
+        "resumo": "A São Martinho cortou em 10,5% sua estimativa de ATR para a safra 2026/27 e prevê moer 22,8 milhões de toneladas. A empresa vai destinar 53% do açúcar da cana ao etanol e deixar parte da cana para a próxima safra.",
+        "fonte": "Portal do Agronegócio",
+        "link": "https://portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/sao-martinho-corta-projecao-de-atr-em-10-5-com-chuvas-e-amplia-participacao-do-etanol"
       },
       {
-        "titulo": "Etanol anidro sobe mais de 5% nas usinas paulistas",
-        "resumo": "Segundo o Cepea, o etanol hidratado ficou 2,36% mais caro na semana nas usinas de São Paulo, perto de R$ 2,88 o litro. O anidro, que é misturado à gasolina, subiu 5,39% e chegou a cerca de R$ 3,58 o litro.",
-        "fonte": "novaCana",
-        "link": "https://www.novacana.com/noticias/etanol-hidratado-sobe-2-36-e-anidro-avanca-5-39-nesta-semana-nas-usinas-paulistas"
+        "titulo": "Uisa passa de 7 milhões de toneladas e mira recorde",
+        "resumo": "A usina Uisa, de Nova Olímpia, em Mato Grosso, chegou a 7 milhões de toneladas de cana moída. A empresa espera fechar a safra 2026/27 com o maior volume da sua história.",
+        "fonte": "Revista RPAnews",
+        "link": "https://revistarpanews.com.br/uisa-atinge-7-milhoes-de-toneladas-de-cana-moida-e-projeta-recorde-historico-na-safra-2026-27"
       },
       {
-        "titulo": "Açúcar volta a subir nas bolsas com dólar mais fraco",
-        "resumo": "O açúcar fechou a segunda-feira em alta nas bolsas internacionais, ajudado pela queda do dólar. A safra forte da Índia limitou a alta, mas as chuvas no Centro-Sul do Brasil seguem atrapalhando a moagem.",
+        "titulo": "Açúcar sobe nas bolsas com dólar mais fraco",
+        "resumo": "Os contratos de açúcar fecharam em alta na segunda-feira, ajudados pela queda do dólar. O mercado segue atento ao avanço da produção na Índia.",
         "fonte": "Notícias Agrícolas",
-        "link": "https://noticiasagricolas.com.br/noticias/sucroenergetico/431055-acucar-fecha-em-alta-nas-bolsas-com-dolar-fraco-e-avanco-da-producao-na-india-no-radar.html"
+        "link": "https://www.noticiasagricolas.com.br/noticias/sucroenergetico/431055-acucar-fecha-em-alta-nas-bolsas-com-dolar-fraco-e-avanco-da-producao-na-india-no-radar.html"
       },
       {
-        "titulo": "Usina de Mato Grosso passa de 7 milhões de toneladas moídas",
-        "resumo": "A Uisa, de Nova Olímpia, em Mato Grosso, já moeu 7 milhões de toneladas de cana nesta safra, uma marca inédita para a empresa nesta época do ano. A usina espera fechar a temporada com o maior volume da sua história.",
-        "fonte": "Muvuca Popular",
-        "link": "https://www.muvucapopular.com.br/2026/11/09/gigante-do-setor-sucroenergetico-em-mt-bate-marca-de-7-milhoes-de-toneladas-de-cana-e-impulsiona-economia-regional/"
+        "titulo": "StoneX vê preço do açúcar estável desde outubro",
+        "resumo": "Segundo a consultoria StoneX, o preço do açúcar tem se mantido estável desde outubro, apesar das oscilações no mercado externo.",
+        "fonte": "Notícias Agrícolas",
+        "link": "https://www.noticiasagricolas.com.br/noticias/sucroenergetico/431040-acucar-mantem-precos-estaveis-desde-outubro-apesar-de-oscilacoes-externas-aponta-stone-x.html"
+      },
+      {
+        "titulo": "Etanol sobe nas usinas paulistas, aponta Cepea",
+        "resumo": "Na semana de 2 a 6 de novembro, o indicador Cepea do etanol hidratado subiu cerca de 2,4%, para perto de R$ 2,88 o litro. O anidro avançou mais de 5%, para cerca de R$ 3,58 o litro.",
+        "fonte": "Notícias Agrícolas (Cepea)",
+        "link": "https://www.noticiasagricolas.com.br/cotacoes/sucroenergetico"
       }
     ],
     "politica": [
       {
-        "titulo": "Fachin arquiva de vez o inquérito das fake news no STF",
-        "resumo": "O presidente do STF, Edson Fachin, arquivou o inquérito das fake news a pedido da Procuradoria-Geral da República, que considerou a investigação concluída. Os processos que nasceram do inquérito continuam valendo.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/stf-ministro-fachin-arquiva-inquerito-das-fake-news"
+        "titulo": "Governo enxuga agenda e define quatro prioridades no Congresso",
+        "resumo": "O governo escolheu quatro prioridades até o recesso: Orçamento de 2027, proibição das bets, Desenrola 3.0 e regulação das big techs. O marco legal da IA e a reforma do Judiciário ficam para 2027.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/politica/governo-lula-enxuga-agenda-de-2026-e-adia-pauta-legislativa/"
       },
       {
-        "titulo": "Judiciário e MPU pedem R$ 533 milhões para pagar benefícios",
-        "resumo": "O Judiciário e o Ministério Público da União disseram ao STF que precisam de 533 milhões de reais extras para pagar adicionais validados pela Corte, valor que não está no Orçamento de 2026. A AGU pediu ao Supremo que diga como a decisão deve ser cumprida.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/judiciario-e-mpu-querem-r-533-milhoes-para-pagar-penduricalhos"
+        "titulo": "Relator apoia reduzir maioridade penal para 16 anos",
+        "resumo": "O deputado Mendonça Filho, relator da PEC na Câmara, disse que dará parecer favorável à redução, com pena cumprida em locais separados dos adultos. A votação na comissão está prevista até o fim de novembro.",
+        "fonte": "Agência Brasil (via Agência Tocantins)",
+        "link": "https://www.agenciatocantins.com.br/noticia/112560/relator-defende-reducao-da-maioridade-penal-com-prisoes-separadas"
       },
       {
-        "titulo": "Lula viaja para a COP31 sem anunciar nomes do novo governo",
-        "resumo": "Lula embarcou para a Turquia, onde participa da cúpula do clima COP31, e depois segue para as Filipinas, com volta prevista para 16 de novembro. Os presidentes da Câmara e do Senado não aceitaram o convite para a viagem.",
-        "fonte": "O Povo (Agência Estado)",
-        "link": "https://www.opovo.com.br/noticias/politica/2026/11/09/lula-nao-leva-aliados-da-campanha-a-turquia-frustrando-expectativa-de-montagem-do-governo.html"
+        "titulo": "Fachin arquiva o inquérito das fake news no STF",
+        "resumo": "O presidente do STF, Edson Fachin, encerrou o inquérito das fake news, aberto em 2019. A decisão repercutiu entre entidades como a OAB e no meio político.",
+        "fonte": "Gazeta do Povo",
+        "link": "https://www.gazetadopovo.com.br/republica/supremo-tribunal-federal-encerra-o-polemico-inquerito-das-fake-news/"
       },
       {
-        "titulo": "Câmara Legislativa do DF vota reeleição da Mesa Diretora",
-        "resumo": "A Câmara Legislativa do Distrito Federal vai votar em segundo turno uma proposta que permite aos membros da Mesa Diretora disputar o mesmo cargo de novo em 2027. Desde 2021, o STF rejeita reeleições sem limite para a direção de casas legislativas.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/cldf-vota-proposta-que-libera-reeleicao-de-membros-da-mesa-diretora"
+        "titulo": "STF faz audiência de conciliação sobre fim da escala 6x1",
+        "resumo": "O ministro Flávio Dino marcou para esta semana uma audiência de conciliação sobre a transição da escala 6x1. Entidades do comércio pedem mais prazo para a mudança.",
+        "fonte": "Correio da Manhã",
+        "link": "https://www.correiodamanha.com.br/politica/2026/11/333246-stf-discute-escala-6x1-lula-viaja-e-congresso-discute-prioridades.html"
+      },
+      {
+        "titulo": "Hugo Motta articula proposta de voto distrital misto",
+        "resumo": "O presidente da Câmara, Hugo Motta, está articulando uma proposta para adotar o voto distrital misto nas eleições para deputado.",
+        "fonte": "Gazeta do Povo",
+        "link": "https://www.gazetadopovo.com.br/republica/hugo-motta-articula-proposta-de-voto-distrital-misto-na-camara-dos-deputados/"
       }
     ],
     "tecnologia": [
       {
-        "titulo": "Acionistas processam Nvidia e Jensen Huang por caso de suposta espiã",
-        "resumo": "Investidores abriram uma ação coletiva nos Estados Unidos dizendo que a Nvidia escondeu a relação do seu presidente com uma ex-executiva suspeita de espionar para a China. No mesmo dia, as ações da empresa caíram mais de quatro por cento.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/09/pro/nvidia-e-jensen-huang-sao-processados-por-caso-envolvendo-suposta-espia-chinesa"
+        "titulo": "Cientistas do G20 defendem IA contra desastres naturais",
+        "resumo": "Academias de ciência dos países do G20 recomendaram o uso de inteligência artificial, drones e alertas precoces para prevenir e responder a desastres. A carta será entregue aos líderes na cúpula de dezembro, em Miami.",
+        "fonte": "O Povo (Agência Brasil)",
+        "link": "https://www.opovo.com.br/noticias/brasil/2026/11/10/ia-pode-ajudar-a-responder-desastres-naturais-dizem-cientistas-ao-g20.html"
       },
       {
-        "titulo": "Anthropic lança novos modelos de IA, mais rápidos e baratos",
-        "resumo": "A Anthropic apresentou duas novas versões do Claude, uma aberta a desenvolvedores e outra restrita a organizações verificadas. A empresa diz que o modelo principal ficou cerca de trinta por cento mais rápido e com preço menor.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/09/inteligencia-artificial/anthropic-lanca-ia-mais-poderosas-enquanto-cresce-alerta-sobre-evolucao-autonoma"
-      },
-      {
-        "titulo": "Vivo lança internet por satélite da Starlink direto no celular",
-        "resumo": "Clientes da Vivo com celulares compatíveis já podem usar sinal de satélite em áreas sem cobertura, para mandar mensagens e usar mapas. O serviço é grátis por um ano para pessoas físicas.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/09/ciencia-e-espaco/vivo-satelite-leva-sinal-da-starlink-direto-para-os-celulares-saiba-como-conectar"
-      },
-      {
-        "titulo": "Instagram usará IA para identificar adolescentes que mentem a idade",
-        "resumo": "A Meta ampliou para o mundo todo um sistema de inteligência artificial que estima a idade dos usuários do Instagram. Quem parecer menor de idade vai para uma conta de adolescente, com perfil privado e mais restrições.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/09/inteligencia-artificial/instagram-vai-usar-ia-para-descobrir-adolescentes-que-mentem-sobre-a-idade"
-      },
-      {
-        "titulo": "IA permite que um só hacker ataque empresas em vários países",
-        "resumo": "Um relatório de segurança digital mostra que criminosos usam várias ferramentas de inteligência artificial para atacar empresas em diferentes países ao mesmo tempo. A recomendação é limitar acessos e manter os sistemas atualizados.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/09/seguranca/ia-permite-que-um-unico-hacker-ataque-empresas-em-varios-paises-aponta-relatorio"
+        "titulo": "Gemini passa a aceitar livros didáticos gratuitos como fonte",
+        "resumo": "O Google permitiu que estudantes adicionem livros didáticos abertos e gratuitos como fontes no caderno do Gemini. A novidade vem de parcerias nos Estados Unidos e na Índia.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/10/gemini-dispoe-didaticos/"
       }
     ],
     "ciencia": [
       {
-        "titulo": "Unicamp cria resina para impressão 3D que evita coágulos",
-        "resumo": "Pesquisadores da Unicamp desenvolveram um material para imprimir em 3D peças usadas no coração e nos vasos, que libera uma substância capaz de reduzir a formação de coágulos. Os testes em laboratório mostraram que ele é seguro.",
-        "fonte": "Agência FAPESP",
-        "link": "https://agencia.fapesp.br/nova-resina-para-impressao-3d-de-dispositivos-cardiovasculares-evita-formacao-de-coagulos/59569"
+        "titulo": "Placa tectônica sob o Irã tem duas grandes fraturas",
+        "resumo": "Pesquisadores da Academia Chinesa de Ciências encontraram duas rachaduras na placa Arábica, sob o sudeste do Irã, usando dados de dezenas de estações sísmicas. O estudo saiu na revista Nature Geoscience.",
+        "fonte": "Pplware",
+        "link": "https://pplware.sapo.pt/informacao/cientistas-descobrem-duas-enormes-fissuras-numa-placa-tectonica/"
       },
       {
-        "titulo": "Órbita de estrela ajuda a estudar buraco negro da Via Láctea",
-        "resumo": "Astrônomos da USP usaram mais de vinte anos de observações de uma estrela para testar modelos do buraco negro no centro da nossa galáxia. Vários modelos se encaixam nos dados, e serão necessárias medições mais precisas.",
-        "fonte": "Agência FAPESP",
-        "link": "https://agencia.fapesp.br/orbita-de-estrela-ajuda-a-investigar-a-natureza-do-buraco-negro-no-centro-da-via-lactea/59546"
+        "titulo": "Equações de Einstein preveem 'reconexão' da gravidade",
+        "resumo": "Dois físicos mostraram, só com a relatividade geral, que a gravidade pode passar por um processo parecido com a reconexão magnética do Sol. O fenômeno ainda não foi observado, mas pode ajudar a estudar buracos negros.",
+        "fonte": "Gizmodo Brasil",
+        "link": "https://www.gizmodo.com.br/cientistas-descobrem-que-a-gravidade-pode-se-romper-e-se-reconectar-revelam-equacoes-de-einstein-74926"
       },
       {
-        "titulo": "2026 pode ser o ano mais quente já registrado",
-        "resumo": "Cientistas estimam que o El Niño, somado ao aquecimento global, deve fazer de 2026 o ano mais quente da história. A previsão coincide com o início da conferência do clima da ONU, a COP31, na Turquia.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/09/ciencia-e-espaco/el-nino-e-aquecimento-podem-fazer-de-2026-o-ano-mais-quente-da-historia"
+        "titulo": "Pente elétrico faz pelo crescer em testes com ratos",
+        "resumo": "Cientistas da Universidade de Beihang, na China, criaram um pente que leva genes direto aos folículos com pulsos elétricos. Em ratos, o resultado superou o minoxidil, mas ainda não há testes em pessoas.",
+        "fonte": "Metrópoles",
+        "link": "https://www.metropoles.com/saude/cientistas-criam-pente-eletrico-que-pode-ser-solucao-para-a-calvicie"
       },
       {
-        "titulo": "Fibras de pitanga e cambuci reduzem células de câncer em laboratório",
-        "resumo": "Em testes da USP, fibras extraídas dessas frutas brasileiras diminuíram bastante a sobrevivência de células de câncer de intestino. O estudo ainda é inicial e não foi testado em animais nem em pessoas.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/curiosidades/2026/11/09/fibras-de-pitanga-e-cambuci-reduziram-em-ate-90-a-viabilidade-de-celulas-de-cancer-de-intestino-em-testes-de-laboratorio-da-usp/"
+        "titulo": "Pássaros mudam o canto para vencer o barulho das cidades",
+        "resumo": "Estudos mostram que aves urbanas cantam mais agudo, mais alto e até à noite para escapar do ruído do trânsito. Os cientistas alertam que nem todas as espécies conseguem se adaptar.",
+        "fonte": "Gizmodo Brasil",
+        "link": "https://gizmodo.com.br/os-passaros-estao-mudando-a-maneira-de-cantar-nas-cidades-e-o-motivo-preocupa-os-cientistas-74841"
       }
     ],
     "astronomia": [
       {
-        "titulo": "Chuva de meteoros Táuridas do Norte pode trazer bolas de fogo",
-        "resumo": "As Táuridas do Norte já podem ser vistas no Brasil, com pico na noite de quarta (11) para quinta (12). São cerca de cinco meteoros por hora, e a Lua nova ajuda a deixar o céu bem escuro.",
-        "fonte": "Só Notícia Boa",
-        "link": "https://www.sonoticiaboa.com.br/2026/11/09/chuva-de-meteoros-bolas-de-fogo-hoje-9-novembro-brasil"
+        "titulo": "Chuva de meteoros Táuridas do Norte nesta noite",
+        "resumo": "Na noite de 11 para 12 de novembro, as Táuridas do Norte chegam ao pico, com cerca de cinco meteoros por hora. O melhor horário é entre 22h e 2h, e a Lua quase não atrapalha.",
+        "fonte": "Overdrive",
+        "link": "https://gameoverdrive.com.br/chuva-meteoros-novembro-2026-horario-brasil/"
       },
       {
-        "titulo": "SpaceX vai tentar agarrar os dois estágios da Starship",
-        "resumo": "No 15º voo de teste, marcado para sexta-feira, 13 de novembro, a SpaceX quer recuperar o foguete e a nave com os braços da torre de lançamento. Se der certo, será a primeira vez que um sistema orbital é recuperado por inteiro.",
+        "titulo": "Voyager 1 vai chegar a um dia-luz da Terra",
+        "resumo": "No dia 18 de novembro, por volta das 19h16 de Brasília, a sonda Voyager 1 estará a cerca de 26 bilhões de quilômetros. Cada mensagem vai levar um dia inteiro para chegar.",
+        "fonte": "Aventuras na História",
+        "link": "https://aventurasnahistoria.com.br/noticias/historia-hoje/sonda-voyager-1-alcancara-marco-de-distancia-percorrida-no-espaco.phtml"
+      },
+      {
+        "titulo": "NASA abre seleção de astronautas para missões à Lua",
+        "resumo": "A NASA recebe inscrições até 3 de dezembro para formar uma nova turma de astronautas. A vaga é só para cidadãos americanos, e o treinamento começa em 2028.",
         "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/09/ciencia-e-espaco/spacex-tentara-feito-inedito-com-os-dois-estagios-da-starship-nesta-semana"
+        "link": "https://olhardigital.com.br/2026/11/08/ciencia-e-espaco/procura-se-astronautas-nasa-abre-selecao-para-novas-missoes-a-lua"
       },
       {
-        "titulo": "Estudantes brasileiros ganham quatro ouros em olimpíada de astronomia",
-        "resumo": "Na Olimpíada Latino-Americana de Astronomia e Astronáutica, no Paraguai, quatro estudantes brasileiros ganharam medalha de ouro. O Brasil também foi escolhido como melhor delegação.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/brasil-conquista-4-ouros-em-olimpiada-latino-americana-de-astronomia"
+        "titulo": "Trump promete astronautas na Lua ainda neste mandato",
+        "resumo": "Em discurso no Centro Espacial Kennedy, Trump disse querer presença permanente na Lua e uma nave nuclear rumo a Marte. As datas são metas do governo, sem cronograma detalhado.",
+        "fonte": "TMC",
+        "link": "https://tmc.com.br/mundo/trump-promete-astronautas-lua-espaconave-nuclear-marte/"
       },
       {
-        "titulo": "Satélite ligado a projeto da NASA perde contato e encerra missão",
-        "resumo": "A nave Otter 24C, da empresa Starfish Space, ficou sem comunicação cerca de um mês depois do lançamento por uma falha no sistema de proteção. Ela fazia parte de um projeto da NASA para testar o conserto de satélites em órbita.",
+        "titulo": "Satélite de manutenção orbital perde contato e encerra missão",
+        "resumo": "O satélite Otter, da empresa Starfish Space, que participava de um projeto da NASA, perdeu a comunicação por uma falha elétrica. A empresa considerou o equipamento irrecuperável.",
         "fonte": "Olhar Digital",
         "link": "https://olhardigital.com.br/2026/11/09/ciencia-e-espaco/satelite-perde-contato-com-a-terra-e-encerra-missao-da-nasa-antes-da-hora"
-      },
-      {
-        "titulo": "Leônidas têm pico na madrugada de 17 para 18 de novembro",
-        "resumo": "A chuva de meteoros Leônidas pode chegar a 15 meteoros por hora em céu escuro. No Brasil, o melhor horário vai da meia-noite até o amanhecer do dia 18.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/curiosidades/2026/11/06/chuva-de-meteoros-leonidas-tem-pico-na-noite-de-17-para-18-de-novembro-com-ate-15-meteoros-hora/"
       }
     ],
     "filosofia": [
       {
-        "titulo": "Morre David Lyons, filósofo do direito e aluno de Rawls",
-        "resumo": "O filósofo americano David Lyons, primeiro orientando de doutorado de John Rawls, morreu aos 91 anos. Ele estudou o utilitarismo, os direitos e o Estado de Direito.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/11/09/david-lyons-1935-2026"
+        "titulo": "Brasília celebra Dia Mundial da Filosofia com evento",
+        "resumo": "A Nova Acrópole promove no sábado, 14 de novembro, um encontro sobre filosofia e ciência na Asa Norte. A celebração do Dia Mundial da Filosofia vai até 24 de novembro.",
+        "fonte": "Correio Braziliense",
+        "link": "https://www.correiobraziliense.com.br/cidades-df/2026/11/7535834-dia-mundial-da-filosofia-tera-programacao-especial-em-brasilia.html"
       },
       {
-        "titulo": "Filósofo lidera pesquisa milionária sobre o que protege a democracia",
-        "resumo": "Uma equipe da Universidade Purdue, liderada pelo filósofo J.P. Messina, recebeu quase 2,9 milhões de dólares para estudar o que sustenta as democracias além da Constituição, como partidos, universidades e normas informais.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/11/04/philosopher-led-team-nets-2-91-million-in-grants-for-project-on-safeguards-of-liberalism/"
+        "titulo": "Nova tradução de David Hume será lançada na UFSC",
+        "resumo": "O livro 'Sobre as paixões e outros textos', de David Hume, traduzido por Jaimir Conte, tem lançamento marcado para 17 de novembro.",
+        "fonte": "ANPOF",
+        "link": "https://www.anpof.org/agenda/lancamentos-de-livros/lancamento-do-livro-sobre-as-paixoes-e-outros-textos-de-david-hume-traducao-e-organizacao-de-jaimir-conte"
       },
       {
-        "titulo": "Universidade americana vai acabar com o curso de filosofia",
-        "resumo": "A Universidade Estadual de Wichita, no Kansas, vai deixar de oferecer a graduação em filosofia a partir de julho de 2027, por não atingir as metas de matrícula. Quem já está no curso poderá terminá-lo.",
-        "fonte": "Daily Nous",
-        "link": "https://dailynous.com/2026/11/03/wichita-state-to-eliminate-philosophy-major/"
+        "titulo": "Livro sobre Walter Benjamin e a violência sai em Petrolina",
+        "resumo": "A obra 'Para Além de Guerra e Paz', sobre a crítica da violência em Walter Benjamin, será lançada em 13 de novembro, na FACAPE, em Petrolina.",
+        "fonte": "ANPOF",
+        "link": "https://www.anpof.org/agenda/lancamentos-de-livros/para-alem-de-guerra-e-paz-walter-benjamin-e-a-elaboracao-de-uma-critica-da-violencia"
+      },
+      {
+        "titulo": "Livro sobre os filósofos de Mileto é lançado em São Paulo",
+        "resumo": "A Faculdade de São Bento, em São Paulo, recebeu nesta terça o lançamento de 'Os Filósofos de Mileto', sobre os primeiros pensadores gregos.",
+        "fonte": "ANPOF",
+        "link": "https://www.anpof.org/agenda/lancamentos-de-livros/lancamento-da-obra-os-filosofos-de-mileto3"
       }
     ],
     "livros": [
       {
-        "titulo": "Aos 81 anos, M. John Harrison vence o Booker",
-        "resumo": "O inglês M. John Harrison ganhou o Booker Prize 2026 com o romance distópico The End of Everything e se tornou o vencedor mais velho da história do prêmio. A escolha do júri foi unânime.",
-        "fonte": "ABC News (Austrália)",
-        "link": "https://www.abc.net.au/news/2026-11-10/booker-prize-2026-m-john-harrison-the-end-of-everything/107342508"
+        "titulo": "M. John Harrison vence o Booker Prize 2026",
+        "resumo": "O britânico de 81 anos venceu com o romance 'The End of Everything' e se tornou o autor mais velho a ganhar o prêmio. O livro ainda não saiu no Brasil.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/10/booker-prize-2026/"
       },
       {
-        "titulo": "Novo livro de Sarah J. Maas bate recorde de vendas",
-        "resumo": "O sexto volume da série Corte de Espinhos e Rosas teve a maior venda semanal de um livro no Brasil em 2026. Só os álbuns de figurinhas da Copa venderam mais numa única semana.",
+        "titulo": "Papel para livros vai ficar mais caro em 2027",
+        "resumo": "A Suzano anunciou reajuste de 8,25% no papel usado em livros a partir de janeiro, acima da inflação. A alta deve pressionar os custos das editoras.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/10/preco-do-papel-para-livros-sofre-reajuste-acima-da-inflacao/"
+      },
+      {
+        "titulo": "Sarah J. Maas tem a maior venda semanal do ano",
+        "resumo": "O novo livro da autora estreou em primeiro lugar na lista Nielsen-PublishNews, com a maior venda de um livro em uma semana em 2026.",
         "fonte": "PublishNews",
         "link": "https://www.publishnews.com.br/materias/2026/11/09/sarah-j-maas-estreia-na-lista-nielsen-publishnews-com-a-maior-venda-semanal-de-um-livro-em-2026/"
       },
       {
-        "titulo": "Obras do goiano Carmo Bernardes voltam às livrarias",
-        "resumo": "A Editora UFG vai relançar livros do escritor Carmo Bernardes, esgotados há décadas, que já falavam da destruição do Cerrado. Os três primeiros títulos saem a partir de 25 de novembro.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/cultura/noticia/2026-11/lancamento-de-obras-de-carmo-bernardes-recupera-producao-do-escritor"
+        "titulo": "Flipetrópolis reúne Conceição Evaristo e Cármen Lúcia",
+        "resumo": "O festival literário de Petrópolis acontece de 12 a 15 de novembro, com entrada gratuita. A programação inclui a entrega do Troféu Juca Pato.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/09/flipetropolis-reune-conceicao-evaristo-sueli-carneiro-e-carmen-lucia-em-petropolis/"
       },
       {
-        "titulo": "Fundação Casa de Jorge Amado abre prêmio para autores inéditos",
-        "resumo": "O Prêmio Myriam Fraga recebe inscrições gratuitas de ficção e poesia de 16 de novembro a 16 de dezembro. Os três escolhidos terão o livro publicado e receberão 2 mil reais em direitos autorais.",
-        "fonte": "A Tarde",
-        "link": "https://atarde.com.br/cultura/fundacao-jorge-amado-abre-inscricoes-para-premiar-novos-escritores-1408870"
-      },
-      {
-        "titulo": "Philippe Jaenada ganha o Goncourt com romance sobre crime antigo",
-        "resumo": "O francês Philippe Jaenada venceu o Prêmio Goncourt 2026 com um livro que investiga a morte de uma jovem encontrada às margens do rio Sena no fim dos anos 1950.",
-        "fonte": "Euronews",
-        "link": "https://www.euronews.com/2026/11/03/philippe-jaenada-wins-2026-prix-goncourt-for-novel-linconnue-du-quai-de-javel"
+        "titulo": "Casa Mário de Andrade celebra 100 anos de Macunaíma",
+        "resumo": "Uma semana de atividades em São Paulo, de 13 a 15 de novembro, lembra o centenário da criação de 'Macunaíma', com exposição que abre no dia 13.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/09/casa-mario-de-andrade-macunaima/"
       }
     ]
   }
