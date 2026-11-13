@@ -1,217 +1,217 @@
 {
-  "gerado": "2026-11-11T22:50:56-03:00",
-  "assuntos": {
-    "cana": [
-      {
-        "titulo": "Chuva atrasa colheita e mantém etanol e açúcar em alta",
-        "resumo": "Chuvas em São Paulo estão travando a colheita e a moagem da cana, e muitas usinas vão adiar o fim da safra. Com pouca oferta, o etanol hidratado subiu 2,4% e o anidro 5,4% na semana, segundo o Cepea.",
-        "fonte": "Visão Agro",
-        "link": "https://visaoagro.com.br/precos-do-etanol-e-do-acucar-seguem-em-alta-com-chuvas-dificultando-colheita-e-moagem-da-cana/"
-      },
-      {
-        "titulo": "Açúcar volta a subir em Nova York após mínima de cinco semanas",
-        "resumo": "O açúcar bruto para março fechou em 18,48 centavos de dólar por libra-peso em Nova York, alta de cerca de 2%. Foi uma recuperação técnica, mas analistas dizem que a procura continua fraca.",
-        "fonte": "Safras & Mercado",
-        "link": "https://safras.com.br/acucar-fecha-em-alta-em-ny-com-correcao-tecnica-e-cobertura-de-posicoes-vendidas"
-      },
-      {
-        "titulo": "Uisa passa de 7 milhões de toneladas e mira recorde",
-        "resumo": "A usina Uisa, de Nova Olímpia, em Mato Grosso, já moeu 7 milhões de toneladas de cana nesta safra. A empresa espera fechar o ciclo com o maior volume de sua história.",
-        "fonte": "JornalCana",
-        "link": "https://jornalcana.com.br/mercado/usinas/uisa-projeta-maior-volume-de-cana-processada-de-sua-historia/"
-      },
-      {
-        "titulo": "Etanol sobe nos postos, mas segue vantajoso frente à gasolina",
-        "resumo": "Pela pesquisa semanal da ANP, o etanol subiu para 4,15 reais o litro, e a gasolina caiu para 6,47 reais. Mesmo assim, o etanol custa cerca de 64% do preço da gasolina, abaixo da referência de 70%.",
-        "fonte": "Garagem 360",
-        "link": "https://garagem360.com.br/etanol-sobe-a-r-415-mas-custa-64-da-gasolina-que-recua-a-r-647-nos-postos"
-      }
-    ],
-    "politica": [
-      {
-        "titulo": "Senado aprova renegociação de dívidas rurais e retira trechos sobre vapes",
-        "resumo": "O Senado aprovou na quarta-feira a medida provisória que permite a produtores rurais renegociar dívidas causadas por perdas de safra. Trechos fora do tema, como um sobre cigarros eletrônicos, foram retirados, e o texto vai à sanção.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/agro/as-vesperas-de-caducar-mp-do-endividamento-rural-e-aprovada-pelo-senado/"
-      },
-      {
-        "titulo": "Congresso prorroga por 60 dias medida que proíbe apostas online",
-        "resumo": "O Congresso estendeu por mais 60 dias a validade da medida provisória que proíbe as plataformas de apostas online. A medida também é questionada no Supremo Tribunal Federal.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/congresso-prorroga-por-60-dias-mp-que-proibe-bets-no-pais"
-      },
-      {
-        "titulo": "Alas do PT e centrão disputam ministérios do novo mandato",
-        "resumo": "Grupos do PT disputam sete ministérios do novo mandato de Lula, como Desenvolvimento Social e Educação. Ao mesmo tempo, partidos do centrão negociam cargos no governo.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/alas-do-pt-disputam-7-ministerios-de-lula-4-enquanto-centrao-negocia-cargos/"
-      },
-      {
-        "titulo": "Lula pede ação climática urgente na COP31",
-        "resumo": "Em discurso lido pelo ministro do Meio Ambiente na COP31, na Turquia, Lula disse que guerras e disputas comerciais não podem atrasar o combate à crise climática. Ele também citou a queda do desmatamento desde 2023.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/lula-planeta-nao-pode-esperar-em-meio-guerras-e-conflitos"
-      },
-      {
-        "titulo": "Relator na Câmara defende maioridade penal aos 16 anos",
-        "resumo": "O deputado Mendonça Filho, relator da proposta, defendeu punição criminal a partir dos 16 anos, com pena cumprida separada dos adultos. A votação na comissão está prevista para o fim de novembro.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/relator-defende-reducao-da-maioridade-penal-com-prisoes-separadas"
-      }
-    ],
-    "tecnologia": [
-      {
-        "titulo": "Google libera o Gemini 4 Carbon, sua IA mais avançada",
-        "resumo": "O Google abriu o Gemini 4 Carbon para assinantes do plano Ultra, empresas e programadores. O modelo foi feito para tarefas difíceis, como programação complexa e pesquisa científica.",
-        "fonte": "Canaltech",
-        "link": "https://canaltech.com.br/inteligencia-artificial/restrito-a-assinantes-ultra-gemini-4-carbon-chega-como-nova-ia-de-raciocinio-profundo/"
-      },
-      {
-        "titulo": "Câmara pode votar regulação econômica das big techs",
-        "resumo": "O relator Aliel Machado disse que o projeto quer dar ao Cade ferramentas para evitar monopólios em serviços digitais. Segundo ele, o texto não trata de conteúdo das redes, e a votação pode ocorrer na semana que vem.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/relator-de-pl-das-big-techs-explica-falta-de-regulacao-de-conteudo-na-pauta/"
-      },
-      {
-        "titulo": "TCU aponta que 84 milhões de brasileiros não usaram o Gov.br",
-        "resumo": "Uma auditoria do TCU mostrou que muita gente não usou a plataforma em 2025, por não ter conta ou não conseguir entrar. Idosos e moradores da zona rural enfrentam mais dificuldade.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/11/internet-e-redes-sociais/mais-de-84-milhoes-de-brasileiros-nao-usaram-o-gov-br-em-2025-aponta-tcu"
-      },
-      {
-        "titulo": "Nvidia busca possível substituto para o CEO Jensen Huang",
-        "resumo": "Segundo a Bloomberg, o conselho da Nvidia contratou uma empresa para procurar um sucessor de Jensen Huang. As ações da empresa caíram depois das reportagens.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/11/pro/nvidia-contrata-empresa-para-encontrar-substituto-de-jensen-huang-diz-agencia"
-      },
-      {
-        "titulo": "Anthropic lança planilha com IA para concorrer com o Excel",
-        "resumo": "A Anthropic apresentou o Claude Sheets, que cria e edita planilhas a partir de pedidos em linguagem comum. A empresa também anunciou um quadro branco digital.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/10/inteligencia-artificial/anthropic-lanca-rival-do-excel-com-ia-veja-como-funciona/"
-      }
-    ],
-    "ciencia": [
-      {
-        "titulo": "Estudo brasileiro mostra que pressão mais baixa evita novo AVC",
-        "resumo": "Um estudo liderado pelo Hospital Albert Einstein acompanhou mais de 4 mil pacientes que já tinham tido AVC. Quem manteve a pressão mais controlada teve até 21% menos risco de problemas graves.",
-        "fonte": "CNN Brasil",
-        "link": "https://cnnbrasil.com.br/saude/controle-da-pressao-em-pacientes-pos-avc-reduz-em-21-risco-de-novo-quadro"
-      },
-      {
-        "titulo": "Trocar sal comum por sal com potássio pode salvar milhões",
-        "resumo": "Uma análise com 193 países estima que o sal enriquecido com potássio poderia evitar quase 3 milhões de mortes por ano. Quem tem doença renal avançada precisa de cuidado com esse sal.",
-        "fonte": "CNN Brasil",
-        "link": "https://cnnbrasil.com.br/ciencia/estudo-aponta-que-troca-do-sal-comum-por-potassio-pode-evitar-3-milhoes-de-mortes"
-      },
-      {
-        "titulo": "Exercício físico ajuda o cérebro de pessoas com depressão na terapia",
-        "resumo": "Pacientes com depressão que treinaram por 12 semanas antes da psicoterapia melhoraram a atenção e a rapidez de raciocínio. A atividade física parece preparar o cérebro para o tratamento.",
-        "fonte": "Agência FAPESP",
-        "link": "https://agencia.fapesp.br/atividade-fisica-prepara-o-cerebro-de-pacientes-com-depressao-para-a-psicoterapia/59590"
-      },
-      {
-        "titulo": "Unicamp transforma chorume de aterro em fertilizante seguro",
-        "resumo": "Pesquisadores da Unicamp tiraram do chorume minerais que servem de adubo, sem metais pesados detectáveis. Em testes com alface, o resultado superou o do fertilizante comum.",
-        "fonte": "Agência FAPESP",
-        "link": "https://agencia.fapesp.br/pesquisa-transforma-chorume-em-fertilizante-seguro-para-a-agricultura/59577"
-      },
-      {
-        "titulo": "Cientistas desvendam defesa bacteriana que parecia não funcionar",
-        "resumo": "Pesquisadores descobriram que um sistema de defesa de bactérias, que parecia quebrado, é ativado quando um vírus ataca. A célula infectada se sacrifica para impedir que o vírus se espalhe.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/curiosidades/2026/11/11/cientistas-descobriram-uma-defesa-bacteriana-que-funciona-ao-contrario-de-tudo-o-que-se-conhecia-e-que-os-proprios-pesquisadores-achavam-estar-quebrada/"
-      }
-    ],
-    "astronomia": [
-      {
-        "titulo": "Lua começa a crescer e fica cheia no dia 24",
-        "resumo": "Depois da Lua Nova do dia 9, um fino filete de luz já aparece no oeste logo após o pôr do sol. O quarto crescente chega no dia 17 e a Lua Cheia no dia 24.",
-        "fonte": "O Povo",
-        "link": "https://www.opovo.com.br/noticias/curiosidades/2026/11/11/lua-hoje-11-11-qual-e-a-fase-lunar-desta-quarta-feira-veja-calendario.html"
-      },
-      {
-        "titulo": "Céu de novembro tem Leônidas, Marte e Júpiter juntos e superlua",
-        "resumo": "Marte e Júpiter ficam bem próximos no céu nos dias 15 e 16. O pico das Leônidas é na noite de 17 para 18, e a superlua acontece no dia 24.",
-        "fonte": "O Tempo",
-        "link": "https://www.otempo.com.br/ciencia/2026/11/9/calendario-astronomico-de-novembro-de-2026-veja-os-principais-fenomenos-do-mes"
-      },
-      {
-        "titulo": "Sonda europeia Hera começa a estudar asteroide atingido pela NASA",
-        "resumo": "A sonda Hera começou a observar de perto Dimorphos, o pequeno asteroide em que a NASA bateu de propósito em 2022. No mês que vem, ela deve chegar ainda mais perto.",
-        "fonte": "Associated Press",
-        "link": "https://www.news4jax.com/tech/2026/11/11/europes-hera-spacecraft-begins-close-inspections-of-an-asteroid-rammed-by-nasa-in-a-2022-test/"
-      },
-      {
-        "titulo": "SpaceX vai tentar recuperar as duas partes da Starship",
-        "resumo": "O 15º voo de teste da Starship está marcado para sexta-feira, dia 13, no Texas. A SpaceX quer pegar o propulsor e a nave na torre, algo nunca feito.",
-        "fonte": "Space.com",
-        "link": "https://www.space.com/space-exploration/launches-spacecraft/spacex-will-launch-epic-double-catch-starship-flight-15-test-mission-on-nov-13"
-      },
-      {
-        "titulo": "NASA prepara telescópio ultravioleta para observar explosões cósmicas",
-        "resumo": "O telescópio UVEX, da NASA com o Caltech, deve ser lançado em 2031 para mapear o céu em luz ultravioleta. Ele vai estudar supernovas e colisões de estrelas de nêutrons.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/11/ciencia-e-espaco/nasa-prepara-telescopio-para-observar-as-explosoes-mais-violentas-do-universo"
-      }
-    ],
-    "filosofia": [
-      {
-        "titulo": "Revista Cult de novembro traz dossiê sobre Lou Andreas-Salomé",
-        "resumo": "A edição lembra os 165 anos de nascimento da pensadora, que uniu filosofia e psicanálise. Estudiosas discutem as ideias dela sobre o feminino e a liberdade.",
-        "fonte": "Revista Cult",
-        "link": "https://revistacult.substack.com/p/leia-na-cult-de-novembro"
-      },
-      {
-        "titulo": "Clóvis de Barros fala sobre ética e alegria em bienal",
-        "resumo": "O filósofo deu uma palestra sobre a vida que vale a pena na Bienal do Livro de Guarulhos. Para ele, a filosofia ajuda a separar o que é necessário para a felicidade do que é imposto de fora.",
-        "fonte": "Guarulhos Hoje",
-        "link": "https://guarulhoshoje.com.br/2026/11/10/filosofo-clovis-de-barros-estimula-pensamento-critico-em-palestra-sobre-etica-e-alegria-na-bienal-de-guarulhos"
-      },
-      {
-        "titulo": "Concerto da USP une Mahler, Freud e filosofia",
-        "resumo": "No sábado, dia 14, a Orquestra Sinfônica da USP toca Mahler, com entrada gratuita. O filósofo Ivo Assad Ibri vai falar sobre o encontro do compositor com Freud.",
-        "fonte": "Jornal da USP",
-        "link": "https://jornal.usp.br/cadernodecultura/orquestra-da-usp-apresenta-concerto-especial-que-relaciona-filosofia-musica-e-psicanalise/"
-      },
-      {
-        "titulo": "Brasília celebra Dia Mundial da Filosofia com evento beneficente",
-        "resumo": "Um encontro no sábado, dia 14, terá palestras e música para lembrar a data da Unesco, celebrada em 19 de novembro. A arrecadação vai para um projeto que atende crianças.",
-        "fonte": "Correio Braziliense",
-        "link": "https://www.correiobraziliense.com.br/cidades-df/2026/11/7535834-dia-mundial-da-filosofia-tera-programacao-especial-em-brasilia.html"
-      }
-    ],
-    "livros": [
-      {
-        "titulo": "Ficção científica vence o Booker pela primeira vez",
-        "resumo": "O britânico M. John Harrison, de 81 anos, ganhou o Booker com o romance pós-apocalíptico The End of Everything. Ele é o vencedor mais velho da história do prêmio.",
-        "fonte": "Metrópoles",
-        "link": "https://www.metropoles.com/entretenimento/m-john-harrison-e-o-vencedor-do-booker-prize-com-livro-pos-apocaliptico"
-      },
-      {
-        "titulo": "Venda de livros no Brasil cresce mais de 12% no ano",
-        "resumo": "Até o começo de outubro, as livrarias faturaram 2,63 bilhões de reais, alta de 12,6% sobre 2025. A ficção ganhou mais espaço nas vendas.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/11/varejo-de-livros-10/"
-      },
-      {
-        "titulo": "Novo livro de Sarah J. Maas bate recorde semanal de 2026",
-        "resumo": "O novo volume da série Corte de espinhos e rosas estreou em primeiro lugar no ranking nacional. Foi a maior venda de um livro em uma semana neste ano.",
-        "fonte": "PublishNews",
-        "link": "https://publishnews.com.br/materias/2026/11/09/sarah-j-maas-estreia-na-lista-nielsen-publishnews-com-a-maior-venda-semanal-de-um-livro-em-2026"
-      },
-      {
-        "titulo": "Polícia Federal investiga esquema de furto de livros raros",
-        "resumo": "A Operação Página Oculta cumpriu mandados no Rio, em São Paulo e em Diadema contra suspeitos de furtar livros raros. A ação continua uma investigação sobre furtos em acervos.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/11/operacao-pagina-oculta-pf-mira-esquema-de-furtos-de-livros-raros/"
-      },
-      {
-        "titulo": "Romance de estreia relembra campos de concentração do Ceará",
-        "resumo": "Em Não volte sem ele, Rafael Caneca conta uma história passada no sertão cearense durante a seca de 1932. O livro traz fotos e recortes de jornais da época.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/11/romance-historico-de-rafael-caneca-resgata-os-campos-de-concentracao-do-ceara/"
-      }
-    ]
-  }
+ "gerado": "2026-11-12T22:51:10-03:00",
+ "assuntos": {
+  "cana": [
+   {
+    "titulo": "Estoques de etanol do Centro-Sul caem 15% em um ano",
+    "resumo": "Segundo o Ministério da Agricultura, os estoques somavam 7,17 bilhões de litros no fim de outubro. O etanol anidro foi o que mais recuou, com queda de 23%.",
+    "fonte": "Forbes Brasil",
+    "link": "https://forbes.com.br/forbes-agro/2026/11/estoques-de-etanol-do-centro-sul-estao-15-mais-baixos-ante-2025-aponta-ministerio/"
+   },
+   {
+    "titulo": "Moagem sobe, mas produção de etanol recua na reta final de outubro",
+    "resumo": "Na segunda quinzena de outubro, o Centro-Sul moeu 32,3 milhões de toneladas de cana, alta de 3,6%. A produção de etanol caiu 13%, enquanto o açúcar subiu na bolsa de Nova York.",
+    "fonte": "Portal do Agronegócio",
+    "link": "https://www.portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/acucar-producao-do-centro-sul-recua-em-outubro-enquanto-precos-sobem-em-nova-york-e-etanol-avanca-no-brasil"
+   },
+   {
+    "titulo": "Chuvas atrasam colheita e sustentam alta do etanol e do açúcar",
+    "resumo": "Com a colheita atrasada pela chuva em São Paulo, o etanol hidratado subiu mais de 2% na semana nas usinas, segundo o Cepea. O anidro avançou mais de 5%.",
+    "fonte": "Visão Agro",
+    "link": "https://visaoagro.com.br/precos-do-etanol-e-do-acucar-seguem-em-alta-com-chuvas-dificultando-colheita-e-moagem-da-cana/"
+   },
+   {
+    "titulo": "Uisa chega a 7 milhões de toneladas e mira safra recorde",
+    "resumo": "A usina de Nova Olímpia, em Mato Grosso, atingiu um volume inédito para esta época do ano. A empresa espera superar o recorde de 7,1 milhões de toneladas da safra passada.",
+    "fonte": "JornalCana",
+    "link": "https://jornalcana.com.br/mercado/usinas/uisa-projeta-maior-volume-de-cana-processada-de-sua-historia"
+   },
+   {
+    "titulo": "Alckmin sanciona lei de apoio a produtores de cana do Nordeste",
+    "resumo": "O presidente em exercício sancionou uma lei que concede apoio aos fornecedores de cana da região Nordeste.",
+    "fonte": "novaCana",
+    "link": "https://www.novacana.com/noticias/alckmin-sanciona-lei-que-concede-apoio-a-produtores-de-cana-de-acucar-do-nordeste"
+   }
+  ],
+  "politica": [
+   {
+    "titulo": "Senado aprova texto-base do pacote de ajuste fiscal",
+    "resumo": "O texto passou por 45 votos a 31, com economia estimada pelo governo entre 50 e 60 bilhões de reais em 2027. Os destaques devem ser votados na terça, dia 17, e depois o projeto vai à Câmara.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/senado-aprova-texto-base-de-pacote-que-preve-economia-de-ate-r-60-bi"
+   },
+   {
+    "titulo": "Dólar fecha a R$ 5,65, maior nível em 17 meses",
+    "resumo": "A moeda americana subiu 1,58% num dia de cautela dos investidores com o pacote fiscal. O Ibovespa caiu 0,47%.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/dolar-dispara-158-e-fecha-r-565-maior-nivel-em-17-meses"
+   },
+   {
+    "titulo": "Congresso amplia margem do governo para remanejar gastos",
+    "resumo": "Foi aprovado o PLN 18, que permite ao Executivo remanejar e suplementar despesas do Orçamento de 2026 em novos casos sem aval prévio do Congresso. O texto segue para sanção.",
+    "fonte": "Agência Senado",
+    "link": "https://www12.senado.leg.br/noticias/materias/2026/11/12/executivo-tera-novas-possibilidades-de-remanejamento-e-suplementacao-de-despesas"
+   },
+   {
+    "titulo": "PL adia decisão sobre disputa pela presidência da Câmara",
+    "resumo": "O partido, com 121 deputados eleitos, adiou por 15 dias a escolha entre candidato próprio e acordo com Hugo Motta, que reúne apoio de 15 partidos. A eleição da Mesa será em 1º de fevereiro de 2027.",
+    "fonte": "O Tempo",
+    "link": "https://www.otempo.com.br/politica/congresso/2026/11/12/disputa-pelo-comando-da-camara-expoe-impasses-e-movimenta-partidos-para-2027"
+   },
+   {
+    "titulo": "Zanin rejeita ação que pedia segundo turno no Rio",
+    "resumo": "O ministro Cristiano Zanin, do STF, rejeitou a ação que buscava determinar segundo turno na eleição para o governo do Rio de Janeiro.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/zanin-rejeita-acao-para-determinar-segundo-turno-para-o-governo-do-rio"
+   }
+  ],
+  "tecnologia": [
+   {
+    "titulo": "Jensen Huang deixa o comando da Nvidia",
+    "resumo": "Huang saiu do cargo de presidente-executivo e do conselho com efeito imediato, após 33 anos. A diretora financeira Colette Kress assume interinamente.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/12/pro/nvidia-anuncia-saida-imediata-de-jensen-huang-do-cargo-de-ceo/"
+   },
+   {
+    "titulo": "Ataque hacker expõe dados de clientes da Caixa Vida e Previdência",
+    "resumo": "Nomes, CPFs, endereços e contatos de clientes foram expostos; a base afetada tem 7,6 milhões de clientes ativos. A empresa diz que senhas e dados financeiros não foram comprometidos, e a ANPD acompanha o caso.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/12/seguranca/ataque-hacker-expoe-cpfs-de-milhoes-de-clientes-da-caixa-veja-dados-vazados/"
+   },
+   {
+    "titulo": "App Store no Brasil passa a aceitar Pix",
+    "resumo": "A loja de aplicativos da Apple começou a aceitar Pix como forma de pagamento para usuários brasileiros.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/12/internet-e-redes-sociais/app-store-brasileira-comeca-a-aceitar-pix-como-forma-de-pagamento/"
+   },
+   {
+    "titulo": "Porto de Santos reforça segurança após ataque hacker",
+    "resumo": "O porto elevou o nível de segurança depois de falhas nos portões, e o site oficial continuava fora do ar.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/11/seguranca/porto-de-santos-eleva-seguranca-para-nivel-2-apos-falhas-em-gates-site-continua-fora-do-ar/"
+   },
+   {
+    "titulo": "Hackers usam brecha no Outlook para roubar senhas do Windows",
+    "resumo": "Criminosos estão explorando uma falha no Outlook para capturar credenciais de acesso ao Windows.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/11/seguranca/hackers-exploram-brecha-no-outlook-para-capturar-credenciais-do-windows/"
+   }
+  ],
+  "ciencia": [
+   {
+    "titulo": "Químicos eternos ligados a câncer de mama mais agressivo",
+    "resumo": "Estudo dos Institutos Nacionais de Saúde dos EUA viu que mulheres com níveis altos de PFOA e PFOS no sangue tinham mais casos de um tipo agressivo de câncer de mama. A pesquisa mostra associação, não causa.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261112025527.htm"
+   },
+   {
+    "titulo": "Nascimento da Terra pode ter gerado água de centenas de oceanos",
+    "resumo": "Experimentos da Universidade do Novo México mostram que hidrogênio reagindo com rochas quentes libera vapor d'água. O processo pode ter produzido muita água na Terra primitiva.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261110042549.htm"
+   },
+   {
+    "titulo": "Açúcar comum pode ajudar câncer de ovário a se espalhar",
+    "resumo": "Pesquisa do Instituto Wistar indica que células que resistem à quimioterapia liberam frutose, o que afrouxa as ligações entre células. Os testes foram em laboratório, ainda não em pacientes.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261111221501.htm"
+   },
+   {
+    "titulo": "Computador quântico guarda memória em vibrações",
+    "resumo": "Cientistas da ETH Zurique usaram pequenos ressonadores que vibram como corda de violão para guardar informação quântica. Foi a primeira vez que isso funcionou em cálculos reais.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261109205416.htm"
+   },
+   {
+    "titulo": "Merenda com produtos da agricultura familiar não ampliou produção",
+    "resumo": "Estudo divulgado pela USP mostra que as compras para a merenda escolar não aumentaram a produção agrícola dos municípios. Os autores defendem crédito e assistência técnica junto com o programa.",
+    "fonte": "Jornal da USP",
+    "link": "https://jornal.usp.br/ciencias/compras-da-agricultura-familiar-para-merenda-escolar-nao-ampliaram-producao-agricola-nos-municipios/"
+   }
+  ],
+  "astronomia": [
+   {
+    "titulo": "Chuva de meteoros Leônidas tem pico na noite de 17 para 18",
+    "resumo": "Podem aparecer até 15 meteoros por hora em céu escuro, mas no Brasil o número tende a ser menor. O melhor horário é da meia-noite até o amanhecer do dia 18, olhando para a constelação de Leão.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/curiosidades/2026/11/06/chuva-de-meteoros-leonidas-tem-pico-na-noite-de-17-para-18-de-novembro-com-ate-15-meteoros-hora/"
+   },
+   {
+    "titulo": "Mercúrio encerra movimento retrógrado nesta sexta",
+    "resumo": "No dia 13, Mercúrio deixa o movimento retrógrado e, nos dias seguintes, volta a ficar visível ao se afastar do Sol.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/01/ciencia-e-espaco/calendario-astronomico-novembro-traz-distancia-historica-da-terra-fim-do-mercurio-retrogrado-e-chuva-de-meteoros/"
+   },
+   {
+    "titulo": "Exoplaneta some de vista por causa de planeta escondido",
+    "resumo": "O planeta TOI-2535 b parou de passar na frente de sua estrela em março, puxado por outro planeta ainda não visto. Ele pode ficar sem trânsitos visíveis por cerca de 30 anos.",
+    "fonte": "Tribuna do Sertão",
+    "link": "https://tribunadosertao.com.br/geral/2026/11/11/1019041-exoplaneta-que-sumiu-e-desviado-por-planeta-oculto-e-pode-ficar-invisivel-por-30-anos"
+   },
+   {
+    "titulo": "Hubble mostra aglomerado de estrelas que gira na contramão",
+    "resumo": "O aglomerado M30, a 27 mil anos-luz, se move ao contrário da rotação da Via Láctea. Isso sugere que ele pode ter vindo de fora da nossa galáxia.",
+    "fonte": "Space.com",
+    "link": "https://space.com/astronomy/hubble-space-telescope/hubble-space-telescope-reveals-glittering-stars-with-mysterious-origins-space-photo-of-the-day-for-nov-11-2026"
+   },
+   {
+    "titulo": "Simulação gigante mostra como o universo saiu da escuridão",
+    "resumo": "O projeto Lumina, liderado pelo MIT, recriou 2 bilhões de anos da história do cosmo. Indica que as primeiras galáxias iluminaram o hidrogênio e os buracos negros, o hélio.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261110042534.htm"
+   }
+  ],
+  "filosofia": [
+   {
+    "titulo": "Porto Velho terá evento gratuito no Dia da Filosofia",
+    "resumo": "A Nova Acrópole promove no sábado, dia 14, às 19h, um encontro sobre o diálogo entre filosofia e ciência. A entrada é gratuita.",
+    "fonte": "Rondônia ao Vivo",
+    "link": "https://rondoniaovivo.com/noticia/geral/2026/11/12/em-porto-velho-dia-da-filosofia-tera-programacao-gratuita-com-dialogo-entre-filosofia-e-ciencia.html"
+   },
+   {
+    "titulo": "Brasília prepara programação para o Dia Mundial da Filosofia",
+    "resumo": "A capital terá atividades especiais em torno do Dia Mundial da Filosofia, celebrado em 19 de novembro.",
+    "fonte": "Correio Braziliense",
+    "link": "https://www.correiobraziliense.com.br/cidades-df/2026/11/7535834-dia-mundial-da-filosofia-tera-programacao-especial-em-brasilia.html"
+   },
+   {
+    "titulo": "Festival em Portugal debate o poder da verdade",
+    "resumo": "O Festival de Filosofia de Abrantes acontece de 18 a 21 de novembro, com seis painéis sobre verdade e desinformação e entrada gratuita.",
+    "fonte": "Antena Livre",
+    "link": "https://www.antenalivre.pt/cultura/festival-de-filosofia-debate-poder-da-verdade-e-desafios-da-desinformacao"
+   }
+  ],
+  "livros": [
+   {
+    "titulo": "Ficção científica vence o Booker pela primeira vez",
+    "resumo": "M. John Harrison, de 81 anos, ganhou com o romance The End of Everything, sátira sobre uma invasão alienígena. Ele é o vencedor mais velho da história do prêmio.",
+    "fonte": "Quatro Cinco Um",
+    "link": "https://quatrocincoum.com.br/noticias/premios-literarios/pela-primeira-vez-booker-prize-vai-para-romance-de-ficcao-cientifica/"
+   },
+   {
+    "titulo": "Livraria Leitura pede 70% de desconto a editoras da Festa da USP",
+    "resumo": "A rede pediu o desconto e frete grátis às editoras que participam da feira, marcada de 25 a 29 de novembro. Depois disse não pretender retaliar o evento.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/12/livraria-leitura-festa-do-livro-da-usp/"
+   },
+   {
+    "titulo": "Papel para livros vai subir acima da inflação",
+    "resumo": "A Suzano anunciou reajuste de 8,25% no papel para o mercado editorial a partir de janeiro de 2027. O setor gráfico prevê alta de quase 10% nos custos de impressão.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/10/preco-do-papel-para-livros-sofre-reajuste-acima-da-inflacao/"
+   },
+   {
+    "titulo": "Prêmio da Casa de Jorge Amado abre inscrições dia 16",
+    "resumo": "O prêmio para obras inéditas da Fundação Casa de Jorge Amado recebe inscrições a partir de 16 de novembro.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/12/jorge-amado-ineditos/"
+   },
+   {
+    "titulo": "Ópera baseada em Conceição Evaristo chega ao Theatro São Pedro",
+    "resumo": "Uma ópera inspirada na obra da escritora Conceição Evaristo estreia no Theatro São Pedro, em São Paulo.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/12/opera-conceicao-teatro/"
+   }
+  ]
+ }
 }
