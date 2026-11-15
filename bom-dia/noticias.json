@@ -1,193 +1,217 @@
 {
- "gerado": "2026-11-13T22:51:19-03:00",
- "assuntos": {
-  "cana": [
-   {
-    "titulo": "Lei garante R$ 12 por tonelada de cana a produtor do Nordeste",
-    "resumo": "A lei saiu no Diário Oficial e cria uma ajuda de 12 reais por tonelada para fornecedores independentes de cana do Nordeste, com teto de 270 milhões de reais. A Conab fará o pagamento, mas o produtor precisa comprovar que cumpre as regras.",
-    "fonte": "JornalCana",
-    "link": "https://jornalcana.com.br/mercado/governo-oficializa-lei-que-libera-r-12-por-tonelada-de-cana-a-produtor-do-nordeste/"
-   },
-   {
-    "titulo": "Chuvas devem estender a moagem de cana até dezembro",
-    "resumo": "Uma pesquisa do Pecege com 99 usinas indica que cerca de 62% delas só devem terminar a moagem em dezembro, quase o dobro da safra passada. Parte da cana deve ficar no campo para o próximo ciclo.",
-    "fonte": "JornalCana",
-    "link": "https://jornalcana.com.br/mercado/tem-usina-que-vai-comemorar-natal-e-ano-novo-na-moenda/"
-   },
-   {
-    "titulo": "Fila de navios nos portos soma 2 milhões de toneladas de açúcar",
-    "resumo": "Na semana até 11 de novembro, 53 navios esperavam para carregar açúcar nos portos brasileiros, a maioria em Santos. As exportações do mês têm volume diário menor que no ano passado, mas preço médio mais alto.",
-    "fonte": "SAFRAS & Mercado",
-    "link": "https://safras.com.br/line-up-aponta-exportacao-de-2-mi-t-de-acucar"
-   },
-   {
-    "titulo": "Usina da Uisa em Mato Grosso chega a 7 milhões de toneladas",
-    "resumo": "A usina de Nova Olímpia já moeu 7 milhões de toneladas de cana nesta safra, volume inédito para esta época. A empresa espera superar o recorde de 7,1 milhões até o fim do ciclo.",
-    "fonte": "Click Petróleo e Gás",
-    "link": "https://clickpetroleoegas.com.br/uisa-7-milhoes-toneladas-etanol-mh12c-mhbb01/"
-   },
-   {
-    "titulo": "Etanol sobe na média nacional, mas cai em 14 estados",
-    "resumo": "Pela pesquisa semanal da ANP, o litro do etanol foi em média para 4 reais e 15 centavos, embora tenha caído em 14 estados. Ele ainda compensa mais que a gasolina em 10 estados e no Distrito Federal, incluindo São Paulo, Goiás e Minas.",
-    "fonte": "Click Petróleo e Gás",
-    "link": "https://clickpetroleoegas.com.br/etanol-fica-mais-barato-em-14-estados-mas-preco-medio-sobe-para-r-415-no-brasil-e-combustivel-so-apresenta-vantagem-sobre-a-gasolina-em-10-estados-e-no-distrito-federal-fpsv/"
-   }
-  ],
-  "politica": [
-   {
-    "titulo": "Senado aprova texto principal do ajuste fiscal",
-    "resumo": "O Senado aprovou por 45 votos a 31 o texto-base do projeto que reduz benefícios tributários e limita o crescimento de gastos a partir de 2027. Os destaques serão votados na terça, dia 17, e depois o texto vai à Câmara.",
-    "fonte": "Agência Senado",
-    "link": "https://www12.senado.leg.br/noticias/materias/2026/11/12/texto-principal-do-ajuste-fiscal-e-aprovado-pelo-senado"
-   },
-   {
-    "titulo": "Congresso libera R$ 152,4 bilhões em créditos no Orçamento",
-    "resumo": "Em sessão conjunta, deputados e senadores aprovaram 26 projetos que somam 152,4 bilhões de reais no Orçamento deste ano. Quase tudo vai para aposentadorias e benefícios sociais.",
-    "fonte": "Agência Câmara de Notícias",
-    "link": "https://www.camara.leg.br/noticias/1318963-congresso-aprova-creditos-orcamentarios-de-r-1524-bilhoes-no-orcamento-de-2026"
-   },
-   {
-    "titulo": "STF julga regras de Dino para o fim da escala 6x1",
-    "resumo": "O plenário virtual do Supremo começou a analisar a decisão de Flávio Dino sobre a transição para a jornada de 42 horas semanais a partir de 16 de dezembro. A votação vai até a manhã de segunda-feira, dia 16.",
-    "fonte": "SBT News",
-    "link": "https://sbtnews.sbt.com.br/noticia/brasil/stf-vota-regras-definidas-por-dino-para-fim-da-escala-6x1"
-   },
-   {
-    "titulo": "Comissão aprova vetar compra de arma por alvo de medida protetiva",
-    "resumo": "A Comissão de Defesa dos Direitos da Mulher da Câmara aprovou projeto que impede quem tem medida protetiva de urgência contra si de comprar armas. O texto ainda passa pela Comissão de Constituição e Justiça.",
-    "fonte": "Agência Câmara de Notícias",
-    "link": "https://www.camara.leg.br/noticias/1319298-comissao-aprova-proibicao-de-compra-de-arma-por-pessoa-que-seja-alvo-de-medida-protetiva"
-   }
-  ],
-  "tecnologia": [
-   {
-    "titulo": "Nvidia sonda chefe da Arm para suceder Jensen Huang",
-    "resumo": "Segundo a Reuters, o conselho da Nvidia procurou Rene Haas, presidente da Arm, para comandar a empresa após a saída de Jensen Huang. A diretora financeira Colette Kress ocupa o cargo de forma interina.",
-    "fonte": "Reuters (via The Korea Times)",
-    "link": "https://www.koreatimes.co.kr/world/20261114/nvidia-approached-arm-ceo-haas-to-succeed-huang-ft-reports"
-   },
-   {
-    "titulo": "ChatGPT ganha carteira para assistentes fazerem compras",
-    "resumo": "A OpenAI lançou o ChatGPT Wallet, que permite aos assistentes finalizar compras com cartão salvo, sempre com aprovação do usuário por digital ou rosto. Por enquanto, só alguns assinantes Pro nos Estados Unidos têm acesso.",
-    "fonte": "TechCrunch",
-    "link": "https://techcrunch.com/2026/11/13/chatgpts-new-wallet-lets-ai-agents-shop-and-check-out-for-you/"
-   },
-   {
-    "titulo": "Pane da Microsoft derruba Outlook e Teams em vários países",
-    "resumo": "Uma falha iniciada na quinta-feira tirou do ar e-mail, Teams e outros serviços da Microsoft em dezenas de países. A empresa diz que não foi ataque hacker e que os serviços estão voltando aos poucos.",
-    "fonte": "TechRadar",
-    "link": "https://www.techradar.com/news/live/outlook-outage-nov-2026"
-   },
-   {
-    "titulo": "Meta testa aplicativo interno de apostas em previsões",
-    "resumo": "A Meta testa com funcionários um aplicativo chamado Takes, em que se aposta no resultado de acontecimentos com moeda virtual, sem dinheiro de verdade. Não há confirmação de lançamento para o público.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/13/internet-e-redes-sociais/meta-testa-aplicativo-de-apostas-em-previsoes-entre-funcionarios"
-   }
-  ],
-  "ciencia": [
-   {
-    "titulo": "Poluentes eternos ligados a câncer de mama mais agressivo",
-    "resumo": "Estudo dos Institutos Nacionais de Saúde dos Estados Unidos viu que mulheres com mais PFOA e PFOS no sangue tiveram mais casos de um tipo agressivo de câncer de mama. Os autores lembram que é uma associação, não prova de causa.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261112025527.htm"
-   },
-   {
-    "titulo": "Corvos decidem quase duas vezes mais rápido que humanos",
-    "resumo": "Pesquisadores da Universidade de Tübingen, na Alemanha, viram que corvos identificam a direção de pontos em movimento em cerca de um quarto de segundo. É quase o dobro da velocidade de pessoas e macacos, com poucos erros.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261111005850.htm"
-   },
-   {
-    "titulo": "Estudo explica parte da dificuldade de crianças com matemática",
-    "resumo": "Uma pesquisa de Stanford com 68 crianças mostrou que as que têm discalculia demoram mais para trocar de estratégia ao fazer contas. O problema estaria também em escolher como resolver, e não só em calcular.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261112025542.htm"
-   },
-   {
-    "titulo": "Proteína é essencial para o músculo se recuperar de lesões",
-    "resumo": "Cientistas da Universidade da Pensilvânia descobriram que a proteína TRF2 ajuda as células-tronco do músculo a fazer reparos. Em camundongos sem ela, o músculo lesionado se encheu de gordura e cicatriz.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261111221643.htm"
-   }
-  ],
-  "astronomia": [
-   {
-    "titulo": "Leônidas: melhor noite para ver meteoros é de 17 para 18",
-    "resumo": "A chuva de meteoros Leônidas tem seu pico na madrugada de quarta-feira, 18, com até cerca de 15 meteoros por hora em céu escuro. No Norte e Nordeste, a dica é olhar o céu por volta das 3h30, longe das luzes da cidade.",
-    "fonte": "Diário Tocantinense",
-    "link": "https://diariotocantinense.com.br/2026/11/13/mais-faceis-de-serem-observados-leonidas-prometem-meteoros-brilhantes-veja-quando-olhar-o-ceu-no-tocantins-veja-o-video/"
-   },
-   {
-    "titulo": "Voyager 1 vai ficar a um dia-luz da Terra",
-    "resumo": "No dia 18, por volta das 7h16 de Brasília, a Voyager 1 deve ser o primeiro objeto humano tão distante que um sinal de rádio leva 24 horas para chegar até ela. Lançada em 1977, ela estará a cerca de 26 bilhões de quilômetros do Sol.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/12/ciencia-e-espaco/voyager-1-vai-ficar-tao-longe-da-terra-que-sinal-levara-um-dia-para-chegar"
-   },
-   {
-    "titulo": "Starship faz 15º voo e tenta recuperar os dois estágios",
-    "resumo": "A SpaceX lançou a Starship do Texas na sexta e, pela primeira vez, tentou pegar com a torre o propulsor e a nave. A captura do propulsor foi cancelada e ele desceu de forma controlada no oceano.",
-    "fonte": "Times Brasil",
-    "link": "https://timesbrasil.com.br/empresas-e-negocios/tecnologia-e-inovacao/spacex-lanca-a-starship-em-um-importante-voo-de-teste-do-foguete-gigantesco/"
-   },
-   {
-    "titulo": "James Webb capta sinal de molécula previsto há 40 anos",
-    "resumo": "O telescópio James Webb detectou pela primeira vez uma emissão rara do íon tri-hidrogênio, prevista em 1986 e nunca vista antes. A descoberta, numa região onde nascem estrelas, ajuda a entender como surgem moléculas mais complexas.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/13/ciencia-e-espaco/james-webb-identifica-emissao-proibida-de-molecula-no-espaco"
-   }
-  ],
-  "filosofia": [
-   {
-    "titulo": "Brasília celebra Dia Mundial da Filosofia com debate sobre ciência",
-    "resumo": "A Nova Acrópole faz neste sábado, às 17h, na Asa Norte, um encontro sobre filosofia e ciência, com painel, palestra e concerto de orquestra jovem. A renda vai para um projeto social com crianças.",
-    "fonte": "Correio Braziliense",
-    "link": "https://www.correiobraziliense.com.br/cidades-df/2026/11/7535834-dia-mundial-da-filosofia-tera-programacao-especial-em-brasilia.html"
-   },
-   {
-    "titulo": "Porto Velho tem encontro gratuito sobre filosofia e ciência",
-    "resumo": "A Nova Acrópole de Porto Velho celebra o Dia Mundial da Filosofia neste sábado, às 19h, com entrada gratuita. O tema é a conversa entre filosofia e ciência.",
-    "fonte": "Rondoniaovivo",
-    "link": "https://www.rondoniaovivo.com/noticia/geral/2026/11/12/em-porto-velho-dia-da-filosofia-tera-programacao-gratuita-com-dialogo-entre-filosofia-e-ciencia.html"
-   },
-   {
-    "titulo": "Professor da UFMS celebra avanços da filosofia no estado",
-    "resumo": "Em artigo sobre o Dia Mundial da Filosofia, um professor da UFMS lembra conquistas como o primeiro mestrado em filosofia de Mato Grosso do Sul. Ele propõe uma sociedade de filosofia que reúna países da América do Sul.",
-    "fonte": "O Estado Online (MS)",
-    "link": "https://oestadoonline.com.br/artigos/uma-coragem-bioceanica-no-dia-mundial-da-filosofia/"
-   }
-  ],
-  "livros": [
-   {
-    "titulo": "Drauzio Varella é eleito para a Academia Brasileira de Letras",
-    "resumo": "O médico e escritor Drauzio Varella, autor de Estação Carandiru, vai ocupar a cadeira que era de Zuenir Ventura. Ele recebeu 29 votos.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/13/drauzio-varella-abl/"
-   },
-   {
-    "titulo": "Livraria Leitura pede desconto alto a editoras da Festa da USP",
-    "resumo": "A rede Leitura pediu 70% de desconto às editoras da Festa do Livro da USP, e parte do mercado criticou. A feira acontece no fim de novembro, com número recorde de expositores.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/12/livraria-leitura-festa-do-livro-da-usp/"
-   },
-   {
-    "titulo": "Casa de Jorge Amado abre prêmio para autores inéditos",
-    "resumo": "A partir de 16 de novembro, a Fundação Casa de Jorge Amado recebe inscrições gratuitas de romances e livros de poesia inéditos. Três vencedores terão o livro publicado.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/12/jorge-amado-ineditos/"
-   },
-   {
-    "titulo": "Moçambique faz sua primeira feira profissional do livro",
-    "resumo": "Maputo recebe de 15 a 17 de novembro a primeira Feira Internacional do Livro de Moçambique voltada também a editores e agentes. Haverá oficinas, atividades infantis e encontros entre autores e editoras.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/13/mocambique-feira-livro/"
-   },
-   {
-    "titulo": "Videocast conta a história literária e editorial do Rio",
-    "resumo": "O Instituto Rio Memórias lançou um videocast de seis episódios, com o professor Fred Coelho, sobre a cultura carioca. Os temas incluem a poesia marginal e a formação das editoras do Rio.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/13/videocast-literario-rio/"
-   }
-  ]
- }
+  "gerado": "2026-11-14T22:52:24-03:00",
+  "assuntos": {
+    "cana": [
+      {
+        "titulo": "Organização do açúcar prevê falta maior do produto no mundo",
+        "resumo": "A Organização Internacional do Açúcar elevou para 1 milhão de toneladas a previsão de déficit global na safra 2026/27, principalmente porque espera uma produção menor na Índia. A entidade também alerta que o El Niño pode aumentar essa falta.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/iso-eleva-previsao-de-deficit-global-de-acucar-em-2026-27"
+      },
+      {
+        "titulo": "Estoques de etanol no Centro-Sul caem 13% em um ano",
+        "resumo": "Segundo o Ministério da Agricultura, as usinas do Centro-Sul tinham 7,67 bilhões de litros de etanol no fim de outubro, 13,3% a menos que um ano antes. O etanol anidro foi o que mais caiu, com a mistura maior na gasolina.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/estoques-de-etanol-do-centro-sul-estao-13-3-mais-baixos-ante-2025-aponta-ministerio"
+      },
+      {
+        "titulo": "Açúcar cai nas bolsas e etanol sobe em Paulínia",
+        "resumo": "Na quinta-feira, o açúcar bruto em Nova York fechou a 18,22 centavos de dólar por libra-peso, e o açúcar cristal do Cepea ficou em R$ 128,50 a saca. Já o etanol hidratado em Paulínia subiu para R$ 3.019 o metro cúbico, enquanto a chuva atrasa a colheita no Centro-Sul.",
+        "fonte": "Portal do Agronegócio",
+        "link": "https://portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/preco-do-acucar-cai-em-nova-york-londres-e-no-brasil-etanol-sobe-em-paulinia"
+      },
+      {
+        "titulo": "Pernambuco colhe mais cana e produz mais açúcar na safra",
+        "resumo": "Até o fim de outubro, Pernambuco moeu 4,36 milhões de toneladas de cana, alta de 7,57% sobre a safra anterior, segundo o Sindaçúcar-PE. A produção de açúcar cresceu quase 9%, e a de etanol anidro mais que triplicou.",
+        "fonte": "Movimento Econômico",
+        "link": "https://movimentoeconomico.com.br/agronegocio/2026/11/13/cana-avanca-757-e-producao-de-acucar-sobe-884-em-pernambuco/"
+      },
+      {
+        "titulo": "Usina Jalles mais que dobra o lucro no trimestre",
+        "resumo": "A Jalles teve lucro de R$ 41,4 milhões no segundo trimestre da safra 2026/27, alta de quase 119%. No mesmo período, a receita da empresa caiu quase pela metade.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/jalles-amplia-lucro-em-118-8-no-2-trimestre-de-2026-27-apesar-de-queda-na-receita"
+      }
+    ],
+    "politica": [
+      {
+        "titulo": "Brasil e Filipinas assinam acordos sobre agro e concorrência",
+        "resumo": "Durante a visita de Lula a Manila, os dois países assinaram memorandos para facilitar o comércio agrícola e combater práticas contra a livre concorrência. O comércio entre Brasil e Filipinas é de cerca de 3 bilhões de dólares por ano.",
+        "fonte": "Agência Brasil",
+        "link": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/brasil-e-filipinas-assinam-acordos-sobre-agro-e-livre-concorrencia"
+      },
+      {
+        "titulo": "Lula chega às Filipinas para cúpula da Asean",
+        "resumo": "O presidente Lula chegou às Filipinas para participar da cúpula da Asean como convidado. O Brasil quer subir de nível na relação com o bloco e se tornar parceiro de diálogo pleno.",
+        "fonte": "Agência Brasil",
+        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/lula-chega-filipinas-brasil-quer-ser-parceiro-de-dialogo-da-asean"
+      },
+      {
+        "titulo": "Senado adia votação final do ajuste fiscal para terça",
+        "resumo": "O Senado aprovou o texto principal do projeto de ajuste fiscal do governo por 45 votos a 31. O presidente da Casa, Davi Alcolumbre, deixou para terça-feira, dia 17, a votação das quatro mudanças que ainda faltam.",
+        "fonte": "Agência Senado",
+        "link": "https://www12.senado.leg.br/noticias/materias/2026/11/13/ajuste-fiscal-adiamento-de-votacao-da-mais-tempo-para-reflexao-diz-davi"
+      },
+      {
+        "titulo": "Câmara pede ao STF mudanças em regras de Dino sobre escala",
+        "resumo": "A Câmara dos Deputados pediu ao Supremo que derrube seis pontos da decisão do ministro Flávio Dino sobre o fim da escala seis por um. Entre os pontos questionados está a jornada diária de 8 horas e 24 minutos sem acordo coletivo.",
+        "fonte": "Metrópoles",
+        "link": "https://www.metropoles.com/brasil/fim-da-6x1-camara-pede-que-stf-derrube-parte-das-regras-fixadas-por-dino"
+      },
+      {
+        "titulo": "Governo estuda novo formato para concurso unificado de 2027",
+        "resumo": "A ministra Esther Dweck disse que a terceira edição do concurso unificado pode ter provas por área, em um modelo parecido com o do Enem. As vagas de 2027 ainda dependem do Orçamento, que o Congresso precisa aprovar.",
+        "fonte": "Agência Brasil",
+        "link": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/governo-estuda-novo-modelo-para-concurso-publico-unificado-em-2027"
+      }
+    ],
+    "tecnologia": [
+      {
+        "titulo": "Falha em sistemas antigos ainda causa caos nos voos dos EUA",
+        "resumo": "A agência de aviação dos Estados Unidos suspendeu as decolagens em todo o país por cerca de quatro horas, depois que equipamentos antigos de comunicação do controle aéreo ficaram sobrecarregados. No sábado, mais de três mil e oitocentos voos continuavam cancelados, e o governo descartou ataque hacker.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/14/carros-e-tecnologia/eua-ainda-enfrentam-caos-aereo-apos-retomada-dos-voos-mais-de-3-mil-cancelamentos-neste-sabado-14"
+      },
+      {
+        "titulo": "Pane global da Microsoft faz STF suspender prazos de processos",
+        "resumo": "Uma instabilidade em serviços da Microsoft, como Outlook e Teams, levou o presidente do Supremo, Edson Fachin, a suspender os prazos dos dias 12 e 13, a pedido da OAB. Os prazos voltam a correr na segunda-feira, e a empresa disse não ver sinais de ataque hacker.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/politica/fachin-atende-oab-e-suspende-prazos-no-stf-apos-falha-global-na-microsoft/"
+      },
+      {
+        "titulo": "OpenAI lança carteira para a IA fazer compras pelo usuário",
+        "resumo": "A ChatGPT Wallet permite que agentes de inteligência artificial paguem compras sem ver os dados do cartão, e cada compra precisa ser aprovada com rosto ou digital. Por enquanto, ela só funciona nos Estados Unidos, para assinantes do plano Pro.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/13/inteligencia-artificial/voce-confia-agente-de-ia-da-openai-chatgpt-wallet-fara-compras-pelo-usuario-e-promete-seguranca/"
+      },
+      {
+        "titulo": "Nvidia diz que ainda não começou a buscar substituto de Jensen Huang",
+        "resumo": "Depois que Jensen Huang deixou o comando da gigante de chips, a Nvidia informou que ainda está escolhendo uma empresa de recrutamento, enquanto Colette Kress ocupa o cargo de forma interina. As ações da empresa caíram mais de dois por cento.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/13/pro/nvidia-diz-que-nao-comecou-busca-formal-por-substituto-de-jensen-huang/"
+      },
+      {
+        "titulo": "Tesouro Nacional confirma vazamento de dados e de chaves Pix",
+        "resumo": "O Tesouro detectou um acesso indevido que expôs cerca de 30 mil cadastros, com nome, CPF e e-mail, além de aproximadamente 4 mil chaves Pix. O órgão diz que não houve perda de dinheiro, mas alerta para golpes que podem usar esses dados.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/economia/money/macroeconomia/tesouro-identifica-acesso-indevido-a-30-mil-cadastros-e-4-mil-chaves-pix/"
+      }
+    ],
+    "ciencia": [
+      {
+        "titulo": "Gatos miam mais quando o tutor está por perto, mostra USP",
+        "resumo": "Pesquisadoras da USP testaram 38 gatos em casa, com comida fora do alcance, e viram que eles miavam bem mais e olhavam para o dono quando ele estava presente. Quando o tutor saía, os gatos quase paravam de miar, sinal de que usam os humanos para resolver problemas.",
+        "fonte": "Jornal da USP",
+        "link": "https://jornal.usp.br/ciencias/gatos-miam-mais-para-plateia-humana-que-para-outros-gatos-e-nos-usam-para-resolver-seus-problemas/"
+      },
+      {
+        "titulo": "Cientistas descobrem duas novas espécies de bugio na Amazônia",
+        "resumo": "Analisando o DNA de 86 macacos, pesquisadores identificaram duas espécies novas de bugio, uma no noroeste e outra no sul da Amazônia. O estudo saiu na revista Communications Biology.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/13/ciencia-e-espaco/duas-novas-especies-de-macaco-bugio-sao-descobertas-na-amazonia/"
+      },
+      {
+        "titulo": "Molécula pode proteger a visão de pessoas com diabetes",
+        "resumo": "Cientistas da Unifesp e da Unesp mostraram em laboratório que uma pequena molécula anti-inflamatória impediu a morte de células da retina expostas a muito açúcar. A descoberta pode ajudar a criar tratamentos contra a perda de visão causada pelo diabetes.",
+        "fonte": "Agência FAPESP",
+        "link": "https://agencia.fapesp.br/estudo-identifica-molecula-com-potencial-de-prevenir-a-perda-de-visao-associada-ao-diabetes/59606"
+      },
+      {
+        "titulo": "El Niño atual pode ser o mais forte desde 1950",
+        "resumo": "A agência climática dos Estados Unidos estima em 60 por cento a chance de o El Niño atual ser o mais intenso desde 1950, e ele pode durar até março de 2027. No Brasil, o fenômeno costuma trazer mais chuva ao Sul, seca no Norte e no Nordeste, e ondas de calor.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/12/ciencia-e-espaco/el-nino-pode-ser-o-mais-forte-registrado-desde-1950-diz-noaa"
+      },
+      {
+        "titulo": "Parasitas de animais terrestres aparecem em baleias e golfinhos",
+        "resumo": "Pesquisadores da USP analisaram baleias e golfinhos encalhados na costa brasileira e encontraram parasitas típicos de animais de terra firme, como o da toxoplasmose. Um deles foi registrado pela primeira vez no mundo em um boto-cinza.",
+        "fonte": "Agência FAPESP",
+        "link": "https://agencia.fapesp.br/parasitas-comuns-em-animais-do-continente-sao-encontrados-em-baleias-e-golfinhos-da-costa-brasileira/59604"
+      }
+    ],
+    "astronomia": [
+      {
+        "titulo": "Starship é capturada no ar pelos braços da torre da SpaceX",
+        "resumo": "No voo de teste 15, lançado na sexta, 13, a nave Starship deu 14 voltas na Terra em cerca de 22 horas. Na volta, foi agarrada no ar pelos braços mecânicos da torre no Texas, a primeira tentativa desse tipo com o estágio superior.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/14/ciencia-e-espaco/historico-starship-e-recuperada-no-ar-com-sucesso-pelos-bracos-roboticos-da-spacex"
+      },
+      {
+        "titulo": "Mercúrio, Vênus, Marte e Júpiter aparecem juntos no céu",
+        "resumo": "Os quatro planetas ficam na mesma região do céu, um efeito de perspectiva conhecido como alinhamento planetário. Para ver, é preciso acordar antes do nascer do Sol e olhar para o horizonte.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/13/ciencia-e-espaco/um-espetaculo-no-ceu-te-espera"
+      },
+      {
+        "titulo": "Voyager 1 está prestes a ficar a um dia-luz da Terra",
+        "resumo": "Em cerca de uma semana, a sonda lançada em 1977 vai chegar a uma distância em que o sinal de rádio leva quase 24 horas para chegar. A NASA convida o público para uma homenagem com luzes de celular na terça, 17, e para um debate na quinta, 19.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/14/ciencia-e-espaco/espaconave-vai-atingir-um-dia-luz-de-distancia-da-terra-e-a-nasa-quer-que-voce-faca-parte-disso"
+      },
+      {
+        "titulo": "James Webb detecta pela primeira vez luz rara de molécula",
+        "resumo": "O telescópio registrou a emissão muito fraca do íon tri-hidrogênio, prevista em 1986 e nunca observada antes. A descoberta, numa região de formação de estrelas, pode ajudar a entender como nascem moléculas no espaço.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/13/ciencia-e-espaco/james-webb-identifica-emissao-proibida-de-molecula-no-espaco"
+      },
+      {
+        "titulo": "Foguete Electron, da Rocket Lab, chega ao centésimo lançamento",
+        "resumo": "Neste sábado, 14, o pequeno foguete decolou da Nova Zelândia e colocou em órbita um satélite japonês de radar. A empresa diz que é um marco inédito para foguetes comerciais desse porte.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/14/ciencia-e-espaco/foguete-chega-ao-100o-lancamento-e-mostra-que-tamanho-nao-e-documento"
+      }
+    ],
+    "filosofia": [
+      {
+        "titulo": "UFSC recebe grande encontro nacional de filosofia de 16 a 20",
+        "resumo": "O 21º Encontro da Anpof reúne cerca de 2.500 pesquisadores em Florianópolis, com conferências, minicursos e o lançamento de quase oitenta livros. A participação é gratuita e aberta ao público.",
+        "fonte": "Notícias da UFSC",
+        "link": "https://noticias.ufsc.br/2026/11/ufsc-sedia-maior-encontro-de-pesquisadores-de-filosofia-da-america-latina-de-16-e-20-de-novembro/"
+      },
+      {
+        "titulo": "Fernando Savater diz que pensar na morte ajuda a viver",
+        "resumo": "O filósofo espanhol, de 79 anos, defende que lembrar que a vida acaba não deve dar medo, mas ajudar a escolher prioridades. A ideia aparece no livro As perguntas da vida.",
+        "fonte": "Correio do Estado",
+        "link": "https://correiodoestado.com.br/extra/2026/11/12/fernando-savater-sobre-a-morte-ela-serve-para-nos-fazer-pensar-nao-sobre-a-morte-mas-sobre-a-vida-1.html"
+      },
+      {
+        "titulo": "Brasília celebra Dia Mundial da Filosofia com evento beneficente",
+        "resumo": "A escola Nova Acrópole fez neste sábado, 14, um encontro sobre filosofia e ciência, com debate, palestra e orquestra jovem. A renda vai para um projeto que atende crianças do Varjão, Paranoá e Itapoã.",
+        "fonte": "Correio Braziliense",
+        "link": "https://www.correiobraziliense.com.br/cidades-df/2026/11/7535834-dia-mundial-da-filosofia-tera-programacao-especial-em-brasilia.html"
+      }
+    ],
+    "livros": [
+      {
+        "titulo": "Drauzio Varella é eleito para a Academia Brasileira de Letras",
+        "resumo": "O médico e escritor recebeu 29 votos e vai ocupar a cadeira 32, que era de Zuenir Ventura. Autor de Estação Carandiru, ele disse que nunca imaginou entrar para a Academia.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/13/drauzio-varella-abl/"
+      },
+      {
+        "titulo": "Moçambique faz sua primeira feira profissional do livro",
+        "resumo": "De 15 a 17 de novembro, Maputo recebe a Feira Internacional do Livro, com atividades para leitores e encontros de negócios entre autores e editoras. A ideia é atrair jovens e fortalecer o mercado editorial do país.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/13/mocambique-feira-livro/"
+      },
+      {
+        "titulo": "Livraria Leitura pede às editoras o desconto da Festa da USP",
+        "resumo": "A rede pediu 70% de desconto e frete grátis às editoras que participam da Festa do Livro da USP, marcada para o fim de novembro. Profissionais do setor criticaram o pedido, e a livraria nega retaliação.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/12/livraria-leitura-festa-do-livro-da-usp/"
+      },
+      {
+        "titulo": "Casa de Jorge Amado abre prêmio para autores inéditos",
+        "resumo": "O Prêmio Myriam Fraga recebe inscrições gratuitas de 16 de novembro a 16 de dezembro, em ficção e poesia. Três obras serão publicadas, e textos feitos com inteligência artificial não são aceitos.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/12/jorge-amado-ineditos/"
+      },
+      {
+        "titulo": "Programa japonês ajuda a abrir mais de cem livrarias",
+        "resumo": "Em dois anos, um projeto da distribuidora Tohan ajudou a abrir ou manter 105 pequenas livrarias no Japão, inclusive em cidades que não tinham nenhuma. A maioria dos novos livreiros nunca tinha trabalhado no ramo.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/12/distribuidora-de-livros-japao"
+      }
+    ]
+  }
 }
