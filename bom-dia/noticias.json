@@ -1,211 +1,223 @@
 {
-  "gerado": "2026-11-15T22:51:48-03:00",
-  "assuntos": {
-    "cana": [
-      {
-        "titulo": "Produtores de cana pagam mais caro pelo diesel e recebem menos",
-        "resumo": "Levantamento da CNA mostra que o diesel subiu quase doze por cento enquanto o preço do ATR caiu dezesseis por cento. Em catorze de quinze regiões pesquisadas, o fornecedor teve prejuízo.",
-        "fonte": "Agro2",
-        "link": "https://agro2.com.br/agronegocio/produtores-de-cana-enfrentam-pressao-nos-custos-e-queda-na-remuneracao"
-      },
-      {
-        "titulo": "Estoques de etanol no Centro-Sul estão 15% menores",
-        "resumo": "No fim de outubro havia cerca de 7,2 bilhões de litros guardados, bem menos que um ano antes. O anidro foi o que mais caiu, puxado pela mistura maior na gasolina.",
-        "fonte": "Portal do Agronegócio",
-        "link": "https://www.portaldoagronegocio.com.br/energias-renovaveis/etanol/noticias/estoques-de-etanol-no-centro-sul-caem-15-4-anidro-registra-recuo-de-23-3"
-      },
-      {
-        "titulo": "Pernambuco mói mais cana e produz mais açúcar nesta safra",
-        "resumo": "A moagem no estado cresceu cerca de sete e meio por cento até o fim de outubro, e o açúcar quase nove por cento. O setor teme o tempo seco e o El Niño para a próxima safra.",
-        "fonte": "Movimento Econômico",
-        "link": "https://movimentoeconomico.com.br/agronegocio/2026/11/13/cana-avanca-757-e-producao-de-acucar-sobe-884-em-pernambuco/"
-      },
-      {
-        "titulo": "Fila de navios para exportar açúcar passa de 2 milhões de toneladas",
-        "resumo": "Cinquenta e três navios aguardam carga de açúcar nos portos, a maior parte em Santos. No início de novembro, o volume diário exportado caiu, mas o preço médio subiu.",
-        "fonte": "Portal do Agronegócio",
-        "link": "https://portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/exportacao-de-acucar-volume-programado-nos-portos-brasileiros-sobe-para-2-milhoes-de-toneladas"
-      }
-    ],
-    "politica": [
-      {
-        "titulo": "Fux leva julgamento sobre fim da escala 6x1 ao plenário",
-        "resumo": "O ministro tirou o caso do plenário virtual do STF, e a votação vai recomeçar presencialmente, ainda sem data. A decisão de Flávio Dino segue valendo, com a escala 5x2 prevista para 16 de dezembro.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/fux-interrompe-julgamento-sobre-fim-da-escala-6x1-e-leva-caso-ao-plenario/"
-      },
-      {
-        "titulo": "Alckmin diz que Lula define ministérios ao voltar de viagem",
-        "resumo": "O vice-presidente afirmou que a escolha dos ministros do novo mandato deve sair na próxima semana. Lula volta ao Brasil entre segunda e terça.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/lula-decidira-formacao-dos-ministerios-quando-voltar-de-viagem-diz-alckmin/"
-      },
-      {
-        "titulo": "Ajuste fiscal deve chegar à Câmara nesta semana",
-        "resumo": "O Senado já aprovou o texto principal e vota os destaques na terça. Alckmin defendeu o projeto e disse que ele não atinge a população de baixa renda.",
-        "fonte": "Metrópoles",
-        "link": "https://www.metropoles.com/brasil/alckmin-defende-ajuste-fiscal-e-espera-votacao-na-camara-nesta-semana"
-      },
-      {
-        "titulo": "Cidadania vota no dia 21 sua incorporação ao Progressistas",
-        "resumo": "O partido convocou um congresso extraordinário só para esse tema. Se aprovada, a mudança vale a partir de 27 de novembro e encerra a federação com o PSDB.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/cidadania-convoca-congresso-para-votar-incorporacao-pelo-progressistas/"
-      },
-      {
-        "titulo": "Flávio Bolsonaro diz que PL reconheceu eleição por receio",
-        "resumo": "Em entrevista a um jornal americano, o senador afirmou que Valdemar Costa Neto reconheceu o resultado de forma protocolar. Ele volta a falar em fraude sem apresentar provas; o TSE diz que a eleição foi normal.",
-        "fonte": "Estado de Minas",
-        "link": "https://www.em.com.br/politica/2026/11/7538851-flavio-diz-que-valdemar-reconheceu-a-eleicao-por-receio-de-perseguicao.html"
-      }
-    ],
-    "tecnologia": [
-      {
-        "titulo": "Jensen Huang articula volta ao comando da Nvidia",
-        "resumo": "O ex-presidente da empresa, que deixou o cargo dia 12 após escândalo pessoal, conversa com aliados sobre retornar. A Nvidia divulga seu balanço nesta terça.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/15/pro/ex-ceo-da-nvidia-articula-retorno-ao-cargo-apos-escandalo-amoroso/"
-      },
-      {
-        "titulo": "Pane da Microsoft afetou serviços em mais de 70 países",
-        "resumo": "Outlook, Teams e Copilot ficaram instáveis de quinta a sábado por causa de uma atualização de rede. A empresa descartou ataque hacker.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/15/seguranca/falha-da-microsoft-mostra-riscos-de-concentrar-servicos-digitais/"
-      },
-      {
-        "titulo": "Itália multa a Meta em 805 milhões de euros",
-        "resumo": "Segundo a autoridade italiana, o Facebook acessou fotos da galeria de usuários de Android sem consentimento. A Meta tem sessenta dias para mudar o recurso.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/internacional/noticia/2026-11/italia-multa-meta-por-acesso-dados-de-usuarios-do-android"
-      },
-      {
-        "titulo": "Ataque hacker expõe dados de 22 milhões na França",
-        "resumo": "Os Correios franceses revelaram que nomes e endereços vazaram de uma subsidiária em setembro. A empresa diz que dados bancários não foram atingidos.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/15/seguranca/ataque-cibernetico-expoe-dados-de-22-milhoes-de-pessoas-na-franca/"
-      }
-    ],
-    "ciencia": [
-      {
-        "titulo": "Alzheimer pode dar sinais no cérebro uma década antes",
-        "resumo": "Estudo da Johns Hopkins viu que duas regiões cerebrais encolhem antes do hipocampo, muito antes da perda de memória. Ainda falta pesquisa para virar exame de rotina.",
-        "fonte": "ScienceDaily",
-        "link": "https://sciencedaily.com/releases/2026/11/261114202130.htm"
-      },
-      {
-        "titulo": "Crânios sugerem sacrifício humano em tumbas de reis egípcios",
-        "resumo": "Quase quarenta por cento dos crânios de enterros reais de cinco mil anos têm fraturas da hora da morte. Isso reforça a ideia de que servos eram mortos para acompanhar o rei.",
-        "fonte": "ScienceDaily",
-        "link": "https://sciencedaily.com/releases/2026/11/261112025540.htm"
-      },
-      {
-        "titulo": "Dinossauros do litoral podem ter comido algas marinhas",
-        "resumo": "Análise química dos dentes de fósseis costeiros indica alimento vindo do mar há cerca de cem milhões de anos. As algas são a explicação mais provável.",
-        "fonte": "ScienceDaily",
-        "link": "https://sciencedaily.com/releases/2026/11/261112230502.htm"
-      },
-      {
-        "titulo": "Boas conversas alternam entre foco e ideias novas",
-        "resumo": "Pesquisadores analisaram mais de mil conversas e viram que esse vai e vem gera mais conexão entre as pessoas. O estudo não prova que treinar isso funcione.",
-        "fonte": "Exame",
-        "link": "https://exame.com/ciencia/quer-ter-conversas-melhores-o-segredo-pode-estar-no-ruido-rosa/"
-      },
-      {
-        "titulo": "Uma colônia de pinguins está estável e a outra encolhe",
-        "resumo": "Contagens com drones mostram que uma população de pinguim-de-crista-ereta caiu mais de quarenta por cento desde 1995. Os autores pedem avaliações separadas para cada ilha.",
-        "fonte": "ScienceDaily",
-        "link": "https://sciencedaily.com/releases/2026/11/261112230458.htm"
-      }
-    ],
-    "astronomia": [
-      {
-        "titulo": "Marte e Júpiter aparecem lado a lado na madrugada",
-        "resumo": "Os dois planetas ficam bem próximos no céu antes do amanhecer desta segunda, a leste. Júpiter é o ponto mais brilhante e Marte é o avermelhado ao lado.",
-        "fonte": "Metrópoles",
-        "link": "https://www.metropoles.com/ciencia/jupiter-e-marte-estarao-proximos-no-ceu-da-terra-neste-domingo-15-11"
-      },
-      {
-        "titulo": "Chuva de meteoros Leônidas tem pico nesta semana",
-        "resumo": "O melhor momento é nas madrugadas de terça e quarta, depois da meia-noite. Em céu escuro, podem aparecer cerca de quinze meteoros por hora.",
-        "fonte": "Diário Tocantinense",
-        "link": "https://diariotocantinense.com.br/2026/11/13/mais-faceis-de-serem-observados-leonidas-prometem-meteoros-brilhantes-veja-quando-olhar-o-ceu-no-tocantins-veja-o-video/"
-      },
-      {
-        "titulo": "Torre da SpaceX agarra a nave Starship pela primeira vez",
-        "resumo": "Depois de cerca de vinte e duas horas em órbita, a nave foi capturada no ar pelos braços da torre no Texas. O propulsor não foi recuperado e caiu no mar.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/ciencia/spacex-conclui-pouso-historico-da-nave-starship-apos-voo-orbital-de-22-horas/"
-      },
-      {
-        "titulo": "Voyager 1 está perto de ficar a um dia-luz da Terra",
-        "resumo": "A sonda lançada em 1977 será o primeiro objeto humano a chegar tão longe. A NASA convida o público a piscar a luz do celular na terça para celebrar.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/14/ciencia-e-espaco/espaconave-vai-atingir-um-dia-luz-de-distancia-da-terra-e-a-nasa-quer-que-voce-faca-parte-disso/"
-      },
-      {
-        "titulo": "Foguete Electron chega ao centésimo lançamento",
-        "resumo": "O pequeno foguete da Rocket Lab decolou da Nova Zelândia levando um satélite-radar japonês. É uma marca rara para um foguete desse porte.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/14/ciencia-e-espaco/foguete-chega-ao-100o-lancamento-e-mostra-que-tamanho-nao-e-documento/"
-      }
-    ],
-    "filosofia": [
-      {
-        "titulo": "Florianópolis recebe maior encontro de filosofia da América Latina",
-        "resumo": "O Encontro Nacional da Anpof vai de 16 a 20 de novembro na UFSC, com mais de dois mil e quinhentos pesquisadores. A entrada é gratuita e aberta ao público.",
-        "fonte": "Apufsc",
-        "link": "https://www.apufsc.org.br/2026/11/12/ufsc-sedia-maior-encontro-de-pesquisadores-de-filosofia-da-america-latina/"
-      },
-      {
-        "titulo": "UNESCO celebra Dia Mundial da Filosofia nesta quinta",
-        "resumo": "Em Paris, o filósofo Souleymane Bachir Diagne fala sobre como habitar a Terra juntos. O evento terá transmissão pela internet.",
-        "fonte": "UNESCO",
-        "link": "https://www.unesco.org/en/articles/world-philosophy-day-2026"
-      },
-      {
-        "titulo": "Estudante da Ufal lança livro sobre pensamento negro",
-        "resumo": "Laís Emília Santos da Silva escreve a partir da própria vivência na periferia de Maceió. O lançamento será no dia 30 de novembro.",
-        "fonte": "Tribuna do Sertão",
-        "link": "https://www.tribunadosertao.com.br/alagoas/2026/11/13/1020952-graduanda-de-filosofia-da-ufal-lanca-livro-sobre-pensamento-negro-e-vivencias-perifericas"
-      },
-      {
-        "titulo": "Brasília debate filosofia e ciência no Dia da Filosofia",
-        "resumo": "A Nova Acrópole promoveu no sábado painel e palestra sobre a relação entre as duas áreas. A renda foi para um projeto social.",
-        "fonte": "Glauna Capital",
-        "link": "https://glaunacapital.com/2026/11/13/dia-mundial-da-filosofia-em-brasilia-promove-dialogo-entre-filosofia-e-ciencia/"
-      }
-    ],
-    "livros": [
-      {
-        "titulo": "Feira do Livro de Porto Alegre vende mais de 260 mil livros",
-        "resumo": "A 72ª edição terminou no domingo, depois de dezessete dias na Praça da Alfândega. As vendas cresceram cerca de seis por cento em relação ao ano passado.",
-        "fonte": "Jornal do Comércio",
-        "link": "https://www.jornaldocomercio.com/cultura/2026/11/1270568-72-feira-do-livro-de-porto-alegre-chega-ao-fim-com-mais-de-260-mil-livros-vendidos.html"
-      },
-      {
-        "titulo": "Drauzio Varella é eleito para a Academia Brasileira de Letras",
-        "resumo": "O médico e escritor ocupará a cadeira que era de Zuenir Ventura. Ele teve vinte e nove votos.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/13/drauzio-varella-abl/"
-      },
-      {
-        "titulo": "Vencedor do Booker 2026 sai em Portugal no ano que vem",
-        "resumo": "O romance de M. John Harrison, o premiado mais velho da história do Booker, ganhará edição portuguesa em 2027. Ainda não há edição no Brasil.",
-        "fonte": "24 Notícias",
-        "link": "https://24noticias.sapo.pt/vida/artigos/livro-vencedor-do-booker-prize-2026-chega-a-portugal-no-proximo-ano"
-      },
-      {
-        "titulo": "Moçambique abre feira do livro com área para profissionais",
-        "resumo": "A feira internacional acontece em Maputo até terça, com debates e encontros entre autores e editores.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/13/mocambique-feira-livro/"
-      },
-      {
-        "titulo": "Livraria Leitura pede desconto de 70% às editoras da Festa da USP",
-        "resumo": "A rede argumenta que, se as editoras dão grandes descontos ao público na feira, deveriam dar condição parecida às livrarias. A Festa do Livro da USP acontece no fim de novembro.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/12/livraria-leitura-festa-do-livro-da-usp/"
-      }
-    ]
-  }
+ "gerado": "2026-11-16T22:50:38-03:00",
+ "assuntos": {
+  "cana": [
+   {
+    "titulo": "Açúcar cai em Nova York com produção maior na Índia",
+    "resumo": "O contrato de açúcar para março recuou 1,68% na bolsa de Nova York e fechou em 18,10 centavos de dólar por libra-peso. A pressão veio da produção da Índia, que mais que dobrou no início da safra, e da queda do real, que pode estimular as exportações brasileiras.",
+    "fonte": "CNN Brasil",
+    "link": "https://cnnbrasil.com.br/agro/acucar-fecha-em-queda-de-168-em-ny-com-avanco-da-producao-na-india"
+   },
+   {
+    "titulo": "Etanol hidratado sobe e anidro recua nas usinas, aponta Cepea",
+    "resumo": "Na semana de 9 a 13 de novembro, o etanol hidratado subiu 1,63% e chegou a cerca de R$ 2,93 por litro. Já o anidro caiu 3,37% e ficou em cerca de R$ 3,46 por litro.",
+    "fonte": "Portal do Agronegócio",
+    "link": "https://www.portaldoagronegocio.com.br/energias-renovaveis/etanol/noticias/etanol-hidratado-sobe-1-63-na-semana-enquanto-anidro-recua-3-37-aponta-cepea"
+   },
+   {
+    "titulo": "Executivo da Jalles diz que etanol de cana precisa ganhar eficiência",
+    "resumo": "Segundo o diretor financeiro da Jalles, sem mais eficiência o etanol de cana pode virar quase um subproduto do açúcar, por causa da concorrência do etanol de milho. Ele citou automação no campo e novos usos, como combustível de navios e de aviação, como caminhos para o setor.",
+    "fonte": "Money Times",
+    "link": "https://www.moneytimes.com.br/se-nao-ganhar-eficiencia-etanol-cana-pode-virar-subproduto-acucar-diz-cfo-jalles-jall3-pads/"
+   },
+   {
+    "titulo": "Chuvas no Centro-Sul limitam moagem e sustentam etanol, diz XP",
+    "resumo": "Um relatório da XP aponta que o açúcar está pressionado pela moagem antecipada na Índia e pela alta do dólar. Já o etanol tende a se valorizar, porque o excesso de chuvas no Centro-Sul atrapalha a moagem de cana e reduz a oferta.",
+    "fonte": "Canaoeste",
+    "link": "https://canaoeste.com.br/noticias/acucar-recua-com-avanco-da-moagem-na-india-e-dolar-mais-alto/"
+   },
+   {
+    "titulo": "Evento no Recife debate inovação e tecnologia na cana",
+    "resumo": "A Bioconferência Cana 2026 reuniu 157 participantes de oito estados no Recife para discutir novas variedades, bioinsumos e manejo de pragas. Dezesseis usinas participaram, e a próxima edição já está marcada para novembro de 2027.",
+    "fonte": "JornalCana",
+    "link": "https://jornalcana.com.br/eventos/inovacao-e-praticas-sustentaveis-integram-programacao-de-evento-do-setor-em-recife/"
+   }
+  ],
+  "politica": [
+   {
+    "titulo": "Lula quer conversar com Alcolumbre antes de indicar novo ministro do STF",
+    "resumo": "O presidente Lula planeja se reunir nesta semana com o presidente do Senado, Davi Alcolumbre, para tratar da vaga no Supremo Tribunal Federal. O governo pretende anunciar o nome ainda em novembro, e Rodrigo Pacheco, Paulo Gonet e Simone Tebet aparecem entre os cotados.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/blogs/gustavo-uribe/politica/lula-planeja-reuniao-com-alcolumbre-antes-de-definir-nome-para-o-stf/"
+   },
+   {
+    "titulo": "Moraes nega visitas de Marinho e Tereza Cristina a Bolsonaro",
+    "resumo": "O ministro Alexandre de Moraes, do STF, negou o pedido para que os senadores Rogério Marinho e Tereza Cristina visitassem o ex-presidente Jair Bolsonaro. Os dois pretendem disputar a presidência do Senado contra Davi Alcolumbre.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/blogs/teo-cury/politica/moraes-nega-visita-de-rogerio-marinho-e-tereza-cristina-a-bolsonaro/"
+   },
+   {
+    "titulo": "Câmara pode votar nesta terça projeto que regula big techs",
+    "resumo": "A Câmara dos Deputados deve analisar na terça-feira o projeto do governo que cria regras econômicas para as grandes empresas de tecnologia e amplia os poderes do Cade. O relator é o deputado Aliel Machado, do PV do Paraná.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/politica/entenda-pl-das-big-techs-que-deve-ser-votado-na-camara-nesta-semana/"
+   },
+   {
+    "titulo": "Pesquisa Quaest mostra recorde de brasileiros que se dizem de centro",
+    "resumo": "Segundo a Quaest, 39% dos entrevistados se dizem de centro, 34% de direita e 24% de esquerda. É o maior índice de centro desde o início da série, em 2007, e a pesquisa ouviu 2.004 eleitores entre 30 de outubro e 2 de novembro.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/politica/quaest-40-se-dizem-de-centro-34-de-direita-e-24-de-esquerda/"
+   },
+   {
+    "titulo": "Ministério Público do DF investiga alta de hotéis para a posse de Lula",
+    "resumo": "O Ministério Público do Distrito Federal abriu procedimento para apurar um aumento de cerca de 600% nas diárias de hotéis em Brasília no período da posse presidencial, marcada para 5 de janeiro de 2027. O governo espera entre 750 mil e 1 milhão de pessoas no evento.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/politica/mp-do-df-apura-alta-de-600-em-diarias-de-hoteis-para-posse-de-lula/"
+   }
+  ],
+  "tecnologia": [
+   {
+    "titulo": "Aliados lutam pela volta de Jensen Huang ao comando da Nvidia",
+    "resumo": "Uma petição com cerca de 175 mil assinaturas pede que Jensen Huang volte a comandar a Nvidia, mas o secretário do Tesouro dos EUA, Scott Bessent, quer um CEO de fora da empresa. Bessent também cobra explicações sobre possíveis vendas de chips à China.",
+    "fonte": "Fortune",
+    "link": "https://fortune.com/2026/11/16/war-room-jensen-huang-nvidia-treasury-scott-bessent/"
+   },
+   {
+    "titulo": "Anthropic prepara estreia na bolsa, e Nvidia divulga balanço",
+    "resumo": "A Anthropic, dona do Claude, deve definir o preço de suas ações nesta quarta e estrear na Nasdaq na quinta, com valor estimado entre 1,3 e 1,45 trilhão de dólares. Na mesma semana, a Nvidia apresenta seu primeiro balanço depois da saída de Jensen Huang.",
+    "fonte": "Yahoo Finance",
+    "link": "https://finance.yahoo.com/markets/article/nvidias-first-post-jensen-earnings-and-anthropics-ipo-what-to-watch-this-week-110000732.html"
+   },
+   {
+    "titulo": "Pix faz seis anos e passa de um bilhão de chaves",
+    "resumo": "O Pix completou seis anos com mais de um bilhão de chaves cadastradas e mais de 150 milhões de usuários no Brasil. Só em setembro foram 7,1 bilhões de transações.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/16/pro/pix-completa-6-anos-com-mais-de-1-bilhao-de-chaves-cadastradas/"
+   },
+   {
+    "titulo": "Galaxy S27 deve ficar mais caro por causa da memória",
+    "resumo": "Segundo rumores, a próxima linha de celulares topo de linha da Samsung deve custar cerca de 100 dólares a mais por causa da alta no preço da memória. A empresa pode compensar oferecendo o dobro de armazenamento na pré-venda.",
+    "fonte": "Canaltech",
+    "link": "https://canaltech.com.br/smartphone/galaxy-s27-vai-ficar-mais-caro-mas-samsung-da-armazenamento-em-dobro-de-graca/"
+   },
+   {
+    "titulo": "Três em cada quatro brasileiros aprovam tecnologia chinesa, diz pesquisa",
+    "resumo": "Uma pesquisa da Ipsos mostra que 75% dos brasileiros têm uma visão positiva da tecnologia feita na China, contra 69% no ano passado. O estudo foi encomendado por uma fabricante chinesa de celulares.",
+    "fonte": "Canaltech",
+    "link": "https://canaltech.com.br/produtos/brasileiros-perderam-o-preconceito-com-tecnologia-chinesa-veja-pesquisa/"
+   }
+  ],
+  "ciencia": [
+   {
+    "titulo": "Butantan lança centro para tratar sequelas de dengue e chikungunya",
+    "resumo": "O Instituto Butantan criou um centro que vai estudar por que dores e inflamações continuam depois de doenças como dengue, zika e chikungunya. A meta é chegar a novos tratamentos e até a candidatas a vacinas em cinco anos, com apoio da FAPESP.",
+    "fonte": "Agência FAPESP",
+    "link": "https://agencia.fapesp.br/butantan-cria-centro-para-combater-sequelas-de-dengue-chikungunya-e-outras-arboviroses/59620"
+   },
+   {
+    "titulo": "Pedras do fundo do mar abrigam pequenos animais desconhecidos",
+    "resumo": "Cientistas alemães acharam milhares de animais microscópicos vivendo dentro de nódulos metálicos no fundo do Oceano Pacífico, e uma única pedra tinha 245 deles. Eles alertam que a mineração em águas profundas pode destruir esse ambiente.",
+    "fonte": "ScienceDaily",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261114202133.htm"
+   },
+   {
+    "titulo": "NASA diz que El Niño de 2026 pode superar o de 1997",
+    "resumo": "Dados de satélite mostram água quente no Pacífico chegando até a costa da América do Sul, de forma parecida com o El Niño histórico de 1997. A agência dos Estados Unidos estima grande chance de um fenômeno forte no começo de 2027.",
+    "fonte": "ScienceDaily (NASA Earth Observatory)",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261114202227.htm"
+   },
+   {
+    "titulo": "Vitamina C pode reduzir substâncias ligadas ao câncer no estômago",
+    "resumo": "Uma simulação feita por pesquisadores do Canadá indica que a vitamina C, ingerida junto com alimentos ricos em nitratos, diminui a formação de compostos associados ao câncer. Os autores avisam que ainda faltam testes em pessoas para confirmar o efeito.",
+    "fonte": "ScienceDaily (Universidade de Waterloo)",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261114202236.htm"
+   },
+   {
+    "titulo": "Dinossauros do litoral podem ter comido algas marinhas",
+    "resumo": "A análise química de dentes fósseis da América do Norte sugere que dinossauros que viviam perto do mar, há cerca de 100 milhões de anos, completavam a dieta com algas. Só uma das espécies estudadas parece ter comido apenas plantas terrestres.",
+    "fonte": "ScienceDaily (Frontiers)",
+    "link": "https://www.sciencedaily.com/releases/2026/11/261112230502.htm"
+   }
+  ],
+  "astronomia": [
+   {
+    "titulo": "Chuva de meteoros Leônidas chega ao pico nesta terça",
+    "resumo": "O pico das Leônidas é na noite de 17 de novembro, e a melhor hora para ver do Brasil é a madrugada até o amanhecer do dia 18, olhando para o leste, na direção da constelação de Leão. No Hemisfério Sul, poucos meteoros devem aparecer, e a taxa só passa de dez por hora em céu bem escuro.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/curiosidades/2026/11/16/esta-chegando-o-pico-da-chuva-de-meteoros-leonidas-restos-de-cometa-cruzam-o-ceu-a-70-km-por-segundo-por-volta-de-17-de-novembro/"
+   },
+   {
+    "titulo": "Torre da SpaceX agarra nave Starship pela primeira vez",
+    "resumo": "No voo 15, a nave Starship deu cerca de 14 voltas na Terra e voltou ao Texas no sábado, onde foi capturada pelos braços da torre de lançamento, algo inédito. O propulsor, porém, desistiu da captura e foi destruído antes de cair no mar.",
+    "fonte": "SpaceQ",
+    "link": "https://spaceq.ca/starship-flight-15-ship-catch-booster-lost/"
+   },
+   {
+    "titulo": "Foguete Vulcan falha e destrói 40 satélites da Amazon",
+    "resumo": "O foguete Vulcan, da empresa americana ULA, teve um problema cerca de dez minutos depois de decolar da Flórida no domingo e não chegou à órbita. É a primeira falha total da empresa, e os 40 satélites de internet da Amazon a bordo foram perdidos.",
+    "fonte": "Spaceflight Now",
+    "link": "https://spaceflightnow.com/2026/11/15/ula-suffers-first-total-mission-failure-with-loss-of-vulcan-rocket-carrying-40-amazon-leo-satellites/"
+   },
+   {
+    "titulo": "Asteroide de aceleração estranha pode ser sonda soviética perdida",
+    "resumo": "O pequeno objeto 1998 KY26, de uns 11 metros, muda de trajetória de um jeito que a gravidade sozinha não explica. Um grupo de Harvard sugere que seja a sonda soviética Phobos 1, perdida em 1988, mas outros cientistas acham que é apenas uma rocha espacial.",
+    "fonte": "Euronews",
+    "link": "https://pt.euronews.com/2026/11/15/misterio-no-espaco-objeto-acelera-de-forma-estranha-e-pode-ser-sonda-sovietica-perdida"
+   },
+   {
+    "titulo": "Foguete Electron, da Rocket Lab, completa cem lançamentos",
+    "resumo": "A empresa Rocket Lab fez o centésimo lançamento do foguete Electron na Nova Zelândia. O foguete levou à órbita um satélite de radar de uma empresa japonesa, que já fez o primeiro contato.",
+    "fonte": "NewSpace Economy",
+    "link": "https://newspaceeconomy.ca/2026/11/14/electron-100th-launch-iqps-yamatsumi-ii/"
+   }
+  ],
+  "filosofia": [
+   {
+    "titulo": "UFSC recebe o maior encontro de filosofia da América Latina",
+    "resumo": "De 16 a 20 de novembro, o XXI Encontro da Anpof reúne mais de 2.500 pesquisadores em Florianópolis, com cerca de 80 lançamentos de livros. A teóloga e filósofa Ivone Gebara faz a conferência de abertura, e a entrada é gratuita.",
+    "fonte": "Apufsc",
+    "link": "https://www.apufsc.org.br/2026/11/12/ufsc-sedia-maior-encontro-de-pesquisadores-de-filosofia-da-america-latina/"
+   },
+   {
+    "titulo": "Lúcia Helena Galvão fala sobre o valor do tempo em Fortaleza",
+    "resumo": "A filósofa Lúcia Helena Galvão deu palestra na segunda, dia 16, em Fortaleza, dentro da programação do Dia Mundial da Filosofia. Inspirada no estoicismo, ela defende que o problema não é a falta de horas, e sim a pouca atenção ao jeito como usamos o tempo.",
+    "fonte": "GCMAIS",
+    "link": "https://gcmais.com.br/noticias/2026/11/16/fortaleza-recebe-palestra-de-lucia-helena-galvao-sobre-o-valor-do-tempo-e-o-sentido-da-vida"
+   },
+   {
+    "titulo": "Porto Velho teve evento gratuito sobre filosofia e ciência",
+    "resumo": "A escola Nova Acrópole promoveu no sábado, dia 14, um encontro gratuito no centro de Porto Velho sobre a relação entre filosofia e ciência. A atividade fez parte das comemorações do Dia Mundial da Filosofia, nesta quinta, 19.",
+    "fonte": "Rondoniaovivo",
+    "link": "https://www.rondoniaovivo.com/noticia/geral/2026/11/12/em-porto-velho-dia-da-filosofia-tera-programacao-gratuita-com-dialogo-entre-filosofia-e-ciencia.html"
+   },
+   {
+    "titulo": "Brasília celebrou o Dia Mundial da Filosofia com painel solidário",
+    "resumo": "Um painel com palestras sobre saúde, autoconhecimento e mitologia, além de uma orquestra jovem, foi marcado para o sábado, dia 14, na Asa Norte. O valor arrecadado vai para um projeto que atende crianças do Varjão, do Paranoá e do Itapoã.",
+    "fonte": "Correio Braziliense",
+    "link": "https://www.correiobraziliense.com.br/cidades-df/2026/11/7535834-dia-mundial-da-filosofia-tera-programacao-especial-em-brasilia.html"
+   }
+  ],
+  "livros": [
+   {
+    "titulo": "Prêmio São Paulo de Literatura anuncia os 20 finalistas de 2026",
+    "resumo": "Milton Hatoum, Cristovão Tezza e Aline Bei estão entre os finalistas das categorias de romance e de romance de estreia. Cada vencedor vai receber 200 mil reais, e o resultado sai em 15 de dezembro.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/16/premio-sp-finalistas-26/"
+   },
+   {
+    "titulo": "Feira do Livro de Porto Alegre termina com mais de 260 mil livros vendidos",
+    "resumo": "A 72ª edição da feira terminou no domingo, na Praça da Alfândega, depois de 17 dias. As vendas cresceram 6,2% em relação ao ano passado.",
+    "fonte": "Jornal do Comércio",
+    "link": "https://www.jornaldocomercio.com/cultura/2026/11/1270568-72-feira-do-livro-de-porto-alegre-chega-ao-fim-com-mais-de-260-mil-livros-vendidos.html"
+   },
+   {
+    "titulo": "Stephanie Garber assume o topo dos livros mais vendidos",
+    "resumo": "Um novo livro da série Era uma vez um coração partido mais que dobrou as vendas e ficou em primeiro lugar na lista Nielsen-PublishNews. Os imortais, de Paulliny Tort, também alcançou sua melhor posição até agora.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/16/stephanie-garber-dobra-as-vendas-e-assume-a-lideranca-da-lista-nielsen-publishnews/"
+   },
+   {
+    "titulo": "Romance Vento em Setembro, de Tony Bellotto, vai virar filme",
+    "resumo": "O livro do escritor e guitarrista dos Titãs vai ser adaptado para o cinema pelo diretor Murilo Salles. A história é um suspense que se passa nos anos 1970, no interior de São Paulo.",
+    "fonte": "Diário do Grande ABC",
+    "link": "https://www.dgabc.com.br/Noticia/4369183/livro-premiado-de-tony-bellotto-vento-em-setembro-vai-virar-filme-conheca-detalhes"
+   },
+   {
+    "titulo": "Editora brasileira fecha parcerias com duas editoras de Portugal",
+    "resumo": "O Grupo Pioneira Editorial fez acordos com duas editoras portuguesas para publicar e distribuir livros nos dois países. A ideia é levar autores brasileiros para fora e trazer autores portugueses para o Brasil.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/16/pioneira-em-portugal/"
+   }
+  ]
+ }
 }
