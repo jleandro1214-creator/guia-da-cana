@@ -31,6 +31,8 @@ body{margin:0;background:#0b0b0b;color:#111;font-family:"Comic Neue",system-ui,s
 .fala,.pens{position:absolute;background:#fff;border:2px solid #000;border-radius:50%/42%;padding:9px 13px;font:700 12.5px/1.2 "Comic Neue",sans-serif;text-align:center;color:#111}
 .fala b,.pens b{display:block;font-size:10px;letter-spacing:1px;color:#b8412f}
 .fala::after{content:"";position:absolute;width:0;height:0;border:9px solid transparent}
+.fala.t-br::after,.fala.t-bl::after{border-bottom-width:0}
+.fala.t-up::after,.fala.t-upl::after{border-top-width:0}
 .fala.t-br::after{bottom:-15px;right:22%;border-top:14px solid #000;border-left:4px solid transparent}
 .fala.t-bl::after{bottom:-15px;left:22%;border-top:14px solid #000;border-right:4px solid transparent}
 .fala.t-upl::after{top:-15px;left:22%;border-bottom:14px solid #000;border-left:4px solid transparent}
