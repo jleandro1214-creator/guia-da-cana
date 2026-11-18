@@ -1,223 +1,229 @@
 {
- "gerado": "2026-11-16T22:50:38-03:00",
- "assuntos": {
-  "cana": [
-   {
-    "titulo": "Açúcar cai em Nova York com produção maior na Índia",
-    "resumo": "O contrato de açúcar para março recuou 1,68% na bolsa de Nova York e fechou em 18,10 centavos de dólar por libra-peso. A pressão veio da produção da Índia, que mais que dobrou no início da safra, e da queda do real, que pode estimular as exportações brasileiras.",
-    "fonte": "CNN Brasil",
-    "link": "https://cnnbrasil.com.br/agro/acucar-fecha-em-queda-de-168-em-ny-com-avanco-da-producao-na-india"
-   },
-   {
-    "titulo": "Etanol hidratado sobe e anidro recua nas usinas, aponta Cepea",
-    "resumo": "Na semana de 9 a 13 de novembro, o etanol hidratado subiu 1,63% e chegou a cerca de R$ 2,93 por litro. Já o anidro caiu 3,37% e ficou em cerca de R$ 3,46 por litro.",
-    "fonte": "Portal do Agronegócio",
-    "link": "https://www.portaldoagronegocio.com.br/energias-renovaveis/etanol/noticias/etanol-hidratado-sobe-1-63-na-semana-enquanto-anidro-recua-3-37-aponta-cepea"
-   },
-   {
-    "titulo": "Executivo da Jalles diz que etanol de cana precisa ganhar eficiência",
-    "resumo": "Segundo o diretor financeiro da Jalles, sem mais eficiência o etanol de cana pode virar quase um subproduto do açúcar, por causa da concorrência do etanol de milho. Ele citou automação no campo e novos usos, como combustível de navios e de aviação, como caminhos para o setor.",
-    "fonte": "Money Times",
-    "link": "https://www.moneytimes.com.br/se-nao-ganhar-eficiencia-etanol-cana-pode-virar-subproduto-acucar-diz-cfo-jalles-jall3-pads/"
-   },
-   {
-    "titulo": "Chuvas no Centro-Sul limitam moagem e sustentam etanol, diz XP",
-    "resumo": "Um relatório da XP aponta que o açúcar está pressionado pela moagem antecipada na Índia e pela alta do dólar. Já o etanol tende a se valorizar, porque o excesso de chuvas no Centro-Sul atrapalha a moagem de cana e reduz a oferta.",
-    "fonte": "Canaoeste",
-    "link": "https://canaoeste.com.br/noticias/acucar-recua-com-avanco-da-moagem-na-india-e-dolar-mais-alto/"
-   },
-   {
-    "titulo": "Evento no Recife debate inovação e tecnologia na cana",
-    "resumo": "A Bioconferência Cana 2026 reuniu 157 participantes de oito estados no Recife para discutir novas variedades, bioinsumos e manejo de pragas. Dezesseis usinas participaram, e a próxima edição já está marcada para novembro de 2027.",
-    "fonte": "JornalCana",
-    "link": "https://jornalcana.com.br/eventos/inovacao-e-praticas-sustentaveis-integram-programacao-de-evento-do-setor-em-recife/"
-   }
-  ],
-  "politica": [
-   {
-    "titulo": "Lula quer conversar com Alcolumbre antes de indicar novo ministro do STF",
-    "resumo": "O presidente Lula planeja se reunir nesta semana com o presidente do Senado, Davi Alcolumbre, para tratar da vaga no Supremo Tribunal Federal. O governo pretende anunciar o nome ainda em novembro, e Rodrigo Pacheco, Paulo Gonet e Simone Tebet aparecem entre os cotados.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/blogs/gustavo-uribe/politica/lula-planeja-reuniao-com-alcolumbre-antes-de-definir-nome-para-o-stf/"
-   },
-   {
-    "titulo": "Moraes nega visitas de Marinho e Tereza Cristina a Bolsonaro",
-    "resumo": "O ministro Alexandre de Moraes, do STF, negou o pedido para que os senadores Rogério Marinho e Tereza Cristina visitassem o ex-presidente Jair Bolsonaro. Os dois pretendem disputar a presidência do Senado contra Davi Alcolumbre.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/blogs/teo-cury/politica/moraes-nega-visita-de-rogerio-marinho-e-tereza-cristina-a-bolsonaro/"
-   },
-   {
-    "titulo": "Câmara pode votar nesta terça projeto que regula big techs",
-    "resumo": "A Câmara dos Deputados deve analisar na terça-feira o projeto do governo que cria regras econômicas para as grandes empresas de tecnologia e amplia os poderes do Cade. O relator é o deputado Aliel Machado, do PV do Paraná.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/politica/entenda-pl-das-big-techs-que-deve-ser-votado-na-camara-nesta-semana/"
-   },
-   {
-    "titulo": "Pesquisa Quaest mostra recorde de brasileiros que se dizem de centro",
-    "resumo": "Segundo a Quaest, 39% dos entrevistados se dizem de centro, 34% de direita e 24% de esquerda. É o maior índice de centro desde o início da série, em 2007, e a pesquisa ouviu 2.004 eleitores entre 30 de outubro e 2 de novembro.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/politica/quaest-40-se-dizem-de-centro-34-de-direita-e-24-de-esquerda/"
-   },
-   {
-    "titulo": "Ministério Público do DF investiga alta de hotéis para a posse de Lula",
-    "resumo": "O Ministério Público do Distrito Federal abriu procedimento para apurar um aumento de cerca de 600% nas diárias de hotéis em Brasília no período da posse presidencial, marcada para 5 de janeiro de 2027. O governo espera entre 750 mil e 1 milhão de pessoas no evento.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/politica/mp-do-df-apura-alta-de-600-em-diarias-de-hoteis-para-posse-de-lula/"
-   }
-  ],
-  "tecnologia": [
-   {
-    "titulo": "Aliados lutam pela volta de Jensen Huang ao comando da Nvidia",
-    "resumo": "Uma petição com cerca de 175 mil assinaturas pede que Jensen Huang volte a comandar a Nvidia, mas o secretário do Tesouro dos EUA, Scott Bessent, quer um CEO de fora da empresa. Bessent também cobra explicações sobre possíveis vendas de chips à China.",
-    "fonte": "Fortune",
-    "link": "https://fortune.com/2026/11/16/war-room-jensen-huang-nvidia-treasury-scott-bessent/"
-   },
-   {
-    "titulo": "Anthropic prepara estreia na bolsa, e Nvidia divulga balanço",
-    "resumo": "A Anthropic, dona do Claude, deve definir o preço de suas ações nesta quarta e estrear na Nasdaq na quinta, com valor estimado entre 1,3 e 1,45 trilhão de dólares. Na mesma semana, a Nvidia apresenta seu primeiro balanço depois da saída de Jensen Huang.",
-    "fonte": "Yahoo Finance",
-    "link": "https://finance.yahoo.com/markets/article/nvidias-first-post-jensen-earnings-and-anthropics-ipo-what-to-watch-this-week-110000732.html"
-   },
-   {
-    "titulo": "Pix faz seis anos e passa de um bilhão de chaves",
-    "resumo": "O Pix completou seis anos com mais de um bilhão de chaves cadastradas e mais de 150 milhões de usuários no Brasil. Só em setembro foram 7,1 bilhões de transações.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/16/pro/pix-completa-6-anos-com-mais-de-1-bilhao-de-chaves-cadastradas/"
-   },
-   {
-    "titulo": "Galaxy S27 deve ficar mais caro por causa da memória",
-    "resumo": "Segundo rumores, a próxima linha de celulares topo de linha da Samsung deve custar cerca de 100 dólares a mais por causa da alta no preço da memória. A empresa pode compensar oferecendo o dobro de armazenamento na pré-venda.",
-    "fonte": "Canaltech",
-    "link": "https://canaltech.com.br/smartphone/galaxy-s27-vai-ficar-mais-caro-mas-samsung-da-armazenamento-em-dobro-de-graca/"
-   },
-   {
-    "titulo": "Três em cada quatro brasileiros aprovam tecnologia chinesa, diz pesquisa",
-    "resumo": "Uma pesquisa da Ipsos mostra que 75% dos brasileiros têm uma visão positiva da tecnologia feita na China, contra 69% no ano passado. O estudo foi encomendado por uma fabricante chinesa de celulares.",
-    "fonte": "Canaltech",
-    "link": "https://canaltech.com.br/produtos/brasileiros-perderam-o-preconceito-com-tecnologia-chinesa-veja-pesquisa/"
-   }
-  ],
-  "ciencia": [
-   {
-    "titulo": "Butantan lança centro para tratar sequelas de dengue e chikungunya",
-    "resumo": "O Instituto Butantan criou um centro que vai estudar por que dores e inflamações continuam depois de doenças como dengue, zika e chikungunya. A meta é chegar a novos tratamentos e até a candidatas a vacinas em cinco anos, com apoio da FAPESP.",
-    "fonte": "Agência FAPESP",
-    "link": "https://agencia.fapesp.br/butantan-cria-centro-para-combater-sequelas-de-dengue-chikungunya-e-outras-arboviroses/59620"
-   },
-   {
-    "titulo": "Pedras do fundo do mar abrigam pequenos animais desconhecidos",
-    "resumo": "Cientistas alemães acharam milhares de animais microscópicos vivendo dentro de nódulos metálicos no fundo do Oceano Pacífico, e uma única pedra tinha 245 deles. Eles alertam que a mineração em águas profundas pode destruir esse ambiente.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261114202133.htm"
-   },
-   {
-    "titulo": "NASA diz que El Niño de 2026 pode superar o de 1997",
-    "resumo": "Dados de satélite mostram água quente no Pacífico chegando até a costa da América do Sul, de forma parecida com o El Niño histórico de 1997. A agência dos Estados Unidos estima grande chance de um fenômeno forte no começo de 2027.",
-    "fonte": "ScienceDaily (NASA Earth Observatory)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261114202227.htm"
-   },
-   {
-    "titulo": "Vitamina C pode reduzir substâncias ligadas ao câncer no estômago",
-    "resumo": "Uma simulação feita por pesquisadores do Canadá indica que a vitamina C, ingerida junto com alimentos ricos em nitratos, diminui a formação de compostos associados ao câncer. Os autores avisam que ainda faltam testes em pessoas para confirmar o efeito.",
-    "fonte": "ScienceDaily (Universidade de Waterloo)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261114202236.htm"
-   },
-   {
-    "titulo": "Dinossauros do litoral podem ter comido algas marinhas",
-    "resumo": "A análise química de dentes fósseis da América do Norte sugere que dinossauros que viviam perto do mar, há cerca de 100 milhões de anos, completavam a dieta com algas. Só uma das espécies estudadas parece ter comido apenas plantas terrestres.",
-    "fonte": "ScienceDaily (Frontiers)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261112230502.htm"
-   }
-  ],
-  "astronomia": [
-   {
-    "titulo": "Chuva de meteoros Leônidas chega ao pico nesta terça",
-    "resumo": "O pico das Leônidas é na noite de 17 de novembro, e a melhor hora para ver do Brasil é a madrugada até o amanhecer do dia 18, olhando para o leste, na direção da constelação de Leão. No Hemisfério Sul, poucos meteoros devem aparecer, e a taxa só passa de dez por hora em céu bem escuro.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/curiosidades/2026/11/16/esta-chegando-o-pico-da-chuva-de-meteoros-leonidas-restos-de-cometa-cruzam-o-ceu-a-70-km-por-segundo-por-volta-de-17-de-novembro/"
-   },
-   {
-    "titulo": "Torre da SpaceX agarra nave Starship pela primeira vez",
-    "resumo": "No voo 15, a nave Starship deu cerca de 14 voltas na Terra e voltou ao Texas no sábado, onde foi capturada pelos braços da torre de lançamento, algo inédito. O propulsor, porém, desistiu da captura e foi destruído antes de cair no mar.",
-    "fonte": "SpaceQ",
-    "link": "https://spaceq.ca/starship-flight-15-ship-catch-booster-lost/"
-   },
-   {
-    "titulo": "Foguete Vulcan falha e destrói 40 satélites da Amazon",
-    "resumo": "O foguete Vulcan, da empresa americana ULA, teve um problema cerca de dez minutos depois de decolar da Flórida no domingo e não chegou à órbita. É a primeira falha total da empresa, e os 40 satélites de internet da Amazon a bordo foram perdidos.",
-    "fonte": "Spaceflight Now",
-    "link": "https://spaceflightnow.com/2026/11/15/ula-suffers-first-total-mission-failure-with-loss-of-vulcan-rocket-carrying-40-amazon-leo-satellites/"
-   },
-   {
-    "titulo": "Asteroide de aceleração estranha pode ser sonda soviética perdida",
-    "resumo": "O pequeno objeto 1998 KY26, de uns 11 metros, muda de trajetória de um jeito que a gravidade sozinha não explica. Um grupo de Harvard sugere que seja a sonda soviética Phobos 1, perdida em 1988, mas outros cientistas acham que é apenas uma rocha espacial.",
-    "fonte": "Euronews",
-    "link": "https://pt.euronews.com/2026/11/15/misterio-no-espaco-objeto-acelera-de-forma-estranha-e-pode-ser-sonda-sovietica-perdida"
-   },
-   {
-    "titulo": "Foguete Electron, da Rocket Lab, completa cem lançamentos",
-    "resumo": "A empresa Rocket Lab fez o centésimo lançamento do foguete Electron na Nova Zelândia. O foguete levou à órbita um satélite de radar de uma empresa japonesa, que já fez o primeiro contato.",
-    "fonte": "NewSpace Economy",
-    "link": "https://newspaceeconomy.ca/2026/11/14/electron-100th-launch-iqps-yamatsumi-ii/"
-   }
-  ],
-  "filosofia": [
-   {
-    "titulo": "UFSC recebe o maior encontro de filosofia da América Latina",
-    "resumo": "De 16 a 20 de novembro, o XXI Encontro da Anpof reúne mais de 2.500 pesquisadores em Florianópolis, com cerca de 80 lançamentos de livros. A teóloga e filósofa Ivone Gebara faz a conferência de abertura, e a entrada é gratuita.",
-    "fonte": "Apufsc",
-    "link": "https://www.apufsc.org.br/2026/11/12/ufsc-sedia-maior-encontro-de-pesquisadores-de-filosofia-da-america-latina/"
-   },
-   {
-    "titulo": "Lúcia Helena Galvão fala sobre o valor do tempo em Fortaleza",
-    "resumo": "A filósofa Lúcia Helena Galvão deu palestra na segunda, dia 16, em Fortaleza, dentro da programação do Dia Mundial da Filosofia. Inspirada no estoicismo, ela defende que o problema não é a falta de horas, e sim a pouca atenção ao jeito como usamos o tempo.",
-    "fonte": "GCMAIS",
-    "link": "https://gcmais.com.br/noticias/2026/11/16/fortaleza-recebe-palestra-de-lucia-helena-galvao-sobre-o-valor-do-tempo-e-o-sentido-da-vida"
-   },
-   {
-    "titulo": "Porto Velho teve evento gratuito sobre filosofia e ciência",
-    "resumo": "A escola Nova Acrópole promoveu no sábado, dia 14, um encontro gratuito no centro de Porto Velho sobre a relação entre filosofia e ciência. A atividade fez parte das comemorações do Dia Mundial da Filosofia, nesta quinta, 19.",
-    "fonte": "Rondoniaovivo",
-    "link": "https://www.rondoniaovivo.com/noticia/geral/2026/11/12/em-porto-velho-dia-da-filosofia-tera-programacao-gratuita-com-dialogo-entre-filosofia-e-ciencia.html"
-   },
-   {
-    "titulo": "Brasília celebrou o Dia Mundial da Filosofia com painel solidário",
-    "resumo": "Um painel com palestras sobre saúde, autoconhecimento e mitologia, além de uma orquestra jovem, foi marcado para o sábado, dia 14, na Asa Norte. O valor arrecadado vai para um projeto que atende crianças do Varjão, do Paranoá e do Itapoã.",
-    "fonte": "Correio Braziliense",
-    "link": "https://www.correiobraziliense.com.br/cidades-df/2026/11/7535834-dia-mundial-da-filosofia-tera-programacao-especial-em-brasilia.html"
-   }
-  ],
-  "livros": [
-   {
-    "titulo": "Prêmio São Paulo de Literatura anuncia os 20 finalistas de 2026",
-    "resumo": "Milton Hatoum, Cristovão Tezza e Aline Bei estão entre os finalistas das categorias de romance e de romance de estreia. Cada vencedor vai receber 200 mil reais, e o resultado sai em 15 de dezembro.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/16/premio-sp-finalistas-26/"
-   },
-   {
-    "titulo": "Feira do Livro de Porto Alegre termina com mais de 260 mil livros vendidos",
-    "resumo": "A 72ª edição da feira terminou no domingo, na Praça da Alfândega, depois de 17 dias. As vendas cresceram 6,2% em relação ao ano passado.",
-    "fonte": "Jornal do Comércio",
-    "link": "https://www.jornaldocomercio.com/cultura/2026/11/1270568-72-feira-do-livro-de-porto-alegre-chega-ao-fim-com-mais-de-260-mil-livros-vendidos.html"
-   },
-   {
-    "titulo": "Stephanie Garber assume o topo dos livros mais vendidos",
-    "resumo": "Um novo livro da série Era uma vez um coração partido mais que dobrou as vendas e ficou em primeiro lugar na lista Nielsen-PublishNews. Os imortais, de Paulliny Tort, também alcançou sua melhor posição até agora.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/16/stephanie-garber-dobra-as-vendas-e-assume-a-lideranca-da-lista-nielsen-publishnews/"
-   },
-   {
-    "titulo": "Romance Vento em Setembro, de Tony Bellotto, vai virar filme",
-    "resumo": "O livro do escritor e guitarrista dos Titãs vai ser adaptado para o cinema pelo diretor Murilo Salles. A história é um suspense que se passa nos anos 1970, no interior de São Paulo.",
-    "fonte": "Diário do Grande ABC",
-    "link": "https://www.dgabc.com.br/Noticia/4369183/livro-premiado-de-tony-bellotto-vento-em-setembro-vai-virar-filme-conheca-detalhes"
-   },
-   {
-    "titulo": "Editora brasileira fecha parcerias com duas editoras de Portugal",
-    "resumo": "O Grupo Pioneira Editorial fez acordos com duas editoras portuguesas para publicar e distribuir livros nos dois países. A ideia é levar autores brasileiros para fora e trazer autores portugueses para o Brasil.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/16/pioneira-em-portugal/"
-   }
-  ]
- }
+  "gerado": "2026-11-17T22:50:18-03:00",
+  "assuntos": {
+    "cana": [
+      {
+        "titulo": "Usinas de cana terão a menor margem em dez anos",
+        "resumo": "O Itaú BBA calcula que a margem das usinas do Centro-Sul cai para cerca de 23% na safra 2026/27, por causa dos preços baixos do açúcar e do etanol. O banco espera recuperação em 2027/28, com preços cerca de 10% maiores.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/usinas-de-cana-devem-ter-a-menor-margem-operacional-em-dez-anos-projeta-itau-bba"
+      },
+      {
+        "titulo": "Etanol sobe com demanda forte, açúcar recua em São Paulo",
+        "resumo": "Segundo o Cepea, a procura por etanol hidratado esquentou com a redução de PIS e Cofins mantida até 9 de dezembro, e os preços subiram. Já o açúcar cristal teve negócios lentos e preços um pouco menores na semana.",
+        "fonte": "Canal Rural",
+        "link": "https://www.canalrural.com.br/etanol-acucar/etanol-sobe-com-demanda-aquecida-mas-acucar-perde-valor-em-sao-paulo/"
+      },
+      {
+        "titulo": "Etanol fica mais caro nos postos e nas usinas",
+        "resumo": "O preço médio do etanol nas bombas subiu 2,4% e chegou a R$ 4,25 por litro, enquanto a gasolina foi para R$ 6,48. Mesmo assim, o etanol ainda compensa em dez estados e no Distrito Federal.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/precos-nos-postos-etanol-sobe-nas-bombas-e-nas-usinas-gasolina-tambem-tem-alta"
+      },
+      {
+        "titulo": "Diretor da Jalles alerta para perda de competitividade do etanol de cana",
+        "resumo": "O diretor financeiro da Jalles disse que o etanol de cana pode virar quase um subproduto do açúcar se não ganhar eficiência. Hoje ele custa de 15% a 20% mais que o etanol de milho.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/se-nao-ganhar-eficiencia-etanol-de-cana-pode-virar-subproduto-do-acucar-diz-cfo-da-jalles"
+      },
+      {
+        "titulo": "Mercado de capitais ganha peso na dívida das usinas, diz Rabobank",
+        "resumo": "Segundo o Rabobank, a parte da dívida das empresas sucroenergéticas vinda do mercado de capitais subiu de 24% para 37% em quatro safras. O banco pediu alternativas de crédito, já que esse mercado ficou mais fechado para o agro.",
+        "fonte": "novaCana",
+        "link": "https://www.novacana.com/noticias/rabobank-aponta-principais-diferencas-entre-as-sucroenergeticas-resilientes-e-as-sob-pressao"
+      }
+    ],
+    "politica": [
+      {
+        "titulo": "Senado adia para quarta a votação final do ajuste fiscal",
+        "resumo": "O presidente do Senado, Davi Alcolumbre, passou para quarta-feira a análise dos destaques do projeto de ajuste fiscal, a pedido do relator Eduardo Braga, por falta de acordo.",
+        "fonte": "Agência Brasil",
+        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/senado-adia-votacao-de-destaques-do-projeto-de-ajuste-fiscal"
+      },
+      {
+        "titulo": "Fachin diz que STF pode julgar Lei da Dosimetria este ano",
+        "resumo": "O presidente do Supremo, Edson Fachin, afirmou que a Corte pode julgar as ações sobre a Lei da Dosimetria ainda em 2026, se o relator Alexandre de Moraes liberar os processos. O sinal veio após pedido de Hugo Motta e Davi Alcolumbre.",
+        "fonte": "Gazeta do Povo",
+        "link": "https://www.gazetadopovo.com.br/republica/fachin-diz-que-stf-pode-julgar-lei-da-dosimetria-neste-ano-se-moraes-liberar-acoes/"
+      },
+      {
+        "titulo": "Governo retira urgência do projeto sobre bets para liberar pauta",
+        "resumo": "Num acordo com a Câmara, o governo retirou a urgência do projeto que torna crime a exploração ilegal de bets, o que destrancou a pauta. Assim, os deputados podem votar o ajuste fiscal e o projeto sobre mercados digitais.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/politica/governo-retira-urgencia-de-projeto-sobre-bets-e-destrava-pauta-da-camara/"
+      },
+      {
+        "titulo": "Lula volta ao Brasil e retoma escolha de ministros",
+        "resumo": "O presidente Lula voltou ao país depois de passar por Turquia, Filipinas e Espanha e deve acelerar as conversas sobre a equipe do novo mandato. O Planalto quer concluir as escolhas até o fim de novembro.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/politica/lula-volta-ao-brasil-e-deve-retomar-negociacoes-para-novo-governo/"
+      },
+      {
+        "titulo": "Governo retoma indicação para vaga aberta no STF",
+        "resumo": "O Planalto voltou a tratar da indicação para a vaga aberta no Supremo e quer a sabatina no Senado no início de dezembro. Há dúvida se o nome de Jorge Messias pode ser reapresentado no mesmo ano.",
+        "fonte": "Alagoas 24 Horas",
+        "link": "https://www.alagoas24horas.com.br/1775213/lula-retoma-indicacao-ao-stf-e-sabatina-deve-acontecer-em-dezembro/"
+      }
+    ],
+    "tecnologia": [
+      {
+        "titulo": "Serviços da Apple ficam instáveis no mundo todo, inclusive no Brasil",
+        "resumo": "Na tarde de terça-feira, iCloud, Apple Pay, Apple Music e a loja da Apple tiveram problemas, e muita gente foi desconectada da conta. A Apple confirmou a falha e disse que trabalha para normalizar os sistemas.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/economia/money/tecnologia/apagao-na-apple-falha-causa-instabilidade-em-varios-servicos-da-empresa/"
+      },
+      {
+        "titulo": "Nova regra dos EUA para chips de IA também atinge o Brasil",
+        "resumo": "O governo americano passou a exigir autorização para revender placas de inteligência artificial em países como Brasil, Singapura e Malásia, para evitar que cheguem à China. Analistas dizem que isso favorece empresas americanas que atuam aqui.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/economia/money/inteligencia-artificial/analise-regras-dos-eua-devem-beneficiar-empresas-americanas-no-brasil/"
+      },
+      {
+        "titulo": "Câmara adia votação do projeto que regula o poder das big techs",
+        "resumo": "A votação do projeto sobre mercados digitais, que daria ao Cade mais poder sobre grandes plataformas, foi adiada. O presidente da Câmara, Hugo Motta, disse que ainda falta consenso e a nova data deve ficar para a próxima semana.",
+        "fonte": "Desinformante",
+        "link": "https://desinformante.com.br/camara-adia-votacao-projeto-poder-economico-big-techs"
+      },
+      {
+        "titulo": "Nvidia divulga balanço com CEO interina após saída de Jensen Huang",
+        "resumo": "A Nvidia apresentou o resultado do trimestre, o primeiro com Colette Kress no comando interino, depois que Jensen Huang deixou o cargo na semana passada. Investidores acompanham as dúvidas sobre o ritmo dos gastos com inteligência artificial.",
+        "fonte": "CNN Brasil",
+        "link": "https://www.cnnbrasil.com.br/economia/money/tecnologia/quem-e-colette-kress-ceo-interina-da-nvidia-apos-saida-de-jensen-huang/"
+      },
+      {
+        "titulo": "Pix faz seis anos e prepara pagamento sem internet",
+        "resumo": "O Pix completou seis anos com mais de 1 bilhão de chaves e 76 bilhões de transações neste ano até outubro. Para 2027, estão previstos o pagamento por aproximação sem internet e novas ferramentas contra fraudes.",
+        "fonte": "Mobile Time",
+        "link": "https://www.mobiletime.com.br/noticias/16/11/2026/pix-seis-anos-76-bi-tran/"
+      }
+    ],
+    "ciencia": [
+      {
+        "titulo": "Proteína funciona como botão que desliga defesas contra o câncer",
+        "resumo": "Cientistas da Mayo Clinic descobriram que a proteína TRAILshort impede as células de defesa de atacar tumores e células infectadas. Em testes de laboratório, bloquear essa proteína devolveu força ao sistema imune.",
+        "fonte": "Mayo Clinic News Network",
+        "link": "https://newsnetwork.mayoclinic.org/pt/2026/11/17/pesquisadores-descobrem-interruptor-de-desligamento-imunologico-usado-por-celulas-cancerosas/"
+      },
+      {
+        "titulo": "Remédios como Ozempic podem ajudar a proteger a memória",
+        "resumo": "Uma revisão publicada na revista Science sugere que esses remédios para obesidade e diabetes podem ajudar a preservar o raciocínio se o tratamento começar cedo. Os autores dizem que ainda faltam estudos para confirmar.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/11/261116023401.htm"
+      },
+      {
+        "titulo": "Estudo finlandês de oito anos surpreende sobre crianças e telas",
+        "resumo": "Crianças que passavam mais tempo nas telas tiveram melhor desempenho em alguns testes mentais na adolescência. Os pesquisadores acham que o tipo de atividade importa mais do que as horas, mas o estudo não prova causa e efeito.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/11/261116014725.htm"
+      },
+      {
+        "titulo": "Molécula natural trata disfunção causada pela obesidade em camundongos",
+        "resumo": "Pesquisadores da Unicamp deram guanosina por via oral a camundongos obesos e o tecido responsável pela ereção voltou a funcionar melhor. O estudo foi feito só em animais e ainda não vale para pessoas.",
+        "fonte": "Agência FAPESP",
+        "link": "https://agencia.fapesp.br/molecula-melhora-alteracoes-ligadas-a-disfuncao-eretil-causadas-pela-obesidade/59628"
+      },
+      {
+        "titulo": "Orca gigante caçava presas grandes no Mar do Norte",
+        "resumo": "Fósseis puxados por redes de pesca mostram uma parente da orca com até 7,7 metros, que viveu há cerca de 2 milhões de anos. É a prova mais antiga de golfinhos que caçavam animais grandes.",
+        "fonte": "Sci.News",
+        "link": "https://www.sci.news/paleontology/pleistocene-killer-whale-15202.html"
+      }
+    ],
+    "astronomia": [
+      {
+        "titulo": "Chuva de meteoros Leônidas chega ao pico nesta semana",
+        "resumo": "O pico das Leônidas foi na noite de 17 de novembro, mas ainda vale olhar de madrugada para o leste, em lugar escuro. Do Brasil aparecem poucos meteoros por hora, e não precisa de telescópio.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/curiosidades/2026/11/16/esta-chegando-o-pico-da-chuva-de-meteoros-leonidas-restos-de-cometa-cruzam-o-ceu-a-70-km-por-segundo-por-volta-de-17-de-novembro/"
+      },
+      {
+        "titulo": "Torre da SpaceX agarra a Starship no ar pela primeira vez",
+        "resumo": "No 15º voo, a nave Starship voltou da órbita e foi capturada pelos braços mecânicos da torre de lançamento. A SpaceX avançou, mas ainda tem desafios para reaproveitar o foguete inteiro.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/16/ciencia-e-espaco/captura-inedita-da-starship-mostra-ate-onde-a-spacex-chegou-e-o-que-ainda-falta-resolver"
+      },
+      {
+        "titulo": "NASA vai encerrar o satélite Terra depois de 27 anos",
+        "resumo": "O satélite Terra, lançado em 1999 para durar seis anos, para de coletar dados em 1º de dezembro e será desligado em janeiro. Os dados sobre queimadas, gelo e atmosfera continuam abertos a todos.",
+        "fonte": "NASA",
+        "link": "https://science.nasa.gov/blogs/science-news/2026/11/17/nasas-terra-mission-to-end/"
+      },
+      {
+        "titulo": "Astronautas imprimem tecido humano em 3D na Estação Espacial",
+        "resumo": "A astronauta Jessica Watkins fez um experimento que imprime em 3D tecidos de fígado, rim e cartilagem com células vivas. A ideia é que isso ajude pacientes no espaço e na Terra no futuro.",
+        "fonte": "Space.com",
+        "link": "https://www.space.com/space-exploration/international-space-station/iss-astronauts-3d-print-human-cells-and-tissues-space-photo-of-the-day-for-nov-17-2026"
+      },
+      {
+        "titulo": "Avião espacial Dream Chaser pode finalmente voar em 2027",
+        "resumo": "A agência de aviação dos Estados Unidos aprovou a volta à Terra do Dream Chaser, da Sierra Space. O primeiro voo de teste, sem tripulação, deve acontecer em 2027, após muitos anos de atraso.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/16/ciencia-e-espaco/apos-decadas-de-atrasos-aviao-espacial-pode-finalmente-estrear-em-2027"
+      }
+    ],
+    "filosofia": [
+      {
+        "titulo": "Thomas Nagel ganha prêmio de um milhão de dólares",
+        "resumo": "O Instituto Berggruen premiou o filósofo americano Thomas Nagel, conhecido pelo ensaio sobre como seria ser um morcego e pelos estudos sobre a consciência. A entrega será na primavera, em Nova York.",
+        "fonte": "PR Newswire (Instituto Berggruen)",
+        "link": "https://www.prnewswire.com/br/comunicados-para-a-imprensa/o-premio-berggruen-de-filosofia-e-cultura-no-valor-de-1-milhao-de-dolares-foi-concedido-a-thomas-nagel-302940829.html"
+      },
+      {
+        "titulo": "UNESCO celebra o Dia Mundial da Filosofia nesta quinta",
+        "resumo": "O Dia Mundial da Filosofia é em 19 de novembro, e a UNESCO, em Paris, recebe uma palestra do filósofo senegalês Souleymane Bachir Diagne. Estudantes também vão debater clima, inteligência artificial e migrações.",
+        "fonte": "UNESCO",
+        "link": "https://www.unesco.org/en/articles/world-philosophy-day-2026"
+      },
+      {
+        "titulo": "Colóquio na UFPA lembra a passagem de Foucault por Belém",
+        "resumo": "Nos cem anos de nascimento de Michel Foucault e cinquenta anos de sua visita a Belém, a UFPA faz um colóquio de 23 a 25 de novembro. Os debates ligam as ideias do filósofo à realidade da Amazônia.",
+        "fonte": "O Liberal",
+        "link": "https://www.oliberal.com/cultura/coloquio-na-ufpa-discute-pensamento-de-michel-foucault-e-sua-relacao-com-belem-1.1195249"
+      },
+      {
+        "titulo": "Textos de David Hume ganham nova tradução brasileira",
+        "resumo": "A editora Hedra lança uma coletânea de textos de David Hume traduzidos por Jaimir Conte, com ensaios sobre as paixões e a imortalidade da alma. O lançamento foi na UFSC, em Florianópolis.",
+        "fonte": "ANPOF",
+        "link": "https://anpof.org.br/agenda/lancamentos-de-livros/lancamento-do-livro-sobre-as-paixoes-e-outros-textos-de-david-hume-traducao-e-organizacao-de-jaimir-conte"
+      },
+      {
+        "titulo": "Estudante da Ufal lança livro sobre pensamento negro",
+        "resumo": "Laís Emília Santos da Silva, aluna de Filosofia da Ufal, publica um livro que defende as pessoas negras como produtoras de pensamento filosófico. O lançamento será em 30 de novembro, em Maceió.",
+        "fonte": "Tribuna do Agreste",
+        "link": "https://www.tribunadoagreste.com.br/alagoas/2026/11/13/1020952-graduanda-de-filosofia-da-ufal-lanca-livro-sobre-pensamento-negro-e-vivencias-perifericas"
+      }
+    ],
+    "livros": [
+      {
+        "titulo": "Prêmio São Paulo de Literatura anuncia os 20 finalistas de 2026",
+        "resumo": "Vinte romances concorrem nas categorias Melhor Romance e Melhor Romance de Estreia, com nomes como Milton Hatoum, Cristovão Tezza e Eliana Alves Cruz. Cada vencedor leva 200 mil reais, e o resultado sai em 15 de dezembro.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/16/premio-sp-finalistas-26/"
+      },
+      {
+        "titulo": "Vencedores do Jabuti conversam com o público em São Paulo",
+        "resumo": "Cinco premiados do Jabuti 2026, entre eles Humberto Werneck, participam de um bate-papo gratuito no Centro Cultural Fiesp nesta quarta, às 19h30. No fim, haverá sessão de autógrafos.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/17/vencedores-jabuti-fiesp/"
+      },
+      {
+        "titulo": "Stephanie Garber chega ao topo da lista de mais vendidos",
+        "resumo": "O livro O espelho dos finais infinitos, de Stephanie Garber, mais que dobrou as vendas e assumiu o primeiro lugar da lista Nielsen-PublishNews. Os imortais, de Paulliny Tort, também entrou no ranking.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/16/stephanie-garber-dobra-as-vendas-e-assume-a-lideranca-da-lista-nielsen-publishnews/"
+      },
+      {
+        "titulo": "Editora Vida lança prêmio de ficção cristã com 60 mil reais",
+        "resumo": "O primeiro Prêmio Brasileiro de Ficção Cristã vai dar até 30 mil reais ao primeiro lugar e publicar os três vencedores. As inscrições vão até 28 de fevereiro de 2027, e é proibido usar inteligência artificial na escrita.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/16/premio-ficcao-crista-60/"
+      },
+      {
+        "titulo": "Estudo mostra que informações completas ajudam a vender livros",
+        "resumo": "Um relatório da NielsenIQ BookData sobre o mercado britânico concluiu que livros com dados de catálogo mais completos vendem mais. Títulos com sinopse longa venderam, em média, mais que o dobro.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/16/estudo-relaciona-bons-metadados-com-aumento-nas-vendas-de-livros/"
+      }
+    ]
+  }
 }
