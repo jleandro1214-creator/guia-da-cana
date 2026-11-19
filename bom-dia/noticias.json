@@ -1,228 +1,180 @@
 {
-  "gerado": "2026-11-17T22:50:18-03:00",
+  "gerado": "2026-11-18T22:45:12-03:00",
   "assuntos": {
     "cana": [
       {
-        "titulo": "Usinas de cana terão a menor margem em dez anos",
-        "resumo": "O Itaú BBA calcula que a margem das usinas do Centro-Sul cai para cerca de 23% na safra 2026/27, por causa dos preços baixos do açúcar e do etanol. O banco espera recuperação em 2027/28, com preços cerca de 10% maiores.",
-        "fonte": "novaCana",
-        "link": "https://www.novacana.com/noticias/usinas-de-cana-devem-ter-a-menor-margem-operacional-em-dez-anos-projeta-itau-bba"
-      },
-      {
-        "titulo": "Etanol sobe com demanda forte, açúcar recua em São Paulo",
-        "resumo": "Segundo o Cepea, a procura por etanol hidratado esquentou com a redução de PIS e Cofins mantida até 9 de dezembro, e os preços subiram. Já o açúcar cristal teve negócios lentos e preços um pouco menores na semana.",
+        "titulo": "Etanol sobe em São Paulo com procura forte",
+        "resumo": "O preço do etanol hidratado subiu em São Paulo, puxado pela demanda e pela redução de PIS e Cofins mantida até 9 de dezembro, segundo o Cepea. Já o açúcar cristal teve poucos negócios e preços em queda.",
         "fonte": "Canal Rural",
         "link": "https://www.canalrural.com.br/etanol-acucar/etanol-sobe-com-demanda-aquecida-mas-acucar-perde-valor-em-sao-paulo/"
       },
       {
-        "titulo": "Etanol fica mais caro nos postos e nas usinas",
-        "resumo": "O preço médio do etanol nas bombas subiu 2,4% e chegou a R$ 4,25 por litro, enquanto a gasolina foi para R$ 6,48. Mesmo assim, o etanol ainda compensa em dez estados e no Distrito Federal.",
-        "fonte": "novaCana",
-        "link": "https://www.novacana.com/noticias/precos-nos-postos-etanol-sobe-nas-bombas-e-nas-usinas-gasolina-tambem-tem-alta"
+        "titulo": "Jalles alerta que etanol de cana precisa ganhar eficiência",
+        "resumo": "Em evento do BTG, o diretor financeiro da Jalles disse que o etanol de cana pode virar quase um subproduto do açúcar se não ficar mais eficiente diante do avanço do etanol de milho. Ele contou que a empresa tem um projeto de milho guardado, travado pelos juros altos.",
+        "fonte": "Money Times",
+        "link": "https://moneytimes.com.br/se-nao-ganhar-eficiencia-etanol-cana-pode-virar-subproduto-acucar-diz-cfo-jalles-jall3-pads"
       },
       {
-        "titulo": "Diretor da Jalles alerta para perda de competitividade do etanol de cana",
-        "resumo": "O diretor financeiro da Jalles disse que o etanol de cana pode virar quase um subproduto do açúcar se não ganhar eficiência. Hoje ele custa de 15% a 20% mais que o etanol de milho.",
-        "fonte": "novaCana",
-        "link": "https://www.novacana.com/noticias/se-nao-ganhar-eficiencia-etanol-de-cana-pode-virar-subproduto-do-acucar-diz-cfo-da-jalles"
-      },
-      {
-        "titulo": "Mercado de capitais ganha peso na dívida das usinas, diz Rabobank",
-        "resumo": "Segundo o Rabobank, a parte da dívida das empresas sucroenergéticas vinda do mercado de capitais subiu de 24% para 37% em quatro safras. O banco pediu alternativas de crédito, já que esse mercado ficou mais fechado para o agro.",
-        "fonte": "novaCana",
-        "link": "https://www.novacana.com/noticias/rabobank-aponta-principais-diferencas-entre-as-sucroenergeticas-resilientes-e-as-sob-pressao"
+        "titulo": "Açúcar acumula alta de cerca de 25% em 2026",
+        "resumo": "Segundo a seguradora Coface, o açúcar chegou ao maior preço em quase dois anos, passando de 450 dólares a tonelada em outubro. Entre os motivos estão o clima, o desvio de cana para etanol no Brasil e as regras da Índia.",
+        "fonte": "Executive Digest",
+        "link": "https://executivedigest.sapo.pt/precos-do-acucar-sobem-cerca-de-25-em-2026-e-atingem-maximos-de-quase-dois-anos/"
       }
     ],
     "politica": [
       {
-        "titulo": "Senado adia para quarta a votação final do ajuste fiscal",
-        "resumo": "O presidente do Senado, Davi Alcolumbre, passou para quarta-feira a análise dos destaques do projeto de ajuste fiscal, a pedido do relator Eduardo Braga, por falta de acordo.",
-        "fonte": "Agência Brasil",
-        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/senado-adia-votacao-de-destaques-do-projeto-de-ajuste-fiscal"
+        "titulo": "Senado aprova ajuste fiscal e texto vai à Câmara",
+        "resumo": "O Senado aprovou na quarta-feira o projeto de ajuste fiscal do governo por 69 votos a 2, com acordo que dobra o repasse anual da Lei Kandir aos estados. A Câmara deve votar a proposta na próxima semana.",
+        "fonte": "Estado de Minas",
+        "link": "https://www.em.com.br/politica/2026/11/7540867-com-alteracoes-senado-aprova-projeto-de-ajuste-fiscal-das-contas-publicas.html"
       },
       {
-        "titulo": "Fachin diz que STF pode julgar Lei da Dosimetria este ano",
-        "resumo": "O presidente do Supremo, Edson Fachin, afirmou que a Corte pode julgar as ações sobre a Lei da Dosimetria ainda em 2026, se o relator Alexandre de Moraes liberar os processos. O sinal veio após pedido de Hugo Motta e Davi Alcolumbre.",
-        "fonte": "Gazeta do Povo",
-        "link": "https://www.gazetadopovo.com.br/republica/fachin-diz-que-stf-pode-julgar-lei-da-dosimetria-neste-ano-se-moraes-liberar-acoes/"
+        "titulo": "Senado rejeita mudanças da oposição no ajuste fiscal",
+        "resumo": "Os senadores derrubaram os destaques que tentavam alterar o texto. A economia estimada para 2027 fica entre 45 e 56 bilhões de reais, segundo a reportagem.",
+        "fonte": "ConJur",
+        "link": "https://conjur.com.br/2026-nov-18/senado-rejeita-mudancas-no-texto-e-aprova-ajuste-fiscal-do-governo/"
       },
       {
-        "titulo": "Governo retira urgência do projeto sobre bets para liberar pauta",
-        "resumo": "Num acordo com a Câmara, o governo retirou a urgência do projeto que torna crime a exploração ilegal de bets, o que destrancou a pauta. Assim, os deputados podem votar o ajuste fiscal e o projeto sobre mercados digitais.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/governo-retira-urgencia-de-projeto-sobre-bets-e-destrava-pauta-da-camara/"
+        "titulo": "Lula e Alcolumbre discutem indicação para vaga no STF",
+        "resumo": "O presidente Lula deve se reunir com o presidente do Senado, Davi Alcolumbre, para tratar do nome que ocupará a vaga de Barroso no Supremo. O governo quer definir a indicação até o fim de novembro.",
+        "fonte": "TV Sim Brasil",
+        "link": "https://tvsimbrasil.com.br/brasil/politica/noticia/2026/11/17/lula-reune-alcolumbre-fechar-nome-stf"
       },
       {
-        "titulo": "Lula volta ao Brasil e retoma escolha de ministros",
-        "resumo": "O presidente Lula voltou ao país depois de passar por Turquia, Filipinas e Espanha e deve acelerar as conversas sobre a equipe do novo mandato. O Planalto quer concluir as escolhas até o fim de novembro.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/politica/lula-volta-ao-brasil-e-deve-retomar-negociacoes-para-novo-governo/"
-      },
-      {
-        "titulo": "Governo retoma indicação para vaga aberta no STF",
-        "resumo": "O Planalto voltou a tratar da indicação para a vaga aberta no Supremo e quer a sabatina no Senado no início de dezembro. Há dúvida se o nome de Jorge Messias pode ser reapresentado no mesmo ano.",
-        "fonte": "Alagoas 24 Horas",
-        "link": "https://www.alagoas24horas.com.br/1775213/lula-retoma-indicacao-ao-stf-e-sabatina-deve-acontecer-em-dezembro/"
+        "titulo": "Câmara adia votação do projeto que regula big techs",
+        "resumo": "A Câmara adiou a análise do projeto que trata da concorrência envolvendo grandes empresas de tecnologia, a pedido de deputados da oposição que queriam mais tempo para estudar o texto.",
+        "fonte": "Mobile Time",
+        "link": "https://www.mobiletime.com.br/noticias/17/11/2026/camara-deputados-adia-pl/"
       }
     ],
     "tecnologia": [
       {
-        "titulo": "Serviços da Apple ficam instáveis no mundo todo, inclusive no Brasil",
-        "resumo": "Na tarde de terça-feira, iCloud, Apple Pay, Apple Music e a loja da Apple tiveram problemas, e muita gente foi desconectada da conta. A Apple confirmou a falha e disse que trabalha para normalizar os sistemas.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/economia/money/tecnologia/apagao-na-apple-falha-causa-instabilidade-em-varios-servicos-da-empresa/"
+        "titulo": "Nvidia fatura 115,8 bilhões de dólares no trimestre",
+        "resumo": "A Nvidia informou receita mais que dobrada em um ano, acima do esperado pelo mercado, puxada pelos chips para data centers. A empresa também previu um próximo trimestre acima das expectativas.",
+        "fonte": "Nvidia",
+        "link": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027"
       },
       {
-        "titulo": "Nova regra dos EUA para chips de IA também atinge o Brasil",
-        "resumo": "O governo americano passou a exigir autorização para revender placas de inteligência artificial em países como Brasil, Singapura e Malásia, para evitar que cheguem à China. Analistas dizem que isso favorece empresas americanas que atuam aqui.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/economia/money/inteligencia-artificial/analise-regras-dos-eua-devem-beneficiar-empresas-americanas-no-brasil/"
+        "titulo": "OpenAI lança novos modelos GPT-6.2 Astra e Sol",
+        "resumo": "A OpenAI apresentou dois modelos: o Astra, para tarefas complexas como programação e pesquisa, e o Sol, para o uso do dia a dia. Os dois já estão no ChatGPT e na plataforma para desenvolvedores.",
+        "fonte": "OpenAI",
+        "link": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
       },
       {
-        "titulo": "Câmara adia votação do projeto que regula o poder das big techs",
-        "resumo": "A votação do projeto sobre mercados digitais, que daria ao Cade mais poder sobre grandes plataformas, foi adiada. O presidente da Câmara, Hugo Motta, disse que ainda falta consenso e a nova data deve ficar para a próxima semana.",
-        "fonte": "Desinformante",
-        "link": "https://desinformante.com.br/camara-adia-votacao-projeto-poder-economico-big-techs"
+        "titulo": "Microsoft leva Word, Excel e PowerPoint para dentro do Copilot",
+        "resumo": "Na conferência Ignite, a Microsoft liberou para todos os aplicativos do Office dentro do Copilot. Satya Nadella chamou o assistente de novo sistema operacional do trabalho.",
+        "fonte": "Ars Technica",
+        "link": "https://arstechnica.com/gadgets/2026/11/microsoft-calls-copilot-the-new-os-for-work-at-ignite-keynote/"
       },
       {
-        "titulo": "Nvidia divulga balanço com CEO interina após saída de Jensen Huang",
-        "resumo": "A Nvidia apresentou o resultado do trimestre, o primeiro com Colette Kress no comando interino, depois que Jensen Huang deixou o cargo na semana passada. Investidores acompanham as dúvidas sobre o ritmo dos gastos com inteligência artificial.",
-        "fonte": "CNN Brasil",
-        "link": "https://www.cnnbrasil.com.br/economia/money/tecnologia/quem-e-colette-kress-ceo-interina-da-nvidia-apos-saida-de-jensen-huang/"
+        "titulo": "Google vai guardar conversas do Gemini por mais tempo",
+        "resumo": "Mesmo com o histórico desligado, as conversas com o Gemini passarão a ficar guardadas por cerca de dois meses, e não mais por 72 horas. A mudança aparece na nova central de privacidade da Google.",
+        "fonte": "TechCrunch",
+        "link": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/"
       },
       {
-        "titulo": "Pix faz seis anos e prepara pagamento sem internet",
-        "resumo": "O Pix completou seis anos com mais de 1 bilhão de chaves e 76 bilhões de transações neste ano até outubro. Para 2027, estão previstos o pagamento por aproximação sem internet e novas ferramentas contra fraudes.",
-        "fonte": "Mobile Time",
-        "link": "https://www.mobiletime.com.br/noticias/16/11/2026/pix-seis-anos-76-bi-tran/"
+        "titulo": "Falha grave no Java é achada com ajuda de IA",
+        "resumo": "Uma empresa de segurança diz ter usado inteligência artificial para encontrar uma falha que permitia rodar código à distância no Java. A Oracle já liberou a correção.",
+        "fonte": "The New York Times",
+        "link": "https://www.nytimes.com/2026/11/17/us/politics/ai-security-bug-java.html"
       }
     ],
     "ciencia": [
       {
-        "titulo": "Proteína funciona como botão que desliga defesas contra o câncer",
-        "resumo": "Cientistas da Mayo Clinic descobriram que a proteína TRAILshort impede as células de defesa de atacar tumores e células infectadas. Em testes de laboratório, bloquear essa proteína devolveu força ao sistema imune.",
-        "fonte": "Mayo Clinic News Network",
-        "link": "https://newsnetwork.mayoclinic.org/pt/2026/11/17/pesquisadores-descobrem-interruptor-de-desligamento-imunologico-usado-por-celulas-cancerosas/"
+        "titulo": "USP identifica gene ligado à defesa contra tuberculose",
+        "resumo": "Pesquisadores de Ribeirão Preto mostraram que o gene CREB3L1 ajuda o corpo a capturar e eliminar a bactéria da tuberculose. A descoberta abre caminho para novos estudos sobre o controle da doença.",
+        "fonte": "Jornal da USP",
+        "link": "https://jornal.usp.br/campus-ribeirao-preto/gene-identificado-em-estudo-ajuda-a-explicar-a-resposta-do-organismo-a-tuberculose/"
       },
       {
-        "titulo": "Remédios como Ozempic podem ajudar a proteger a memória",
-        "resumo": "Uma revisão publicada na revista Science sugere que esses remédios para obesidade e diabetes podem ajudar a preservar o raciocínio se o tratamento começar cedo. Os autores dizem que ainda faltam estudos para confirmar.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/11/261116023401.htm"
-      },
-      {
-        "titulo": "Estudo finlandês de oito anos surpreende sobre crianças e telas",
-        "resumo": "Crianças que passavam mais tempo nas telas tiveram melhor desempenho em alguns testes mentais na adolescência. Os pesquisadores acham que o tipo de atividade importa mais do que as horas, mas o estudo não prova causa e efeito.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/11/261116014725.htm"
-      },
-      {
-        "titulo": "Molécula natural trata disfunção causada pela obesidade em camundongos",
-        "resumo": "Pesquisadores da Unicamp deram guanosina por via oral a camundongos obesos e o tecido responsável pela ereção voltou a funcionar melhor. O estudo foi feito só em animais e ainda não vale para pessoas.",
+        "titulo": "Terapia com luz reduz dor e atrofia em ratos",
+        "resumo": "Um estudo da USP comparou diferentes tipos de luz em ratos com lesão no nervo ciático e viu menos perda muscular e menos sinais de dor. A ideia é padronizar a técnica como tratamento complementar.",
         "fonte": "Agência FAPESP",
-        "link": "https://agencia.fapesp.br/molecula-melhora-alteracoes-ligadas-a-disfuncao-eretil-causadas-pela-obesidade/59628"
+        "link": "https://agencia.fapesp.br/terapia-com-luz-reduz-atrofia-muscular-e-sinais-de-dor-em-ratos-com-lesao-no-ciatico/59644"
       },
       {
-        "titulo": "Orca gigante caçava presas grandes no Mar do Norte",
-        "resumo": "Fósseis puxados por redes de pesca mostram uma parente da orca com até 7,7 metros, que viveu há cerca de 2 milhões de anos. É a prova mais antiga de golfinhos que caçavam animais grandes.",
-        "fonte": "Sci.News",
-        "link": "https://www.sci.news/paleontology/pleistocene-killer-whale-15202.html"
+        "titulo": "Falta de áreas verdes ligada a doenças crônicas",
+        "resumo": "Na COP31, um professor da USP apresentou estudos que associam a falta de verde nas cidades a mais casos de pressão alta, diabetes e obesidade, sobretudo em bairros pobres.",
+        "fonte": "Jornal da USP",
+        "link": "https://jornal.usp.br/atualidades/cop-31-estudos-da-usp-relacionam-falta-de-areas-verdes-a-desigualdades-e-doencas-cronicas/"
+      },
+      {
+        "titulo": "Cientistas criam bateria recarregável com vitamina B12",
+        "resumo": "Pesquisadores fizeram uma bateria que usa a vitamina B12 para guardar energia. O protótipo aguentou até 250 ciclos de recarga.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/11/261117033909.htm"
+      },
+      {
+        "titulo": "Doença rara revela falha escondida no sistema imune",
+        "resumo": "Cientistas descobriram que uma doença inflamatória rara é causada por células de defesa defeituosas, o que muda uma ideia aceita há trinta anos. O achado aponta para um novo tratamento.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/11/261117035052.htm"
       }
     ],
     "astronomia": [
       {
-        "titulo": "Chuva de meteoros Leônidas chega ao pico nesta semana",
-        "resumo": "O pico das Leônidas foi na noite de 17 de novembro, mas ainda vale olhar de madrugada para o leste, em lugar escuro. Do Brasil aparecem poucos meteoros por hora, e não precisa de telescópio.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/curiosidades/2026/11/16/esta-chegando-o-pico-da-chuva-de-meteoros-leonidas-restos-de-cometa-cruzam-o-ceu-a-70-km-por-segundo-por-volta-de-17-de-novembro/"
+        "titulo": "Voyager 1 chega a um dia-luz de distância da Terra",
+        "resumo": "Nesta quarta-feira, a sonda Voyager 1 alcançou cerca de 25,9 bilhões de quilômetros da Terra, distância que a luz leva um dia para percorrer. Quase 50 anos após o lançamento, ela continua funcionando.",
+        "fonte": "Euronews",
+        "link": "https://pt.euronews.com/2026/11/18/voyager-1-um-dia-luz-separa-nos-agora-da-nossa-mais-distante-aventureira"
       },
       {
-        "titulo": "Torre da SpaceX agarra a Starship no ar pela primeira vez",
-        "resumo": "No 15º voo, a nave Starship voltou da órbita e foi capturada pelos braços mecânicos da torre de lançamento. A SpaceX avançou, mas ainda tem desafios para reaproveitar o foguete inteiro.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/16/ciencia-e-espaco/captura-inedita-da-starship-mostra-ate-onde-a-spacex-chegou-e-o-que-ainda-falta-resolver"
-      },
-      {
-        "titulo": "NASA vai encerrar o satélite Terra depois de 27 anos",
-        "resumo": "O satélite Terra, lançado em 1999 para durar seis anos, para de coletar dados em 1º de dezembro e será desligado em janeiro. Os dados sobre queimadas, gelo e atmosfera continuam abertos a todos.",
+        "titulo": "Cápsula Dragon deixa a Estação Espacial nesta sexta",
+        "resumo": "A nave de carga da missão CRS-35 deve se desacoplar da Estação Espacial na sexta, por volta das duas da tarde de Brasília, trazendo amostras de pesquisas. A chegada ao mar, na Califórnia, está prevista para sábado.",
         "fonte": "NASA",
-        "link": "https://science.nasa.gov/blogs/science-news/2026/11/17/nasas-terra-mission-to-end/"
+        "link": "https://www.nasa.gov/news-release/nasa-to-cover-35th-spacex-resupply-mission-space-station-departure/"
       },
       {
-        "titulo": "Astronautas imprimem tecido humano em 3D na Estação Espacial",
-        "resumo": "A astronauta Jessica Watkins fez um experimento que imprime em 3D tecidos de fígado, rim e cartilagem com células vivas. A ideia é que isso ajude pacientes no espaço e na Terra no futuro.",
-        "fonte": "Space.com",
-        "link": "https://www.space.com/space-exploration/international-space-station/iss-astronauts-3d-print-human-cells-and-tissues-space-photo-of-the-day-for-nov-17-2026"
-      },
-      {
-        "titulo": "Avião espacial Dream Chaser pode finalmente voar em 2027",
-        "resumo": "A agência de aviação dos Estados Unidos aprovou a volta à Terra do Dream Chaser, da Sierra Space. O primeiro voo de teste, sem tripulação, deve acontecer em 2027, após muitos anos de atraso.",
+        "titulo": "Lua cresce no céu e fica cheia no dia 24",
+        "resumo": "A Lua está na fase crescente e fica cheia na terça, dia 24, perto do meio-dia. A melhor hora para vê-la será ao anoitecer, quando ela nasce no leste.",
         "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/16/ciencia-e-espaco/apos-decadas-de-atrasos-aviao-espacial-pode-finalmente-estrear-em-2027"
+        "link": "https://olhardigital.com.br/2026/11/18/ciencia-e-espaco/lua-hoje-confira-a-fase-da-lua-desta-quarta-feira-18-11-2026/"
       }
     ],
     "filosofia": [
       {
-        "titulo": "Thomas Nagel ganha prêmio de um milhão de dólares",
-        "resumo": "O Instituto Berggruen premiou o filósofo americano Thomas Nagel, conhecido pelo ensaio sobre como seria ser um morcego e pelos estudos sobre a consciência. A entrega será na primavera, em Nova York.",
-        "fonte": "PR Newswire (Instituto Berggruen)",
-        "link": "https://www.prnewswire.com/br/comunicados-para-a-imprensa/o-premio-berggruen-de-filosofia-e-cultura-no-valor-de-1-milhao-de-dolares-foi-concedido-a-thomas-nagel-302940829.html"
-      },
-      {
-        "titulo": "UNESCO celebra o Dia Mundial da Filosofia nesta quinta",
-        "resumo": "O Dia Mundial da Filosofia é em 19 de novembro, e a UNESCO, em Paris, recebe uma palestra do filósofo senegalês Souleymane Bachir Diagne. Estudantes também vão debater clima, inteligência artificial e migrações.",
+        "titulo": "Dia Mundial da Filosofia é celebrado nesta quinta",
+        "resumo": "A UNESCO comemora o Dia Mundial da Filosofia em 19 de novembro com uma palestra do filósofo senegalês Souleymane Bachir Diagne sobre viver juntos na Terra. Haverá debates com estudantes sobre clima, inteligência artificial, migrações e saúde.",
         "fonte": "UNESCO",
         "link": "https://www.unesco.org/en/articles/world-philosophy-day-2026"
       },
       {
-        "titulo": "Colóquio na UFPA lembra a passagem de Foucault por Belém",
-        "resumo": "Nos cem anos de nascimento de Michel Foucault e cinquenta anos de sua visita a Belém, a UFPA faz um colóquio de 23 a 25 de novembro. Os debates ligam as ideias do filósofo à realidade da Amazônia.",
-        "fonte": "O Liberal",
-        "link": "https://www.oliberal.com/cultura/coloquio-na-ufpa-discute-pensamento-de-michel-foucault-e-sua-relacao-com-belem-1.1195249"
-      },
-      {
-        "titulo": "Textos de David Hume ganham nova tradução brasileira",
-        "resumo": "A editora Hedra lança uma coletânea de textos de David Hume traduzidos por Jaimir Conte, com ensaios sobre as paixões e a imortalidade da alma. O lançamento foi na UFSC, em Florianópolis.",
+        "titulo": "Nova tradução de textos de Hume sobre as paixões",
+        "resumo": "Foi lançado na UFSC o livro Sobre as paixões e outros textos, de David Hume, com tradução e organização de Jaimir Conte.",
         "fonte": "ANPOF",
         "link": "https://anpof.org.br/agenda/lancamentos-de-livros/lancamento-do-livro-sobre-as-paixoes-e-outros-textos-de-david-hume-traducao-e-organizacao-de-jaimir-conte"
-      },
-      {
-        "titulo": "Estudante da Ufal lança livro sobre pensamento negro",
-        "resumo": "Laís Emília Santos da Silva, aluna de Filosofia da Ufal, publica um livro que defende as pessoas negras como produtoras de pensamento filosófico. O lançamento será em 30 de novembro, em Maceió.",
-        "fonte": "Tribuna do Agreste",
-        "link": "https://www.tribunadoagreste.com.br/alagoas/2026/11/13/1020952-graduanda-de-filosofia-da-ufal-lanca-livro-sobre-pensamento-negro-e-vivencias-perifericas"
       }
     ],
     "livros": [
       {
-        "titulo": "Prêmio São Paulo de Literatura anuncia os 20 finalistas de 2026",
-        "resumo": "Vinte romances concorrem nas categorias Melhor Romance e Melhor Romance de Estreia, com nomes como Milton Hatoum, Cristovão Tezza e Eliana Alves Cruz. Cada vencedor leva 200 mil reais, e o resultado sai em 15 de dezembro.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/16/premio-sp-finalistas-26/"
+        "titulo": "Prêmio São Paulo de Literatura divulga 20 finalistas",
+        "resumo": "A 19ª edição do prêmio anunciou os finalistas de melhor romance e de melhor estreia, e treze das vinte obras são de mulheres. Cada vencedor recebe 200 mil reais na cerimônia de 15 de dezembro.",
+        "fonte": "NESPE",
+        "link": "https://nespe.com.br/2026/11/17/premio-sp-de-literatura-anuncia-os-finalistas-de-2026-13-das-20-obras-selecionadas-foram-escritas-por-mulheres/"
       },
       {
-        "titulo": "Vencedores do Jabuti conversam com o público em São Paulo",
-        "resumo": "Cinco premiados do Jabuti 2026, entre eles Humberto Werneck, participam de um bate-papo gratuito no Centro Cultural Fiesp nesta quarta, às 19h30. No fim, haverá sessão de autógrafos.",
+        "titulo": "Prêmio Loba anuncia 42 finalistas",
+        "resumo": "O festival literário Loba terá sua terceira edição gratuita em 28 de novembro, em São Paulo. As vencedoras de 14 categorias serão conhecidas no fim da tarde.",
         "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/17/vencedores-jabuti-fiesp/"
+        "link": "https://www.publishnews.com.br/materias/2026/11/18/premio-loba-novembro/"
       },
       {
-        "titulo": "Stephanie Garber chega ao topo da lista de mais vendidos",
-        "resumo": "O livro O espelho dos finais infinitos, de Stephanie Garber, mais que dobrou as vendas e assumiu o primeiro lugar da lista Nielsen-PublishNews. Os imortais, de Paulliny Tort, também entrou no ranking.",
+        "titulo": "Autores brasileiros em destaque na Feira de Guadalajara",
+        "resumo": "A Feira do Livro de Guadalajara, no México, terá duas mesas com oito escritores brasileiros, entre eles Eliana Alves Cruz e Luiz Ruffato. A feira vai de 28 de novembro a 6 de dezembro.",
         "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/16/stephanie-garber-dobra-as-vendas-e-assume-a-lideranca-da-lista-nielsen-publishnews/"
+        "link": "https://www.publishnews.com.br/materias/2026/11/18/programa-da-fil-guadalajara-reune-vozes-de-destaque-da-literatura-brasileira/"
       },
       {
-        "titulo": "Editora Vida lança prêmio de ficção cristã com 60 mil reais",
-        "resumo": "O primeiro Prêmio Brasileiro de Ficção Cristã vai dar até 30 mil reais ao primeiro lugar e publicar os três vencedores. As inscrições vão até 28 de fevereiro de 2027, e é proibido usar inteligência artificial na escrita.",
+        "titulo": "Uso de inteligência artificial agita mercado editorial francês",
+        "resumo": "O vencedor do Goncourt deste ano admitiu ter usado IA em uma frase do livro, enquanto outro autor foi retirado de listas de prêmios por suspeita parecida. O caso levantou debate sobre dois pesos e duas medidas.",
         "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/16/premio-ficcao-crista-60/"
+        "link": "https://www.publishnews.com.br/materias/2026/11/18/polemicas-mercado-editorial-frances/"
       },
       {
-        "titulo": "Estudo mostra que informações completas ajudam a vender livros",
-        "resumo": "Um relatório da NielsenIQ BookData sobre o mercado britânico concluiu que livros com dados de catálogo mais completos vendem mais. Títulos com sinopse longa venderam, em média, mais que o dobro.",
+        "titulo": "Venda de livros on-line cresce e livrarias argentinas sofrem",
+        "resumo": "Uma análise mostra que as vendas de livros pelo Mercado Livre na Argentina cresceram 23% em 2026, enquanto as livrarias físicas venderam um quarto a menos que dois anos antes.",
         "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/16/estudo-relaciona-bons-metadados-com-aumento-nas-vendas-de-livros/"
+        "link": "https://www.publishnews.com.br/materias/2026/11/18/mercado-livre-argentina/"
       }
     ]
   }
