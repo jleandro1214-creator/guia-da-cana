@@ -77,6 +77,20 @@ th{color:var(--mar)}
 .vazio{text-align:center;color:var(--sub);padding:30px 10px}
 #dicaInst{position:fixed;left:12px;right:12px;bottom:14px;z-index:70;background:#fff;border:2px solid var(--am);border-radius:14px;padding:14px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
 #dicaInst button{margin-top:10px;width:100%;background:var(--v);color:#fff;border:0;border-radius:10px;padding:10px;font-size:16px;font-weight:700}
+
+.thumb{width:78px;height:78px;flex:0 0 78px;border-radius:12px;background:var(--fundo) center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:30px}
+.thumb.ok{font-size:0}
+.cardVar{display:flex;gap:12px;align-items:flex-start}.cardVar>div:last-child{flex:1;min-width:0}
+.galeria{display:flex;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin:10px 0 4px}
+.galeria figure{margin:0;flex:0 0 100%;scroll-snap-align:center;position:relative;background:#fff;border:1px solid var(--linha);border-radius:14px;overflow:hidden}
+.galeria img{width:100%;height:260px;object-fit:cover;display:block;background:#e9e2d2}
+.galeria figcaption{font-size:12.5px;color:var(--sub);padding:6px 10px}
+.galeria .apagar{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;border:0;border-radius:18px;padding:6px 11px;font-size:14px;font-weight:700}
+.semFoto{background:#fff;border:1px dashed var(--linha);border-radius:14px;padding:18px;text-align:center;color:var(--sub);font-size:15px;margin:10px 0}
+.btnFoto{display:block;text-align:center;background:var(--am);color:#2b2200;border-radius:12px;padding:11px;font-weight:800;font-size:16px;margin:6px 0 4px}
+.dots{text-align:center;font-size:13px;color:var(--sub)}
+details .secFoto{display:block;width:calc(100% - 28px);margin:0 14px 10px;height:190px;object-fit:cover;border-radius:12px;background:#e9e2d2}
+details .cred{font-size:12px;color:var(--sub);margin:-6px 14px 10px}
 footer{text-align:center;font-size:13px;color:var(--sub);padding:10px 12px 30px}
 </style>
 </head>
@@ -89,6 +103,7 @@ footer{text-align:center;font-size:13px;color:var(--sub);padding:10px 12px 30px}
 <main id="tela"></main>
 <footer>Conteúdo de referência geral. Para aplicar qualquer produto: receituário agronômico e bula.</footer>
 
+<input type="file" id="inFoto" accept="image/*" capture="environment" hidden>
 <div id="ficha" hidden><div class="fTopo"><button id="fVoltar">← Voltar</button><h2 id="fTit"></h2></div><div class="fCorpo" id="fCorpo"></div></div>
 <div id="busca" hidden><div class="fTopo"><button id="bVoltar">←</button><input id="bq" type="search" placeholder="Buscar praga, doença, variedade…"></div><div class="fCorpo" id="bRes"></div></div>
 <div id="dicaInst" hidden><b>Para instalar:</b> no Chrome, toque no menu <b>⋮</b> (canto de cima) e depois em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.<button id="dicaOk">Entendi</button></div>
@@ -399,6 +414,38 @@ const SAIBA=[
  "Renda: quanto de café beneficiado sai de um volume de café em coco."]}
 ];
 
+// Fotos de referência: páginas da Wikipédia (a foto vem do Wikimedia Commons, licença livre)
+const FOTOS={
+"bicho-mineiro":["en:Leucoptera_coffeella","pt:Bicho-mineiro-do-cafeeiro"],
+"broca":["en:Hypothenemus_hampei","pt:Broca-do-café"],
+"cigarras":["en:Quesada_gigas","pt:Quesada_gigas","en:Fidicina"],
+"acaro-vermelho":["en:Oligonychus_ilicis","en:Oligonychus","en:Spider_mite"],
+"acaro-plano":["en:Brevipalpus_phoenicis","en:Brevipalpus"],
+"cochonilha-raiz":["en:Dysmicoccus","en:Dysmicoccus_brevipes","en:Mealybug"],
+"cochonilhas":["en:Coccus_viridis","en:Planococcus_citri"],
+"nematoides":["en:Meloidogyne_exigua","en:Meloidogyne_incognita","en:Root-knot_nematode"],
+"ferrugem":["en:Hemileia_vastatrix","pt:Hemileia_vastatrix"],
+"cercospora":["en:Cercospora_coffeicola","en:Cercospora"],
+"phoma":["en:Boeremia","en:Phoma"],
+"aureolada":["en:Pseudomonas_syringae"],
+"antracnose":["en:Colletotrichum_kahawae","en:Colletotrichum"],
+"mancha-anular":["en:Coffee_ringspot_virus","en:Brevipalpus_phoenicis"],
+"tombamento":["en:Rhizoctonia_solani","en:Damping_off"],
+"catuai-v":["en:Catuai","pt:Catuaí","en:Coffea_arabica"],
+"catuai-a":["en:Catuai","pt:Catuaí","en:Coffea_arabica"],
+"mundo-novo":["en:Mundo_Novo_(coffee)","en:Coffea_arabica"],
+"bourbon":["en:Bourbon_coffee","en:Coffea_arabica"],
+"geisha":["en:Gesha_coffee","en:Geisha_coffee","en:Coffea_arabica"],
+"_cafe":["en:Coffea_arabica","pt:Coffea_arabica"],
+"s:Clima e local":["en:Coffee_production_in_Brazil","pt:Café_no_Brasil"],
+"s:Florada e frutificação":["en:Coffea","en:Coffee_bean"],
+"s:Colheita":["en:Coffee_production_in_Brazil","en:Coffee_production"],
+"s:Pós-colheita":["en:Coffee_processing","en:Coffee_wet_process"],
+"s:Arábica x Conilon":["en:Coffea_canephora"],
+"s:Qualidade da bebida":["en:Coffee_cupping","en:Coffee_roasting"],
+"s:Geada e escaldadura":["en:Frost"]
+};
+
 </script>
 <script>
 const $=s=>document.querySelector(s);
@@ -413,10 +460,10 @@ function abas(){$("#abas").innerHTML=ABAS.map(([k,t])=>`<button role="tab" data-
 function ir(k){aba=k;try{localStorage.setItem("cafeAba",k)}catch(e){}abas();render();scrollTo(0,0)}
 $("#abas").onclick=e=>{const b=e.target.closest("button");if(b)ir(b.dataset.a)};
 
-function secoes(lista){return lista.map(s=>`<details><summary><span>${s.e}</span>${esc(s.t)}</summary>${s.x?`<ul>${s.x.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}${s.tab?`<table>${s.tab.map((r,i)=>`<tr>${r.map(c=>i?`<td>${esc(c)}</td>`:`<th>${esc(c)}</th>`).join("")}</tr>`).join("")}</table>`:""}</details>`).join("")}
-function cardVar(v){return `<button class="card" data-tipo="var" data-id="${v.id}"><div class="nome">${esc(v.n)}</div><div class="sci">${esc(v.o)}</div>
- <div class="tags"><span class="tag f-${v.fer}">Ferrugem: ${v.fer}</span><span class="tag fr-${v.fruto}">Fruto ${v.fruto.toLowerCase()}</span><span class="tag">Porte ${v.porte.toLowerCase()}</span><span class="tag">Maturação ${v.mat.toLowerCase()}</span></div></button>`}
-function cardPD(p,t){return `<button class="card" data-tipo="${t}" data-id="${p.id}"><div class="linhaCard"><div class="emo">${p.e}</div><div><div class="nome">${esc(p.n)}</div><div class="sci">${esc(p.c)}</div><p>${esc(p.rec.split(". ")[0])}.</p><div class="tags"><span class="tag">Ataca: ${esc(p.onde)}</span></div></div></div></button>`}
+function secoes(lista){return lista.map(s=>`<details><summary><span>${s.e}</span>${esc(s.t)}</summary>${FOTOS["s:"+s.t]?`<img class="secFoto" data-fk="s:${esc(s.t)}" alt="" hidden><div class="cred" hidden></div>`:""}${s.x?`<ul>${s.x.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}${s.tab?`<table>${s.tab.map((r,i)=>`<tr>${r.map(c=>i?`<td>${esc(c)}</td>`:`<th>${esc(c)}</th>`).join("")}</tr>`).join("")}</table>`:""}</details>`).join("")}
+function cardVar(v){return `<button class="card" data-tipo="var" data-id="${v.id}"><div class="cardVar"><div class="thumb" data-fk="${FOTOS[v.id]?v.id:""}" data-own="var:${v.id}">☕</div><div><div class="nome">${esc(v.n)}</div><div class="sci">${esc(v.o)}</div>
+ <div class="tags"><span class="tag f-${v.fer}">Ferrugem: ${v.fer}</span><span class="tag fr-${v.fruto}">Fruto ${v.fruto.toLowerCase()}</span><span class="tag">Porte ${v.porte.toLowerCase()}</span><span class="tag">Maturação ${v.mat.toLowerCase()}</span></div></div></div></button>`}
+function cardPD(p,t){return `<button class="card" data-tipo="${t}" data-id="${p.id}"><div class="linhaCard"><div class="thumb" data-fk="${p.id}" data-own="${t}:${p.id}">${p.e}</div><div><div class="nome">${esc(p.n)}</div><div class="sci">${esc(p.c)}</div><p>${esc(p.rec.split(". ")[0])}.</p><div class="tags"><span class="tag">Ataca: ${esc(p.onde)}</span></div></div></div></button>`}
 function chips(nome,ops){return `<div class="filtros">${ops.map(o=>`<button class="chip" data-f="${nome}" data-v="${o}" aria-pressed="${filtro[nome]===o}">${o}</button>`).join("")}</div>`}
 
 function render(){let h="";
@@ -430,7 +477,7 @@ function render(){let h="";
  else if(aba==="doe")h=`<div class="intro">Principais doenças: sinais, época favorável e manejo.</div>`+DOENCAS.map(p=>cardPD(p,"doe")).join("");
  else if(aba==="def")h=`<div class="aviso">⚠️ Este app <b>não substitui a receita agronômica</b>. Doses e produtos: sempre da bula e do agrônomo.</div>`+secoes(DEFENSIVOS);
  else h=`<div class="intro">Especificidades do arábica: diferenças para o conilon, qualidade, geada e palavras da roça.</div>`+secoes(SAIBA);
- $("#tela").innerHTML=h;
+ $("#tela").innerHTML=h;preencher($("#tela"));
  if(aba==="cal"){const e=$("#mesAtual");if(e)setTimeout(()=>e.scrollIntoView({block:"center"}),50)}}
 
 $("#tela").onclick=e=>{const c=e.target.closest(".chip");if(c){filtro[c.dataset.f]=c.dataset.v;render();return}
@@ -438,7 +485,8 @@ $("#tela").onclick=e=>{const c=e.target.closest(".chip");if(c){filtro[c.dataset.
 
 function bloco(t,c,cls=""){return `<div class="bloco ${cls}"><h3>${t}</h3>${c}</div>`}
 function lista(a){return `<ul>${a.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`}
-function abrir(tipo,id,semHist){let t="",h="";
+let atual=null;
+function abrir(tipo,id,semHist){let t="",h="";atual={tipo,id,fk:tipo==="var"?(FOTOS[id]?id:"_cafe"):id};
  if(tipo==="var"){const v=VARIEDADES.find(x=>x.id===id);if(!v)return;t=v.n;
   h=`<div class="kv"><div><small>Porte</small><b>${v.porte}</b></div><div><small>Fruto</small><b>${v.fruto}</b></div><div><small>Maturação</small><b>${v.mat}</b></div><div><small>Ferrugem</small><b>${v.fer}</b></div></div>`+
    bloco("Origem",`<p>${esc(v.o)}</p>`)+bloco("Como é",`<p>${esc(v.d)}</p>`)+bloco("Indicada para",`<p>${esc(v.ind)}</p>`)+bloco("⚠️ Atenção",lista(v.at),"at")+
@@ -447,11 +495,52 @@ function abrir(tipo,id,semHist){let t="",h="";
   h=bloco("Nome científico",`<p><i>${esc(p.c)}</i></p>`)+bloco("Onde ataca",`<p>${esc(p.onde)}</p>`)+bloco("Como reconhecer",`<p>${esc(p.rec)}</p>`)+bloco("Quando aparece",`<p>${esc(p.quando)}</p>`)+
    bloco("Dano",`<p>${esc(p.dano)}</p>`)+bloco("Monitoramento",`<p>${esc(p.mon)}</p>`)+(p.nivel?bloco("Nível de controle",`<p>${esc(p.nivel)}</p>`,"nivel"):"")+bloco("Controle",lista(p.ctl))+
    `<div class="aviso">Produtos e doses só com receituário agronômico. Consulte os registrados para café no AGROFIT.</div>`}
- $("#fTit").textContent=t;$("#fCorpo").innerHTML=h;$("#ficha").hidden=false;$("#ficha").scrollTop=0;
+ $("#fTit").textContent=t;$("#fCorpo").innerHTML=`<div id="gal"></div><label class="btnFoto" for="inFoto">📷 Tirar ou escolher minha foto</label>`+h;galeria();$("#ficha").hidden=false;$("#ficha").scrollTop=0;
  if(!semHist)history.pushState({f:1},"")}
 function fechar(){if(!$("#ficha").hidden||!$("#busca").hidden)history.back()}
 $("#fVoltar").onclick=fechar;$("#bVoltar").onclick=fechar;
 addEventListener("popstate",()=>{if(!$("#ficha").hidden){$("#ficha").hidden=true;return}$("#busca").hidden=true});
+
+// ===== FOTOS =====
+const LS=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
+const LSs=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const refMem={};
+async function fotoRef(fk){if(!FOTOS[fk])return null;if(refMem[fk]!==undefined)return refMem[fk];
+ const c=LS("cafeFoto:"+fk);if(c&&c.u){refMem[fk]=c;return c}if(c&&c.none&&Date.now()-c.none<864e5)return null;
+ if(!navigator.onLine)return null;
+ for(const cand of FOTOS[fk]){const[lg,tt]=cand.split(":");
+  try{const r=await fetch(`https://${lg}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(tt)}`);if(!r.ok)continue;const j=await r.json();
+   if(j.type==="disambiguation")continue;let u=null;
+   if(j.originalimage&&j.originalimage.width<=1100)u=j.originalimage.source;else if(j.thumbnail)u=j.thumbnail.source.replace(/\/(\d+)px-/,"/800px-");
+   if(!u||/\.svg/i.test(u)&&!/\.png$/i.test(u))continue;
+   const v={u,cred:"Foto: Wikimedia Commons (licença livre) · "+(j.title||tt)};refMem[fk]=v;LSs("cafeFoto:"+fk,v);return v}catch(e){}}
+ LSs("cafeFoto:"+fk,{none:Date.now()});refMem[fk]=null;return null}
+// fotos do usuário (IndexedDB)
+let dbp=null;function db(){return dbp=dbp||new Promise((ok,er)=>{const r=indexedDB.open("cafeArabicaFotos",1);r.onupgradeneeded=()=>r.result.createObjectStore("f",{keyPath:"id",autoIncrement:true}).createIndex("k","k");r.onsuccess=()=>ok(r.result);r.onerror=()=>er(r.error)})}
+async function minhas(k){const d=await db();return new Promise(ok=>{const q=d.transaction("f").objectStore("f").index("k").getAll(k);q.onsuccess=()=>ok(q.result||[]);q.onerror=()=>ok([])})}
+async function salvarMinha(k,blob){const d=await db();return new Promise(ok=>{const t=d.transaction("f","readwrite");t.objectStore("f").add({k,blob,dt:Date.now()});t.oncomplete=ok})}
+async function apagarMinha(id){const d=await db();return new Promise(ok=>{const t=d.transaction("f","readwrite");t.objectStore("f").delete(id);t.oncomplete=ok})}
+const urls=[];function burl(b){const u=URL.createObjectURL(b);urls.push(u);return u}
+async function preencher(raiz){
+ for(const el of raiz.querySelectorAll(".thumb")){const m=await minhas(el.dataset.own).catch(()=>[]);
+  if(m.length){el.style.backgroundImage=`url(${burl(m[m.length-1].blob)})`;el.classList.add("ok");continue}
+  fotoRef(el.dataset.fk).then(f=>{if(f){const i=new Image();i.onload=()=>{el.style.backgroundImage=`url("${f.u}")`;el.classList.add("ok")};i.src=f.u}})}
+ for(const im of raiz.querySelectorAll("img.secFoto")){fotoRef(im.dataset.fk).then(f=>{if(!f)return;im.onload=()=>{im.hidden=false;const c=im.nextElementSibling;c.textContent=f.cred;c.hidden=false};im.src=f.u})}}
+async function galeria(){if(!atual)return;const k=atual.tipo+":"+atual.id,g=$("#gal");if(!g)return;
+ const m=await minhas(k).catch(()=>[]);let h=m.slice().reverse().map(x=>`<figure><img src="${burl(x.blob)}" alt=""><button class="apagar" data-del="${x.id}">🗑 Apagar</button><figcaption>📷 Minha foto · ${new Date(x.dt).toLocaleDateString("pt-BR")}</figcaption></figure>`).join("");
+ const f=await fotoRef(atual.fk);
+ if(f)h+=`<figure><img src="${f.u}" alt="" onerror="this.parentNode.remove()"><figcaption>${esc(f.cred)}${atual.fk==="_cafe"?" (foto geral do café arábica)":""}</figcaption></figure>`;
+ const n=m.length+(f?1:0);
+ g.innerHTML=n?`<div class="galeria">${h}</div>${n>1?`<div class="dots">⇠ arraste para ver ${n} fotos ⇢</div>`:""}`:`<div class="semFoto">Sem foto ainda${navigator.onLine?"":" (abra com internet para baixar a foto de referência)"}.<br>Tire a sua no campo com o botão abaixo.</div>`}
+$("#fCorpo").addEventListener("click",async e=>{const b=e.target.closest("[data-del]");if(!b)return;if(!confirm("Apagar esta foto?"))return;await apagarMinha(+b.dataset.del);galeria();render()});
+$("#inFoto").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f||!atual)return;
+ try{const bm=await createImageBitmap(f);const k=Math.min(1,1000/Math.max(bm.width,bm.height));const c=document.createElement("canvas");c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);c.getContext("2d").drawImage(bm,0,0,c.width,c.height);
+  const blob=await new Promise(ok=>c.toBlob(ok,"image/webp",.82));await salvarMinha(atual.tipo+":"+atual.id,blob||f)}catch(err){await salvarMinha(atual.tipo+":"+atual.id,f)}
+ galeria();render()};
+// baixa todas as fotos de referência para usar sem internet
+async function baixarTodas(){if(!navigator.onLine)return;for(const fk of Object.keys(FOTOS)){const f=await fotoRef(fk);if(f)await new Promise(ok=>{const i=new Image();i.onload=i.onerror=ok;i.src=f.u})}}
+addEventListener("load",()=>setTimeout(baixarTodas,2500));
+addEventListener("online",()=>{Object.keys(refMem).forEach(k=>{if(refMem[k]===null)delete refMem[k]});baixarTodas()});
 
 // busca geral
 function todos(){const r=[];
