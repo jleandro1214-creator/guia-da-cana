@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Café Arábica</title>
+<meta name="description" content="Café arábica: variedades, cultivo, tratos, defensivos, pragas, doenças e especificidades">
+<meta name="theme-color" content="#2E5B2E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--v:#2E5B2E;--v2:#3F7A3A;--am:#E8B531;--mar:#6B4226;--mar2:#8A5A36;--fundo:#F6F1E6;--txt:#22201B;--sub:#665E52;--linha:#E2D9C6}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{margin:0;background:var(--fundo);color:var(--txt);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+header{position:sticky;top:0;z-index:30;background:var(--v);color:#fff;padding:10px 12px 0;padding-top:max(10px,env(safe-area-inset-top));box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.topo{display:flex;align-items:center;gap:10px}
+.topo img{width:38px;height:38px;border-radius:9px}
+.topo h1{font-size:20px;margin:0;flex:1;line-height:1.15}
+.topo h1 small{display:block;font-size:13px;font-weight:400;opacity:.85}
+.topo button{border:0;border-radius:20px;font-weight:700;font-size:15px;padding:8px 12px}
+#btnInstalar{background:var(--am);color:#2b2200}
+#btnBusca{background:rgba(255,255,255,.16);color:#fff;font-size:18px;padding:6px 11px}
+nav{display:flex;overflow-x:auto;scrollbar-width:none;margin-top:8px;gap:2px}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;background:none;border:0;color:#d6e6d2;font-size:15.5px;font-weight:700;padding:10px 11px 11px;border-bottom:4px solid transparent;white-space:nowrap}
+nav button[aria-selected=true]{color:#fff;border-bottom-color:var(--am)}
+main{max-width:700px;margin:0 auto;padding:0 12px 70px;min-height:70vh}
+.intro{background:#fff;border:1px solid var(--linha);border-left:6px solid var(--am);border-radius:12px;padding:10px 12px;margin:12px 0;font-size:15.5px;color:var(--sub)}
+.filtros{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chip{border:1px solid var(--linha);background:#fff;border-radius:18px;padding:7px 12px;font-size:15px;color:var(--txt);font-weight:600}
+.chip[aria-pressed=true]{background:var(--mar);border-color:var(--mar);color:#fff}
+.card{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px 14px;margin:10px 0;display:block;width:100%;text-align:left;color:inherit;font:inherit}
+.card .nome{font-size:19px;font-weight:800;color:var(--v)}
+.card .sci{font-size:14px;color:var(--sub);font-style:italic}
+.card p{margin:6px 0 0;font-size:16px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{border-radius:10px;padding:2px 9px;font-size:13.5px;font-weight:700;background:#EFE7D6;color:var(--mar)}
+.f-Resistente{background:#DCEFD5;color:#24611f}.f-Moderada{background:#FBEFC8;color:#7a5a00}.f-Suscetível{background:#F7DCD3;color:#9a2f12}
+.fr-Vermelho{background:#F7D9D6;color:#9b2323}.fr-Amarelo{background:#FCEFC0;color:#7a5a00}
+.linhaCard{display:flex;gap:12px;align-items:flex-start}
+.emo{font-size:30px;line-height:1;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:var(--fundo);border-radius:12px;flex:0 0 42px}
+details{background:#fff;border:1px solid var(--linha);border-radius:14px;margin:10px 0;overflow:hidden}
+summary{list-style:none;padding:13px 14px;font-weight:800;font-size:17.5px;color:var(--v);display:flex;gap:10px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"▾";margin-left:auto;color:var(--mar);transition:transform .2s}
+details[open] summary::after{transform:rotate(180deg)}
+details ul{margin:0;padding:0 14px 12px 34px}
+details li{margin:7px 0}
+table{width:calc(100% - 24px);margin:0 12px 12px;border-collapse:collapse;font-size:15px}
+td,th{border-top:1px solid #eee;padding:7px 5px;text-align:left;vertical-align:top}
+th{color:var(--mar)}
+.mes{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:11px 14px;margin:10px 0;display:flex;gap:12px}
+.mes b{flex:0 0 92px;color:var(--mar);font-size:16.5px}
+.mes.atual{border:2px solid var(--am);background:#FFFBEE}
+.mes.atual b::after{content:" · agora";color:var(--v);font-size:13px}
+.aviso{background:#FFF4E1;border:1px solid #EFCB86;border-radius:12px;padding:10px 12px;margin:12px 0;font-size:15px}
+/* ficha */
+#ficha{position:fixed;inset:0;z-index:50;background:var(--fundo);overflow-y:auto}
+.fTopo{position:sticky;top:0;background:var(--v);color:#fff;padding:12px;padding-top:max(12px,env(safe-area-inset-top));display:flex;align-items:center;gap:10px;z-index:2}
+.fTopo button{background:rgba(255,255,255,.18);border:0;color:#fff;border-radius:10px;padding:8px 12px;font-size:16px;font-weight:700}
+.fTopo h2{flex:1;margin:0;font-size:20px;line-height:1.2}
+.fCorpo{max-width:700px;margin:0 auto;padding:6px 12px 50px}
+.bloco{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px 14px;margin:10px 0}
+.bloco h3{margin:0 0 6px;font-size:16px;color:var(--mar);text-transform:uppercase;letter-spacing:.3px}
+.bloco p{margin:0}.bloco ul{margin:0;padding-left:20px}.bloco li{margin:5px 0}
+.bloco.nivel{border-left:6px solid var(--am)}
+.bloco.at{background:#FFF4E1;border-color:#EFCB86}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kv div{background:var(--fundo);border-radius:10px;padding:8px 10px}
+.kv small{display:block;color:var(--sub);font-size:13px}
+.kv b{font-size:16px}
+/* busca */
+#busca{position:fixed;inset:0;z-index:60;background:var(--fundo);overflow-y:auto}
+#busca .fTopo input{flex:1;font-size:17px;padding:10px 12px;border-radius:10px;border:0}
+.res small{display:block;color:var(--mar);font-weight:700;font-size:13px}
+.vazio{text-align:center;color:var(--sub);padding:30px 10px}
+#dicaInst{position:fixed;left:12px;right:12px;bottom:14px;z-index:70;background:#fff;border:2px solid var(--am);border-radius:14px;padding:14px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+#dicaInst button{margin-top:10px;width:100%;background:var(--v);color:#fff;border:0;border-radius:10px;padding:10px;font-size:16px;font-weight:700}
+footer{text-align:center;font-size:13px;color:var(--sub);padding:10px 12px 30px}
+</style>
+</head>
+<body><style id="splash-css">#splash-app{position:fixed;inset:0;z-index:2147483647;background:#2E5B2E;color:#fbf8ec;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .35s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}#splash-app img{width:112px;height:112px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.28)}#splash-app b{font-size:1.25rem;font-weight:800;text-align:center;padding:0 24px}#splash-app.fim{opacity:0;pointer-events:none}</style><div id="splash-app" aria-hidden="true"><img src="icon-192.png" alt=""><b>Café Arábica</b></div><script>(function(){var s=document.getElementById("splash-app"),t0=Date.now();function f(){if(!s)return;s.classList.add("fim");var x=s;s=null;setTimeout(function(){x.remove();var c=document.getElementById("splash-css");if(c)c.remove()},450)}function ok(){var w=Math.max(0,700-(Date.now()-t0));setTimeout(f,w)}if(document.readyState==="complete")ok();else window.addEventListener("load",ok);setTimeout(f,3500)})();</script>
+<header>
+ <div class="topo"><img src="icon-192.png" alt=""><h1>Café Arábica<small>Variedades, cultivo, pragas e doenças</small></h1>
+ <button id="btnBusca" aria-label="Buscar">🔍</button><button id="btnInstalar" hidden>📲 Instalar</button></div>
+ <nav role="tablist" id="abas"></nav>
+</header>
+<main id="tela"></main>
+<footer>Conteúdo de referência geral. Para aplicar qualquer produto: receituário agronômico e bula.</footer>
+
+<div id="ficha" hidden><div class="fTopo"><button id="fVoltar">← Voltar</button><h2 id="fTit"></h2></div><div class="fCorpo" id="fCorpo"></div></div>
+<div id="busca" hidden><div class="fTopo"><button id="bVoltar">←</button><input id="bq" type="search" placeholder="Buscar praga, doença, variedade…"></div><div class="fCorpo" id="bRes"></div></div>
+<div id="dicaInst" hidden><b>Para instalar:</b> no Chrome, toque no menu <b>⋮</b> (canto de cima) e depois em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.<button id="dicaOk">Entendi</button></div>
+
+<script>
+// Conteúdo do app Café Arábica (referências gerais; confira sempre com o agrônomo da região)
+const VARIEDADES=[
+{id:"catuai-v",n:"Catuaí Vermelho IAC 144",o:"IAC (Campinas-SP)",porte:"Baixo",fruto:"Vermelho",mat:"Média a tardia",fer:"Suscetível",
+ d:"Uma das mais plantadas do Brasil. Planta baixa e compacta, fácil de colher e boa para lavoura adensada. Produz bem e tem boa bebida.",
+ ind:"Lavouras tradicionais e adensadas, colheita manual ou mecanizada.",at:["Precisa de controle preventivo da ferrugem todo ano.","Produção muito alta num ano pode secar ramos (depauperamento)."]},
+{id:"catuai-a",n:"Catuaí Amarelo IAC 62",o:"IAC (Campinas-SP)",porte:"Baixo",fruto:"Amarelo",mat:"Média a tardia",fer:"Suscetível",
+ d:"Irmã do Catuaí Vermelho, com fruto amarelo. Muito produtiva e com bebida boa, bastante usada em cafés especiais.",
+ ind:"Mesmas áreas do Catuaí Vermelho.",at:["Fruto amarelo dificulta ver o ponto de colheita: olhe com atenção.","Suscetível à ferrugem."]},
+{id:"mundo-novo",n:"Mundo Novo IAC 376-4",o:"IAC (Campinas-SP)",porte:"Alto",fruto:"Vermelho",mat:"Média",fer:"Suscetível",
+ d:"Planta alta, vigorosa e rústica. Aguenta bem solos mais fracos e produz bebida de boa qualidade.",
+ ind:"Espaçamentos mais largos e lavouras de longa duração.",at:["Planta alta: colheita mais difícil, pede decote.","Suscetível à ferrugem."]},
+{id:"bourbon",n:"Bourbon Amarelo",o:"Variedade antiga (seleção tradicional)",porte:"Alto",fruto:"Amarelo",mat:"Precoce",fer:"Suscetível",
+ d:"Famosa pela bebida doce e encorpada. Muito usada em cafés especiais e concursos de qualidade.",
+ ind:"Regiões de altitude e quem busca café especial com preço melhor.",at:["Produz menos que os Catuaís.","Planta alta e sensível à ferrugem."]},
+{id:"topazio",n:"Topázio MG 1190",o:"EPAMIG / UFLA / UFV",porte:"Baixo",fruto:"Amarelo",mat:"Média",fer:"Suscetível",
+ d:"Cruzamento de Catuaí com Mundo Novo. Planta baixa, produtiva e com boa bebida.",
+ ind:"Sul de Minas, Mogiana e Cerrado.",at:["Suscetível à ferrugem."]},
+{id:"obata",n:"Obatã IAC 1669-20",o:"IAC (Campinas-SP)",porte:"Baixo",fruto:"Vermelho",mat:"Tardia",fer:"Resistente",
+ d:"Resistente à ferrugem, planta baixa e de folhas grandes. Muito produtiva quando bem nutrida.",
+ ind:"Lavoura adensada, quem quer gastar menos com fungicida.",at:["Exige adubação caprichada.","Maturação tardia: planeje a colheita por último."]},
+{id:"tupi",n:"Tupi IAC 1669-33",o:"IAC (Campinas-SP)",porte:"Baixo",fruto:"Vermelho",mat:"Precoce",fer:"Resistente",
+ d:"Planta bem baixa e compacta, resistente à ferrugem e de maturação precoce. Ótima para plantio adensado.",
+ ind:"Adensado; começar a colheita mais cedo.",at:["Precisa de boa nutrição para não esgotar."]},
+{id:"ipr100",n:"IPR 100",o:"IDR-Paraná (antigo IAPAR)",porte:"Baixo",fruto:"Vermelho",mat:"Tardia",fer:"Moderada",
+ d:"Conhecida pela resistência a nematoides de galha (Meloidogyne). Boa opção para áreas com histórico de nematoide.",
+ ind:"Áreas com nematoide (confirme a espécie com análise).",at:["Já foram vistas lesões de ferrugem em alguns ensaios: monitore."]},
+{id:"ipr103",n:"IPR 103",o:"IDR-Paraná (antigo IAPAR)",porte:"Baixo",fruto:"Vermelho",mat:"Média a tardia",fer:"Moderada",
+ d:"Produtiva e estável em vários ambientes do Paraná e de Minas Gerais.",
+ ind:"Paraná, Sul de Minas, Cerrado.",at:["Resistência parcial à ferrugem: monitore."]},
+{id:"catigua",n:"Catiguá MG2",o:"EPAMIG / UFLA / UFV",porte:"Baixo",fruto:"Vermelho",mat:"Média",fer:"Resistente",
+ d:"Alta resistência à ferrugem e bebida muito boa, com notas de aroma variadas. Indicada para cafés especiais.",
+ ind:"Quem quer qualidade com menos fungicida.",at:["Confira a adaptação na sua região com o viveiro."]},
+{id:"arara",n:"Arara",o:"Fundação Procafé",porte:"Baixo",fruto:"Amarelo",mat:"Tardia",fer:"Resistente",
+ d:"Vigorosa, resistente à ferrugem e com bebida de alta pontuação. Muito procurada nos últimos anos.",
+ ind:"Cafés especiais, áreas onde a ferrugem pesa.",at:["Maturação tardia: escalone com outras variedades."]},
+{id:"paraiso",n:"Paraíso MG H 419-1",o:"EPAMIG",porte:"Baixo",fruto:"Amarelo",mat:"Média",fer:"Resistente",
+ d:"Planta baixa de fruto amarelo, resistente à ferrugem e boa para adensado.",
+ ind:"Sul de Minas e regiões parecidas.",at:["Fruto amarelo: atenção ao ponto de colheita."]},
+{id:"catucai",n:"Catucaí Amarelo 24/137",o:"Fundação Procafé",porte:"Baixo",fruto:"Amarelo",mat:"Média",fer:"Moderada",
+ d:"Rústica e produtiva, bem estável entre ambientes.",
+ ind:"Várias regiões de Minas Gerais.",at:["Pode apresentar ferrugem: monitore."]},
+{id:"acaua",n:"Acauã",o:"Fundação Procafé",porte:"Baixo",fruto:"Vermelho",mat:"Tardia",fer:"Resistente",
+ d:"Resistente à ferrugem e tolerante à seca. Também mostra tolerância ao nematoide Meloidogyne exigua.",
+ ind:"Cerrado e áreas mais secas.",at:["Maturação tardia."]},
+{id:"paubrasil",n:"Pau-Brasil MG1",o:"EPAMIG",porte:"Baixo",fruto:"Vermelho",mat:"Média",fer:"Resistente",
+ d:"Resistente à ferrugem, estável e adaptada a várias regiões cafeeiras de Minas Gerais.",
+ ind:"Sul de Minas, Zona da Mata, Cerrado.",at:["Confira mudas certificadas."]},
+{id:"geisha",n:"Geisha (Gesha)",o:"Etiópia, famosa no Panamá",porte:"Alto",fruto:"Vermelho",mat:"Média a tardia",fer:"Moderada",
+ d:"Café exótico de bebida floral, muito valorizado em leilões de cafés especiais.",
+ ind:"Microlotes de altitude, mercado de nicho.",at:["Produz pouco e é planta alta.","Só vale a pena com venda para mercado especial."]}
+];
+
+const PRAGAS=[
+{id:"bicho-mineiro",n:"Bicho-mineiro",c:"Leucoptera coffeella",e:"🐛",onde:"Folhas",
+ rec:"Manchas marrons (minas) na parte de cima da folha. Ao raspar, a pele da folha solta e dá para ver a lagartinha ou o vazio onde ela comeu. Folhas caem.",
+ quando:"Época seca e quente (mais forte de julho a outubro). Em regiões quentes podem ocorrer dois picos no ano.",
+ dano:"Derruba folhas, reduz a fotossíntese e a produção da safra seguinte. É considerada a praga de maior importância do café.",
+ mon:"Pegue 1 folha do 3º ou 4º par de um ramo do terço médio, em cerca de 20 plantas por talhão. Conte folhas com mina intacta (com lagarta viva). Repita a cada 15 a 30 dias na seca.",
+ nivel:"Referência do Sul de Minas: 30% das folhas com mina intacta. No Cerrado o nível é mais baixo. Em lavoura nova, controlar já nas primeiras minas.",
+ ctl:["Preserve vespas predadoras e parasitoides (eles controlam boa parte).","Químico via solo no início das chuvas (sistêmicos) ou foliar na seca, conforme receita.","Alterne grupos de inseticida (modos de ação IRAC diferentes)."]},
+{id:"broca",n:"Broca-do-café",c:"Hypothenemus hampei",e:"🪲",onde:"Frutos",
+ rec:"Furinho redondo na \"coroa\" (ponta) do fruto. Dentro, a semente fica com galerias e pó. O besourinho é preto e mede menos de 2 mm.",
+ quando:"Trânsito (fêmeas saindo de frutos velhos para frutos novos) de outubro a janeiro, quando os frutos estão na fase de chumbinho a granação.",
+ dano:"Perda de peso, queda de frutos e piora na classificação (5 grãos broqueados = 1 defeito) e na bebida.",
+ mon:"Comece pelos talhões mais baixos e úmidos. Olhe as 4 faces da planta (norte, sul, leste e oeste), 25 frutos por face, e calcule a % de frutos broqueados.",
+ nivel:"Nível de controle: 3% a 5% de frutos broqueados.",
+ ctl:["Colheita bem feita e repasse: tirar frutos que sobram na planta e no chão (é onde a broca passa o ano).","Biológico: fungo Beauveria bassiana e vespinhas parasitoides.","Armadilhas com álcool ajudam a monitorar.","Químico só com receita e produto registrado para broca no café."]},
+{id:"cigarras",n:"Cigarras",c:"Quesada gigas, Fidicina, Dorisiana e outras",e:"🦗",onde:"Raízes",
+ rec:"Plantas definhando, folhas amarelas e pequenas, ramos secando. Buracos e \"chaminés\" de terra no chão, debaixo da saia. Cascas das ninfas presas no tronco.",
+ quando:"Adultos e canto de setembro a novembro. As ninfas ficam anos nas raízes sugando seiva.",
+ dano:"Enfraquecem a planta e derrubam a produção por várias safras.",
+ mon:"Abra pequenas trincheiras debaixo da copa e conte as ninfas nas raízes; observe as cascas no tronco.",
+ nivel:"Defina com o agrônomo a partir da contagem de ninfas por planta.",
+ ctl:["Inseticida sistêmico via solo no período chuvoso, com receita.","Lavouras bem nutridas suportam melhor."]},
+{id:"acaro-vermelho",n:"Ácaro-vermelho",c:"Oligonychus ilicis",e:"🕷️",onde:"Folhas (face de cima)",
+ rec:"Folhas perdem o brilho e ficam bronzeadas ou cor de ferrugem na parte de cima. Com lupa se veem os ácaros vermelhos.",
+ quando:"Seca prolongada, poeira de estrada e depois do uso repetido de inseticidas piretroides.",
+ dano:"Folhas envelhecem e caem antes da hora.",
+ mon:"Olhe folhas do terço superior, principalmente perto de estradas.",
+ nivel:"Siga a orientação técnica local.",
+ ctl:["Reduza a poeira (irrigar estradas internas, quebra-ventos).","Preserve ácaros predadores.","Acaricida específico só quando necessário."]},
+{id:"acaro-plano",n:"Ácaro-plano (mancha-anular)",c:"Brevipalpus phoenicis",e:"🔴",onde:"Folhas, ramos e frutos",
+ rec:"O ácaro é pequeno e achatado. O sinal mais forte é a mancha-anular: anéis amarelados nas folhas e manchas nos frutos.",
+ quando:"Período seco.",
+ dano:"Transmite o vírus da mancha-anular: queda de folhas e frutos e piora na bebida.",
+ mon:"Procure manchas em anel nas folhas e frutos e o ácaro com lupa.",
+ nivel:"Siga a orientação técnica local.",
+ ctl:["Acaricida registrado, com receita.","Retirar plantas daninhas hospedeiras."]},
+{id:"cochonilha-raiz",n:"Cochonilha-da-raiz",c:"Dysmicoccus spp. e outras",e:"⚪",onde:"Raízes e colo",
+ rec:"Colônias brancas nas raízes e no colo, muitas vezes cobertas por uma crosta de fungo. Planta amarelada e murcha, mais comum em lavoura nova.",
+ quando:"O ano todo, pior em lavouras novas e em solos arenosos.",
+ dano:"Pode matar mudas e plantas novas.",
+ mon:"Cave junto ao colo das plantas fracas e olhe as raízes. Formigas no colo são sinal de alerta.",
+ nivel:"Presença em plantas novas já pede ação.",
+ ctl:["Plante só mudas sadias.","Inseticida sistêmico via solo com receita."]},
+{id:"cochonilhas",n:"Cochonilhas da parte aérea",c:"Coccus viridis, Planococcus spp.",e:"🟢",onde:"Ramos, folhas e rosetas",
+ rec:"Pontinhos verdes ou brancos nas folhas, ramos e entre os frutos (rosetas). Aparece fumagina (pó preto) e muitas formigas.",
+ quando:"Mais na seca e em plantas estressadas.",
+ dano:"Suga a seiva, enfraquece e suja a planta.",
+ mon:"Olhe rosetas e ramos novos.",
+ nivel:"Normalmente controlada por inimigos naturais.",
+ ctl:["Preserve joaninhas e fungos que atacam as cochonilhas.","Controle das formigas.","Químico só se necessário."]},
+{id:"nematoides",n:"Nematoides",c:"Meloidogyne exigua, M. incognita, M. paranaensis",e:"🪱",onde:"Raízes",
+ rec:"Plantas amarelas e fracas em reboleiras (manchas na lavoura). M. exigua faz galhas pequenas e redondas nas raízes; M. incognita e M. paranaensis racham e descascam as raízes e podem matar a planta.",
+ quando:"O ano todo; sintomas pioram na seca.",
+ dano:"Perda forte de produção e morte de plantas.",
+ mon:"Análise nematológica de solo e raízes ANTES de plantar e nas reboleiras.",
+ nivel:"Presença confirmada pede manejo.",
+ ctl:["Mudas certificadas livres de nematoide.","Cultivares com resistência (ex.: IPR 100) ou enxertia sobre porta-enxerto resistente (ex.: Apoatã IAC 2258).","Nematicidas químicos ou biológicos, com receita."]}
+];
+
+const DOENCAS=[
+{id:"ferrugem",n:"Ferrugem",c:"Hemileia vastatrix (fungo)",e:"🟠",onde:"Folhas",
+ rec:"Pó alaranjado na parte de baixo da folha e manchas amarelas na parte de cima. Depois as folhas caem.",
+ quando:"Cresce no período chuvoso (temperatura amena e folha molhada) e chega ao pico do fim das chuvas ao início da seca. Pior em lavoura com muita carga.",
+ dano:"Desfolha forte, seca de ramos e queda da produção da safra seguinte.",
+ mon:"Conte folhas com ferrugem no terço médio das plantas, todo mês a partir de dezembro.",
+ ctl:["Plantar cultivares resistentes.","Proteção preventiva: cúpricos (protetores).","Sistêmicos: triazóis e estrobilurinas, via solo no início das chuvas ou via folha de dezembro a março, com receita.","Alterne modos de ação (FRAC)."]},
+{id:"cercospora",n:"Cercosporiose (olho-pardo)",c:"Cercospora coffeicola (fungo)",e:"🟤",onde:"Folhas e frutos",
+ rec:"Na folha: mancha redonda marrom com centro claro e borda amarela, parecida com um olho. No fruto: manchas escuras afundadas e maturação forçada.",
+ quando:"Sol forte, falta de água e principalmente desequilíbrio de adubação (pouco nitrogênio ou potássio).",
+ dano:"Queda de folhas e frutos, grãos chochos e bebida pior.",
+ mon:"Olhe folhas e frutos expostos ao sol; confira a análise foliar.",
+ ctl:["Corrigir a nutrição é a base.","Fungicidas registrados (cúpricos, triazóis, estrobilurinas) com receita."]},
+{id:"phoma",n:"Mancha-de-phoma",c:"Phoma spp. / Boeremia (fungo)",e:"⚫",onde:"Folhas novas, ponteiros, flores",
+ rec:"Manchas escuras nas folhas novas, a partir das bordas. Queima dos ponteiros, das flores e dos chumbinhos.",
+ quando:"Regiões altas e frias com vento frio, chuva e neblina, principalmente na florada (setembro a novembro).",
+ dano:"Perda de flores e frutinhos e seca de ponteiros.",
+ mon:"Fique de olho em faces expostas ao vento frio antes da florada.",
+ ctl:["Quebra-ventos.","Fungicida preventivo antes e durante a florada, com receita."]},
+{id:"aureolada",n:"Mancha-aureolada",c:"Pseudomonas syringae pv. garcae (bactéria)",e:"🟡",onde:"Folhas novas e ponteiros",
+ rec:"Manchas pardas com uma auréola (halo) amarela larga. Seca de ponteiros e de rosetas.",
+ quando:"Áreas altas, com vento frio e chuva; viveiros e lavouras novas.",
+ dano:"Seca de ponteiros, queda de folhas e de flores.",
+ mon:"Observe lavouras novas e faces de vento.",
+ ctl:["Quebra-ventos.","Bactericidas registrados (ex.: cúpricos) com receita."]},
+{id:"antracnose",n:"Antracnose / seca de ramos",c:"Colletotrichum spp. (fungo)",e:"🥀",onde:"Ramos, folhas e frutos",
+ rec:"Ramos secando da ponta para dentro, manchas escuras nos frutos e nas folhas.",
+ quando:"Plantas estressadas: seca, carga alta e nutrição fraca.",
+ dano:"Perda de ramos produtivos e frutos.",
+ mon:"Observe plantas fracas e com muita carga.",
+ ctl:["Boa nutrição e manejo da carga.","Fungicidas registrados com receita."]},
+{id:"mancha-anular",n:"Mancha-anular (vírus)",c:"Vírus transmitido pelo ácaro-plano",e:"⭕",onde:"Folhas e frutos",
+ rec:"Anéis amarelos nas folhas e manchas nos frutos.",
+ quando:"Associada ao ácaro-plano (Brevipalpus) no período seco.",
+ dano:"Queda de folhas e frutos e bebida pior.",
+ mon:"Procure os anéis nas folhas e o ácaro.",
+ ctl:["Controle do ácaro-plano (veja em Pragas)."]},
+{id:"tombamento",n:"Tombamento (viveiro)",c:"Rhizoctonia solani (fungo)",e:"🌱",onde:"Colo das mudas",
+ rec:"Mancha escura no colo da muda, que cai (tomba) e morre.",
+ quando:"Viveiro com excesso de água e substrato contaminado.",
+ dano:"Perda de mudas.",
+ mon:"Inspeção diária do viveiro.",
+ ctl:["Substrato sadio e sem excesso de água.","Fungicida registrado com receita."]}
+];
+
+const CULTIVO=[
+{t:"Clima e local",e:"🌤️",x:[
+ "Temperatura média anual boa: de 18 a 22 °C. Acima de 23 °C as flores abortam; muito frio traz risco de geada.",
+ "Chuva de 1.200 a 1.800 mm por ano, com um período seco curto que ajuda a florada a ser uniforme.",
+ "Em SP e MG o arábica vai bem de 700 a 1.200 m de altitude. Altitude ajuda na qualidade da bebida.",
+ "Evite baixadas (acúmulo de ar frio e geada) e faces de vento frio forte sem quebra-vento."]},
+{t:"Solo e correção",e:"🟫",x:[
+ "Prefere solos profundos e bem drenados, como os latossolos.",
+ "Faça análise de solo (0–20 e 20–40 cm) antes de plantar e todo ano depois da colheita.",
+ "Calagem para elevar a saturação por bases para algo perto de 60–70% (referência; siga o laudo).",
+ "Gesso agrícola ajuda a levar cálcio para baixo e aprofundar as raízes."]},
+{t:"Mudas e plantio",e:"🌱",x:[
+ "Use mudas certificadas, de viveiro registrado, livres de nematoide.",
+ "Mudas de saquinho com 4 a 6 pares de folhas ou de tubete.",
+ "Covas de 40×40×40 cm ou sulco de 40 a 60 cm, com adubo de plantio conforme a análise.",
+ "Plante no começo das chuvas (outubro a janeiro)."]},
+{t:"Espaçamento",e:"📏",x:[
+ "Tradicional: 3,5 a 4,0 m entre linhas e 0,7 a 1,0 m entre plantas.",
+ "Adensado: linhas mais próximas, com mais de 5.000 plantas por hectare.",
+ "Para colheita mecanizada, deixe a rua com a largura da máquina."]},
+{t:"Nutrição e adubação",e:"🧪",x:[
+ "Nitrogênio (N) e potássio (K) são os mais exigidos pelo café.",
+ "Parcele a adubação de solo em 3 a 4 vezes, de outubro a março, com o solo úmido.",
+ "Boro (B) e zinco (Zn) são os micronutrientes que mais faltam: costumam ir via folha ou solo.",
+ "Análise foliar: folhas do 3º ou 4º par de ramos produtivos do terço médio, na fase de chumbinho e granação.",
+ "Adubar pela produção esperada evita esgotar a planta."]},
+{t:"Tratos culturais",e:"🧑‍🌾",x:[
+ "Mantenha a linha do café limpa (coroamento) e a entrelinha com mato roçado ou braquiária, que protege o solo.",
+ "Arruação: limpar e nivelar o chão debaixo da saia antes da colheita.",
+ "Esparramação: devolver o cisco para debaixo da planta depois da colheita.",
+ "Desbrota: tirar brotos ladrões do tronco.",
+ "Quebra-ventos em áreas de vento frio."]},
+{t:"Podas",e:"✂️",x:[
+ "Recepa: corta o tronco a 30–40 cm do chão para renovar lavoura velha ou após geada.",
+ "Decote: corta o topo da planta (altura de 1,6 a 2,2 m) para facilitar a colheita.",
+ "Esqueletamento: corta os ramos laterais a 20–40 cm do tronco.",
+ "Melhor época: logo após a colheita (agosto e setembro)."]},
+{t:"Irrigação",e:"💧",x:[
+ "Gotejamento e pivô são os mais usados.",
+ "Ajuda a uniformizar a florada e garante produção em regiões com seca forte, como o Cerrado.",
+ "Permite fertirrigação (adubo pela água)."]},
+{t:"Florada e frutificação",e:"🌼",x:[
+ "A florada vem depois das primeiras chuvas após a seca (agosto a outubro).",
+ "Fases do fruto: chumbinho → expansão → granação → verde-cana → cereja → passa → seco (coco).",
+ "Água e nutrição na granação definem o peso dos grãos."]},
+{t:"Colheita",e:"🧺",x:[
+ "Arábica: de maio a setembro, conforme região e variedade.",
+ "Comece quando a maioria dos frutos estiver cereja, com pouco verde.",
+ "Formas: derriça no pano, colheita no chão, seletiva (só cereja) e mecanizada.",
+ "Faça o repasse e a varrição para não deixar frutos (abrigo da broca)."]},
+{t:"Pós-colheita",e:"☀️",x:[
+ "Separe no lavador: bóia (seco), cereja e verde. Não misture lotes.",
+ "Terreiro: camada fina, revolvendo várias vezes ao dia; não deixe o café amontoado molhado.",
+ "Secador: temperatura controlada até 11–12% de umidade.",
+ "Descanso na tulha, depois beneficiamento e classificação."]},
+{t:"Bienalidade",e:"🔁",x:[
+ "O café produz nos ramos que cresceram no ano anterior.",
+ "Ano de carga alta → pouco crescimento → ano seguinte de carga menor.",
+ "Nutrição, poda e controle de pragas e doenças diminuem essa gangorra."]}
+];
+
+const CALENDARIO=[
+["Janeiro","Granação; 3ª parcela de adubo; fungicida para ferrugem e cercosporiose; monitorar broca; análise foliar; roçar o mato."],
+["Fevereiro","Granação; última parcela de adubo; fungicida foliar; monitorar broca e ferrugem."],
+["Março","Fim das chuvas: última aplicação de fungicida; começa a maturação das precoces; monitorar bicho-mineiro."],
+["Abril","Maturação; arruação; preparar terreiro, secador, panos e máquinas."],
+["Maio","Começa a colheita das precoces; ferrugem perto do pico; monitorar bicho-mineiro."],
+["Junho","Colheita a pleno vapor; secagem; risco de geada."],
+["Julho","Colheita; risco de geada; coleta de solo para análise."],
+["Agosto","Fim da colheita; repasse e varrição; podas; calagem e gessagem; bicho-mineiro em alta."],
+["Setembro","Florada após as primeiras chuvas; proteção contra phoma e mancha-aureolada; podas; bicho-mineiro."],
+["Outubro","Plantio; 1ª parcela de adubo; produtos via solo (ferrugem e bicho-mineiro); chumbinho; começa o trânsito da broca."],
+["Novembro","2ª parcela de adubo; controle de cigarras via solo; monitorar broca; manejo do mato."],
+["Dezembro","Adubação; início do fungicida foliar para ferrugem; monitorar broca; início da granação."]
+];
+
+const DEFENSIVOS=[
+{t:"Regra de ouro",e:"📜",x:[
+ "Só aplique com receituário agronômico, assinado por agrônomo.",
+ "Use só produtos registrados para café no MAPA. Consulte grátis no AGROFIT (agrofit.agricultura.gov.br).",
+ "Dose, número de aplicações e intervalos vêm SEMPRE da bula e da receita.",
+ "Respeite o período de carência (dias entre a última aplicação e a colheita)."]},
+{t:"Manejo integrado (MIP)",e:"🔎",x:[
+ "Monitore antes de aplicar: só controle quando atingir o nível de controle.",
+ "Preserve inimigos naturais (vespas, joaninhas, ácaros predadores, fungos).",
+ "Combine controle cultural, biológico e químico."]},
+{t:"Rotação de modos de ação",e:"🔄",x:[
+ "Inseticidas e acaricidas seguem a classificação IRAC; fungicidas, a FRAC (número na bula).",
+ "Não repita o mesmo grupo seguidamente: evita resistência.",
+ "Misturas prontas com dois modos de ação ajudam a proteger as moléculas."]},
+{t:"Formas de aplicação",e:"🚜",x:[
+ "Foliar: turbo-atomizador, pulverizador costal ou canhão.",
+ "Via solo (drench) ou granulado: sistêmicos, no início das chuvas, com solo úmido.",
+ "Via gotejo (quimigação), quando o produto permitir."]},
+{t:"Tecnologia de aplicação",e:"🌬️",x:[
+ "Calibre o pulverizador antes de cada safra.",
+ "Ajuste o volume de calda ao tamanho e à folhagem da lavoura, conforme a bula.",
+ "Condições boas: vento de 3 a 10 km/h, temperatura abaixo de 30 °C e umidade acima de 55%.",
+ "Não aplique com chuva prevista nem nas horas mais quentes.",
+ "No turbo, feche os bicos que jogam produto acima da planta."]},
+{t:"Preparo da calda",e:"🪣",x:[
+ "Encha o tanque até a metade com água limpa e agitação ligada.",
+ "Ordem mais usada: condicionador de água → pós (WP, WG) → suspensões (SC) → emulsões (EC) → solúveis (SL) → óleo e adjuvantes.",
+ "Faça um teste de mistura num pote antes, quando misturar produtos.",
+ "Use a calda no mesmo dia."]},
+{t:"Segurança e EPI",e:"🦺",x:[
+ "EPI completo: luvas nitrílicas, botas, calça e jaleco hidrorrepelentes, avental, respirador, viseira e boné árabe.",
+ "Tríplice lavagem das embalagens e devolução no local indicado na nota fiscal (sistema inpEV).",
+ "Respeite o intervalo de reentrada na lavoura.",
+ "Guarde produtos trancados, longe de crianças, animais e alimentos.",
+ "Em caso de intoxicação: Disque-Intoxicação 0800 722 6001 e procure atendimento médico levando a bula."]},
+{t:"Grupos usados no café (resumo)",e:"📋",x:[
+ "Ferrugem e cercosporiose: cúpricos (protetores), triazóis e estrobilurinas.",
+ "Bicho-mineiro: sistêmicos via solo e inseticidas foliares de grupos diferentes.",
+ "Broca: Beauveria bassiana (biológico) e inseticida registrado para broca (ex.: ciantraniliprole).",
+ "Ácaros: acaricidas específicos.",
+ "Nematoides: nematicidas químicos e biológicos.",
+ "Cigarras e cochonilha-da-raiz: sistêmicos via solo.",
+ "⚠️ Esta lista mostra grupos, não receita. Escolha o produto com o agrônomo."]}
+];
+
+const SAIBA=[
+{t:"Arábica x Conilon",e:"⚖️",tab:[["","Arábica","Conilon (robusta)"],["Espécie","Coffea arabica","Coffea canephora"],["Clima","Ameno, altitude","Quente, baixa altitude"],["Polinização","Autofecunda (planta sozinha)","Cruzada (precisa de clones diferentes)"],["Cafeína","Menor (~1,2%)","Maior (~2,2%)"],["Bebida","Mais doce e aromática","Mais encorpada e amarga"],["Uso","Cafés finos e especiais","Blends e solúvel"]]},
+{t:"Qualidade da bebida",e:"☕",x:[
+ "Classificação brasileira pela bebida (do melhor para o pior): Estritamente mole, Mole, Apenas mole, Dura, Riada, Rio e Rio zona.",
+ "Cafés especiais: nota 80 ou mais na escala SCA (de 0 a 100).",
+ "Tipo (de 2 a 8) mede os defeitos: pretos, verdes, ardidos, brocados, paus e pedras.",
+ "Colher no ponto certo e secar bem é o que mais pesa na qualidade."]},
+{t:"Geada e escaldadura",e:"❄️",x:[
+ "Geada queima folhas e ramos; geada negra pode matar a parte aérea.",
+ "Prevenção: evitar baixadas, chegar terra no tronco de plantas novas no inverno e manter quebra-ventos.",
+ "Escaldadura: queima do sol em folhas e frutos depois de seca e calor fortes."]},
+{t:"Resíduos do café",e:"♻️",x:[
+ "Casca e palha de café são ótimas fontes de potássio e matéria orgânica para voltar à lavoura.",
+ "A água do lavador e do descascador deve ser tratada antes de ir ao solo ou rio."]},
+{t:"Glossário da roça",e:"📖",x:[
+ "Chumbinho: fruto bem pequeno logo após a florada.",
+ "Granação: fase em que o grão enche.",
+ "Cereja: fruto maduro (vermelho ou amarelo).",
+ "Passa / coco: fruto secando ou já seco no pé.",
+ "Bóia: café seco que flutua no lavador.",
+ "Derriça: tirar os frutos do ramo com a mão ou máquina.",
+ "Arruação: limpar o chão debaixo da saia antes da colheita.",
+ "Repasse: segunda passada para tirar os frutos que ficaram.",
+ "Saia: parte de baixo da copa.",
+ "Tulha: depósito do café seco antes do beneficiamento.",
+ "Renda: quanto de café beneficiado sai de um volume de café em coco."]}
+];
+
+</script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const ABAS=[["var","Variedades"],["cul","Cultivo"],["cal","Calendário"],["pra","Pragas"],["doe","Doenças"],["def","Defensivos"],["sai","Saiba mais"]];
+let aba=localStorage.getItem("cafeAba")||"var";if(!ABAS.some(a=>a[0]===aba))aba="var";
+let filtro={fer:"Todas",fruto:"Todos",mat:"Todas"};
+
+function abas(){$("#abas").innerHTML=ABAS.map(([k,t])=>`<button role="tab" data-a="${k}" aria-selected="${k===aba}">${t}</button>`).join("");
+ const b=$(`#abas [data-a="${aba}"]`);if(b)b.scrollIntoView({inline:"center",block:"nearest"})}
+function ir(k){aba=k;try{localStorage.setItem("cafeAba",k)}catch(e){}abas();render();scrollTo(0,0)}
+$("#abas").onclick=e=>{const b=e.target.closest("button");if(b)ir(b.dataset.a)};
+
+function secoes(lista){return lista.map(s=>`<details><summary><span>${s.e}</span>${esc(s.t)}</summary>${s.x?`<ul>${s.x.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}${s.tab?`<table>${s.tab.map((r,i)=>`<tr>${r.map(c=>i?`<td>${esc(c)}</td>`:`<th>${esc(c)}</th>`).join("")}</tr>`).join("")}</table>`:""}</details>`).join("")}
+function cardVar(v){return `<button class="card" data-tipo="var" data-id="${v.id}"><div class="nome">${esc(v.n)}</div><div class="sci">${esc(v.o)}</div>
+ <div class="tags"><span class="tag f-${v.fer}">Ferrugem: ${v.fer}</span><span class="tag fr-${v.fruto}">Fruto ${v.fruto.toLowerCase()}</span><span class="tag">Porte ${v.porte.toLowerCase()}</span><span class="tag">Maturação ${v.mat.toLowerCase()}</span></div></button>`}
+function cardPD(p,t){return `<button class="card" data-tipo="${t}" data-id="${p.id}"><div class="linhaCard"><div class="emo">${p.e}</div><div><div class="nome">${esc(p.n)}</div><div class="sci">${esc(p.c)}</div><p>${esc(p.rec.split(". ")[0])}.</p><div class="tags"><span class="tag">Ataca: ${esc(p.onde)}</span></div></div></div></button>`}
+function chips(nome,ops){return `<div class="filtros">${ops.map(o=>`<button class="chip" data-f="${nome}" data-v="${o}" aria-pressed="${filtro[nome]===o}">${o}</button>`).join("")}</div>`}
+
+function render(){let h="";
+ if(aba==="var"){const f=VARIEDADES.filter(v=>(filtro.fer==="Todas"||v.fer===filtro.fer)&&(filtro.fruto==="Todos"||v.fruto===filtro.fruto)&&(filtro.mat==="Todas"||v.mat.includes(filtro.mat)));
+  h=`<div class="intro">${VARIEDADES.length} cultivares de café arábica plantadas no Brasil. Toque para ver a ficha. Use os filtros:</div>`+
+  chips("fer",["Todas","Resistente","Moderada","Suscetível"])+chips("fruto",["Todos","Vermelho","Amarelo"])+chips("mat",["Todas","Precoce","Média","Tardia"])+
+  (f.length?f.map(cardVar).join(""):`<p class="vazio">Nenhuma variedade com esses filtros.</p>`)}
+ else if(aba==="cul")h=`<div class="intro">Do clima à pós-colheita: o passo a passo para formar e conduzir a lavoura. Toque em cada tema.</div>`+secoes(CULTIVO);
+ else if(aba==="cal"){const m=new Date().getMonth();h=`<div class="intro">O que fazer em cada mês (referência para SP e Sul de Minas; ajuste à sua região).</div>`+CALENDARIO.map((c,i)=>`<div class="mes${i===m?" atual":""}" ${i===m?'id="mesAtual"':""}><b>${c[0]}</b><span>${esc(c[1])}</span></div>`).join("")}
+ else if(aba==="pra")h=`<div class="intro">Principais pragas do café arábica: como reconhecer, quando aparecem e como controlar.</div>`+PRAGAS.map(p=>cardPD(p,"pra")).join("");
+ else if(aba==="doe")h=`<div class="intro">Principais doenças: sinais, época favorável e manejo.</div>`+DOENCAS.map(p=>cardPD(p,"doe")).join("");
+ else if(aba==="def")h=`<div class="aviso">⚠️ Este app <b>não substitui a receita agronômica</b>. Doses e produtos: sempre da bula e do agrônomo.</div>`+secoes(DEFENSIVOS);
+ else h=`<div class="intro">Especificidades do arábica: diferenças para o conilon, qualidade, geada e palavras da roça.</div>`+secoes(SAIBA);
+ $("#tela").innerHTML=h;
+ if(aba==="cal"){const e=$("#mesAtual");if(e)setTimeout(()=>e.scrollIntoView({block:"center"}),50)}}
+
+$("#tela").onclick=e=>{const c=e.target.closest(".chip");if(c){filtro[c.dataset.f]=c.dataset.v;render();return}
+ const k=e.target.closest(".card");if(k)abrir(k.dataset.tipo,k.dataset.id)};
+
+function bloco(t,c,cls=""){return `<div class="bloco ${cls}"><h3>${t}</h3>${c}</div>`}
+function lista(a){return `<ul>${a.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`}
+function abrir(tipo,id,semHist){let t="",h="";
+ if(tipo==="var"){const v=VARIEDADES.find(x=>x.id===id);if(!v)return;t=v.n;
+  h=`<div class="kv"><div><small>Porte</small><b>${v.porte}</b></div><div><small>Fruto</small><b>${v.fruto}</b></div><div><small>Maturação</small><b>${v.mat}</b></div><div><small>Ferrugem</small><b>${v.fer}</b></div></div>`+
+   bloco("Origem",`<p>${esc(v.o)}</p>`)+bloco("Como é",`<p>${esc(v.d)}</p>`)+bloco("Indicada para",`<p>${esc(v.ind)}</p>`)+bloco("⚠️ Atenção",lista(v.at),"at")+
+   `<div class="aviso">O comportamento muda com a região. Confirme com o viveiro e o agrônomo antes de plantar.</div>`}
+ else{const p=(tipo==="pra"?PRAGAS:DOENCAS).find(x=>x.id===id);if(!p)return;t=p.e+" "+p.n;
+  h=bloco("Nome científico",`<p><i>${esc(p.c)}</i></p>`)+bloco("Onde ataca",`<p>${esc(p.onde)}</p>`)+bloco("Como reconhecer",`<p>${esc(p.rec)}</p>`)+bloco("Quando aparece",`<p>${esc(p.quando)}</p>`)+
+   bloco("Dano",`<p>${esc(p.dano)}</p>`)+bloco("Monitoramento",`<p>${esc(p.mon)}</p>`)+(p.nivel?bloco("Nível de controle",`<p>${esc(p.nivel)}</p>`,"nivel"):"")+bloco("Controle",lista(p.ctl))+
+   `<div class="aviso">Produtos e doses só com receituário agronômico. Consulte os registrados para café no AGROFIT.</div>`}
+ $("#fTit").textContent=t;$("#fCorpo").innerHTML=h;$("#ficha").hidden=false;$("#ficha").scrollTop=0;
+ if(!semHist)history.pushState({f:1},"")}
+function fechar(){if(!$("#ficha").hidden||!$("#busca").hidden)history.back()}
+$("#fVoltar").onclick=fechar;$("#bVoltar").onclick=fechar;
+addEventListener("popstate",()=>{if(!$("#ficha").hidden){$("#ficha").hidden=true;return}$("#busca").hidden=true});
+
+// busca geral
+function todos(){const r=[];
+ VARIEDADES.forEach(v=>r.push({cat:"Variedade",t:v.n,s:v.o,txt:[v.n,v.o,v.d,v.ind,v.fer,v.fruto,v.mat,v.at.join(" ")].join(" "),go:()=>abrir("var",v.id,1)}));
+ PRAGAS.forEach(p=>r.push({cat:"Praga",t:p.e+" "+p.n,s:p.c,txt:Object.values(p).flat().join(" "),go:()=>abrir("pra",p.id,1)}));
+ DOENCAS.forEach(p=>r.push({cat:"Doença",t:p.e+" "+p.n,s:p.c,txt:Object.values(p).flat().join(" "),go:()=>abrir("doe",p.id,1)}));
+ [["Cultivo",CULTIVO,"cul"],["Defensivos",DEFENSIVOS,"def"],["Saiba mais",SAIBA,"sai"]].forEach(([c,l,a])=>l.forEach(s=>r.push({cat:c,t:s.e+" "+s.t,s:"",txt:s.t+" "+(s.x||[]).join(" ")+" "+(s.tab||[]).flat().join(" "),go:()=>{history.back();setTimeout(()=>{ir(a);abrirSecao(s.t)},60)}})));
+ CALENDARIO.forEach(c=>r.push({cat:"Calendário",t:"📅 "+c[0],s:c[1],txt:c.join(" "),go:()=>{history.back();setTimeout(()=>ir("cal"),60)}}));
+ return r}
+let IDX=null,achados=[];
+function abrirSecao(t){const d=[...document.querySelectorAll("#tela details")].find(x=>x.querySelector("summary").textContent.includes(t));if(d){d.open=true;d.scrollIntoView({block:"start"});scrollBy(0,-130)}}
+$("#btnBusca").onclick=()=>{IDX=IDX||todos();$("#busca").hidden=false;history.pushState({b:1},"");$("#bq").value="";buscar();setTimeout(()=>$("#bq").focus(),50)};
+function buscar(){const q=norm($("#bq").value.trim());
+ if(q.length<2){$("#bRes").innerHTML=`<p class="vazio">Digite pelo menos 2 letras.<br>Ex.: broca, ferrugem, Catuaí, poda, EPI.</p>`;return}
+ const ps=q.split(/\s+/);achados=IDX.filter(i=>{const t=norm(i.txt);return ps.every(p=>t.includes(p))});
+ $("#bRes").innerHTML=achados.length?achados.map((a,i)=>`<button class="card res" data-i="${i}"><small>${a.cat}</small><div class="nome">${esc(a.t)}</div>${a.s?`<div class="sci">${esc(a.s)}</div>`:""}</button>`).join(""):`<p class="vazio">Nada encontrado.</p>`}
+$("#bq").oninput=buscar;
+$("#bRes").onclick=e=>{const b=e.target.closest(".res");if(!b)return;const a=achados[+b.dataset.i];
+ if(a.cat==="Variedade"||a.cat==="Praga"||a.cat==="Doença"){$("#busca").hidden=true;a.go();history.replaceState({f:1},"")}else a.go()};
+
+// arrasto lateral entre abas
+let x0=null,y0=0;
+$("#tela").addEventListener("touchstart",e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+$("#tela").addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+ if(Math.abs(dx)<28||Math.abs(dx)<Math.abs(dy)*1.3)return;const i=ABAS.findIndex(a=>a[0]===aba);const j=dx<0?i+1:i-1;if(j>=0&&j<ABAS.length)ir(ABAS[j][0])},{passive:true});
+
+// instalar
+let adiado=null;const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+if(!standalone())$("#btnInstalar").hidden=false;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();adiado=e;if(!standalone())$("#btnInstalar").hidden=false});
+addEventListener("appinstalled",()=>{$("#btnInstalar").hidden=true});
+$("#btnInstalar").onclick=async()=>{if(adiado){adiado.prompt();try{await adiado.userChoice}catch(e){}adiado=null}else $("#dicaInst").hidden=false};
+$("#dicaOk").onclick=()=>$("#dicaInst").hidden=true;
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+abas();render();
+</script>
+</body>
+</html>

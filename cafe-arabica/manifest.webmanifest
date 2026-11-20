@@ -1,0 +1,18 @@
+{
+  "name": "Café Arábica",
+  "short_name": "Café Arábica",
+  "description": "Café arábica: variedades, cultivo, tratos, defensivos, pragas, doenças e especificidades",
+  "lang": "pt-BR",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2E5B2E",
+  "theme_color": "#2E5B2E",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
