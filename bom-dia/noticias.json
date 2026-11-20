@@ -1,178 +1,226 @@
 {
-  "gerado": "2026-11-18T22:45:12-03:00",
+  "gerado": "2026-11-19T22:50:54-03:00",
   "assuntos": {
     "cana": [
       {
-        "titulo": "Etanol sobe em São Paulo com procura forte",
-        "resumo": "O preço do etanol hidratado subiu em São Paulo, puxado pela demanda e pela redução de PIS e Cofins mantida até 9 de dezembro, segundo o Cepea. Já o açúcar cristal teve poucos negócios e preços em queda.",
-        "fonte": "Canal Rural",
-        "link": "https://www.canalrural.com.br/etanol-acucar/etanol-sobe-com-demanda-aquecida-mas-acucar-perde-valor-em-sao-paulo/"
+        "titulo": "Estoque de etanol no Centro-Sul é o menor em dez anos",
+        "resumo": "O Centro-Sul fechou outubro com cerca de 4,5 bilhões de litros de etanol estocados, o menor volume para o período em uma década. Com chuvas atrasando a colheita e a procura forte nos postos, a consultoria FG/A espera que o preço continue subindo.",
+        "fonte": "Portal do Agronegócio",
+        "link": "https://portaldoagronegocio.com.br/energias-renovaveis/etanol/noticias/preco-do-etanol-deve-seguir-em-alta-com-estoques-no-menor-nivel-em-dez-anos-para-outubro"
       },
       {
-        "titulo": "Jalles alerta que etanol de cana precisa ganhar eficiência",
-        "resumo": "Em evento do BTG, o diretor financeiro da Jalles disse que o etanol de cana pode virar quase um subproduto do açúcar se não ficar mais eficiente diante do avanço do etanol de milho. Ele contou que a empresa tem um projeto de milho guardado, travado pelos juros altos.",
-        "fonte": "Money Times",
-        "link": "https://moneytimes.com.br/se-nao-ganhar-eficiencia-etanol-cana-pode-virar-subproduto-acucar-diz-cfo-jalles-jall3-pads"
+        "titulo": "Usinas de cana devem ter a pior margem em dez anos",
+        "resumo": "O Itaú BBA projeta margem de cerca de 23% para as usinas do Centro-Sul na safra 2026/27, a menor da década, por causa dos preços mais baixos do açúcar e do etanol. Com menos caixa, os investimentos do setor devem cair cerca de 15%.",
+        "fonte": "Portal do Agronegócio",
+        "link": "https://portaldoagronegocio.com.br/agroindustria/setor-sucroalcooleiro/noticias/usinas-de-cana-devem-ter-a-menor-margem-em-dez-anos-com-queda-do-acucar-e-do-etanol"
       },
       {
-        "titulo": "Açúcar acumula alta de cerca de 25% em 2026",
-        "resumo": "Segundo a seguradora Coface, o açúcar chegou ao maior preço em quase dois anos, passando de 450 dólares a tonelada em outubro. Entre os motivos estão o clima, o desvio de cana para etanol no Brasil e as regras da Índia.",
-        "fonte": "Executive Digest",
-        "link": "https://executivedigest.sapo.pt/precos-do-acucar-sobem-cerca-de-25-em-2026-e-atingem-maximos-de-quase-dois-anos/"
+        "titulo": "Tereos reduz previsão de resultados com operação fraca no Brasil",
+        "resumo": "A gigante francesa do açúcar cortou sua projeção de margem para a safra 2026/27 depois de registrar prejuízo no semestre. Na divisão internacional, que inclui as usinas de cana no Brasil, a receita caiu 26%, pressionada pelos preços de venda mais baixos.",
+        "fonte": "AgFeed",
+        "link": "https://agfeed.com.br/negocios/nem-cana-nem-beterraba-resultados-fracos-no-brasil-e-na-europa-fazem-tereos-cortar-guidance-para-safra"
+      },
+      {
+        "titulo": "Açúcar cai nas bolsas, mas sobe no mercado paulista",
+        "resumo": "O açúcar bruto recuou em Nova York e em Londres, pressionado pelo real mais fraco e pela queda do petróleo. Em São Paulo, porém, o açúcar cristal subiu mais de 2% no indicador do Cepea, enquanto o etanol hidratado em Paulínia teve leve queda.",
+        "fonte": "NX1",
+        "link": "https://nx1.com.br/2026/11/19/acucar-cai-em-nova-york-e-londres-mas-cristal-sobe-229-em-sp/"
+      },
+      {
+        "titulo": "Minas Gerais terá usina de etanol de milho dentro de complexo canavieiro",
+        "resumo": "A Bioenergética Aroeira está construindo em Tupaciguara uma usina de etanol de milho e sorgo ao lado da sua unidade de cana, com capacidade prevista de 225 milhões de litros por ano. Ela vai usar o bagaço de cana como fonte de energia e deve começar a operar em 2028.",
+        "fonte": "Click Petróleo e Gás",
+        "link": "https://clickpetroleoegas.com.br/minas-gerais-tera-nova-usina-capaz-de-transformar-500-mil-toneladas-de-milho-e-sorgo-em-225-milhoes-de-litros-de-etanol-por-ano-asaf04"
       }
     ],
     "politica": [
       {
-        "titulo": "Senado aprova ajuste fiscal e texto vai à Câmara",
-        "resumo": "O Senado aprovou na quarta-feira o projeto de ajuste fiscal do governo por 69 votos a 2, com acordo que dobra o repasse anual da Lei Kandir aos estados. A Câmara deve votar a proposta na próxima semana.",
-        "fonte": "Estado de Minas",
-        "link": "https://www.em.com.br/politica/2026/11/7540867-com-alteracoes-senado-aprova-projeto-de-ajuste-fiscal-das-contas-publicas.html"
+        "titulo": "Senado conclui votação do ajuste fiscal e envia texto à Câmara",
+        "resumo": "O Senado terminou de votar o projeto de ajuste fiscal do governo, com 69 votos a favor e 2 contra no turno suplementar, e rejeitou três destaques da oposição. Agora a proposta será analisada pela Câmara dos Deputados.",
+        "fonte": "Agência Senado",
+        "link": "https://www12.senado.leg.br/noticias/materias/2026/11/18/senado-completa-votacao-e-ajuste-fiscal-segue-para-a-camara"
       },
       {
-        "titulo": "Senado rejeita mudanças da oposição no ajuste fiscal",
-        "resumo": "Os senadores derrubaram os destaques que tentavam alterar o texto. A economia estimada para 2027 fica entre 45 e 56 bilhões de reais, segundo a reportagem.",
-        "fonte": "ConJur",
-        "link": "https://conjur.com.br/2026-nov-18/senado-rejeita-mudancas-no-texto-e-aprova-ajuste-fiscal-do-governo/"
+        "titulo": "Câmara aprova regras e multas para a transição presidencial",
+        "resumo": "A Câmara aprovou um projeto que obriga a formação de uma equipe de transição com representantes dos dois governos em até 72 horas após o resultado da eleição. Quem dificultar o processo poderá ser multado, e o texto segue para o Senado.",
+        "fonte": "Gazeta do Povo",
+        "link": "https://www.gazetadopovo.com.br/republica/camara-aprova-regras-para-transicao-presidencial-e-preve-multa-para-quem-dificultar-processo/"
       },
       {
-        "titulo": "Lula e Alcolumbre discutem indicação para vaga no STF",
-        "resumo": "O presidente Lula deve se reunir com o presidente do Senado, Davi Alcolumbre, para tratar do nome que ocupará a vaga de Barroso no Supremo. O governo quer definir a indicação até o fim de novembro.",
-        "fonte": "TV Sim Brasil",
-        "link": "https://tvsimbrasil.com.br/brasil/politica/noticia/2026/11/17/lula-reune-alcolumbre-fechar-nome-stf"
+        "titulo": "Senado amplia prazo para vítimas de abuso na infância pedirem indenização",
+        "resumo": "O Senado aprovou um projeto que aumenta de 3 para 20 anos o prazo para vítimas de crimes sexuais na infância ou adolescência pedirem reparação na Justiça, contado a partir dos 18 anos. O texto vai para sanção do presidente Lula.",
+        "fonte": "Agência Pública",
+        "link": "https://apublica.org/2026/11/pl-samuel-klein-e-aprovado-no-senado-e-vai-a-sancao-presidencial/"
       },
       {
-        "titulo": "Câmara adia votação do projeto que regula big techs",
-        "resumo": "A Câmara adiou a análise do projeto que trata da concorrência envolvendo grandes empresas de tecnologia, a pedido de deputados da oposição que queriam mais tempo para estudar o texto.",
-        "fonte": "Mobile Time",
-        "link": "https://www.mobiletime.com.br/noticias/17/11/2026/camara-deputados-adia-pl/"
+        "titulo": "Lei da Dosimetria será julgada pelo STF a partir de 4 de dezembro",
+        "resumo": "O ministro Alexandre de Moraes liberou para julgamento quatro ações que contestam a Lei da Dosimetria, que mudou regras de cálculo de penas. A análise será no plenário virtual do STF entre 4 e 15 de dezembro.",
+        "fonte": "Diario de Pernambuco",
+        "link": "https://www.diariodepernambuco.com.br/politica/2026/11/11729575-stf-marca-para-dezembro-julgamento-de-acoes-contra-lei-da-dosimetria.html"
+      },
+      {
+        "titulo": "Lula assina decreto da escala 5x2 e defende ônibus grátis no fim de semana",
+        "resumo": "Na assinatura do decreto que regulamenta a escala 5x2, o presidente Lula disse que o governo vai defender transporte público gratuito aos fins de semana. A jornada semanal cai de 44 para 42 horas em 16 de dezembro e para 40 horas em dezembro de 2027.",
+        "fonte": "Agência Brasil",
+        "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/transporte-gratuito-no-fim-de-semana-complementa-escala-5x2-diz-lula"
       }
     ],
     "tecnologia": [
       {
-        "titulo": "Nvidia fatura 115,8 bilhões de dólares no trimestre",
-        "resumo": "A Nvidia informou receita mais que dobrada em um ano, acima do esperado pelo mercado, puxada pelos chips para data centers. A empresa também previu um próximo trimestre acima das expectativas.",
-        "fonte": "Nvidia",
-        "link": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027"
+        "titulo": "iFood confirma ataque hacker com vazamento de dados",
+        "resumo": "O iFood admitiu que um ataque no dia 14 expôs telefones de clientes, CPFs de restaurantes e, no caso de alguns entregadores, até dados bancários. A empresa não informou quantas pessoas foram afetadas e avisou a ANPD.",
+        "fonte": "Mobile Time",
+        "link": "https://www.mobiletime.com.br/noticias/19/11/2026/ifood-vazamento-de-dados/"
       },
       {
-        "titulo": "OpenAI lança novos modelos GPT-6.2 Astra e Sol",
-        "resumo": "A OpenAI apresentou dois modelos: o Astra, para tarefas complexas como programação e pesquisa, e o Sol, para o uso do dia a dia. Os dois já estão no ChatGPT e na plataforma para desenvolvedores.",
-        "fonte": "OpenAI",
-        "link": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
+        "titulo": "Google lança Gemini 4 Neon, modelo de IA mais rápido e barato",
+        "resumo": "O Google lançou o Gemini 4 Neon, um modelo intermediário pensado para tarefas do dia a dia no trabalho. Segundo a empresa, ele é três vezes mais rápido e mais barato que a versão mais avançada, e já está disponível na API e nos planos pagos.",
+        "fonte": "Mobile Time",
+        "link": "https://www.mobiletime.com.br/noticias/19/11/2026/google-anuncia-gemini-4/"
       },
       {
-        "titulo": "Microsoft leva Word, Excel e PowerPoint para dentro do Copilot",
-        "resumo": "Na conferência Ignite, a Microsoft liberou para todos os aplicativos do Office dentro do Copilot. Satya Nadella chamou o assistente de novo sistema operacional do trabalho.",
-        "fonte": "Ars Technica",
-        "link": "https://arstechnica.com/gadgets/2026/11/microsoft-calls-copilot-the-new-os-for-work-at-ignite-keynote/"
+        "titulo": "Motorola lança assistente de IA Qira em celulares com Android 17",
+        "resumo": "A Motorola apresentou a Qira, uma assistente de inteligência artificial que atende pelo comando de voz e faz resumos, traduções e imagens. Ela chega aos poucos às linhas razr, edge e signature e funciona também com aparelhos da Lenovo.",
+        "fonte": "Mobile Time",
+        "link": "https://www.mobiletime.com.br/noticias/19/11/2026/motorola-lanca-qira-ia/"
       },
       {
-        "titulo": "Google vai guardar conversas do Gemini por mais tempo",
-        "resumo": "Mesmo com o histórico desligado, as conversas com o Gemini passarão a ficar guardadas por cerca de dois meses, e não mais por 72 horas. A mudança aparece na nova central de privacidade da Google.",
-        "fonte": "TechCrunch",
-        "link": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/"
+        "titulo": "ANPD mantém bloqueio das transmissões ao vivo do Discord no Brasil",
+        "resumo": "A ANPD rejeitou por unanimidade o recurso do Discord e manteve suspensas as lives da plataforma no país, por falta de proteção a crianças e adolescentes. O recurso pode voltar se a empresa comprovar melhorias na segurança.",
+        "fonte": "Mobile Time",
+        "link": "https://www.mobiletime.com.br/noticias/19/11/2026/anpd-ao-vivo-discord/"
       },
       {
-        "titulo": "Falha grave no Java é achada com ajuda de IA",
-        "resumo": "Uma empresa de segurança diz ter usado inteligência artificial para encontrar uma falha que permitia rodar código à distância no Java. A Oracle já liberou a correção.",
-        "fonte": "The New York Times",
-        "link": "https://www.nytimes.com/2026/11/17/us/politics/ai-security-bug-java.html"
+        "titulo": "Projeto no Senado propõe imposto de 3% sobre big techs",
+        "resumo": "O senador Randolfe Rodrigues apresentou um projeto que cobra 3% da receita de grandes empresas de tecnologia no Brasil, incluindo publicidade, streaming e inteligência artificial. O dinheiro iria para programas de renda básica.",
+        "fonte": "Mobile Time",
+        "link": "https://www.mobiletime.com.br/noticias/18/11/2026/senador-taxa-big-techs-3/"
       }
     ],
     "ciencia": [
       {
-        "titulo": "USP identifica gene ligado à defesa contra tuberculose",
-        "resumo": "Pesquisadores de Ribeirão Preto mostraram que o gene CREB3L1 ajuda o corpo a capturar e eliminar a bactéria da tuberculose. A descoberta abre caminho para novos estudos sobre o controle da doença.",
-        "fonte": "Jornal da USP",
-        "link": "https://jornal.usp.br/campus-ribeirao-preto/gene-identificado-em-estudo-ajuda-a-explicar-a-resposta-do-organismo-a-tuberculose/"
+        "titulo": "Falta de dados genéticos brasileiros atrapalha diagnóstico cardíaco",
+        "resumo": "Pesquisadores do InCor da USP analisaram o DNA de pouco mais de mil pacientes e viram que quase oito em cada dez tinham variantes genéticas de efeito ainda desconhecido. O problema aparece mais em trechos de origem indígena ou africana, pouco representados nos bancos de dados mundiais.",
+        "fonte": "Agência FAPESP",
+        "link": "https://agencia.fapesp.br/falta-de-dados-afeta-rastreamento-genetico-de-insuficiencia-cardiaca-na-populacao-brasileira/59651"
       },
       {
-        "titulo": "Terapia com luz reduz dor e atrofia em ratos",
-        "resumo": "Um estudo da USP comparou diferentes tipos de luz em ratos com lesão no nervo ciático e viu menos perda muscular e menos sinais de dor. A ideia é padronizar a técnica como tratamento complementar.",
+        "titulo": "Bactéria desconhecida vive sob a pele de animais das profundezas",
+        "resumo": "Cientistas da Universidade de Tóquio descobriram uma nova bactéria que domina o tecido dos chamados porcos-do-mar, animais do fundo do oceano. Ela tem um genoma muito pequeno e parece depender do hospedeiro para quase tudo.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/11/261118065512.htm"
+      },
+      {
+        "titulo": "Calçadas desequilibram raízes e aumentam risco de queda de árvores",
+        "resumo": "Usando um radar que enxerga debaixo do solo, pesquisadores paulistas viram que árvores em parques têm cerca de 54% mais raízes do que as plantadas em calçadas. Nas ruas, as raízes crescem de forma desigual, o que deixa até árvores saudáveis mais vulneráveis a ventos fortes.",
+        "fonte": "Agência FAPESP",
+        "link": "https://agencia.fapesp.br/calcadas-limitam-crescimento-de-raizes-e-desequilibram-arvores-urbanas/59642"
+      },
+      {
+        "titulo": "Terapia com luz reduz dor e perda muscular em ratos",
+        "resumo": "Um estudo da USP mostrou que a luz de baixa intensidade, principalmente a infravermelha, diminuiu a dor e preservou parte do músculo em ratos com lesão no nervo ciático. Os pesquisadores veem a técnica como um complemento aos tratamentos comuns.",
         "fonte": "Agência FAPESP",
         "link": "https://agencia.fapesp.br/terapia-com-luz-reduz-atrofia-muscular-e-sinais-de-dor-em-ratos-com-lesao-no-ciatico/59644"
       },
       {
-        "titulo": "Falta de áreas verdes ligada a doenças crônicas",
-        "resumo": "Na COP31, um professor da USP apresentou estudos que associam a falta de verde nas cidades a mais casos de pressão alta, diabetes e obesidade, sobretudo em bairros pobres.",
-        "fonte": "Jornal da USP",
-        "link": "https://jornal.usp.br/atualidades/cop-31-estudos-da-usp-relacionam-falta-de-areas-verdes-a-desigualdades-e-doencas-cronicas/"
-      },
-      {
-        "titulo": "Cientistas criam bateria recarregável com vitamina B12",
-        "resumo": "Pesquisadores fizeram uma bateria que usa a vitamina B12 para guardar energia. O protótipo aguentou até 250 ciclos de recarga.",
+        "titulo": "Movimentos do interior da Terra explicariam bilhão de anos sumido",
+        "resumo": "Simulações de uma universidade australiana, publicadas na Nature, indicam que o fluxo lento do manto ergueu partes antigas dos continentes e a erosão apagou camadas inteiras de rocha. Isso ajudaria a explicar a Grande Discordância, uma enorme lacuna no registro geológico.",
         "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/11/261117033909.htm"
-      },
-      {
-        "titulo": "Doença rara revela falha escondida no sistema imune",
-        "resumo": "Cientistas descobriram que uma doença inflamatória rara é causada por células de defesa defeituosas, o que muda uma ideia aceita há trinta anos. O achado aponta para um novo tratamento.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/11/261117035052.htm"
+        "link": "https://www.sciencedaily.com/releases/2026/11/261116023403.htm"
       }
     ],
     "astronomia": [
       {
         "titulo": "Voyager 1 chega a um dia-luz de distância da Terra",
-        "resumo": "Nesta quarta-feira, a sonda Voyager 1 alcançou cerca de 25,9 bilhões de quilômetros da Terra, distância que a luz leva um dia para percorrer. Quase 50 anos após o lançamento, ela continua funcionando.",
-        "fonte": "Euronews",
-        "link": "https://pt.euronews.com/2026/11/18/voyager-1-um-dia-luz-separa-nos-agora-da-nossa-mais-distante-aventureira"
-      },
-      {
-        "titulo": "Cápsula Dragon deixa a Estação Espacial nesta sexta",
-        "resumo": "A nave de carga da missão CRS-35 deve se desacoplar da Estação Espacial na sexta, por volta das duas da tarde de Brasília, trazendo amostras de pesquisas. A chegada ao mar, na Califórnia, está prevista para sábado.",
-        "fonte": "NASA",
-        "link": "https://www.nasa.gov/news-release/nasa-to-cover-35th-spacex-resupply-mission-space-station-departure/"
-      },
-      {
-        "titulo": "Lua cresce no céu e fica cheia no dia 24",
-        "resumo": "A Lua está na fase crescente e fica cheia na terça, dia 24, perto do meio-dia. A melhor hora para vê-la será ao anoitecer, quando ela nasce no leste.",
+        "resumo": "A sonda Voyager 1, da NASA, lançada em 1977, ficou a cerca de 25,9 bilhões de quilômetros da Terra na manhã de 18 de novembro. É a primeira vez que um objeto feito por humanos chega tão longe, e um sinal de rádio leva um dia inteiro para fazer esse percurso.",
         "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/18/ciencia-e-espaco/lua-hoje-confira-a-fase-da-lua-desta-quarta-feira-18-11-2026/"
+        "link": "https://olhardigital.com.br/2026/11/18/ciencia-e-espaco/voyager-1-espaconave-faz-historia-atinge-um-dia-luz-da-terra-e-segue-viagem-para-fora-do-sistema-solar/"
+      },
+      {
+        "titulo": "Voyager 1 para de enviar dados logo após marco histórico",
+        "resumo": "Desde 14 de novembro, a Voyager 1 manda só um sinal básico, sem dados científicos, e os engenheiros suspeitam de um dos computadores de bordo. Como cada troca de mensagens leva cerca de dois dias, o conserto pode levar semanas.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/19/ciencia-e-espaco/voyager-1-enfrenta-falha-de-comunicacao-a-um-dia-luz-da-terra/"
+      },
+      {
+        "titulo": "Quatro planetas aparecem juntos antes do amanhecer até domingo",
+        "resumo": "Mercúrio, Vênus, Marte e Júpiter podem ser vistos no leste antes do nascer do Sol, e de 20 a 22 de novembro é o melhor momento para achar Mercúrio. No Brasil, a vista é melhor no Norte e no Nordeste; no Sudeste, Mercúrio fica muito baixo no horizonte.",
+        "fonte": "Star Walk",
+        "link": "https://starwalk.space/pt/news/planetary-alignment-november-2026"
+      },
+      {
+        "titulo": "Chuva de meteoros Leônidas teve seu pico nesta semana",
+        "resumo": "A chuva de meteoros Leônidas teve seu ponto alto na madrugada de quarta-feira, 18 de novembro. Ela ainda pode ser vista sem telescópio até pelo menos o fim do mês.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/18/ciencia-e-espaco/chuva-de-meteoros-veja-as-estrelas-cadentes-que-iluminaram-a-madrugada/"
+      },
+      {
+        "titulo": "NASA transforma imagens de berçários de estrelas em música",
+        "resumo": "A NASA transformou em som os dados de telescópios como Chandra, Hubble e James Webb sobre quatro regiões onde nascem estrelas, entre elas a Nebulosa de Órion. Brilho, cor e posição da luz viram notas musicais.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/18/ciencia-e-espaco/como-soam-estrelas-em-formacao-nasa-transforma-dados-do-espaco-em-audio/"
       }
     ],
     "filosofia": [
       {
-        "titulo": "Dia Mundial da Filosofia é celebrado nesta quinta",
-        "resumo": "A UNESCO comemora o Dia Mundial da Filosofia em 19 de novembro com uma palestra do filósofo senegalês Souleymane Bachir Diagne sobre viver juntos na Terra. Haverá debates com estudantes sobre clima, inteligência artificial, migrações e saúde.",
-        "fonte": "UNESCO",
-        "link": "https://www.unesco.org/en/articles/world-philosophy-day-2026"
+        "titulo": "Dia Mundial da Filosofia convida a pensar e questionar",
+        "resumo": "A data, criada pela UNESCO, celebra o pensamento crítico e o diálogo. O tema deste ano trata de como viver num mundo marcado por crises, como o clima, a inteligência artificial e as migrações.",
+        "fonte": "CGN",
+        "link": "https://cgn.inf.br/noticia/2239187/afinal-o-que-e-pensar-dia-mundial-da-filosofia-celebra-reflexao-e-conhecimento"
       },
       {
-        "titulo": "Nova tradução de textos de Hume sobre as paixões",
-        "resumo": "Foi lançado na UFSC o livro Sobre as paixões e outros textos, de David Hume, com tradução e organização de Jaimir Conte.",
-        "fonte": "ANPOF",
-        "link": "https://anpof.org.br/agenda/lancamentos-de-livros/lancamento-do-livro-sobre-as-paixoes-e-outros-textos-de-david-hume-traducao-e-organizacao-de-jaimir-conte"
+        "titulo": "Cinco filósofos para começar a ler no Dia da Filosofia",
+        "resumo": "A matéria indica Sócrates, Platão, Aristóteles, Hannah Arendt e Simone de Beauvoir para quem quer se iniciar na filosofia, com uma primeira obra sugerida para cada um.",
+        "fonte": "A Gazeta de Dourados (com Estadão)",
+        "link": "https://www.agazetadedourados.com.br/noticias/educacao/5-filosofos-essenciais-e-acessiveis-para-conhecer-no-dia-da-filosofia/19/11/2026/"
+      },
+      {
+        "titulo": "Festival de Filosofia de Abrantes discute a verdade na era digital",
+        "resumo": "A nona edição do festival português começou no Dia Mundial da Filosofia, com o tema do poder da verdade. Um dos convidados disse que os algoritmos favorecem conteúdos emocionais, o que espalha desinformação e aumenta a polarização.",
+        "fonte": "Médio Tejo",
+        "link": "https://mediotejo.net/festival-de-filosofia-de-abrantes-lancou-reflexao-sobre-a-verdade-na-era-digital/"
+      },
+      {
+        "titulo": "Coimbra celebra a filosofia com livro narrado por uma IA",
+        "resumo": "Uma escola de Coimbra marcou a data com sessões sobre o livro A Criatura, de Deana Barroqueiro, apresentado como a autobiografia de uma inteligência artificial. O físico Carlos Fiolhais, autor do prefácio, participou dos encontros.",
+        "fonte": "Diário de Coimbra",
+        "link": "https://www.diariocoimbra.pt/2026/11/19/dia-mundial-da-filosofia-assinalado-em-coimbra-com-carlos-fiolhais-e-deana-barroqueiro/"
+      },
+      {
+        "titulo": "Coluna defende que a filosofia serve para a vida prática",
+        "resumo": "Em artigo de opinião, Carlos Vilas Boas usa Aristóteles e Hannah Arendt para falar de moradia, saúde, solidão e inteligência artificial. Para ele, pensar com cuidado é condição para a liberdade e a responsabilidade.",
+        "fonte": "Diário do Minho",
+        "link": "https://www.diariodominho.pt/opiniao/2026-11-19-pensar-e-agir-6afdd9e22744f"
       }
     ],
     "livros": [
       {
-        "titulo": "Prêmio São Paulo de Literatura divulga 20 finalistas",
-        "resumo": "A 19ª edição do prêmio anunciou os finalistas de melhor romance e de melhor estreia, e treze das vinte obras são de mulheres. Cada vencedor recebe 200 mil reais na cerimônia de 15 de dezembro.",
-        "fonte": "NESPE",
-        "link": "https://nespe.com.br/2026/11/17/premio-sp-de-literatura-anuncia-os-finalistas-de-2026-13-das-20-obras-selecionadas-foram-escritas-por-mulheres/"
+        "titulo": "Autor impedido de entrar nos EUA vence o National Book Award",
+        "resumo": "O egípcio Abdelrahman ElGendy ganhou em não ficção com um livro de memórias sobre a prisão, mas teve o visto negado e não foi à cerimônia. Em ficção, venceu Hannah Lillith Assadi, com Paradiso 17.",
+        "fonte": "Quatro Cinco Um",
+        "link": "https://quatrocincoum.com.br/noticias/premios-literarios/autor-impedido-de-entrar-nos-eua-vence-national-book-awards-2026/"
       },
       {
-        "titulo": "Prêmio Loba anuncia 42 finalistas",
-        "resumo": "O festival literário Loba terá sua terceira edição gratuita em 28 de novembro, em São Paulo. As vencedoras de 14 categorias serão conhecidas no fim da tarde.",
+        "titulo": "Matinas Suzuki Jr. fala sobre editoras, livrarias e impressão sob demanda",
+        "resumo": "Em entrevista, o editor diz que produzir livros demais e distribuir caro pesa sobre o setor, e prevê que a impressão sob demanda vai crescer. Ele defende que um mercado saudável precisa de editoras e livrarias indo bem ao mesmo tempo.",
         "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/18/premio-loba-novembro/"
+        "link": "https://www.publishnews.com.br/materias/2026/11/19/matinas-suzuki-jr-entrevista/"
       },
       {
-        "titulo": "Autores brasileiros em destaque na Feira de Guadalajara",
-        "resumo": "A Feira do Livro de Guadalajara, no México, terá duas mesas com oito escritores brasileiros, entre eles Eliana Alves Cruz e Luiz Ruffato. A feira vai de 28 de novembro a 6 de dezembro.",
+        "titulo": "Oito autores brasileiros vão à Feira do Livro de Guadalajara",
+        "resumo": "A feira mexicana acontece de 28 de novembro a 6 de dezembro e terá dois debates com escritores brasileiros, entre eles Eliana Alves Cruz, Luiz Ruffato e Mariana Salomão Carrara.",
         "fonte": "PublishNews",
         "link": "https://www.publishnews.com.br/materias/2026/11/18/programa-da-fil-guadalajara-reune-vozes-de-destaque-da-literatura-brasileira/"
       },
       {
-        "titulo": "Uso de inteligência artificial agita mercado editorial francês",
-        "resumo": "O vencedor do Goncourt deste ano admitiu ter usado IA em uma frase do livro, enquanto outro autor foi retirado de listas de prêmios por suspeita parecida. O caso levantou debate sobre dois pesos e duas medidas.",
+        "titulo": "Uso de IA e disputas políticas abalam o mercado editorial francês",
+        "resumo": "Philippe Jaenada, vencedor do Goncourt, admitiu ter usado inteligência artificial, e outro finalista saiu das listas de prêmios por suspeita parecida. Também há queixas sobre a interferência de Vincent Bolloré nas editoras do grupo Hachette.",
         "fonte": "PublishNews",
         "link": "https://www.publishnews.com.br/materias/2026/11/18/polemicas-mercado-editorial-frances/"
       },
       {
-        "titulo": "Venda de livros on-line cresce e livrarias argentinas sofrem",
-        "resumo": "Uma análise mostra que as vendas de livros pelo Mercado Livre na Argentina cresceram 23% em 2026, enquanto as livrarias físicas venderam um quarto a menos que dois anos antes.",
+        "titulo": "Na Argentina, livros vendem mais no Mercado Livre e menos nas livrarias",
+        "resumo": "De janeiro a agosto, as vendas de livros físicos pela plataforma subiram 23%. Já as livrarias argentinas vendem cerca de um quarto a menos do que há dois anos.",
         "fonte": "PublishNews",
         "link": "https://www.publishnews.com.br/materias/2026/11/18/mercado-livre-argentina/"
       }
