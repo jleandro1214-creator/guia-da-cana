@@ -1,193 +1,205 @@
 {
-  "gerado": "2026-11-20T22:45:58-03:00",
-  "assuntos": {
-    "cana": [
-      {
-        "titulo": "Etanol sobe nos postos, mas ainda compensa",
-        "resumo": "Na primeira quinzena de novembro, o litro do etanol ficou em média 4 reais e 38 centavos no país, alta de 1,39%, segundo a Ticket Log. Mesmo assim, ele custa cerca de 66% do preço da gasolina, abaixo do limite de 70% que indica vantagem.",
-        "fonte": "O Tempo",
-        "link": "https://www.otempo.com.br/autotempo/2026/11/20/etanol-ou-gasolina-veja-o-que-compensa-apos-alta-de-1-39"
-      },
-      {
-        "titulo": "Rabobank: etanol de milho sustenta preço do grão",
-        "resumo": "O banco calcula que as usinas de etanol vão consumir um recorde de cerca de 27 milhões de toneladas de milho em 2026. Com isso, o preço interno do milho pode chegar perto do valor de exportação quando a oferta apertar.",
-        "fonte": "NovaCana / Globo Rural",
-        "link": "https://www.novacana.com/noticias/expansao-do-etanol-de-milho-fortalece-precos-no-brasil-diz-rabobank"
-      },
-      {
-        "titulo": "Minas Gerais terá usina de etanol de milho e sorgo",
-        "resumo": "A Bioenergética Aroeira constrói em Tupaciguara uma planta para produzir 225 milhões de litros de etanol por ano, usando energia do bagaço da cana. O projeto tem 618 milhões de reais de financiamento do BNDES e deve começar a operar em 2028.",
-        "fonte": "Click Petróleo e Gás",
-        "link": "https://clickpetroleoegas.com.br/minas-gerais-tera-nova-usina-capaz-de-transformar-500-mil-toneladas-de-milho-e-sorgo-em-225-milhoes-de-litros-de-etanol-por-ano-asaf04/"
-      },
-      {
-        "titulo": "Açúcar no mercado mundial acumula alta de 25% no ano",
-        "resumo": "Segundo a seguradora Coface, o açúcar bruto chegou ao maior preço em quase dois anos, puxado por clima ruim, demanda por etanol e limites de exportação da Índia. A produção brasileira de açúcar deve cair para cerca de 42,9 milhões de toneladas.",
-        "fonte": "Notícias do Sorraia / Lusa",
-        "link": "https://noticiasdosorraia.sapo.pt/preco-do-acucar-sobe-25-para-valor-mais-elevado-em-quase-dois-anos"
-      },
-      {
-        "titulo": "Aneel mantém multa de 1,16 milhão à usina Cocal",
-        "resumo": "A diretoria da Aneel negou, por unanimidade, o recurso da Cocal contra a multa ligada à falta de lastro de energia de reserva. O caso envolve a energia gerada pela usina na entressafra da cana.",
-        "fonte": "NovaCana",
-        "link": "https://www.novacana.com/noticias/cocal-nao-consegue-reverter-decisao-da-aneel-e-e-multada-em-r-1-16-milhao"
-      }
-    ],
-    "politica": [
-      {
-        "titulo": "Ajuste fiscal passa no Senado e vai à Câmara",
-        "resumo": "O Senado aprovou o pacote de ajuste fiscal do governo por 69 votos a 2. A Câmara deve votar o texto na terça-feira, dia 24, e o relator diz que não fará novas mudanças.",
-        "fonte": "O Tempo",
-        "link": "https://www.otempo.com.br/canal-o-tempo/programas/primeira-analise/2026/11/19/ajuste-fiscal-de-lula-chega-a-camara-votacao-deve-ocorrer-na-proxima-semana-primeira-analise"
-      },
-      {
-        "titulo": "PGR tem 15 dias para analisar relatórios da PF",
-        "resumo": "A Polícia Federal entregou ao STF relatórios sobre ministros citados no caso Master. O presidente do Supremo, Edson Fachin, deu 15 dias para a Procuradoria-Geral da República se manifestar.",
-        "fonte": "A Plateia",
-        "link": "https://www.aplateia.com.br/2026/11/resumo-de-quinta-feira-19-11-2026/"
-      },
-      {
-        "titulo": "Vaga no STF segue em aberto há mais de um ano",
-        "resumo": "Entidades pedem a indicação de uma mulher negra para o Supremo, mas o presidente Lula ainda prefere Jorge Messias. No Senado, parte dos parlamentares defende o nome de Rodrigo Pacheco.",
-        "fonte": "O Tempo",
-        "link": "https://www.otempo.com.br/politica/governo/2026/11/20/apesar-de-pressoes-lula-nao-da-sinais-de-que-deve-indicar-uma-mulher-negra-ao-stf"
-      }
-    ],
-    "tecnologia": [
-      {
-        "titulo": "Anthropic estreia na bolsa com captação recorde",
-        "resumo": "A empresa de inteligência artificial vendeu ações a 83 dólares cada e levantou cerca de 81 bilhões de dólares. A estreia foi tratada como a maior oferta de ações da história.",
-        "fonte": "Semafor",
-        "link": "https://www.semafor.com/article/11/19/2026/anthropic-makes-record-market-debut"
-      },
-      {
-        "titulo": "iFood confirma vazamento de dados",
-        "resumo": "O aplicativo confirmou que dados cadastrais de clientes, entregadores e restaurantes foram expostos em um ataque hacker. Vale ficar atento a mensagens e ligações suspeitas.",
-        "fonte": "Mobile Time",
-        "link": "https://www.mobiletime.com.br/noticias/19/11/2026/ifood-vazamento-de-dados/"
-      },
-      {
-        "titulo": "Brasil tem quase meio milhão de ataques DDoS",
-        "resumo": "No primeiro semestre, o país registrou mais de 487 mil ataques que tentam derrubar sites e redes, alta de 3,5%, segundo a Netscout. As operadoras de telefonia foram o alvo principal.",
-        "fonte": "O Tempo",
-        "link": "https://otempo.com.br/economia/2026/11/20/brasil-registra-quase-meio-milhao-de-ataques-ciberneticos-ddos-em-2026-saiba-o-que-significa"
-      },
-      {
-        "titulo": "Apple prepara assistente que controla o computador",
-        "resumo": "A Apple trabalha em um agente de inteligência artificial capaz de usar aplicativos, navegar na internet e programar. A informação foi publicada pela Bloomberg.",
-        "fonte": "Bloomberg",
-        "link": "https://www.bloomberg.com/news/articles/2026-11-19/apple-is-working-on-ai-agent-for-device-control-apps-browsing-and-coding"
-      },
-      {
-        "titulo": "Google anuncia o modelo Gemini 4 Neon",
-        "resumo": "O Google apresentou uma nova versão da sua inteligência artificial Gemini. O lançamento é mais um passo na disputa entre as grandes empresas do setor.",
-        "fonte": "Mobile Time",
-        "link": "https://www.mobiletime.com.br/noticias/19/11/2026/google-anuncia-gemini-4/"
-      }
-    ],
-    "ciencia": [
-      {
-        "titulo": "Batatas crescem em solo que imita a Lua",
-        "resumo": "Pesquisadores da Universidade Estadual do Oregon, com apoio da NASA, cultivaram batatas em materiais parecidos com o solo lunar. Com adubo de minhoca, as plantas cresceram quase como em terra fértil, mas o teste foi feito na Terra.",
-        "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/cientistas-conseguiram-cultivar-batatas-em-um-material-inesperado-e-o-resultado-pode-transformar-a-exploracao-espacial-76035"
-      },
-      {
-        "titulo": "CERN ajuda a explicar grãos mais antigos que o Sol",
-        "resumo": "Uma medição inédita no CERN sobre como o nióbio captura nêutrons ajudou a explicar a quantidade de molibdênio em grãos de meteoritos. Ainda faltam peças para entender todo o processo.",
-        "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/um-misterio-escondido-em-particulas-mais-antigas-que-o-sol-finalmente-comeca-a-ser-desvendado-75945"
-      },
-      {
-        "titulo": "Simulação: bomba no espaço afetaria quase todos os satélites",
-        "resumo": "Um estudo ainda não revisado simulou uma explosão nuclear a 500 quilômetros de altura. A radiação que ficaria presa ao redor da Terra poderia tirar de operação 98% dos satélites em uma semana.",
-        "fonte": "Gizmodo Brasil",
-        "link": "https://www.gizmodo.com.br/uma-unica-bomba-nuclear-no-espaco-poderia-destruir-98-dos-satelites-em-uma-semana-revela-simulacao-75993"
-      },
-      {
-        "titulo": "Toxinas de fungos aparecem em alimentos vegetais",
-        "resumo": "Cientistas analisaram 212 produtos veganos e vegetarianos vendidos no Reino Unido. Todos tinham algum traço de toxinas produzidas por fungos.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/11/261118073749.htm"
-      },
-      {
-        "titulo": "Baleia de 6 milhões de anos tinha rosto torto",
-        "resumo": "Pesquisadores descreveram uma baleia fóssil com o crânio muito assimétrico. Ela pode ter tido o rosto mais torto já visto entre os mamíferos.",
-        "fonte": "ScienceDaily",
-        "link": "https://www.sciencedaily.com/releases/2026/11/261118065528.htm"
-      }
-    ],
-    "astronomia": [
-      {
-        "titulo": "Superlua cheia na terça-feira, dia 24",
-        "resumo": "A próxima Lua cheia acontece no dia 24 de novembro, às 11h55 de Brasília, e será uma superlua. Nesta sexta, a Lua está crescente, com 83% iluminada.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/20/ciencia-e-espaco/lua-hoje-confira-a-fase-da-lua-desta-sexta-feira-20-11-2026"
-      },
-      {
-        "titulo": "Urano em oposição e Vênus no auge do brilho",
-        "resumo": "No dia 25, Urano fica visível quase a noite toda, mas pede binóculo ou telescópio. Entre 25 e 27, Vênus atinge seu maior brilho da manhã no ano.",
-        "fonte": "O Tempo",
-        "link": "https://www.otempo.com.br/ciencia/2026/11/9/calendario-astronomico-de-novembro-de-2026-veja-os-principais-fenomenos-do-mes"
-      },
-      {
-        "titulo": "Estrela gigante engole companheira em Andrômeda",
-        "resumo": "Astrônomos registraram pela primeira vez, de forma direta, uma gigante vermelha engolindo uma estrela menor. O estudo, publicado na Nature, usou dados do telescópio James Webb.",
-        "fonte": "Repórter Capixaba",
-        "link": "https://www.reportercapixaba.com.br/fusao-de-estrelas-astronomos-registram-pela-primeira-vez-gigante-engolindo-companheira-menor/"
-      },
-      {
-        "titulo": "Planeta 'sumido' teve a órbita inclinada",
-        "resumo": "Um planeta gigante deixou de ser visto pelo telescópio TESS. Um estudo sugere que outro planeta, ainda não observado, inclinou sua órbita para fora da nossa linha de visão.",
-        "fonte": "Olhar Digital",
-        "link": "https://olhardigital.com.br/2026/11/20/ciencia-e-espaco/suspense-cosmico-procura-se-planeta-que-desapareceu"
-      },
-      {
-        "titulo": "Par de estrelas emite pulsos de rádio a cada 8 minutos",
-        "resumo": "Astrônomos acharam um sistema com uma anã branca e uma estrela parecida com o Sol que envia sinais de rádio em ritmo regular. É um comportamento nunca visto nesse tipo de par.",
-        "fonte": "Acorda Cidade",
-        "link": "https://www.acordacidade.com.br/antenados/astronomos-identificam-sistema-estelar-que-emite-pulsos-de-radio-em-ritmo-incomum/"
-      }
-    ],
-    "filosofia": [
-      {
-        "titulo": "Dia Mundial da Filosofia discute como conviver em crise",
-        "resumo": "A data, criada pela Unesco, foi celebrada nesta quinta-feira, dia 19. O tema deste ano é a convivência num mundo de crises como clima, inteligência artificial e migrações.",
-        "fonte": "CGN",
-        "link": "https://cgn.inf.br/noticia/2239187/afinal-o-que-e-pensar-dia-mundial-da-filosofia-celebra-reflexao-e-conhecimento"
-      },
-      {
-        "titulo": "Souleymane Bachir Diagne fala na Unesco",
-        "resumo": "O filósofo senegalês fez em Paris a conferência principal do Dia Mundial da Filosofia, sobre viver juntos no planeta. Depois, estudantes debateram clima, inteligência artificial, migração e saúde.",
-        "fonte": "Unesco",
-        "link": "https://www.unesco.org/en/articles/world-philosophy-day-2026"
-      },
-      {
-        "titulo": "Coluna defende ler mais filosofia na escola",
-        "resumo": "Um professor português argumenta que a filosofia ajuda a recuperar o pensamento crítico diante do excesso de informação e da inteligência artificial. Ele sugere leituras de Wittgenstein e Pascal Chabot.",
-        "fonte": "Visão",
-        "link": "https://visao.pt/opiniao/ponto-de-vista/2026-11-19-a-escola-e-o-pensamento-porque-devemos-ler-mais-filosofia"
-      }
-    ],
-    "livros": [
-      {
-        "titulo": "Matinas Suzuki Jr. fala sobre o mercado do livro",
-        "resumo": "O editor, que hoje toca sozinho a Casa Matinas com impressão sob demanda, criticou tiragens grandes demais e a concentração do setor. Ele também disse que a Amazon ajudou a salvar o mercado brasileiro.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/19/matinas-suzuki-jr-entrevista/"
-      },
-      {
-        "titulo": "Livros com metade do preço em livrarias de rua",
-        "resumo": "A editora Lote 42 vai levar os descontos da Festa do Livro da USP a oito livrarias de São Paulo, de 25 a 29 de novembro. Títulos escolhidos terão 50% de desconto.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/19/editora-descontos-da-festa-do-livro-da-usp/"
-      },
-      {
-        "titulo": "Debates gratuitos sobre livros em São Paulo",
-        "resumo": "A FESPSP promove até março a série O mundo do livro, com encontros presenciais e online. O próximo, no dia 24, discute políticas públicas para o livro no novo governo.",
-        "fonte": "PublishNews",
-        "link": "https://www.publishnews.com.br/materias/2026/11/19/fespsp-debates-livro/"
-      }
-    ]
-  }
+ "gerado": "2026-11-21T22:54:25-03:00",
+ "assuntos": {
+  "cana": [
+   {
+    "titulo": "Usinas aumentam em 7,8% gasto com renovação de canaviais",
+    "resumo": "Um levantamento do Itaú BBA com 47 usinas do Centro-Sul mostra que o investimento em renovação e manutenção de canaviais deve subir 7,8% nesta safra, para 8,3 bilhões de reais. Já o investimento total deve cair, e a margem das empresas está no menor nível em dez anos.",
+    "fonte": "NX1",
+    "link": "https://nx1.com.br/2026/11/21/industria-de-acucar-e-etanol-devera-fechar-2026-com-ampliacao-de-78-em-investimentos/"
+   },
+   {
+    "titulo": "Chuvas deixam 5 milhões de toneladas de cana no campo",
+    "resumo": "No Vale do Paranapanema, em São Paulo, chuvas ligadas ao El Niño impediram a colheita de cerca de 5 milhões de toneladas de cana. A Assocana estima prejuízo de 1 bilhão de reais e pede ajuda financeira aos produtores.",
+    "fonte": "Jornal da Comarca",
+    "link": "https://jornaldacomarca.com.br/chuvas-deixam-5-milhoes-de-toneladas-de-cana-no-campo-e-causam-prejuizo-de-r-1-bilhao-no-vale-paranapanema"
+   },
+   {
+    "titulo": "Etanol sobe nos postos e chega a 4,25 reais",
+    "resumo": "Segundo a ANP, o preço médio do etanol nos postos subiu 2,41% na semana de 8 a 14 de novembro e chegou a 4,25 reais por litro. Com a gasolina quase parada, o etanol passou a custar cerca de 65,6% do preço dela.",
+    "fonte": "Portal Energia Limpa",
+    "link": "https://energialimpa.live/etanol-sobe-para-r-425-nos-postos-e-exige-nova-comparacao-com-a-gasolina/"
+   },
+   {
+    "titulo": "Açúcar cai em Nova York, mas sobe no mercado paulista",
+    "resumo": "Na quarta-feira o açúcar bruto caiu em Nova York e fechou a 18,04 centavos de dólar por libra-peso. Em São Paulo, a saca do açúcar cristal subiu 2,29% e chegou a cerca de 130 reais, segundo o Cepea.",
+    "fonte": "NX1",
+    "link": "https://nx1.com.br/2026/11/19/acucar-cai-em-nova-york-e-londres-mas-cristal-sobe-229-em-sp/"
+   }
+  ],
+  "politica": [
+   {
+    "titulo": "Lula defende ajuste fiscal e critica o mercado financeiro",
+    "resumo": "Em transmissão ao vivo neste sábado, Lula defendeu o pacote de ajuste fiscal que a Câmara deve votar na próxima semana. Ele também afirmou que não haverá aumento da idade mínima de aposentadoria neste mandato.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/o-sistema-financeiro-nao-vai-me-ensinar-dirigir-o-brasil-diz-lula"
+   },
+   {
+    "titulo": "Bolsonaro é internado na UTI em Brasília",
+    "resumo": "O ex-presidente Jair Bolsonaro está na UTI do hospital DF Star com uma obstrução no abdômen, depois de passar mal na sexta-feira. O boletim de sábado diz que ele está estável, e o ministro Alexandre de Moraes autorizou visitas de familiares.",
+    "fonte": "Agência Brasil",
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/ex-presidente-jair-bolsonaro-esta-internado-em-uti-no-distrito-federal"
+   },
+   {
+    "titulo": "Lula quer indicar ministro do STF antes do novo Senado",
+    "resumo": "Lula pretende enviar nos próximos dias o nome para a vaga de Luís Roberto Barroso no STF. O presidente do Senado, Davi Alcolumbre, prefere Rodrigo Pacheco, e parte do PT defende a indicação de uma mulher.",
+    "fonte": "Rádio Pampa (Estadão Conteúdo)",
+    "link": "https://www.radiopampa.com.br/lula-quer-indicar-ministro-do-supremo-antes-do-fim-do-ano/"
+   },
+   {
+    "titulo": "Ajuste fiscal aprovado no Senado segue para a Câmara",
+    "resumo": "O Senado aprovou o projeto de ajuste fiscal por 69 votos a 2, e a Câmara deve votá-lo na segunda-feira, dia 23. O relator quer aprovar o texto sem mudanças para que siga direto para sanção.",
+    "fonte": "A Crítica",
+    "link": "https://acritica.net/economia/ajuste-fiscal-camara-votacao-segunda-relator-sem-mudancas-lei-kandir-ms/"
+   },
+   {
+    "titulo": "Lula lembra ações contra o racismo na Consciência Negra",
+    "resumo": "No Dia da Consciência Negra, Lula publicou uma mensagem sobre as políticas de igualdade racial do governo. Ele citou a titulação de 91 territórios quilombolas e a ampliação das cotas no serviço público.",
+    "fonte": "bahia.ba",
+    "link": "https://bahia.ba/politica/lula-celebra-dia-da-consciencia-negra-e-destaca-acoes-contra-o-racismo/"
+   }
+  ],
+  "tecnologia": [
+   {
+    "titulo": "Medo dos gastos com IA derruba a Nasdaq mais de 5%",
+    "resumo": "Na sexta-feira, a Nasdaq caiu 5,28% e o S&P 500 recuou 3,7%, por dúvidas sobre o retorno dos investimentos em inteligência artificial. As ações da Nvidia caíram cerca de 14% após notícia de investigação da SEC sobre sua contabilidade.",
+    "fonte": "IstoÉ Dinheiro",
+    "link": "https://istoedinheiro.com.br/nasdaq-queda-ia-sp-500-correcao"
+   },
+   {
+    "titulo": "WhatsApp corrige três falhas, uma possivelmente usada em golpes",
+    "resumo": "O WhatsApp corrigiu três falhas de segurança no Android, no iPhone e no computador. Uma delas podia revelar o endereço IP do usuário, por isso vale atualizar o aplicativo.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/20/seguranca/whatsapp-corrige-tres-falhas-de-seguranca-uma-delas-suspeita-de-uso-em-golpes/"
+   },
+   {
+    "titulo": "Pesquisador diz ter provado a hipótese de Riemann com IA",
+    "resumo": "Um matemático da Anthropic afirma ter resolvido, com ajuda da IA Claude, um famoso problema matemático proposto em 1859. A prova ainda precisa ser confirmada por especialistas independentes.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/claude-resolveu-o-maior-misterio-da-matematica-pesquisador-da-anthropic-afirma-ter-uma-prova-76266"
+   },
+   {
+    "titulo": "Google e Blue Origin querem levar data centers de IA ao espaço",
+    "resumo": "O Google fez parceria com a Blue Origin para colocar em órbita satélites com chips de IA movidos a energia solar. O primeiro lançamento experimental está previsto para 2029.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/google-planeja-lancar-satelites-com-processadores-de-ia-alimentados-por-energia-solar-76151"
+   },
+   {
+    "titulo": "China testa avião elétrico para 19 passageiros",
+    "resumo": "A fabricante chinesa COMAC fez voar um avião totalmente elétrico pensado para rotas regionais curtas. No teste, ele percorreu cerca de 60 quilômetros em pouco mais de 16 minutos.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/china-coloca-no-ar-um-aviao-eletrico-de-19-passageiros-e-da-um-passo-importante-para-transformar-voos-regionais-76182"
+   }
+  ],
+  "ciencia": [
+   {
+    "titulo": "Estresse na infância pode deixar a dor adulta mais forte",
+    "resumo": "Em camundongos, pesquisadores da Alemanha mostraram que o estresse no início da vida fortalece a ligação entre duas áreas do cérebro, o que intensifica a dor na vida adulta. O resultado ainda não foi testado em pessoas.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/por-que-experiencias-estressantes-na-infancia-podem-afetar-a-vida-adulta-cientistas-encontram-uma-pista-76252"
+   },
+   {
+    "titulo": "Cerca de 600 trechos do DNA ajudam a explicar nosso cérebro grande",
+    "resumo": "Cientistas compararam minicérebros de laboratório feitos com células de humanos, chimpanzés e gorilas. Eles acharam cerca de 600 trechos do DNA mais ativos nos humanos, que podem levar à formação de mais neurônios.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/como-o-cerebro-humano-ficou-maior-cerca-de-600-interruptores-no-dna-oferecem-uma-pista-76264"
+   },
+   {
+    "titulo": "Produtos veganos no Reino Unido tinham toxinas de fungos",
+    "resumo": "Um estudo analisou 212 alimentos e bebidas vegetais e encontrou toxinas de fungos em todas as amostras. As quantidades ficaram abaixo dos limites europeus, e os autores dizem que não há motivo para deixar de consumi-los.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/cientistas-britanicos-investigam-produtos-veganos-e-encontram-uma-questao-importante-para-a-seguranca-alimentar-76256"
+   },
+   {
+    "titulo": "Areia e luz ultravioleta removem microplásticos da água",
+    "resumo": "Pesquisadores espanhóis criaram um filtro de areia com luz ultravioleta que eliminou microplásticos da água de lavagem em testes de laboratório. O sistema ainda não foi testado em máquinas de lavar de verdade.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/cientistas-criam-sistema-que-elimina-microplasticos-da-maquina-de-lavar-usando-areia-e-luz-ultravioleta-76169"
+   }
+  ],
+  "astronomia": [
+   {
+    "titulo": "Lua cheia chega na terça-feira, dia 24",
+    "resumo": "Neste fim de semana a Lua está crescente e quase toda iluminada. A Lua cheia acontece na terça-feira, 24 de novembro, perto do meio-dia no horário de Brasília.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/21/ciencia-e-espaco/lua-hoje-confira-a-fase-da-lua-deste-sabado-21-11-2026"
+   },
+   {
+    "titulo": "Sonda BepiColombo faz manobra para entrar na órbita de Mercúrio",
+    "resumo": "A sonda europeia e japonesa ligou os motores por 37 minutos para ser capturada pela gravidade de Mercúrio. A confirmação do sucesso ainda era aguardada, e as pesquisas devem começar em abril de 2027.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/21/ciencia-e-espaco/bepicolombo-faz-manobra-decisiva-para-entrar-na-orbita-de-mercurio/"
+   },
+   {
+    "titulo": "Clarão e estrondo no céu assustam moradores da Paraíba",
+    "resumo": "Na noite de quinta-feira, um forte clarão cruzou o céu da Paraíba e foi seguido de um estrondo. A principal hipótese é um meteoro muito brilhante, mas ainda não há confirmação oficial.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/20/ciencia-e-espaco/clarao-no-ceu-e-estrondo-intrigam-moradores-em-cidades-da-paraiba/"
+   },
+   {
+    "titulo": "Falhas param robô Perseverance e sonda da NASA em Marte",
+    "resumo": "O robô Perseverance teve problema no rádio e suspendeu as pesquisas, e a sonda Mars Odyssey teve defeito em uma roda de controle. A NASA espera retomar os trabalhos até o fim de novembro.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/20/ciencia-e-espaco/problema-em-marte-robo-da-nasa-interrompe-pesquisas-apos-falhas/"
+   },
+   {
+    "titulo": "SpaceX vai expor a primeira Starship recuperada",
+    "resumo": "A nave foi agarrada pelos braços da torre de lançamento depois do voo de teste de 13 de novembro. Segundo Elon Musk, ela não vai voar de novo e ficará em exposição.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/21/ciencia-e-espaco/spacex-vai-aposentar-primeira-starship-capturada-por-bracos-mecanicos/"
+   }
+  ],
+  "filosofia": [
+   {
+    "titulo": "Festival de filosofia em Portugal debate a mentira nas redes",
+    "resumo": "No Festival de Filosofia de Abrantes, com o tema o poder da verdade, jornalistas e pesquisadores discutiram como os algoritmos espalham mentiras. Para eles, mentir ficou mais fácil e tem menos consequências.",
+    "fonte": "Notícias ao Minuto (Lusa)",
+    "link": "https://www.noticiasaominuto.com/cultura/3087163/da-televisao-as-redes-sociais-a-mentira-em-debate-no-festival-de-filosofia-de-abrantes"
+   },
+   {
+    "titulo": "Manaus tem palestra gratuita sobre filosofia e ciência",
+    "resumo": "A Nova Acrópole de Manaus comemora o Dia Mundial da Filosofia com uma palestra gratuita neste sábado. O ponto de partida é a matemática e filósofa francesa Sophie Germain.",
+    "fonte": "Amazonas Hoje",
+    "link": "https://amazonashoje.com.br/colunas/filosofia/dialogo-entre-filosofia-ciencia-e-conhecimento-marcam-dia-mundial-da-filosofia-com-programacao-gratuita-em-manaus/"
+   },
+   {
+    "titulo": "O que Simone de Beauvoir ainda ensina sobre ser mulher",
+    "resumo": "O texto revisita O Segundo Sexo, em que Beauvoir defende que os papéis das mulheres vêm da cultura, e não da biologia. Também mostra como essa ideia ajuda a pensar liberdade e identidade hoje.",
+    "fonte": "Brasil 247",
+    "link": "https://www.brasil247.com/tendencias/2026/11/20/reflexao-de-simone-de-beauvoir-aos-41-anos-mostra-nao-se-nasce-mulher-torna-se-mulher-a-licao-atemporal-sobre-o-valor-da-experiencia-e-da-construcao-da-identidade/"
+   }
+  ],
+  "livros": [
+   {
+    "titulo": "FliParaíba terá mais de 150 lançamentos de livros",
+    "resumo": "A terceira edição da festa literária acontece de 26 a 28 de novembro no Centro Histórico de João Pessoa. O tema é a invenção da Afro-Latino-América.",
+    "fonte": "Portal BR230",
+    "link": "https://br230.com.br/fliparaiba-2026-tera-lancamentos-de-mais-de-150-livros-no-centro-historico-de-joao-pessoa"
+   },
+   {
+    "titulo": "Oito livros novos de escritoras negras para ler",
+    "resumo": "Uma seleção feita para o Dia da Consciência Negra reúne lançamentos de autoras como Lilia Guerra, Conceição Evaristo, Zadie Smith e Toni Morrison.",
+    "fonte": "Diário do Grande ABC",
+    "link": "https://www.dgabc.com.br/Noticia/4369982/oito-novos-livros-de-escritoras-negras-para-conferir"
+   },
+   {
+    "titulo": "Autor barrado nos EUA vence o National Book Award",
+    "resumo": "O egípcio Abdelrahman ElGendy venceu na categoria não ficção com memórias sobre os anos em que ficou preso. Ele não pôde ir à cerimônia porque teve o visto negado.",
+    "fonte": "Quatro Cinco Um",
+    "link": "https://quatrocincoum.com.br/noticias/premios-literarios/autor-impedido-de-entrar-nos-eua-vence-national-book-awards-2026/"
+   },
+   {
+    "titulo": "Oito autores brasileiros vão à Feira do Livro de Guadalajara",
+    "resumo": "A feira no México vai de 28 de novembro a 6 de dezembro e terá duas mesas com escritores brasileiros, entre eles Eliana Alves Cruz e Luiz Ruffato.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/18/programa-da-fil-guadalajara-reune-vozes-de-destaque-da-literatura-brasileira/"
+   },
+   {
+    "titulo": "São Paulo recebe feira literária de terror neste domingo",
+    "resumo": "A feira Bruxa Solta reúne 86 expositores na Rua Augusta neste domingo, 22 de novembro, das 11h às 19h. A entrada é gratuita.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/19/feira-de-terror/"
+   }
+  ]
+ }
 }
