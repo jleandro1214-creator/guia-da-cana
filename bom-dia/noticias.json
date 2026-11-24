@@ -1,198 +1,186 @@
 {
- "gerado": "2026-11-22T22:52:49-03:00",
+ "gerado": "2026-11-23T22:54:12-03:00",
  "assuntos": {
   "cana": [
    {
-    "titulo": "Usinas devem investir mais na renovação de canaviais nesta safra",
-    "resumo": "Um levantamento do Itaú BBA com 47 usinas do Centro-Sul indica R$ 8,3 bilhões para renovar e manter canaviais, alta de 7,8%. O investimento total do setor, porém, cai para R$ 20,2 bilhões, e a margem das usinas deve ser a menor em dez anos.",
-    "fonte": "NX1",
-    "link": "https://nx1.com.br/2026/11/21/industria-de-acucar-e-etanol-devera-fechar-2026-com-ampliacao-de-78-em-investimentos/"
+    "titulo": "Petrobras volta ao etanol comprando parte da Neomille",
+    "resumo": "A Petrobras vai pagar 2,8 bilhões de reais por 42% da Neomille, empresa de etanol de milho ligada à CerradinhoBio. O dinheiro ajuda a ampliar as fábricas em Goiás e Mato Grosso do Sul, e o negócio ainda precisa do aval do Cade.",
+    "fonte": "O Tempo",
+    "link": "https://www.otempo.com.br/economia/2026/11/23/petrobras-volta-a-produzir-etanol-com-compra-de-42-de-produtora-por-r-2-8-bilhoes"
    },
    {
-    "titulo": "Etanol sobe nos postos, mas ainda compensa frente à gasolina",
-    "resumo": "Na primeira metade de novembro, o litro do etanol subiu 1,39% e chegou à média nacional de R$ 4,38, segundo o índice Ticket Log. Mesmo assim, ele custa cerca de 66% do preço da gasolina, abaixo do limite de 70% usado como referência para carros flex.",
-    "fonte": "O Tempo",
-    "link": "https://www.otempo.com.br/autotempo/2026/11/20/etanol-ou-gasolina-veja-o-que-compensa-apos-alta-de-1-39"
+    "titulo": "Brasil deve importar bem mais etanol anidro no começo de 2027",
+    "resumo": "A consultoria StoneX prevê alta de 59% na importação de anidro entre janeiro e março, puxada pela mistura maior na gasolina. Os estoques do Centro-Sul estão no nível mais baixo para a época desde a safra 2021/22.",
+    "fonte": "Portal do Agronegócio",
+    "link": "https://portaldoagronegocio.com.br/energias-renovaveis/etanol/noticias/brasil-deve-importar-59-mais-etanol-anidro-no-primeiro-trimestre-de-2027-projeta-stonex"
+   },
+   {
+    "titulo": "Açúcar em Nova York chega ao menor preço em três meses",
+    "resumo": "O açúcar bruto fechou a quinta semana seguida de queda na bolsa de Nova York, perto de 17 centavos de dólar por libra-peso. O real fraco aumenta o receio de que o Brasil exporte ainda mais.",
+    "fonte": "novaCana",
+    "link": "https://www.novacana.com/noticias/acucar-bruto-tem-queda-na-ice-e-atinge-menor-cotacao-em-tres-meses"
+   },
+   {
+    "titulo": "Etanol nas usinas paulistas sobe pela sétima semana",
+    "resumo": "Segundo o Cepea, o litro do hidratado nas usinas de São Paulo subiu quase 2% na semana, para cerca de 2,98 reais. Chuvas pararam algumas usinas e as distribuidoras compraram mais.",
+    "fonte": "Floresta Notícias (Estadão Conteúdo)",
+    "link": "https://www.florestanoticias.com/2026/11/23/etanol-hidratado-sobe-pela-7a-semana-seguida-em-sao-paulo-diz-cepea/"
    }
   ],
   "politica": [
    {
-    "titulo": "Bolsonaro continua na UTI em Brasília, ainda sem previsão de alta",
-    "resumo": "O ex-presidente Jair Bolsonaro está internado desde sexta-feira em um hospital de Brasília por causa de uma obstrução no abdômen, e o boletim diz que o quadro é estável. No sábado, o ministro Alexandre de Moraes autorizou os filhos e a enteada a visitá-lo, mas proibiu celulares e câmeras.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/bolsonaro-segue-internado-na-uti-sem-previsao-de-alta"
+    "titulo": "Câmara aprova texto-base do ajuste fiscal do governo",
+    "resumo": "Por 353 votos a 128, os deputados aprovaram o projeto que limita o crescimento dos gastos e corta benefícios tributários, sem mudar o texto do Senado. Ainda faltam os destaques e o segundo turno antes de seguir para sanção.",
+    "fonte": "InfoMoney",
+    "link": "https://www.infomoney.com.br/politica/camara-aprova-pacote-fiscal-proposto-pelo-governo-lula/"
    },
    {
-    "titulo": "Lula defende ajuste fiscal e diz que não vai mexer na aposentadoria",
-    "resumo": "Em uma transmissão ao vivo, o presidente Lula disse que o pacote fiscal é um ajuste no Orçamento, e não uma reforma, e que não corta recursos de saúde, educação nem do salário mínimo. Ele também disse que a idade mínima para se aposentar não vai subir neste mandato.",
-    "fonte": "Terra (Estadão Conteúdo)",
-    "link": "https://www.terra.com.br/economia/lula-defende-pacote-fiscal-do-governo-nao-e-o-sistema-financeiro-que-me-ensinara-a-dirigir-o-pais,29dfa58a31ee71fb5ec4fa5dd61bf94f67qg44ck.html"
-   },
-   {
-    "titulo": "Câmara deve votar o ajuste fiscal nesta segunda-feira",
-    "resumo": "A Câmara dos Deputados marcou para segunda-feira, dia 23, a votação do projeto de ajuste fiscal que o Senado já aprovou. O relator manteve o texto sem mudanças, e a proposta limita o aumento dos gastos e restringe o uso de créditos tributários pelas empresas.",
-    "fonte": "Jornal Opção",
-    "link": "https://tocantins.jornalopcao.com.br/noticias/camara-deve-votar-ajuste-fiscal-do-governo-nesta-segunda-feira-23-605197/"
-   },
-   {
-    "titulo": "Alcolumbre defende Pacheco para o STF e aguarda reunião com Lula",
-    "resumo": "O presidente do Senado, Davi Alcolumbre, quer conversar com Lula nos próximos dias sobre a vaga aberta no Supremo e defende o nome de Rodrigo Pacheco. Lula prefere Jorge Messias, mas o Senado rejeitou esse nome em abril, e uma regra interna impede votá-lo de novo no mesmo ano.",
+    "titulo": "Bolsonaro tem pneumonia e segue na UTI em Brasília",
+    "resumo": "Os médicos diagnosticaram uma pneumonia nos dois pulmões, considerada mais leve que a de março. Não há nova cirurgia prevista nem previsão de alta.",
     "fonte": "Metrópoles",
-    "link": "https://www.metropoles.com/brasil/alcolumbre-insiste-em-pacheco-para-vaga-no-stf-e-espera-reuniao-com-lula"
+    "link": "https://www.metropoles.com/brasil/bolsonaro-tem-pneumonia-bilateral-e-segue-sem-previsao-de-alta-da-uti"
    },
    {
-    "titulo": "Zanin leva ao plenário presencial denúncia contra Juscelino Filho",
-    "resumo": "O ministro Cristiano Zanin tirou do plenário virtual da Primeira Turma do STF a denúncia contra o ex-ministro Juscelino Filho, acusado de desviar emendas parlamentares. Agora o caso será julgado em sessão presencial; até aqui só o relator, Flávio Dino, votou, a favor de aceitar a denúncia.",
+    "titulo": "Lula ouve sugestões e cogita uma mulher para o STF",
+    "resumo": "Em jantar com ministros do Supremo e os presidentes da Câmara e do Senado, Lula pediu nomes alternativos para a vaga e disse estar aberto a indicar uma mulher. Os relatos divergem sobre suas chances de escolher Jorge Messias ou Rodrigo Pacheco.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/blogs/luisa-martins/politica/em-discurso-a-aliados-lula-minimiza-chance-de-messias-ou-pacheco-no-stf/"
+   },
+   {
+    "titulo": "Fazenda reduz previsão de crescimento e eleva a de inflação",
+    "resumo": "O Ministério da Fazenda agora espera que a economia cresça 1,8% em 2027, abaixo dos 2,3% previstos antes. A projeção de inflação para 2026 subiu para 5,3%, acima do teto da meta, e o governo culpa os juros altos.",
     "fonte": "O Tempo",
-    "link": "https://www.otempo.com.br/politica/judiciario/2026/11/22/zanin-destaca-e-leva-denuncia-contra-ex-ministro-de-lula-a-julgamento-presencial-no-stf"
+    "link": "https://www.otempo.com.br/economia/2026/11/23/fazenda-reduz-previsao-do-pib-e-eleva-inflacao-para-2027"
    }
   ],
   "tecnologia": [
    {
-    "titulo": "Nvidia entra na mira da SEC por suspeitas contábeis",
-    "resumo": "A SEC, órgão que fiscaliza o mercado de ações nos Estados Unidos, está investigando a contabilidade da Nvidia, segundo a agência Reuters. As ações da fabricante de chips caíram cerca de 13% na sexta-feira, mas uma investigação não significa que houve irregularidade.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/22/pro/contabilidade-da-nvidia-e-alvo-de-investigacao-nos-estados-unidos/"
-   },
-   {
-    "titulo": "União Europeia quer cobrar 3% sobre receitas das big techs",
-    "resumo": "A proposta para o orçamento europeu de 2028 a 2034 cria uma taxa anual de 3% sobre o que as grandes empresas de tecnologia faturam com anúncios, intermediação digital e dados de usuários. Os países do bloco ainda precisam aprovar a ideia, e o acordo é esperado para 2027.",
+    "titulo": "Jensen Huang volta ao comando da Nvidia",
+    "resumo": "O conselho da Nvidia reconduziu por unanimidade Jensen Huang ao cargo de presidente-executivo, dias depois da renúncia dele. As ações da empresa dispararam cerca de 30% antes da abertura do mercado.",
     "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/economia/money/macroeconomia/ue-propoe-imposto-de-3-sobre-faturamento-das-big-techs/"
+    "link": "https://www.cnnbrasil.com.br/economia/money/mercado/acao-nvidia-23-de-novembro-de-2026/"
    },
    {
-    "titulo": "EUA avisam que novas panes tecnológicas devem acontecer",
-    "resumo": "O diretor de Inteligência Nacional dos Estados Unidos disse que vão acontecer mais falhas em sistemas enquanto empresas e governo trocam tecnologias antigas. Neste mês, os americanos já tiveram problemas no tráfego aéreo, em serviços da Microsoft e em grandes bancos.",
-    "fonte": "Reuters (via GMA News)",
-    "link": "https://gmanetwork.com/news/topstories/world/1010445/us-intelligence-chief-predicts-more-tech-outages-as-systems-undergo-upgrades/story"
+    "titulo": "CrowdStrike compra a Zscaler por quase 44 bilhões de dólares",
+    "resumo": "É a maior aquisição da história da cibersegurança, paga toda em ações. O negócio ainda depende de acionistas e reguladores.",
+    "fonte": "Exame",
+    "link": "https://exame.com/tecnologia/crowdstrike-compra-zscaler-ciberseguranca/"
    },
    {
-    "titulo": "Anthropic e SpaceX impuseram regras duras aos bancos na abertura de capital",
-    "resumo": "Segundo a Reuters, a dona do Claude e a empresa de Elon Musk fizeram exigências pouco comuns aos bancos que cuidaram da estreia delas na bolsa, como limitar equipes e cortar parte da remuneração. Mesmo com o atrito, as duas ofertas de ações tiveram muita procura.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/22/pro/anthropic-e-spacex-impuseram-regras-incomuns-e-irritaram-bancos-no-ipo/"
+    "titulo": "Dois estados americanos processam dona do Grok por deepfakes",
+    "resumo": "Virgínia e Oregon acusam a SpaceX, dona da xAI, de não impedir que o Grok criasse imagens sexuais falsas de mulheres e crianças. Os estados pedem multas e a devolução dos lucros.",
+    "fonte": "Forbes",
+    "link": "https://www.forbes.com/sites/saradorn/2026/11/23/oregon-and-virginia-sue-spacex-alleging-groks-spicy-mode-allowed-pornographic-deepfakes/"
    },
    {
-    "titulo": "Homem é acusado de levar chips de IA da Nvidia para a China",
-    "resumo": "Um cidadão chinês que espera julgamento em Singapura é apontado como peça central de um esquema para enviar chips de IA da Nvidia à China, apesar das restrições americanas, segundo o Wall Street Journal.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/22/pro/o-ajudante-de-alice-huang-homem-e-acusado-de-contrabandear-chips-da-nvidia-para-a-china/"
+    "titulo": "GTA 6 vira o maior lançamento da história do PlayStation",
+    "resumo": "Segundo a Sony, o jogo bateu o recorde de lançamentos nos consoles da marca e de PS5 novos ligados num só dia fora das festas de fim de ano. Para a maioria desses aparelhos, foi o primeiro jogo usado.",
+    "fonte": "Critical Hits",
+    "link": "https://criticalhits.com.br/games/gta-6-bate-recorde-como-maior-lancamento-da-historia-do-playstation/"
    }
   ],
   "ciencia": [
    {
-    "titulo": "Microplásticos em contato com a água geram moléculas que danificam células",
-    "resumo": "Pesquisadores da Universidade Columbia e de Berkeley viram que, quando a água encosta na superfície do plástico, surgem radicais livres capazes de ferir moléculas do corpo. Quanto menores os pedaços de plástico, mais desses radicais se formam.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261120075549.htm"
+    "titulo": "Unicamp mostra como as fibras ajudam a reparar o intestino",
+    "resumo": "Em camundongos com colite, uma substância feita pelas bactérias a partir das fibras ativou células de defesa que recuperam o intestino. Há sinais de que o mesmo ocorre em humanos, mas ainda não é tratamento.",
+    "fonte": "Agência FAPESP",
+    "link": "https://agencia.fapesp.br/substancia-gerada-a-partir-de-fibras-alimentares-estimula-celulas-de-defesa-a-reparar-o-intestino/59658"
    },
    {
-    "titulo": "CERN encontra indício de decaimento raríssimo de partícula",
-    "resumo": "O experimento LHCb achou o primeiro indício de que uma partícula com quark beauty às vezes se desfaz em dois múons, algo que acontece uma vez em cerca de 10 bilhões. O resultado bate com a teoria atual, mas ainda faltam dados para confirmar.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261119194530.htm"
+    "titulo": "Surgem duas supostas provas da hipótese de Riemann",
+    "resumo": "Um matemático da Anthropic divulgou uma prova feita com ajuda de IA, e outra prova, sem IA, apareceu horas depois. Nenhuma das duas foi confirmada ainda pelos especialistas.",
+    "fonte": "Itatiaia",
+    "link": "https://www.itatiaia.com.br/ciencia-e-tecnologia/hipotese-riemann-ia-humanos-solucoes-problema-matematica/"
    },
    {
-    "titulo": "Dieta cetogênica reduziu mais a gordura no fígado em teste",
-    "resumo": "Num estudo com 42 adultos com obesidade e pré-diabetes, quem fez dieta cetogênica perdeu em média 67% da gordura do fígado, contra 45% nas outras dietas testadas. Os autores lembram que o estudo foi pequeno e curto.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261120070904.htm"
+    "titulo": "Fio dental inteligente mede glicose pela gengiva",
+    "resumo": "Pesquisadores de Hong Kong criaram um fio dental que colhe um pouquinho de líquido da gengiva e, em minutos, mede glicose e sinais de inflamação. Os resultados vão direto para o celular.",
+    "fonte": "CNN Brasil",
+    "link": "https://www.cnnbrasil.com.br/saude/fio-dental-inteligente-mede-glicose-e-sinais-de-inflamacao-na-gengiva/"
    },
    {
-    "titulo": "Genes essenciais não sofrem menos mutações, aponta estudo",
-    "resumo": "Cientistas da Universidade de Bath analisaram mutações em bactérias e leveduras e não acharam sinal de que os genes mais importantes sejam protegidos contra mutações. Para eles, estudos antigos se enganaram porque as mutações prejudiciais somem antes de serem detectadas.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261119194538.htm"
+    "titulo": "Novo inseto da Mata Atlântica homenageia Milton Nascimento",
+    "resumo": "Cientistas da Universidade Federal de Viçosa descreveram quatro novas espécies de efemérides, insetos que indicam a qualidade da água. Uma delas recebeu o nome de Bituca, apelido do cantor.",
+    "fonte": "Revista Planeta",
+    "link": "https://revistaplaneta.com.br/cientistas-descobrem-especies-insetos-mata-atlantica-ufv"
    },
    {
-    "titulo": "Caixão romano de Westminster guardava provavelmente um abade medieval",
-    "resumo": "Um caixão de pedra da época romana foi reaproveitado séculos depois, e a datação dos ossos aponta para um enterro entre os anos 987 e 1052. O candidato mais forte é o abade Aelfwig, mas a identidade ainda não está confirmada.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261119194553.htm"
+    "titulo": "IA do Google barateia cálculos de computação quântica",
+    "resumo": "Agentes de inteligência artificial do Google acharam versões bem mais econômicas de algoritmos quânticos, em um caso 290 vezes menores. O estudo ainda não foi revisado por outros cientistas.",
+    "fonte": "Exame",
+    "link": "https://exame.com/tecnologia/ia-google-recursos-calculo-quantico/"
    }
   ],
   "astronomia": [
    {
-    "titulo": "Superlua do Castor ilumina o céu do Brasil nesta terça",
-    "resumo": "A Lua Cheia de novembro chega ao auge às 11h53 de Brasília na terça, dia 24, e será uma superlua, um pouco maior e mais brilhante que o normal. O melhor momento para ver é logo depois do pôr do sol, com a Lua nascendo no leste.",
-    "fonte": "Catraca Livre",
-    "link": "https://catracalivre.com.br/noticias/lua-cheia-de-novembro-de-2026-quando-e-e-onde-ver-a-superlua-do-castor/"
+    "titulo": "Sonda Hera mostra nesta quarta o asteroide atingido pela NASA",
+    "resumo": "A sonda europeia Hera vai divulgar as primeiras imagens de perto de Dimorphos, o asteroide desviado pela missão DART em 2022. A transmissão ao vivo começa às 15h45 de Brasília, quarta-feira.",
+    "fonte": "Newsweek",
+    "link": "https://www.newsweek.com/first-close-up-look-at-asteroid-nasa-knocked-off-course-this-week-12753678"
    },
    {
-    "titulo": "Lua, Júpiter, Marte e Régulo se juntam na madrugada de 30",
-    "resumo": "Na madrugada da segunda-feira, dia 30, a Lua minguante, Júpiter, Marte e a estrela Régulo vão aparecer bem próximos no céu. Em São Paulo e no Rio, a melhor hora é por volta das 4h, antes de o dia clarear.",
-    "fonte": "Star Walk",
-    "link": "https://starwalk.space/pt/news/moon-jupiter-mars-regulus-november-30-2026"
+    "titulo": "China prepara voo com o primeiro astronauta do Paquistão",
+    "resumo": "A China concluiu o ensaio de lançamento da Shenzhou-24, que vai levar um paquistanês à estação Tiangong. Ele será o primeiro estrangeiro a visitar a estação chinesa, e a data oficial ainda não foi anunciada.",
+    "fonte": "Arab News Pakistan",
+    "link": "https://www.arabnews.pk/pakistan/china-completes-launch-drill-for-mission-carrying-pakistans-first-astronaut-3007767"
    },
    {
-    "titulo": "Sonda BepiColombo entra em órbita de Mercúrio",
-    "resumo": "Depois de cerca de oito anos de viagem, a missão europeia e japonesa BepiColombo chegou à órbita de Mercúrio, a segunda da história a conseguir isso. Em dezembro, ela deve se dividir em dois orbitadores para estudar o planeta.",
-    "fonte": "Space.com",
-    "link": "https://www.space.com/space-exploration/missions/esa-jaxa-bepicolomobo-mission-mercury-orbit-arrival"
+    "titulo": "Cargueiro Cygnus XL deve partir domingo rumo à estação espacial",
+    "resumo": "Um foguete Falcon 9 vai levar a cápsula de carga da Northrop Grumman à Estação Espacial Internacional. A decolagem está marcada para domingo, dia 29, por volta das 12h50 de Brasília.",
+    "fonte": "Space Coast Daily",
+    "link": "https://spacecoastdaily.com/2026/11/spacex-targets-nov-29-launch-of-cygnus-xl-cargo-mission-from-cape-canaveral/"
    },
    {
-    "titulo": "Voyager 1 chega a um dia-luz de distância da Terra",
-    "resumo": "Lançada em 1977, a Voyager 1 é o primeiro objeto humano tão distante que a luz leva um dia inteiro para chegar até ela, cerca de 26 bilhões de quilômetros. A NASA informou que não recebe dados da sonda desde 14 de novembro e investiga o motivo.",
-    "fonte": "NASA",
-    "link": "https://www.nasa.gov/news-release/nasas-voyager-1-makes-history-reaching-one-light-day-from-earth/"
+    "titulo": "SpaceX lança satélite secreto da Força Espacial nesta terça",
+    "resumo": "O Falcon 9 decola da Califórnia por volta das 12h55 de Brasília, com uma carga sigilosa dos Estados Unidos. O propulsor fará seu 29º voo.",
+    "fonte": "Spaceflight Now",
+    "link": "https://spaceflightnow.com/2026/11/23/live-coverage-spacex-to-launch-classified-payload-for-the-u-s-space-force-3/"
+   },
+   {
+    "titulo": "Superlua desta terça abre caminho para Lua cheia de Natal",
+    "resumo": "A superlua de hoje é a penúltima do ano e pode parecer até 14% maior que uma Lua cheia comum. A maior Lua cheia de 2026 vai iluminar a véspera de Natal.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/23/ciencia-e-espaco/superlua-de-novembro-prepara-o-ceu-para-um-espetaculo-na-noite-de-natal"
    }
   ],
   "filosofia": [
    {
-    "titulo": "Thomas Nagel ganha prêmio de um milhão de dólares em filosofia",
-    "resumo": "O filósofo americano Thomas Nagel, famoso pelo ensaio sobre como é ser um morcego, recebeu o Prêmio Berggruen de 2026. Ele afirma que não há motivo para achar que as inteligências artificiais atuais tenham consciência.",
-    "fonte": "Cornell University",
-    "link": "https://as.cornell.edu/news/alumnus-wins-1-million-berggruen-prize"
+    "titulo": "Encontro da Anpof define próximos passos da filosofia brasileira",
+    "resumo": "O maior encontro de pesquisadores de filosofia do país terminou em Florianópolis, com nova diretoria e a próxima edição nacional marcada para Fortaleza, em 2028. Também foi proposto um indexador próprio para as revistas da área.",
+    "fonte": "IFSertãoPE",
+    "link": "https://ifsertaope.edu.br/comitiva-do-ifsertaope-participa-do-xxi-encontro-da-anpof-e-conquista-espacos-de-representacao-nacional/"
    },
    {
-    "titulo": "Filósofos e líderes de tecnologia debatem se a IA pode ter consciência",
-    "resumo": "A revista Fortune reuniu opiniões de nomes como Sam Altman, Dario Amodei e Ray Kurzweil, além das ideias dos filósofos Susan Schneider e Henry Shevlin, sobre consciência das máquinas e alinhamento a valores humanos.",
-    "fonte": "Fortune",
-    "link": "https://fortune.com/2026/11/21/ai-singularity-sam-altman-dario-amodei-ray-kurzweil-ai-alignment-brain-computer-interfaces-consciousness/"
-   },
-   {
-    "titulo": "Dia Mundial da Filosofia propõe pensar a convivência em tempos de crise",
-    "resumo": "A data da Unesco foi celebrada na quinta-feira, 19, com o tema de como viver juntos diante de crises como a do clima, a inteligência artificial e as migrações.",
-    "fonte": "CGN",
-    "link": "https://cgn.inf.br/noticia/2239187/afinal-o-que-e-pensar-dia-mundial-da-filosofia-celebra-reflexao-e-conhecimento"
-   },
-   {
-    "titulo": "Escola de Coimbra celebra Dia da Filosofia com livro sobre IA",
-    "resumo": "Em Portugal, uma escola de Coimbra comemorou o Dia Mundial da Filosofia com encontros sobre o romance A Criatura, de Deana Barroqueiro, narrado por uma inteligência artificial. O físico Carlos Fiolhais participou das sessões.",
-    "fonte": "Diário de Coimbra",
-    "link": "https://www.diariocoimbra.pt/2026/11/19/dia-mundial-da-filosofia-assinalado-em-coimbra-com-carlos-fiolhais-e-deana-barroqueiro/"
+    "titulo": "Enciclopédia de Stanford ganha novos verbetes; livros sobre IA ficam gratuitos",
+    "resumo": "A Enciclopédia de Filosofia de Stanford publicou verbetes novos, como filosofia da história, e revisou textos sobre Gadamer e Horkheimer. A Oxford liberou de graça um livro sobre poder, justiça e inteligência artificial.",
+    "fonte": "Daily Nous",
+    "link": "https://dailynous.com/2026/11/23/online-philosophy-resources-weekly-update-449"
    }
   ],
   "livros": [
    {
-    "titulo": "Miriam Leitão lança romance distópico sobre perseguição às mulheres",
-    "resumo": "A jornalista Miriam Leitão lança A Dança de Elisa, pela Intrínseca, sobre uma cidade sob um regime autoritário que vai tirando a liberdade das mulheres. Ela autografa o livro em Brasília na terça, dia 24.",
-    "fonte": "Correio Braziliense",
-    "link": "https://www.correiobraziliense.com.br/politica/2026/11/7542211-voce-so-sabe-exatamente-o-que-e-a-liberdade-quando-voce-a-perde-diz-miriam-leitao.html"
+    "titulo": "Mineiro vence o Prêmio Caminhos de Literatura",
+    "resumo": "Túlio Pires Bragança ganhou entre 456 inscritos com seu romance de estreia. O livro sai em 2027 no Brasil, em Portugal e em Angola.",
+    "fonte": "O Tempo",
+    "link": "https://www.otempo.com.br/entretenimento/2026/11/23/romance-de-escritor-mineiro-vence-premio-caminhos-de-literatura-2026-e-sera-publicado-em-tres-paises"
    },
    {
-    "titulo": "Socorro Acioli lança coletânea de crônicas em Brasília",
-    "resumo": "A escritora cearense apresentou Amar é inadiável, com cerca de 300 crônicas sobre escrita e leitura, numa sessão de autógrafos lotada.",
-    "fonte": "Correio Braziliense",
-    "link": "https://www.correiobraziliense.com.br/diversao-e-arte/2026/11/7541232-socorro-acioli-conta-que-ja-foi-estagiaria-do-correio-sou-apaixonada-por-brasilia.html"
+    "titulo": "Escritoras ainda enfrentam preconceito, dizem autoras em Braga",
+    "resumo": "Num festival literário em Portugal, Teolinda Gersão e outras convidadas disseram que mulheres escritoras recebem menos atenção da crítica. Para Gersão, elas precisam trabalhar o dobro pelo mesmo reconhecimento.",
+    "fonte": "Diário de Leiria (Lusa)",
+    "link": "https://diarioleiria.pt/2026/11/22/escritoras-continuam-a-enfrentar-preconceitos-e-desigualdades"
    },
    {
-    "titulo": "Eliane Robert Moraes organiza antologia sobre erotismo",
-    "resumo": "A professora da USP reuniu 21 autores de 11 países no livro Erótica Teórica, da editora Autêntica, entre eles Susan Sontag, Italo Calvino e Carlos Drummond de Andrade.",
-    "fonte": "Estado de Minas",
-    "link": "https://www.em.com.br/pensar/2026/11/7541926-eliane-robert-moraes-lanca-antologia-de-reflexoes-e-relatos-sobre-o-erotismo.html"
+    "titulo": "Editora brasileira é escolhida para programa da Feira de Bogotá",
+    "resumo": "Ana Paula Tavares Pereira, da Companhia das Letras, é a única brasileira entre seis editores selecionados. Eles vão participar da feira do livro de Bogotá em abril de 2027.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/23/fellowship-feira-do-livro-de-bogota/"
    },
    {
-    "titulo": "Livro sobre Luiz Canabrava será lançado em Curvelo",
-    "resumo": "O escritor Newton Vieira lança Um criador de estranhezas, com 15 ensaios sobre a obra de Luiz Canabrava, que faria cem anos em 2026. O lançamento é no dia 28 de novembro.",
-    "fonte": "Estado de Minas",
-    "link": "https://em.com.br/cultura/2026/11/7541888-livro-que-resgata-obra-de-luiz-canabrava-sera-lancado-em-cidade-mineira.html"
-   },
-   {
-    "titulo": "Secretário de Cultura de Minas lança Manual da Mineiridade",
-    "resumo": "Leônidas Oliveira lança um livro que mistura história, ensaio e poesia sobre a identidade mineira, com prefácio de Rogério Flausino. O lançamento é no dia 30 de novembro, em Belo Horizonte.",
-    "fonte": "Diário do Comércio",
-    "link": "https://diariodocomercio.com.br/variedades/manual-mineiridade-lancamento-bh/"
+    "titulo": "Temu vai vender mais de um milhão de livros usados nos EUA",
+    "resumo": "A loja online fechou parceria com a livraria Alibris antes das compras de fim de ano. O movimento acompanha o interesse dos jovens por livros físicos.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/23/temu-alibris/"
    }
   ]
  }
