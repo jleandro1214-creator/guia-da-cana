@@ -1,187 +1,187 @@
 {
- "gerado": "2026-11-23T22:54:12-03:00",
- "assuntos": {
-  "cana": [
-   {
-    "titulo": "Petrobras volta ao etanol comprando parte da Neomille",
-    "resumo": "A Petrobras vai pagar 2,8 bilhões de reais por 42% da Neomille, empresa de etanol de milho ligada à CerradinhoBio. O dinheiro ajuda a ampliar as fábricas em Goiás e Mato Grosso do Sul, e o negócio ainda precisa do aval do Cade.",
-    "fonte": "O Tempo",
-    "link": "https://www.otempo.com.br/economia/2026/11/23/petrobras-volta-a-produzir-etanol-com-compra-de-42-de-produtora-por-r-2-8-bilhoes"
-   },
-   {
-    "titulo": "Brasil deve importar bem mais etanol anidro no começo de 2027",
-    "resumo": "A consultoria StoneX prevê alta de 59% na importação de anidro entre janeiro e março, puxada pela mistura maior na gasolina. Os estoques do Centro-Sul estão no nível mais baixo para a época desde a safra 2021/22.",
-    "fonte": "Portal do Agronegócio",
-    "link": "https://portaldoagronegocio.com.br/energias-renovaveis/etanol/noticias/brasil-deve-importar-59-mais-etanol-anidro-no-primeiro-trimestre-de-2027-projeta-stonex"
-   },
-   {
-    "titulo": "Açúcar em Nova York chega ao menor preço em três meses",
-    "resumo": "O açúcar bruto fechou a quinta semana seguida de queda na bolsa de Nova York, perto de 17 centavos de dólar por libra-peso. O real fraco aumenta o receio de que o Brasil exporte ainda mais.",
-    "fonte": "novaCana",
-    "link": "https://www.novacana.com/noticias/acucar-bruto-tem-queda-na-ice-e-atinge-menor-cotacao-em-tres-meses"
-   },
-   {
-    "titulo": "Etanol nas usinas paulistas sobe pela sétima semana",
-    "resumo": "Segundo o Cepea, o litro do hidratado nas usinas de São Paulo subiu quase 2% na semana, para cerca de 2,98 reais. Chuvas pararam algumas usinas e as distribuidoras compraram mais.",
-    "fonte": "Floresta Notícias (Estadão Conteúdo)",
-    "link": "https://www.florestanoticias.com/2026/11/23/etanol-hidratado-sobe-pela-7a-semana-seguida-em-sao-paulo-diz-cepea/"
-   }
-  ],
-  "politica": [
-   {
-    "titulo": "Câmara aprova texto-base do ajuste fiscal do governo",
-    "resumo": "Por 353 votos a 128, os deputados aprovaram o projeto que limita o crescimento dos gastos e corta benefícios tributários, sem mudar o texto do Senado. Ainda faltam os destaques e o segundo turno antes de seguir para sanção.",
-    "fonte": "InfoMoney",
-    "link": "https://www.infomoney.com.br/politica/camara-aprova-pacote-fiscal-proposto-pelo-governo-lula/"
-   },
-   {
-    "titulo": "Bolsonaro tem pneumonia e segue na UTI em Brasília",
-    "resumo": "Os médicos diagnosticaram uma pneumonia nos dois pulmões, considerada mais leve que a de março. Não há nova cirurgia prevista nem previsão de alta.",
-    "fonte": "Metrópoles",
-    "link": "https://www.metropoles.com/brasil/bolsonaro-tem-pneumonia-bilateral-e-segue-sem-previsao-de-alta-da-uti"
-   },
-   {
-    "titulo": "Lula ouve sugestões e cogita uma mulher para o STF",
-    "resumo": "Em jantar com ministros do Supremo e os presidentes da Câmara e do Senado, Lula pediu nomes alternativos para a vaga e disse estar aberto a indicar uma mulher. Os relatos divergem sobre suas chances de escolher Jorge Messias ou Rodrigo Pacheco.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/blogs/luisa-martins/politica/em-discurso-a-aliados-lula-minimiza-chance-de-messias-ou-pacheco-no-stf/"
-   },
-   {
-    "titulo": "Fazenda reduz previsão de crescimento e eleva a de inflação",
-    "resumo": "O Ministério da Fazenda agora espera que a economia cresça 1,8% em 2027, abaixo dos 2,3% previstos antes. A projeção de inflação para 2026 subiu para 5,3%, acima do teto da meta, e o governo culpa os juros altos.",
-    "fonte": "O Tempo",
-    "link": "https://www.otempo.com.br/economia/2026/11/23/fazenda-reduz-previsao-do-pib-e-eleva-inflacao-para-2027"
-   }
-  ],
-  "tecnologia": [
-   {
-    "titulo": "Jensen Huang volta ao comando da Nvidia",
-    "resumo": "O conselho da Nvidia reconduziu por unanimidade Jensen Huang ao cargo de presidente-executivo, dias depois da renúncia dele. As ações da empresa dispararam cerca de 30% antes da abertura do mercado.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/economia/money/mercado/acao-nvidia-23-de-novembro-de-2026/"
-   },
-   {
-    "titulo": "CrowdStrike compra a Zscaler por quase 44 bilhões de dólares",
-    "resumo": "É a maior aquisição da história da cibersegurança, paga toda em ações. O negócio ainda depende de acionistas e reguladores.",
-    "fonte": "Exame",
-    "link": "https://exame.com/tecnologia/crowdstrike-compra-zscaler-ciberseguranca/"
-   },
-   {
-    "titulo": "Dois estados americanos processam dona do Grok por deepfakes",
-    "resumo": "Virgínia e Oregon acusam a SpaceX, dona da xAI, de não impedir que o Grok criasse imagens sexuais falsas de mulheres e crianças. Os estados pedem multas e a devolução dos lucros.",
-    "fonte": "Forbes",
-    "link": "https://www.forbes.com/sites/saradorn/2026/11/23/oregon-and-virginia-sue-spacex-alleging-groks-spicy-mode-allowed-pornographic-deepfakes/"
-   },
-   {
-    "titulo": "GTA 6 vira o maior lançamento da história do PlayStation",
-    "resumo": "Segundo a Sony, o jogo bateu o recorde de lançamentos nos consoles da marca e de PS5 novos ligados num só dia fora das festas de fim de ano. Para a maioria desses aparelhos, foi o primeiro jogo usado.",
-    "fonte": "Critical Hits",
-    "link": "https://criticalhits.com.br/games/gta-6-bate-recorde-como-maior-lancamento-da-historia-do-playstation/"
-   }
-  ],
-  "ciencia": [
-   {
-    "titulo": "Unicamp mostra como as fibras ajudam a reparar o intestino",
-    "resumo": "Em camundongos com colite, uma substância feita pelas bactérias a partir das fibras ativou células de defesa que recuperam o intestino. Há sinais de que o mesmo ocorre em humanos, mas ainda não é tratamento.",
-    "fonte": "Agência FAPESP",
-    "link": "https://agencia.fapesp.br/substancia-gerada-a-partir-de-fibras-alimentares-estimula-celulas-de-defesa-a-reparar-o-intestino/59658"
-   },
-   {
-    "titulo": "Surgem duas supostas provas da hipótese de Riemann",
-    "resumo": "Um matemático da Anthropic divulgou uma prova feita com ajuda de IA, e outra prova, sem IA, apareceu horas depois. Nenhuma das duas foi confirmada ainda pelos especialistas.",
-    "fonte": "Itatiaia",
-    "link": "https://www.itatiaia.com.br/ciencia-e-tecnologia/hipotese-riemann-ia-humanos-solucoes-problema-matematica/"
-   },
-   {
-    "titulo": "Fio dental inteligente mede glicose pela gengiva",
-    "resumo": "Pesquisadores de Hong Kong criaram um fio dental que colhe um pouquinho de líquido da gengiva e, em minutos, mede glicose e sinais de inflamação. Os resultados vão direto para o celular.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/saude/fio-dental-inteligente-mede-glicose-e-sinais-de-inflamacao-na-gengiva/"
-   },
-   {
-    "titulo": "Novo inseto da Mata Atlântica homenageia Milton Nascimento",
-    "resumo": "Cientistas da Universidade Federal de Viçosa descreveram quatro novas espécies de efemérides, insetos que indicam a qualidade da água. Uma delas recebeu o nome de Bituca, apelido do cantor.",
-    "fonte": "Revista Planeta",
-    "link": "https://revistaplaneta.com.br/cientistas-descobrem-especies-insetos-mata-atlantica-ufv"
-   },
-   {
-    "titulo": "IA do Google barateia cálculos de computação quântica",
-    "resumo": "Agentes de inteligência artificial do Google acharam versões bem mais econômicas de algoritmos quânticos, em um caso 290 vezes menores. O estudo ainda não foi revisado por outros cientistas.",
-    "fonte": "Exame",
-    "link": "https://exame.com/tecnologia/ia-google-recursos-calculo-quantico/"
-   }
-  ],
-  "astronomia": [
-   {
-    "titulo": "Sonda Hera mostra nesta quarta o asteroide atingido pela NASA",
-    "resumo": "A sonda europeia Hera vai divulgar as primeiras imagens de perto de Dimorphos, o asteroide desviado pela missão DART em 2022. A transmissão ao vivo começa às 15h45 de Brasília, quarta-feira.",
-    "fonte": "Newsweek",
-    "link": "https://www.newsweek.com/first-close-up-look-at-asteroid-nasa-knocked-off-course-this-week-12753678"
-   },
-   {
-    "titulo": "China prepara voo com o primeiro astronauta do Paquistão",
-    "resumo": "A China concluiu o ensaio de lançamento da Shenzhou-24, que vai levar um paquistanês à estação Tiangong. Ele será o primeiro estrangeiro a visitar a estação chinesa, e a data oficial ainda não foi anunciada.",
-    "fonte": "Arab News Pakistan",
-    "link": "https://www.arabnews.pk/pakistan/china-completes-launch-drill-for-mission-carrying-pakistans-first-astronaut-3007767"
-   },
-   {
-    "titulo": "Cargueiro Cygnus XL deve partir domingo rumo à estação espacial",
-    "resumo": "Um foguete Falcon 9 vai levar a cápsula de carga da Northrop Grumman à Estação Espacial Internacional. A decolagem está marcada para domingo, dia 29, por volta das 12h50 de Brasília.",
-    "fonte": "Space Coast Daily",
-    "link": "https://spacecoastdaily.com/2026/11/spacex-targets-nov-29-launch-of-cygnus-xl-cargo-mission-from-cape-canaveral/"
-   },
-   {
-    "titulo": "SpaceX lança satélite secreto da Força Espacial nesta terça",
-    "resumo": "O Falcon 9 decola da Califórnia por volta das 12h55 de Brasília, com uma carga sigilosa dos Estados Unidos. O propulsor fará seu 29º voo.",
-    "fonte": "Spaceflight Now",
-    "link": "https://spaceflightnow.com/2026/11/23/live-coverage-spacex-to-launch-classified-payload-for-the-u-s-space-force-3/"
-   },
-   {
-    "titulo": "Superlua desta terça abre caminho para Lua cheia de Natal",
-    "resumo": "A superlua de hoje é a penúltima do ano e pode parecer até 14% maior que uma Lua cheia comum. A maior Lua cheia de 2026 vai iluminar a véspera de Natal.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/23/ciencia-e-espaco/superlua-de-novembro-prepara-o-ceu-para-um-espetaculo-na-noite-de-natal"
-   }
-  ],
-  "filosofia": [
-   {
-    "titulo": "Encontro da Anpof define próximos passos da filosofia brasileira",
-    "resumo": "O maior encontro de pesquisadores de filosofia do país terminou em Florianópolis, com nova diretoria e a próxima edição nacional marcada para Fortaleza, em 2028. Também foi proposto um indexador próprio para as revistas da área.",
-    "fonte": "IFSertãoPE",
-    "link": "https://ifsertaope.edu.br/comitiva-do-ifsertaope-participa-do-xxi-encontro-da-anpof-e-conquista-espacos-de-representacao-nacional/"
-   },
-   {
-    "titulo": "Enciclopédia de Stanford ganha novos verbetes; livros sobre IA ficam gratuitos",
-    "resumo": "A Enciclopédia de Filosofia de Stanford publicou verbetes novos, como filosofia da história, e revisou textos sobre Gadamer e Horkheimer. A Oxford liberou de graça um livro sobre poder, justiça e inteligência artificial.",
-    "fonte": "Daily Nous",
-    "link": "https://dailynous.com/2026/11/23/online-philosophy-resources-weekly-update-449"
-   }
-  ],
-  "livros": [
-   {
-    "titulo": "Mineiro vence o Prêmio Caminhos de Literatura",
-    "resumo": "Túlio Pires Bragança ganhou entre 456 inscritos com seu romance de estreia. O livro sai em 2027 no Brasil, em Portugal e em Angola.",
-    "fonte": "O Tempo",
-    "link": "https://www.otempo.com.br/entretenimento/2026/11/23/romance-de-escritor-mineiro-vence-premio-caminhos-de-literatura-2026-e-sera-publicado-em-tres-paises"
-   },
-   {
-    "titulo": "Escritoras ainda enfrentam preconceito, dizem autoras em Braga",
-    "resumo": "Num festival literário em Portugal, Teolinda Gersão e outras convidadas disseram que mulheres escritoras recebem menos atenção da crítica. Para Gersão, elas precisam trabalhar o dobro pelo mesmo reconhecimento.",
-    "fonte": "Diário de Leiria (Lusa)",
-    "link": "https://diarioleiria.pt/2026/11/22/escritoras-continuam-a-enfrentar-preconceitos-e-desigualdades"
-   },
-   {
-    "titulo": "Editora brasileira é escolhida para programa da Feira de Bogotá",
-    "resumo": "Ana Paula Tavares Pereira, da Companhia das Letras, é a única brasileira entre seis editores selecionados. Eles vão participar da feira do livro de Bogotá em abril de 2027.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/23/fellowship-feira-do-livro-de-bogota/"
-   },
-   {
-    "titulo": "Temu vai vender mais de um milhão de livros usados nos EUA",
-    "resumo": "A loja online fechou parceria com a livraria Alibris antes das compras de fim de ano. O movimento acompanha o interesse dos jovens por livros físicos.",
-    "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/23/temu-alibris/"
-   }
-  ]
- }
+  "gerado": "2026-11-24T22:50:46-03:00",
+  "assuntos": {
+    "cana": [
+      {
+        "titulo": "Chuva atrapalha moagem e preços do etanol e açúcar sobem",
+        "resumo": "Levantamento do Cepea mostra que o etanol hidratado subiu pela sétima semana seguida em São Paulo, e o açúcar cristal também ficou mais caro. As chuvas no Centro-Sul chegaram a parar a moagem em algumas usinas.",
+        "fonte": "Canal Rural",
+        "link": "https://www.canalrural.com.br/agricultura/cana/chuvas-prejudicam-moagem-de-cana-e-precos-do-etanol-e-do-acucar-sobem/"
+      },
+      {
+        "titulo": "Petrobras volta ao etanol comprando fatia da Neomille",
+        "resumo": "A Petrobras vai pagar 2,8 bilhões de reais por 42% da Neomille, produtora de etanol de milho ligada à CerradinhoBio. O dinheiro ajuda a ampliar as usinas de Goiás e Mato Grosso do Sul, e o negócio ainda precisa do aval do Cade.",
+        "fonte": "O Tempo (Folhapress)",
+        "link": "https://www.otempo.com.br/economia/2026/11/23/petrobras-volta-a-produzir-etanol-com-compra-de-42-de-produtora-por-r-2-8-bilhoes"
+      },
+      {
+        "titulo": "Usinas investem mais em canavial, mas cortam projetos novos",
+        "resumo": "Estudo do Itaú BBA com 47 usinas do Centro-Sul prevê 8,3 bilhões de reais em renovação e manutenção de canaviais na safra 2026/27, alta de 7,8%. Já o investimento total cai, e a margem do setor deve ser a menor em dez anos.",
+        "fonte": "NX1",
+        "link": "https://nx1.com.br/2026/11/21/industria-de-acucar-e-etanol-devera-fechar-2026-com-ampliacao-de-78-em-investimentos/"
+      }
+    ],
+    "politica": [
+      {
+        "titulo": "Lula discute vaga no STF e enfrenta resistência a Messias",
+        "resumo": "Em jantar com ministros do Supremo e os chefes do Congresso, Lula manteve a ideia de indicar Jorge Messias para a vaga de Barroso, mas aceitou conversar sobre outros nomes. A nova indicação deve sair até o fim do ano.",
+        "fonte": "O Tempo",
+        "link": "https://www.otempo.com.br/politica/judiciario/2026/11/23/lula-discute-vaga-no-stf-com-cupula-do-congresso-e-enfrenta-resistencia-a-messias"
+      },
+      {
+        "titulo": "Fazenda e Segurança devem ser os primeiros ministérios definidos",
+        "resumo": "Lula indicou a auxiliares que quer anunciar os ministros da Fazenda e da Segurança Pública até o começo de dezembro, antes da Cúpula do Mercosul. A escolha para a Segurança depende do andamento da PEC da Segurança.",
+        "fonte": "Imirante",
+        "link": "https://m.imirante.com/noticias/brasil/2026/11/24/ipolitica-lula-deve-comecar-definir-ministerios-quarto-mandato"
+      },
+      {
+        "titulo": "Câmara aprova urgência para projeto de ajuste fiscal",
+        "resumo": "Por 318 votos a 135, os deputados aprovaram a urgência do projeto de ajuste fiscal, que já passou pelo Senado. A proposta prevê economia de 45 a 56 bilhões de reais em 2027.",
+        "fonte": "Informa Noroeste (Agência Brasil)",
+        "link": "https://informanoroeste.com.br/camara-aprova-urgencia-para-votacao-do-projeto-de-ajuste-fiscal/"
+      },
+      {
+        "titulo": "Votação do projeto das big techs fica para a próxima semana",
+        "resumo": "O relator Aliel Machado mudou de novo o texto, que agora limita a atuação do Cade sobre as grandes plataformas. A votação na Câmara, prevista para esta terça, foi adiada.",
+        "fonte": "Convergência Digital",
+        "link": "https://convergenciadigital.com.br/governo/pl-das-big-techs-novo-texto-impoe-limites-a-atuacao-do-cade-camara-adia-votacao/"
+      },
+      {
+        "titulo": "Projeto aumenta pena para corrupção eleitoral",
+        "resumo": "A Comissão de Constituição e Justiça da Câmara aprovou a redação final do projeto que eleva a pena máxima por corrupção eleitoral de quatro para cinco anos. A pena dobra se houver organização criminosa, e o texto vai ao Senado.",
+        "fonte": "Atlas Público",
+        "link": "https://atlaspublico.com.br/camara/noticias/ccjc-aprova-redacao-final-de-projeto-que-eleva-a-pena-por-104685"
+      }
+    ],
+    "tecnologia": [
+      {
+        "titulo": "Venda de celulares despenca na América Latina; Apple cai menos",
+        "resumo": "Segundo a Counterpoint, as vendas de smartphones na região caíram 24% no terceiro trimestre. Entre as grandes marcas, a Apple teve a menor queda, de 10%.",
+        "fonte": "MacMagazine",
+        "link": "https://macmagazine.com.br/post/2026/11/24/america-latina-apple-teve-a-menor-queda-nas-vendas-de-smartphones-durante-o-3o-trimestre-de-2026/"
+      },
+      {
+        "titulo": "Governo prepara IAs que alteram cadastros públicos por conversa",
+        "resumo": "A ministra Esther Dweck anunciou duas inteligências artificiais capazes de mudar registros em bases do governo a pedido do cidadão. Ela admitiu que ainda não há avaliação formal de riscos, e o lançamento não tem data.",
+        "fonte": "TV Sim Brasil",
+        "link": "https://tvsimbrasil.com.br/df/brasilia/tecnologia/noticia/2026/11/24/governo-prepara-ias-alteram-dados-publicos-conversa"
+      },
+      {
+        "titulo": "Agentes de IA criam nova arquitetura de processador",
+        "resumo": "A startup Architect Labs diz que agentes de inteligência artificial projetaram um processador mais de quatro vezes mais eficiente que um similar em simulação. O chip ainda não foi fabricado.",
+        "fonte": "Tom's Hardware",
+        "link": "https://www.tomshardware.com/tech-industry/semiconductors/ai-agents-design-an-entirely-new-cpu-architecture-from-scratch-startup-claims-frostbite-posts-4-59x-the-performance-per-watt-of-an-in-order-core-in-pre-silicon-tests"
+      },
+      {
+        "titulo": "Trump ameaça taxar data centers americanos fora dos EUA",
+        "resumo": "Trump falou em um imposto pesado para empresas americanas que constroem data centers em outros países, o que pode afetar projetos no Brasil. Enquanto isso, a regulamentação do programa brasileiro Redata segue parada.",
+        "fonte": "Convergência Digital",
+        "link": "https://convergenciadigital.com.br/inovacao/trump-ameaca-proibir-data-centers-de-americanos-fora-do-pais-regulamentacao-do-redata-no-brasil-empaca/"
+      }
+    ],
+    "ciencia": [
+      {
+        "titulo": "Novo tipo de depressão ligado ao relógio biológico",
+        "resumo": "Pesquisadores da Universidade de Sydney identificaram uma depressão ligada ao ritmo do sono e do dia, presente em cerca de um quarto de mais de dez mil pessoas estudadas. Nesse grupo, os antidepressivos comuns tendem a funcionar menos.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/11/261123005352.htm"
+      },
+      {
+        "titulo": "Nova era do gelo pode ter começado e sido barrada",
+        "resumo": "Plantas preservadas sob o gelo do Ártico canadense indicam que as geleiras voltaram a crescer há cerca de dois mil anos. Segundo o estudo, o aquecimento global reverteu essa tendência a partir dos anos 1960.",
+        "fonte": "ScienceDaily",
+        "link": "https://www.sciencedaily.com/releases/2026/11/261123005350.htm"
+      },
+      {
+        "titulo": "Alunos de escola técnica medem poluição do ar em São Paulo",
+        "resumo": "Em pesquisa da USP, estudantes do Ipiranga monitoraram a qualidade do ar por dez meses. A poluição por partículas no terreno da escola foi maior que nas ruas ao redor.",
+        "fonte": "Agência FAPESP",
+        "link": "https://agencia.fapesp.br/ciencia-cidada-transforma-alunos-do-ensino-medio-em-monitores-da-poluicao-atmosferica-em-sao-paulo/59659"
+      },
+      {
+        "titulo": "Multivitamínico pode frear um pouco o envelhecimento",
+        "resumo": "Um estudo com quase mil idosos encontrou um efeito pequeno de desaceleração do envelhecimento biológico em quem tomou multivitamínico por dois anos. Os autores lembram que isso não prova prevenção de doenças.",
+        "fonte": "AR News",
+        "link": "https://www.arnewsnoticias.com/2026/11/multivitaminicos-podem-retardar-envelhecimento-biologico.html"
+      }
+    ],
+    "astronomia": [
+      {
+        "titulo": "Superlua do Castor brilha no céu nesta terça",
+        "resumo": "A Lua cheia de novembro chega perto da Terra e pode parecer maior e mais brilhante, com boa observação a partir do anoitecer no horizonte leste. A próxima superlua, a maior do ano, será na véspera de Natal.",
+        "fonte": "Olhar Digital",
+        "link": "https://olhardigital.com.br/2026/11/23/ciencia-e-espaco/superlua-de-novembro-prepara-o-ceu-para-um-espetaculo-na-noite-de-natal/"
+      },
+      {
+        "titulo": "Inteligência artificial da USP separa estrelas, galáxias e quasares",
+        "resumo": "Pesquisadores da USP criaram um método de IA para classificar objetos nos dados do levantamento J-PAS. A técnica melhorou bastante a identificação de quasares muito distantes.",
+        "fonte": "Agência FAPESP",
+        "link": "https://agencia.fapesp.br/inteligencia-artificial-aprimora-identificacao-de-estrelas-galaxias-e-quasares/59671"
+      },
+      {
+        "titulo": "Cargueiro Cygnus deve partir para a estação espacial no domingo",
+        "resumo": "A Nasa e parceiras detalharam a missão NG-25, que levará cerca de cinco toneladas de carga à Estação Espacial Internacional. O lançamento num Falcon 9 está previsto para 29 de novembro, na Flórida.",
+        "fonte": "Spaceflight Now",
+        "link": "https://spaceflightnow.com/2026/11/23/as-it-happened-ng-25-preview-news-teleconference/"
+      },
+      {
+        "titulo": "SpaceX bate recorde de lançamentos seguidos no mesmo local",
+        "resumo": "Um Falcon 9 lançou um satélite espião americano da Califórnia apenas 32 horas depois do lançamento anterior na mesma plataforma. É o menor intervalo já registrado entre dois voos de um mesmo local.",
+        "fonte": "Space.com",
+        "link": "https://www.space.com/space-exploration/launches-spacecraft/spacex-spy-satellite-launch-nrol-136-proliferated-architecture"
+      }
+    ],
+    "filosofia": [
+      {
+        "titulo": "Projeto quer Filosofia e Sociologia nos três anos do ensino médio",
+        "resumo": "Uma proposta na Câmara torna as duas matérias obrigatórias em todas as séries, com duas aulas semanais cada. A Comissão de Educação deve analisar o texto nesta quarta.",
+        "fonte": "Quenty",
+        "link": "https://quenty.com.br/resumo/24-novembro-2026/pl-14662026-quer-fixar-filosofia-e-sociologia-nos-tres-anos-do-ensino-medio"
+      },
+      {
+        "titulo": "David Hume ajuda a entender o novo livro de Jogos Vorazes",
+        "resumo": "Artigo liga o novo prelúdio da saga às ideias de Hume sobre como os governos se sustentam pela opinião das pessoas. O texto relaciona o tema à desinformação de hoje.",
+        "fonte": "Jornal Nota",
+        "link": "https://jornalnota.com.br/2026/11/24/submissao-implicita-e-jogos-vorazes-a-filosofia-de-david-hume-em-amanhecer-na-colheita/"
+      },
+      {
+        "titulo": "Escritor acreano lança livro sobre ciência, fé e imortalidade",
+        "resumo": "Moisés Diniz publicou uma obra que mistura genética, física, filosofia e teologia para pensar a consciência e a vida após a morte. O próprio autor diz que são reflexões, não provas científicas.",
+        "fonte": "ac24horas",
+        "link": "https://ac24horas.com/2026/11/22/apos-25-anos-de-estudos-moises-diniz-lanca-livro-que-explora-relacao-entre-ciencia-espiritualidade-e-imortalidade/"
+      }
+    ],
+    "livros": [
+      {
+        "titulo": "Mineiro vence Prêmio Caminhos de Literatura",
+        "resumo": "Túlio Pires Bragança venceu com o romance Ninguém mata o soberano, escolhido entre 456 inscritos. O livro sai em 2027 no Brasil, em Portugal e em Angola.",
+        "fonte": "O Tempo",
+        "link": "https://www.otempo.com.br/entretenimento/2026/11/23/romance-de-escritor-mineiro-vence-premio-caminhos-de-literatura-2026-e-sera-publicado-em-tres-paises"
+      },
+      {
+        "titulo": "Náiades Mota ganha o Prêmio Kindle Vozes Negras",
+        "resumo": "O romance A mulher de pés de sapo venceu entre mil obras inscritas e será publicado em papel pela Companhia das Letras. A autora recebe 35 mil reais.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/23/naiades-mota-premio-kindle-vozes-negras/"
+      },
+      {
+        "titulo": "Bienal do Livro Rio 2027 já esgotou os estandes",
+        "resumo": "Faltando quase um ano, todos os espaços de exposição foram vendidos, com 35% mais expositores que na edição anterior. A feira acontece de 3 a 12 de setembro de 2027.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/24/bienal-do-livro-rio-100/"
+      },
+      {
+        "titulo": "Spotify amplia criação de audiolivros com voz de IA",
+        "resumo": "A ferramenta gratuita para autores criarem audiolivros com vozes artificiais chega a mais 21 países. Por enquanto, ela ainda não está disponível no Brasil.",
+        "fonte": "PublishNews",
+        "link": "https://www.publishnews.com.br/materias/2026/11/23/criacao-de-audiolivros/"
+      },
+      {
+        "titulo": "Livro infantil Clotilde é lançado em festival em Manaus",
+        "resumo": "O escritor Wallace Abreu lança a história de uma cachorrinha abandonada que ganha uma família. Haverá distribuição de livros e autógrafos em escolas rurais nos dias 27 e 30 de novembro.",
+        "fonte": "Portal Flagrante",
+        "link": "https://portalflagrante.com.br/educacao/escritor-amazonense-lanca-livro-clotilde-voltado-ao-publico-infantil-durante-festival-literario-curumins/"
+      }
+    ]
+  }
 }
