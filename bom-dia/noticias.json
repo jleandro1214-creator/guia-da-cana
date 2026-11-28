@@ -1,222 +1,204 @@
 {
- "gerado": "2026-11-26T22:50:45-03:00",
+ "gerado": "2026-11-27T22:45:23-03:00",
  "assuntos": {
   "cana": [
    {
-    "titulo": "Governo descarta falta de etanol anidro na entressafra",
-    "resumo": "O Ministério de Minas e Energia disse que os estoques e a produção prevista bastam para abastecer o país até a volta da moagem. A conta já considera a mistura atual de 32% de etanol na gasolina.",
-    "fonte": "O Povo (Agência Estado)",
-    "link": "https://opovo.com.br/noticias/economia/2026/11/26/ministerio-afasta-risco-de-desabastecimento-de-etanol-anidro-em-entressafra-de-cana-de-acucar.html"
+    "titulo": "Itaú BBA reduz previsão de moagem no Centro-Sul",
+    "resumo": "O banco agora espera entre 620 e 640 milhões de toneladas de cana nesta safra, por causa do excesso de chuva. Os estoques de etanol estão no nível mais baixo em dez anos.",
+    "fonte": "BPMoney",
+    "link": "https://bpmoney.com.br/agro/itau-bba-reduz-moagem-cana-centro-sul-estoque-etanol-menor-10-anos/"
    },
    {
-    "titulo": "Setor de açúcar critica possível sobretaxa dos EUA",
-    "resumo": "A UNICA e a Bioenergia Brasil reagiram à proposta americana de elevar as tarifas sobre o açúcar brasileiro. As entidades dizem que o custo vai cair no bolso do consumidor dos Estados Unidos e pedem uma negociação técnica.",
-    "fonte": "Correio Braziliense",
-    "link": "https://www.correiobraziliense.com.br/economia/2026/11/7545018-setor-acucareiro-reage-a-possivel-sobretaxa-sobre-exportacoes-aos-eua.html"
+    "titulo": "Etanol sobe quase 3% nos postos em novembro",
+    "resumo": "O litro do etanol hidratado fechou o mês em média a R$ 4,43, terceira alta seguida, segundo o índice IPTL. Já a gasolina e o diesel ficaram um pouco mais baratos.",
+    "fonte": "Reuters (Investing.com)",
+    "link": "https://br.investing.com/news/commodities-news/etanol-avanca-278-nos-postos-em-novembro-diesel-e-gasolina-recuam-aponta-iptl-2139355"
    },
    {
-    "titulo": "Açúcar dispara em Nova York com quebra de safra na Índia",
-    "resumo": "O contrato de março subiu quase 4% e fechou em 18,34 centavos de dólar por libra-peso. O motivo foi a previsão de que a Índia terá a menor safra em dez anos, o que pode abrir espaço para as exportações do Brasil.",
-    "fonte": "SAFRAS & Mercado",
-    "link": "https://safras.com.br/acucar-volta-a-disparar-em-ny-apos-india-projetar-menor-safra-dos-ultimos-dez-anos"
+    "titulo": "Roraima pode ganhar usina de etanol de R$ 2 bilhões",
+    "resumo": "Segundo o governo estadual, o MC Group planeja uma usina que poderá usar milho, cana, arroz e sorgo. A previsão é começar a operar em cerca de dois anos.",
+    "fonte": "NovaCana",
+    "link": "https://www.novacana.com/noticias/roraima-deve-receber-usina-de-etanol-de-r-2-bilhoes-afirma-secretario"
    },
    {
-    "titulo": "Petrobras compra fatia de usinas de etanol de milho",
-    "resumo": "A Petrobras vai pagar 2,8 bilhões de reais por 42% da Neomille, dona de usinas em Goiás e Mato Grosso do Sul. É o primeiro passo da estatal no plano de voltar a investir em etanol.",
-    "fonte": "Brazil Journal (via ACIA Araçatuba)",
-    "link": "https://aciara.com.br/petrobras-compra-usina-de-etanol-de-milho-por-bilhoes/"
+    "titulo": "Entidades pedem manter 32% de etanol na gasolina",
+    "resumo": "Representantes do setor defendem que a mistura atual de etanol anidro na gasolina seja renovada.",
+    "fonte": "NovaCana",
+    "link": "https://www.novacana.com/noticias/entidades-defendem-renovacao-da-mistura-de-32-de-etanol-anidro-a-gasolina"
    },
    {
-    "titulo": "Moagem no Norte-Nordeste chega perto de 40% do previsto",
-    "resumo": "Até o fim de outubro, a região moeu cerca de 23 milhões de toneladas de cana, um pouco menos que na safra passada. A maior parte foi para o etanol, e a pouca chuva ligada ao El Niño preocupa para a próxima safra.",
-    "fonte": "novaCana",
-    "link": "https://www.novacana.com/noticias/moagem-da-safra-de-cana-2026-27-do-norte-nordeste-se-aproxima-de-40-do-previsto"
+    "titulo": "Taxa dos EUA sobre açúcar pode passar de 200%",
+    "resumo": "Entidades do setor estimam que a cobrança americana sobre o açúcar exportado fora da cota deve ultrapassar 200%.",
+    "fonte": "NovaCana",
+    "link": "https://www.novacana.com/noticias/entidades-estimam-que-taxa-sobre-acucar-fora-da-cota-dos-eua-superara-200"
    }
   ],
   "politica": [
    {
-    "titulo": "STF obriga estados e municípios a pagar piso dos professores",
-    "resumo": "O Supremo decidiu que estados, municípios e o Distrito Federal devem pagar o piso nacional do magistério, hoje de cerca de 5.130 reais. O tribunal rejeitou recursos do governo de São Paulo e de um município paulista.",
+    "titulo": "Dino suspende emendas de Flávio Bolsonaro ao Orçamento",
+    "resumo": "O ministro do STF travou, em decisão provisória, 14 emendas que somam R$ 79,3 milhões, enviadas enquanto o senador estava nos Estados Unidos. Ele pediu ao Senado os registros de acesso ao sistema.",
+    "fonte": "Agenda do Poder",
+    "link": "https://agendadopoder.com.br/dino-suspende-r-793-milhoes-em-emendas-de-flavio-bolsonaro/"
+   },
+   {
+    "titulo": "Indicação para vaga no STF deve ficar para 2027",
+    "resumo": "Líderes do Congresso avaliam que não há tempo para sabatinar e votar um novo ministro ainda este ano. O presidente Lula ainda não escolheu o nome.",
+    "fonte": "Brasil 247 (citando O Globo)",
+    "link": "https://www.brasil247.com/poder/cupula-do-congresso-avalia-que-indicacao-para-vaga-no-stf-deve-ficar-para-2027/"
+   },
+   {
+    "titulo": "Lula promete manter benefícios, mas fala em revisão",
+    "resumo": "Em Niterói, o presidente disse que não vai cortar programas dos mais pobres, mas quer rever quem recebe sem direito. O Planalto confirmou Luiz Carlos Trabuco para a Fazenda no próximo mandato.",
     "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/stf-estados-e-municipios-sao-obrigados-pagar-piso-dos-professores"
+    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/lula-garante-beneficios-em-novo-governo-mas-defende-revisao"
    },
    {
-    "titulo": "Senado aprova urgência para projeto sobre quarentena em estatais",
-    "resumo": "O Senado aprovou a urgência de um projeto que reduz de três anos para trinta dias a quarentena de quem deixou a atividade partidária antes de assumir cargos em estatais e agências reguladoras. O mérito deve ser votado na próxima terça-feira.",
-    "fonte": "CNN Brasil",
-    "link": "https://www.cnnbrasil.com.br/politica/senado-aprova-urgencia-de-pl-que-reduz-quarentena-para-cargos-em-estatais/"
+    "titulo": "Governo prorroga subsídio ao diesel por mais 30 dias",
+    "resumo": "O desconto federal de R$ 2,12 por litro de diesel foi estendido por mais um mês.",
+    "fonte": "Agência Brasil (via NovaCana)",
+    "link": "https://www.novacana.com/noticias/governo-prorroga-subsidio-de-r-2-12-ao-diesel-por-mais-30-dias"
    },
    {
-    "titulo": "STF marca para 4 de dezembro julgamento sobre segundo turno no Rio",
-    "resumo": "O ministro Cristiano Zanin marcou para 4 de dezembro, no plenário virtual, o julgamento da ação do PSD que pede segundo turno para governador do Rio. O partido contesta a decisão do TSE que levou à vitória de Douglas Ruas, do PL, no primeiro turno.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/stf-marca-julgamento-sobre-eleicoes-no-rio-para-4-de-dezembro"
-   },
-   {
-    "titulo": "Comissão de Orçamento eleva previsão de receita de 2027",
-    "resumo": "A comissão mista de Orçamento do Congresso aprovou um relatório que aumenta em 37,1 bilhões de reais a receita prevista para 2027. Depois dos repasses a estados e municípios, o ganho líquido fica em cerca de 17,6 bilhões.",
-    "fonte": "Agência Senado",
-    "link": "https://www12.senado.leg.br/noticias/materias/2026/11/25/relatorio-eleva-em-r-37-1-bilhoes-a-previsao-de-receita-para-2027"
-   },
-   {
-    "titulo": "Alcolumbre evita comentar conversa com Lula sobre vaga no STF",
-    "resumo": "O presidente do Senado, Davi Alcolumbre, disse que só ouviu o presidente Lula na conversa sobre a vaga aberta no Supremo. Alcolumbre apoia o senador Rodrigo Pacheco, e Lula citou a possibilidade de indicar de novo Jorge Messias.",
-    "fonte": "O Tempo",
-    "link": "https://www.otempo.com.br/politica/congresso/2026/11/25/so-ouvi-e-e-segredo-diz-alcolumbre-sobre-conversa-com-lula-a-respeito-de-vaga-no-stf"
+    "titulo": "Gecex cria base para grupo de resposta aos EUA",
+    "resumo": "O comitê de comércio exterior aprovou a minuta de um grupo de trabalho para estudar contramedidas às tarifas americanas.",
+    "fonte": "Reuters (via NovaCana)",
+    "link": "https://www.novacana.com/noticias/gecex-aprova-minuta-para-grupo-de-trabalho-de-contramedidas-para-eua"
    }
   ],
   "tecnologia": [
    {
-    "titulo": "Senacon manda Google mostrar mais dados sobre anúncios pagos",
-    "resumo": "A Secretaria Nacional do Consumidor deu dez dias para o Google ampliar as informações sobre anúncios pagos, como alcance e tempo no ar. Se não cumprir, a multa é de 200 mil reais por dia; a ideia é ajudar a combater golpes.",
+    "titulo": "SAP estuda cortar ao menos 10 mil empregos por causa da IA",
+    "resumo": "A gigante alemã de software avalia uma grande redução de vagas ligada ao avanço da inteligência artificial.",
     "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/26/pro/google-pode-pagar-r-200-mil-por-dia-se-nao-revelar-mais-dados-sobre-anuncios"
+    "link": "https://olhardigital.com.br/2026/11/27/pro/gigante-alema-sap-avalia-cortar-pelo-menos-10-mil-empregos-por-ia/"
    },
    {
-    "titulo": "Câmara deve votar na próxima semana projeto que regula big techs",
-    "resumo": "O projeto dos mercados digitais cria regras de concorrência para as grandes plataformas e um setor dedicado a elas dentro do Cade. O relator, deputado Aliel Machado, disse que a votação no plenário deve acontecer na semana que vem.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-11/projeto-de-regulacao-das-big-techs-sera-votado-na-proxima-semana"
-   },
-   {
-    "titulo": "Microsoft declara código vermelho depois de apagão de 24 horas",
-    "resumo": "Depois da pane que derrubou o Outlook e outros serviços em 12 e 13 de novembro, a Microsoft montou um plano de emergência contra novas falhas. A meta é restabelecer os serviços em até uma hora, com ajuda de agentes de inteligência artificial.",
-    "fonte": "Exame",
-    "link": "https://exame.com/tecnologia/microsoft-codigo-vermelho-apagao-outlook/"
-   },
-   {
-    "titulo": "Alemanha e Áustria querem tirar TikTok europeu do controle chinês",
-    "resumo": "Depois do acordo nos Estados Unidos, autoridades da Alemanha e da Áustria defendem que a operação europeia do TikTok deixe de ser controlada por empresas chinesas.",
+    "titulo": "Reino Unido enfrenta onda de ataques hackers",
+    "resumo": "Sistemas que vão do metrô a um órgão de pensões foram alvo de ataques cibernéticos recentes no país.",
     "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/26/pro/depois-dos-eua-alemanha-e-austria-querem-tirar-tiktok-do-controle-chines-na-europa"
+    "link": "https://olhardigital.com.br/2026/11/27/seguranca/de-metro-a-orgao-de-pensoes-reino-unido-enfrenta-onda-de-ataques-ciberneticos/"
    },
    {
-    "titulo": "Nova York proíbe brinquedos com chatbot de IA por cinco anos",
-    "resumo": "A governadora Kathy Hochul assinou uma lei que proíbe fabricar e vender no estado brinquedos que conversam usando inteligência artificial. A proibição começa a valer em fevereiro de 2027.",
-    "fonte": "Dataconomy",
-    "link": "https://pt.dataconomy.com/2026/11/25/nova-york-proibe-brinquedos-com-chatbot-de-ia-por-cinco-anos-a-partir-de-fevereiro-de-2027/"
+    "titulo": "Inteligência artificial muda a Black Friday nos EUA",
+    "resumo": "Reportagem mostra como ferramentas de IA estão mudando a forma de comprar e vender na data.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/27/inteligencia-artificial/como-a-inteligencia-artificial-esta-mudando-a-black-friday-nos-eua/"
+   },
+   {
+    "titulo": "Amazon e Meta negociam liberar agente de compras",
+    "resumo": "As duas empresas conversam para acabar com o bloqueio ao assistente de compras com IA da Meta na loja da Amazon. Ainda não há acordo.",
+    "fonte": "The Neuron",
+    "link": "https://www.theneuron.ai/digest/everything-that-happened-in-ai-today-november-26-2026/"
+   },
+   {
+    "titulo": "Data centers no espaço vão precisar de robôs",
+    "resumo": "Projetos de computação em órbita dependeriam de robôs para fazer a manutenção dos equipamentos.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/27/inteligencia-artificial/data-centers-no-espaco-precisarao-de-robos-para-manutencao/"
    }
   ],
   "ciencia": [
    {
-    "titulo": "Calor e acidez ajudam o vírus da dengue a invadir células",
-    "resumo": "Pesquisadores da Unesp usaram simulações de computador e viram que a temperatura do corpo e um ambiente mais ácido afrouxam a proteína que envolve o vírus da dengue. Isso facilita a entrada nas células e pode orientar novos remédios.",
-    "fonte": "Agência FAPESP",
-    "link": "https://agencia.fapesp.br/simulacoes-indicam-como-temperatura-e-acidez-facilitam-entrada-do-virus-da-dengue-nas-celulas/59682"
+    "titulo": "Terra teve a menor reserva de água doce em décadas",
+    "resumo": "Estudo na revista Science mostra que 2023 e 2024 tiveram a menor quantidade de água em rios e lagos desde 1991. A América do Sul concentrou a maior parte da perda dos rios.",
+    "fonte": "Metrópoles",
+    "link": "https://www.metropoles.com/ciencia/aquecimento-global-causa-maior-perda-de-volume-de-agua-doce-desde-1991"
    },
    {
-    "titulo": "Campos naturais destruídos demoram séculos para voltar ao que eram",
-    "resumo": "Um estudo internacional com participação brasileira mostrou que campos recuperados depois de lavoura, pasto ou mineração voltam a ficar verdes, mas com outras plantas. A diferença pode durar até três séculos, por isso proteger os campos que restam é essencial.",
-    "fonte": "Agência FAPESP",
-    "link": "https://agencia.fapesp.br/campos-naturais-em-recuperacao-mantem-vegetacao-alterada-por-mais-de-um-seculo/59690"
+    "titulo": "Época de chuva encolheu até 75 dias na Amazônia",
+    "resumo": "Pesquisa do instituto WRI comparou três décadas e viu a estação chuvosa ficar mais curta na Amazônia e no Cerrado. Áreas de soja e pasto também enfrentam mais dias de calor forte.",
+    "fonte": "Olhar Digital",
+    "link": "https://olhardigital.com.br/2026/11/27/ciencia-e-espaco/brasil-perdeu-ate-75-dias-de-periodo-chuvoso-em-tres-decadas-aponta-estudo"
    },
    {
-    "titulo": "Físicos prendem e controlam um único pósitron por meses",
-    "resumo": "Cientistas da Universidade Northwestern, nos Estados Unidos, capturaram um pósitron, a versão de antimatéria do elétron, e o controlaram com precisão quântica. A ideia é compará-lo com o elétron em busca de pistas de uma física nova.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261124055849.htm"
+    "titulo": "Vulcão sem erupção solta muito metano na Etiópia",
+    "resumo": "O vulcão Fentale liberou pelo menos 38 mil toneladas de metano em três meses, sem entrar em erupção. Cientistas acham que o magma abriu caminho para gás preso no subsolo.",
+    "fonte": "Revista Amazônia",
+    "link": "https://revistaamazonia.com.br/vulcao-fentale-etiopia-metano-sem-erupcao"
    },
    {
-    "titulo": "Próxima era do gelo pode ter começado e sido interrompida",
-    "resumo": "Pesquisadores da Universidade Columbia concluíram que restos de uma antiga camada de gelo no Canadá voltaram a crescer há cerca de dois mil anos, sinal de uma nova glaciação. O aquecimento a partir dos anos 1960 reverteu esse crescimento.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261123005350.htm"
-   },
-   {
-    "titulo": "Robô em cirurgia de joelho não melhora a recuperação",
-    "resumo": "O maior estudo já feito sobre o tema, com 339 pacientes no Reino Unido, mostrou que a prótese de joelho colocada com ajuda de robô teve resultado parecido com o da cirurgia comum após um ano. A versão com robô foi mais cara e demorada.",
-    "fonte": "ScienceDaily",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261124055904.htm"
+    "titulo": "Porco-espinho mexicano brilha sob luz ultravioleta",
+    "resumo": "Pesquisadores do México viram que um pequeno porco-espinho fica azul, verde e amarelo sob luz UV. Ainda não se sabe para que serve esse brilho.",
+    "fonte": "Correio Braziliense",
+    "link": "https://www.correiobraziliense.com.br/mundo/2026/11/7545851-cientistas-descobrem-especie-de-porco-espinho-que-brilha-sob-luz-uv.html"
    }
   ],
   "astronomia": [
    {
-    "titulo": "Superlua de novembro brilhou no céu e outra vem em dezembro",
-    "resumo": "A Lua cheia de 24 de novembro foi uma superlua, melhor vista logo depois do pôr do sol, no leste. A próxima, em 23 de dezembro, será a mais próxima da Terra no ano.",
+    "titulo": "Vênus chega ao brilho máximo neste domingo",
+    "resumo": "No dia 29, Vênus atinge seu maior brilho do ano e aparece como o ponto mais forte do céu depois da Lua.",
+    "fonte": "Astronomy",
+    "link": "https://www.astronomy.com/the-sky-this-week/the-sky-this-week-from-november-27-to-december-4-2026/"
+   },
+   {
+    "titulo": "Lua passa perto de Júpiter e Marte na segunda",
+    "resumo": "Na noite de 30 de novembro, a Lua fica próxima de Júpiter, Marte e da estrela Régulo.",
+    "fonte": "Astronomy",
+    "link": "https://www.astronomy.com/the-sky-this-week/the-sky-this-week-from-november-27-to-december-4-2026/"
+   },
+   {
+    "titulo": "Livro reúne 500 fotos do céu feitas por brasileiros",
+    "resumo": "A obra A Arte de Fotografar o Cosmos junta imagens de 120 astrofotógrafos do Brasil. Foi organizada por Roberto Strauss.",
     "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/curiosidades/2026/11/24/a-superlua-de-24-de-novembro-e-a-primeira-de-lua-cheia-desde-janeiro-e-e-melhor-vista-logo-depois-do-por-do-sol/"
+    "link": "https://olhardigital.com.br/2026/11/27/ciencia-e-espaco/viaje-pelo-universo-em-mais-de-500-imagens-registradas-por-120-brasileiros"
    },
    {
-    "titulo": "Astronauta do Paquistão é o primeiro estrangeiro na estação chinesa",
-    "resumo": "A nave Shenzhou-24 levou o paquistanês Muhammad Zeeshan Ali à estação espacial Tiangong. Ele vai passar de cinco a dez dias lá, ajudando em experimentos científicos.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/25/ciencia-e-espaco/primeiro-estrangeiro-chega-a-estacao-espacial-da-china/"
-   },
-   {
-    "titulo": "Sonda Europa Clipper passa pela Terra no dia 3 de dezembro",
-    "resumo": "A sonda da NASA vai passar a pouco mais de três mil quilômetros da Terra e usar a gravidade do planeta para ganhar velocidade rumo a Júpiter. Ela também vai aproveitar para testar seus instrumentos.",
-    "fonte": "Olhar Digital",
-    "link": "https://olhardigital.com.br/2026/11/25/ciencia-e-espaco/sonda-da-nasa-usara-gravidade-da-terra-para-acelerar-viagem-ate-lua-europa/"
-   },
-   {
-    "titulo": "SpaceX recebe aval para até um milhão de satélites",
-    "resumo": "O órgão regulador dos Estados Unidos autorizou a SpaceX a lançar uma rede gigante de satélites que funcionam como centros de dados no espaço, para dar mais poder de computação à inteligência artificial.",
-    "fonte": "Diário do Grande ABC",
-    "link": "https://www.dgabc.com.br/Noticia/4370732/spacex-recebe-aval-para-lancar-1-milhao-de-satelites"
-   },
-   {
-    "titulo": "Telescópio europeu Euclid descobre seu primeiro cometa",
-    "resumo": "Foi um achado inesperado, porque o Euclid foi feito para estudar galáxias distantes. O cometa ainda está muito longe do Sol, a cerca de 1,3 bilhão de quilômetros da Terra.",
-    "fonte": "ScienceDaily (ESA)",
-    "link": "https://www.sciencedaily.com/releases/2026/11/261124055852.htm"
+    "titulo": "Estudo sugere novo planeta nos confins do Sistema Solar",
+    "resumo": "Astrônomos propõem um planeta um pouco maior que a Terra muito além de Netuno para explicar órbitas estranhas. Por enquanto é só hipótese.",
+    "fonte": "Gizmodo Brasil",
+    "link": "https://www.gizmodo.com.br/astronomos-tentam-explicar-estranhas-trajetorias-nos-confins-do-sistema-solar-e-a-resposta-pode-ser-um-novo-planeta-76697"
    }
   ],
   "filosofia": [
    {
-    "titulo": "Comissão da Câmara aprova filosofia obrigatória em todo o ensino médio",
-    "resumo": "A Comissão de Educação da Câmara aprovou um projeto que torna filosofia e sociologia obrigatórias nas três séries do ensino médio, com pelo menos duas horas semanais de cada. O texto vai ao plenário e depois ao Senado.",
-    "fonte": "Agência Brasil",
-    "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/comissao-fixa-carga-minima-filosofia-e-sociologia-no-ensino-medio"
+    "titulo": "Ufes apoia volta da filosofia obrigatória no ensino médio",
+    "resumo": "A universidade federal do Espírito Santo declarou apoio ao projeto que torna filosofia e sociologia obrigatórias em todas as séries, com professores formados na área.",
+    "fonte": "ES Hoje",
+    "link": "https://eshoje.com.br/espirito-santo/2026/11/ufes-defende-volta-da-obrigatoriedade-de-filosofia-e-sociologia-no-ensino-medio-entenda-o-pl-1-466-2026/"
    },
    {
-    "titulo": "Professor cria jogo para ensinar filosofia antiga em sala de aula",
-    "resumo": "O filósofo Javier Hidalgo, da Universidade de Richmond, lançou um jogo gratuito em que os alunos fazem o papel de estoicos, epicuristas, budistas e céticos. Cada grupo debate qual escola oferece a melhor forma de viver.",
-    "fonte": "Daily Nous",
-    "link": "https://dailynous.com/2026/11/24/a-game-for-teaching-ancient-philosophy/"
+    "titulo": "Padre lança livro sobre fé e razão em Gurupi",
+    "resumo": "Caminhos do Pensamento, do padre Eldinei Carneiro, passa por Aristóteles, estoicos e Santo Agostinho. O lançamento é neste sábado, no Tocantins.",
+    "fonte": "Conexão Tocantins",
+    "link": "https://conexaoto.com.br/2026/11/27/em-seu-livro-caminhos-do-pensamento-o-padre-eldinei-carneiro-analisa-o-dialogo-entre-fe-e-razao"
    },
    {
-    "titulo": "Nova revista chinesa de filosofia estreia com Timothy Williamson",
-    "resumo": "Foi lançada a Chinese Journal of Philosophy, revista de acesso aberto publicada pela Oxford University Press. A estreia vem com uma série de palestras na Universidade de Pequim, aberta pelo filósofo Timothy Williamson.",
-    "fonte": "Daily Nous",
-    "link": "https://dailynous.com/2026/11/23/new-chinese-journal-of-philosophy-and-lecture-series/"
-   },
-   {
-    "titulo": "Unesco celebra Dia Mundial da Filosofia com Souleymane Bachir Diagne",
-    "resumo": "Em Paris, a Unesco marcou o Dia Mundial da Filosofia com uma palestra do filósofo senegalês Souleymane Bachir Diagne sobre como viver juntos na Terra. Estudantes também debateram clima, inteligência artificial e migrações.",
-    "fonte": "UNESCO",
-    "link": "https://www.unesco.org/en/articles/world-philosophy-day-2026"
+    "titulo": "Curso argentino liga filosofia e teatro do absurdo",
+    "resumo": "O professor Horacio Banega vai dar um curso sobre o absurdo, de Beckett a Camus e Sartre, entre fevereiro e março de 2027.",
+    "fonte": "Agencia Nova",
+    "link": "https://www.agencianova.com/nova-show/2026/11/27/175876/horacio-banega-brindara-un-curso-sobre-el-absurdo-y-su-relacion-con-la-filosofia-y-las-artes-escenicas/"
    }
   ],
   "livros": [
    {
-    "titulo": "Prêmio LeYa fica sem vencedor em edição recorde",
-    "resumo": "O júri do prêmio português LeYa decidiu não premiar nenhum dos 1.684 romances inscritos, por falta de qualidade literária. O prêmio vale 50 mil euros, e o Brasil mandou mais de mil originais, mais que qualquer outro país.",
-    "fonte": "RTP",
-    "link": "https://www.rtp.pt/noticias/cultura/premio-leya-fica-por-atribuir-por-falta-de-qualidade-de-candidaturas-em-edicao-mais-concorrida-de-sempre_n1781507"
-   },
-   {
-    "titulo": "Flipelô vai homenagear o baiano Edison Carneiro em 2027",
-    "resumo": "A festa literária do Pelourinho, em Salvador, escolheu o escritor e estudioso da cultura afro-brasileira Edison Carneiro como homenageado da 11ª edição, marcada para 11 a 15 de agosto de 2027.",
+    "titulo": "Feira de Guadalajara começa com presença brasileira",
+    "resumo": "A 40ª edição da maior feira do livro em espanhol vai de 28 de novembro a 6 de dezembro. O estande do Brasil reúne sete editoras.",
     "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/26/flipelo-edison-carneiro/"
+    "link": "https://www.publishnews.com.br/materias/2026/11/27/feira-do-livro-de-guadalajara-2026/"
    },
    {
-    "titulo": "Campanha quer que bibliotecas comprem e-books de vez",
-    "resumo": "Um projeto nos Estados Unidos arrecadou mais de 30 mil dólares para criar um serviço gratuito em que bibliotecas compram livros digitais e os emprestam como os de papel, sem precisar alugá-los.",
+    "titulo": "Festa literária na Casa de Rui Barbosa recebe Hatoum",
+    "resumo": "A FliRui vai até domingo no Rio, com mais de 60 atividades gratuitas, Milton Hatoum, Paulinho da Viola e Nancy Morejón.",
     "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/26/bibliotecas-e-books/"
+    "link": "https://www.publishnews.com.br/materias/2026/11/27/festa-literaria-da-fundacao-casa-de-rui-barbosa-recebe-milton-hatoum-paulinho-da-viola-e-nancy-morejon/"
    },
    {
-    "titulo": "Livraria da Travessa abre nova loja em Pinheiros",
-    "resumo": "A Travessa vai inaugurar em 2 de dezembro uma unidade na Praça Igarapé, em São Paulo. A loja antiga da Rua dos Pinheiros funciona até janeiro.",
+    "titulo": "Robôs dobram produtividade da Penguin Random House",
+    "resumo": "Em Barcelona, a editora passou a usar robôs para separar livros e dobrou o ritmo do trabalho.",
     "fonte": "PublishNews",
-    "link": "https://www.publishnews.com.br/materias/2026/11/26/livraria-da-travessa-prepara-inauguracao-da-nova-unidade-na-praca-igarape/"
+    "link": "https://www.publishnews.com.br/materias/2026/11/27/robos-penguin-random-house-barcelona/"
    },
    {
-    "titulo": "Romance de estreante mineiro vence o Prêmio Caminhos de Literatura",
-    "resumo": "Túlio Pires Bragança venceu o prêmio para autores estreantes com o romance Ninguém mata o soberano, escolhido entre 456 inscritos. O livro sai em 2027 no Brasil, em Portugal e em Angola.",
-    "fonte": "O Tempo",
-    "link": "https://www.otempo.com.br/entretenimento/2026/11/23/romance-de-escritor-mineiro-vence-premio-caminhos-de-literatura-2026-e-sera-publicado-em-tres-paises"
+    "titulo": "Redes sociais estão mudando as capas de livro",
+    "resumo": "Reportagem mostra como o jeito de divulgar livros nas redes influencia o desenho das capas.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/26/capas-de-livro-redes-sociais/"
+   },
+   {
+    "titulo": "Festival Mário de Andrade reúne 34 expositores",
+    "resumo": "O festival literário tem venda de livros e programação cultural com 34 expositores.",
+    "fonte": "PublishNews",
+    "link": "https://www.publishnews.com.br/materias/2026/11/27/festival-mario-andrade/"
    }
   ]
  }
